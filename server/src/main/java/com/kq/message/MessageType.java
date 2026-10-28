@@ -1,0 +1,16 @@
+package com.kq.message;
+
+public enum MessageType {
+    CREATE_GAME,
+    JOIN_GAME,
+    SELECT_CHARACTER,
+    PLAYER_MOVE,
+    PLAYER_INTERACT,
+    GAME_STATE,
+    PLAYER_JOINED,
+    PLAYER_LEFT,
+    CHARACTER_SELECTED,
+    INVENTORY_UPDATE,
+    OBJECT_UPDATE,
+    ERROR
+}
