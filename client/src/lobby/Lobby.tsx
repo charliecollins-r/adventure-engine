@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { WebSocketClient } from '../network/WebSocketClient';
 import type { PlayerState } from '../types/messages';
-import { MessageType, CHARACTERS } from '../types/messages';
+import { MessageType, ROLES } from '../types/messages';
 
 interface LobbyProps {
   wsClient: WebSocketClient;
   playerId: string;
-  onGameStart: () => void;
+  onGameStart: (role: string) => void;
 }
 
-type LobbyMode = 'menu' | 'creating' | 'joining' | 'character_select';
+type LobbyMode = 'menu' | 'creating' | 'joining' | 'role_select';
 
 const styles = {
   container: {
@@ -18,33 +18,36 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh',
-    backgroundColor: '#2c1810',
-    color: '#d4a056',
+    backgroundColor: '#0d0d0d',
+    color: '#a09040',
     fontFamily: '"Georgia", "Times New Roman", serif',
   },
   title: {
-    fontSize: '2.5rem',
-    marginBottom: '0.5rem',
-    color: '#e8c87a',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+    fontSize: '3rem',
+    marginBottom: '0.25rem',
+    color: '#c0a030',
+    textShadow: '2px 2px 8px rgba(139, 32, 32, 0.5)',
+    letterSpacing: '6px',
+    textTransform: 'uppercase' as const,
   },
   subtitle: {
-    fontSize: '1.1rem',
+    fontSize: '1rem',
     marginBottom: '2rem',
-    color: '#a08050',
+    color: '#6a5a4a',
+    letterSpacing: '2px',
   },
   card: {
-    backgroundColor: '#3d2415',
-    border: '2px solid #6b4226',
+    backgroundColor: '#1a1a1a',
+    border: '2px solid #3a2020',
     borderRadius: '8px',
     padding: '2rem',
-    minWidth: '400px',
+    minWidth: '440px',
     textAlign: 'center' as const,
   },
   button: {
-    backgroundColor: '#6b4226',
-    color: '#e8c87a',
-    border: '2px solid #8b5e3c',
+    backgroundColor: '#3a2020',
+    color: '#c0a030',
+    border: '2px solid #5a3030',
     borderRadius: '4px',
     padding: '12px 32px',
     fontSize: '1.1rem',
@@ -54,15 +57,15 @@ const styles = {
     transition: 'background-color 0.2s',
   },
   buttonDisabled: {
-    backgroundColor: '#4a3020',
-    color: '#7a6040',
+    backgroundColor: '#2a1515',
+    color: '#5a4a30',
     cursor: 'not-allowed',
-    border: '2px solid #5a3a20',
+    border: '2px solid #3a2020',
   },
   input: {
-    backgroundColor: '#1a0e08',
-    color: '#e8c87a',
-    border: '2px solid #6b4226',
+    backgroundColor: '#111111',
+    color: '#c0a030',
+    border: '2px solid #3a2020',
     borderRadius: '4px',
     padding: '12px 16px',
     fontSize: '1.5rem',
@@ -76,59 +79,68 @@ const styles = {
     fontSize: '3rem',
     fontFamily: 'monospace',
     letterSpacing: '8px',
-    color: '#e8c87a',
-    backgroundColor: '#1a0e08',
+    color: '#c0a030',
+    backgroundColor: '#111111',
     padding: '16px 32px',
     borderRadius: '8px',
-    border: '2px solid #6b4226',
+    border: '2px solid #3a2020',
     margin: '16px 0',
   },
-  characterCard: {
+  roleCard: {
     display: 'inline-block',
-    backgroundColor: '#1a0e08',
-    border: '2px solid #6b4226',
+    backgroundColor: '#111111',
+    border: '2px solid #3a3030',
     borderRadius: '8px',
     padding: '20px',
     margin: '8px',
     cursor: 'pointer',
     transition: 'all 0.2s',
-    width: '160px',
+    width: '180px',
+    verticalAlign: 'top',
   },
-  characterCardTaken: {
+  roleCardTaken: {
     display: 'inline-block',
-    backgroundColor: '#1a0e08',
-    border: '2px solid #3a2216',
+    backgroundColor: '#111111',
+    border: '2px solid #2a1a1a',
     borderRadius: '8px',
     padding: '20px',
     margin: '8px',
     cursor: 'not-allowed',
-    opacity: 0.5,
-    width: '160px',
+    opacity: 0.4,
+    width: '180px',
+    verticalAlign: 'top',
   },
-  characterName: {
+  roleName: {
     fontSize: '1.2rem',
     marginTop: '8px',
+    color: '#c0a030',
   },
-  characterIcon: {
+  roleDescription: {
+    fontSize: '0.8rem',
+    marginTop: '6px',
+    color: '#6a5a4a',
+    lineHeight: '1.3',
+  },
+  roleIcon: {
     width: '64px',
-    height: '96px',
+    height: '64px',
     margin: '0 auto',
     borderRadius: '4px',
   },
   label: {
     fontSize: '0.9rem',
-    color: '#a08050',
+    color: '#6a5a4a',
     marginBottom: '12px',
   },
   backLink: {
-    color: '#8b5e3c',
+    color: '#5a3030',
     cursor: 'pointer',
     fontSize: '0.9rem',
     marginTop: '16px',
     textDecoration: 'underline',
   },
   error: {
-    color: '#d45050',
+    color: '#cc4040',
     marginTop: '12px',
     fontSize: '0.9rem',
   },
@@ -139,7 +151,7 @@ export function Lobby({ wsClient, playerId, onGameStart }: LobbyProps) {
   const [roomCode, setRoomCode] = useState('');
   const [joinCode, setJoinCode] = useState('');
   const [players, setPlayers] = useState<Record<string, PlayerState>>({});
-  const [selectedCharacter, setSelectedCharacter] = useState<string | null>(null);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [isCreator, setIsCreator] = useState(false);
   const [error, setError] = useState('');
 
@@ -155,16 +167,7 @@ export function Lobby({ wsClient, playerId, onGameStart }: LobbyProps) {
           if (payload.players) setPlayers(payload.players);
           break;
         }
-        case MessageType.CHARACTER_SELECTED: {
-          const payload = message.payload as { players?: Record<string, PlayerState> };
-          if (payload.players) setPlayers(payload.players);
-          break;
-        }
-        case MessageType.PLAYER_JOINED: {
-          const payload = message.payload as { players?: Record<string, PlayerState> };
-          if (payload.players) setPlayers(payload.players);
-          break;
-        }
+        case MessageType.PLAYER_JOINED:
         case MessageType.PLAYER_LEFT: {
           const payload = message.payload as { players?: Record<string, PlayerState> };
           if (payload.players) setPlayers(payload.players);
@@ -215,36 +218,71 @@ export function Lobby({ wsClient, playerId, onGameStart }: LobbyProps) {
         payload: { roomCode: joinCode.toUpperCase(), playerId },
       });
       setRoomCode(joinCode.toUpperCase());
-      setMode('character_select');
+      setMode('role_select');
     } catch {
       setError('Failed to connect to server');
     }
   };
 
-  const handleSelectCharacter = (characterId: string) => {
+  const handleSelectRole = (roleId: string) => {
     const taken = Object.values(players).some(
-      (p) => p.characterId === characterId && p.playerId !== playerId
+      (p) => p.roleId === roleId && p.playerId !== playerId
     );
     if (taken) return;
 
     wsClient.send({
-      type: MessageType.SELECT_CHARACTER,
-      payload: { characterId, playerId },
+      type: MessageType.SELECT_ROLE,
+      payload: { roleId, playerId },
     });
-    setSelectedCharacter(characterId);
+    setSelectedRole(roleId);
   };
 
   const handleStartGame = () => {
-    onGameStart();
+    if (selectedRole) {
+      onGameStart(selectedRole);
+    }
   };
 
-  const allPlayersReady = Object.values(players).every((p) => p.characterId !== null);
+  const allPlayersReady = Object.values(players).every((p) => p.roleId !== null);
   const playerCount = Object.keys(players).length;
+
+  const renderRoleCards = () => (
+    <>
+      {ROLES.map((role) => {
+        const taken = Object.values(players).some(
+          (p) => p.roleId === role.id && p.playerId !== playerId
+        );
+        const iconColor = role.id === 'captive' ? '#2a4a6a' : '#6a2a2a';
+        const borderHover = role.id === 'captive' ? '#4a6a8a' : '#8a3a3a';
+        return (
+          <div
+            key={role.id}
+            style={{
+              ...(taken ? styles.roleCardTaken : styles.roleCard),
+              borderColor: taken ? undefined : borderHover,
+            }}
+            onClick={() => !taken && handleSelectRole(role.id)}
+          >
+            <div
+              style={{
+                ...styles.roleIcon,
+                backgroundColor: iconColor,
+                border: `2px solid ${borderHover}`,
+              }}
+            />
+            <div style={styles.roleName}>{role.name}</div>
+            <div style={styles.roleDescription}>{role.description}</div>
+            {taken && <div style={{ ...styles.label, marginTop: '4px', color: '#cc4040' }}>Taken</div>}
+          </div>
+        );
+      })}
+    </>
+  );
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>King&apos;s Quest</h1>
-      <p style={styles.subtitle}>Cooperative Adventures</p>
+      <h1 style={styles.title}>Captive</h1>
+      <p style={styles.subtitle}>An Asymmetric Escape Game</p>
 
       <div style={styles.card}>
         {mode === 'menu' && (
@@ -283,73 +321,33 @@ export function Lobby({ wsClient, playerId, onGameStart }: LobbyProps) {
           </>
         )}
 
-        {mode === 'creating' && !selectedCharacter && (
+        {mode === 'creating' && !selectedRole && (
           <>
-            <p style={styles.label}>Share this code with a friend</p>
+            <p style={styles.label}>Share this code with your opponent</p>
             <div style={styles.roomCode}>{roomCode || '...'}</div>
-            <p style={styles.label}>Select Your Character</p>
-            {CHARACTERS.map((char) => {
-              const taken = Object.values(players).some(
-                (p) => p.characterId === char.id && p.playerId !== playerId
-              );
-              return (
-                <div
-                  key={char.id}
-                  style={taken ? styles.characterCardTaken : styles.characterCard}
-                  onClick={() => !taken && handleSelectCharacter(char.id)}
-                >
-                  <div
-                    style={{
-                      ...styles.characterIcon,
-                      backgroundColor: char.id === 'graham' ? '#4477aa' : '#44aa55',
-                    }}
-                  />
-                  <div style={styles.characterName}>{char.name}</div>
-                  {taken && <div style={{ ...styles.label, marginTop: '4px' }}>Taken</div>}
-                </div>
-              );
-            })}
+            <p style={styles.label}>Choose Your Role</p>
+            {renderRoleCards()}
           </>
         )}
 
-        {mode === 'character_select' && !selectedCharacter && (
+        {mode === 'role_select' && !selectedRole && (
           <>
             <p style={styles.label}>Room: {roomCode}</p>
-            <p style={styles.label}>Select Your Character</p>
-            {CHARACTERS.map((char) => {
-              const taken = Object.values(players).some(
-                (p) => p.characterId === char.id && p.playerId !== playerId
-              );
-              return (
-                <div
-                  key={char.id}
-                  style={taken ? styles.characterCardTaken : styles.characterCard}
-                  onClick={() => !taken && handleSelectCharacter(char.id)}
-                >
-                  <div
-                    style={{
-                      ...styles.characterIcon,
-                      backgroundColor: char.id === 'graham' ? '#4477aa' : '#44aa55',
-                    }}
-                  />
-                  <div style={styles.characterName}>{char.name}</div>
-                  {taken && <div style={{ ...styles.label, marginTop: '4px' }}>Taken</div>}
-                </div>
-              );
-            })}
+            <p style={styles.label}>Choose Your Role</p>
+            {renderRoleCards()}
           </>
         )}
 
-        {selectedCharacter && (
+        {selectedRole && (
           <>
             <p style={styles.label}>Room: {roomCode}</p>
-            <p style={{ color: '#88cc88', marginBottom: '16px' }}>
+            <p style={{ color: selectedRole === 'captive' ? '#5588bb' : '#bb5555', marginBottom: '16px' }}>
               Playing as{' '}
-              <strong>{CHARACTERS.find((c) => c.id === selectedCharacter)?.name}</strong>
+              <strong>{ROLES.find((r) => r.id === selectedRole)?.name}</strong>
             </p>
             <p style={styles.label}>
               {playerCount}/2 players connected
-              {!allPlayersReady && playerCount > 1 && ' — waiting for character selection...'}
+              {!allPlayersReady && playerCount > 1 && ' — waiting for role selection...'}
             </p>
             {isCreator ? (
               <button

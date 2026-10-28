@@ -6,7 +6,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class PlayerState {
 
     private final String playerId;
-    private String characterId;
+    private String roleId;
     private double x;
     private double y;
     private String currentAnimation;
@@ -24,7 +24,7 @@ public class PlayerState {
     }
 
     public String getPlayerId() { return playerId; }
-    public String getCharacterId() { return characterId; }
+    public String getRoleId() { return roleId; }
     public double getX() { return x; }
     public double getY() { return y; }
     public String getCurrentAnimation() { return currentAnimation; }
@@ -33,7 +33,7 @@ public class PlayerState {
     @JsonIgnore
     public WebSocketSession getWebSocketSession() { return webSocketSession; }
 
-    public void setCharacterId(String characterId) { this.characterId = characterId; }
+    public void setRoleId(String roleId) { this.roleId = roleId; }
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
     public void setCurrentAnimation(String currentAnimation) { this.currentAnimation = currentAnimation; }

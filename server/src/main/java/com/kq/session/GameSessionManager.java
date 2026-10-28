@@ -1,10 +1,10 @@
 package com.kq.session;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.kq.message.GameMessage;
 import com.kq.message.GameMessageSerializer;
 import com.kq.message.MessageType;
+import com.kq.model.InteractionResult;
 import com.kq.model.PlayerState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +40,6 @@ public class GameSessionManager {
         return roomCode;
     }
 
-    public boolean joinSession(String roomCode, String playerId, WebSocketSession wsSession) {
-        GameSession session = sessions.get(roomCode);
-        if (session == null) {
-            return false;
-        }
-        return session.addPlayer(playerId, wsSession);
-    }
-
     public void leaveSession(String roomCode, String playerId) {
         GameSession session = sessions.get(roomCode);
         if (session == null) {
@@ -66,9 +58,9 @@ public class GameSessionManager {
             switch (message.type()) {
                 case CREATE_GAME -> handleCreateGame(wsSession);
                 case JOIN_GAME -> handleJoinGame(message.payload(), playerId, wsSession);
-                case SELECT_CHARACTER -> handleSelectCharacter(roomCode, playerId, message.payload());
+                case SELECT_ROLE -> handleSelectRole(roomCode, playerId, message.payload());
                 case PLAYER_MOVE -> handlePlayerMove(roomCode, playerId, message.payload());
-                case PLAYER_INTERACT -> handlePlayerInteract(roomCode, playerId, message.payload());
+                case PLAYER_INTERACT -> handlePlayerInteract(roomCode, playerId, message.payload(), wsSession);
                 default -> sendError(wsSession, "Unsupported message type: " + message.type());
             }
         } catch (Exception e) {
@@ -111,20 +103,20 @@ public class GameSessionManager {
         broadcastState(session);
     }
 
-    private void handleSelectCharacter(String roomCode, String playerId, JsonNode payload) {
+    private void handleSelectRole(String roomCode, String playerId, JsonNode payload) {
         GameSession session = sessions.get(roomCode);
         if (session == null) return;
 
-        String characterId = payload.has("characterId") ? payload.get("characterId").asText() : null;
-        if (characterId == null) return;
+        String roleId = payload.has("roleId") ? payload.get("roleId").asText() : null;
+        if (roleId == null) return;
 
-        if (session.selectCharacter(playerId, characterId)) {
-            log.info("Player {} selected character {} in session {}", playerId, characterId, roomCode);
+        if (session.selectRole(playerId, roleId)) {
+            log.info("Player {} selected role {} in session {}", playerId, roleId, roomCode);
             broadcastState(session);
         } else {
             PlayerState player = session.getPlayers().get(playerId);
             if (player != null && player.getWebSocketSession() != null) {
-                sendError(player.getWebSocketSession(), "Character not available: " + characterId);
+                sendError(player.getWebSocketSession(), "Role not available: " + roleId);
             }
         }
     }
@@ -147,24 +139,55 @@ public class GameSessionManager {
         broadcastState(session);
     }
 
-    private void handlePlayerInteract(String roomCode, String playerId, JsonNode payload) {
+    private void handlePlayerInteract(String roomCode, String playerId, JsonNode payload, WebSocketSession wsSession) {
         GameSession session = sessions.get(roomCode);
         if (session == null) return;
 
         String objectId = payload.has("objectId") ? payload.get("objectId").asText() : null;
         if (objectId == null) return;
 
-        session.processInteraction(playerId, objectId);
-        log.info("Player {} interacted with {} in session {}", playerId, objectId, roomCode);
+        InteractionResult result = session.processInteraction(playerId, objectId);
+        log.info("Player {} interacted with {} in session {} — success={}, message={}", playerId, objectId, roomCode, result.success(), result.message());
+
+        if (result.message() != null) {
+            sendMessage(wsSession, MessageType.INTERACTION_RESULT,
+                    Map.of("success", result.success(), "message", result.message(), "objectId", objectId));
+        }
+
         broadcastState(session);
+
+        if (session.getGameState().isGameOver()) {
+            broadcastGameOver(session);
+        }
     }
 
     private void broadcastState(GameSession session) {
-        Map<String, Object> snapshot = session.getStateSnapshot();
+        for (PlayerState player : session.getPlayers().values()) {
+            WebSocketSession ws = player.getWebSocketSession();
+            if (ws == null || !ws.isOpen()) continue;
+
+            Map<String, Object> snapshot;
+            if ("captive".equals(player.getRoleId())) {
+                snapshot = session.getCaptiveStateSnapshot();
+            } else if ("killer".equals(player.getRoleId())) {
+                snapshot = session.getKillerStateSnapshot();
+            } else {
+                snapshot = session.getStateSnapshot();
+            }
+
+            sendMessage(ws, MessageType.GAME_STATE, snapshot);
+        }
+    }
+
+    private void broadcastGameOver(GameSession session) {
+        Map<String, Object> gameOverPayload = new LinkedHashMap<>();
+        gameOverPayload.put("winner", session.getGameState().getWinner());
+        gameOverPayload.put("reason", session.getGameState().getGameOverReason());
+
         for (PlayerState player : session.getPlayers().values()) {
             WebSocketSession ws = player.getWebSocketSession();
             if (ws != null && ws.isOpen()) {
-                sendMessage(ws, MessageType.GAME_STATE, snapshot);
+                sendMessage(ws, MessageType.GAME_OVER, gameOverPayload);
             }
         }
     }

@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
 import { RoomScene } from './scenes/RoomScene';
-import type { GameState } from '../types/messages';
+import type { GameStateData } from '../types/messages';
 import { MessageType } from '../types/messages';
 import { WebSocketClient } from '../network/WebSocketClient';
 
 interface GameCanvasProps {
-  gameState: GameState | null;
+  gameState: GameStateData | null;
   wsClient: WebSocketClient;
   playerId: string;
+  role: string;
 }
 
-export function GameCanvas({ gameState, wsClient, playerId }: GameCanvasProps) {
+export function GameCanvas({ gameState, wsClient, playerId, role }: GameCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
   const sceneRef = useRef<RoomScene | null>(null);
@@ -52,6 +53,7 @@ export function GameCanvas({ gameState, wsClient, playerId }: GameCanvasProps) {
           });
         },
         playerId,
+        role,
       });
 
       scene.events.on('create', () => {
@@ -66,7 +68,7 @@ export function GameCanvas({ gameState, wsClient, playerId }: GameCanvasProps) {
         sceneRef.current = null;
       }
     };
-  }, [wsClient, playerId]);
+  }, [wsClient, playerId, role]);
 
   useEffect(() => {
     if (sceneRef.current && gameState) {
@@ -81,7 +83,7 @@ export function GameCanvas({ gameState, wsClient, playerId }: GameCanvasProps) {
         width: '1024px',
         height: '768px',
         margin: '0 auto',
-        border: '2px solid #6b4226',
+        border: '2px solid #3a2020',
         borderRadius: '4px',
       }}
     />

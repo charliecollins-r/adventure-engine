@@ -1,15 +1,17 @@
 export const MessageType = {
   CREATE_GAME: 'CREATE_GAME',
   JOIN_GAME: 'JOIN_GAME',
-  SELECT_CHARACTER: 'SELECT_CHARACTER',
+  SELECT_ROLE: 'SELECT_ROLE',
   PLAYER_MOVE: 'PLAYER_MOVE',
   PLAYER_INTERACT: 'PLAYER_INTERACT',
   GAME_STATE: 'GAME_STATE',
   PLAYER_JOINED: 'PLAYER_JOINED',
   PLAYER_LEFT: 'PLAYER_LEFT',
-  CHARACTER_SELECTED: 'CHARACTER_SELECTED',
+  INTERACTION_RESULT: 'INTERACTION_RESULT',
+  NOISE_ALERT: 'NOISE_ALERT',
   INVENTORY_UPDATE: 'INVENTORY_UPDATE',
   OBJECT_UPDATE: 'OBJECT_UPDATE',
+  GAME_OVER: 'GAME_OVER',
   ERROR: 'ERROR',
 } as const;
 
@@ -22,7 +24,7 @@ export interface GameMessage {
 
 export interface PlayerState {
   playerId: string;
-  characterId: string | null;
+  roleId: string | null;
   x: number;
   y: number;
   currentAnimation: string;
@@ -39,21 +41,30 @@ export interface SceneObject {
   collectible: boolean;
 }
 
-export interface GameState {
-  currentScene: string;
+export interface GameStateData {
+  roomCode?: string;
+  noiseLevel: number;
+  suspicionLevel?: number;
+  killerUpstairs: boolean;
+  killerActivity?: string;
+  powerOn: boolean;
+  gameOver: boolean;
+  winner?: string;
+  gameOverReason?: string;
   inventory: string[];
   sceneObjects: Record<string, SceneObject>;
   puzzleStates: Record<string, string>;
   players: Record<string, PlayerState>;
+  availableRoles?: Array<{ id: string; name: string; description: string }>;
 }
 
-export interface CharacterProfile {
+export interface Role {
   id: string;
   name: string;
-  spriteKey: string;
+  description: string;
 }
 
-export const CHARACTERS: CharacterProfile[] = [
-  { id: 'graham', name: 'King Graham', spriteKey: 'graham_sprite' },
-  { id: 'cedric', name: 'Cedric', spriteKey: 'cedric_sprite' },
+export const ROLES: Role[] = [
+  { id: 'captive', name: 'The Captive', description: 'Trapped upstairs. Find a way to escape before it\'s too late.' },
+  { id: 'killer', name: 'The Killer', description: 'Keep your captive contained. Don\'t let anyone find out.' },
 ];

@@ -7,10 +7,10 @@
 html, body, #root {
   width: 100%;
   height: 100%;
-  background-color: #1a0e08;
+  background-color: #0d0d0d;
 }
 
 body {
   font-family: "Georgia", "Times New Roman", serif;
-  color: #d4a056;
+  color: #a09040;
 }

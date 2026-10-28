@@ -60,6 +60,11 @@ public class GameWebSocketHandler extends TextWebSocketHandler {
             return;
         }
 
+        if (gameMessage.type() == MessageType.SELECT_ROLE) {
+            sessionManager.handleMessage(roomCode, playerId, gameMessage, session);
+            return;
+        }
+
         sessionManager.handleMessage(roomCode, playerId, gameMessage, session);
     }
 
