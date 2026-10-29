@@ -1,0 +1,2254 @@
+{
+  "schema_version": "1.0",
+
+  "metadata": {
+    "id": "the-abandoned-ward",
+    "title": "The Abandoned Ward",
+    "description": "You wake strapped to a gurney in a condemned psychiatric ward. A woman in a stained nurse's uniform hums softly in the corridor. She believes you are her patient — and the treatment isn't finished. Escape before morning rounds.",
+    "author": "ai-generated",
+    "difficulty": "hard",
+    "estimated_minutes": 15,
+    "tags": ["psychiatric", "horror", "medical", "puzzle-heavy", "all-30-patterns"],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle", "2-dependency-chain", "3-fork", "4-progressive-reveal",
+      "5-false-summit", "6-dual-purpose-item", "7-nested-secret", "8-knowledge-gate",
+      "9-revelation-tool", "10-cross-reference-deduction", "11-noise-tradeoff",
+      "12-evidence-gamble", "13-distraction-window", "14-ticking-clock-decision",
+      "15-bait-and-punish", "16-sound-masking", "17-trap-setting", "18-red-herring",
+      "19-emergent-combination", "20-multi-path-solution", "21-rule-subversion",
+      "22-myst-machine", "23-power-routing", "24-perspective-alignment",
+      "25-moral-fork", "26-accomplice", "27-point-of-no-return",
+      "28-camouflage", "29-echo", "30-decay-clock"
+    ]
+  },
+
+  "setting": {
+    "initial_view": "main",
+    "ambient_text": "Fluorescent tubes buzz and flicker overhead. The smell of bleach and something older — rust, mold, rot. A woman's humming drifts from somewhere down the corridor.",
+    "room_style": {
+      "background_color": "#0e1210",
+      "wall_color": "#1a2018",
+      "floor_color": "#161a14"
+    }
+  },
+
+  "views": [
+    {
+      "id": "main",
+      "background_key": "ward_corridor",
+      "background_file": "backgrounds/ward_corridor.png",
+      "objects": [
+        "gurney", "nurse_station_window", "treatment_door", "utility_closet_door",
+        "ceiling_vent", "medicine_cabinet", "intercom_panel", "corridor_end",
+        "mop_bucket", "fire_extinguisher", "wall_clock", "floor_drain"
+      ]
+    },
+    {
+      "id": "nurse_station",
+      "background_key": "nurse_station",
+      "background_file": "backgrounds/nurse_station.png",
+      "objects": [
+        "patient_files", "medication_log", "pa_microphone", "key_cabinet",
+        "security_monitors", "desk_drawer", "ornate_key", "station_phone"
+      ],
+      "back_label": "Step back from station window"
+    },
+    {
+      "id": "utility_room",
+      "background_key": "utility_room",
+      "background_file": "backgrounds/utility_room.png",
+      "objects": [
+        "pipe_array", "cleaning_shelf", "drainage_grate", "water_valve",
+        "mop_closet", "utility_shelf"
+      ],
+      "back_label": "Leave utility room"
+    },
+    {
+      "id": "treatment_room",
+      "background_key": "treatment_room",
+      "background_file": "backgrounds/treatment_room.png",
+      "objects": [
+        "ect_machine_body", "restraint_chair", "one_way_mirror", "ceiling_light",
+        "treatment_cabinet", "patient_slot", "treatment_wall"
+      ],
+      "back_label": "Leave treatment room"
+    },
+    {
+      "id": "vent_system",
+      "background_key": "vent_crawlspace",
+      "background_file": "backgrounds/vent_crawlspace.png",
+      "objects": [
+        "vent_junction", "vent_grate_treatment", "vent_grate_corridor",
+        "vent_wall_scratches", "vent_switch"
+      ],
+      "back_label": "Climb back down"
+    }
+  ],
+
+  "flags": {
+    "freed_from_gurney": "false",
+    "found_patient_files": "false",
+    "knows_patient_code": "false",
+    "knows_ect_settings": "false",
+    "medicine_cabinet_open": "false",
+    "has_sedative": "false",
+    "treatment_door_open": "false",
+    "utility_door_open": "false",
+    "met_patient_davis": "false",
+    "davis_freed": "false",
+    "davis_left_behind": "false",
+    "uv_revealed_messages": "false",
+    "breaker_solved": "false",
+    "power_to_cameras": "false",
+    "power_to_lights": "false",
+    "power_to_ect": "false",
+    "ect_activated": "false",
+    "ect_overloaded": "false",
+    "window_alarmed_triggered": "false",
+    "trap_set": "false",
+    "nurse_slipped": "false",
+    "water_running": "false",
+    "pa_static_playing": "false",
+    "nurse_at_station": "false",
+    "entered_vents": "false",
+    "vent_switch_flipped": "false",
+    "treatment_light_changed": "false",
+    "wall_message_revealed": "false",
+    "nurse_suspicious": "false",
+    "exit_door_reached": "false",
+    "has_master_key": "false",
+    "has_ward_key": "false",
+    "medication_log_read": "false",
+    "file_a_read": "false",
+    "file_b_read": "false",
+    "deduced_cabinet_code": "false",
+    "cabinet_relocked_by_nurse": "false",
+    "tools_removed_by_nurse": "false",
+    "restraints_added_by_nurse": "false",
+    "hairpin_found": "false",
+    "tray_opened": "false",
+    "bottle_opened": "false",
+    "inner_key_found": "false",
+    "made_gas_delivery": "false",
+    "corridor_window_tried": "false",
+    "perspective_numbers_seen": "false",
+    "fire_ext_taken": "false"
+  },
+
+  "items": [
+    {
+      "id": "gurney_strap",
+      "name": "Leather Strap",
+      "description": "A worn leather restraint strap, torn free from the gurney.",
+      "icon": "strap",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Cracked leather with a corroded buckle. The stitching gave way where decades of patients struggled against it. On the underside, scratched into the leather with a fingernail: 'WARD B - 7142'. A patient code?" },
+            { "type": "set_flag", "flag": "knows_patient_code", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hairpin",
+      "name": "Hairpin",
+      "description": "A bobby pin, slightly bent. Found in the floor drain.",
+      "icon": "pin",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Standard bobby pin, black enamel mostly worn off. Bent at the tip — someone used this before. For what, you'd rather not think about." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You straighten it into a crude lockpick. It'll work on simple pin-tumbler locks — not deadbolts." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uv_penlight",
+      "name": "UV Penlight",
+      "description": "A small ultraviolet flashlight. Makes invisible ink glow.",
+      "icon": "light",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Medical-grade UV penlight, the kind used to check for fungal infections. The UV spectrum also reveals things written in certain bodily fluids, cleaning agents, and invisible ink. Previous patients may have left messages on these walls." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patient_file_a",
+      "name": "Patient File — Harmon, E.",
+      "description": "A psychiatric patient file. Thick, dog-eared, coffee-stained.",
+      "icon": "file",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Patient: Eleanor Harmon. Admitted: 1971. Diagnosis: Acute paranoid schizophrenia. Medication: Thorazine 200mg. Notes: 'Patient insists the ward is a prison. Recommended increased ECT sessions.' Treatment code: H-3391. Cabinet combination last 4 digits: uses TREATMENT CODE reversed (1933)." },
+            { "type": "set_flag", "flag": "file_a_read", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patient_file_b",
+      "name": "Patient File — Davis, M.",
+      "description": "A thinner file, more recent entries.",
+      "icon": "file",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Patient: Marcus Davis. Admitted: 1983. Diagnosis: Bipolar I with psychotic features. Medication: Lithium 900mg. Notes: 'Patient is lucid between episodes. Claims to remember layout of entire ward from previous stays. Highly cooperative — potential flight risk.' Treatment code: D-5508. Last session: ECT Room 3, settings per Dr. Morrison's protocol." },
+            { "type": "set_flag", "flag": "file_b_read", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sedative_vial",
+      "name": "Sedative Vial",
+      "description": "A glass vial of clear liquid. Label: Sodium Pentobarbital.",
+      "icon": "vial",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Sodium Pentobarbital, 50mg/mL. A powerful sedative — enough in this vial to put someone to sleep for hours. As a gas, even a small amount would cause disorientation. The glass vial could be crushed to release fumes in an enclosed space." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iv_tubing",
+      "name": "IV Tubing",
+      "description": "Flexible clear tubing from an IV stand.",
+      "icon": "tube",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Medical-grade flexible tubing, about four feet long. Narrow enough to fit through a vent grate. You could blow something through it — powder, gas, liquid." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sedative_gas",
+      "name": "Sedative Gas Device",
+      "description": "IV tube with crushed sedative vial — blow through it to release fumes.",
+      "icon": "weapon",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The crushed vial's contents coat the inside of the tube. Blow through one end near a vent opening and the fumes disperse into the room below. Crude but effective — field medicine meets desperation." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "master_key",
+      "name": "Master Key",
+      "description": "A heavy brass key stamped 'WARD MASTER — DO NOT DUPLICATE'.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Brass, heavy, institutional. 'WARD MASTER' stamped on the bow. This opens every door in the wing — including the exit. The nurse will notice it's gone." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ward_key",
+      "name": "Ward B Key",
+      "description": "A smaller key labeled 'WARD B — TREATMENT'.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Opens the treatment room door. Standard institutional key, nothing special about it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ornate_key_item",
+      "name": "Ornate Key",
+      "description": "A decorative brass key with an elaborate bow.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Pretty but useless. The bow has an engraved 'R' — this is a restroom key. The kind of thing an administrator would keep as a personal touch. It opens nothing important." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleaning_solution",
+      "name": "Industrial Cleaner",
+      "description": "A bottle of industrial-strength floor cleaner. Slippery as ice.",
+      "icon": "bottle",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Commercial-grade floor cleaner. Warning: EXTREMELY SLIPPERY WHEN WET. If spilled on tile, anyone walking through would lose their footing immediately." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inner_key",
+      "name": "Tiny Key",
+      "description": "A small key hidden inside a pill bottle, wrapped in cotton.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Stamped 'CABINET 3'. This opens the third drawer of the key cabinet in the nurse station — where the master key is kept. Someone hid this inside a pill bottle inside a locked tray inside the medicine cabinet. Layers of secrets." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fire_extinguisher_item",
+      "name": "Fire Extinguisher",
+      "description": "A heavy CO2 fire extinguisher.",
+      "icon": "extinguisher",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "CO2 extinguisher, still pressurized. The discharge creates a cloud of white gas and a loud hiss — good for cover, or for masking sounds." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "combinations": [
+    {
+      "items": ["sedative_vial", "iv_tubing"],
+      "result": "sedative_gas",
+      "consumes": true,
+      "message": "You crush the vial inside the tube, coating its interior with sedative. Blow through one end near a vent and the fumes will disperse into whatever room is below. Desperate, but it might work.",
+      "noise": 8,
+      "conditions": []
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "gurney",
+      "name": "Hospital Gurney",
+      "description": "A rusted gurney with leather restraint straps.",
+      "position": { "x": 300, "y": 500 },
+      "size": { "width": 160, "height": 60 },
+      "visual": { "color": "#3a3a3a", "label": "Gurney" },
+      "initial_state": "strapped",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "gurney", "state": "strapped" }],
+          "then": [
+            { "type": "message", "text": "You're lying on a hospital gurney, wrists and ankles bound by leather straps. The leather is old — cracked and dry. The left wrist strap's stitching is frayed. One good pull might tear it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "gurney", "state": "strapped" }],
+          "then": [
+            { "type": "message", "text": "You wrench your left wrist upward. The ancient stitching tears — one strap free. You use your free hand to unbuckle the others. The last strap you keep — the leather might be useful." },
+            { "type": "set_state", "object": "gurney", "state": "free" },
+            { "type": "set_flag", "flag": "freed_from_gurney", "value": "true" },
+            { "type": "add_item", "item": "gurney_strap" }
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "gurney", "state": "free" }],
+          "then": [
+            { "type": "message", "text": "The empty gurney, straps dangling. You never want to lie on one of these again." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "gurney", "state": "free" },
+            { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }
+          ],
+          "then": [
+            { "type": "start_hiding" },
+            { "type": "message", "text": "You slide under the gurney. The hanging straps and thin mattress provide minimal cover, but in the dim light it might be enough." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "floor_drain",
+      "name": "Floor Drain",
+      "description": "A round drain set into the tile floor.",
+      "position": { "x": 400, "y": 680 },
+      "size": { "width": 40, "height": 40 },
+      "visual": { "color": "#1a1a1a", "label": "Drain" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "hairpin_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A floor drain, the grate crusted with old soap scum. Something glints between the bars — a bobby pin, wedged in the grime." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "hairpin_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You fish the bobby pin from between the drain bars. It's bent but intact. A previous patient's escape tool, abandoned or dropped." },
+            { "type": "add_item", "item": "hairpin" },
+            { "type": "set_flag", "flag": "hairpin_found", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "hairpin_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "An empty floor drain. The bobby pin is in your pocket now." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nurse_station_window",
+      "name": "Nurse Station Window",
+      "description": "A barred observation window looking into the nurse's station.",
+      "position": { "x": 150, "y": 300 },
+      "size": { "width": 120, "height": 80 },
+      "visual": { "color": "#2a3030", "label": "Station Window" },
+      "initial_state": "barred",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Through the barred window: a nurse's station with filing cabinets, a desk with monitors, a PA system microphone, and a wall-mounted key cabinet. The bars are too close together to reach through, but you can see — and reach small items through the slot at counter level." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "freed_from_gurney", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A barred window into the nurse's station. You can see shapes beyond — cabinets, screens, keys hanging on hooks. But you're strapped down." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "then": [
+            { "type": "set_view", "view": "nurse_station" },
+            { "type": "message", "text": "You press against the bars and peer into the station. Most things are out of reach, but the counter slot lets you slide your arm through to items on the near side." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "treatment_door",
+      "name": "Treatment Room Door",
+      "description": "A heavy door with a small observation window and a card slot.",
+      "position": { "x": 700, "y": 300 },
+      "size": { "width": 70, "height": 150 },
+      "visual": { "color": "#3a3020", "label": "Treatment Room" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "treatment_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Solid wood with a steel frame. A small wired-glass window shows darkness beyond. The lock takes a standard ward key. A slot at the bottom — for passing food trays to patients in isolation." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "ward_key",
+          "when": [{ "type": "object_state", "object": "treatment_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "treatment_door", "state": "unlocked" },
+            { "type": "set_flag", "flag": "treatment_door_open", "value": "true" },
+            { "type": "message", "text": "The key turns. The door swings inward, releasing stale air thick with ozone and antiseptic. The treatment room." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "master_key",
+          "when": [{ "type": "object_state", "object": "treatment_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "treatment_door", "state": "unlocked" },
+            { "type": "set_flag", "flag": "treatment_door_open", "value": "true" },
+            { "type": "message", "text": "The master key opens the treatment room. Darkness and the smell of ozone." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "treatment_door", "state": "unlocked" }],
+          "then": [
+            { "type": "set_view", "view": "treatment_room" },
+            { "type": "message", "text": "You push through into the treatment room." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "object_state", "object": "treatment_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You press your ear to the door. From inside, faint breathing. Someone is in there." },
+            { "type": "set_flag", "flag": "met_patient_davis", "value": "true" }
+          ],
+          "noise": 0
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "met_patient_davis", "value": "true" },
+            { "type": "object_state", "object": "treatment_door", "state": "locked" }
+          ],
+          "then": [
+            { "type": "message", "text": "'Hey — you still there?' A ragged whisper through the door crack: 'Marcus Davis. I've been here since Tuesday. She gives me treatments. The machine — it does something to your head. Listen, I know this ward. Every corridor, every vent. Get me out and I'll show you the way. There's a key cabinet in the nurse station. Ward B key is in the second drawer.'" }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "utility_closet_door",
+      "name": "Utility Closet",
+      "description": "A door marked 'MAINTENANCE — AUTHORIZED ONLY'.",
+      "position": { "x": 550, "y": 300 },
+      "size": { "width": 60, "height": 150 },
+      "visual": { "color": "#2a3020", "label": "Utility" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A utility closet door. The lock is a simple pin-tumbler type — cheap institutional hardware. A bobby pin might work on it." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "hairpin",
+          "when": [{ "type": "object_state", "object": "utility_closet_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "utility_closet_door", "state": "unlocked" },
+            { "type": "set_flag", "flag": "utility_door_open", "value": "true" },
+            { "type": "message", "text": "You work the hairpin into the lock, feel for the pins, and push. Click. The door opens. Pipes, chemicals, and the smell of standing water." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "master_key",
+          "when": [{ "type": "object_state", "object": "utility_closet_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "utility_closet_door", "state": "unlocked" },
+            { "type": "set_flag", "flag": "utility_door_open", "value": "true" },
+            { "type": "message", "text": "The master key opens everything. The utility closet reveals its pipes and chemicals." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "utility_closet_door", "state": "unlocked" }],
+          "then": [
+            { "type": "set_view", "view": "utility_room" },
+            { "type": "message", "text": "You step into the utility room. Pipes line the walls. A breaker panel blinks in the corner." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "utility_closet_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Locked. A simple pin-tumbler mechanism. You need a lockpick — or a key." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ceiling_vent",
+      "name": "Ceiling Vent",
+      "description": "A large ventilation grate in the ceiling, just within reach.",
+      "position": { "x": 400, "y": 80 },
+      "size": { "width": 100, "height": 40 },
+      "visual": { "color": "#3a3a3a", "label": "Vent" },
+      "initial_state": "screwed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A ventilation grate secured with Phillips-head screws. The duct beyond is wide enough to crawl through. Hospital vents were built large in the 1960s — before they learned patients would use them to escape." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "ceiling_vent", "state": "screwed" }],
+          "then": [
+            { "type": "message", "text": "You try to pull the grate free. The screws hold firm. You need something to turn them." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "use_item",
+          "item": "hairpin",
+          "when": [{ "type": "object_state", "object": "ceiling_vent", "state": "screwed" }],
+          "then": [
+            { "type": "message", "text": "You bend the hairpin into a crude Phillips shape and turn each screw. They resist, then give. The grate swings down. A dark duct yawns above — large enough to crawl into. But once you're up there, you can't easily come back." },
+            { "type": "set_state", "object": "ceiling_vent", "state": "open" }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "ceiling_vent", "state": "open" },
+            { "type": "flag_not", "flag": "entered_vents", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pull yourself up into the vent. The metal groans under your weight. Behind you, the grate swings shut and the screws... roll away into the duct. There's no going back this way." },
+            { "type": "set_view", "view": "vent_system" },
+            { "type": "set_flag", "flag": "entered_vents", "value": "true" }
+          ],
+          "noise": 15
+        }
+      ]
+    },
+    {
+      "id": "medicine_cabinet",
+      "name": "Medicine Cabinet",
+      "description": "A glass-fronted cabinet mounted on the wall. Bottles and vials inside.",
+      "position": { "x": 850, "y": 250 },
+      "size": { "width": 80, "height": 100 },
+      "visual": { "color": "#2a3a3a", "label": "Medicine Cabinet" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Glass-fronted, padlocked. Inside: rows of pill bottles, vials, syringes. A locked metal tray on the top shelf. The glass is tempered — you could break it, but it would be loud. There's also a digital keypad on the side — a backup unlock code." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You smash your elbow through the glass. It shatters — tempered glass raining down like hail. You reach in and grab what you can. Vials, bottles. The locked tray stays locked, but loose items are yours." },
+            { "type": "set_state", "object": "medicine_cabinet", "state": "broken" },
+            { "type": "set_flag", "flag": "medicine_cabinet_open", "value": "true" },
+            { "type": "add_item", "item": "sedative_vial" },
+            { "type": "add_item", "item": "iv_tubing" },
+            { "type": "set_flag", "flag": "has_sedative", "value": "true" },
+            { "type": "set_flag", "flag": "nurse_suspicious", "value": "true" }
+          ],
+          "noise": 40
+        },
+        {
+          "verb": "use_item",
+          "item": "hairpin",
+          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You work the hairpin into the padlock. The pins are stiff but simple — institutional budget hardware. Click. The padlock falls away. You swing the glass door open silently." },
+            { "type": "set_state", "object": "medicine_cabinet", "state": "open" },
+            { "type": "set_flag", "flag": "medicine_cabinet_open", "value": "true" },
+            { "type": "add_item", "item": "sedative_vial" },
+            { "type": "add_item", "item": "iv_tubing" },
+            { "type": "set_flag", "flag": "has_sedative", "value": "true" }
+          ],
+          "noise": 4
+        },
+        {
+          "verb": "look",
+          "when": [
+            { "type": "any_of", "conditions": [
+              { "type": "object_state", "object": "medicine_cabinet", "state": "open" },
+              { "type": "object_state", "object": "medicine_cabinet", "state": "broken" }
+            ]}
+          ],
+          "then": [
+            { "type": "message", "text": "The cabinet is open. Most shelves are bare now. The locked metal tray remains on the top shelf — it has its own keyhole." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "ward_key",
+          "when": [
+            { "type": "any_of", "conditions": [
+              { "type": "object_state", "object": "medicine_cabinet", "state": "open" },
+              { "type": "object_state", "object": "medicine_cabinet", "state": "broken" }
+            ]},
+            { "type": "flag_not", "flag": "tray_opened", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "The ward key clicks into the tray lock and turns. Inside: a single pill bottle, sealed. Something rattles inside that isn't pills." },
+            { "type": "set_flag", "flag": "tray_opened", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "tray_opened", "value": "true" },
+            { "type": "flag_not", "flag": "bottle_opened", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You open the pill bottle. Under a layer of cotton: a tiny key, wrapped carefully. Someone hid this here on purpose — layers of locks protecting one small secret." },
+            { "type": "add_item", "item": "inner_key" },
+            { "type": "set_flag", "flag": "bottle_opened", "value": "true" },
+            { "type": "set_flag", "flag": "inner_key_found", "value": "true" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "intercom_panel",
+      "name": "Intercom Panel",
+      "description": "A wall-mounted intercom with call button and speaker.",
+      "position": { "x": 250, "y": 200 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#3a3a30", "label": "Intercom" },
+      "initial_state": "idle",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A patient intercom panel — press the button to call the nurse station. Connected to the PA system. The speaker crackles with faint static." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You press the call button. Static, then the nurse's voice, sweet and terrible: 'Just a moment, dear. Nurse Ratchford will be right there.' Footsteps begin." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "corridor_end",
+      "name": "Exit Door",
+      "description": "A heavy fire door at the end of the corridor. The way out.",
+      "position": { "x": 950, "y": 400 },
+      "size": { "width": 60, "height": 160 },
+      "visual": { "color": "#4a2020", "label": "EXIT" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A fire door with a crash bar — but it's been chained and padlocked from this side. Two separate padlocks, two separate keys. The master key is one. The other..." },
+            { "type": "set_flag", "flag": "exit_door_reached", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "corridor_end", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Chained shut with two padlocks. You push the crash bar — it moves, but the chain holds. Two keys, two locks." }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "use_item",
+          "item": "master_key",
+          "when": [
+            { "type": "object_state", "object": "corridor_end", "state": "locked" },
+            { "type": "flag_not", "flag": "has_ward_key", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "The master key opens the first padlock. It falls away. But the second lock remains — a different keyway. You need the ward key too." },
+            { "type": "set_state", "object": "corridor_end", "state": "half_unlocked" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "ward_key",
+          "when": [
+            { "type": "object_state", "object": "corridor_end", "state": "locked" },
+            { "type": "flag_not", "flag": "has_master_key", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "The ward key opens the second padlock. But the first lock remains — master key only." },
+            { "type": "set_state", "object": "corridor_end", "state": "half_unlocked_b" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "master_key",
+          "when": [{ "type": "object_state", "object": "corridor_end", "state": "half_unlocked_b" }],
+          "then": [
+            { "type": "message", "text": "Both locks open. The chain falls. You hit the crash bar and the fire door swings wide. Cold night air. A parking lot. Trees. Stars. You're out." },
+            { "type": "game_over", "result": "win", "reason": "You push through the fire door into the night. The condemned ward shrinks behind you as you run across the cracked parking lot. Nurse Ratchford's humming fades. You don't stop running until you find the highway." }
+          ],
+          "noise": 20
+        },
+        {
+          "verb": "use_item",
+          "item": "ward_key",
+          "when": [{ "type": "object_state", "object": "corridor_end", "state": "half_unlocked" }],
+          "then": [
+            { "type": "message", "text": "Both locks open. The chain falls. You hit the crash bar and the fire door swings wide. Cold night air. A parking lot. Trees. Stars. You're out." },
+            { "type": "game_over", "result": "win", "reason": "You push through the fire door into the night. The condemned ward shrinks behind you as you run across the cracked parking lot. Nurse Ratchford's humming fades. You don't stop running until you find the highway." }
+          ],
+          "noise": 20
+        }
+      ]
+    },
+    {
+      "id": "mop_bucket",
+      "name": "Mop Bucket",
+      "description": "A wheeled mop bucket with dirty water.",
+      "position": { "x": 450, "y": 600 },
+      "size": { "width": 40, "height": 40 },
+      "visual": { "color": "#3a3a20", "label": "Bucket" },
+      "initial_state": "full",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A mop bucket on wheels, half full of gray water. The mop is missing." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "cleaning_solution",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You pour the industrial cleaner across the tile floor near the corridor entrance. The solution spreads in a slick, nearly invisible film. Anyone walking through at normal speed will go down hard." },
+            { "type": "set_flag", "flag": "trap_set", "value": "true" },
+            { "type": "remove_item", "item": "cleaning_solution" }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "fire_extinguisher",
+      "name": "Fire Extinguisher",
+      "description": "A red CO2 extinguisher mounted on the wall.",
+      "position": { "x": 100, "y": 450 },
+      "size": { "width": 30, "height": 50 },
+      "visual": { "color": "#8a2020", "label": "Extinguisher" },
+      "initial_state": "mounted",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A CO2 fire extinguisher. The pressure gauge reads full. Discharge creates a cloud of white gas and a loud hiss — good for visual cover." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "then": [
+            { "type": "add_item", "item": "fire_extinguisher_item" },
+            { "type": "set_state", "object": "fire_extinguisher", "state": "taken" },
+            { "type": "set_flag", "flag": "fire_ext_taken", "value": "true" },
+            { "type": "message", "text": "You lift the extinguisher from its mount. Heavy but manageable." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "wall_clock",
+      "name": "Wall Clock",
+      "description": "A large institutional clock. The second hand ticks loudly.",
+      "position": { "x": 500, "y": 100 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#e0e0e0", "label": "Clock" },
+      "initial_state": "ticking",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "3:47 AM. Morning rounds at 6:00. You have until dawn." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Tick. Tick. Tick. Each second is a countdown." }
+          ],
+          "noise": 0
+        }
+      ]
+    },
+    {
+      "id": "patient_files",
+      "name": "Patient Files",
+      "description": "A rack of manila folders, alphabetically organized.",
+      "position": { "x": 200, "y": 300 },
+      "size": { "width": 100, "height": 60 },
+      "visual": { "color": "#c0a060", "label": "Files" },
+      "initial_state": "filed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Patient files from the 1970s and 80s. Two stand out — one thick (Harmon, E.) and one thin (Davis, M.). Both have red 'ACTIVE TREATMENT' stickers." },
+            { "type": "set_flag", "flag": "found_patient_files", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You pull both files through the counter slot." },
+            { "type": "add_item", "item": "patient_file_a" },
+            { "type": "add_item", "item": "patient_file_b" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "medication_log",
+      "name": "Medication Log",
+      "description": "A hardbound logbook open on the desk.",
+      "position": { "x": 400, "y": 350 },
+      "size": { "width": 80, "height": 50 },
+      "visual": { "color": "#3a4a3a", "label": "Med Log" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Medication dispensary log. Recent entries in Nurse Ratchford's handwriting: 'Davis, M. — Lithium 900mg — Cabinet 2, Shelf A. Treatment code D-5508. ECT settings: Voltage 3, Frequency 5, Duration 2 — per Dr. Morrison.' Those ECT numbers might be important." },
+            { "type": "set_flag", "flag": "medication_log_read", "value": "true" },
+            { "type": "set_flag", "flag": "knows_ect_settings", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pa_microphone",
+      "name": "PA Microphone",
+      "description": "A desk-mounted microphone connected to the ward PA system.",
+      "position": { "x": 500, "y": 400 },
+      "size": { "width": 40, "height": 40 },
+      "visual": { "color": "#4a4a4a", "label": "PA Mic" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A PA microphone. Whatever you say into it broadcasts through every speaker in the ward. The switch is within reach through the counter slot." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You reach through the slot and flick the PA switch. A burst of feedback echoes through the ward, then settles into a low hiss of static. Every speaker is now broadcasting white noise — enough to mask small sounds elsewhere." },
+            { "type": "set_flag", "flag": "pa_static_playing", "value": "true" },
+            { "type": "set_flag", "flag": "nurse_at_station", "value": "true" },
+            { "type": "delay_then", "seconds": 30, "effects": [
+              { "type": "set_flag", "flag": "nurse_at_station", "value": "false" },
+              { "type": "set_flag", "flag": "pa_static_playing", "value": "false" },
+              { "type": "message", "text": "The PA clicks off. Nurse Ratchford found the switch. But for thirty seconds, the ward was full of covering noise." }
+            ]}
+          ],
+          "noise": 25
+        }
+      ]
+    },
+    {
+      "id": "key_cabinet",
+      "name": "Key Cabinet",
+      "description": "A wall-mounted cabinet with numbered drawers for keys.",
+      "position": { "x": 650, "y": 250 },
+      "size": { "width": 60, "height": 80 },
+      "visual": { "color": "#4a3a20", "label": "Key Cabinet" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A wooden key cabinet with four small drawers, each numbered. Drawer 1: empty. Drawer 2: 'Ward B — Treatment'. Drawer 3: 'WARD MASTER'. Drawer 4: empty. Drawers 2 and 3 are locked." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You reach through the counter slot. Your fingers brush the cabinet but you can't get enough leverage to force the drawers open. You need the right key for each drawer." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "hairpin",
+          "when": [{ "type": "flag_not", "flag": "has_ward_key", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You work the hairpin through the slot and into drawer 2's lock. The tiny mechanism gives way. Inside: the Ward B treatment key." },
+            { "type": "add_item", "item": "ward_key" },
+            { "type": "set_flag", "flag": "has_ward_key", "value": "true" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "inner_key",
+          "when": [{ "type": "flag_not", "flag": "has_master_key", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The tiny key fits drawer 3 perfectly. It turns, the drawer slides open, and there it is: the master key. Heavy, brass, stamped WARD MASTER. This changes everything." },
+            { "type": "add_item", "item": "master_key" },
+            { "type": "set_flag", "flag": "has_master_key", "value": "true" },
+            { "type": "remove_item", "item": "inner_key" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "security_monitors",
+      "name": "Security Monitors",
+      "description": "A bank of small CRT monitors showing camera feeds.",
+      "position": { "x": 300, "y": 200 },
+      "size": { "width": 100, "height": 60 },
+      "visual": { "color": "#1a1a2a", "label": "Monitors" },
+      "initial_state": "on",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "power_to_cameras", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Four monitors showing grainy feeds: the corridor (your corridor), the treatment room, the utility room, and the exit hallway. You can see Nurse Ratchford's current location. She's in the kitchen, heating water for tea." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "power_to_cameras", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The monitors are dark. No power to the camera system. The breaker panel in the utility room controls what gets power." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "desk_drawer",
+      "name": "Desk Drawer",
+      "description": "A drawer in the nurse's station desk.",
+      "position": { "x": 450, "y": 450 },
+      "size": { "width": 60, "height": 30 },
+      "visual": { "color": "#3a3020", "label": "Drawer" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A desk drawer. You can just reach it through the counter slot." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "desk_drawer", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You pull the drawer open through the slot. Inside: a UV penlight, a ring of old keys (all snapped or bent), and a pack of cigarettes." },
+            { "type": "set_state", "object": "desk_drawer", "state": "open" },
+            { "type": "add_item", "item": "uv_penlight" }
+          ],
+          "noise": 4
+        }
+      ]
+    },
+    {
+      "id": "ornate_key",
+      "name": "Ornate Key on Hook",
+      "description": "A decorative key hanging on a hook by the station door.",
+      "position": { "x": 700, "y": 350 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#c0a040", "label": "Fancy Key" },
+      "initial_state": "hanging",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An ornate brass key on a hook. It looks important — decorative bow with an engraved letter. Within reach through the slot." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You grab the ornate key through the slot. It feels significant. But you won't know what it opens until you try it." },
+            { "type": "add_item", "item": "ornate_key_item" },
+            { "type": "set_state", "object": "ornate_key", "state": "taken" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "station_phone",
+      "name": "Phone",
+      "description": "A desk phone in the nurse's station.",
+      "position": { "x": 600, "y": 400 },
+      "size": { "width": 40, "height": 30 },
+      "visual": { "color": "#2a2a2a", "label": "Phone" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A rotary desk phone. The cord has been cut. Nurse Ratchford doesn't want anyone calling out." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pipe_array",
+      "name": "Pipe Array",
+      "description": "A wall of exposed pipes — water, steam, drainage.",
+      "position": { "x": 300, "y": 300 },
+      "size": { "width": 150, "height": 100 },
+      "visual": { "color": "#4a4a4a", "label": "Pipes" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Hot water pipes, cold water pipes, drainage. The hot water pipe has a valve that's partially open. If fully opened, the running water would echo through every pipe in the building — masking sounds." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "water_valve",
+      "name": "Water Valve",
+      "description": "A large valve wheel on the hot water pipe.",
+      "position": { "x": 350, "y": 250 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#8a2020", "label": "Valve" },
+      "initial_state": "partial",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A large valve wheel on the main hot water pipe. Currently partially open. Turning it fully would send water rushing through every pipe in the ward — loud enough to cover other sounds." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "water_valve", "state": "partial" }],
+          "then": [
+            { "type": "message", "text": "You wrench the valve open. Water roars through the pipes — a deep, resonant rush that fills the walls and ceilings. The entire ward hums with the sound of flowing water. Any noise you make will be swallowed by it." },
+            { "type": "set_state", "object": "water_valve", "state": "open" },
+            { "type": "set_flag", "flag": "water_running", "value": "true" }
+          ],
+          "noise": 15
+        }
+      ]
+    },
+    {
+      "id": "cleaning_shelf",
+      "name": "Cleaning Supplies",
+      "description": "A metal shelf stocked with industrial cleaning products.",
+      "position": { "x": 600, "y": 300 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#2a3a2a", "label": "Cleaning" },
+      "initial_state": "stocked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Industrial cleaning products: floor cleaner, bleach, ammonia, rags. The floor cleaner has a big warning label: 'EXTREMELY SLIPPERY WHEN WET.'" }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "add_item", "item": "cleaning_solution" },
+            { "type": "message", "text": "You take the floor cleaner. Slippery enough to bring someone down." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "drainage_grate",
+      "name": "Drainage Grate",
+      "description": "A large drainage grate in the utility room floor.",
+      "position": { "x": 400, "y": 600 },
+      "size": { "width": 80, "height": 40 },
+      "visual": { "color": "#1a1a1a", "label": "Drain" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A drainage grate, bolted down. Through it you can hear the echo of dripping water far below. Not going that way." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mop_closet",
+      "name": "Mop Closet",
+      "description": "A narrow closet for cleaning equipment.",
+      "position": { "x": 700, "y": 400 },
+      "size": { "width": 50, "height": 100 },
+      "visual": { "color": "#2a2a2a", "label": "Closet" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A narrow mop closet. Empty except for a broken mop handle. Dark enough to hide in." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "start_hiding" },
+            { "type": "message", "text": "You squeeze into the mop closet and pull the door nearly shut. The smell of bleach burns your nose. Through the crack, you watch the utility room." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "utility_shelf",
+      "name": "Utility Shelf",
+      "description": "A metal shelf with miscellaneous tools and parts.",
+      "position": { "x": 150, "y": 400 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#3a3a3a", "label": "Shelf" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Screwdrivers, duct tape, wire nuts, fuses. Nothing remarkable — standard building maintenance supplies." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ect_machine_body",
+      "name": "ECT Machine",
+      "description": "An electroconvulsive therapy machine. Three dials on its face.",
+      "position": { "x": 500, "y": 300 },
+      "size": { "width": 120, "height": 100 },
+      "visual": { "color": "#3a3a4a", "label": "ECT Machine" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "ect_machine_body", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "A 1970s electroconvulsive therapy machine. Three dials: VOLTAGE (0-9), FREQUENCY (0-9), DURATION (0-9). A large red ACTIVATE button. Currently powered down. The breaker panel in the utility room controls power to this room's equipment." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "ect_machine_body", "state": "powered" }],
+          "then": [
+            { "type": "message", "text": "The ECT machine hums with power. The three dials glow: VOLTAGE, FREQUENCY, DURATION. Set them to the correct values and press ACTIVATE. The medication log had the settings: Voltage 3, Frequency 5, Duration 2. But what happens if you set them all to maximum?" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "ect_machine_body", "state": "powered" },
+            { "type": "flag_not", "flag": "ect_activated", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You press ACTIVATE. The machine needs the correct dial settings first — use the combination lock interface to set them." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "restraint_chair",
+      "name": "Restraint Chair",
+      "description": "A heavy chair bolted to the floor with arm and leg restraints.",
+      "position": { "x": 300, "y": 500 },
+      "size": { "width": 80, "height": 80 },
+      "visual": { "color": "#2a2a2a", "label": "Chair" },
+      "initial_state": "empty",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            { "type": "flag_not", "flag": "davis_freed", "value": "true" },
+            { "type": "flag_is", "flag": "treatment_door_open", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "A man sits strapped into the chair — gaunt, hollow-eyed, hospital gown. He looks up at you with desperate recognition. 'You came. I'm Marcus. Get me out of these straps and I'll show you the way out. I know every vent, every door, every trick in this place.'" },
+            { "type": "set_flag", "flag": "met_patient_davis", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "met_patient_davis", "value": "true" },
+            { "type": "flag_not", "flag": "davis_freed", "value": "true" },
+            { "type": "flag_not", "flag": "davis_left_behind", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You unbuckle the restraints. Marcus stands, shaking, but his eyes are sharp. 'The vents,' he whispers. 'There's a junction above the corridor. One branch goes over the treatment room — you can see down through the grate. The other leads to an exterior wall. But listen — there's a switch up there that controls the treatment room lights. Flip it and you'll see something on the wall below that you can't see now.'" },
+            { "type": "set_flag", "flag": "davis_freed", "value": "true" }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "look",
+          "when": [
+            { "type": "flag_is", "flag": "davis_freed", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "The empty restraint chair. The straps hang loose. Marcus is free, moving through the ward's back passages — the ones he memorized over years of forced stays." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "one_way_mirror",
+      "name": "One-Way Mirror",
+      "description": "A large mirror on the wall. Or is it a window?",
+      "position": { "x": 700, "y": 300 },
+      "size": { "width": 100, "height": 80 },
+      "visual": { "color": "#2a2a3a", "label": "Mirror" },
+      "initial_state": "reflective",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A one-way mirror — observation glass. From this side you see your own reflection, haggard and pale. On the other side, someone could watch the treatments. The glass is thick and reinforced." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You knock on the glass. Solid. Institutional-grade one-way mirror. You're not breaking through this." }
+          ],
+          "noise": 10
+        }
+      ]
+    },
+    {
+      "id": "ceiling_light",
+      "name": "Ceiling Light",
+      "description": "A surgical light fixture mounted on the ceiling.",
+      "position": { "x": 500, "y": 100 },
+      "size": { "width": 80, "height": 30 },
+      "visual": { "color": "#e0e0e0", "label": "Light" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "treatment_light_changed", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A surgical light, currently off. The treatment room is lit only by the dim emergency strips along the floor." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "treatment_light_changed", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The light is on now — a different spectrum. UV-adjacent. The walls glow with hidden writing..." },
+            { "type": "set_flag", "flag": "wall_message_revealed", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "treatment_cabinet",
+      "name": "Treatment Supply Cabinet",
+      "description": "A small cabinet in the treatment room.",
+      "position": { "x": 150, "y": 400 },
+      "size": { "width": 60, "height": 60 },
+      "visual": { "color": "#3a3a3a", "label": "Cabinet" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A supply cabinet. Unlocked — just a simple latch." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "treatment_cabinet", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You open the cabinet. Electrode gel, rubber bite guards, replacement wires. Nothing directly useful for escape, but the electrode gel is conductive..." },
+            { "type": "set_state", "object": "treatment_cabinet", "state": "open" }
+          ],
+          "noise": 4
+        }
+      ]
+    },
+    {
+      "id": "patient_slot",
+      "name": "Door Slot",
+      "description": "A narrow slot at the base of the treatment room door.",
+      "position": { "x": 700, "y": 650 },
+      "size": { "width": 60, "height": 20 },
+      "visual": { "color": "#3a3020", "label": "Slot" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A food tray slot in the treatment room door. Items can be passed through from either side." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "treatment_wall",
+      "name": "Treatment Room Wall",
+      "description": "The bare wall of the treatment room. Seemingly featureless.",
+      "position": { "x": 400, "y": 400 },
+      "size": { "width": 200, "height": 100 },
+      "visual": { "color": "#1a2018", "label": "Wall" },
+      "initial_state": "blank",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            { "type": "flag_not", "flag": "wall_message_revealed", "value": "true" },
+            { "type": "flag_not", "flag": "uv_revealed_messages", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "Bare institutional green paint. Nothing visible." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "uv_penlight",
+          "when": [{ "type": "flag_not", "flag": "uv_revealed_messages", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You sweep the UV light across the wall. Letters emerge — written in something that fluoresces under ultraviolet. Dozens of messages from former patients, layered over years:\n\n'THE VENTS GO EVERYWHERE'\n'BREAKER 3 AND 5 — NEVER BOTH'\n'LOOK AT THE NUMBERS FROM THE VENT ABOVE'\n'SHE HIDES THE REAL KEY INSIDE THE PILLS'\n\nA map of escape, written by the ghosts of everyone who came before you." },
+            { "type": "set_flag", "flag": "uv_revealed_messages", "value": "true" }
+          ],
+          "noise": 0
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "wall_message_revealed", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Under the UV-spectrum light from above, more writing appears — larger, deliberate: '9-9-9 OVERLOADS THE MACHINE. THE SURGE BLOWS THE TREATMENT ROOM WINDOW LOCK. BUT YOU CAN NEVER GO BACK TO THE CORRIDOR.' A previous patient's discovery. Maximum settings on the ECT machine cause a power surge that breaks the window lock — an alternative escape route, but a point of no return." },
+            { "type": "set_flag", "flag": "perspective_numbers_seen", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_junction",
+      "name": "Vent Junction",
+      "description": "The vent splits into two directions.",
+      "position": { "x": 500, "y": 400 },
+      "size": { "width": 120, "height": 60 },
+      "visual": { "color": "#3a3a3a", "label": "Junction" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The vent duct splits. Left goes over the treatment room — you can see down through a grate. Right continues toward the exterior wall and what might be an exit vent. A small electrical switch is mounted on the duct wall near the junction." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_grate_treatment",
+      "name": "Vent Grate (Treatment Room)",
+      "description": "A grate looking down into the treatment room.",
+      "position": { "x": 300, "y": 500 },
+      "size": { "width": 80, "height": 40 },
+      "visual": { "color": "#2a2a2a", "label": "Grate (Below)" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "vent_switch_flipped", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Through the grate, you see the treatment room below. Dim. The ECT machine sits like a dark altar. The walls look blank from up here — but the writing said to flip the switch first." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "vent_switch_flipped", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The treatment room glows below in UV-spectrum light. On the far wall, large numbers appear — scratched into the paint and filled with fluorescent material. From this angle, from directly above, the scattered scratches align into readable digits: 9-9-9. The perspective alignment — only visible from this exact vantage point. And below: 'OVERLOADS THE MACHINE. SURGE BLOWS THE WINDOW LOCK.'" },
+            { "type": "set_flag", "flag": "perspective_numbers_seen", "value": "true" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "sedative_gas",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You position the tube through the grate and blow. The crushed sedative disperses into the treatment room below as a fine mist. Anyone in that room will breathe it in within seconds." },
+            { "type": "set_flag", "flag": "made_gas_delivery", "value": "true" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "vent_grate_corridor",
+      "name": "Exterior Vent",
+      "description": "The vent ends at a wall grate opening to the outside.",
+      "position": { "x": 700, "y": 400 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#2a3a2a", "label": "Exit Vent" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The vent terminates at an exterior wall grate. Through it: cool night air, the smell of pine trees, and the distant glow of a highway. The grate is screwed in from outside — you'd need force or a tool to remove it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You kick the grate. It buckles but holds. One more should do it." }
+          ],
+          "noise": 25
+        },
+        {
+          "verb": "use_item",
+          "item": "fire_extinguisher_item",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You swing the extinguisher against the grate. It smashes outward into the night. Cool air floods in. You're looking at a two-story drop into bushes. Survivable. You squeeze through and drop into the dark." },
+            { "type": "game_over", "result": "win", "reason": "You drop from the vent into the overgrown bushes below. Branches scratch your arms but nothing breaks. You pick yourself up and run toward the highway lights. Behind you, the abandoned ward sits dark and silent, keeping its secrets." }
+          ],
+          "noise": 35
+        }
+      ]
+    },
+    {
+      "id": "vent_wall_scratches",
+      "name": "Scratches on Vent Wall",
+      "description": "Scratches in the sheet metal — marks left by previous patients.",
+      "position": { "x": 500, "y": 250 },
+      "size": { "width": 80, "height": 40 },
+      "visual": { "color": "#4a4a4a", "label": "Scratches" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Scratched into the aluminum: tally marks, arrows, and one clear message: 'FLIP THE SWITCH → LOOK DOWN → READ THE WALL'. Someone else found this path before you." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_switch",
+      "name": "Electrical Switch",
+      "description": "A small switch mounted on the vent duct wall.",
+      "position": { "x": 500, "y": 350 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#6a6a20", "label": "Switch" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A toggle switch spliced into the electrical conduit that runs alongside the vent duct. It controls something in the room below." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "vent_switch", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "You flip the switch. Below you, through the grate, the treatment room's ceiling light changes — it shifts to a different spectrum. UV. The walls below begin to glow with hidden writing." },
+            { "type": "set_state", "object": "vent_switch", "state": "on" },
+            { "type": "set_flag", "flag": "vent_switch_flipped", "value": "true" },
+            { "type": "set_flag", "flag": "treatment_light_changed", "value": "true" }
+          ],
+          "noise": 2
+        }
+      ]
+    }
+  ],
+
+  "puzzle_widgets": [
+    {
+      "id": "breaker_panel",
+      "widget_type": "toggle_panel",
+      "position": { "x": 500, "y": 200 },
+      "size": { "width": 120, "height": 80 },
+      "view": "utility_room",
+      "initially_visible": true,
+      "config": {
+        "num_switches": 6,
+        "solution": [true, false, true, false, true, false],
+        "labels": ["CORRIDOR", "CAMERAS", "TREATMENT", "HVAC", "ECT POWER", "EMERGENCY"],
+        "linked": [[0, 3], [2, 4]]
+      },
+      "on_solve": [
+        { "type": "set_flag", "flag": "breaker_solved", "value": "true" },
+        { "type": "set_flag", "flag": "power_to_cameras", "value": "false" },
+        { "type": "set_flag", "flag": "power_to_lights", "value": "true" },
+        { "type": "set_flag", "flag": "power_to_ect", "value": "true" },
+        { "type": "message", "text": "The breakers click into place. Power routes to the corridor, treatment room, and ECT machine. Cameras go dark — the nurse can't watch the monitors anymore. But the ECT machine hums to life in the treatment room." },
+        { "type": "set_state", "object": "ect_machine_body", "state": "powered" }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 5 },
+        { "type": "message", "text": "Breakers trip. The linked circuits won't stay set in that configuration — the panel can't handle it." }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "ect_dials",
+      "widget_type": "combination_lock",
+      "position": { "x": 500, "y": 400 },
+      "size": { "width": 120, "height": 60 },
+      "view": "treatment_room",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 3,
+        "values_per_dial": 10,
+        "solution": [3, 5, 2],
+        "dial_labels": ["VOLTAGE", "FREQUENCY", "DURATION"]
+      },
+      "on_solve": [
+        { "type": "set_flag", "flag": "ect_activated", "value": "true" },
+        { "type": "message", "text": "The dials click to 3-5-2. Dr. Morrison's protocol. The machine activates normally — a controlled hum, electrodes charged. Standard therapeutic settings. But the wall message said 9-9-9 would overload it..." }
+      ],
+      "on_fail": [
+        { "type": "conditional_effect",
+          "when": [
+            { "type": "all_of", "conditions": [
+              { "type": "flag_is", "flag": "perspective_numbers_seen", "value": "true" }
+            ]}
+          ],
+          "then": [
+            { "type": "message", "text": "The machine whines at maximum settings. Sparks fly. The power surge races through every circuit — and the electromagnetic lock on the treatment room window BLOWS. The window swings open. Night air rushes in. But the corridor lights are dead now — you can't go back that way." },
+            { "type": "set_flag", "flag": "ect_overloaded", "value": "true" },
+            { "type": "visual_cue", "cue": "flash" },
+            { "type": "visual_cue", "cue": "shake" }
+          ],
+          "else": [
+            { "type": "message", "text": "Wrong settings. The machine buzzes angrily and resets." },
+            { "type": "add_noise", "amount": 10 }
+          ]
+        }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "medicine_keypad",
+      "widget_type": "keypad",
+      "position": { "x": 880, "y": 350 },
+      "size": { "width": 60, "height": 80 },
+      "view": "main",
+      "initially_visible": true,
+      "config": {
+        "code_length": 4,
+        "solution": "1933",
+        "display_chars": 4
+      },
+      "on_solve": [
+        { "type": "set_state", "object": "medicine_cabinet", "state": "open" },
+        { "type": "set_flag", "flag": "medicine_cabinet_open", "value": "true" },
+        { "type": "add_item", "item": "sedative_vial" },
+        { "type": "add_item", "item": "iv_tubing" },
+        { "type": "set_flag", "flag": "has_sedative", "value": "true" },
+        { "type": "message", "text": "1-9-3-3. The keypad beeps. The cabinet lock releases with a click. You swing the glass door open. Vials, bottles, IV tubing — everything you need." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 3 },
+        { "type": "message", "text": "Wrong code. The keypad flashes red." }
+      ],
+      "noise_per_interaction": 1
+    }
+  ],
+
+  "phases": [
+    {
+      "id": "restrained",
+      "name": "Restrained",
+      "starts_when": [],
+      "on_enter": [
+        { "type": "message", "text": "Consciousness arrives like a slap. Fluorescent lights. Leather straps. A gurney. The smell of antiseptic and something sour underneath — years of fear soaked into these walls. Down the corridor, a woman hums. You know that tune. Everyone knows that tune. It's 'Rock-a-bye Baby.'" }
+      ],
+      "ambient_text": "Humming from down the corridor. The buzz of dying fluorescent lights.",
+      "killer_overrides": {
+        "check_interval_seconds": 90,
+        "noise_threshold_investigate": 65
+      }
+    },
+    {
+      "id": "exploring",
+      "name": "Exploring",
+      "starts_when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "You stand. The ward stretches before you — a corridor of closed doors and institutional despair. The nurse station window, a treatment room, a utility closet, a vent overhead. And at the far end: an exit door. Chained shut. Two locks. You need two keys." }
+      ],
+      "ambient_text": "The humming continues. Footsteps now — the nurse making her rounds.",
+      "killer_overrides": {
+        "check_interval_seconds": 60,
+        "noise_threshold_investigate": 50
+      }
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "starts_when": [{ "type": "flag_is", "flag": "nurse_suspicious", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "The humming stops. Silence is worse. Then her voice, eerily calm: 'Someone hasn't been taking their medication.' Footsteps quicken. Doors open and close. She's searching." },
+        { "type": "visual_cue", "cue": "red_pulse" }
+      ],
+      "ambient_text": "Quick footsteps. Doors opening and closing. She's checking every room.",
+      "killer_overrides": {
+        "check_interval_seconds": 30,
+        "noise_threshold_investigate": 25,
+        "noise_threshold_immediate": 55
+      }
+    },
+    {
+      "id": "final_escape",
+      "name": "Final Escape",
+      "starts_when": [
+        { "type": "any_of", "conditions": [
+          { "type": "flag_is", "flag": "ect_overloaded", "value": "true" },
+          { "type": "flag_is", "flag": "entered_vents", "value": "true" }
+        ]}
+      ],
+      "on_enter": [
+        { "type": "message", "text": "There's no going back now. Whatever path you're on, it ends outside these walls or not at all." }
+      ],
+      "ambient_text": "Your own heartbeat. The building settling around you.",
+      "killer_overrides": {
+        "check_interval_seconds": 20,
+        "noise_threshold_investigate": 15,
+        "thoroughness": 0.8
+      }
+    }
+  ],
+
+  "events": [
+    {
+      "id": "nurse_trap_event",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "trap_set", "value": "true" },
+          { "type": "killer_is", "state": "approaching" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The nurse's footsteps round the corner. Then: a shriek, a crash, the sound of a body hitting tile. She's down — slipped on the cleaning solution. She won't stay down long, but you've bought precious seconds." },
+        { "type": "set_flag", "flag": "nurse_slipped", "value": "true" },
+        { "type": "set_flag", "flag": "trap_set", "value": "false" }
+      ]
+    },
+    {
+      "id": "water_masking_active",
+      "trigger": {
+        "type": "flag_is", "flag": "water_running", "value": "true"
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The rush of water through every pipe in the building creates a constant roar. Your movements are swallowed by it. The noise meter drops — ambient sound covers your actions." },
+        { "type": "set_noise", "level": 0 }
+      ]
+    },
+    {
+      "id": "corridor_window_alarm",
+      "trigger": {
+        "type": "flag_is", "flag": "corridor_window_tried", "value": "true"
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "An alarm shrieks — the window was wired! Red lights spin in the corridor. The nurse's footsteps break into a run. That window was a trap, not an escape route." },
+        { "type": "set_flag", "flag": "nurse_suspicious", "value": "true" },
+        { "type": "visual_cue", "cue": "red_pulse" },
+        { "type": "add_noise", "amount": 60 }
+      ]
+    },
+    {
+      "id": "false_summit_reveal",
+      "trigger": {
+        "type": "flag_is", "flag": "exit_door_reached", "value": "true"
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Two padlocks. Two different keys. You thought one key would be enough — but the exit demands both the master key AND the ward key. The false summit: freedom was never one lock away." }
+      ]
+    },
+    {
+      "id": "progressive_reveal_treatment",
+      "trigger": {
+        "type": "flag_is", "flag": "treatment_door_open", "value": "true"
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The treatment room opens new possibilities. The ECT machine, if powered, could be more than a torture device — it could be a tool. And Marcus Davis, if you free him, knows this ward better than anyone alive." }
+      ]
+    },
+    {
+      "id": "davis_helps_escape",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "davis_freed", "value": "true" },
+          { "type": "time_after", "seconds": 400 }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Marcus appears from a maintenance corridor you didn't even know existed. 'Found this,' he whispers, pressing something cold into your hand. 'Maintenance key. Opens the utility room — and the emergency exit on the east wing. I'll cause a distraction. Go.' He disappears back into the walls." }
+      ]
+    }
+  ],
+
+  "killer": {
+    "name": "Nurse Ratchford",
+    "description": "A former psychiatric nurse who never accepted the ward's closure. She maintained one wing herself, convinced her patients still need treatment. Her uniform is forty years out of date. Her smile never reaches her eyes. She hums 'Rock-a-bye Baby' when she's calm and stops when she's hunting.",
+
+    "base_behavior": {
+      "check_interval_seconds": 65,
+      "interval_variance_seconds": 15,
+      "noise_threshold_curious": 20,
+      "noise_threshold_investigate": 45,
+      "noise_threshold_immediate": 75,
+      "noise_decay_per_second": 1.2,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 15
+    },
+
+    "search_behavior": {
+      "thoroughness": 0.4,
+      "evidence_flags": [
+        "medicine_cabinet_open", "treatment_door_open", "utility_door_open",
+        "fire_ext_taken", "davis_freed"
+      ],
+      "thoroughness_on_evidence": 0.75,
+      "search_order": "nearest"
+    },
+
+    "personality": {
+      "on_approach": [
+        "Time for your medication, dear.",
+        "Nurse Ratchford is making her rounds...",
+        "Let's check on our patient, shall we?"
+      ],
+      "on_search": [
+        "Come out, come out. Treatment isn't optional.",
+        "I know every corner of this ward. Every closet. Every vent.",
+        "The longer you hide, the longer the treatment takes."
+      ],
+      "on_clear": [
+        "Good. Resting quietly. That's what we like to see.",
+        "Sleep well. Morning rounds at six.",
+        "There's a good patient."
+      ],
+      "on_evidence": [
+        "Oh my. Someone's been out of bed. That's a demerit.",
+        "Things have been moved. Opened. Tampered with. This won't do.",
+        "Evidence of non-compliance. We'll need to increase the dosage."
+      ],
+      "on_catch": [
+        "There you are, dear. Time to go back to your room. We have SO much treatment left to do."
+      ]
+    },
+
+    "on_visit_effects": [
+      {
+        "conditions": [
+          { "type": "object_state", "object": "medicine_cabinet", "state": "open" }
+        ],
+        "effects": [
+          { "type": "set_state", "object": "medicine_cabinet", "state": "relocked" },
+          { "type": "set_flag", "flag": "cabinet_relocked_by_nurse", "value": "true" },
+          { "type": "message", "text": "The nurse relocks the medicine cabinet. She mutters about 'security protocols' as she adds a second padlock." }
+        ]
+      },
+      {
+        "conditions": [
+          { "type": "flag_is", "flag": "nurse_suspicious", "value": "true" },
+          { "type": "object_state", "object": "gurney", "state": "free" }
+        ],
+        "effects": [
+          { "type": "set_flag", "flag": "restraints_added_by_nurse", "value": "true" },
+          { "type": "message", "text": "The nurse adds extra straps to the gurney, muttering: 'Can't have patients wandering. Not safe. Not therapeutic.'" }
+        ]
+      }
+    ],
+
+    "special_behaviors": [
+      {
+        "id": "trap_recovery",
+        "trigger": { "type": "flag_is", "flag": "nurse_slipped", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 30,
+        "description": "Nurse is recovering from slipping on cleaning solution."
+      },
+      {
+        "id": "pa_distraction",
+        "trigger": { "type": "flag_is", "flag": "pa_static_playing", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 30,
+        "description": "Nurse goes to station to investigate PA static."
+      },
+      {
+        "id": "enraged_by_evidence",
+        "trigger": { "type": "flag_is", "flag": "davis_freed", "value": "true" },
+        "effect": "enraged",
+        "overrides": {
+          "check_interval_seconds": 18,
+          "thoroughness": 0.85
+        }
+      }
+    ]
+  },
+
+  "win_conditions": [
+    {
+      "id": "corridor_exit",
+      "description": "Escape through the fire door using both the master key and ward key"
+    },
+    {
+      "id": "vent_escape",
+      "description": "Crawl through the vent system and break out the exterior grate"
+    },
+    {
+      "id": "ect_overload_escape",
+      "description": "Overload the ECT machine to blow the treatment room window lock and escape"
+    }
+  ],
+
+  "lose_conditions": [
+    {
+      "id": "caught",
+      "description": "Caught by Nurse Ratchford while not hidden"
+    },
+    {
+      "id": "time_limit",
+      "seconds": 900,
+      "message": "Dawn light creeps through the windows. You hear a key in the main entrance. The morning orderlies arrive — Nurse Ratchford's helpers. There are too many now. The treatment continues.",
+      "description": "Morning orderlies arrive, making escape impossible"
+    }
+  ],
+
+  "hints": [
+    {
+      "id": "hint_gurney",
+      "after_seconds": 20,
+      "condition": { "type": "flag_not", "flag": "freed_from_gurney", "value": "true" },
+      "text": "The left wrist strap looks weaker than the others. Try pulling free."
+    },
+    {
+      "id": "hint_examine_strap",
+      "after_seconds": 60,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" },
+          { "type": "flag_not", "flag": "knows_patient_code", "value": "true" }
+        ]
+      },
+      "text": "Examine the strap you kept. Previous patients sometimes scratched messages into the leather."
+    },
+    {
+      "id": "hint_two_keys",
+      "after_seconds": 120,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "exit_door_reached", "value": "true" },
+          { "type": "flag_not", "flag": "has_master_key", "value": "true" }
+        ]
+      },
+      "text": "The exit needs two keys. The key cabinet in the nurse station has drawers for both. But the master key drawer needs a special key — hidden somewhere in layers of locks."
+    },
+    {
+      "id": "hint_nested_secret",
+      "after_seconds": 180,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "medicine_cabinet_open", "value": "true" },
+          { "type": "flag_not", "flag": "inner_key_found", "value": "true" }
+        ]
+      },
+      "text": "The medicine cabinet has a locked tray. Inside the tray, a pill bottle. Inside the bottle... something that isn't pills."
+    },
+    {
+      "id": "hint_uv_light",
+      "after_seconds": 200,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "has_item", "item": "uv_penlight" },
+          { "type": "flag_not", "flag": "uv_revealed_messages", "value": "true" }
+        ]
+      },
+      "text": "Former patients left messages on the walls — invisible under normal light. The UV penlight in the treatment room might reveal them."
+    },
+    {
+      "id": "hint_power_routing",
+      "after_seconds": 150,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "utility_door_open", "value": "true" },
+          { "type": "flag_not", "flag": "breaker_solved", "value": "true" }
+        ]
+      },
+      "text": "The breaker panel controls power to different systems. Some breakers are linked — toggling one affects another. Route power carefully: cameras let you track the nurse, but the ECT machine needs power too."
+    },
+    {
+      "id": "hint_cabinet_code",
+      "after_seconds": 240,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "file_a_read", "value": "true" },
+          { "type": "flag_not", "flag": "deduced_cabinet_code", "value": "true" }
+        ]
+      },
+      "text": "Harmon's file says the cabinet code is the treatment code reversed. Her treatment code is H-3391. Reversed: 1933."
+    }
+  ],
+
+  "solution_paths": [
+    {
+      "id": "corridor_key_path",
+      "name": "The Master Plan",
+      "description": "Collect both keys and walk out the front door. Classic, direct, requires thorough exploration.",
+      "steps": [
+        "Free from gurney (Gateway Puzzle)",
+        "Examine strap — learn patient code (Dual-Purpose Item)",
+        "Find hairpin in floor drain",
+        "Reach nurse station — get patient files (Cross-Reference Deduction)",
+        "Read files + medication log — deduce cabinet code 1933 (Knowledge Gate)",
+        "Enter code on medicine cabinet keypad (Noise Tradeoff — quiet vs smashing)",
+        "Open locked tray with ward key → pill bottle → tiny key (Nested Secret)",
+        "Use tiny key on key cabinet drawer 3 → master key",
+        "Use hairpin on key cabinet drawer 2 → ward key",
+        "Use both keys on exit door → escape (False Summit — needed TWO keys)"
+      ],
+      "estimated_noise": "medium",
+      "patterns_demonstrated": [
+        "gateway-puzzle", "dual-purpose-item", "nested-secret", "knowledge-gate",
+        "cross-reference-deduction", "false-summit", "noise-tradeoff", "dependency-chain"
+      ]
+    },
+    {
+      "id": "vent_stealth_path",
+      "name": "The Ghost",
+      "description": "Enter the vent system and escape through the exterior wall grate. Stealth-focused, requires fire extinguisher.",
+      "steps": [
+        "Free from gurney",
+        "Get hairpin → open ceiling vent",
+        "Take fire extinguisher from wall",
+        "Enter vents (Point of No Return — can't go back)",
+        "Flip vent switch → treatment room UV light activates (The Echo)",
+        "Look down through grate → perspective alignment reveals 9-9-9",
+        "Continue to exterior vent",
+        "Use fire extinguisher to smash exterior grate → escape"
+      ],
+      "estimated_noise": "low-medium",
+      "patterns_demonstrated": [
+        "gateway-puzzle", "point-of-no-return", "echo", "perspective-alignment", "multi-path-solution"
+      ]
+    },
+    {
+      "id": "ect_overload_path",
+      "name": "The Surge",
+      "description": "Overload the ECT machine to blow the treatment room window lock. Dangerous but dramatic.",
+      "steps": [
+        "Free from gurney, explore",
+        "Open utility room → solve breaker panel to route power to ECT",
+        "Open treatment room with ward key",
+        "Learn overload settings (9-9-9) from vent system or UV light on wall",
+        "Set ECT machine to 9-9-9 (Rule Subversion — using machine against itself)",
+        "Power surge blows window lock (Myst Machine, Power Routing)",
+        "Escape through treatment room window"
+      ],
+      "estimated_noise": "high",
+      "patterns_demonstrated": [
+        "rule-subversion", "myst-machine", "power-routing", "knowledge-gate",
+        "progressive-reveal", "multi-path-solution"
+      ]
+    },
+    {
+      "id": "ally_distraction_path",
+      "name": "Strength in Numbers",
+      "description": "Free Marcus Davis, use his knowledge and distraction to escape. Moral choice path.",
+      "steps": [
+        "Free from gurney, get ward key",
+        "Open treatment room → find Marcus (The Accomplice)",
+        "Free Marcus (Moral Fork — free or leave)",
+        "Marcus creates distraction and reveals maintenance shortcuts",
+        "Use sound masking (water valve) and trap (cleaning solution)",
+        "Combine sedative + IV tubing → gas delivery (Emergent Combination)",
+        "Use gas through vent to sedate nurse",
+        "Get master key while nurse is incapacitated → exit"
+      ],
+      "estimated_noise": "medium-high",
+      "patterns_demonstrated": [
+        "accomplice", "moral-fork", "sound-masking", "trap-setting",
+        "emergent-combination", "distraction-window", "fork"
+      ]
+    }
+  ]
+}
