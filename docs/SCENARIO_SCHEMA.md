@@ -47,13 +47,22 @@ The JSON file is the complete game. The engine reads it and runs the scenario wi
 
 This schema captures mechanics from the greatest point-and-click adventure games ever made:
 
-| Source Game | Mechanic We Took |
-|------------|-----------------|
-| King's Quest 5/6 | Verb icons (Look, Hand, Talk), inventory items, use-item-on-object, multi-step puzzle chains |
+| Source | Mechanic We Took |
+|--------|-----------------|
+| King's Quest 5/6 | Verb icons (Look, Hand, Talk), inventory items, use-item-on-object, multi-step puzzle chains, dual-purpose items |
 | Monkey Island 1-3 | Item combinations, dialogue puzzles, no-dead-ends philosophy, red herrings, alternate solutions |
-| Myst | Environmental manipulation (switches, dials, machinery), code/pattern input, observation puzzles, sequence puzzles |
+| Myst | Environmental manipulation (switches, dials, machinery), code/pattern input, observation puzzles, sequence puzzles, power routing |
 | Grim Fandango | Multi-state machinery, story-integrated puzzles, environment changes over time |
 | Day of the Tentacle | Transformation chains, cross-system cause-and-effect |
+| The Room series | Nested examination layers — object within object within object |
+| The Witness | Perspective alignment — visual patterns only visible from specific viewpoints |
+| Return of the Obra Dinn / Outer Wilds | Cross-reference deduction, knowledge-as-key progression |
+| Resident Evil / Silent Hill | Bait-and-punish traps, point of no return commitments, irreversible consequences |
+| Deus Ex / Dishonored / Prey | Emergent combinations, multi-path solutions with meaningful cost tradeoffs |
+| Hitman / Metal Gear / Thief | Trap setting, sound masking, environmental manipulation against AI opponents |
+| Telltale / Undertale | Moral forks, meaningful exclusive choices, multiple endings |
+| Baba Is You | Rule subversion — change the constraint instead of satisfying it |
+| Real escape rooms | Revelation tools (UV/blacklight), overlay puzzles, physical assembly, cross-reference clues |
 | CAPTIVE (original) | AI killer antagonist, noise as risk/reward mechanic, hiding under pressure, evidence awareness, phase-based escalation |
 
 ---
@@ -1208,59 +1217,393 @@ A valid scenario must satisfy all of these:
 
 ## Design Patterns
 
-Proven patterns for creating great scenarios. Follow these to produce scenarios that feel like the classics.
+27 proven patterns for creating great scenarios. Drawn from classic point-and-click adventures AND adapted from horror, immersive sims, puzzle games, stealth games, real escape rooms, and narrative games. Every pattern is representable in the existing schema — no code changes needed.
 
-### Pattern 1: The Gateway Puzzle
-The first puzzle should have no prerequisites. Let the player succeed immediately to build confidence.
+Organized into five categories: Structure, Item & Knowledge, Risk & Reward, Solution Design, and Story & Choice.
+
+---
+
+### Structure Patterns
+*How puzzles connect to each other.*
+
+#### Pattern 1: The Gateway Puzzle
+The first puzzle should have no prerequisites. Let the player succeed immediately to build confidence. Zero conditions in `when`, simple reward in `then`.
+
 > "Look at the radiator. There's a nail. Take the nail." — No items needed, no conditions, immediate reward.
 
-### Pattern 2: The Dependency Chain
-A → B → C → D. Each step unlocks the next. The backbone of every good escape room.
+#### Pattern 2: The Dependency Chain
+A → B → C → D. Each step unlocks the next. The backbone of every good escape room. Each interaction's `when` conditions gate on the previous step's output (a flag, an item, an object state).
+
 > Pry floorboard → find box → open box → get wire cutters → cut window mesh → escape.
 
-### Pattern 3: The Fork
-Two independent puzzle branches that converge. This prevents the player from getting stuck on a single bottleneck.
+#### Pattern 3: The Fork
+Two independent puzzle branches that converge. Prevents the player from getting stuck on a single bottleneck. The convergence point has `all_of` conditions requiring both branches.
+
 > Branch A: bookshelf → torn note A
 > Branch B: floorboard → box → torn note B
 > Converge: combine notes → safe code
 
-### Pattern 4: The Red Herring
-An item or approach that seems right but fails with a useful message. The failure teaches something.
-> Use scalpel on wire mesh → "The blade snaps. Too delicate for this." Player learns they need a heavier cutting tool.
+#### Pattern 4: The Progressive Reveal
+Each puzzle solved reveals more of the room or story, building momentum. Use `show_object` and `set_view` effects to open up the environment as the player progresses.
 
-### Pattern 5: The Dual-Purpose Item
-An item solves one puzzle AND carries a clue for another. Discovered through examination.
+> Move painting → see safe. Open safe → get scalpel. Use scalpel on mattress → find journal. Read journal → learn the truth.
+
+#### Pattern 5: The False Summit
+Player thinks they can escape, then discovers one more obstacle. Use `advance_phase` to shift the game's tone at the moment of false hope.
+
+> Cut the window mesh! Almost free! → Try to climb out → "The window frame is painted shut. You need something to pry it." → One more puzzle.
+
+---
+
+### Item & Knowledge Patterns
+*What the player works with — objects, inventory, and information.*
+
+#### Pattern 6: The Dual-Purpose Item
+An item solves one puzzle AND carries a clue for another. Discovered through examination. The item's `examine` interactions set flags that unlock conditions elsewhere.
+
 > Pick up key (to unlock a drawer). Examine key in inventory → "Stamped: 302." That number is the safe code.
 
-### Pattern 6: The Noise Tradeoff
-A loud solution vs. a quiet solution to the same puzzle. Risk vs. reward.
-> Loud: Smash the glass case (noise: 40, instant).
-> Quiet: Pick the lock with the nail (noise: 5, but requires the nail).
+#### Pattern 7: The Nested Secret
+*Inspired by: The Room series*
 
-### Pattern 7: The Evidence Gamble
-Solving a puzzle leaves visible evidence. The killer notices on the next visit and adapts.
+A single object or item unfolds through layers of examination. Each layer is a separate `look` or `hand` interaction gated by a flag from the previous discovery. One object tells an entire story through progressive revelation.
+
+> Examine the coat → find a pocket → reach inside → find a locket → open the locket → find a photograph → flip the photograph → read tiny text on the back.
+
+**Schema implementation:** Sequential interactions on one item, each with `when` conditions checking flags set by the previous step. Or use `transform_item` to create progressively revealed versions of the item.
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "flag_is", "flag": "locket_found", "value": "true" },
+           { "type": "flag_not", "flag": "locket_opened", "value": "true" }],
+  "then": [
+    { "type": "message", "text": "You pry the locket open. Inside: a tiny photograph." },
+    { "type": "set_flag", "flag": "locket_opened", "value": "true" }
+  ]
+}
+```
+
+#### Pattern 8: The Knowledge Gate
+*Inspired by: Myst, Outer Wilds*
+
+Nothing physical blocks progress — only knowing the answer. You read a date on a calendar. You hear a name whispered through a vent. You find numbers scratched under a drawer. The combination lock was always interactable. The player carries knowledge, not keys.
+
+This forces `look` and `talk` verbs to be as important as `use_item`. Clue interactions set flags purely for the player's benefit (showing messages). Puzzle widgets accept the solution directly without checking prerequisite flags — the gate is in the player's head.
+
+> Three separate objects each reveal one digit of a combination when examined. The combination lock accepts the code immediately — no "has_item" or "flag_is" gating the puzzle widget.
+
+#### Pattern 9: The Revelation Tool
+*Inspired by: Real escape rooms (UV/blacklight)*
+
+An item that when used on surfaces reveals hidden information. One item transforms the entire room into a second layer of puzzles. The player re-examines everything they've already seen. Doubles the interaction density of the whole scenario.
+
+Every object that has hidden content gets an additional `use_item` interaction requiring the tool, with messages and flags revealing the hidden layer.
+
+```json
+{
+  "verb": "use_item",
+  "item": "uv_flashlight",
+  "when": [{ "type": "object_state", "object": "poster", "state": "hanging" }],
+  "then": [
+    { "type": "message", "text": "Under the UV light, invisible ink glows on the poster: '7-4-1-9'" },
+    { "type": "set_flag", "flag": "found_uv_code", "value": "true" }
+  ]
+}
+```
+
+**Design tip:** Don't overuse this. 3-5 objects with hidden content is ideal. If everything has a UV secret, the tool becomes tedious instead of exciting.
+
+#### Pattern 10: The Cross-Reference Deduction
+*Inspired by: Return of the Obra Dinn*
+
+Three clues that individually mean nothing. The player synthesizes them mentally to derive the answer. No flag or condition connects them — the connection lives in the player's reasoning. This is the highest form of adventure game puzzle because it trusts the player's intelligence.
+
+> A torn note reads "the third one." A row of seven colored switches on a panel. A faded photograph shows a hand pointing at the third switch from the left. The player synthesizes: flip the third switch. The puzzle widget just accepts the right answer.
+
+**Schema implementation:** Clue objects have `look` interactions with descriptive messages. The puzzle widget (toggle_panel, combination_lock, keypad) has a fixed `solution`. No conditions connect the clues to the widget.
+
+---
+
+### Risk & Reward Patterns
+*Tension with the killer — noise, evidence, time pressure.*
+
+#### Pattern 11: The Noise Tradeoff
+A loud solution vs. a quiet solution to the same puzzle. Risk vs. reward. Two interactions on the same object, gated by different conditions, with different `noise` values.
+
+> Loud: Smash the glass case (noise: 40, instant, no items needed).
+> Quiet: Pick the lock with the nail (noise: 5, requires the nail).
+
+#### Pattern 12: The Evidence Gamble
+Solving a puzzle leaves visible evidence. The killer notices on the next visit and adapts. The puzzle's effects set flags that appear in the killer's `evidence_flags` list.
+
 > Open the safe → killer sees it on next visit → killer becomes more thorough.
 > Alternative: close the safe after taking the item (extra interaction, but hides evidence).
 
-### Pattern 8: The Distraction Window
-Intentionally trigger noise to create an opportunity.
-> Rattle the heating pipe (noise: 50) → killer comes to investigate → while they're upstairs, a timed event lets you access something that's normally guarded.
+**Design tip:** Give the player a way to hide evidence (close the safe, wipe fingerprints, move furniture back). This rewards careful play without punishing puzzle-solving.
 
-### Pattern 9: The Progressive Reveal
-Each puzzle solved reveals more of the room or story, building momentum.
-> Move painting → see safe. Open safe → get scalpel. Use scalpel on mattress → find journal. Read journal → learn the truth.
+#### Pattern 13: The Distraction Window
+Intentionally trigger noise to create an opportunity. A high-noise interaction lures the killer, and a timed event (`delay_then`) fires during the killer's investigation, granting temporary access to something.
 
-### Pattern 10: The False Summit
-Player thinks they can escape, then discovers one more obstacle. Creates dramatic tension.
-> Cut the window mesh! Almost free! → Try to climb out → "The window frame is painted shut. You need something to pry it." → One more puzzle.
+> Rattle the heating pipe (noise: 50) → killer comes to investigate → while they search, a `delay_then` event enables an interaction that's normally blocked by `killer_is: idle`.
 
-### Pattern 11: The Ticking Clock Decision
-Two time-sensitive things happen at once. Player must choose which to pursue.
+#### Pattern 14: The Ticking Clock Decision
+Two time-sensitive things happen at once. Player must choose which to pursue. Implemented with simultaneous events: one creating an opportunity (show_object, timed window) while another creates danger (killer approaching).
+
 > The killer is coming AND a timed event is happening. Do you hide (safe) or rush to grab the item that just appeared (risky)?
 
-### Pattern 12: The Myst Machine
-An environmental puzzle with multiple interacting controls.
-> A panel with 3 dials and a lever. Set the dials based on clues found elsewhere, pull the lever. Wrong settings = noise.
+#### Pattern 15: The Bait and Punish
+*Inspired by: Resident Evil, survival horror*
+
+Different from a Red Herring, which doesn't work. Bait and Punish **works** but costs dearly. The obvious solution is functional but punishing. The patient player who explores finds the better path.
+
+Two interactions on the same object: one with no gating condition but high noise/consequences, and another gated by a preparation flag that achieves the same result quietly.
+
+```json
+{
+  "verb": "take",
+  "when": [],
+  "then": [
+    { "type": "add_item", "item": "key" },
+    { "type": "add_noise", "amount": 45 },
+    { "type": "message", "text": "You grab the key — and an alarm blares!" },
+    { "type": "trigger_event", "event": "alarm_triggered" }
+  ],
+  "noise": 0
+},
+{
+  "verb": "take",
+  "when": [{ "type": "flag_is", "flag": "alarm_disabled", "value": "true" }],
+  "then": [
+    { "type": "add_item", "item": "key" },
+    { "type": "message", "text": "You take the key. Silence." }
+  ],
+  "noise": 2
+}
+```
+
+**Important:** Put the gated (quiet) interaction FIRST in the array so it matches before the ungated (loud) one. Interaction resolution takes the first match.
+
+#### Pattern 16: The Sound Masking
+*Inspired by: Hitman, Thief, stealth games*
+
+Environmental noise covers the player's actions temporarily. Turn on the radio, start the washing machine, open the window during a thunderstorm. While the masking is active, noisy actions cost less.
+
+Toggling a masking object sets a flag. Loud interactions have two entries: one gated by the masking flag with lower `add_noise`, one without. The masking device itself may add moderate noise when activated, and it may attract the killer's curiosity.
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "flag_is", "flag": "radio_playing", "value": "true" }],
+  "then": [
+    { "type": "message", "text": "You force the drawer open. The radio covers the sound." },
+    { "type": "set_state", "object": "drawer", "state": "open" }
+  ],
+  "noise": 8
+},
+{
+  "verb": "hand",
+  "when": [],
+  "then": [
+    { "type": "message", "text": "You force the drawer open with a crack that echoes through the room." },
+    { "type": "set_state", "object": "drawer", "state": "open" }
+  ],
+  "noise": 35
+}
+```
+
+**Design tip:** Sound masking should be temporary (use a `delay_then` to clear the flag) and imperfect (the masking object itself adds some noise or triggers killer curiosity). A permanent noise nullifier removes tension.
+
+#### Pattern 17: The Trap Setting
+*Inspired by: Hitman, Home Alone, stealth games*
+
+The player rigs the environment against the killer before a visit. `use_item` on environmental objects sets flags that the killer's `on_visit_effects` or `special_behaviors` check. When the killer arrives and triggers on-visit logic, the trap fires.
+
+> Balance a bucket on the door. Scatter broken glass on the stairs. Rig the light switch to short-circuit. The killer is delayed, disoriented, or forced to retreat.
+
+```json
+{
+  "verb": "use_item",
+  "item": "bucket_of_water",
+  "when": [{ "type": "object_state", "object": "door", "state": "closed" }],
+  "then": [
+    { "type": "remove_item", "item": "bucket_of_water" },
+    { "type": "set_flag", "flag": "door_trap_set", "value": "true" },
+    { "type": "message", "text": "You balance the bucket on top of the door. Crude, but effective." }
+  ],
+  "noise": 8
+}
+```
+
+Then in `killer.special_behaviors`:
+```json
+{
+  "id": "door_trap",
+  "trigger": { "type": "flag_is", "flag": "door_trap_set", "value": "true" },
+  "effect": "distracted",
+  "duration_seconds": 15,
+  "description": "The bucket crashes down. The killer stumbles, cursing.",
+  "on_trigger_effects": [
+    { "type": "set_flag", "flag": "door_trap_set", "value": "false" },
+    { "type": "message", "text": "CRASH! The bucket dumps water on the killer. You hear swearing and stumbling." }
+  ]
+}
+```
+
+---
+
+### Solution Design Patterns
+*How individual puzzles are structured and solved.*
+
+#### Pattern 18: The Red Herring
+An item or approach that seems right but fails with an informative message. The failure teaches the player something about what they actually need. A `use_item` interaction that doesn't solve the puzzle but gives a clue.
+
+> Use scalpel on wire mesh → "The blade snaps against the wire. Too delicate for this." Player learns they need a heavier cutting tool.
+
+#### Pattern 19: The Emergent Combination
+*Inspired by: Deus Ex, Dishonored, Prey (immersive sims)*
+
+Two individually simple mechanics combine for a solution the player feels like they discovered. Each item has an obvious intended use, but a clever player notices they can interact in an unexpected way that the scenario designer actually planned for.
+
+Multiple `use_item` entries on the same object, gated by different items. The "emergent" path is quieter, faster, or more elegant.
+
+> Oil can has an obvious use (lubricate a hinge). Lighter has an obvious use (read in a dark vent). But use oil can on the boarded window, then use lighter on the oiled boards — they burn away silently, creating an escape route the crowbar couldn't open.
+
+**Design tip:** Make both items have obvious "primary" uses so the combination feels discovered, not prescribed.
+
+#### Pattern 20: The Multi-Path Solution
+*Inspired by: Deus Ex, Dishonored, Prey (immersive sims)*
+
+Same locked cabinet. Path A: find the key (quiet, requires exploration). Path B: pry it open with the crowbar (loud, fast). Path C: dissolve the hinges with acid (medium noise, consumes the acid you might need later). Not just "alternate solutions" vaguely — a deliberate design where each path has meaningfully different costs.
+
+Multiple interaction entries on one object, each gated by different items, each with different `noise` values, `remove_item` effects, and downstream consequences.
+
+**Design tip:** At least one path should be achievable with items from the Gateway Puzzle, so no player is permanently stuck.
+
+#### Pattern 21: The Rule Subversion
+*Inspired by: Baba Is You*
+
+The player attacks the constraint itself instead of satisfying it. The sign says "Door opens at midnight" — the clever path isn't waiting for midnight but *changing the clock to read midnight*. The lock says "Requires 4-digit code" — the clever path is unscrewing the lock's housing.
+
+The constraining object (clock, lock housing, sign) has its own `hand` or `use_item` interactions that modify conditions other objects check.
+
+> A timed door mechanism reads the clock on the wall. The player manipulates the clock's state → the door's `object_state` condition is now met.
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "object_state", "object": "wall_clock", "state": "default" }],
+  "then": [
+    { "type": "set_state", "object": "wall_clock", "state": "midnight" },
+    { "type": "message", "text": "You spin the clock hands to midnight. Something clicks in the walls." }
+  ],
+  "noise": 5
+}
+```
+
+#### Pattern 22: The Myst Machine
+*Inspired by: Myst*
+
+An environmental puzzle with multiple interacting controls. A panel with dials, switches, and a lever. Set the controls based on clues found elsewhere, then activate. Wrong settings generate noise.
+
+Implemented as a combination of puzzle widgets (dials, toggle panels) with a master activation object that checks their states.
+
+> A ventilation control panel with 3 dials and a master switch. Each dial must match a number found elsewhere. Wrong combination = loud buzzer (noise: 20). Right combination = vent opens, revealing a hidden passage.
+
+#### Pattern 23: The Power Routing
+*Inspired by: Myst*
+
+The room has limited power. A fuse box with three slots and five devices. The computer needs power to display the code. The UV light needs power to reveal hidden writing. The ventilation fan needs power to clear smoke from a blocked view. You can't run them all.
+
+A toggle_panel puzzle widget or multi-state object represents the fuse box. Each configuration sets flags that device objects check. Different puzzles require different devices powered.
+
+```json
+{
+  "id": "fuse_box",
+  "widget_type": "toggle_panel",
+  "config": {
+    "num_switches": 5,
+    "labels": ["Computer", "UV Lamp", "Vent Fan", "Camera", "Radio"],
+    "max_active": 3,
+    "solution": null
+  },
+  "on_change": [
+    { "type": "conditional_effect",
+      "when": [{ "type": "flag_is", "flag": "fuse_computer", "value": "on" }],
+      "then": [{ "type": "set_state", "object": "computer", "state": "powered" }],
+      "else": [{ "type": "set_state", "object": "computer", "state": "dead" }]
+    }
+  ]
+}
+```
+
+**Note:** Power Routing uses toggle_panel without a single "solution" — the puzzle is figuring out which *combination* of powered devices you need at each stage of the escape.
+
+#### Pattern 24: The Perspective Alignment
+*Inspired by: The Witness*
+
+Scattered marks on a wall look random from the main room view. But from a specific closeup view (look through a keyhole, peer through a grate, stand at a window), they align into a readable symbol, number, or map.
+
+The marks exist as decorative objects in the main view (look → "Random scratches on the wall"). A specific view has a `look` interaction on an "aligned_marks" object that reveals the pattern and sets a flag.
+
+> Scratches visible in the main view. Switch to `keyhole_view` → look at `aligned_scratches` → "From this angle, the scratches form a clear number: 47." → `set_flag: keyhole_code = 47`.
+
+**Design tip:** This makes the views system a puzzle mechanic, not just navigation. The answer was always visible — the player just needed the right vantage point.
+
+---
+
+### Story & Choice Patterns
+*Narrative structure and meaningful decisions.*
+
+#### Pattern 25: The Moral Fork
+*Inspired by: Telltale, Undertale*
+
+A genuine branching choice with mutually exclusive outcomes. The choice interaction sets an exclusive flag. Downstream puzzles have entirely different interaction chains gated by which flag was set. Multiple `win_conditions` with different `flags_required` provide different endings.
+
+> You find another captive chained in the closet. Free them — they help with a puzzle but take a tool you need, forcing a harder path. Or leave them — you keep all your items but miss their knowledge, and the ending reflects your choice.
+
+**Design tip:** Both branches should lead to viable solutions. The fork is about *how* you escape and *who you are when you do*, not about one path being "correct."
+
+#### Pattern 26: The Accomplice
+*Inspired by: Adventure games, real escape rooms*
+
+An NPC the player can't see but can interact with through a barrier: a voice through the wall, a hand under the door, someone on a phone that crackles to life. `talk` exchanges information, `use_item` passes objects through gaps.
+
+An object represents the NPC/barrier. `talk` interactions give conditional dialogue based on trust/relationship flags. `use_item` passes items (`remove_item` + `set_flag` + `add_item` of what they return). Progressive trust unlocks better help.
+
+```json
+{
+  "verb": "talk",
+  "when": [{ "type": "flag_is", "flag": "ally_trust", "value": "high" }],
+  "then": [
+    { "type": "message", "text": "\"Listen — there's a loose brick behind the painting. That's where he hides the spare key.\"" },
+    { "type": "set_flag", "flag": "knows_brick_secret", "value": "true" }
+  ],
+  "noise": 5
+},
+{
+  "verb": "use_item",
+  "item": "water_bottle",
+  "when": [],
+  "then": [
+    { "type": "remove_item", "item": "water_bottle" },
+    { "type": "set_flag", "flag": "ally_trust", "value": "high" },
+    { "type": "message", "text": "You slide the water bottle under the door. \"Thank you... thank you. I'll tell you what I know.\"" }
+  ],
+  "noise": 3
+}
+```
+
+#### Pattern 27: The Point of No Return
+*Inspired by: Resident Evil, survival horror*
+
+An irreversible action the player knows is permanent and must commit to. The tension isn't the puzzle but the decision to commit. Rewards players who prepare (extract information before destroying the source).
+
+> Break the glass case to get the fire extinguisher — but cold air rushes in and a temperature timer starts. Burn the letter to create smoke that triggers sprinklers — but the letter had a code you might need. Pour acid on the lock — it dissolves, but so does the acid.
+
+**Schema implementation:** An interaction that `remove_item` consumes a key resource, `set_state` changes something permanently (no reverse interaction exists), or `advance_phase` shifts the game irreversibly. The "preparation" step is examining the source object first (`look` to memorize the code before burning the letter).
+
+**Design tip:** Always telegraph irreversibility. The `look` interaction should hint: "The acid would dissolve the lock... and everything else it touches." The player should feel informed, not ambushed.
 
 ---
 
