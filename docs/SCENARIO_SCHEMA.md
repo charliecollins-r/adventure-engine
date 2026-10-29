@@ -1217,9 +1217,11 @@ A valid scenario must satisfy all of these:
 
 ## Design Patterns
 
-27 proven patterns for creating great scenarios. Drawn from classic point-and-click adventures AND adapted from horror, immersive sims, puzzle games, stealth games, real escape rooms, and narrative games. Every pattern is representable in the existing schema — no code changes needed.
+30 proven patterns for creating great scenarios. Drawn from classic point-and-click adventures AND adapted from horror, immersive sims, puzzle games, stealth games, real escape rooms, and narrative games. Every pattern is representable in the existing schema — no code changes needed.
 
-Organized into five categories: Structure, Item & Knowledge, Risk & Reward, Solution Design, and Story & Choice.
+A typical scenario uses 8-12 patterns from the 30. That's **over 30 million unique pattern combinations** (C(30,10) = 30,045,015) before accounting for theme, narrative, items, and killer personality. The design space is effectively infinite.
+
+Organized into six categories: Structure, Item & Knowledge, Risk & Reward, Solution Design, Story & Choice, and Environment & Adaptation.
 
 ---
 
@@ -1604,6 +1606,92 @@ An irreversible action the player knows is permanent and must commit to. The ten
 **Schema implementation:** An interaction that `remove_item` consumes a key resource, `set_state` changes something permanently (no reverse interaction exists), or `advance_phase` shifts the game irreversibly. The "preparation" step is examining the source object first (`look` to memorize the code before burning the letter).
 
 **Design tip:** Always telegraph irreversibility. The `look` interaction should hint: "The acid would dissolve the lock... and everything else it touches." The player should feel informed, not ambushed.
+
+---
+
+### Environment & Adaptation Patterns
+*The room changes around you. The killer fights back.*
+
+#### Pattern 28: The Camouflage
+*CAPTIVE-unique*
+
+Actively hide evidence of your escape progress. After opening the safe, close it again. After cutting the wire mesh, hang a towel over the window. After prying up the floorboard, push the rug back over it. Extra interactions that produce zero puzzle progress but clear evidence flags so the killer doesn't escalate on the next visit.
+
+Speed-runners skip it and gamble. Cautious players spend the extra clicks and stay safer. This rewards methodical, careful play.
+
+*Schema: Additional `hand` interactions on solved objects that `set_state` to a "looks normal" variant and `set_flag` to clear flags from the killer's `evidence_flags` list.*
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "object_state", "object": "safe", "state": "open_empty" }],
+  "then": [
+    { "type": "set_state", "object": "safe", "state": "closed" },
+    { "type": "set_flag", "flag": "safe_opened", "value": "false" },
+    { "type": "message", "text": "You swing the safe door closed. From outside, it looks untouched." }
+  ],
+  "noise": 3
+}
+```
+
+**Design tip:** Not every puzzle should be concealable. Let the player choose which evidence to hide and which to gamble on. The strategic choice is the fun part.
+
+#### Pattern 29: The Echo
+*Inspired by: Myst, Day of the Tentacle*
+
+An action in one view produces an observable effect in another. Bang on the pipes in the main room → water pressure gauge changes in the bathroom closeup. Flip a breaker in the fuse box view → a device powers on in the main room. The player must explore multiple views to understand spatial cause-and-effect.
+
+Different from the Myst Machine (a single panel with co-located controls). The Echo is about understanding how physically separated spaces connect through hidden systems.
+
+*Schema: An interaction in one view's object sets flags or states on objects in another view. The player must `set_view` to observe results and map the connections.*
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "object_state", "object": "pipe_valve", "state": "closed" },
+           { "type": "view_is", "view": "main" }],
+  "then": [
+    { "type": "set_state", "object": "pipe_valve", "state": "open" },
+    { "type": "set_state", "object": "bathroom_faucet", "state": "running" },
+    { "type": "set_flag", "flag": "water_flowing", "value": "true" },
+    { "type": "message", "text": "You wrench the valve open. Water gurgles through the pipes behind the wall." }
+  ],
+  "noise": 12
+}
+```
+
+The player only sees the faucet running when they visit the bathroom view — and only then do they understand the connection.
+
+#### Pattern 30: The Decay Clock
+*CAPTIVE-unique*
+
+Puzzles get harder over time because the killer actively interferes via `on_visit_effects`. Early in the game, the window has thin wire mesh — one tool cuts it. But if the killer visits and notices, they board it up. Now you need a crowbar AND the wire cutters. Wait longer and the killer adds a padlock. Same escape route, three steps instead of one.
+
+This creates urgency without an explicit timer. The player who explores early and acts decisively faces easier puzzles. The player who hesitates faces the killer's escalating countermeasures.
+
+*Schema: `on_visit_effects` conditionally escalate obstacles. The same object has different interaction chains depending on which state the killer has pushed it to.*
+
+```json
+"on_visit_effects": [
+  {
+    "conditions": [{ "type": "object_state", "object": "window", "state": "cut" }],
+    "effects": [
+      { "type": "set_state", "object": "window", "state": "boarded" },
+      { "type": "message", "text": "You hear hammering. The killer is boarding up the window." }
+    ]
+  },
+  {
+    "conditions": [{ "type": "object_state", "object": "window", "state": "boarded" }],
+    "effects": [
+      { "type": "set_state", "object": "window", "state": "boarded_and_padlocked" },
+      { "type": "show_object", "object": "window_padlock" },
+      { "type": "message", "text": "Metal clicking. The killer has padlocked the boards over the window." }
+    ]
+  }
+]
+```
+
+**Design tip:** The hardest version of the puzzle should still be solvable — just require more steps or items. Never make a puzzle impossible through decay. The Decay Clock punishes delay, not failure.
 
 ---
 

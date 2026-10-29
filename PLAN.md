@@ -185,7 +185,7 @@ Noise isn't just risk — it's a tool:
 
 ### Design Patterns for AI Scenario Generation
 
-27 proven patterns for creating scenarios. Drawn from classic point-and-click adventures AND adapted from horror, immersive sims, puzzle games, stealth games, real escape rooms, and narrative games. All representable in the existing schema with no code changes.
+30 proven patterns for creating scenarios. Drawn from classic point-and-click adventures AND adapted from horror, immersive sims, puzzle games, stealth games, real escape rooms, and narrative games. All representable in the existing schema with no code changes. A typical scenario uses 8-12 patterns; C(30,10) = **30 million+ unique pattern combinations** before accounting for theme, narrative, and item variations.
 
 **Structure Patterns** (how puzzles connect)
 1. **The Gateway Puzzle** — First puzzle has no prerequisites. Builds confidence.
@@ -223,6 +223,11 @@ Noise isn't just risk — it's a tool:
 25. **The Moral Fork** *(Telltale, Undertale)* — Mutually exclusive choice leading to different endings.
 26. **The Accomplice** *(adventure games, escape rooms)* — NPC ally behind a barrier. Talk and trade through gaps.
 27. **The Point of No Return** *(survival horror)* — Irreversible action the player must commit to. Rewards preparation.
+
+**Environment & Adaptation Patterns** (the room fights back)
+28. **The Camouflage** *(CAPTIVE-unique)* — Hide evidence of progress so the killer doesn't escalate on visits.
+29. **The Echo** *(Myst, Day of the Tentacle)* — Action in one view produces observable effect in another. Spatial cause-and-effect.
+30. **The Decay Clock** *(CAPTIVE-unique)* — Puzzles get harder over time as the killer adds obstacles on visits. Early action = easier escape.
 
 ---
 
