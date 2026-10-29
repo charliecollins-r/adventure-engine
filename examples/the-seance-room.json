@@ -1,0 +1,2160 @@
+{
+  "schema_version": "1.0",
+
+  "metadata": {
+    "id": "the-seance-room",
+    "title": "The Séance Room",
+    "description": "You awaken seated at a round table draped in black velvet, wrists bound with silk cord. Candles gutter in the draft. Below, an elderly woman chants in a language you don't recognize. Madame Lenore Blackwood believes you are the vessel through which she will summon her dead daughter. The ritual begins at midnight. Find a way out before she finishes her preparations.",
+    "author": "ai-generated",
+    "difficulty": "hard",
+    "estimated_minutes": 12,
+    "tags": ["victorian", "occult", "seance", "spiritualism", "horror", "gothic"],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle",
+      "2-dependency-chain",
+      "3-fork",
+      "4-progressive-reveal",
+      "5-false-summit",
+      "6-dual-purpose-item",
+      "7-nested-secret",
+      "8-knowledge-gate",
+      "9-revelation-tool",
+      "10-cross-reference-deduction",
+      "11-noise-tradeoff",
+      "12-evidence-gamble",
+      "13-distraction-window",
+      "14-ticking-clock-decision",
+      "15-bait-and-punish",
+      "17-trap-setting",
+      "18-red-herring",
+      "19-emergent-combination",
+      "20-multi-path-solution",
+      "22-myst-machine",
+      "25-moral-fork",
+      "27-point-of-no-return",
+      "28-camouflage",
+      "30-decay-clock"
+    ]
+  },
+
+  "setting": {
+    "initial_view": "main",
+    "ambient_text": "Candlelight shudders against burgundy wallpaper. From below, a woman's voice rises and falls — an incantation, or a lullaby. The air smells of lavender and something older, something burnt.",
+    "room_style": {
+      "background_color": "#1a0a14",
+      "wall_color": "#2a1220",
+      "floor_color": "#12080e"
+    }
+  },
+
+  "views": [
+    {
+      "id": "main",
+      "background_key": "parlor_main",
+      "background_file": "backgrounds/parlor_main.png",
+      "objects": [
+        "parlor_door", "bay_window", "fireplace", "spirit_cabinet",
+        "bookshelf", "velvet_curtain", "grandfather_clock",
+        "chaise_lounge", "gas_lamp", "portrait_wall", "floor_rug"
+      ]
+    },
+    {
+      "id": "seance_table_closeup",
+      "background_key": "seance_table_closeup",
+      "background_file": "backgrounds/seance_table_closeup.png",
+      "objects": [
+        "seance_table", "planchette", "spirit_board", "candelabra",
+        "crystal_ball", "silk_binding", "table_pedestal"
+      ],
+      "back_label": "Step back from the table"
+    },
+    {
+      "id": "cabinet_closeup",
+      "background_key": "cabinet_closeup",
+      "background_file": "backgrounds/cabinet_closeup.png",
+      "objects": [
+        "cabinet_door", "cabinet_shelf_top", "cabinet_shelf_bottom",
+        "cabinet_mirror", "cabinet_mechanism", "hidden_bellows"
+      ],
+      "back_label": "Step back from the cabinet"
+    }
+  ],
+
+  "flags": {
+    "hands_free": "false",
+    "stood_up": "false",
+    "examined_board": "false",
+    "found_magnet_track": "false",
+    "knows_fraud": "false",
+    "found_bellows": "false",
+    "bellows_attached": "false",
+    "cabinet_open": "false",
+    "found_daughter_photo": "false",
+    "read_daughter_diary": "false",
+    "knows_daughter_name": "false",
+    "knows_cabinet_code": "false",
+    "mirror_moved": "false",
+    "passage_found": "false",
+    "curtain_opened": "false",
+    "window_unlatched": "false",
+    "window_opened": "false",
+    "clock_examined": "false",
+    "clock_secret_found": "false",
+    "candles_lit_correctly": "false",
+    "ritual_performed": "false",
+    "lenore_distracted": "false",
+    "lenore_satisfied": "false",
+    "gas_lamp_rigged": "false",
+    "lenore_blinded": "false",
+    "rug_moved": "false",
+    "trapdoor_found": "false",
+    "trapdoor_opened": "false",
+    "bookshelf_examined": "false",
+    "found_spirit_manual": "false",
+    "read_ritual_steps": "false",
+    "portrait_examined": "false",
+    "portrait_behind_found": "false",
+    "has_letter_opener": "false",
+    "crystal_ball_used": "false",
+    "fireplace_examined": "false",
+    "flue_opened": "false",
+    "chimney_reachable": "false",
+    "lenore_evidence_seen": "false",
+    "planchette_moved_by_magnet": "false",
+    "used_uv_on_board": "false"
+  },
+
+  "items": [
+    {
+      "id": "silk_cord",
+      "name": "Silk Cord",
+      "description": "A length of black silk used to bind your wrists. Surprisingly strong.",
+      "icon": "rope",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Fine black silk, knotted in a complex pattern. Lenore tied this with practiced hands. A small bead woven into the knot catches your eye — amber, with something trapped inside it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You untangle the cord fully. The amber bead falls free — there's a tiny portrait inside. A girl's face." },
+            { "type": "set_flag", "flag": "found_daughter_photo", "value": "true" },
+            { "type": "add_item", "item": "amber_bead" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amber_bead",
+      "name": "Amber Bead",
+      "description": "A bead of amber with a miniature portrait of a young girl sealed inside.",
+      "icon": "gem",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The girl looks about twelve. Dark hair, pale eyes, a slight smile. On the back of the miniature, barely visible through the amber: 'E.B. 1847-1859'. She died young." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "letter_opener",
+      "name": "Letter Opener",
+      "description": "A brass letter opener shaped like a serpent. The blade is dull but could pry things.",
+      "icon": "dagger",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Ornate brass, shaped like a serpent eating its own tail. The blade is dull — meant for paper, not flesh. But the tip is sharp enough to pry." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnifying_lens",
+      "name": "Magnifying Lens",
+      "description": "A brass-rimmed magnifying lens. Useful for reading small text — or focusing light.",
+      "icon": "lens",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Heavy brass rim, polished glass. The kind a collector uses. Hold it to candlelight and it could focus a beam." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daughter_diary",
+      "name": "Eleanor's Diary",
+      "description": "A child's diary, leather-bound. The name 'Eleanor' is embossed in gold on the cover.",
+      "icon": "book",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "read_daughter_diary", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A child's handwriting fills the pages. 'Mama says I have the gift. I see things in the cabinet mirror. The spirits talk when the candles are lit in the right order — rose, then lily, then violet, then rose again. Mama says to never tell.' The last entry: 'Mama is crying again. I told her I don't want to do séances anymore. She got very quiet.'" },
+            { "type": "set_flag", "flag": "read_daughter_diary", "value": "true" },
+            { "type": "set_flag", "flag": "knows_daughter_name", "value": "true" },
+            { "type": "set_flag", "flag": "read_ritual_steps", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "read_daughter_diary", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Eleanor Blackwood's diary. The candle order: rose, lily, violet, rose. The last entry is heartbreaking." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spirit_manual",
+      "name": "Spiritualist's Manual",
+      "description": "A worn book titled 'The Medium's Art: Techniques of Manifestation'. Full of tricks.",
+      "icon": "book",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "found_spirit_manual", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "This is a how-to guide for fraudulent mediums. Chapters on hidden bellows for cold drafts, magnetic planchette tracks, mirror tricks, phosphorescent paint, cabinet escape techniques. One page is dog-eared: 'The Spirit Cabinet — A false back panel, released by turning the mirror frame 90 degrees counter-clockwise, reveals a passage for the medium's assistant.' Another note in the margin: 'Cabinet combination is Eleanor's birth year reversed — 7481.'" },
+            { "type": "set_flag", "flag": "found_spirit_manual", "value": "true" },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" },
+            { "type": "set_flag", "flag": "knows_cabinet_code", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "found_spirit_manual", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The fraud manual. Cabinet combination: 7481. Mirror turns 90° counter-clockwise to reveal the passage. Bellows create cold drafts. Magnets move the planchette." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candle_snuffer",
+      "name": "Candle Snuffer",
+      "description": "A long brass candle snuffer. Could reach high things.",
+      "icon": "tool",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "About two feet long, brass, with a bell-shaped end. A useful reaching tool." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phosphor_powder",
+      "name": "Phosphorescent Powder",
+      "description": "A vial of powder that glows faintly green in darkness. A medium's trick.",
+      "icon": "vial",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Zinc sulfide compound. In darkness, it glows an eerie green. Used by fraudulent mediums to simulate ghostly apparitions. Under its glow, hidden writing becomes visible on treated surfaces." },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iron_key",
+      "name": "Ornate Iron Key",
+      "description": "A heavy iron key with a skull motif on the bow.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Heavy iron, old. The skull motif matches the ironwork on the parlor door. This is the room key." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clock_gear",
+      "name": "Clock Gear",
+      "description": "A small brass gear from the grandfather clock. Looks like it could fit into other mechanisms.",
+      "icon": "gear",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Precision brass, about the size of a shilling. The teeth are fine and evenly spaced. This came from the clock, but it could mesh with other Victorian-era mechanisms." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smelling_salts",
+      "name": "Smelling Salts",
+      "description": "A glass vial of ammonium carbonate. Burns the nostrils and clears the head.",
+      "icon": "vial",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Common enough in a Victorian parlor. The label reads 'Dr. Morrison's Restorative Salts.' The sharp ammonia smell would overwhelm anyone at close range." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bellows_handle",
+      "name": "Bellows Handle",
+      "description": "A detached wooden handle from the hidden bellows mechanism.",
+      "icon": "tool",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A carved wooden handle, broken from a bellows mechanism. The break is clean — could be reattached with the right fitting." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rigged_bellows",
+      "name": "Rigged Bellows Device",
+      "description": "The hidden bellows mechanism with its handle reattached. Pumps a blast of cold air.",
+      "icon": "tool",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A hand-operated bellows connected to a tube that runs under the floorboards. One pump sends a blast of frigid air through hidden vents in the séance table. The trick behind the 'spirits' cold touch.'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fireplace_poker",
+      "name": "Fireplace Poker",
+      "description": "A heavy iron poker. A formidable lever — or weapon.",
+      "icon": "tool",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Solid iron, about three feet long. Heavy enough to pry boards or break glass. The tip is hooked." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "combinations": [
+    {
+      "items": ["bellows_handle", "clock_gear"],
+      "result": "rigged_bellows",
+      "consumes": true,
+      "message": "You fit the brass gear into the bellows coupling and reattach the handle. It works — a full pump sends a blast of air through the hidden tube beneath the floor.",
+      "noise": 8,
+      "conditions": []
+    },
+    {
+      "items": ["magnifying_lens", "candle_snuffer"],
+      "result": "magnifying_lens",
+      "consumes": false,
+      "message": "You hold the lens at the end of the snuffer to reach the high cabinet mirror. In the focused candlelight, you see faint writing etched into the mirror's surface — 'Turn me to see beyond the veil.' The lens falls back into your hands.",
+      "noise": 3,
+      "conditions": [{ "type": "view_is", "view": "cabinet_closeup" }]
+    },
+    {
+      "items": ["phosphor_powder", "crystal_ball"],
+      "result": "phosphor_powder",
+      "consumes": false,
+      "message": "You dust the crystal ball with phosphorescent powder. In the dim light, hidden etchings glow green on its surface — a sequence of symbols: moon, star, sun, moon. The same symbols are on the spirit wheel.",
+      "noise": 2,
+      "conditions": []
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "parlor_door",
+      "name": "Parlor Door",
+      "description": "A heavy oak door with ornate ironwork. The skull motif matches something...",
+      "position": { "x": 120, "y": 384 },
+      "size": { "width": 80, "height": 300 },
+      "visual": { "color": "#3a2820", "label": "Door" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A heavy oak door, reinforced with iron bands. A skull motif adorns the lock plate. The keyhole is large — an old mortise lock. Through the door, you hear chanting below." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "unlocked" }],
+          "then": [
+            { "type": "message", "text": "The door is unlocked. Beyond it, a dark landing and stairs leading down — straight into Lenore's domain." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Locked solid. The iron bands don't budge. You'd need the key — or a way to pick this old lock." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You press your ear to the wood. Below, Lenore's chanting grows louder, then fades. She's moving between rooms. The ritual is progressing." }
+          ],
+          "noise": 0
+        },
+        {
+          "verb": "use_item",
+          "item": "iron_key",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "parlor_door", "state": "unlocked" },
+            { "type": "message", "text": "The skull key slides into the skull lock. A perfect match. The bolt draws back with a heavy clunk." }
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "use_item",
+          "item": "letter_opener",
+          "when": [{ "type": "object_state", "object": "parlor_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The letter opener is too thick for the keyhole. This lock needs its proper key." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "parlor_door", "state": "unlocked" },
+            { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "game_over", "result": "win", "reason": "You ease the door open and slip down the darkened stairs. Lenore's voice drifts from the back room, lost in her ritual. You pass through the kitchen, unlock the garden door, and run barefoot into the cold night. Behind you, the chanting continues. She won't know you're gone until midnight strikes and the vessel is empty." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "parlor_door", "state": "unlocked" },
+            { "type": "flag_not", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You crack the door and hear Lenore directly below — she'd see you on the stairs. You need to distract her first, or find another way out." }
+          ],
+          "noise": 6
+        }
+      ]
+    },
+    {
+      "id": "bay_window",
+      "name": "Bay Window",
+      "description": "A large bay window with heavy drapes, overlooking a garden two stories below.",
+      "position": { "x": 780, "y": 280 },
+      "size": { "width": 150, "height": 200 },
+      "visual": { "color": "#0a1520", "label": "Window" },
+      "initial_state": "latched",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "latched" }],
+          "then": [
+            { "type": "message", "text": "A wide bay window, three panes. Iron latches hold each shut. Through the glass: a walled garden, moonlit hedgerows, and beyond the wall, a road. Two stories down. The drainpipe runs along the left side." },
+            { "type": "set_flag", "flag": "curtain_opened", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "unlatched" }],
+          "then": [
+            { "type": "message", "text": "The center pane is unlatched. Cold air seeps in. The drainpipe is just to the left — old iron, but it looks solid enough." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "latched" }],
+          "then": [
+            { "type": "message", "text": "The latch is rusted shut. You'd need a tool to pry it." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "letter_opener",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "latched" }],
+          "then": [
+            { "type": "set_state", "object": "bay_window", "state": "unlatched" },
+            { "type": "set_flag", "flag": "window_unlatched", "value": "true" },
+            { "type": "message", "text": "You work the letter opener under the latch. Rust flakes fall. With a crack, it pops free." }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "use_item",
+          "item": "fireplace_poker",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "latched" }],
+          "then": [
+            { "type": "set_state", "object": "bay_window", "state": "unlatched" },
+            { "type": "set_flag", "flag": "window_unlatched", "value": "true" },
+            { "type": "message", "text": "The poker's hooked tip catches the latch. One sharp wrench and it snaps open. Glass rattles in the frame." }
+          ],
+          "noise": 30
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "unlatched" }],
+          "then": [
+            { "type": "set_state", "object": "bay_window", "state": "open" },
+            { "type": "set_flag", "flag": "window_opened", "value": "true" },
+            { "type": "message", "text": "The pane swings outward. Cold night air floods in, guttering the candles. The drainpipe is within reach." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "bay_window", "state": "open" }],
+          "then": [
+            { "type": "game_over", "result": "win", "reason": "You climb onto the sill and grab the drainpipe. The iron is cold and slick with condensation. Hand over hand, you descend. Your feet hit the garden path. You scramble over the wall and run. Behind you, the séance room window glows with candlelight, and Lenore's voice calls to her daughter across a distance no medium can bridge." }
+          ],
+          "noise": 20
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "\"HELP! SOMEONE!\" Your voice echoes into the garden. The road is empty. The nearest house is dark." }
+          ],
+          "noise": 45
+        }
+      ]
+    },
+    {
+      "id": "fireplace",
+      "name": "Fireplace",
+      "description": "A marble fireplace with cold ashes. The flue is above.",
+      "position": { "x": 500, "y": 420 },
+      "size": { "width": 140, "height": 180 },
+      "visual": { "color": "#2a2228", "label": "Fireplace" },
+      "initial_state": "cold",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "fireplace_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "An ornate marble mantelpiece. Cold ashes fill the grate. Above, the flue is closed — a lever controls it. On the mantle: a brass candle snuffer and a vial of smelling salts. The chimney itself looks wide enough to climb." },
+            { "type": "set_flag", "flag": "fireplace_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "fireplace_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Cold marble fireplace. The flue lever is on the left side. The chimney might be climbable if the flue is open." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "fireplace", "state": "cold" },
+            { "type": "flag_not", "flag": "flue_opened", "value": "true" }
+          ],
+          "then": [
+            { "type": "set_flag", "flag": "flue_opened", "value": "true" },
+            { "type": "set_state", "object": "fireplace", "state": "flue_open" },
+            { "type": "message", "text": "You pull the flue lever. The damper grinds open. A rush of cold air from above — and soot rains down on you. Looking up, you see moonlight at the top. But the chimney is too narrow to climb without clearing the grate first." }
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "use_item",
+          "item": "fireplace_poker",
+          "when": [{ "type": "object_state", "object": "fireplace", "state": "flue_open" }],
+          "then": [
+            { "type": "set_state", "object": "fireplace", "state": "cleared" },
+            { "type": "set_flag", "flag": "chimney_reachable", "value": "true" },
+            { "type": "message", "text": "You rake out the ash and grate with the poker. The opening is tight but passable. Sooty handholds lead up into darkness, with a disc of moonlit sky at the top." }
+          ],
+          "noise": 25
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "fireplace", "state": "cleared" }],
+          "then": [
+            { "type": "game_over", "result": "win", "reason": "You squeeze into the chimney and climb. Soot coats your hands, your face, your lungs. The brickwork is old enough to offer handholds. Twenty feet of darkness, then cold wind, then stars. You pull yourself onto the slate roof. The city spreads below — gaslights and fog. You scramble down the back of the roof, drop to a lower gable, and slide to the ground. Free. Covered in soot, shaking, but free." }
+          ],
+          "noise": 30
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "fireplace", "state": "cold" }],
+          "then": [
+            { "type": "message", "text": "You reach into the cold ashes. Nothing but soot and cinders. The flue above is closed." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "candle_snuffer" }],
+          "then": [
+            { "type": "add_item", "item": "candle_snuffer" },
+            { "type": "message", "text": "You take the brass candle snuffer from the mantle." }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "not_has_item", "item": "smelling_salts" },
+            { "type": "has_item", "item": "candle_snuffer" }
+          ],
+          "then": [
+            { "type": "add_item", "item": "smelling_salts" },
+            { "type": "message", "text": "You pocket the vial of smelling salts from the mantle." }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "smelling_salts" }],
+          "then": [
+            { "type": "add_item", "item": "smelling_salts" },
+            { "type": "message", "text": "You pocket the vial of smelling salts." }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "fireplace_poker" }],
+          "then": [
+            { "type": "add_item", "item": "fireplace_poker" },
+            { "type": "message", "text": "You take the iron poker from beside the grate. It's heavy and reassuring." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "spirit_cabinet",
+      "name": "Spirit Cabinet",
+      "description": "A tall wooden cabinet used in séances. 'The spirits speak from within.'",
+      "position": { "x": 320, "y": 350 },
+      "size": { "width": 100, "height": 220 },
+      "visual": { "color": "#2a1a18", "label": "Spirit Cabinet" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "spirit_cabinet", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A tall mahogany cabinet, about six feet high. Ornate carvings of vines and faces adorn the doors. A brass combination lock secures the double doors. This is the 'spirit cabinet' — where the medium enters to commune with the dead. Or so the audience is told." },
+            { "type": "set_view", "view": "cabinet_closeup" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "spirit_cabinet", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The cabinet stands open. Inside, a mirror, shelves, and the hidden mechanisms of a fraud." },
+            { "type": "set_view", "view": "cabinet_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "spirit_cabinet", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "The doors won't budge. The combination lock holds fast." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "spirit_cabinet", "state": "open" }],
+          "then": [
+            { "type": "set_view", "view": "cabinet_closeup" },
+            { "type": "message", "text": "You step closer to examine the cabinet's contents." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bookshelf",
+      "name": "Bookshelf",
+      "description": "Floor-to-ceiling shelves crammed with books on spiritualism, death, and the occult.",
+      "position": { "x": 200, "y": 350 },
+      "size": { "width": 90, "height": 250 },
+      "visual": { "color": "#1a1210", "label": "Bookshelf" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "bookshelf_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Dozens of books: 'Manifestations of the Spirit World', 'Beyond the Veil', 'A Medium's Life'. One spine is newer and less dusty than the others — 'The Medium's Art: Techniques of Manifestation'. That's not a believer's book. That's an instruction manual." },
+            { "type": "set_flag", "flag": "bookshelf_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "bookshelf_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Spiritualism books. The practical manual stands out among the true-believer texts." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "not_has_item", "item": "spirit_manual" },
+            { "type": "flag_is", "flag": "bookshelf_examined", "value": "true" }
+          ],
+          "then": [
+            { "type": "add_item", "item": "spirit_manual" },
+            { "type": "message", "text": "You slide 'The Medium's Art' from the shelf. It falls open to a dog-eared page about spirit cabinet techniques." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "spirit_manual" }],
+          "then": [
+            { "type": "message", "text": "You scan the spines. Most are about spiritualism. Nothing immediately useful — but one looks different than the rest." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You push at the shelves, testing for hidden compartments. Nothing moves. These are just books." }
+          ],
+          "noise": 8
+        }
+      ]
+    },
+    {
+      "id": "velvet_curtain",
+      "name": "Velvet Curtain",
+      "description": "A heavy burgundy curtain across the alcove beside the bookshelf.",
+      "position": { "x": 280, "y": 180 },
+      "size": { "width": 60, "height": 200 },
+      "visual": { "color": "#4a1020", "label": "Curtain" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "velvet_curtain", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A heavy burgundy curtain conceals an alcove. Something stands behind it — you can see the outline of a shape." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "velvet_curtain", "state": "closed" }],
+          "then": [
+            { "type": "set_state", "object": "velvet_curtain", "state": "open" },
+            { "type": "set_flag", "flag": "curtain_opened", "value": "true" },
+            { "type": "show_object", "object": "portrait_wall" },
+            { "type": "message", "text": "You draw the curtain aside. Behind it: a shrine. A large portrait of a young girl in a white dress, surrounded by dried flowers, ribbons, and small dolls. Candles have been lit here many times — wax has pooled on the shelf below. The girl in the portrait looks familiar." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "velvet_curtain", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The curtain is drawn back, revealing the memorial shrine behind it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grandfather_clock",
+      "name": "Grandfather Clock",
+      "description": "A tall case clock. The pendulum swings silently.",
+      "position": { "x": 650, "y": 350 },
+      "size": { "width": 60, "height": 250 },
+      "visual": { "color": "#2a1a10", "label": "Clock" },
+      "initial_state": "running",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "clock_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "An imposing grandfather clock. The face reads quarter to midnight. The pendulum swings behind beveled glass. On the clock face, the number 12 is replaced with a small crescent moon symbol. The hands will reach it soon." },
+            { "type": "set_flag", "flag": "clock_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "clock_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The clock ticks toward midnight. The moon symbol at 12 catches the candlelight." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_not", "flag": "clock_secret_found", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You open the clock case. Behind the pendulum, wedged against the back panel, you find a small brass gear that's come loose from the mechanism — and beneath it, a child's leather diary, hidden away." },
+            { "type": "set_flag", "flag": "clock_secret_found", "value": "true" },
+            { "type": "add_item", "item": "clock_gear" },
+            { "type": "add_item", "item": "daughter_diary" }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "clock_secret_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The clock case is open. Nothing else hidden inside but the pendulum mechanism." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chaise_lounge",
+      "name": "Chaise Lounge",
+      "description": "A fainting couch with faded red upholstery.",
+      "position": { "x": 700, "y": 520 },
+      "size": { "width": 130, "height": 60 },
+      "visual": { "color": "#3a1020", "label": "Chaise" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A Victorian fainting couch. The upholstery is faded but intact. Low enough to hide behind if you press flat against the floor." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You check beneath the cushions. A letter opener has slipped between the cushion and the frame." },
+            { "type": "conditional_effect",
+              "when": [{ "type": "not_has_item", "item": "letter_opener" }],
+              "then": [
+                { "type": "add_item", "item": "letter_opener" },
+                { "type": "set_flag", "flag": "has_letter_opener", "value": "true" },
+                { "type": "message", "text": "You pull out a brass letter opener shaped like a serpent." }
+              ],
+              "else": [
+                { "type": "message", "text": "Nothing else hidden in the cushions." }
+              ]
+            }
+          ],
+          "noise": 4
+        }
+      ]
+    },
+    {
+      "id": "gas_lamp",
+      "name": "Gas Lamp",
+      "description": "A wall-mounted gas lamp with a brass valve.",
+      "position": { "x": 420, "y": 180 },
+      "size": { "width": 40, "height": 60 },
+      "visual": { "color": "#8a6a20", "label": "Gas Lamp" },
+      "initial_state": "lit",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A brass gas lamp, burning low. The valve is accessible. Gas lamps can be turned up to a blinding flare — or turned off entirely." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "gas_lamp", "state": "lit" },
+            { "type": "flag_not", "flag": "gas_lamp_rigged", "value": "true" }
+          ],
+          "then": [
+            { "type": "set_state", "object": "gas_lamp", "state": "rigged" },
+            { "type": "set_flag", "flag": "gas_lamp_rigged", "value": "true" },
+            { "type": "message", "text": "You crank the gas valve wide open but pinch the burner nearly shut. The lamp dims to almost nothing — but gas is building in the fixture. The next person to turn it up will get a blinding flare." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "gas_lamp", "state": "rigged" }
+          ],
+          "then": [
+            { "type": "message", "text": "The lamp is rigged. Don't touch it — let Lenore find it dim and turn it up herself." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portrait_wall",
+      "name": "Memorial Portrait",
+      "description": "A portrait of a young girl surrounded by a shrine of dried flowers and candles.",
+      "position": { "x": 280, "y": 180 },
+      "size": { "width": 70, "height": 90 },
+      "visual": { "color": "#3a2a20", "label": "Portrait" },
+      "initial_state": "default",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "portrait_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Eleanor Blackwood, age twelve. Dark hair, pale eyes. The portrait was painted from life — the brush strokes are intimate, loving. Dried flowers frame it: rose, lily, and violet. A brass plaque reads: 'Eleanor Rose Blackwood, 1847-1859. My light, my love, my lost one.' Behind the portrait, something catches the candlelight — the edge of a frame." },
+            { "type": "set_flag", "flag": "portrait_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "portrait_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Eleanor's portrait. The flowers around it are rose, lily, and violet — the same order mentioned in the diary. There's something behind the frame." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "portrait_examined", "value": "true" },
+            { "type": "flag_not", "flag": "portrait_behind_found", "value": "true" }
+          ],
+          "then": [
+            { "type": "set_flag", "flag": "portrait_behind_found", "value": "true" },
+            { "type": "message", "text": "You carefully lift the portrait. Behind it, mounted in a small recess: a magnifying lens in a brass holder, and a vial of pale powder. Tools of the trade — a medium's kit for 'reading' messages from the spirits." },
+            { "type": "add_item", "item": "magnifying_lens" },
+            { "type": "add_item", "item": "phosphor_powder" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "portrait_behind_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The recess behind the portrait is empty now." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_is", "flag": "knows_daughter_name", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "\"Eleanor...\" you whisper. The candles around the shrine flicker — just a draft, surely. But for a moment, the painted eyes seem to look directly at you." }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You stare at the portrait. A child's face, preserved in paint. Whatever happened to her, it broke Lenore beyond repair." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "floor_rug",
+      "name": "Persian Rug",
+      "description": "A large Persian rug covering most of the parlor floor.",
+      "position": { "x": 512, "y": 600 },
+      "size": { "width": 300, "height": 100 },
+      "visual": { "color": "#3a1020", "label": "Rug" },
+      "initial_state": "flat",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "floor_rug", "state": "flat" }],
+          "then": [
+            { "type": "message", "text": "A large Persian rug, deep red with gold borders. One corner is slightly curled. It covers most of the floor between the séance table and the fireplace." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "floor_rug", "state": "flat" }
+          ],
+          "then": [
+            { "type": "set_state", "object": "floor_rug", "state": "moved" },
+            { "type": "set_flag", "flag": "rug_moved", "value": "true" },
+            { "type": "set_flag", "flag": "trapdoor_found", "value": "true" },
+            { "type": "message", "text": "You haul the heavy rug aside. Beneath it: a trapdoor with an iron ring. This must be how Lenore's assistant would enter the room during séances — through the floor." }
+          ],
+          "noise": 18
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "floor_rug", "state": "moved" }],
+          "then": [
+            { "type": "message", "text": "The rug is bunched against the wall. The trapdoor is exposed in the floorboards." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "floor_rug", "state": "moved" },
+            { "type": "flag_not", "flag": "trapdoor_opened", "value": "true" }
+          ],
+          "then": [
+            { "type": "set_flag", "flag": "trapdoor_opened", "value": "true" },
+            { "type": "message", "text": "You pull the iron ring. The trapdoor swings up, revealing a narrow ladder descending into darkness. You can hear Lenore chanting somewhere below — close. This leads right into her space. Only useful if she's distracted." }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "trapdoor_opened", "value": "true" },
+            { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "game_over", "result": "win", "reason": "You lower yourself through the trapdoor. The ladder descends into a cramped passage between the walls — the medium's secret corridor. You can hear Lenore in the next room, absorbed in her preparations. You creep past, find the back door, and slip into the night garden. The last thing you hear is her voice, calling Eleanor's name into the empty room above." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "trapdoor_opened", "value": "true" },
+            { "type": "flag_not", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You lean over the opening. Lenore is right below — you can see the glow of her candles through a crack in the wall. She'd catch you in seconds. You need her distracted first." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seance_table",
+      "name": "Séance Table",
+      "description": "A round table draped in black velvet, set for communion with the dead.",
+      "position": { "x": 512, "y": 400 },
+      "size": { "width": 160, "height": 100 },
+      "visual": { "color": "#0a0a12", "label": "Séance Table" },
+      "initial_state": "set",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "view_is", "view": "seance_table_closeup" }],
+          "then": [
+            { "type": "message", "text": "Up close, the table is a work of art — and deception. The black velvet conceals a complex surface. The spirit board, planchette, candelabra, and crystal ball are all positioned with precision. This is Lenore's altar." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A round séance table, draped in black velvet. On its surface: a spirit board, a planchette, a crystal ball, and a five-armed candelabra. Your chair faces it. This is where the ritual will happen." },
+            { "type": "set_view", "view": "seance_table_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You run your hands along the table's edge. The underside has a groove — a track for something to slide along. Interesting." },
+            { "type": "set_flag", "flag": "found_magnet_track", "value": "true" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "planchette",
+      "name": "Planchette",
+      "description": "A heart-shaped wooden pointer used on the spirit board.",
+      "position": { "x": 480, "y": 380 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#3a2a18", "label": "Planchette" },
+      "initial_state": "resting",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A heart-shaped piece of polished wood on three small legs. A window in its center shows which letter it points to. It sits on the spirit board, waiting for ghostly fingers to guide it." },
+            { "type": "set_flag", "flag": "examined_board", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "found_magnet_track", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You lift the planchette. A small magnet is embedded in its base. Combined with the track under the table, someone below could 'guide' the planchette using a matching magnet underneath. The spirits don't move it — Lenore's assistant does." },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The planchette is surprisingly heavy for its size. The wood is warm to the touch — or is that your imagination?" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spirit_board",
+      "name": "Spirit Board",
+      "description": "A polished wooden board inscribed with letters, numbers, and occult symbols.",
+      "position": { "x": 512, "y": 400 },
+      "size": { "width": 120, "height": 80 },
+      "visual": { "color": "#1a1208", "label": "Spirit Board" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "used_uv_on_board", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The alphabet in an arc, numbers 0-9 below, 'YES' and 'NO' in the corners, 'GOODBYE' at the bottom. Between the letters, small occult symbols are painted: moons, stars, suns. The varnish looks uneven in places — as if something was painted over." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "used_uv_on_board", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Under the phosphorescent glow, the hidden message is clear: 'ELEANOR SAYS: TURN THE MIRROR. THE WAY OUT IS BEHIND THE GLASS.'" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "phosphor_powder",
+          "when": [{ "type": "flag_not", "flag": "used_uv_on_board", "value": "true" }],
+          "then": [
+            { "type": "set_flag", "flag": "used_uv_on_board", "value": "true" },
+            { "type": "message", "text": "You sprinkle phosphorescent powder across the board and shade the candles. In the dim glow, hidden text blazes green between the letters: 'ELEANOR SAYS: TURN THE MIRROR. THE WAY OUT IS BEHIND THE GLASS.' A message from beyond — or more likely, from Lenore's assistant to their confederate." },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The board is fixed to the table. You can feel grooves beneath the surface — channels for something to slide through." },
+            { "type": "set_flag", "flag": "found_magnet_track", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "knows_daughter_name", "value": "true" },
+            { "type": "flag_is", "flag": "candles_lit_correctly", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "\"Eleanor, are you there?\" you whisper over the board. The candles flicker in unison. The planchette trembles — not magnets this time, but a draft from the open flue, or... something else. It slides slowly to 'YES'. Then spells: F-R-E-E H-E-R. Free her." },
+            { "type": "set_flag", "flag": "ritual_performed", "value": "true" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "random_message", "messages": [
+              "\"Is anyone there?\" Silence. The planchette doesn't move.",
+              "You rest your fingers on the planchette and wait. Nothing happens.",
+              "\"Speak to me.\" The candles gutter, but that's just a draft."
+            ]}
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "candelabra",
+      "name": "Five-Armed Candelabra",
+      "description": "A brass candelabra with five colored candles: rose, lily, violet, white, and black.",
+      "position": { "x": 550, "y": 370 },
+      "size": { "width": 60, "height": 70 },
+      "visual": { "color": "#8a7a20", "label": "Candelabra" },
+      "initial_state": "unlit",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A five-armed brass candelabra. Each arm holds a different colored candle — rose-pink, lily-white, violet-purple, plain white, and black. None are lit. Small symbols are etched beneath each holder: a rose, a lily, a violet, a moon, and a skull. This isn't just decorative — it's a ritual instrument." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "candles_lit_correctly", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You could light the candles — but in which order? The symbols suggest a sequence matters. Lighting them wrong might alert Lenore." }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "\"Rose, lily, violet...\" You study the candles. If Eleanor's diary is right about the order, maybe lighting them correctly means something." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crystal_ball",
+      "name": "Crystal Ball",
+      "description": "A large crystal ball on a brass stand, cloudy with age.",
+      "position": { "x": 530, "y": 420 },
+      "size": { "width": 45, "height": 45 },
+      "visual": { "color": "#4a5a6a", "label": "Crystal Ball" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "crystal_ball_used", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A large quartz sphere, slightly cloudy. The candlelight creates shifting patterns inside it. Up close, you can see faint etchings on the surface — invisible at a distance, perhaps visible with magnification or the right light." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "crystal_ball_used", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The crystal ball, its hidden etchings now revealed by the phosphorescent powder: moon, star, sun, moon — the spirit wheel sequence." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "magnifying_lens",
+          "when": [{ "type": "flag_not", "flag": "crystal_ball_used", "value": "true" }],
+          "then": [
+            { "type": "set_flag", "flag": "crystal_ball_used", "value": "true" },
+            { "type": "message", "text": "Through the magnifying lens, the etchings sharpen: four symbols in a ring — moon, star, sun, moon. The same symbols are on the spirit wheel in the cabinet. This is a clue for the wheel's correct setting." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The ball is heavy and cool to the touch. It's fixed to its brass stand — you can rotate it, but not take it." }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "silk_binding",
+      "name": "Silk Binding",
+      "description": "The black silk cord tied around your wrists.",
+      "position": { "x": 512, "y": 450 },
+      "size": { "width": 40, "height": 30 },
+      "visual": { "color": "#0a0a0a", "label": "Binding" },
+      "initial_state": "bound",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "silk_binding", "state": "bound" }],
+          "then": [
+            { "type": "message", "text": "Black silk cord wound around your wrists in an elaborate knot. It's tight but not painful — Lenore doesn't want to hurt you, just keep you still. The knot looks complex, but there might be a trick to it. An amber bead is woven into the binding." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "silk_binding", "state": "bound" }
+          ],
+          "then": [
+            { "type": "set_state", "object": "silk_binding", "state": "free" },
+            { "type": "set_flag", "flag": "hands_free", "value": "true" },
+            { "type": "set_flag", "flag": "stood_up", "value": "true" },
+            { "type": "add_item", "item": "silk_cord" },
+            { "type": "message", "text": "You work at the knot, pulling the loose end Lenore left. It's a stage knot — designed to look complex but release with one tug. Another trick of the trade. The silk falls away and you stand, rubbing your wrists. You're free to move." },
+            { "type": "advance_phase", "phase": "the_ritual" }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "silk_binding", "state": "free" }],
+          "then": [
+            { "type": "message", "text": "The binding lies coiled on the chair. You're free." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "table_pedestal",
+      "name": "Table Pedestal",
+      "description": "The ornate central column supporting the séance table.",
+      "position": { "x": 512, "y": 470 },
+      "size": { "width": 50, "height": 60 },
+      "visual": { "color": "#1a1208", "label": "Pedestal" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The central column is carved with intertwining serpents. At the base, a small panel is barely visible — a maintenance hatch for the table's hidden mechanisms." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "hands_free", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You pry open the small panel. Inside: a bellows handle, detached from its mechanism. This must be part of the cold-air trick — pump the bellows and 'spirits' chill the room." },
+            { "type": "add_item", "item": "bellows_handle" },
+            { "type": "set_flag", "flag": "found_bellows", "value": "true" }
+          ],
+          "noise": 6
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "hands_free", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Your hands are bound. You can't reach the pedestal properly." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cabinet_door",
+      "name": "Cabinet Doors",
+      "description": "The double doors of the spirit cabinet, secured by a combination lock.",
+      "position": { "x": 512, "y": 400 },
+      "size": { "width": 120, "height": 200 },
+      "visual": { "color": "#2a1a14", "label": "Cabinet Doors" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cabinet_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "Heavy mahogany doors carved with vines and faces. A four-dial brass combination lock secures them. The brass is worn from years of use." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cabinet_door", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The cabinet doors stand open, revealing the shelves, mirror, and hidden mechanisms within." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cabinet_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The combination lock holds the doors shut. You need the right four numbers." }
+          ],
+          "noise": 4
+        },
+        {
+          "verb": "use_item",
+          "item": "fireplace_poker",
+          "when": [{ "type": "object_state", "object": "cabinet_door", "state": "locked" }],
+          "then": [
+            { "type": "set_state", "object": "cabinet_door", "state": "open" },
+            { "type": "set_flag", "flag": "cabinet_open", "value": "true" },
+            { "type": "message", "text": "You wedge the poker into the gap between the doors and heave. The lock holds — but the old wood doesn't. The frame splinters and the doors swing open." }
+          ],
+          "noise": 35
+        }
+      ]
+    },
+    {
+      "id": "cabinet_shelf_top",
+      "name": "Upper Shelf",
+      "description": "The top shelf of the spirit cabinet.",
+      "position": { "x": 512, "y": 300 },
+      "size": { "width": 100, "height": 50 },
+      "visual": { "color": "#2a1a14", "label": "Upper Shelf" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The upper shelf holds a collection of objects for the séance act: a tambourine, a speaking trumpet, a slate and chalk, and a small music box. These are the 'spirit manifestations' — props for the fraud." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is closed. You can't see the shelves." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You handle the objects — props, all of them. The speaking trumpet is hollow and could amplify or throw your voice. The slate has a hidden second layer for pre-written 'messages from beyond.'" },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cabinet_shelf_bottom",
+      "name": "Lower Shelf",
+      "description": "The bottom shelf of the spirit cabinet.",
+      "position": { "x": 512, "y": 450 },
+      "size": { "width": 100, "height": 50 },
+      "visual": { "color": "#2a1a14", "label": "Lower Shelf" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The lower shelf holds heavier items: a bellows mechanism (missing its handle), coils of wire, and a small box of magnets. The bellows connects to a tube that disappears into the floor — the cold-air system." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "cabinet_open", "value": "true" },
+            { "type": "flag_not", "flag": "bellows_attached", "value": "true" },
+            { "type": "has_item", "item": "rigged_bellows" }
+          ],
+          "then": [
+            { "type": "set_flag", "flag": "bellows_attached", "value": "true" },
+            { "type": "remove_item", "item": "rigged_bellows" },
+            { "type": "message", "text": "You connect the repaired bellows to the tube in the floor. One pump sends a blast of ice-cold air through the hidden vents under the séance table. Convincing — if you pump this during a 'séance', Lenore would feel the chill of the spirits she's been faking for years." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Wires, magnets, bellows parts. A fraudster's toolkit. The bellows mechanism is disconnected — it's missing its handle and a coupling gear." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cabinet_mirror",
+      "name": "Cabinet Mirror",
+      "description": "A large oval mirror mounted inside the spirit cabinet.",
+      "position": { "x": 512, "y": 370 },
+      "size": { "width": 80, "height": 120 },
+      "visual": { "color": "#4a5a6a", "label": "Mirror" },
+      "initial_state": "normal",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            { "type": "flag_is", "flag": "cabinet_open", "value": "true" },
+            { "type": "object_state", "object": "cabinet_mirror", "state": "normal" }
+          ],
+          "then": [
+            { "type": "message", "text": "An oval mirror in a brass frame. Your reflection stares back, pale and frightened. Wait — the frame has a seam. It's mounted on a pivot. 'Turn the mirror,' the hidden message said." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "cabinet_open", "value": "true" },
+            { "type": "object_state", "object": "cabinet_mirror", "state": "normal" },
+            { "type": "any_of", "conditions": [
+              { "type": "flag_is", "flag": "used_uv_on_board", "value": "true" },
+              { "type": "flag_is", "flag": "found_spirit_manual", "value": "true" }
+            ]}
+          ],
+          "then": [
+            { "type": "set_state", "object": "cabinet_mirror", "state": "turned" },
+            { "type": "set_flag", "flag": "mirror_moved", "value": "true" },
+            { "type": "set_flag", "flag": "passage_found", "value": "true" },
+            { "type": "message", "text": "You grip the brass frame and turn it 90 degrees counter-clockwise. Click. The back panel of the cabinet swings inward, revealing a narrow passage — the medium's secret corridor. Cold air wafts up from below. This is how the assistant would enter and exit unseen during séances." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "cabinet_open", "value": "true" },
+            { "type": "object_state", "object": "cabinet_mirror", "state": "normal" }
+          ],
+          "then": [
+            { "type": "message", "text": "You push and pull at the mirror. It wobbles slightly — it's on some kind of mount. But you're not sure what to do with it." }
+          ],
+          "noise": 4
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "cabinet_mirror", "state": "turned" },
+            { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "game_over", "result": "win", "reason": "You slip through the secret passage behind the mirror. The corridor is narrow and dark, running between the walls. You descend a cramped staircase and emerge through a hidden panel in the ground floor study. Lenore's chanting echoes from the ritual room — she hasn't noticed. You find the front door, turn the latch, and step into the cold London night. The fog swallows you whole." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "cabinet_mirror", "state": "turned" },
+            { "type": "flag_not", "flag": "lenore_distracted", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "The passage leads down into the house. You can hear Lenore below — she's too close. Using this passage now would deliver you right to her. You need a distraction." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is closed. You can't reach the mirror." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cabinet_mechanism",
+      "name": "Cabinet Mechanism",
+      "description": "Hidden mechanical components inside the spirit cabinet.",
+      "position": { "x": 560, "y": 500 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#3a3a2a", "label": "Mechanism" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A system of wires, pulleys, and levers hidden behind the cabinet's decorative panels. This connects to the table — pull a wire and the planchette moves 'by itself.' Another wire rings tiny bells hidden in the ceiling. Ingenious fraud." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You tug a wire experimentally. Somewhere in the ceiling, a bell tinkles faintly. Another wire makes the planchette on the table twitch. Lenore has been playing her clients like a piano." },
+            { "type": "set_flag", "flag": "planchette_moved_by_magnet", "value": "true" },
+            { "type": "set_flag", "flag": "knows_fraud", "value": "true" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is closed." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hidden_bellows",
+      "name": "Hidden Bellows Mount",
+      "description": "A mounting point for the bellows mechanism under the cabinet floor.",
+      "position": { "x": 480, "y": 520 },
+      "size": { "width": 50, "height": 30 },
+      "visual": { "color": "#2a2218", "label": "Bellows" },
+      "initial_state": "empty",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A metal bracket at the base of the cabinet where the bellows mechanism mounts. The tube from it runs under the floor to vents beneath the séance table. Cold air from the bellows would seem like a 'spirit's touch' to the person at the table." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "cabinet_open", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is closed." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "puzzle_widgets": [
+    {
+      "id": "cabinet_lock",
+      "widget_type": "combination_lock",
+      "position": { "x": 512, "y": 430 },
+      "size": { "width": 80, "height": 40 },
+      "view": "cabinet_closeup",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 4,
+        "values_per_dial": 10,
+        "solution": [7, 4, 8, 1],
+        "dial_labels": ["I", "II", "III", "IV"]
+      },
+      "on_solve": [
+        { "type": "set_state", "object": "cabinet_door", "state": "open" },
+        { "type": "set_flag", "flag": "cabinet_open", "value": "true" },
+        { "type": "message", "text": "Click. The brass lock releases and the cabinet doors drift open, revealing shelves of séance props, a tall mirror, and hidden mechanisms." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 3 },
+        { "type": "message", "text": "The lock doesn't budge. Wrong combination." }
+      ],
+      "noise_per_interaction": 1
+    },
+    {
+      "id": "candle_sequence",
+      "widget_type": "sequence_puzzle",
+      "position": { "x": 550, "y": 370 },
+      "size": { "width": 100, "height": 70 },
+      "view": "seance_table_closeup",
+      "initially_visible": true,
+      "config": {
+        "steps": [
+          { "id": "rose", "label": "Rose Candle", "position": { "x": 0, "y": 0 } },
+          { "id": "lily", "label": "Lily Candle", "position": { "x": 25, "y": 0 } },
+          { "id": "violet", "label": "Violet Candle", "position": { "x": 50, "y": 0 } },
+          { "id": "white", "label": "White Candle", "position": { "x": 75, "y": 0 } },
+          { "id": "black", "label": "Black Candle", "position": { "x": 100, "y": 0 } }
+        ],
+        "solution_order": ["rose", "lily", "violet", "rose"],
+        "reset_on_error": true,
+        "correct_step_message": "The flame catches. The scent of flowers fills the air.",
+        "wrong_step_message": "The flame sputters and dies. You'll have to start over.",
+        "wrong_step_noise": 5
+      },
+      "on_solve": [
+        { "type": "set_flag", "flag": "candles_lit_correctly", "value": "true" },
+        { "type": "visual_cue", "cue": "flicker" },
+        { "type": "message", "text": "Rose, lily, violet, rose — the sequence from Eleanor's diary. All four flames burn steady and bright, casting a warm glow. The air smells of roses. The room feels... different. Expectant." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 5 },
+        { "type": "message", "text": "Wrong order. The candles gutter out." }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "spirit_wheel",
+      "widget_type": "dial",
+      "position": { "x": 460, "y": 480 },
+      "size": { "width": 60, "height": 60 },
+      "view": "cabinet_closeup",
+      "initially_visible": true,
+      "config": {
+        "positions": ["moon", "star", "sun", "skull", "eye", "hand"],
+        "solution": "moon",
+        "initial_position": "skull"
+      },
+      "on_solve": [
+        { "type": "show_object", "object": "hidden_bellows" },
+        { "type": "message", "text": "The wheel clicks into the moon position. A hidden panel slides open at the cabinet's base, revealing the bellows mounting bracket and its tube connection." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 2 },
+        { "type": "random_message", "messages": [
+          "The wheel turns but nothing happens.",
+          "Click. No reaction.",
+          "The symbol settles. Nothing."
+        ]}
+      ],
+      "noise_per_interaction": 1
+    }
+  ],
+
+  "phases": [
+    {
+      "id": "preparation",
+      "name": "Preparation",
+      "starts_when": [],
+      "on_enter": [
+        { "type": "message", "text": "Your eyes flutter open. Candlelight. The smell of lavender and old wood. Your wrists are bound with silk cord to the arms of a chair. Across the round table, five unlit candles wait in a brass candelabra. Below, a woman's voice rises in rhythmic chanting. You remember nothing of how you got here." }
+      ],
+      "ambient_text": "Chanting rises from below. The candles gutter in a draft you can't feel.",
+      "killer_overrides": {
+        "check_interval_seconds": 90,
+        "noise_threshold_investigate": 65
+      }
+    },
+    {
+      "id": "the_ritual",
+      "name": "The Ritual",
+      "starts_when": [{ "type": "flag_is", "flag": "hands_free", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "Free. The parlor spreads before you — a séance room frozen in time. Victorian furniture, occult paraphernalia, heavy drapes. The chanting below intensifies. Lenore will come to check on you. Explore, find a way out, but be quiet about it." }
+      ],
+      "ambient_text": "The chanting below grows more fervent. Midnight approaches.",
+      "killer_overrides": {
+        "check_interval_seconds": 55,
+        "noise_threshold_investigate": 50,
+        "noise_threshold_curious": 25
+      }
+    },
+    {
+      "id": "desperate_hour",
+      "name": "The Desperate Hour",
+      "starts_when": [{ "type": "flag_is", "flag": "lenore_evidence_seen", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "\"Oh dear... oh dear, you've been moving about.\" Lenore's voice trembles with worry, not anger. \"The spirits are restless tonight. I must prepare faster. Please, stay still — it will all be over soon.\" She descends the stairs. The chanting resumes, faster now. She's accelerating the ritual." },
+        { "type": "visual_cue", "cue": "red_pulse" }
+      ],
+      "ambient_text": "Rapid chanting. Lenore is rushing. The clock ticks louder.",
+      "killer_overrides": {
+        "check_interval_seconds": 30,
+        "noise_threshold_investigate": 30,
+        "noise_threshold_curious": 15,
+        "thoroughness": 0.7
+      }
+    }
+  ],
+
+  "events": [
+    {
+      "id": "lenore_chanting_intensifies",
+      "trigger": { "type": "time_after", "seconds": 120 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Below, the chanting shifts — louder, more urgent. Lenore's voice cracks with emotion. \"Eleanor... Eleanor, come home to Mother...\" The floorboards vibrate faintly." },
+        { "type": "play_sound", "sound": "chanting" }
+      ]
+    },
+    {
+      "id": "candles_flicker_mysteriously",
+      "trigger": { "type": "time_after", "seconds": 200 },
+      "one_shot": true,
+      "effects": [
+        { "type": "visual_cue", "cue": "flicker" },
+        { "type": "message", "text": "Every candle in the room gutters simultaneously — then blazes bright. A draft? Or something responding to Lenore's ritual below? The temperature drops noticeably." }
+      ]
+    },
+    {
+      "id": "spirit_board_moves",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "time_after", "seconds": 300 },
+          { "type": "flag_is", "flag": "hands_free", "value": "true" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "A scraping sound from the séance table. The planchette is moving — slowly sliding across the spirit board, letter by letter. H-E-L-P M-E. You look around. No one is pulling the wires. The mechanism in the cabinet is still. The planchette stops on 'E' and falls still." },
+        { "type": "set_flag", "flag": "planchette_moved_by_magnet", "value": "true" },
+        { "type": "visual_cue", "cue": "shake" }
+      ]
+    },
+    {
+      "id": "midnight_warning",
+      "trigger": { "type": "time_after", "seconds": 480 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The grandfather clock begins to chime. One... two... the deep tones reverberate through the room. Midnight is almost here. When the twelfth chime sounds, Lenore will come for the final ritual. You're running out of time." },
+        { "type": "visual_cue", "cue": "dim" },
+        { "type": "play_sound", "sound": "clock_chime" }
+      ]
+    },
+    {
+      "id": "lenore_prayer_distraction",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "ritual_performed", "value": "true" },
+          { "type": "flag_is", "flag": "bellows_attached", "value": "true" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Below, Lenore gasps. \"Eleanor?! Eleanor, is that you?! The cold — I feel it!\" Her voice breaks into sobbing prayer. \"Thank God, thank God, she's coming home...\" She's completely absorbed. She won't come upstairs for some time." },
+        { "type": "set_flag", "flag": "lenore_distracted", "value": "true" },
+        { "type": "set_flag", "flag": "lenore_satisfied", "value": "true" }
+      ]
+    }
+  ],
+
+  "killer": {
+    "name": "Madame Lenore Blackwood",
+    "description": "An elderly spiritualist medium, gentle and maternal, who has lost her grip on reality since her daughter Eleanor's death thirty years ago. She genuinely believes the séance ritual will bring Eleanor back — and you are the vessel. She doesn't want to hurt you. She wants to save you.",
+
+    "base_behavior": {
+      "check_interval_seconds": 55,
+      "interval_variance_seconds": 15,
+      "noise_threshold_curious": 30,
+      "noise_threshold_investigate": 55,
+      "noise_threshold_immediate": 80,
+      "noise_decay_per_second": 1.2,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 15
+    },
+
+    "search_behavior": {
+      "thoroughness": 0.35,
+      "evidence_flags": ["cabinet_open", "window_unlatched", "rug_moved", "curtain_opened", "mirror_moved", "flue_opened"],
+      "thoroughness_on_evidence": 0.65,
+      "search_order": "nearest"
+    },
+
+    "personality": {
+      "on_approach": [
+        "Time to check on our guest, dearie...",
+        "Just making sure you're comfortable, love.",
+        "The spirits need you calm, child. Let me see.",
+        "Almost time now. Let Mother Lenore tend to you."
+      ],
+      "on_search": [
+        "Now where have you gone? Don't be frightened, child...",
+        "Come out, love. I won't hurt you. I would never hurt you.",
+        "Eleanor? Is that you moving about? No... no, it's our guest.",
+        "Please, dear. The ritual must continue. For Eleanor."
+      ],
+      "on_clear": [
+        "There we are. Rest now. It will all be over soon.",
+        "Good, good. Stay still for me, love.",
+        "The spirits are watching. They need you calm."
+      ],
+      "on_evidence": [
+        "Oh my... you've been up and about. That won't do, dearie.",
+        "Tsk, tsk. The vessel mustn't wander. The spirits get confused.",
+        "Oh dear. We'll need to start the purification again now."
+      ],
+      "on_catch": [
+        "There you are, love. Shh, shh. Come back to the table. Eleanor needs you. We all need you. Don't cry — this is a beautiful thing.",
+        "Found you, dear heart. I know you're frightened, but Mother Lenore is here. The spirits chose you. That's a gift. Let me help you back to your seat.",
+        "Oh, poor thing. Running about in the dark. Come, sit. Eleanor is so close now. I can feel her. Can't you? Hold my hand. It will all be over by midnight."
+      ]
+    },
+
+    "on_visit_effects": [
+      {
+        "conditions": [{ "type": "object_state", "object": "bay_window", "state": "unlatched" }],
+        "effects": [
+          { "type": "set_state", "object": "bay_window", "state": "latched" },
+          { "type": "set_flag", "flag": "window_unlatched", "value": "false" },
+          { "type": "message", "text": "Lenore notices the window latch. \"Oh, we can't have that, dearie. The cold air upsets the spirits.\" She latches it firmly." }
+        ]
+      },
+      {
+        "conditions": [{ "type": "flag_is", "flag": "rug_moved", "value": "true" }],
+        "effects": [
+          { "type": "set_state", "object": "floor_rug", "state": "flat" },
+          { "type": "set_flag", "flag": "rug_moved", "value": "false" },
+          { "type": "set_flag", "flag": "trapdoor_found", "value": "false" },
+          { "type": "set_flag", "flag": "trapdoor_opened", "value": "false" },
+          { "type": "set_flag", "flag": "lenore_evidence_seen", "value": "true" },
+          { "type": "message", "text": "Lenore sees the displaced rug. \"Oh! Oh, this simply won't do.\" She smooths it carefully back over the trapdoor. Her hands tremble. \"The circle must not be broken.\"" }
+        ]
+      },
+      {
+        "conditions": [
+          { "type": "flag_is", "flag": "gas_lamp_rigged", "value": "true" },
+          { "type": "flag_not", "flag": "lenore_blinded", "value": "true" }
+        ],
+        "effects": [
+          { "type": "set_flag", "flag": "lenore_blinded", "value": "true" },
+          { "type": "set_flag", "flag": "lenore_distracted", "value": "true" },
+          { "type": "message", "text": "Lenore reaches for the dim gas lamp. \"Let me turn this up, the spirits need—\" FWOOSH. The built-up gas ignites in a blinding flare. Lenore stumbles backward, hands over her eyes. \"My eyes! I can't — the light — oh, Eleanor, help me!\" She staggers downstairs, temporarily blinded." },
+          { "type": "visual_cue", "cue": "flash" },
+          { "type": "delay_then", "seconds": 45, "effects": [
+            { "type": "set_flag", "flag": "lenore_distracted", "value": "false" },
+            { "type": "message", "text": "From below, you hear Lenore recovering. \"I can see again... the spirits are testing me. I must be stronger.\" She'll be back soon." }
+          ]}
+        ]
+      }
+    ],
+
+    "special_behaviors": [
+      {
+        "id": "ritual_absorbed",
+        "trigger": { "type": "flag_is", "flag": "lenore_satisfied", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 120,
+        "description": "Lenore believes Eleanor's spirit has manifested. She's lost in prayer and won't come upstairs."
+      },
+      {
+        "id": "blinded",
+        "trigger": { "type": "flag_is", "flag": "lenore_blinded", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 45,
+        "description": "The gas lamp flare blinds Lenore temporarily."
+      },
+      {
+        "id": "desperate",
+        "trigger": { "type": "flag_is", "flag": "lenore_evidence_seen", "value": "true" },
+        "effect": "enraged",
+        "overrides": {
+          "check_interval_seconds": 30,
+          "thoroughness": 0.65
+        }
+      }
+    ]
+  },
+
+  "win_conditions": [
+    {
+      "id": "door_escape",
+      "description": "Unlock the parlor door with the iron key and sneak out while Lenore is distracted",
+      "conditions": [
+        { "type": "object_state", "object": "parlor_door", "state": "unlocked" },
+        { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+      ]
+    },
+    {
+      "id": "window_escape",
+      "description": "Open the bay window and climb down the drainpipe",
+      "conditions": [
+        { "type": "object_state", "object": "bay_window", "state": "open" }
+      ]
+    },
+    {
+      "id": "chimney_escape",
+      "description": "Open the flue, clear the grate, and climb the chimney",
+      "conditions": [
+        { "type": "flag_is", "flag": "chimney_reachable", "value": "true" }
+      ]
+    },
+    {
+      "id": "passage_escape",
+      "description": "Use the secret passage behind the cabinet mirror while Lenore is distracted",
+      "conditions": [
+        { "type": "flag_is", "flag": "passage_found", "value": "true" },
+        { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+      ]
+    },
+    {
+      "id": "trapdoor_escape",
+      "description": "Use the trapdoor under the rug while Lenore is distracted",
+      "conditions": [
+        { "type": "flag_is", "flag": "trapdoor_opened", "value": "true" },
+        { "type": "flag_is", "flag": "lenore_distracted", "value": "true" }
+      ]
+    }
+  ],
+
+  "lose_conditions": [
+    {
+      "id": "caught",
+      "description": "Lenore finds you during a search",
+      "type": "killer_catches_player"
+    },
+    {
+      "id": "midnight",
+      "description": "The clock strikes twelve and the ritual completes with you at the table",
+      "conditions": [
+        { "type": "time_after", "seconds": 600 },
+        { "type": "flag_not", "flag": "hands_free", "value": "true" }
+      ],
+      "message": "The twelfth chime tolls. Lenore stands over you, hands raised. 'Eleanor, come home.' The candles blaze. Something cold passes through you. The world goes dark. Lenore smiles. 'Welcome home, my darling.'"
+    }
+  ],
+
+  "hints": [
+    {
+      "id": "hint_binding",
+      "text": "The silk binding looks complex, but it's a stage knot. Try pulling at it with your hands.",
+      "conditions": [{ "type": "flag_not", "flag": "hands_free", "value": "true" }],
+      "priority": 1
+    },
+    {
+      "id": "hint_bookshelf",
+      "text": "The bookshelf has many spiritualism books. One of them stands out — it looks more practical than the others.",
+      "conditions": [
+        { "type": "flag_is", "flag": "hands_free", "value": "true" },
+        { "type": "flag_not", "flag": "found_spirit_manual", "value": "true" }
+      ],
+      "priority": 2
+    },
+    {
+      "id": "hint_cabinet_code",
+      "text": "Eleanor's birth year is mentioned on her portrait plaque. The manual says the cabinet code is that year reversed.",
+      "conditions": [
+        { "type": "flag_not", "flag": "cabinet_open", "value": "true" },
+        { "type": "flag_is", "flag": "found_spirit_manual", "value": "true" }
+      ],
+      "priority": 3
+    },
+    {
+      "id": "hint_cabinet_brute",
+      "text": "If you can't find the combination, a heavy tool might force the cabinet open — at the cost of noise.",
+      "conditions": [
+        { "type": "flag_not", "flag": "cabinet_open", "value": "true" },
+        { "type": "flag_not", "flag": "knows_cabinet_code", "value": "true" }
+      ],
+      "priority": 3
+    },
+    {
+      "id": "hint_mirror",
+      "text": "The spirit board's hidden message and the manual both mention turning the mirror. Look inside the cabinet.",
+      "conditions": [
+        { "type": "flag_is", "flag": "cabinet_open", "value": "true" },
+        { "type": "flag_not", "flag": "mirror_moved", "value": "true" }
+      ],
+      "priority": 4
+    },
+    {
+      "id": "hint_distraction",
+      "text": "Several escape routes require Lenore to be distracted. The gas lamp can be rigged, or the séance trick mechanisms could make her believe Eleanor has arrived.",
+      "conditions": [
+        { "type": "flag_is", "flag": "hands_free", "value": "true" },
+        { "type": "flag_not", "flag": "lenore_distracted", "value": "true" }
+      ],
+      "priority": 5
+    },
+    {
+      "id": "hint_ritual",
+      "text": "Eleanor's diary has the candle lighting order. The crystal ball shows the spirit wheel symbol. Use the bellows for the cold touch. Together, these can simulate Eleanor's spirit arriving.",
+      "conditions": [
+        { "type": "flag_is", "flag": "read_daughter_diary", "value": "true" },
+        { "type": "flag_not", "flag": "lenore_satisfied", "value": "true" }
+      ],
+      "priority": 5
+    },
+    {
+      "id": "hint_window",
+      "text": "The bay window latch is rusted shut. A thin, sharp tool could pry it — or brute force with a heavy one, though that's much louder.",
+      "conditions": [
+        { "type": "object_state", "object": "bay_window", "state": "latched" },
+        { "type": "flag_is", "flag": "hands_free", "value": "true" }
+      ],
+      "priority": 3
+    },
+    {
+      "id": "hint_chimney",
+      "text": "The fireplace chimney could be climbed if the flue were open and the grate cleared. Look at the fireplace carefully.",
+      "conditions": [
+        { "type": "flag_is", "flag": "hands_free", "value": "true" },
+        { "type": "flag_not", "flag": "chimney_reachable", "value": "true" }
+      ],
+      "priority": 4
+    },
+    {
+      "id": "hint_clock",
+      "text": "The grandfather clock has more inside it than just a pendulum. Open the case.",
+      "conditions": [
+        { "type": "flag_is", "flag": "hands_free", "value": "true" },
+        { "type": "flag_not", "flag": "clock_secret_found", "value": "true" }
+      ],
+      "priority": 2
+    }
+  ],
+
+  "solution_paths": [
+    {
+      "id": "fraud_escape",
+      "name": "The Medium's Trick",
+      "description": "Use Lenore's own séance fraud mechanisms to distract her, then escape through the secret passage behind the cabinet mirror.",
+      "difficulty": "medium",
+      "noise_profile": "moderate",
+      "steps": [
+        "Free yourself from the silk binding (hand on silk_binding)",
+        "Examine the bookshelf, take The Medium's Art (look bookshelf, take bookshelf)",
+        "Read the spirit manual (examine look spirit_manual — reveals cabinet code 7481 and mirror trick)",
+        "Open the spirit cabinet with combination 7481 (puzzle widget cabinet_lock)",
+        "Explore cabinet — find mechanism, understand the fraud (hand cabinet_mechanism)",
+        "Turn the cabinet mirror 90° counter-clockwise (hand cabinet_mirror — reveals passage)",
+        "Rig the gas lamp as a trap (hand gas_lamp — sets up blinding flare)",
+        "Wait for Lenore to visit and trigger the flare (on_visit_effect fires)",
+        "While she's blinded, escape through the passage (hand cabinet_mirror when lenore_distracted)"
+      ]
+    },
+    {
+      "id": "spiritual_escape",
+      "name": "Eleanor's Farewell",
+      "description": "Perform a convincing séance that makes Lenore believe Eleanor's spirit has arrived, using the hidden mechanisms and knowledge from the diary.",
+      "difficulty": "hard",
+      "noise_profile": "quiet",
+      "steps": [
+        "Free yourself from the silk binding (hand on silk_binding)",
+        "Open the grandfather clock, find Eleanor's diary and clock gear (hand grandfather_clock)",
+        "Read Eleanor's diary (examine look daughter_diary — reveals candle order: rose, lily, violet, rose)",
+        "Find the bellows handle in the table pedestal (hand table_pedestal)",
+        "Combine bellows_handle + clock_gear = rigged_bellows",
+        "Open spirit cabinet (code 7481 from manual, or force with poker)",
+        "Attach rigged bellows to cabinet mount (hand cabinet_shelf_bottom with rigged_bellows)",
+        "Light candles in correct order: rose, lily, violet, rose (puzzle widget candle_sequence)",
+        "Speak Eleanor's name over the spirit board (talk spirit_board with candles_lit + knows_daughter_name)",
+        "The combined ritual triggers lenore_prayer_distraction event — Lenore believes Eleanor has arrived",
+        "Escape via any route while Lenore is absorbed in prayer (door, window, passage, trapdoor, chimney)"
+      ]
+    },
+    {
+      "id": "brute_escape",
+      "name": "Breaking Free",
+      "description": "A loud, direct approach — force open the window or chimney and get out before Lenore can stop you.",
+      "difficulty": "easy",
+      "noise_profile": "loud",
+      "steps": [
+        "Free yourself from the silk binding (hand on silk_binding)",
+        "Take the fireplace poker (take fireplace)",
+        "EITHER: Force the bay window latch with the poker (use_item poker on bay_window — high noise), then open window (hand bay_window), then climb out (hand bay_window when open)",
+        "OR: Open the flue (hand fireplace), clear the grate with poker (use_item poker on fireplace), climb chimney (hand fireplace when cleared)",
+        "Speed is everything — high noise means Lenore comes fast"
+      ]
+    }
+  ]
+}

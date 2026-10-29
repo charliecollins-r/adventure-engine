@@ -1,0 +1,2516 @@
+{
+  "schema_version": "1.0",
+
+  "metadata": {
+    "id": "the-taxidermist",
+    "title": "The Taxidermist",
+    "description": "You awaken on a cold steel table in the basement of a remote Appalachian cabin. Above, heavy boots pace the floorboards and a man hums to country music. The walls are lined with preserved animals — and something worse. Emmett Craw has graduated from specimens to people. Escape before you become his masterpiece.",
+    "author": "ai-generated",
+    "difficulty": "hard",
+    "estimated_minutes": 15,
+    "tags": ["appalachian", "horror", "taxidermy", "rural", "cabin", "psychological"],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle", "2-dependency-chain", "3-fork", "4-progressive-reveal",
+      "5-false-summit", "6-dual-purpose-item", "7-nested-secret",
+      "8-knowledge-gate", "9-revelation-tool", "10-cross-reference-deduction",
+      "11-noise-tradeoff", "12-evidence-gamble", "13-distraction-window",
+      "14-ticking-clock-decision", "15-bait-and-punish", "16-sound-masking",
+      "17-trap-setting", "18-red-herring", "19-emergent-combination",
+      "20-multi-path-solution", "21-rule-subversion", "22-myst-machine",
+      "25-moral-fork", "27-point-of-no-return", "28-camouflage",
+      "29-echo", "30-decay-clock"
+    ]
+  },
+
+  "setting": {
+    "initial_view": "main",
+    "ambient_text": "The smell hits first — formaldehyde, tanning chemicals, and something sour underneath. Country music bleeds through the ceiling. Heavy boots shuffle in a lazy rhythm above. You're in a basement. His basement.",
+    "room_style": {
+      "background_color": "#1a1208",
+      "wall_color": "#2a2010",
+      "floor_color": "#0f0c06"
+    }
+  },
+
+  "views": [
+    {
+      "id": "main",
+      "background_key": "basement_workshop",
+      "background_file": "backgrounds/basement_workshop.png",
+      "objects": [
+        "steel_table", "specimen_wall", "tool_pegboard", "chemical_cabinet",
+        "storm_cellar", "wooden_stairs", "drain_pipe", "power_junction",
+        "hide_barrel", "stone_wall_section", "ceiling_beams", "old_radio",
+        "workbench_area", "shelf_unit", "coal_furnace"
+      ]
+    },
+    {
+      "id": "workbench_closeup",
+      "background_key": "workbench_closeup",
+      "background_file": "backgrounds/workbench_closeup.png",
+      "objects": [
+        "vise_grip", "skinning_knife", "sewing_kit", "glass_eyes_tray",
+        "notebook", "wire_frame", "borax_container", "magnifying_lens"
+      ],
+      "back_label": "Step back from workbench"
+    },
+    {
+      "id": "chemical_shelf_closeup",
+      "background_key": "chemical_shelf_closeup",
+      "background_file": "backgrounds/chemical_shelf_closeup.png",
+      "objects": [
+        "formaldehyde_bottle", "acetone_can", "tanning_solution", "lye_container",
+        "empty_jar", "measuring_cup", "rubber_gloves", "chemical_log"
+      ],
+      "back_label": "Step back from chemical shelf"
+    },
+    {
+      "id": "storm_cellar_closeup",
+      "background_key": "storm_cellar_closeup",
+      "background_file": "backgrounds/storm_cellar_closeup.png",
+      "objects": [
+        "cellar_bars", "cellar_lock", "cellar_hinges", "dirt_floor",
+        "root_system", "rain_seepage"
+      ],
+      "back_label": "Step back from storm cellar"
+    }
+  ],
+
+  "flags": {
+    "awake": "false",
+    "freed_from_straps": "false",
+    "found_notebook": "false",
+    "read_formula": "false",
+    "knows_cabinet_code": "false",
+    "cabinet_opened": "false",
+    "has_formaldehyde": "false",
+    "has_acetone": "false",
+    "has_lye": "false",
+    "mixed_solvent": "false",
+    "mixed_wrong": "false",
+    "bars_weakened": "false",
+    "bars_removed": "false",
+    "cellar_lock_picked": "false",
+    "cellar_lock_cut": "false",
+    "hinges_loosened": "false",
+    "found_hacksaw": "false",
+    "power_off": "false",
+    "storm_started": "false",
+    "storm_intensified": "false",
+    "fire_started": "false",
+    "wall_weakened": "false",
+    "wall_breached": "false",
+    "furnace_lit": "false",
+    "furnace_overloaded": "false",
+    "drain_explored": "false",
+    "drain_opened": "false",
+    "emmett_distracted": "false",
+    "emmett_suspicious": "false",
+    "emmett_visitor_arrived": "false",
+    "emmett_talking_to_visitor": "false",
+    "tool_pegboard_searched": "false",
+    "vise_used": "false",
+    "specimen_examined": "false",
+    "lens_found": "false",
+    "log_read": "false",
+    "trap_set": "false",
+    "trap_sprung": "false",
+    "stairs_examined": "false",
+    "radio_examined": "false",
+    "radio_played_loud": "false",
+    "hide_barrel_searched": "false",
+    "key_found_in_specimen": "false",
+    "knows_lye_formula": "false",
+    "gloves_taken": "false",
+    "straps_cut": "false",
+    "wire_frame_bent": "false",
+    "evidence_cabinet_open": "false",
+    "evidence_found": "false",
+    "coal_taken": "false",
+    "kindling_gathered": "false"
+  },
+
+  "items": [
+    {
+      "id": "leather_strap_piece",
+      "name": "Leather Strap",
+      "description": "A section of the restraining strap, cut free. Thick cowhide.",
+      "icon": "strap",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Heavy cowhide, stitched double. One end has a buckle. Could be used as a makeshift handle or binding." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skinning_knife",
+      "name": "Skinning Knife",
+      "description": "A razor-sharp curved blade designed for separating hide from flesh.",
+      "icon": "knife",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Carbon steel, wickedly curved. The handle is wrapped in electrical tape. It's been resharpened hundreds of times — the blade is thinner than it was made. Cuts leather, rope, and worse." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glass_eyes",
+      "name": "Glass Eyes",
+      "description": "A pair of uncannily realistic glass eyes. They seem to follow you.",
+      "icon": "eyes",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "lens_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Hand-painted. Disturbingly human. One of them catches the light oddly — there's something inside the iris. A tiny number etched into the back: '4-7-2'. Part of a code?" },
+            { "type": "set_flag", "flag": "lens_found", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "lens_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Glass eyes with '4-7-2' etched on the back. Emmett's numbering system." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "notebook",
+      "name": "Emmett's Notebook",
+      "description": "A stained composition notebook filled with cramped handwriting.",
+      "icon": "book",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "read_formula", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Taxidermy notes in barely legible script. Formulas, sketches of animals (and... not animals). One page is bookmarked: 'MAMA'S LYE RECIPE — 3 parts lye to 1 part acetone. Dissolves near anything organic. Handle with GLOVES or it eats right through. Cabinet code is my best girl's birthday — little Daisy, 4-7-2-8.' Below that, a sketch of a dog." },
+            { "type": "set_flag", "flag": "read_formula", "value": "true" },
+            { "type": "set_flag", "flag": "knows_cabinet_code", "value": "true" },
+            { "type": "set_flag", "flag": "knows_lye_formula", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "read_formula", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The notebook. Cabinet code: 4-7-2-8 (Daisy's birthday). Lye formula: 3 parts lye, 1 part acetone. Use gloves." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnifying_lens",
+      "name": "Magnifying Lens",
+      "description": "A large brass-rimmed magnifying lens, scratched but functional.",
+      "icon": "lens",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Heavy brass rim, glass surprisingly clear. Emmett uses it for detail work on his specimens. Could focus light — or help read fine print." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rubber_gloves",
+      "name": "Rubber Gloves",
+      "description": "Heavy-duty chemical-resistant gloves, stained yellow.",
+      "icon": "gloves",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Industrial grade. The notebook warned: handle lye mixtures with gloves or it eats through skin. These will do." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lye_mixture",
+      "name": "Lye Solvent",
+      "description": "A caustic mixture of lye and acetone. Dissolves organic material — and weakens metal.",
+      "icon": "bottle",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The jar is warm. The liquid inside fumes slightly. This will eat through the organic bindings on the cellar bars — and weaken the rusted metal itself. Don't spill it on yourself." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hacksaw_blade",
+      "name": "Hacksaw Blade",
+      "description": "A single hacksaw blade, no frame. Cuts slow, but it cuts.",
+      "icon": "saw",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Bi-metal blade, 18 TPI. Without a frame you'll have to wrap one end in cloth and saw by hand. Slow and loud, but it'll go through the cellar bars eventually." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wire_lockpick",
+      "name": "Wire Lockpick",
+      "description": "A taxidermy armature wire bent into a crude lockpick shape.",
+      "icon": "wire",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Stiff armature wire, bent with pliers into a tension wrench and pick. Not elegant, but the cellar padlock is old and simple." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coal_chunk",
+      "name": "Coal Chunk",
+      "description": "A fist-sized piece of anthracite coal from the furnace.",
+      "icon": "coal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Dense, black, and dry. Burns hot and long. The furnace hasn't been used in years, but this coal is still good." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kindling_bundle",
+      "name": "Kindling Bundle",
+      "description": "Dry wood scraps and shavings gathered from the workshop floor.",
+      "icon": "wood",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Wood shavings, sawdust, and splinters from Emmett's forms. Dry as bone. Catches fire easily." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "matches",
+      "name": "Box of Matches",
+      "description": "Strike-anywhere kitchen matches. Half full.",
+      "icon": "matches",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'Diamond Brand Strike-Anywhere.' About twenty matches left. The striking surface still works. Fire in a basement full of chemicals. What could go wrong." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specimen_key",
+      "name": "Tarnished Key",
+      "description": "A small brass key, found inside a mounted specimen.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Brass, tarnished green. The bow has 'CELLAR' stamped in tiny letters. Hidden inside a taxidermy mount — Emmett's idea of safekeeping." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acetone_jar",
+      "name": "Jar of Acetone",
+      "description": "A mason jar of industrial acetone. Pungent, volatile.",
+      "icon": "jar",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Clear liquid, sharp chemical smell. Highly flammable. Used in taxidermy for degreasing bones. Also a key ingredient in Emmett's lye formula." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lye_powder",
+      "name": "Bag of Lye",
+      "description": "A paper bag of caustic lye powder. Handle with care.",
+      "icon": "powder",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'Red Devil Lye — Sodium Hydroxide. CAUSTIC. Avoid skin contact.' The bag is half full. Emmett uses it for bone cleaning and hide preparation." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sewing_needle",
+      "name": "Curved Needle",
+      "description": "A large curved sewing needle used for stitching hides.",
+      "icon": "needle",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Thick gauge, curved like a crescent moon. Designed for pushing through leather and hide. Sharp enough to puncture, but too thick for picking locks." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "formaldehyde_jar",
+      "name": "Jar of Formaldehyde",
+      "description": "A mason jar of formaldehyde solution. The smell is overpowering.",
+      "icon": "jar",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "37% formaldehyde solution. The fumes alone make your eyes water. A preservative — not useful for the lye formula, but highly flammable. Could accelerate a fire dramatically." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fire_bundle",
+      "name": "Fire Bundle",
+      "description": "Kindling packed around a coal chunk. Ready to light.",
+      "icon": "fire",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Dry kindling wrapped around a glowing coal chunk. One good match or spark and this will catch fast. Keep it away from anything you don't want burned." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "handled_hacksaw",
+      "name": "Handled Hacksaw",
+      "description": "A hacksaw blade with a leather grip wrapped around one end.",
+      "icon": "saw",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The leather strap gives you a solid grip without slicing your palm. The teeth are still sharp — this could cut through metal bolts, chain, or bone." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accelerant_bundle",
+      "name": "Accelerant Bundle",
+      "description": "Kindling soaked in formaldehyde. Extremely flammable and dangerous.",
+      "icon": "fire",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The formaldehyde fumes are eye-watering. This kindling would go up like a bomb — fast, hot, and hard to control. One spark near this and the whole room burns." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "combinations": [
+    {
+      "items": ["lye_powder", "acetone_jar"],
+      "result": "lye_mixture",
+      "consumes": true,
+      "message": "You carefully measure three parts lye to one part acetone into the empty jar, stirring with a stick. The mixture heats up immediately, fuming. This will dissolve almost anything organic.",
+      "noise": 5,
+      "conditions": [
+        { "type": "has_item", "item": "rubber_gloves" },
+        { "type": "flag_is", "flag": "knows_lye_formula", "value": "true" }
+      ]
+    },
+    {
+      "items": ["lye_powder", "acetone_jar"],
+      "result": "lye_mixture",
+      "consumes": true,
+      "message": "You pour the chemicals together without gloves. The lye burns your hands instantly — you drop the jar and it shatters. The fumes fill the basement. Your eyes stream. Emmett will have heard that.",
+      "noise": 40,
+      "conditions": [
+        { "type": "not_has_item", "item": "rubber_gloves" }
+      ]
+    },
+    {
+      "items": ["coal_chunk", "kindling_bundle"],
+      "result": "fire_bundle",
+      "consumes": true,
+      "message": "You pack the kindling around the coal. Ready to light — just needs a match.",
+      "noise": 3,
+      "conditions": []
+    },
+    {
+      "items": ["leather_strap_piece", "hacksaw_blade"],
+      "result": "handled_hacksaw",
+      "consumes": true,
+      "message": "You wrap the leather strap around one end of the hacksaw blade. Now you can grip it without cutting your palm.",
+      "noise": 2,
+      "conditions": []
+    },
+    {
+      "items": ["formaldehyde_jar", "kindling_bundle"],
+      "result": "accelerant_bundle",
+      "consumes": true,
+      "message": "You soak the kindling in formaldehyde. The fumes are intense. This will burn fast and hot — dangerously so.",
+      "noise": 5,
+      "conditions": []
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "steel_table",
+      "name": "Steel Examination Table",
+      "description": "A cold steel table with leather restraining straps. You woke up here.",
+      "position": { "x": 512, "y": 450 },
+      "size": { "width": 200, "height": 80 },
+      "visual": { "color": "#555555", "label": "Table" },
+      "initial_state": "strapped",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "steel_table", "state": "strapped" }],
+          "then": [
+            { "type": "message", "text": "A stainless steel table — the kind you'd find in a veterinary office or a morgue. You're lying on it, wrists and ankles held by thick leather straps bolted to the frame. The leather is old but strong. The bolts are tight. This table has held things before you." },
+            { "type": "set_flag", "flag": "awake", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "steel_table", "state": "freed" }],
+          "then": [
+            { "type": "message", "text": "The table where you woke up. The straps hang loose. Underneath, drain channels lead to a central hole — for fluids. You try not to think about that." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "steel_table", "state": "strapped" }],
+          "then": [
+            { "type": "message", "text": "You strain against the straps. The leather creaks but holds. Your right wrist has slightly more give — the buckle is old. You might work it loose with enough time, but a blade would be faster." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "steel_table", "state": "strapped" },
+            { "type": "flag_is", "flag": "awake", "value": "true" },
+            { "type": "time_after", "seconds": 120 }
+          ],
+          "then": [
+            { "type": "message", "text": "You wrench your right wrist back and forth. The old leather finally gives — the buckle tongue slips free. One hand loose. You unbuckle the rest frantically." },
+            { "type": "set_state", "object": "steel_table", "state": "freed" },
+            { "type": "set_flag", "flag": "freed_from_straps", "value": "true" },
+            { "type": "add_item", "item": "leather_strap_piece" },
+            { "type": "message", "text": "You tear a strip of leather free as you stand. Your legs are unsteady. The room swims. But you're up." }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "use_item",
+          "item": "skinning_knife",
+          "when": [{ "type": "object_state", "object": "steel_table", "state": "strapped" }],
+          "then": [
+            { "type": "message", "text": "The curved blade slices through the old leather like butter. One strap, two, three, four. You swing your legs off the table and stand. Your head pounds." },
+            { "type": "set_state", "object": "steel_table", "state": "freed" },
+            { "type": "set_flag", "flag": "freed_from_straps", "value": "true" },
+            { "type": "set_flag", "flag": "straps_cut", "value": "true" },
+            { "type": "add_item", "item": "leather_strap_piece" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "specimen_wall",
+      "name": "Specimen Wall",
+      "description": "Floor-to-ceiling shelves of taxidermy specimens. Deer heads, foxes, owls... and things that aren't animals.",
+      "position": { "x": 150, "y": 300 },
+      "size": { "width": 200, "height": 300 },
+      "visual": { "color": "#2a1f10", "label": "Specimens" },
+      "initial_state": "undisturbed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "specimen_wall", "state": "undisturbed" }],
+          "then": [
+            { "type": "message", "text": "Dozens of preserved animals on wooden shelves. A magnificent buck. A red fox mid-pounce. A barn owl with glass eyes. Higher up, in shadows — the shapes change. Human hands. A face you don't want to look at. And one large mount — a coyote — sits at eye level, its pose oddly stiff, its belly sagging slightly." },
+            { "type": "set_flag", "flag": "specimen_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "specimen_wall", "state": "searched" }],
+          "then": [
+            { "type": "message", "text": "The coyote mount gapes open where you cut it. The rest of the specimens stare with glass eyes. You avoid looking at the upper shelves." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "specimen_wall", "state": "undisturbed" },
+            { "type": "flag_is", "flag": "specimen_examined", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You squeeze the coyote's belly. There's something hard inside — not just stuffing. Something was hidden in the mount during the taxidermy process." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "skinning_knife",
+          "when": [
+            { "type": "object_state", "object": "specimen_wall", "state": "undisturbed" },
+            { "type": "flag_is", "flag": "specimen_examined", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You slide the blade along the coyote's belly seam. Cotton batting spills out — and a small brass key tumbles free, wrapped in wax paper. Emmett hid it inside his own work." },
+            { "type": "set_state", "object": "specimen_wall", "state": "searched" },
+            { "type": "add_item", "item": "specimen_key" },
+            { "type": "set_flag", "flag": "key_found_in_specimen", "value": "true" }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "use_item",
+          "item": "sewing_needle",
+          "when": [
+            { "type": "object_state", "object": "specimen_wall", "state": "undisturbed" },
+            { "type": "flag_is", "flag": "specimen_examined", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You try to unpick the stitching with the needle. It's too slow — the stitches are heavy waxed thread. You need something sharper." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "tool_pegboard",
+      "name": "Tool Pegboard",
+      "description": "A pegboard hung with taxidermy tools. Some hooks are empty.",
+      "position": { "x": 800, "y": 280 },
+      "size": { "width": 120, "height": 160 },
+      "visual": { "color": "#3a3020", "label": "Tools" },
+      "initial_state": "full",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Fleshing knives, scrapers, needles, pliers, wire cutters, a hand drill. Everything organized by size. Some hooks are empty — tools Emmett keeps upstairs. A hacksaw blade hangs from a nail at the bottom, no frame." },
+            { "type": "set_flag", "flag": "tool_pegboard_searched", "value": "true" }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "flag_is", "flag": "tool_pegboard_searched", "value": "true" },
+            { "type": "not_has_item", "item": "hacksaw_blade" }
+          ],
+          "then": [
+            { "type": "message", "text": "You lift the hacksaw blade from its nail. No frame, just the blade. You'll need something to wrap the grip end." },
+            { "type": "add_item", "item": "hacksaw_blade" },
+            { "type": "set_flag", "flag": "found_hacksaw", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "freed_from_straps", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You run your hand along the tools. Most are specialized for taxidermy — not useful for escaping. The hacksaw blade at the bottom catches your eye." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "chemical_cabinet",
+      "name": "Chemical Cabinet",
+      "description": "A locked wooden cabinet with a glass front. Bottles of chemicals visible inside.",
+      "position": { "x": 350, "y": 250 },
+      "size": { "width": 100, "height": 180 },
+      "visual": { "color": "#3a2a15", "label": "Cabinet" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A tall wooden cabinet with glass-paned doors. Through the glass you can see bottles of chemicals: formaldehyde, acetone, tanning solutions, lye. A four-digit combination lock secures the handles." },
+            { "type": "set_view", "view": "chemical_shelf_closeup" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The cabinet stands open. Bottles of chemicals on labeled shelves. The smell is sharp." },
+            { "type": "set_view", "view": "chemical_shelf_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You rattle the handles. Locked tight. The four-digit combination lock holds firm. You'd need the code." }
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is open. You can access the chemicals inside." },
+            { "type": "set_view", "view": "chemical_shelf_closeup" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "skinning_knife",
+          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You try to pry the cabinet open with the knife. The glass rattles dangerously. You could smash through, but it would be very loud." }
+          ],
+          "noise": 15
+        }
+      ]
+    },
+    {
+      "id": "storm_cellar",
+      "name": "Storm Cellar Door",
+      "description": "Heavy wooden doors set at an angle in the stone wall. A way out — to the outside.",
+      "position": { "x": 900, "y": 500 },
+      "size": { "width": 130, "height": 120 },
+      "visual": { "color": "#2a1f0f", "label": "Cellar Door" },
+      "initial_state": "barred",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Traditional Appalachian storm cellar doors — two heavy wooden panels set at a 45-degree angle against the stone foundation. Three iron bars run horizontally across them, bolted into the stone. A padlock secures the middle bar. Through the gaps, you can see dirt and rain." },
+            { "type": "set_view", "view": "storm_cellar_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "storm_cellar", "state": "barred" }],
+          "then": [
+            { "type": "message", "text": "You shove against the doors. They flex slightly but the iron bars hold. There's no give. You need to deal with the bars and the padlock." }
+          ],
+          "noise": 20
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "storm_cellar", "state": "bars_weakened" },
+            { "type": "flag_is", "flag": "cellar_lock_picked", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "With the lock off and the bars weakened by the solvent, you throw your weight against the doors. The corroded bars snap. Cold night air and rain flood in. Freedom." },
+            { "type": "set_state", "object": "storm_cellar", "state": "open" },
+            { "type": "game_over", "result": "win", "reason": "You burst through the storm cellar doors into the Appalachian night. Rain lashes your face. The cabin shrinks behind you as you run into the dark woods. Emmett's voice echoes from the basement: 'Now where'd you get to, darlin'?' You don't look back." }
+          ],
+          "noise": 35
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "storm_cellar", "state": "bars_weakened" },
+            { "type": "flag_is", "flag": "cellar_lock_cut", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "Lock sawed off, bars weakened — you ram the doors with your shoulder. They burst open in a shower of rust and rotted wood. The storm hits you full force." },
+            { "type": "set_state", "object": "storm_cellar", "state": "open" },
+            { "type": "game_over", "result": "win", "reason": "The storm cellar doors explode outward. You scramble up the muddy slope into driving rain. Lightning illuminates the mountain ridge. You run — barefoot, bleeding, alive. Miles from anywhere. But alive." }
+          ],
+          "noise": 40
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "bars_removed", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "Bars cut, lock gone — you push the doors and they swing open on rusted hinges. The storm outside is ferocious. But it's out. It's freedom." },
+            { "type": "set_state", "object": "storm_cellar", "state": "open" },
+            { "type": "game_over", "result": "win", "reason": "You step through the cellar doors into a wall of rain and wind. The Appalachian wilderness stretches endlessly around Emmett's cabin. You pick a direction — downhill, toward the valley — and you don't stop running until you see headlights on a road." }
+          ],
+          "noise": 25
+        }
+      ]
+    },
+    {
+      "id": "wooden_stairs",
+      "name": "Wooden Stairs",
+      "description": "Steep, narrow stairs leading up to the main cabin. The door at the top is locked from the other side.",
+      "position": { "x": 100, "y": 400 },
+      "size": { "width": 80, "height": 200 },
+      "visual": { "color": "#3a2a10", "label": "Stairs" },
+      "initial_state": "locked_above",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Steep wooden stairs, twelve steps up to a heavy door. Light leaks from under it. You can hear country music and the thud of boots. Emmett is right up there. The door has no handle on this side — just smooth wood and a deadbolt you can't reach." },
+            { "type": "set_flag", "flag": "stairs_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You climb halfway and push on the door. Solid. The deadbolt doesn't budge. This way is sealed. Going up means going through Emmett." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_is", "flag": "freed_from_straps", "value": "true" }],
+          "then": [
+            { "type": "random_message", "messages": [
+              "You press your ear to the door. Emmett is humming along to 'Ring of Fire.' His boots scrape the kitchen floor.",
+              "Through the door you hear Emmett talking: 'Now Mama, I know you said I should stop. But this one's special. Real pretty one.'",
+              "The music changes. Emmett sings along, off-key: 'I fall to pieces...' His voice cracks. He might be crying."
+            ]}
+          ],
+          "noise": 0
+        }
+      ]
+    },
+    {
+      "id": "drain_pipe",
+      "name": "Floor Drain",
+      "description": "A cast-iron drain pipe in the concrete floor. Grate is rusted.",
+      "position": { "x": 500, "y": 600 },
+      "size": { "width": 60, "height": 60 },
+      "visual": { "color": "#333333", "stroke_color": "#222222", "label": "Drain", "shape": "circle" },
+      "initial_state": "grated",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "drain_pipe", "state": "grated" }],
+          "then": [
+            { "type": "message", "text": "A six-inch cast iron drain set in the concrete floor. The grate is rusted in place but the pipe below is wide — maybe wide enough to crawl through, if you could get the grate off. Brown stains ring the drain. You don't want to know." },
+            { "type": "set_flag", "flag": "drain_explored", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "drain_pipe", "state": "grated" }],
+          "then": [
+            { "type": "message", "text": "You pull on the grate. Rusted solid. You'd need to break it free with something heavy or dissolve the rust." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "drain_pipe", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The drain pipe gapes open. Below, a narrow tunnel slopes downhill. Too tight to crawl through. It was a dead end — but the grate might be useful." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "lye_mixture",
+          "when": [{ "type": "object_state", "object": "drain_pipe", "state": "grated" }],
+          "then": [
+            { "type": "message", "text": "You pour the lye mixture around the rusted grate. It hisses and bubbles, eating through the corrosion. The grate comes free. But the pipe below is barely six inches — you can't fit. A waste of the solvent." },
+            { "type": "set_state", "object": "drain_pipe", "state": "open" },
+            { "type": "remove_item", "item": "lye_mixture" },
+            { "type": "set_flag", "flag": "drain_opened", "value": "true" }
+          ],
+          "noise": 8
+        }
+      ]
+    },
+    {
+      "id": "power_junction",
+      "name": "Power Junction Box",
+      "description": "An ancient fuse box on the stone wall, wired with exposed copper.",
+      "position": { "x": 50, "y": 200 },
+      "size": { "width": 60, "height": 80 },
+      "visual": { "color": "#444444", "label": "Fuse Box" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "power_junction", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "An old screw-type fuse box, probably from the 1940s. Four circuits, labeled in pencil on masking tape: 'KITCHEN', 'UPSTAIRS', 'BASEMENT', 'PORCH'. The panel door is held shut with a bent nail." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "power_junction", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You straighten the bent nail and swing the panel open. Four ceramic fuse sockets. All four are screwed in tight." },
+            { "type": "set_state", "object": "power_junction", "state": "open" }
+          ],
+          "noise": 4
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "power_junction", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "Four fuse sockets: KITCHEN, UPSTAIRS, BASEMENT, PORCH. If you unscrewed the upstairs fuse, Emmett would lose his lights and radio. He'd come down here to check. That's a double-edged sword." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "power_junction", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "You unscrew the UPSTAIRS fuse. The country music above cuts out. The light under the stairway door goes dark. Emmett's boots stop moving. Then: 'What in the hell...' He'll be coming down to check the fuses soon." },
+            { "type": "set_state", "object": "power_junction", "state": "upstairs_off" },
+            { "type": "set_flag", "flag": "power_off", "value": "true" },
+            { "type": "set_flag", "flag": "emmett_distracted", "value": "true" },
+            { "type": "delay_then", "seconds": 30, "effects": [
+              { "type": "set_flag", "flag": "emmett_distracted", "value": "false" },
+              { "type": "message", "text": "Emmett screws the fuse back in from upstairs — he found the breaker panel up there. The lights and music return. 'Damn old wiring.'" },
+              { "type": "set_state", "object": "power_junction", "state": "open" },
+              { "type": "set_flag", "flag": "power_off", "value": "false" }
+            ]}
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "hide_barrel",
+      "name": "Tanning Barrel",
+      "description": "A large wooden barrel filled with tanning solution. Big enough to hide in.",
+      "position": { "x": 700, "y": 500 },
+      "size": { "width": 80, "height": 100 },
+      "visual": { "color": "#2a2010", "label": "Barrel", "shape": "ellipse" },
+      "initial_state": "full",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An oak barrel, three feet wide, half-full of brown tanning solution. Hides and pelts are submerged inside. It reeks. But it's big enough to crouch in — if you don't mind sharing space with dead things." },
+            { "type": "set_flag", "flag": "hide_barrel_searched", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You push the pelts aside. Nothing hidden underneath — just murky brown liquid and the sharp smell of tannins." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You can't take the barrel. It weighs hundreds of pounds." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stone_wall_section",
+      "name": "Stone Foundation Wall",
+      "description": "The fieldstone foundation wall. In places, the mortar is old and crumbling.",
+      "position": { "x": 950, "y": 300 },
+      "size": { "width": 70, "height": 250 },
+      "visual": { "color": "#3a3a30", "label": "Wall" },
+      "initial_state": "solid",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "stone_wall_section", "state": "solid" }],
+          "then": [
+            { "type": "message", "text": "Fieldstone and lime mortar, probably original to the cabin — 1800s. One section near the storm cellar has deeply crumbled mortar and a visible crack. Weakened by water seepage over decades. Heat or chemical attack might weaken it further." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "stone_wall_section", "state": "solid" }],
+          "then": [
+            { "type": "message", "text": "You push on the weakened section. Mortar dust falls. It's fragile, but not fragile enough to break through by hand." }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "stone_wall_section", "state": "weakened" }],
+          "then": [
+            { "type": "message", "text": "The heat has dried and cracked the old mortar. Stones are loose. A few good kicks would bring this section down." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "stone_wall_section", "state": "weakened" }],
+          "then": [
+            { "type": "message", "text": "You kick the weakened wall. Stones tumble outward. Cold air and rain rush through the gap. A hole big enough to squeeze through opens onto the hillside." },
+            { "type": "set_state", "object": "stone_wall_section", "state": "breached" },
+            { "type": "set_flag", "flag": "wall_breached", "value": "true" },
+            { "type": "game_over", "result": "win", "reason": "The ancient wall collapses outward in a cascade of fieldstone. You squeeze through the gap into mud and rain, scrambling down the hillside. Behind you, smoke pours from the basement. Above, Emmett's voice: 'FIRE! LORD HAVE MERCY!' He won't be following you." }
+          ],
+          "noise": 50
+        }
+      ]
+    },
+    {
+      "id": "ceiling_beams",
+      "name": "Ceiling Beams",
+      "description": "Exposed wooden beams supporting the cabin floor above.",
+      "position": { "x": 512, "y": 50 },
+      "size": { "width": 400, "height": 40 },
+      "visual": { "color": "#2a1f0f", "label": "Beams" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Rough-hewn beams, blackened with age. Cobwebs between them. Through the gaps in the floorboards above, you can see slivers of light from Emmett's kitchen. When he walks, dust sifts down." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "random_message", "messages": [
+              "You listen. Emmett is humming 'I'm So Lonesome I Could Cry.' His voice wavers. Genuine sorrow.",
+              "Boots scuff. A chair scrapes. Emmett talking: 'Mama always said I should find a nice girl. Well, I found one, didn't I? She's downstairs.'",
+              "A dog barks somewhere distant. Emmett shushes it through the window: 'Hush now, Duke. Daddy's working.'"
+            ]}
+          ],
+          "noise": 0
+        }
+      ]
+    },
+    {
+      "id": "old_radio",
+      "name": "Old Radio",
+      "description": "A battered AM/FM radio on a shelf, coated in dust.",
+      "position": { "x": 600, "y": 200 },
+      "size": { "width": 60, "height": 40 },
+      "visual": { "color": "#333322", "label": "Radio" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An old Zenith transistor radio. The kind that runs on D batteries. The tuning dial is stuck at 660 AM. It might still work — and the static could cover the sound of your work." },
+            { "type": "set_flag", "flag": "radio_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "You click it on. Static hisses, then a faint country station bleeds through. The sound masks the smaller noises you make. But if Emmett hears TWO radios playing..." },
+            { "type": "set_state", "object": "old_radio", "state": "on_low" },
+            { "type": "set_flag", "flag": "radio_played_loud", "value": "false" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "on_low" }],
+          "then": [
+            { "type": "message", "text": "You crank the volume. Music fills the basement, loud enough to cover serious noise. But Emmett WILL hear this — it might bring him down, or it might just confuse him into thinking his own radio is echoing." },
+            { "type": "set_state", "object": "old_radio", "state": "on_loud" },
+            { "type": "set_flag", "flag": "radio_played_loud", "value": "true" },
+            { "type": "add_noise", "amount": 15 }
+          ],
+          "noise": 20
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "on_loud" }],
+          "then": [
+            { "type": "message", "text": "You turn the radio off. Silence rushes back." },
+            { "type": "set_state", "object": "old_radio", "state": "off" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "workbench_area",
+      "name": "Workbench",
+      "description": "A heavy wooden workbench covered in tools, materials, and stains.",
+      "position": { "x": 500, "y": 250 },
+      "size": { "width": 180, "height": 80 },
+      "visual": { "color": "#2a2010", "label": "Workbench" },
+      "initial_state": "cluttered",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A massive workbench, decades of use carved into its surface. Vise grip bolted to one end. Scattered tools, glass eye trays, wire frames, thread, borax. A composition notebook sits among the clutter. This is where Emmett creates his 'art.'" },
+            { "type": "set_view", "view": "workbench_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The workbench has everything. Time to look closer." },
+            { "type": "set_view", "view": "workbench_closeup" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shelf_unit",
+      "name": "Storage Shelves",
+      "description": "Metal shelving stacked with supplies — borax, wire, cotton batting, jars.",
+      "position": { "x": 250, "y": 500 },
+      "size": { "width": 100, "height": 150 },
+      "visual": { "color": "#444433", "label": "Shelves" },
+      "initial_state": "stocked",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Industrial metal shelving, four levels high. Cotton batting, wire spools, bags of borax, boxes of glass eyes sorted by size and color, mason jars of various chemicals. A box of Diamond kitchen matches sits on the second shelf. The gap behind the bottom shelf is dark — big enough to squeeze into." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "matches" }],
+          "then": [
+            { "type": "message", "text": "You pocket the box of matches." },
+            { "type": "add_item", "item": "matches" }
+          ],
+          "noise": 1
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "not_has_item", "item": "kindling_bundle" }],
+          "then": [
+            { "type": "message", "text": "You gather wood shavings and scraps from the shelves into a bundle. Dry as dust. Perfect kindling." },
+            { "type": "add_item", "item": "kindling_bundle" },
+            { "type": "set_flag", "flag": "kindling_gathered", "value": "true" }
+          ],
+          "noise": 4
+        }
+      ]
+    },
+    {
+      "id": "coal_furnace",
+      "name": "Coal Furnace",
+      "description": "A pot-bellied coal furnace, cold and disused. The flue runs up through the cabin.",
+      "position": { "x": 80, "y": 550 },
+      "size": { "width": 80, "height": 100 },
+      "visual": { "color": "#222222", "label": "Furnace" },
+      "initial_state": "cold",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "coal_furnace", "state": "cold" }],
+          "then": [
+            { "type": "message", "text": "A cast-iron pot-bellied stove, long disused. Emmett heats the cabin with a woodstove upstairs now. The coal bin beside it still has chunks of anthracite. The flue pipe runs straight up through the ceiling into the cabin above. If you started a fire here, the heat would rise through the flue and the smoke would fill the upstairs too." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "coal_furnace", "state": "cold" },
+            { "type": "not_has_item", "item": "coal_chunk" }
+          ],
+          "then": [
+            { "type": "message", "text": "You open the furnace door. Cold ash inside. You grab a fist-sized chunk of coal from the bin." },
+            { "type": "add_item", "item": "coal_chunk" },
+            { "type": "set_flag", "flag": "coal_taken", "value": "true" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "fire_bundle",
+          "when": [{ "type": "object_state", "object": "coal_furnace", "state": "cold" }],
+          "then": [
+            { "type": "message", "text": "You place the coal and kindling bundle in the furnace and light it with a match. The kindling catches. The coal smolders, then glows red. Heat radiates. Smoke begins rising up the flue into the cabin above." },
+            { "type": "set_state", "object": "coal_furnace", "state": "lit" },
+            { "type": "set_flag", "flag": "furnace_lit", "value": "true" },
+            { "type": "remove_item", "item": "fire_bundle" },
+            { "type": "remove_item", "item": "matches" },
+            { "type": "delay_then", "seconds": 20, "effects": [
+              { "type": "message", "text": "Smoke is filling the upstairs. Emmett coughs: 'What the — somethin's burnin'!' His boots thud toward the stairway door." },
+              { "type": "set_flag", "flag": "emmett_distracted", "value": "true" }
+            ]}
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "use_item",
+          "item": "accelerant_bundle",
+          "when": [{ "type": "object_state", "object": "coal_furnace", "state": "cold" }],
+          "then": [
+            { "type": "message", "text": "You cram the formaldehyde-soaked kindling into the furnace and strike a match. WHOOSH. The fire erupts violently — heat blasts your face. The furnace glows red-hot almost instantly. Flames lick up the flue. The wall nearby begins to char." },
+            { "type": "set_state", "object": "coal_furnace", "state": "overloaded" },
+            { "type": "set_flag", "flag": "furnace_overloaded", "value": "true" },
+            { "type": "set_flag", "flag": "fire_started", "value": "true" },
+            { "type": "remove_item", "item": "accelerant_bundle" },
+            { "type": "remove_item", "item": "matches" },
+            { "type": "visual_cue", "cue": "red_pulse" },
+            { "type": "delay_then", "seconds": 10, "effects": [
+              { "type": "message", "text": "The fire is spreading. Embers leap from the overloaded furnace. The wall section near the storm cellar is charring — the old mortar cracking from the heat." },
+              { "type": "set_state", "object": "stone_wall_section", "state": "weakened" },
+              { "type": "set_flag", "flag": "wall_weakened", "value": "true" }
+            ]},
+            { "type": "delay_then", "seconds": 15, "effects": [
+              { "type": "message", "text": "Emmett screams from above: 'FIRE! THE HOUSE IS ON FIRE!' His boots thunder. He's panicking, running for water." },
+              { "type": "set_flag", "flag": "emmett_distracted", "value": "true" }
+            ]}
+          ],
+          "noise": 30
+        },
+        {
+          "verb": "use_item",
+          "item": "formaldehyde_jar",
+          "when": [{ "type": "object_state", "object": "coal_furnace", "state": "lit" }],
+          "then": [
+            { "type": "message", "text": "You pour the formaldehyde into the lit furnace. The flames explode upward — a column of fire shoots up the flue. The furnace groans, red-hot. Nearby, the stone wall begins to crack from the heat." },
+            { "type": "set_state", "object": "coal_furnace", "state": "overloaded" },
+            { "type": "set_flag", "flag": "furnace_overloaded", "value": "true" },
+            { "type": "set_flag", "flag": "fire_started", "value": "true" },
+            { "type": "remove_item", "item": "formaldehyde_jar" },
+            { "type": "visual_cue", "cue": "red_pulse" },
+            { "type": "delay_then", "seconds": 10, "effects": [
+              { "type": "set_state", "object": "stone_wall_section", "state": "weakened" },
+              { "type": "set_flag", "flag": "wall_weakened", "value": "true" },
+              { "type": "message", "text": "Mortar crumbles. The wall section near the furnace is cracking from the intense heat." }
+            ]}
+          ],
+          "noise": 35
+        }
+      ]
+    },
+    {
+      "id": "vise_grip",
+      "name": "Bench Vise",
+      "description": "A heavy iron vise bolted to the workbench.",
+      "position": { "x": 200, "y": 400 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#555555", "label": "Vise" },
+      "initial_state": "open",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A heavy cast-iron bench vise. Emmett uses it to hold forms while he shapes wire armatures. Could clamp anything — including materials you need to bend or work." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "hacksaw_blade",
+          "when": [{ "type": "flag_not", "flag": "wire_frame_bent", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You clamp a piece of armature wire in the vise and use the hacksaw blade to score and bend it into a crude lockpick shape. The stiff wire holds its form." },
+            { "type": "add_item", "item": "wire_lockpick" },
+            { "type": "set_flag", "flag": "wire_frame_bent", "value": "true" },
+            { "type": "set_flag", "flag": "vise_used", "value": "true" }
+          ],
+          "noise": 12
+        }
+      ]
+    },
+    {
+      "id": "skinning_knife_obj",
+      "name": "Skinning Knife",
+      "description": "A wickedly curved blade on the workbench pegboard.",
+      "position": { "x": 300, "y": 380 },
+      "size": { "width": 40, "height": 20 },
+      "visual": { "color": "#888888", "label": "Knife" },
+      "initial_state": "on_bench",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "skinning_knife_obj", "state": "on_bench" }],
+          "then": [
+            { "type": "message", "text": "A professional skinning knife. Curved blade, electrical-tape handle. It's the first useful thing within reach — if you can get free of the straps." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "object_state", "object": "skinning_knife_obj", "state": "on_bench" },
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You grab the skinning knife. The weight of it in your hand is the first thing that's felt right since you woke up." },
+            { "type": "add_item", "item": "skinning_knife" },
+            { "type": "set_state", "object": "skinning_knife_obj", "state": "taken" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "object_state", "object": "skinning_knife_obj", "state": "on_bench" },
+            { "type": "flag_not", "flag": "freed_from_straps", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You strain toward it but the straps hold you to the table. You can see it, almost touch it. So close." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sewing_kit",
+      "name": "Sewing Kit",
+      "description": "Heavy-gauge needles and waxed thread for stitching hides.",
+      "position": { "x": 400, "y": 400 },
+      "size": { "width": 40, "height": 30 },
+      "visual": { "color": "#665544", "label": "Sewing Kit" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Curved needles of various sizes, spools of waxed linen thread, leather thimbles. The large curved needle could be useful." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "sewing_needle" }
+          ],
+          "then": [
+            { "type": "message", "text": "You take the largest curved needle. Thick, strong, and sharp." },
+            { "type": "add_item", "item": "sewing_needle" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "glass_eyes_tray",
+      "name": "Glass Eyes Tray",
+      "description": "A wooden tray of hand-painted glass eyes, sorted by color.",
+      "position": { "x": 500, "y": 380 },
+      "size": { "width": 50, "height": 30 },
+      "visual": { "color": "#554433", "label": "Glass Eyes" },
+      "initial_state": "full",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "lens_found", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Rows of glass eyes stare up at you. Brown, blue, green, hazel — each one hand-painted. Disturbingly lifelike. Some have tiny markings on the back." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "glass_eyes" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pick up a pair of eyes. They feel warm, which is impossible. Unsettling." },
+            { "type": "add_item", "item": "glass_eyes" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "notebook_obj",
+      "name": "Composition Notebook",
+      "description": "A stained notebook among the workbench clutter.",
+      "position": { "x": 350, "y": 420 },
+      "size": { "width": 40, "height": 30 },
+      "visual": { "color": "#1a1a1a", "label": "Notebook" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "notebook_obj", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A composition notebook, its cover stained brown. 'EMMETT'S NOTES — DO NOT TOUCH' written in marker on the front." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "notebook" }
+          ],
+          "then": [
+            { "type": "message", "text": "You grab the notebook. Emmett's private notes — formulas, sketches, and secrets." },
+            { "type": "add_item", "item": "notebook" },
+            { "type": "set_state", "object": "notebook_obj", "state": "taken" },
+            { "type": "set_flag", "flag": "found_notebook", "value": "true" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "wire_frame",
+      "name": "Wire Armature Frame",
+      "description": "Stiff galvanized wire used to build forms for taxidermy mounts.",
+      "position": { "x": 450, "y": 420 },
+      "size": { "width": 50, "height": 30 },
+      "visual": { "color": "#888888", "label": "Wire" },
+      "initial_state": "coiled",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Heavy-gauge galvanized wire, pre-cut into armature lengths. Stiff enough to hold a shape, thin enough to bend with pliers. Could be fashioned into a tool." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "freed_from_straps", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You bend a piece. It holds its shape well. With the vise, you could make something useful from this." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "borax_container",
+      "name": "Borax Container",
+      "description": "A large tin of 20 Mule Team Borax, a taxidermy staple.",
+      "position": { "x": 150, "y": 350 },
+      "size": { "width": 40, "height": 50 },
+      "visual": { "color": "#DDDDAA", "label": "Borax" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'20 Mule Team Borax — for preservation and dehydration.' Emmett uses it to dry hides and preserve specimens. Not useful for the lye formula." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "acetone_jar",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Borax and acetone — that's not the formula. The notebook said lye, not borax. This would just make a useless paste." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnifying_lens_obj",
+      "name": "Magnifying Lens",
+      "description": "A large brass magnifying glass on the workbench.",
+      "position": { "x": 550, "y": 400 },
+      "size": { "width": 30, "height": 40 },
+      "visual": { "color": "#AA8833", "label": "Lens" },
+      "initial_state": "on_bench",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A quality brass-rimmed magnifying lens. Emmett uses it for fine detail work on his specimens." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "magnifying_lens" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pocket the magnifying lens." },
+            { "type": "add_item", "item": "magnifying_lens" },
+            { "type": "set_state", "object": "magnifying_lens_obj", "state": "taken" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "formaldehyde_bottle",
+      "name": "Formaldehyde Bottle",
+      "description": "A large brown glass bottle of formaldehyde solution.",
+      "position": { "x": 250, "y": 300 },
+      "size": { "width": 30, "height": 50 },
+      "visual": { "color": "#553311", "label": "Formaldehyde" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'FORMALDEHYDE 37% — TOXIC, FLAMMABLE.' The bottle is nearly full. A preservative, not part of the lye formula. But highly flammable — could be used as an accelerant." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "formaldehyde_jar" }
+          ],
+          "then": [
+            { "type": "message", "text": "You take the bottle of formaldehyde. The fumes make your eyes water." },
+            { "type": "add_item", "item": "formaldehyde_jar" },
+            { "type": "set_flag", "flag": "has_formaldehyde", "value": "true" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "acetone_can",
+      "name": "Acetone Can",
+      "description": "A metal can of industrial acetone.",
+      "position": { "x": 300, "y": 300 },
+      "size": { "width": 30, "height": 50 },
+      "visual": { "color": "#888888", "label": "Acetone" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'Industrial Acetone — Flammable, Irritant.' Clear liquid solvent. One of the two ingredients in Emmett's lye formula." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "acetone_jar" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pour some acetone into an empty jar and cap it." },
+            { "type": "add_item", "item": "acetone_jar" },
+            { "type": "set_flag", "flag": "has_acetone", "value": "true" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "tanning_solution",
+      "name": "Tanning Solution",
+      "description": "A jug of commercial tanning solution.",
+      "position": { "x": 350, "y": 300 },
+      "size": { "width": 30, "height": 50 },
+      "visual": { "color": "#553322", "label": "Tanning" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Commercial tanning solution — chromium salts in water. Not useful for escape. Not part of any formula you know." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lye_container",
+      "name": "Lye Container",
+      "description": "A paper bag of Red Devil Lye — sodium hydroxide.",
+      "position": { "x": 400, "y": 300 },
+      "size": { "width": 30, "height": 50 },
+      "visual": { "color": "#DDDDDD", "label": "Lye" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "'Red Devil Lye — Sodium Hydroxide. CAUSTIC.' Pure drain cleaner. Mixed properly with acetone, it creates a powerful solvent that eats through organic material and weakens corroded metal. Handle with gloves." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "lye_powder" }
+          ],
+          "then": [
+            { "type": "message", "text": "You take the bag of lye. Be careful with this." },
+            { "type": "add_item", "item": "lye_powder" },
+            { "type": "set_flag", "flag": "has_lye", "value": "true" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "empty_jar",
+      "name": "Empty Mason Jar",
+      "description": "A clean mason jar. Could be used for mixing.",
+      "position": { "x": 450, "y": 300 },
+      "size": { "width": 25, "height": 40 },
+      "visual": { "color": "#AACCCC", "label": "Jar" },
+      "initial_state": "empty",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A clean quart mason jar. Good for mixing chemicals." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "measuring_cup",
+      "name": "Measuring Cup",
+      "description": "A graduated glass measuring cup.",
+      "position": { "x": 200, "y": 350 },
+      "size": { "width": 25, "height": 30 },
+      "visual": { "color": "#AABBCC", "label": "Cup" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Glass measuring cup with markings in ounces and milliliters. Necessary for getting the lye formula proportions right — 3 parts lye to 1 part acetone." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rubber_gloves_obj",
+      "name": "Rubber Gloves",
+      "description": "Heavy-duty rubber gloves hanging from a hook.",
+      "position": { "x": 100, "y": 300 },
+      "size": { "width": 30, "height": 40 },
+      "visual": { "color": "#AAAA33", "label": "Gloves" },
+      "initial_state": "hanging",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Industrial rubber gloves, stained yellow from chemicals. The notebook warned: use gloves when handling the lye mixture." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+            { "type": "not_has_item", "item": "rubber_gloves" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pull on the rubber gloves. They're a size too big but they'll protect your hands." },
+            { "type": "add_item", "item": "rubber_gloves" },
+            { "type": "set_flag", "flag": "gloves_taken", "value": "true" },
+            { "type": "set_state", "object": "rubber_gloves_obj", "state": "taken" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "chemical_log",
+      "name": "Chemical Log",
+      "description": "A clipboard with handwritten chemical inventory records.",
+      "position": { "x": 500, "y": 300 },
+      "size": { "width": 30, "height": 40 },
+      "visual": { "color": "#DDDDCC", "label": "Log" },
+      "initial_state": "unread",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "log_read", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Emmett's chemical inventory. Dated entries showing purchases: formaldehyde, borax, acetone, lye, tanning solution. One entry circled in red: 'Feb 14 — Extra lye for Mama's recipe. Remember: GLOVES!!!' Valentine's Day. Of course he marks the date he orders chemicals to dissolve things." },
+            { "type": "set_flag", "flag": "log_read", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "log_read", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The chemical log. Confirms the lye mixture is dangerous and requires gloves." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cellar_bars",
+      "name": "Iron Bars",
+      "description": "Three horizontal iron bars bolted across the storm cellar doors.",
+      "position": { "x": 500, "y": 400 },
+      "size": { "width": 130, "height": 20 },
+      "visual": { "color": "#444444", "label": "Iron Bars" },
+      "initial_state": "solid",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "solid" }],
+          "then": [
+            { "type": "message", "text": "Three half-inch iron bars bolted into the stone wall on each side. Rusted but strong. The middle bar has a padlock securing it. Corrosion covers the bolts — decades of moisture. A caustic solvent might weaken the corroded metal enough to break through." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "solid" }],
+          "then": [
+            { "type": "message", "text": "You grab a bar and pull. Solid. The rust is surface-deep — the iron underneath holds. You'd need chemicals or tools." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "use_item",
+          "item": "lye_mixture",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "solid" }],
+          "then": [
+            { "type": "conditional_effect",
+              "when": [{ "type": "has_item", "item": "rubber_gloves" }],
+              "then": [
+                { "type": "message", "text": "Wearing the gloves, you carefully pour the lye solvent along each bar, concentrating on the bolt points. The mixture hisses and bubbles, eating into the corroded iron. After a few minutes, the bars flex when you push. Weakened, not gone — but a hard shove might break them free." },
+                { "type": "set_state", "object": "cellar_bars", "state": "weakened" },
+                { "type": "set_flag", "flag": "bars_weakened", "value": "true" },
+                { "type": "remove_item", "item": "lye_mixture" }
+              ],
+              "else": [
+                { "type": "message", "text": "You pour the lye without gloves. It splashes your hands — BURNING. You drop the jar and it shatters. Some solvent hit the bars but not enough. And the pain..." },
+                { "type": "remove_item", "item": "lye_mixture" },
+                { "type": "add_noise", "amount": 25 }
+              ]
+            }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "use_item",
+          "item": "handled_hacksaw",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "solid" }],
+          "then": [
+            { "type": "message", "text": "You saw at the first bar. The blade bites into the corroded iron, slowly. Ten minutes per bar. Exhausting, noisy work. But it cuts. One bar... two... three. Your arms are shaking. The bars fall away, sawed through at the bolts." },
+            { "type": "set_state", "object": "cellar_bars", "state": "cut" },
+            { "type": "set_flag", "flag": "bars_removed", "value": "true" }
+          ],
+          "noise": 45
+        },
+        {
+          "verb": "use_item",
+          "item": "handled_hacksaw",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "weakened" }],
+          "then": [
+            { "type": "message", "text": "The solvent-weakened bars give way easily under the hacksaw. A few strokes each and they snap. Much faster than cutting fresh iron." },
+            { "type": "set_state", "object": "cellar_bars", "state": "cut" },
+            { "type": "set_flag", "flag": "bars_removed", "value": "true" }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cellar_bars", "state": "weakened" }],
+          "then": [
+            { "type": "message", "text": "The bars flex when touched. The lye solvent ate through the worst of the corrosion. A strong push with the lock removed should break them free." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cellar_lock",
+      "name": "Padlock",
+      "description": "An old brass padlock securing the middle bar of the storm cellar.",
+      "position": { "x": 500, "y": 450 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#AA8833", "label": "Padlock" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cellar_lock", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A brass padlock, tarnished green. Old but functional. The keyhole is a simple warded lock — a skeleton key type, or the right key, or a pick would open it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cellar_lock", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You tug at the padlock. It holds. Locked." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "specimen_key",
+          "when": [{ "type": "object_state", "object": "cellar_lock", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The brass key slides in. Turns with a satisfying click. The padlock falls open. One obstacle down." },
+            { "type": "set_state", "object": "cellar_lock", "state": "unlocked" },
+            { "type": "set_flag", "flag": "cellar_lock_picked", "value": "true" }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "wire_lockpick",
+          "when": [{ "type": "object_state", "object": "cellar_lock", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You work the crude lockpick into the old warded lock. It's a simple mechanism. After tense minutes of jiggling, the lock clicks open. Your hands are shaking." },
+            { "type": "set_state", "object": "cellar_lock", "state": "unlocked" },
+            { "type": "set_flag", "flag": "cellar_lock_picked", "value": "true" }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "use_item",
+          "item": "handled_hacksaw",
+          "when": [{ "type": "object_state", "object": "cellar_lock", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You saw through the padlock shackle. Brass cuts easier than iron — a few minutes and it falls away." },
+            { "type": "set_state", "object": "cellar_lock", "state": "cut" },
+            { "type": "set_flag", "flag": "cellar_lock_cut", "value": "true" }
+          ],
+          "noise": 20
+        }
+      ]
+    },
+    {
+      "id": "cellar_hinges",
+      "name": "Cellar Door Hinges",
+      "description": "Heavy iron hinges holding the storm cellar doors.",
+      "position": { "x": 600, "y": 420 },
+      "size": { "width": 30, "height": 60 },
+      "visual": { "color": "#555544", "label": "Hinges" },
+      "initial_state": "rusted",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Massive iron strap hinges, deeply corroded. If you could loosen these instead of cutting the bars, the whole door could come free. But they're bolted through the stone." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "lye_mixture",
+          "when": [{ "type": "object_state", "object": "cellar_hinges", "state": "rusted" }],
+          "then": [
+            { "type": "message", "text": "You apply the lye solvent to the hinge bolts. The corrosion dissolves, but the bolts are set deep in stone — the solvent can't reach far enough. The bars are a better target." },
+            { "type": "remove_item", "item": "lye_mixture" }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "dirt_floor",
+      "name": "Dirt Floor",
+      "description": "Hard-packed earth visible through the storm cellar doors.",
+      "position": { "x": 500, "y": 550 },
+      "size": { "width": 130, "height": 40 },
+      "visual": { "color": "#3a2a10", "label": "Dirt" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Hard-packed Appalachian clay, wet from rain seeping through the cellar doors. You can see the slope of the hillside — the cabin is built into a ridge. If you get through those doors, it's a steep but runnable descent to the tree line." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root_system",
+      "name": "Exposed Roots",
+      "description": "Tree roots pushing through the stone near the cellar doors.",
+      "position": { "x": 620, "y": 500 },
+      "size": { "width": 40, "height": 40 },
+      "visual": { "color": "#3a2a10", "label": "Roots" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Oak roots have pushed through gaps in the fieldstone over decades. They've actually loosened some of the mortar around the storm cellar frame. Nature doing the demolition work that time started." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rain_seepage",
+      "name": "Rain Seepage",
+      "description": "Water trickling through gaps in the storm cellar doors.",
+      "position": { "x": 450, "y": 480 },
+      "size": { "width": 60, "height": 20 },
+      "visual": { "color": "#334455", "label": "Water" },
+      "initial_state": "trickling",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "storm_intensified", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Rain water seeps through the gaps between the cellar doors. A steady trickle. The storm outside is picking up." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "storm_intensified", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Water is pouring in now. The storm outside is howling. Thunder cracks nearby. The rain will cover the sound of your escape — if you hurry." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "puzzle_widgets": [
+    {
+      "id": "cabinet_lock",
+      "widget_type": "combination_lock",
+      "position": { "x": 350, "y": 310 },
+      "size": { "width": 80, "height": 50 },
+      "view": "chemical_shelf_closeup",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 4,
+        "values_per_dial": 10,
+        "solution": [4, 7, 2, 8],
+        "dial_labels": ["I", "II", "III", "IV"]
+      },
+      "on_solve": [
+        { "type": "set_state", "object": "chemical_cabinet", "state": "open" },
+        { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
+        { "type": "message", "text": "Click. The lock pops open. Bottles of chemicals line the shelves inside, neatly organized. Emmett is meticulous about his supplies." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 3 },
+        { "type": "message", "text": "Wrong combination. The dials click uselessly." }
+      ],
+      "noise_per_interaction": 1
+    },
+    {
+      "id": "junction_panel",
+      "widget_type": "toggle_panel",
+      "position": { "x": 50, "y": 230 },
+      "size": { "width": 55, "height": 60 },
+      "view": "main",
+      "initially_visible": false,
+      "config": {
+        "num_switches": 4,
+        "solution": [false, true, true, false],
+        "labels": ["KITCHEN", "UPSTAIRS", "BASEMENT", "PORCH"]
+      },
+      "on_solve": [
+        { "type": "set_flag", "flag": "power_off", "value": "true" },
+        { "type": "set_flag", "flag": "emmett_distracted", "value": "true" },
+        { "type": "message", "text": "You flip the UPSTAIRS and BASEMENT breakers simultaneously. The entire cabin goes dark. Emmett's music dies. His boots stop. Then, panicked: 'Lord almighty, what now?!' He stumbles for a flashlight." },
+        { "type": "delay_then", "seconds": 45, "effects": [
+          { "type": "set_flag", "flag": "emmett_distracted", "value": "false" },
+          { "type": "set_flag", "flag": "power_off", "value": "false" },
+          { "type": "message", "text": "The lights flicker back on. Emmett found the fuses. 'Damn storm playin' with the wires again.'" }
+        ]}
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 2 },
+        { "type": "message", "text": "The switches click but nothing useful happens." }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "chemical_mixing",
+      "widget_type": "sequence_puzzle",
+      "position": { "x": 300, "y": 350 },
+      "size": { "width": 200, "height": 60 },
+      "view": "chemical_shelf_closeup",
+      "initially_visible": false,
+      "config": {
+        "steps": [
+          { "id": "don_gloves", "label": "Put on gloves", "position": { "x": 0, "y": 0 } },
+          { "id": "measure_lye", "label": "Measure 3 parts lye", "position": { "x": 50, "y": 0 } },
+          { "id": "measure_acetone", "label": "Measure 1 part acetone", "position": { "x": 100, "y": 0 } },
+          { "id": "pour_mix", "label": "Combine in jar", "position": { "x": 150, "y": 0 } }
+        ],
+        "solution_order": ["don_gloves", "measure_lye", "measure_acetone", "pour_mix"],
+        "reset_on_error": true,
+        "correct_step_message": "Correct step.",
+        "wrong_step_message": "Wrong order — the notebook specified a precise sequence. Start over.",
+        "wrong_step_noise": 5
+      },
+      "on_solve": [
+        { "type": "add_item", "item": "lye_mixture" },
+        { "type": "set_flag", "flag": "mixed_solvent", "value": "true" },
+        { "type": "message", "text": "Gloves on, lye measured, acetone measured, combined. The mixture heats up and fumes. You cap the jar quickly. A powerful caustic solvent, ready to eat through corroded metal." }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 8 },
+        { "type": "message", "text": "Wrong sequence. The chemicals react badly — fumes fill the air and you cough." },
+        { "type": "set_flag", "flag": "mixed_wrong", "value": "true" }
+      ],
+      "noise_per_interaction": 2
+    }
+  ],
+
+  "phases": [
+    {
+      "id": "trapped",
+      "name": "Trapped",
+      "starts_when": [],
+      "on_enter": [
+        { "type": "message", "text": "Consciousness returns in waves. Cold steel under your back. Leather biting your wrists. The stench of chemicals. You're in a basement — strapped to a table." }
+      ],
+      "ambient_text": "Country music from above. Heavy boots on creaking floors. The hum of a man content with his work.",
+      "killer_overrides": {
+        "check_interval_seconds": 70,
+        "noise_threshold_investigate": 60
+      }
+    },
+    {
+      "id": "working",
+      "name": "Working",
+      "starts_when": [{ "type": "flag_is", "flag": "freed_from_straps", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "You're free of the table. The basement stretches around you — workbench, specimens, chemicals, tools. And the storm cellar doors. A way out. Be quiet. Emmett is right above." }
+      ],
+      "ambient_text": "Your own breathing. The creak of old wood. Rain beginning against the cellar doors.",
+      "killer_overrides": {
+        "check_interval_seconds": 50,
+        "noise_threshold_investigate": 45,
+        "noise_threshold_curious": 20
+      }
+    },
+    {
+      "id": "pursuit",
+      "name": "Pursuit",
+      "starts_when": [{ "type": "flag_is", "flag": "emmett_suspicious", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "Emmett's voice drops to a whisper above: 'Now I know I heard somethin' down there. You best not be causin' trouble, darlin'.' The stairs creak. He's coming." },
+        { "type": "visual_cue", "cue": "red_pulse" }
+      ],
+      "ambient_text": "Emmett's footsteps on the stairs. His breathing. The click of a knife.",
+      "killer_overrides": {
+        "check_interval_seconds": 25,
+        "noise_threshold_investigate": 20,
+        "noise_threshold_curious": 8,
+        "thoroughness": 0.7
+      }
+    }
+  ],
+
+  "events": [
+    {
+      "id": "emmett_feeds_collection",
+      "trigger": { "type": "time_after", "seconds": 60 },
+      "one_shot": true,
+      "effects": [
+        { "type": "random_message", "messages": [
+          "Above, Emmett talks to his specimens: 'There you go, Mr. Buck. Fresh polish for them antlers. Mama would be proud, wouldn't she?'",
+          "You hear Emmett above, talking softly: 'Now don't you look at me like that, Mrs. Henderson. I told you I'd make you beautiful, and I did.'",
+          "Emmett's voice drifts down: 'Duke, get away from Mrs. Henderson. She ain't for playin' with.'"
+        ]}
+      ]
+    },
+    {
+      "id": "storm_begins",
+      "trigger": { "type": "time_after", "seconds": 120 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Thunder rumbles in the distance. Rain starts pattering against the storm cellar doors. The old cabin creaks in the wind." },
+        { "type": "set_flag", "flag": "storm_started", "value": "true" }
+      ]
+    },
+    {
+      "id": "storm_intensifies",
+      "trigger": { "type": "time_after", "seconds": 300 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The storm hits full force. Rain hammers the cellar doors. Thunder cracks close enough to shake the bottles on the shelves. Lightning flashes through the gaps. Emmett shouts above: 'Lord have mercy, that was close!'" },
+        { "type": "set_flag", "flag": "storm_intensified", "value": "true" },
+        { "type": "visual_cue", "cue": "flash" }
+      ]
+    },
+    {
+      "id": "power_flickers",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "time_after", "seconds": 240 },
+          { "type": "flag_is", "flag": "storm_started", "value": "true" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "visual_cue", "cue": "flicker" },
+        { "type": "message", "text": "The lights flicker violently. For a moment, total darkness. Then they come back. Emmett curses above. The storm is testing the old wiring — the next outage might stick." }
+      ]
+    },
+    {
+      "id": "visitor_arrives",
+      "trigger": { "type": "time_after", "seconds": 360 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "A truck engine outside. A door slams. A voice: 'Emmett! You in there? It's Ray!' Emmett's boots hurry to the front door. 'Well hey there, Ray! Come on in outta that rain. Let me put some coffee on.'" },
+        { "type": "set_flag", "flag": "emmett_visitor_arrived", "value": "true" },
+        { "type": "set_flag", "flag": "emmett_talking_to_visitor", "value": "true" },
+        { "type": "set_flag", "flag": "emmett_distracted", "value": "true" },
+        { "type": "delay_then", "seconds": 60, "effects": [
+          { "type": "message", "text": "Above, you hear Ray leaving: 'Well I best get on. Wife's waitin.' Roads'll be washed out soon.' The front door closes. Ray's truck starts and drives away. Emmett returns to his routine." },
+          { "type": "set_flag", "flag": "emmett_talking_to_visitor", "value": "false" },
+          { "type": "set_flag", "flag": "emmett_distracted", "value": "false" }
+        ]}
+      ]
+    },
+    {
+      "id": "emmett_notices_missing_knife",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "has_item", "item": "skinning_knife" },
+          { "type": "killer_is", "state": "checking" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Emmett's eyes scan the workbench. 'Now where'd my skinnin' knife get to...' His voice hardens. 'You wouldn't have touched my tools, would you, darlin'?'" },
+        { "type": "set_flag", "flag": "emmett_suspicious", "value": "true" }
+      ]
+    },
+    {
+      "id": "emmett_notices_cabinet",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "cabinet_opened", "value": "true" },
+          { "type": "killer_is", "state": "checking" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Emmett sees the open cabinet. His whole demeanor changes. 'Now. Now now now. Who's been in my chemicals?' His voice is suddenly cold. 'Mama always said curiosity killed the cat. And the cat weren't never as pretty after.'" },
+        { "type": "set_flag", "flag": "emmett_suspicious", "value": "true" },
+        { "type": "set_flag", "flag": "evidence_cabinet_open", "value": "true" }
+      ]
+    }
+  ],
+
+  "killer": {
+    "name": "Emmett Craw",
+    "description": "A reclusive Appalachian taxidermist, mid-50s, who has graduated from preserving animals to preserving people. Soft-spoken, folksy, and genuinely believes he is 'preserving beauty.' References his dead mother constantly. Hums country music while he works.",
+
+    "base_behavior": {
+      "check_interval_seconds": 60,
+      "interval_variance_seconds": 15,
+      "noise_threshold_curious": 20,
+      "noise_threshold_investigate": 50,
+      "noise_threshold_immediate": 80,
+      "noise_decay_per_second": 1.5,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 15
+    },
+
+    "search_behavior": {
+      "thoroughness": 0.35,
+      "evidence_flags": ["cabinet_opened", "key_found_in_specimen", "bars_weakened", "fire_started"],
+      "thoroughness_on_evidence": 0.75,
+      "search_order": "nearest"
+    },
+
+    "personality": {
+      "on_approach": [
+        "Now then, let me check on my new project...",
+        "Don't you fret, darlin'. Emmett's comin'.",
+        "Time to see how you're settlin' in.",
+        "Mama always said, check your work regular-like."
+      ],
+      "on_search": [
+        "Now where'd you get to, sweetheart?",
+        "Come on now, don't make this harder'n it needs to be.",
+        "I ain't mad. I just need you back on the table, is all.",
+        "Hidin'? That ain't polite, darlin'. Not after all the trouble I went to."
+      ],
+      "on_clear": [
+        "There now. Right where I left you. Good.",
+        "Behavin' yourself. That's real good. Mama would approve.",
+        "Everythin' in order. Now I got work to do upstairs."
+      ],
+      "on_evidence": [
+        "Well now. Somebody's been busy, ain't they?",
+        "That don't look right. That don't look right at all.",
+        "Now who told you you could touch my things?",
+        "Mama warned me about the ones that fight. They always fight."
+      ],
+      "on_catch": [
+        "There you are. Now come on back to the table. We got work to do, you and me.",
+        "Shh shh shh. It's alright. It'll all be over soon. You're gonna be beautiful.",
+        "Found you. Mama always said I had eyes like a hawk. Now hold still, darlin'."
+      ]
+    },
+
+    "on_visit_effects": [
+      {
+        "conditions": [{ "type": "object_state", "object": "chemical_cabinet", "state": "open" }],
+        "effects": [
+          { "type": "set_state", "object": "chemical_cabinet", "state": "locked" },
+          { "type": "set_flag", "flag": "cabinet_opened", "value": "false" },
+          { "type": "message", "text": "Emmett locks the chemical cabinet shut and pockets the combination. 'Can't have you messin' with my supplies.'" }
+        ]
+      },
+      {
+        "conditions": [{ "type": "object_state", "object": "old_radio", "state": "on_loud" }],
+        "effects": [
+          { "type": "set_state", "object": "old_radio", "state": "off" },
+          { "type": "message", "text": "Emmett switches off the basement radio. 'I got my own radio, thank you very much.'" }
+        ]
+      },
+      {
+        "conditions": [{ "type": "object_state", "object": "specimen_wall", "state": "searched" }],
+        "effects": [
+          { "type": "message", "text": "Emmett sees the gutted coyote mount. His face twists. 'You... you CUT open my Daisy? MY LITTLE DAISY?!' His voice breaks. The dog. It was the dog." },
+          { "type": "set_flag", "flag": "emmett_suspicious", "value": "true" }
+        ]
+      }
+    ],
+
+    "special_behaviors": [
+      {
+        "id": "distracted_by_visitor",
+        "trigger": { "type": "flag_is", "flag": "emmett_talking_to_visitor", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 60,
+        "description": "Emmett is talking to his neighbor Ray. He won't check the basement."
+      },
+      {
+        "id": "fire_panic",
+        "trigger": { "type": "flag_is", "flag": "fire_started", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 40,
+        "description": "The cabin is on fire. Emmett panics and tries to save his specimens upstairs."
+      },
+      {
+        "id": "enraged_mode",
+        "trigger": { "type": "flag_is", "flag": "emmett_suspicious", "value": "true" },
+        "effect": "enraged",
+        "overrides": {
+          "check_interval_seconds": 20,
+          "thoroughness": 0.8,
+          "noise_threshold_investigate": 15
+        }
+      }
+    ]
+  },
+
+  "win_conditions": [
+    {
+      "id": "chemical_escape",
+      "description": "Weaken the cellar bars with lye solvent and escape through the storm cellar",
+      "conditions": [
+        { "type": "flag_is", "flag": "bars_weakened", "value": "true" },
+        { "type": "any_of", "conditions": [
+          { "type": "flag_is", "flag": "cellar_lock_picked", "value": "true" },
+          { "type": "flag_is", "flag": "cellar_lock_cut", "value": "true" }
+        ]}
+      ]
+    },
+    {
+      "id": "tool_escape",
+      "description": "Cut through the cellar bars with a hacksaw and escape",
+      "conditions": [
+        { "type": "flag_is", "flag": "bars_removed", "value": "true" },
+        { "type": "any_of", "conditions": [
+          { "type": "flag_is", "flag": "cellar_lock_picked", "value": "true" },
+          { "type": "flag_is", "flag": "cellar_lock_cut", "value": "true" }
+        ]}
+      ]
+    },
+    {
+      "id": "fire_escape",
+      "description": "Start a fire to weaken the wall and break through",
+      "conditions": [
+        { "type": "flag_is", "flag": "wall_breached", "value": "true" }
+      ]
+    }
+  ],
+
+  "lose_conditions": [
+    {
+      "id": "caught",
+      "description": "Emmett catches you outside of a hiding spot during a search.",
+      "conditions": [
+        { "type": "killer_is", "state": "checking" },
+        { "type": "not_hiding" }
+      ]
+    },
+    {
+      "id": "time_limit",
+      "description": "You run out of time — Emmett begins his 'work'.",
+      "conditions": [
+        { "type": "time_after", "seconds": 600 }
+      ]
+    }
+  ],
+
+  "hints": [
+    {
+      "id": "hint_1",
+      "text": "The leather straps are old. Keep trying to work your hand free — or find a blade.",
+      "conditions": [{ "type": "flag_not", "flag": "freed_from_straps", "value": "true" }]
+    },
+    {
+      "id": "hint_2",
+      "text": "The workbench has tools and a notebook. Emmett writes everything down.",
+      "conditions": [
+        { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+        { "type": "flag_not", "flag": "found_notebook", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_3",
+      "text": "The notebook has the cabinet combination AND a chemical formula. Read it carefully.",
+      "conditions": [
+        { "type": "flag_is", "flag": "found_notebook", "value": "true" },
+        { "type": "flag_not", "flag": "read_formula", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_4",
+      "text": "The glass eyes have numbers etched on them. Combined with the notebook, you have the cabinet code: 4-7-2-8.",
+      "conditions": [
+        { "type": "flag_is", "flag": "lens_found", "value": "true" },
+        { "type": "flag_not", "flag": "cabinet_opened", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_5",
+      "text": "The storm cellar is your way out, but bars and a padlock block it. You need to deal with both. Try the chemical path, the hacksaw path, or the fire path.",
+      "conditions": [
+        { "type": "flag_is", "flag": "freed_from_straps", "value": "true" },
+        { "type": "flag_not", "flag": "bars_weakened", "value": "true" },
+        { "type": "flag_not", "flag": "bars_removed", "value": "true" },
+        { "type": "flag_not", "flag": "fire_started", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_6",
+      "text": "For the chemical path: get the notebook, learn the formula (3 lye : 1 acetone), get gloves from the chemical shelf, then mix the chemicals. Apply to the cellar bars.",
+      "conditions": [
+        { "type": "flag_is", "flag": "knows_lye_formula", "value": "true" },
+        { "type": "flag_not", "flag": "mixed_solvent", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_7",
+      "text": "For the tool path: get the hacksaw blade from the pegboard, make a handle with the leather strap, then saw through the bars. Loud but effective.",
+      "conditions": [
+        { "type": "flag_is", "flag": "found_hacksaw", "value": "true" },
+        { "type": "flag_not", "flag": "bars_removed", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_8",
+      "text": "For the fire path: gather coal and kindling, soak kindling in formaldehyde for faster burning, light it in the furnace. The heat weakens the stone wall near the cellar.",
+      "conditions": [
+        { "type": "flag_is", "flag": "coal_taken", "value": "true" },
+        { "type": "flag_not", "flag": "fire_started", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_9",
+      "text": "The padlock on the cellar: use the key from the coyote specimen, pick it with a wire lockpick (bend wire in the vise), or saw through it with the hacksaw.",
+      "conditions": [
+        { "type": "flag_not", "flag": "cellar_lock_picked", "value": "true" },
+        { "type": "flag_not", "flag": "cellar_lock_cut", "value": "true" }
+      ]
+    },
+    {
+      "id": "hint_10",
+      "text": "The barrel and the space behind the storage shelves are hiding spots. Use them when Emmett comes downstairs.",
+      "conditions": [
+        { "type": "flag_is", "flag": "freed_from_straps", "value": "true" }
+      ]
+    }
+  ],
+
+  "solution_paths": [
+    {
+      "id": "chemical_path",
+      "name": "Mama's Recipe",
+      "description": "Use Emmett's own chemical formula to dissolve the cellar bars and escape.",
+      "difficulty": "medium",
+      "noise_profile": "moderate",
+      "steps": [
+        "Free yourself from the straps (hand on table after 2 mins, or find skinning knife first)",
+        "Take the skinning knife from the workbench",
+        "Take the notebook and read it (learn cabinet code 4-7-2-8 and lye formula)",
+        "Go to chemical shelf closeup and enter code 4-7-2-8 on cabinet lock",
+        "Take rubber gloves, lye, and acetone from the opened cabinet",
+        "Combine lye + acetone (with gloves equipped) to make lye solvent",
+        "Cut open the coyote specimen on the wall to find the cellar key",
+        "Go to storm cellar closeup",
+        "Use the specimen key on the padlock",
+        "Apply the lye mixture to the cellar bars to weaken them",
+        "Push through the weakened bars (hand on storm cellar) to escape"
+      ],
+      "patterns_demonstrated": [
+        "1-gateway-puzzle (freeing from straps)",
+        "2-dependency-chain (notebook → code → cabinet → chemicals → bars)",
+        "6-dual-purpose-item (notebook has both code and formula)",
+        "7-nested-secret (key hidden inside specimen)",
+        "8-knowledge-gate (formula knowledge required)",
+        "12-evidence-gamble (opened cabinet/gutted specimen visible to Emmett)",
+        "15-bait-and-punish (mixing without gloves)"
+      ]
+    },
+    {
+      "id": "brute_force_path",
+      "name": "Hacksaw Justice",
+      "description": "Use raw tools to saw through the bars and lock. Loud and risky.",
+      "difficulty": "hard",
+      "noise_profile": "loud",
+      "steps": [
+        "Free yourself from the straps",
+        "Take the hacksaw blade from the tool pegboard",
+        "Take the leather strap piece from the table",
+        "Combine hacksaw blade + leather strap to make handled hacksaw",
+        "Go to storm cellar closeup",
+        "Use handled hacksaw on the padlock (cut it off)",
+        "Use handled hacksaw on the cellar bars (saw through all three)",
+        "Push through (hand on storm cellar) to escape",
+        "Turn on the radio loud for sound masking during sawing"
+      ],
+      "patterns_demonstrated": [
+        "1-gateway-puzzle (freeing from straps)",
+        "11-noise-tradeoff (sawing is very loud)",
+        "16-sound-masking (radio covers sawing noise)",
+        "19-emergent-combination (hacksaw + leather = usable tool)",
+        "20-multi-path-solution (completely different approach)"
+      ]
+    },
+    {
+      "id": "fire_path",
+      "name": "Burn It Down",
+      "description": "Start a fire to weaken the wall and escape through the breach. Point of no return.",
+      "difficulty": "hard",
+      "noise_profile": "extreme",
+      "steps": [
+        "Free yourself from the straps",
+        "Take coal chunk from the furnace",
+        "Gather kindling from the storage shelves",
+        "Take matches from the storage shelves",
+        "Take formaldehyde from the chemical shelf (optional: need cabinet code or smash glass)",
+        "Combine formaldehyde + kindling to make accelerant bundle",
+        "Use accelerant bundle on the coal furnace and light it",
+        "The intense fire weakens the stone wall near the cellar",
+        "Wait for the wall to weaken, then kick through it (hand on stone wall)",
+        "Escape through the breached wall"
+      ],
+      "patterns_demonstrated": [
+        "1-gateway-puzzle (freeing from straps)",
+        "13-distraction-window (fire distracts Emmett)",
+        "14-ticking-clock-decision (fire is spreading — go now or not at all)",
+        "22-myst-machine (furnace + flue + wall interaction)",
+        "25-moral-fork (you're burning his home and specimens)",
+        "27-point-of-no-return (once fire starts, no going back)",
+        "29-echo (fire in furnace → smoke upstairs → wall weakens)"
+      ]
+    }
+  ]
+}
