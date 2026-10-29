@@ -1,0 +1,1657 @@
+{
+  "schema_version": "1.0",
+
+  "metadata": {
+    "id": "the-lighthouse-keeper",
+    "title": "The Lighthouse Keeper",
+    "description": "You awaken in the service room of a decommissioned lighthouse. Below, a retired Coast Guard officer patrols his domain, convinced you're a trespasser threatening his light. The foghorn moans. The sea churns. Find a way out before Harold Marsh finds you.",
+    "author": "ai-generated",
+    "difficulty": "medium",
+    "estimated_minutes": 10,
+    "tags": ["maritime", "isolation", "lighthouse", "suspense", "coast-guard"],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle", "2-dependency-chain", "3-fork", "5-nested-secret",
+      "8-knowledge-gate", "11-noise-tradeoff", "13-distraction-window",
+      "15-bait-and-punish", "17-trap-setting", "18-red-herring",
+      "20-multi-path-solution", "25-moral-fork", "26-accomplice",
+      "28-camouflage", "30-decay-clock"
+    ]
+  },
+
+  "setting": {
+    "initial_view": "main",
+    "ambient_text": "Salt air seeps through the walls. Far below, waves gnaw at the rocks. The foghorn groans every thirty seconds — a dying thing that won't stop breathing.",
+    "room_style": {
+      "background_color": "#0a1520",
+      "wall_color": "#1a2530",
+      "floor_color": "#151e28"
+    }
+  },
+
+  "views": [
+    {
+      "id": "main",
+      "background_key": "service_room",
+      "background_file": "backgrounds/service_room.png",
+      "objects": [
+        "steel_door", "porthole_window", "workbench", "storage_locker",
+        "floor_grate", "signal_lamp", "fuse_box", "cot", "rope_coil",
+        "chain", "wall_hooks"
+      ]
+    },
+    {
+      "id": "workbench_closeup",
+      "background_key": "workbench_closeup",
+      "background_file": "backgrounds/workbench_closeup.png",
+      "objects": [
+        "toolbox", "maritime_chart", "signal_manual", "old_radio",
+        "tin_can", "wire_spool", "grease_pot"
+      ],
+      "back_label": "Step back from workbench"
+    },
+    {
+      "id": "radio_closeup",
+      "background_key": "radio_closeup",
+      "background_file": "backgrounds/radio_closeup.png",
+      "objects": ["radio_body", "radio_speaker", "radio_antenna"],
+      "back_label": "Step back from radio"
+    }
+  ],
+
+  "flags": {
+    "awake": "false",
+    "freed_from_chain": "false",
+    "met_pete": "false",
+    "pete_has_knife": "false",
+    "pete_offered_knife": "false",
+    "received_pen_knife": "false",
+    "locker_opened": "false",
+    "locker_closed_after": "false",
+    "found_signal_manual": "false",
+    "knows_frequency": "false",
+    "radio_tuned": "false",
+    "mayday_sent": "false",
+    "toolbox_opened": "false",
+    "has_wrench": "false",
+    "porthole_smashed": "false",
+    "porthole_unbolted": "false",
+    "rope_used_for_rappel": "false",
+    "rope_used_for_pete": "false",
+    "pete_freed": "false",
+    "pete_distracting": "false",
+    "lamp_rigged": "false",
+    "harold_blinded": "false",
+    "fuse_box_opened": "false",
+    "signal_manual_hidden_by_harold": "false",
+    "locker_relocked_by_harold": "false",
+    "harold_suspicious": "false",
+    "used_grease_on_chain": "false",
+    "chart_examined": "false",
+    "manual_examined_once": "false"
+  },
+
+  "items": [
+    {
+      "id": "chain_link",
+      "name": "Broken Chain Link",
+      "description": "A heavy iron link, snapped free. The edges are sharp.",
+      "icon": "chain",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Thick iron, corroded by decades of salt air. One edge is surprisingly sharp where it broke. The other end has a small notch — almost like a flathead screwdriver." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pen_knife",
+      "name": "Pete's Pen Knife",
+      "description": "A small folding knife, well-worn from years of net-mending.",
+      "icon": "knife",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Bone handle, single blade. 'P.D.' scratched into the handle. Pete's initials. The blade is thin but sharp — a fisherman's tool, made for precision, not force." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You fold it open and closed. The hinge is smooth. Good steel." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrench",
+      "name": "Pipe Wrench",
+      "description": "A heavy adjustable wrench. Could turn bolts or crack skulls.",
+      "icon": "wrench",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Stamped 'USCG PROPERTY — CAPE MEARES STATION'. Government-issue, solid as the day it was made. The jaw adjusts smoothly despite the rust." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "signal_manual",
+      "name": "Signal Manual",
+      "description": "Coast Guard Emergency Signal Procedures, 1974 edition.",
+      "icon": "book",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "knows_frequency", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Dog-eared and coffee-stained. Chapter 7: Emergency Frequencies. Underlined in red pencil: 'Channel 16 — 156.800 MHz — International Distress.' Harold underlined it himself, years ago, when this station still mattered." },
+            { "type": "set_flag", "flag": "knows_frequency", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "knows_frequency", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Channel 16 — 156.800 MHz. International Distress. You've memorized it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rope",
+      "name": "Coil of Rope",
+      "description": "Thirty feet of heavy maritime rope, still strong despite its age.",
+      "icon": "rope",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Hemp and nylon blend, braided thick. Coast Guard specification. Thirty feet — enough to reach the rocks below the porthole, or the room below the grate. Not both." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grease",
+      "name": "Jar of Grease",
+      "description": "Machine grease, thick and black. For maintaining the lamp mechanism.",
+      "icon": "jar",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Petroleum-based lubricant. The label reads 'LIGHTHOUSE MECHANISM GREASE — DO NOT USE ON OPTICAL SURFACES'. Harold probably applied this to the lamp gears himself." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lens_shard",
+      "name": "Fresnel Lens Shard",
+      "description": "A curved piece of the old lighthouse lens. Catches and bends light beautifully.",
+      "icon": "glass",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A section of the original Fresnel lens, cracked during decommissioning. The concentric rings focus light with terrifying efficiency. Held at the right angle, even dim light becomes a blinding beam." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tin_can_phone",
+      "name": "Tin Can Communicator",
+      "description": "Two tin cans connected by wire. Crude, but Pete can hear you.",
+      "icon": "can",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Two cans, forty feet of wire between them. One end goes down through the grate to Pete. It actually works — sound vibrates through the wire. You won't have to shout." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fuse",
+      "name": "Spare Fuse",
+      "description": "A ceramic cartridge fuse rated for 30 amps.",
+      "icon": "fuse",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "30-amp ceramic fuse. The radio circuit is dead — this might bring it back to life." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maritime_chart",
+      "name": "Maritime Chart",
+      "description": "A navigational chart of the cape and surrounding waters.",
+      "icon": "map",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "chart_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Cape Meares, Oregon. The lighthouse is marked with Harold's handwriting: 'MY STATION'. Shipping lanes are drawn in pencil. A note in the margin: 'CG cutter patrols every 4 hours — listen on Ch.16.' Harold was tracking Coast Guard movements even after they took his post away." },
+            { "type": "set_flag", "flag": "chart_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "chart_examined", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Cape Meares. CG cutter patrols every 4 hours on Channel 16." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "combinations": [
+    {
+      "items": ["tin_can_phone", "wire_spool"],
+      "result": "tin_can_phone",
+      "consumes": false,
+      "message": "You string wire between two cans and lower one through the grate. A fisherman's trick Pete taught you through the bars.",
+      "noise": 5,
+      "conditions": [
+        { "type": "flag_is", "flag": "met_pete", "value": "true" }
+      ]
+    }
+  ],
+
+  "objects": [
+    {
+      "id": "chain",
+      "name": "Ankle Chain",
+      "description": "A heavy chain bolted to the floor, locked around your ankle.",
+      "position": { "x": 400, "y": 600 },
+      "size": { "width": 100, "height": 50 },
+      "visual": { "color": "#3a3a3a", "label": "Chain" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "chain", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A ship's anchor chain, far heavier than needed for one person. The shackle around your ankle is padlocked, but the chain itself is old. One link near the floor bolt is paper-thin with rust. If you could weaken it further..." },
+            { "type": "set_flag", "flag": "awake", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "chain", "state": "greased" }],
+          "then": [
+            { "type": "message", "text": "The grease is eating into the corroded link. One good yank should do it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "chain", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You pull with everything you have. The chain groans but holds. The rusty link flexes — it's close to breaking, but not yet. You need to weaken it somehow." }
+          ],
+          "noise": 20
+        },
+        {
+          "verb": "use_item",
+          "item": "grease",
+          "when": [{ "type": "object_state", "object": "chain", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You smear the petroleum grease into the corroded link. The chemicals hiss faintly against the rust, eating into the weakened metal. Chemistry doing what brute force couldn't." },
+            { "type": "set_state", "object": "chain", "state": "greased" },
+            { "type": "set_flag", "flag": "used_grease_on_chain", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "chain", "state": "greased" }],
+          "then": [
+            { "type": "message", "text": "You brace your foot and pull. The corroded link stretches, thins, and snaps with a dull clank. The chain falls away. You're free to move — but not free to leave. Not yet." },
+            { "type": "set_state", "object": "chain", "state": "broken" },
+            { "type": "set_flag", "flag": "freed_from_chain", "value": "true" },
+            { "type": "add_item", "item": "chain_link" },
+            { "type": "add_noise", "amount": 15 }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "chain", "state": "broken" }],
+          "then": [
+            { "type": "message", "text": "The broken chain lies on the floor. You kept one link — the sharp one." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cot",
+      "name": "Military Cot",
+      "description": "A canvas cot bolted to the wall. Standard Coast Guard issue.",
+      "position": { "x": 200, "y": 500 },
+      "size": { "width": 140, "height": 60 },
+      "visual": { "color": "#2a3020", "label": "Cot" },
+      "initial_state": "made",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A military-style folding cot with wool blankets, tucked with hospital corners. Harold makes his prisoners comfortable. There's space to crawl underneath." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "freed_from_chain", "value": "true" }],
+          "then": [
+            { "type": "start_hiding" },
+            { "type": "message", "text": "You slide under the cot, pulling the blanket down to cover the gap. The wool smells of salt and mothballs. Your heart hammers against the cold floor." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "steel_door",
+      "name": "Steel Door",
+      "description": "A heavy watertight door with a wheel lock. Sealed from outside.",
+      "position": { "x": 100, "y": 300 },
+      "size": { "width": 80, "height": 160 },
+      "visual": { "color": "#3a3a40", "label": "Steel Door" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A submarine-style watertight door with a central wheel lock. Designed to seal against Atlantic storms. The wheel is on the other side. No amount of force will open this from in here." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "steel_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You throw your shoulder against it. The door doesn't even vibrate. This thing was built to hold back the ocean." }
+          ],
+          "noise": 30
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_is", "flag": "pete_distracting", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You press your ear to the steel. Below, Pete is shouting, banging pipes, creating chaos. Harold's voice, furious and distant: 'SHUT UP DOWN THERE!' The door is unguarded." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You press your ear to the cold steel. Footsteps below, methodical and slow. Harold patrolling his domain." }
+          ],
+          "noise": 0
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "pete_distracting", "value": "true" },
+            { "type": "object_state", "object": "steel_door", "state": "locked" }
+          ],
+          "then": [
+            { "type": "message", "text": "With Harold distracted by Pete's racket below, you try the wheel. It's still locked from outside. Pete's distraction helps, but you need another way out." }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "porthole_window",
+      "name": "Porthole Window",
+      "description": "A thick glass porthole set into the lighthouse wall.",
+      "position": { "x": 750, "y": 250 },
+      "size": { "width": 70, "height": 70 },
+      "visual": { "color": "#1a3040", "label": "Porthole" },
+      "initial_state": "bolted",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "porthole_window", "state": "bolted" }],
+          "then": [
+            { "type": "message", "text": "Twelve-inch porthole, brass-rimmed, bolted shut with six hex bolts. Through the salt-crusted glass: sixty feet of empty air, jagged rocks, and the Pacific. The bolts look standard — a wrench could turn them." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "porthole_window", "state": "smashed" }],
+          "then": [
+            { "type": "message", "text": "Shattered glass, bent brass frame. Wind howls through the hole. The drop is survivable with a rope, but the opening is jagged and narrow now." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "porthole_window", "state": "unbolted" }],
+          "then": [
+            { "type": "message", "text": "The porthole swings free on its hinge. Clean ocean air floods in. The opening is just wide enough to squeeze through. Sixty feet below: rocks, then surf. You'd need a rope." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "porthole_window", "state": "bolted" }],
+          "then": [
+            { "type": "message", "text": "You smash your fist against the porthole. The glass cracks in a spiderweb pattern. Pain shoots through your hand. The brass frame holds, but the glass is weakened. Harold will hear that. Harold will SEE that." },
+            { "type": "set_state", "object": "porthole_window", "state": "smashed" },
+            { "type": "set_flag", "flag": "porthole_smashed", "value": "true" },
+            { "type": "set_flag", "flag": "harold_suspicious", "value": "true" }
+          ],
+          "noise": 45
+        },
+        {
+          "verb": "use_item",
+          "item": "wrench",
+          "when": [{ "type": "object_state", "object": "porthole_window", "state": "bolted" }],
+          "then": [
+            { "type": "message", "text": "One bolt. Two. Three. Each one squeaks free from decades of salt corrosion. Four. Five. Six. The porthole swings open on its hinge. Clean, cold air. Freedom is sixty feet straight down." },
+            { "type": "set_state", "object": "porthole_window", "state": "unbolted" },
+            { "type": "set_flag", "flag": "porthole_unbolted", "value": "true" }
+          ],
+          "noise": 18
+        },
+        {
+          "verb": "use_item",
+          "item": "rope",
+          "when": [
+            { "type": "object_state", "object": "porthole_window", "state": "unbolted" },
+            { "type": "flag_not", "flag": "rope_used_for_pete", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You tie the rope to the wall hook beside the porthole and feed the rest through the opening. It reaches the rocks below. This is it — your way out. Alone." },
+            { "type": "set_flag", "flag": "rope_used_for_rappel", "value": "true" },
+            { "type": "remove_item", "item": "rope" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "rope_used_for_rappel", "value": "true" },
+            { "type": "object_state", "object": "porthole_window", "state": "unbolted" }
+          ],
+          "then": [
+            { "type": "message", "text": "You squeeze through the porthole, grip the rope, and lower yourself into the wind. Hand over hand, the lighthouse wall scraping your back. The rope holds. Your arms burn. Your feet find rock. You let go, stumble, and run along the shore path into the fog. Behind you, the lighthouse beam sweeps on, indifferent. Pete is still inside. You try not to think about that." },
+            { "type": "game_over", "result": "win", "reason": "You escaped alone through the porthole. Pete remains trapped below. The Coast Guard finds him three days later. He doesn't speak to you at the hearing." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "porthole_window", "state": "smashed" },
+            { "type": "has_item", "item": "rope" }
+          ],
+          "then": [
+            { "type": "message", "text": "You try to thread the rope through the jagged opening. Glass slices your hands. The bent frame is too narrow to squeeze through safely. Smashing it was a mistake — the quiet approach would have worked." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wall_hooks",
+      "name": "Wall Hooks",
+      "description": "Heavy brass hooks mounted in the stone wall.",
+      "position": { "x": 720, "y": 200 },
+      "size": { "width": 40, "height": 30 },
+      "visual": { "color": "#8a7a30", "label": "Hooks" },
+      "initial_state": "empty",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Brass hooks bolted into the stone. For hanging equipment, coats, rope. Strong enough to hold a person's weight." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage_locker",
+      "name": "Storage Locker",
+      "description": "A tall metal locker with a simple latch.",
+      "position": { "x": 500, "y": 200 },
+      "size": { "width": 60, "height": 140 },
+      "visual": { "color": "#2a3530", "label": "Locker" },
+      "initial_state": "latched",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "storage_locker", "state": "latched" }],
+          "then": [
+            { "type": "message", "text": "A tall metal storage locker, government-green. The latch is a simple lift-handle — not locked, just closed. You could also hide inside if Harold comes." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "storage_locker", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "Inside: coiled rope, a jar of machine grease, a spare fuse, and an old signal manual. Standard lighthouse supplies." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "storage_locker", "state": "relocked" }],
+          "then": [
+            { "type": "message", "text": "Harold has padlocked the locker since his last visit. The hasp is old but the padlock is new. You won't get in this way again." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "storage_locker", "state": "latched" },
+            { "type": "flag_is", "flag": "freed_from_chain", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You lift the latch and pull. The locker door swings open with a metallic creak. Inside: a coil of rope, machine grease, a spare fuse, and a signal manual. Harold keeps his lighthouse well-stocked." },
+            { "type": "set_state", "object": "storage_locker", "state": "open" },
+            { "type": "set_flag", "flag": "locker_opened", "value": "true" },
+            { "type": "show_object", "object": "rope_coil" }
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "storage_locker", "state": "latched" },
+            { "type": "flag_not", "flag": "freed_from_chain", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You can't reach the locker. The chain holds you three feet short." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "object_state", "object": "storage_locker", "state": "open" },
+            { "type": "flag_not", "flag": "locker_closed_after", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You carefully close the locker door and re-latch it. If Harold glances this way, he'll see nothing out of place. Smart." },
+            { "type": "set_state", "object": "storage_locker", "state": "latched" },
+            { "type": "set_flag", "flag": "locker_closed_after", "value": "true" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "rope_coil",
+      "name": "Coil of Rope",
+      "description": "Heavy maritime rope, neatly coiled.",
+      "position": { "x": 490, "y": 240 },
+      "size": { "width": 40, "height": 40 },
+      "visual": { "color": "#6a5a3a", "label": "Rope" },
+      "initial_state": "stored",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "take",
+          "when": [{ "type": "object_state", "object": "storage_locker", "state": "open" }],
+          "then": [
+            { "type": "add_item", "item": "rope" },
+            { "type": "hide_object", "object": "rope_coil" },
+            { "type": "message", "text": "You take the rope. Thirty feet of braided line, strong enough to hold a man. You could climb down from the porthole... or lower it through the floor grate to Pete. Not both." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Coast Guard spec rope. Thirty feet. Strong." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "floor_grate",
+      "name": "Floor Grate",
+      "description": "A heavy iron grate set into the floor. Air flows up from below.",
+      "position": { "x": 350, "y": 650 },
+      "size": { "width": 100, "height": 40 },
+      "visual": { "color": "#2a2a2a", "label": "Floor Grate" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "met_pete", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A ventilation grate bolted into the stone floor. Through the bars, you can see down into a dark room below. Something moves down there." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "met_pete", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Pete is down there. You can see the top of his head, his weathered hands gripping the bars from below. He looks up at you with desperate eyes." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_not", "flag": "met_pete", "value": "true" },
+            { "type": "flag_is", "flag": "freed_from_chain", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You kneel at the grate and whisper down. 'Hey! Who's there?'\n\nA pause. Then a hoarse voice: 'Name's Pete Dalton. Fisherman. That crazy bastard grabbed me off my boat three days ago. You new?'\n\n'Yeah.'\n\n'Listen — I got a knife. Small one. I can pass it through the bars if you get close. And if you find rope... lower it down. I can climb out and raise hell while you run. Deal?'" },
+            { "type": "set_flag", "flag": "met_pete", "value": "true" },
+            { "type": "set_flag", "flag": "pete_offered_knife", "value": "true" }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_not", "flag": "met_pete", "value": "true" },
+            { "type": "flag_not", "flag": "freed_from_chain", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You call down through the grate. The chain stops you from reaching it, but sound carries. 'Hello?'\n\nA voice from below: 'Someone up there? I'm Pete! Get free and come talk to me — I can help you!'" }
+          ],
+          "noise": 15
+        },
+        {
+          "verb": "hand",
+          "when": [
+            { "type": "flag_is", "flag": "pete_offered_knife", "value": "true" },
+            { "type": "flag_not", "flag": "received_pen_knife", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You reach through the bars. Pete's calloused hand meets yours, pressing a small folding knife into your palm. 'Bone handle,' he whispers. 'Had it twenty years. Take care of her.'" },
+            { "type": "add_item", "item": "pen_knife" },
+            { "type": "set_flag", "flag": "received_pen_knife", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "use_item",
+          "item": "rope",
+          "when": [
+            { "type": "flag_is", "flag": "met_pete", "value": "true" },
+            { "type": "flag_not", "flag": "rope_used_for_rappel", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You lower the rope through the grate. Pete grabs it, tests it, and begins to climb. He's strong — years of hauling nets. He reaches the grate, squeezes through, and stands beside you, breathing hard.\n\n'I'll make noise downstairs. Draw the old man out. You get to the porthole or the radio — whatever you've got. When you hear me banging, GO.'" },
+            { "type": "set_flag", "flag": "rope_used_for_pete", "value": "true" },
+            { "type": "set_flag", "flag": "pete_freed", "value": "true" },
+            { "type": "remove_item", "item": "rope" },
+            { "type": "delay_then", "seconds": 10, "effects": [
+              { "type": "set_flag", "flag": "pete_distracting", "value": "true" },
+              { "type": "message", "text": "From below: crashing, banging, Pete shouting at the top of his lungs. 'COME GET ME, HAROLD! COME ON!' Harold's footsteps break into a run. The lighthouse shakes with the chaos." },
+              { "type": "visual_cue", "cue": "shake" }
+            ]}
+          ],
+          "noise": 12
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "met_pete", "value": "true" },
+            { "type": "has_item", "item": "tin_can_phone" }
+          ],
+          "then": [
+            { "type": "message", "text": "You speak into the tin can. Pete's voice comes back, tinny but clear: 'Still here. Find me a rope and I'll cause a scene that'll keep Harold busy for days. Or find your own way out — I won't blame you.'" }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "signal_lamp",
+      "name": "Signal Lamp",
+      "description": "An old maritime signal lamp mounted on a swivel bracket.",
+      "position": { "x": 600, "y": 150 },
+      "size": { "width": 60, "height": 60 },
+      "visual": { "color": "#5a5a20", "label": "Signal Lamp" },
+      "initial_state": "off",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "signal_lamp", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "A directional signal lamp on a swivel mount, aimed at the door. The bulb works — it's connected to the fuse box. With the right lens in front, this could produce a blinding flash." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "signal_lamp", "state": "rigged" }],
+          "then": [
+            { "type": "message", "text": "The lamp is aimed at the door with the Fresnel lens wired in front. When the fuse box circuit closes, it'll fire a beam bright enough to blind anyone coming through that door. A trap, waiting to spring." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "lens_shard",
+          "when": [{ "type": "object_state", "object": "signal_lamp", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "You mount the Fresnel lens shard in front of the lamp's reflector and aim the assembly at the door. The concentric rings of the lens will focus the light into a concentrated beam — lighthouse technology turned weapon. Now you need to wire it to fire when the door opens." },
+            { "type": "set_state", "object": "signal_lamp", "state": "rigged" },
+            { "type": "set_flag", "flag": "lamp_rigged", "value": "true" },
+            { "type": "remove_item", "item": "lens_shard" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "signal_lamp", "state": "off" }],
+          "then": [
+            { "type": "message", "text": "You swivel the lamp toward the door. Without a focusing lens, though, it's just a bright light. Not enough to blind anyone." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "fuse_box",
+      "name": "Fuse Box",
+      "description": "A wall-mounted electrical panel with ceramic fuses.",
+      "position": { "x": 150, "y": 200 },
+      "size": { "width": 50, "height": 60 },
+      "visual": { "color": "#3a3a3a", "label": "Fuse Box" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "fuse_box", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A metal fuse box mounted at head height. The cover is held shut by a single flathead screw." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "fuse_box", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "Three fuse slots labeled: MAIN LIGHT, SIGNAL LAMP, RADIO. The radio fuse is missing — burned out or removed. The signal lamp fuse is in but the circuit is switched off." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "chain_link",
+          "when": [{ "type": "object_state", "object": "fuse_box", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "The notch on the chain link fits the screw perfectly. You turn it — the cover swings open, revealing three fuse slots." },
+            { "type": "set_state", "object": "fuse_box", "state": "open" },
+            { "type": "set_flag", "flag": "fuse_box_opened", "value": "true" }
+          ],
+          "noise": 4
+        },
+        {
+          "verb": "use_item",
+          "item": "pen_knife",
+          "when": [{ "type": "object_state", "object": "fuse_box", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You use the knife blade as a screwdriver. The screw turns easily. The fuse box cover swings open." },
+            { "type": "set_state", "object": "fuse_box", "state": "open" },
+            { "type": "set_flag", "flag": "fuse_box_opened", "value": "true" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "fuse_box", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "The cover is held by a flathead screw. You need something flat and narrow to turn it." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "fuse",
+          "when": [
+            { "type": "object_state", "object": "fuse_box", "state": "open" },
+            { "type": "flag_is", "flag": "lamp_rigged", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You slot the spare fuse into the RADIO socket and flip the signal lamp circuit on. The lamp behind you hums with stored energy, the Fresnel lens gleaming. Next time that door opens, Harold gets thirty thousand candlepower in the face." },
+            { "type": "set_flag", "flag": "harold_blinded", "value": "true" }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "fuse",
+          "when": [
+            { "type": "object_state", "object": "fuse_box", "state": "open" },
+            { "type": "flag_not", "flag": "lamp_rigged", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You slot the spare fuse into the RADIO socket. A faint hum — the radio circuit has power now." }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "workbench",
+      "name": "Workbench",
+      "description": "A scarred wooden workbench bolted to the curved wall.",
+      "position": { "x": 600, "y": 400 },
+      "size": { "width": 160, "height": 60 },
+      "visual": { "color": "#3a2a20", "label": "Workbench" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "freed_from_chain", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A heavy workbench covered in maritime equipment. A rusted toolbox, rolled charts, manuals, and an old radio sit in organized chaos. Harold keeps his tools maintained. Worth a closer look." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "freed_from_chain", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "A workbench against the far wall. You can make out shapes — a box, papers, something with knobs. Too far to reach while chained." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "freed_from_chain", "value": "true" }],
+          "then": [
+            { "type": "set_view", "view": "workbench_closeup" },
+            { "type": "message", "text": "You step up to the workbench. Everything is within reach now." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "freed_from_chain", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The chain pulls taut. You're three feet short of the workbench." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toolbox",
+      "name": "Toolbox",
+      "description": "A heavy metal toolbox, lid rusted partially shut.",
+      "position": { "x": 200, "y": 350 },
+      "size": { "width": 80, "height": 50 },
+      "visual": { "color": "#4a2a2a", "label": "Toolbox" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "toolbox", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A heavy-duty metal toolbox. The lid is rusted nearly shut. Opening it will take force — and force means noise." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "toolbox", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You grab the lid and wrench it upward. Metal screams against metal as rust gives way. Inside: a pipe wrench, wire spools, and scattered bolts. Harold will have heard that." },
+            { "type": "set_state", "object": "toolbox", "state": "open" },
+            { "type": "set_flag", "flag": "toolbox_opened", "value": "true" },
+            { "type": "add_item", "item": "wrench" },
+            { "type": "set_flag", "flag": "has_wrench", "value": "true" }
+          ],
+          "noise": 35
+        },
+        {
+          "verb": "use_item",
+          "item": "grease",
+          "when": [{ "type": "object_state", "object": "toolbox", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You work grease into the rusted hinges, then ease the lid open. It glides up with barely a whisper. Inside: a pipe wrench, wire spools, and scattered bolts." },
+            { "type": "set_state", "object": "toolbox", "state": "open" },
+            { "type": "set_flag", "flag": "toolbox_opened", "value": "true" },
+            { "type": "add_item", "item": "wrench" },
+            { "type": "set_flag", "flag": "has_wrench", "value": "true" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "toolbox", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "An empty toolbox. You took the wrench. Some wire spools and loose bolts remain — nothing useful." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maritime_chart",
+      "name": "Maritime Chart",
+      "description": "A large navigational chart pinned to the wall above the workbench.",
+      "position": { "x": 400, "y": 200 },
+      "size": { "width": 120, "height": 80 },
+      "visual": { "color": "#d4c8a0", "label": "Chart" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A navigational chart of Cape Meares and surrounding waters. Harold has annotated it obsessively — shipping lanes, tide tables, weather patterns. In the margin: 'CG cutter patrols every 4 hours — listen on Ch.16.'" },
+            { "type": "set_flag", "flag": "chart_examined", "value": "true" }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "add_item", "item": "maritime_chart" },
+            { "type": "hide_object", "object": "maritime_chart" },
+            { "type": "message", "text": "You roll up the chart and take it. Might be useful." }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "signal_manual",
+      "name": "Signal Manual",
+      "description": "A dog-eared Coast Guard manual.",
+      "position": { "x": 600, "y": 250 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#4a5a4a", "label": "Manual" },
+      "initial_state": "present",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "signal_manual", "state": "present" }],
+          "then": [
+            { "type": "message", "text": "Coast Guard Emergency Signal Procedures, 1974 edition. Chapters on flag signals, light codes, radio protocols. Chapter 7 is bookmarked." },
+            { "type": "set_flag", "flag": "found_signal_manual", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "signal_manual", "state": "hidden" }],
+          "then": [
+            { "type": "message", "text": "The manual is gone. Harold must have taken it on his last visit." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "object_state", "object": "signal_manual", "state": "present" }],
+          "then": [
+            { "type": "add_item", "item": "signal_manual" },
+            { "type": "hide_object", "object": "signal_manual" },
+            { "type": "set_flag", "flag": "found_signal_manual", "value": "true" },
+            { "type": "message", "text": "You take the signal manual. This could be the key to using that radio." }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "old_radio",
+      "name": "Old Radio",
+      "description": "A heavy maritime radio transceiver, dials and switches across its face.",
+      "position": { "x": 700, "y": 300 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#2a2a20", "label": "Radio" },
+      "initial_state": "dead",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "dead" }],
+          "then": [
+            { "type": "message", "text": "A marine VHF radio transceiver. Military-grade, built to last. The power light is dark — no fuse in the circuit. If you could restore power and tune to the right frequency, you could call for help." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "powered" }],
+          "then": [
+            { "type": "message", "text": "The radio hums with power. The frequency dial glows amber. You need to tune it to the right channel — but which one?" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "dead" }],
+          "then": [
+            { "type": "message", "text": "You flip the power switch. Nothing. The radio needs a working fuse in the fuse box circuit." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "old_radio", "state": "powered" }],
+          "then": [
+            { "type": "set_view", "view": "radio_closeup" },
+            { "type": "message", "text": "You lean in close. The frequency dial has faded markings. You need to tune it precisely." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tin_can",
+      "name": "Tin Can",
+      "description": "An empty tin can, label long since rusted away.",
+      "position": { "x": 300, "y": 400 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#6a6a6a", "label": "Can" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An empty tin can. The kind that held peaches or beans. With some wire, it could be a crude communication device — the old tin-can telephone trick." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You take the can. Might be useful combined with something." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wire_spool",
+      "name": "Wire Spool",
+      "description": "A spool of thin copper wire.",
+      "position": { "x": 350, "y": 400 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#8a4a2a", "label": "Wire" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A spool of thin copper wire. Probably for electrical repairs. Long enough to reach between floors." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "flag_is", "flag": "toolbox_opened", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You pocket the wire spool. Could come in handy." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grease_pot",
+      "name": "Grease Pot",
+      "description": "A sealed jar of thick black machine grease.",
+      "position": { "x": 500, "y": 350 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#1a1a1a", "label": "Grease" },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Machine grease for the lamp mechanism. Petroleum-based — it'll eat through rust." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "add_item", "item": "grease" },
+            { "type": "hide_object", "object": "grease_pot" },
+            { "type": "message", "text": "You take the jar of grease. Useful for lubrication — or corrosion." }
+          ],
+          "noise": 1
+        }
+      ]
+    },
+    {
+      "id": "radio_body",
+      "name": "Radio Transceiver",
+      "description": "The main radio unit with frequency dial.",
+      "position": { "x": 512, "y": 400 },
+      "size": { "width": 200, "height": 150 },
+      "visual": { "color": "#2a2a20", "label": "Radio" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A VHF marine transceiver. The frequency dial dominates the face — turn it to select a channel. The transmit button is on the handset. Tune to the right frequency, press transmit, and pray someone is listening." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_is", "flag": "radio_tuned", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You grab the handset and press transmit. 'MAYDAY, MAYDAY, MAYDAY. This is a civilian, held captive at Cape Meares lighthouse. Request immediate assistance. I repeat — MAYDAY.'\n\nStatic. Then: 'Copy your mayday, Cape Meares. Coast Guard cutter Steadfast is en route. ETA twenty minutes. Hold your position.'\n\nHelp is coming." },
+            { "type": "set_flag", "flag": "mayday_sent", "value": "true" },
+            { "type": "advance_phase", "phase": "hunted" }
+          ],
+          "noise": 40
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_not", "flag": "radio_tuned", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You grab the handset and transmit. Nothing but static. You're on the wrong frequency." }
+          ],
+          "noise": 15
+        }
+      ]
+    },
+    {
+      "id": "radio_speaker",
+      "name": "Radio Speaker",
+      "description": "The radio's built-in speaker, crackling faintly.",
+      "position": { "x": 512, "y": 250 },
+      "size": { "width": 100, "height": 50 },
+      "visual": { "color": "#3a3a30", "label": "Speaker" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You press your ear to the speaker. Faint static and the ghost of distant voices. Someone is out there, on some channel. You just need to find the right one." }
+          ],
+          "noise": 0
+        }
+      ]
+    },
+    {
+      "id": "radio_antenna",
+      "name": "Radio Antenna",
+      "description": "A telescoping antenna, extended to full length.",
+      "position": { "x": 700, "y": 200 },
+      "size": { "width": 20, "height": 100 },
+      "visual": { "color": "#6a6a6a", "label": "Antenna" },
+      "initial_state": "extended",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The antenna is fully extended and pointed at the window. Good positioning — it should get a signal out through the glass." }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "puzzle_widgets": [
+    {
+      "id": "radio_dial",
+      "widget_type": "dial",
+      "position": { "x": 512, "y": 550 },
+      "size": { "width": 120, "height": 120 },
+      "view": "radio_closeup",
+      "initially_visible": true,
+      "config": {
+        "positions": ["145.200", "148.500", "151.600", "153.000", "156.025", "156.300", "156.800", "157.100", "158.600", "161.975"],
+        "solution": "156.800",
+        "initial_position": "145.200"
+      },
+      "on_solve": [
+        { "type": "set_flag", "flag": "radio_tuned", "value": "true" },
+        { "type": "message", "text": "156.800 MHz. Channel 16. International Distress. The static clears — you hear the rhythmic ping of a Coast Guard transponder. Someone is out there." },
+        { "type": "play_sound", "sound": "radio_tune" }
+      ],
+      "on_fail": [
+        { "type": "add_noise", "amount": 2 },
+        { "type": "random_message", "messages": [
+          "Static. Wrong frequency.",
+          "A garbled weather broadcast. Not the right channel.",
+          "Music in a foreign language bleeds through. Keep trying."
+        ]}
+      ],
+      "noise_per_interaction": 1
+    }
+  ],
+
+  "phases": [
+    {
+      "id": "awakening",
+      "name": "Awakening",
+      "starts_when": [],
+      "on_enter": [
+        { "type": "message", "text": "Your head throbs. Salt air. The groan of a foghorn. You're lying on a cot in a circular room — stone walls, riveted steel door, one porthole window. A chain runs from your ankle to a bolt in the floor. This is a lighthouse. And someone has locked you inside it." }
+      ],
+      "ambient_text": "The foghorn moans. Waves crash far below. A man's boots pace the floor downstairs.",
+      "killer_overrides": {
+        "check_interval_seconds": 80,
+        "noise_threshold_investigate": 60
+      }
+    },
+    {
+      "id": "unbound",
+      "name": "Free",
+      "starts_when": [{ "type": "flag_is", "flag": "freed_from_chain", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "The chain falls. You stand on unsteady legs, rubbing your ankle. The whole room is yours now — but Harold is still down there, and he checks on his 'guests' regularly. Move fast. Move quiet." }
+      ],
+      "ambient_text": "Harold hums to himself below. The foghorn marks the time.",
+      "killer_overrides": {
+        "check_interval_seconds": 55,
+        "noise_threshold_investigate": 45
+      }
+    },
+    {
+      "id": "hunted",
+      "name": "Hunted",
+      "starts_when": [
+        { "type": "any_of", "conditions": [
+          { "type": "flag_is", "flag": "harold_suspicious", "value": "true" },
+          { "type": "flag_is", "flag": "mayday_sent", "value": "true" }
+        ]}
+      ],
+      "on_enter": [
+        { "type": "message", "text": "Harold knows something is wrong. His footsteps accelerate. The humming stops. In its place: the sound of drawers opening, something heavy being picked up. He's coming." },
+        { "type": "visual_cue", "cue": "red_pulse" }
+      ],
+      "ambient_text": "Harold's boots on the stairs. Closer now.",
+      "killer_overrides": {
+        "check_interval_seconds": 25,
+        "noise_threshold_investigate": 20,
+        "noise_threshold_immediate": 50
+      }
+    }
+  ],
+
+  "events": [
+    {
+      "id": "foghorn_atmosphere",
+      "trigger": { "type": "time_after", "seconds": 30 },
+      "one_shot": false,
+      "effects": [
+        { "type": "random_message", "messages": [
+          "The foghorn moans outside. A sound like the lighthouse itself is in pain.",
+          "Another blast of the foghorn. It shakes the glass in the porthole.",
+          "The foghorn sounds. Somewhere out there, ships adjust their course, unaware of what happens inside."
+        ]}
+      ]
+    },
+    {
+      "id": "radio_powered_up",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "fuse_box_opened", "value": "true" },
+          { "type": "object_state", "object": "old_radio", "state": "dead" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "set_state", "object": "old_radio", "state": "powered" },
+        { "type": "message", "text": "The radio hums to life. A green power light glows on the transceiver. After all these years, it still works." },
+        { "type": "play_sound", "sound": "radio_static" }
+      ]
+    },
+    {
+      "id": "pete_reminder",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "met_pete", "value": "true" },
+          { "type": "flag_not", "flag": "pete_freed", "value": "true" },
+          { "type": "time_after", "seconds": 240 }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "From below the grate, barely audible: 'Hey... you still up there? Don't forget about me, yeah?'" }
+      ]
+    },
+    {
+      "id": "harold_finds_evidence_escalation",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "locker_opened", "value": "true" },
+          { "type": "flag_not", "flag": "locker_closed_after", "value": "true" },
+          { "type": "killer_is", "state": "checking" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "'The locker is OPEN!' Harold's voice cuts through the walls. 'What have you been doing up here?!'" },
+        { "type": "set_flag", "flag": "harold_suspicious", "value": "true" }
+      ]
+    },
+    {
+      "id": "coast_guard_arrives",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "mayday_sent", "value": "true" },
+          { "type": "time_after", "seconds": 540 }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "A searchlight sweeps across the porthole from the sea. A bullhorn: 'COAST GUARD! CAPE MEARES LIGHTHOUSE! OPEN THE DOOR OR WE WILL FORCE ENTRY!' Below, Harold screams. You've won." },
+        { "type": "game_over", "result": "win", "reason": "The Coast Guard storms the lighthouse. Harold Marsh is taken into custody. You and Pete are rescued. The lighthouse goes dark for the last time." }
+      ]
+    },
+    {
+      "id": "lamp_blinds_harold",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "harold_blinded", "value": "true" },
+          { "type": "killer_is", "state": "approaching" }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "The door swings open. The signal lamp FIRES — thirty thousand candlepower through the Fresnel lens, straight into Harold's eyes. He staggers backward, screaming, hands clawing at his face. He won't be searching for a while." },
+        { "type": "visual_cue", "cue": "flash" },
+        { "type": "set_flag", "flag": "harold_blinded", "value": "false" },
+        { "type": "set_flag", "flag": "lamp_rigged", "value": "false" },
+        { "type": "set_state", "object": "signal_lamp", "state": "spent" }
+      ]
+    }
+  ],
+
+  "killer": {
+    "name": "Harold Marsh",
+    "description": "Retired Coast Guard officer. Sixty-seven years old. Maintained this lighthouse alone for forty years until the government decommissioned it. He never left. In his mind, he's still the keeper, and you're a trespasser threatening his light.",
+
+    "base_behavior": {
+      "check_interval_seconds": 60,
+      "interval_variance_seconds": 15,
+      "noise_threshold_curious": 20,
+      "noise_threshold_investigate": 45,
+      "noise_threshold_immediate": 80,
+      "noise_decay_per_second": 1.5,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 15
+    },
+
+    "search_behavior": {
+      "thoroughness": 0.35,
+      "evidence_flags": ["locker_opened", "toolbox_opened", "porthole_smashed", "fuse_box_opened"],
+      "thoroughness_on_evidence": 0.65,
+      "search_order": "sequential"
+    },
+
+    "personality": {
+      "on_approach": [
+        "Time for inspection...",
+        "You awake up there? Let's have a look.",
+        "The keeper makes his rounds..."
+      ],
+      "on_search": [
+        "I know every inch of this lighthouse. Every bolt. Every shadow.",
+        "You can't hide from me. This is MY station.",
+        "Come out. I'll be gentle if you cooperate."
+      ],
+      "on_clear": [
+        "Good. Everything in order. As it should be.",
+        "Behave yourself and I won't have to tighten the chain.",
+        "Rest now. The light needs tending."
+      ],
+      "on_evidence": [
+        "What's this? You've been TOUCHING my equipment?!",
+        "Things have MOVED up here. Don't think I can't tell.",
+        "I keep this station in ORDER. And someone has disturbed it."
+      ],
+      "on_catch": [
+        "There you are. I warned you about trespassing. This lighthouse doesn't forgive trespassers. Neither do I."
+      ]
+    },
+
+    "on_visit_effects": [
+      {
+        "conditions": [
+          { "type": "object_state", "object": "storage_locker", "state": "open" }
+        ],
+        "effects": [
+          { "type": "set_state", "object": "storage_locker", "state": "relocked" },
+          { "type": "set_flag", "flag": "locker_relocked_by_harold", "value": "true" },
+          { "type": "message", "text": "You hear the clank of a padlock. Harold has locked the storage locker. Anything you didn't take is beyond reach now." }
+        ]
+      },
+      {
+        "conditions": [
+          { "type": "object_state", "object": "signal_manual", "state": "present" },
+          { "type": "flag_is", "flag": "harold_suspicious", "value": "true" }
+        ],
+        "effects": [
+          { "type": "set_state", "object": "signal_manual", "state": "hidden" },
+          { "type": "set_flag", "flag": "signal_manual_hidden_by_harold", "value": "true" },
+          { "type": "message", "text": "Harold takes the signal manual off the workbench and tucks it under his arm. 'Don't need you reading this.' The frequency information is gone — unless you already memorized it." }
+        ]
+      }
+    ],
+
+    "special_behaviors": [
+      {
+        "id": "lamp_trap_recovery",
+        "trigger": { "type": "flag_is", "flag": "harold_blinded", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 45,
+        "description": "Harold is blinded by the signal lamp trap."
+      },
+      {
+        "id": "pete_distraction",
+        "trigger": { "type": "flag_is", "flag": "pete_distracting", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 60,
+        "description": "Harold is occupied dealing with Pete's racket below."
+      },
+      {
+        "id": "enraged_by_porthole",
+        "trigger": { "type": "flag_is", "flag": "porthole_smashed", "value": "true" },
+        "effect": "enraged",
+        "overrides": {
+          "check_interval_seconds": 20,
+          "thoroughness": 0.75
+        }
+      }
+    ]
+  },
+
+  "win_conditions": [
+    {
+      "id": "porthole_escape_alone",
+      "description": "Escape through the porthole window by rappelling down with the rope (alone)"
+    },
+    {
+      "id": "coast_guard_rescue",
+      "description": "Send a mayday on the radio and survive until the Coast Guard arrives"
+    },
+    {
+      "id": "pete_distraction_escape",
+      "description": "Free Pete, use his distraction to reach the porthole or wait for rescue"
+    }
+  ],
+
+  "lose_conditions": [
+    {
+      "id": "caught",
+      "description": "Caught by Harold while not hidden"
+    },
+    {
+      "id": "time_limit",
+      "seconds": 600,
+      "message": "The sun rises over the Pacific. Harold's brother arrives with the morning boat, armed. It's too late now. The lighthouse swallows another soul.",
+      "description": "Dawn arrives — Harold's brother makes escape impossible"
+    }
+  ],
+
+  "hints": [
+    {
+      "id": "hint_chain",
+      "after_seconds": 30,
+      "condition": { "type": "flag_not", "flag": "freed_from_chain", "value": "true" },
+      "text": "The chain has a rusted link near the floor bolt. Something corrosive might weaken it further."
+    },
+    {
+      "id": "hint_grease",
+      "after_seconds": 90,
+      "condition": { "type": "flag_not", "flag": "freed_from_chain", "value": "true" },
+      "text": "Machine grease is petroleum-based. It eats through corroded metal."
+    },
+    {
+      "id": "hint_pete",
+      "after_seconds": 120,
+      "condition": { "type": "flag_not", "flag": "met_pete", "value": "true" },
+      "text": "There's someone below the floor grate. Try talking to them."
+    },
+    {
+      "id": "hint_radio_frequency",
+      "after_seconds": 180,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_not", "flag": "knows_frequency", "value": "true" },
+          { "type": "flag_is", "flag": "fuse_box_opened", "value": "true" }
+        ]
+      },
+      "text": "The radio needs to be on the right frequency. The signal manual has emergency channel information."
+    },
+    {
+      "id": "hint_fuse",
+      "after_seconds": 150,
+      "condition": { "type": "object_state", "object": "old_radio", "state": "dead" },
+      "text": "The radio has no power. The fuse box is missing a fuse for the radio circuit. Check the storage locker."
+    },
+    {
+      "id": "hint_rope_choice",
+      "after_seconds": 240,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "has_item", "item": "rope" },
+          { "type": "flag_is", "flag": "met_pete", "value": "true" }
+        ]
+      },
+      "text": "The rope is long enough to reach the rocks below the porthole OR to reach Pete through the grate. Choose carefully — you can't do both."
+    }
+  ],
+
+  "solution_paths": [
+    {
+      "id": "quiet_solo_escape",
+      "name": "The Quiet Way Out",
+      "description": "Escape alone through the porthole. Minimal noise, maximum guilt.",
+      "steps": [
+        "Look at chain — discover weak link",
+        "Take grease from workbench",
+        "Use grease on chain — weaken link",
+        "Hand chain — break free, get chain link",
+        "Hand storage locker — open it",
+        "Hand storage locker again — close it (camouflage)",
+        "Take rope from locker",
+        "Take fuse from locker",
+        "Use chain link on fuse box — open it",
+        "Use fuse on fuse box — power radio",
+        "Take signal manual — learn frequency",
+        "Use grease on toolbox — open quietly",
+        "Use wrench on porthole — unbolt it",
+        "Use rope on porthole — tie for rappel",
+        "Hand porthole — escape"
+      ],
+      "estimated_noise": "low",
+      "patterns_demonstrated": ["gateway-puzzle", "dependency-chain", "camouflage", "noise-tradeoff", "knowledge-gate"]
+    },
+    {
+      "id": "pete_rescue_path",
+      "name": "No One Left Behind",
+      "description": "Free Pete, use his distraction, send mayday, get rescued together.",
+      "steps": [
+        "Look at chain — discover weak link",
+        "Take grease from workbench",
+        "Use grease on chain — break free",
+        "Talk to floor grate — meet Pete",
+        "Hand floor grate — receive pen knife from Pete",
+        "Hand storage locker — open it, close it after",
+        "Take rope, fuse, signal manual",
+        "Use pen knife on fuse box — open it",
+        "Use fuse on fuse box — power radio",
+        "Examine signal manual — learn frequency 156.800",
+        "Hand radio — go to closeup",
+        "Tune dial to 156.800",
+        "Talk to radio — send mayday",
+        "Use rope on floor grate — free Pete",
+        "Pete creates distraction — survive until Coast Guard arrives"
+      ],
+      "estimated_noise": "medium",
+      "patterns_demonstrated": ["accomplice", "moral-fork", "distraction-window", "knowledge-gate", "dependency-chain"]
+    },
+    {
+      "id": "trap_and_escape",
+      "name": "The Keeper's Own Light",
+      "description": "Rig the signal lamp to blind Harold, then escape in the chaos.",
+      "steps": [
+        "Break free from chain",
+        "Open storage locker, take supplies",
+        "Find lens shard from broken signal lamp parts",
+        "Use lens shard on signal lamp — rig the trap",
+        "Open fuse box, insert fuse, power the lamp circuit",
+        "Wait for Harold's next visit — lamp blinds him",
+        "Use the 45-second window to unbolt porthole and escape"
+      ],
+      "estimated_noise": "medium-high",
+      "patterns_demonstrated": ["trap-setting", "bait-and-punish", "distraction-window", "dependency-chain"]
+    }
+  ]
+}
