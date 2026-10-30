@@ -216,6 +216,7 @@ export class ScenarioEngine {
 
     if (!matched) {
       if (verb === 'look') {
+        this._messages = [obj.description];
         return { success: true, messages: [obj.description], noiseGenerated: 0 };
       }
       const msg = this.getDefaultFailMessage(verb, obj.name);
@@ -225,6 +226,12 @@ export class ScenarioEngine {
         messages: [msg],
         noiseGenerated: 0,
       };
+    }
+
+    const response = matched.response;
+    if (response && (!matched.then || matched.then.length === 0)) {
+      this._messages = [response];
+      return { success: true, messages: [response], noiseGenerated: 0 };
     }
 
     const messages = this.applyEffects(matched.then);

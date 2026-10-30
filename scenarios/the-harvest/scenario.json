@@ -95,7 +95,6 @@
         "instrument_rack",
         "sample_jars",
         "lab_startup_display",
-        "nav_act1_processing_lab_to_act1_morgue",
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
       "background_key": "act1_processing_lab",
@@ -121,7 +120,7 @@
         "autopsy_slab",
         "recycling_vats",
         "neural_tendril_sample",
-        "nav_act1_morgue_to_act1_processing_lab"
+        "nav_act1_morgue_to_act1_feeding_station"
       ],
       "background_key": "act1_morgue",
       "background_file": "backgrounds/act1_morgue.webp"
@@ -133,7 +132,9 @@
         "feeding_troughs",
         "energy_barrier_enclosures",
         "nav_act1_feeding_station_to_act1_containment_corridor",
-        "nav_act1_feeding_station_to_act1_ventilation_shaft"
+        "nav_act1_feeding_station_to_act1_ventilation_shaft",
+        "nav_act1_feeding_station_to_act1_morgue",
+        "nav_act1_feeding_station_to_act1_specimen_archive"
       ],
       "background_key": "act1_feeding_station",
       "background_file": "backgrounds/act1_feeding_station.webp"
@@ -155,8 +156,7 @@
         "security_console",
         "cracked_screen",
         "key_card_drawer",
-        "nav_act1_security_hub_to_act1_containment_corridor",
-        "nav_act1_security_hub_to_act1_specimen_archive"
+        "nav_act1_security_hub_to_act1_containment_corridor"
       ],
       "background_key": "act1_security_hub",
       "background_file": "backgrounds/act1_security_hub.webp"
@@ -168,7 +168,7 @@
         "personal_log_crystal",
         "reading_device",
         "holographic_display",
-        "nav_act1_specimen_archive_to_act1_security_hub"
+        "nav_act1_specimen_archive_to_act1_feeding_station"
       ],
       "background_key": "act1_specimen_archive",
       "background_file": "backgrounds/act1_specimen_archive.webp"
@@ -2444,7 +2444,8 @@
       },
       "visual": {
         "color": "#2a4a3a",
-        "label": "Pod"
+        "label": "Pod",
+        "animation": "glimmer"
       },
       "initial_state": "sealed",
       "initially_visible": true,
@@ -2557,7 +2558,8 @@
       },
       "visual": {
         "color": "#1a2a1a",
-        "label": "Drain"
+        "label": "Drain",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -2995,7 +2997,8 @@
       },
       "visual": {
         "color": "#1a3a4a",
-        "label": "Screens"
+        "label": "Screens",
+        "animation": "pulse"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -3152,7 +3155,8 @@
       },
       "visual": {
         "color": "#4a5a4a",
-        "label": "Tendril"
+        "label": "Tendril",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -3596,7 +3600,8 @@
       },
       "visual": {
         "color": "#3a3a3a",
-        "label": "Drawer"
+        "label": "Drawer",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -3803,7 +3808,8 @@
       },
       "visual": {
         "color": "#2a1a3a",
-        "label": "Holograms"
+        "label": "Holograms",
+        "animation": "pulse"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -12418,20 +12424,20 @@
       ]
     },
     {
-      "id": "nav_act1_processing_lab_to_act1_morgue",
-      "name": "Side Passage",
-      "description": "A passage leading to Specimen Morgue.",
+      "id": "nav_act1_feeding_station_to_act1_morgue",
+      "name": "Rear Passage",
+      "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 860,
-        "y": 380
+        "x": 480,
+        "y": 150
       },
       "size": {
-        "width": 100,
-        "height": 200
+        "width": 160,
+        "height": 120
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
-        "label": "Passage"
+        "label": "Morgue"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -12439,7 +12445,7 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A narrow passage on the far right leads to a colder section. The air smells of antiseptic decay."
+          "response": "A passage at the far end of the feeding station. A faint chemical smell drifts from deeper within."
         },
         {
           "verb": "move",
@@ -12451,7 +12457,7 @@
             },
             {
               "type": "message",
-              "text": "You squeeze through the narrow passage. The temperature drops sharply. A morgue."
+              "text": "You duck through the low passage. The air grows colder and the chemical smell intensifies."
             }
           ]
         }
@@ -12658,9 +12664,9 @@
       ]
     },
     {
-      "id": "nav_act1_morgue_to_act1_processing_lab",
-      "name": "Back to Lab",
-      "description": "A passage leading to Processing Lab.",
+      "id": "nav_act1_morgue_to_act1_feeding_station",
+      "name": "Back to Feeding Station",
+      "description": "A passage leading back to the Feeding Station.",
       "position": {
         "x": 480,
         "y": 660
@@ -12679,7 +12685,7 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The passage back to the processing lab. Warmer air drifts from beyond."
+          "response": "The passage leads back to the feeding station. You can hear the hum of the energy barriers."
         },
         {
           "verb": "move",
@@ -12687,11 +12693,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_processing_lab"
+              "view": "act1_feeding_station"
             },
             {
               "type": "message",
-              "text": "You leave the cold morgue and return to the processing lab."
+              "text": "You retrace your steps back to the feeding station."
             }
           ]
         }
@@ -12858,16 +12864,16 @@
       ]
     },
     {
-      "id": "nav_act1_security_hub_to_act1_specimen_archive",
-      "name": "Archive Entrance",
-      "description": "A passage leading to Specimen Archive.",
+      "id": "nav_act1_feeding_station_to_act1_specimen_archive",
+      "name": "Right Passage",
+      "description": "A sealed doorway on the right wall of the feeding station, leading to the Specimen Archive.",
       "position": {
-        "x": 850,
-        "y": 300
+        "x": 900,
+        "y": 320
       },
       "size": {
         "width": 100,
-        "height": 200
+        "height": 220
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12879,7 +12885,7 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The rightmost monitor shows a vast chamber of glowing crystals. A passage beside it seems to lead there directly."
+          "response": "A heavy door on the right wall. Through its viewport you can see rows of specimen containers and data crystals."
         },
         {
           "verb": "move",
@@ -12891,16 +12897,16 @@
             },
             {
               "type": "message",
-              "text": "You pass through the narrow entrance beside the monitors. A cathedral of data crystals opens before you."
+              "text": "You push through the heavy door into the cold, dry air of the Specimen Archive."
             }
           ]
         }
       ]
     },
     {
-      "id": "nav_act1_specimen_archive_to_act1_security_hub",
-      "name": "Back to Security Hub",
-      "description": "A passage leading to Security Hub.",
+      "id": "nav_act1_specimen_archive_to_act1_feeding_station",
+      "name": "Back to Feeding Station",
+      "description": "A passage leading back to the Feeding Station.",
       "position": {
         "x": 830,
         "y": 350
@@ -12919,7 +12925,7 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A tall archway on the right side of the chamber leads back toward the security hub. Green monitor light leaks through."
+          "response": "The heavy door leads back to the feeding station."
         },
         {
           "verb": "move",
@@ -12927,11 +12933,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_security_hub"
+              "view": "act1_feeding_station"
             },
             {
               "type": "message",
-              "text": "You pass through the archway back into the security hub."
+              "text": "You push back through the door into the warm, humid feeding station."
             }
           ]
         }

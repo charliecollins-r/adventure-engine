@@ -15,17 +15,22 @@
                                   |        |        |
                           [PROCESSING   [FEEDING  [SECURITY
                              LAB]      STATION]     HUB]
-                              |           |           |
-                          passage    vent grate    archway
-                              |           |           |
-                          [MORGUE]  [VENTILATION  [SPECIMEN
-                                      SHAFT]      ARCHIVE]
+                          (dead end)   / | \      (dead end)
+                               rear door | right door
+                                 /       |       \
+                          [MORGUE]  vent grate  [SPECIMEN
+                                        |       ARCHIVE]
+                                  [VENTILATION
+                                     SHAFT]
                                         |
                                     forward
                                         |
                                   [AIRLOCK BAY]
                                     (END)
 ```
+
+> **Feeding Station** is a secondary hub with 4 exits: back to Corridor, rear passage to Morgue, right door to Specimen Archive, and vent grate to Ventilation Shaft.
+> **Processing Lab** and **Security Hub** are dead ends — back to Corridor only.
 
 ## Room-by-Room Design
 
@@ -133,7 +138,8 @@
 | Exit | Position | Destination | Visual Feature |
 |------|----------|-------------|---------------|
 | Back archway | (480, 180) | Containment Corridor | Large dark archway center-back |
-| Right passage | (880, 380) | Morgue | Hint of passage on far right |
+
+> Dead end — return to Corridor only. No right-side passage (doesn't match background).
 
 ---
 
@@ -161,7 +167,9 @@
 **Navigation**:
 | Exit | Position | Destination |
 |------|----------|-------------|
-| Behind camera | (480, 680) | Processing Lab |
+| Behind camera | (480, 680) | Feeding Station |
+
+> Accessed from Feeding Station rear passage. Returns to Feeding Station.
 
 ---
 
@@ -192,7 +200,8 @@
 | Exit | Position | Destination | Visual Feature |
 |------|----------|-------------|---------------|
 | Behind camera | (480, 680) | Containment Corridor | Behind you |
-| Right side | (860, 340) | Specimen Archive | Right monitor shows archive |
+
+> Dead end — return to Corridor only. Right wall is monitors, no visible door.
 
 ---
 
@@ -219,7 +228,9 @@
 **Navigation**:
 | Exit | Position | Destination | Visual Feature |
 |------|----------|-------------|---------------|
-| Right archway | (850, 350) | Security Hub | Large arched passage |
+| Right archway | (850, 350) | Feeding Station | Large arched passage |
+
+> Accessed from Feeding Station right door. Returns to Feeding Station.
 
 ---
 
@@ -246,8 +257,12 @@
 **Navigation**:
 | Exit | Position | Destination | Visual Feature |
 |------|----------|-------------|---------------|
-| Far left passage | (40, 380) | Containment Corridor | Dark door behind alcoves |
-| Floor vent | (480, 680) | Ventilation Shaft | Vent grate in floor |
+| Far left passage | (50, 350) | Containment Corridor | Dark door behind alcoves |
+| Rear passage | (480, 150) | Morgue | Dark opening at back of room |
+| Right door | (900, 320) | Specimen Archive | Heavy door on right wall |
+| Floor vent | (480, 660) | Ventilation Shaft | Vent grate in floor |
+
+> **Secondary hub** — 4 exits. Feeding Station bridges between Corridor and the deeper rooms.
 
 ---
 
@@ -426,8 +441,7 @@ containing small preserved creatures. UPPER-LEFT: large GREEN HOLOGRAPHIC SCREEN
 displaying alien insect anatomy diagram with alien text. UPPER-RIGHT: large GREEN
 HOLOGRAPHIC SCREEN displaying alien brain/organ anatomy. BACK CENTER: CLEARLY VISIBLE
 LARGE DARK ARCHWAY leading out to a corridor — this is the main exit and must be
-prominent and unmistakable. FAR RIGHT: a SMALLER SIDE PASSAGE partially visible at
-the right edge, leading to another room.
+prominent and unmistakable. No other exits — this is a dead-end room.
 Color palette: cold blue-white surgical lighting, green holographic screens, amber
 specimen jars, bone-white instruments, dark organic walls.
 [SUFFIX] — from the floor near the closest examination table, looking up at the tables
@@ -462,9 +476,8 @@ CRACKED/BROKEN screen with spider-web fracture pattern, (5) a room with glowing
 blue-purple crystal shelves. CENTER-FOREGROUND: large organic CONTROL CONSOLE covered
 in buttons, tubes, and biological switches. LEFT: organic ERGONOMIC CHAIR that looks
 grown, not built. Dense organic pipes and small GREEN INDICATOR LIGHTS on all walls.
-Floor: metal grating. The only entrance is BEHIND THE CAMERA (not visible). The right
-side of the room, past the rightmost monitor, has a DARK PASSAGE visible leading
-somewhere else.
+Floor: metal grating. The only entrance is BEHIND THE CAMERA (not visible). No other
+exits — this is a dead-end surveillance room. The walls are solid monitors and pipes.
 Color palette: teal-green monitor glow, dark organic walls, amber-brown console,
 green indicator lights, red glow from the center monitor.
 [SUFFIX] — from floor level looking up at the wall of monitors and the console.
@@ -491,15 +504,18 @@ crystal walls towering above.
 ### 8. Feeding Station
 ```
 [PREFIX]
-Alien feeding/extraction bay. LEFT WALL: 3 RECTANGULAR ALCOVES separated by pillars,
-each containing a PURPLE ENERGY BARRIER (crackling electric/plasma field) with small
-green monitor screens above each alcove showing specimen data. A DARK PASSAGE/DOOR
-visible at the FAR LEFT behind the alcoves — this is an exit and should be clearly
-visible. CENTER-RIGHT: large BULBOUS ORGANIC FEEDING APPARATUS suspended from ceiling
+Alien feeding/extraction bay. This room is a SECONDARY HUB with 4 exits — show them
+clearly. LEFT WALL: 3 RECTANGULAR ALCOVES separated by pillars, each containing a
+PURPLE ENERGY BARRIER (crackling electric/plasma field) with small green monitor
+screens above each alcove showing specimen data. FAR LEFT: a DARK PASSAGE/DOOR
+behind the alcoves — exit to Containment Corridor, clearly visible. BACK CENTER: a
+DARK LOW PASSAGE at the rear of the room — exit to Morgue, framed by pipes and
+dimly lit. RIGHT WALL: a HEAVY SEALED DOOR with a small viewport — exit to Specimen
+Archive. CENTER: large BULBOUS ORGANIC FEEDING APPARATUS suspended from ceiling
 by multiple tubes — looks like a bloated biological organ/sac. RIGHT FOREGROUND:
 feeding BENCH/CHAIR with tubes attached, plus green MONITOR SCREENS on the right wall.
 Floor: organic grating with tube networks. The floor near the center-bottom has a
-VENTILATION GRATE that could be pried open.
+VENTILATION GRATE that could be pried open — exit to Ventilation Shaft.
 Color palette: purple energy barrier glow, green monitors, dark olive-green organic
 walls, amber tube accents.
 [SUFFIX] — from floor level looking up at the feeding apparatus hanging above.

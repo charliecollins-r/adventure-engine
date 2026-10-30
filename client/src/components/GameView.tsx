@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
 
 interface GameViewProps {
@@ -89,6 +89,29 @@ function objectHotspotStyle(
   };
 }
 
+const GLIMMER_KEYFRAMES = `
+@keyframes hotspot-glimmer {
+  0%, 100% { box-shadow: none; }
+  15% { box-shadow: inset 0 0 8px 2px rgba(200, 220, 255, 0.3); }
+  30% { box-shadow: none; }
+  45% { box-shadow: inset 0 0 4px 1px rgba(200, 220, 255, 0.15); }
+  55% { box-shadow: none; }
+}
+@keyframes hotspot-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
+}
+`;
+
+let stylesInjected = false;
+function injectAnimationStyles() {
+  if (stylesInjected) return;
+  stylesInjected = true;
+  const el = document.createElement('style');
+  el.textContent = GLIMMER_KEYFRAMES;
+  document.head.appendChild(el);
+}
+
 export function GameView({
   engine,
   activeVerb,
@@ -98,6 +121,8 @@ export function GameView({
   onEmptyClick,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
+
+  useEffect(() => { injectAnimationStyles(); }, []);
 
   const view = engine.getCurrentView();
   const objects = engine.getVisibleObjects();
@@ -167,6 +192,13 @@ export function GameView({
       {objects.map((obj) => {
         const isHovered = hoveredObject === obj.id;
         const isNav = obj.id.startsWith('nav_');
+        const animation = obj.visual.animation;
+        const animStyle: CSSProperties = {};
+        if (animation === 'glimmer' && !isHovered) {
+          animStyle.animation = 'hotspot-glimmer 6s ease-in-out infinite';
+        } else if (animation === 'pulse' && !isHovered) {
+          animStyle.animation = 'hotspot-pulse 3s ease-in-out infinite';
+        }
         return (
           <div
             key={obj.id}
@@ -187,6 +219,7 @@ export function GameView({
               border: isHovered
                 ? `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`
                 : '2px solid transparent',
+              ...animStyle,
             }}
             onClick={() => onObjectClick(obj.id)}
             onMouseEnter={() => setHoveredObject(obj.id)}

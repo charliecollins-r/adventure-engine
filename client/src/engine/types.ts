@@ -44,6 +44,7 @@ export interface Size {
 export interface Visual {
   color: string;
   label: string;
+  animation?: string;
 }
 
 export interface Condition {
@@ -89,6 +90,7 @@ export interface Interaction {
   item?: string;
   when: Condition[];
   then: Effect[];
+  response?: string;
   noise?: number;
 }
 
