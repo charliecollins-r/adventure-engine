@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <marker id="arrowGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0a030"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="500" fill="#0d0d0a"/>
+  <text x="450" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#c0a030" letter-spacing="3">SYSTEM ARCHITECTURE</text>
+
+  <!-- Browser boundary -->
+  <rect x="240" y="50" width="640" height="340" rx="6" fill="none" stroke="#2a2018" stroke-width="1.5" stroke-dasharray="8,4"/>
+  <text x="260" y="70" font-family="monospace" font-size="11" fill="#5a4a30">Browser</text>
+
+  <!-- Scenario JSON -->
+  <rect x="20" y="120" width="180" height="180" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="110" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#c0a030">Scenario JSON</text>
+  <line x1="40" y1="160" x2="180" y2="160" stroke="#2a2018" stroke-width="1"/>
+  <text x="110" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">metadata</text>
+  <text x="110" y="198" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">views &amp; objects</text>
+  <text x="110" y="214" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">interactions</text>
+  <text x="110" y="230" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">items &amp; combos</text>
+  <text x="110" y="246" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">conditions</text>
+  <text x="110" y="262" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">effects</text>
+  <text x="110" y="278" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">killer (optional)</text>
+
+  <!-- Arrow: JSON -> Engine -->
+  <line x1="200" y1="210" x2="270" y2="210" stroke="#c0a030" stroke-width="2" marker-end="url(#arrowGold)"/>
+  <text x="235" y="200" text-anchor="middle" font-family="monospace" font-size="9" fill="#8a7a5a">loads</text>
+
+  <!-- ScenarioEngine -->
+  <rect x="280" y="100" width="220" height="220" rx="4" fill="#151210" stroke="#c0a030" stroke-width="2"/>
+  <text x="390" y="128" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#c0a030">ScenarioEngine</text>
+  <text x="390" y="146" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">Pure TypeScript State Machine</text>
+  <line x1="300" y1="155" x2="480" y2="155" stroke="#2a2018" stroke-width="1"/>
+  <text x="300" y="176" font-family="monospace" font-size="10" fill="#e0d0a0">  interact(obj, verb, item?)</text>
+  <text x="300" y="194" font-family="monospace" font-size="10" fill="#e0d0a0">  evaluateConditions()</text>
+  <text x="300" y="212" font-family="monospace" font-size="10" fill="#e0d0a0">  applyEffects()</text>
+  <text x="300" y="230" font-family="monospace" font-size="10" fill="#e0d0a0">  navigateToView()</text>
+  <text x="300" y="248" font-family="monospace" font-size="10" fill="#e0d0a0">  combineItems()</text>
+  <text x="300" y="266" font-family="monospace" font-size="10" fill="#e0d0a0">  checkGameEndConditions()</text>
+  <text x="300" y="284" font-family="monospace" font-size="10" fill="#e0d0a0">  getVisibleObjects()</text>
+  <text x="300" y="302" font-family="monospace" font-size="10" fill="#e0d0a0">  getInventory()</text>
+
+  <!-- React Components -->
+  <rect x="570" y="85" width="290" height="290" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="715" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#c0a030">React Components</text>
+  <line x1="590" y1="120" x2="840" y2="120" stroke="#2a2018" stroke-width="1"/>
+  <rect x="590" y="132" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="650" y="150" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">ScenarioPlayer</text>
+  <rect x="590" y="170" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="650" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">GameView</text>
+  <rect x="720" y="170" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="780" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">VerbBar</text>
+  <rect x="590" y="208" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="650" y="226" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">MessagePanel</text>
+  <rect x="720" y="208" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="780" y="226" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">InventoryPanel</text>
+  <rect x="590" y="246" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="650" y="264" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">NoiseIndicator</text>
+  <rect x="720" y="246" width="120" height="28" rx="3" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="780" y="264" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">ScenarioLoader</text>
+  <text x="715" y="300" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">CSS-positioned divs on</text>
+  <text x="715" y="314" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">painted backgrounds</text>
+
+  <!-- Arrows: Engine <-> Components -->
+  <line x1="500" y1="180" x2="565" y2="180" stroke="#c0a030" stroke-width="2" marker-end="url(#arrowGold)"/>
+  <text x="533" y="172" text-anchor="middle" font-family="monospace" font-size="9" fill="#8a7a5a">state</text>
+  <line x1="565" y1="240" x2="500" y2="240" stroke="#c0a030" stroke-width="2" marker-end="url(#arrowGold)"/>
+  <text x="533" y="256" text-anchor="middle" font-family="monospace" font-size="9" fill="#8a7a5a">actions</text>
+
+  <!-- Engine State -->
+  <rect x="200" y="370" width="480" height="110" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="440" y="395" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Engine State</text>
+  <line x1="220" y1="404" x2="660" y2="404" stroke="#2a2018" stroke-width="1"/>
+  <rect x="220" y="415" width="80" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="260" y="430" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">flags</text>
+  <rect x="310" y="415" width="100" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="360" y="430" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">objectStates</text>
+  <rect x="420" y="415" width="80" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="460" y="430" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">inventory</text>
+  <rect x="510" y="415" width="70" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="545" y="430" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">noise</text>
+  <rect x="590" y="415" width="70" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="625" y="430" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">phase</text>
+  <rect x="220" y="448" width="100" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="270" y="463" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">viewHistory</text>
+  <rect x="330" y="448" width="80" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="370" y="463" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">visibility</text>
+  <rect x="420" y="448" width="80" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="460" y="463" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">isHiding</text>
+  <rect x="510" y="448" width="80" height="22" rx="11" fill="#1a1510" stroke="#3a2a18" stroke-width="1"/>
+  <text x="550" y="463" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">gameOver</text>
+  <line x1="390" y1="320" x2="390" y2="365" stroke="#c0a030" stroke-width="2" marker-end="url(#arrowGold)"/>
+
+  <!-- Future: Spring Boot -->
+  <rect x="700" y="400" width="180" height="80" rx="4" fill="none" stroke="#5a4a30" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="790" y="425" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#5a4a30">Spring Boot Server</text>
+  <text x="790" y="442" text-anchor="middle" font-family="monospace" font-size="9" fill="#3a2a18">Validation</text>
+  <text x="790" y="456" text-anchor="middle" font-family="monospace" font-size="9" fill="#3a2a18">Save Sync</text>
+  <text x="790" y="470" text-anchor="middle" font-family="monospace" font-size="9" fill="#3a2a18">Analytics</text>
+  <text x="790" y="488" text-anchor="middle" font-family="monospace" font-size="8" fill="#3a2a18" font-style="italic">Future</text>
+</svg>

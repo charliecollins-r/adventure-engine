@@ -243,7 +243,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **The Harvest Act 1** playable with painted backgrounds (11 views)
 - **Lighthouse Keeper** is simplest (3 views) — first playtest target
 - **Branch**: `claude/dreamy-volta-ha3r6v`
-- **Architecture doc** with Mermaid diagrams at `docs/ARCHITECTURE.md`
+- **Architecture doc** at `docs/ARCHITECTURE.md` with SVG diagrams in `docs/images/`
 - **Gameplay screenshots** in `docs/images/` referenced by README
 
 ---

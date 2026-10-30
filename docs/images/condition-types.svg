@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <rect width="900" height="520" fill="#0d0d0a"/>
+  <text x="450" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#c0a030" letter-spacing="3">CONDITION TYPES</text>
+  <text x="450" y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">14 condition types + 2 composites gate every interaction</text>
+
+  <!-- State Checks -->
+  <rect x="20" y="70" width="260" height="170" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="150" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">State Checks</text>
+  <line x1="40" y1="103" x2="260" y2="103" stroke="#2a2018" stroke-width="1"/>
+  <rect x="40" y="115" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="131" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">flag_is</text><text x="140" y="131" font-family="monospace" font-size="9" fill="#5a4a30">flag == value</text>
+  <rect x="40" y="148" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">flag_not</text><text x="140" y="164" font-family="monospace" font-size="9" fill="#5a4a30">flag != value</text>
+  <rect x="40" y="181" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="100" y="197" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">object_state</text><text x="170" y="197" font-family="monospace" font-size="9" fill="#5a4a30">obj in state</text>
+
+  <!-- Inventory Checks -->
+  <rect x="310" y="70" width="260" height="170" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="440" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Inventory Checks</text>
+  <line x1="330" y1="103" x2="550" y2="103" stroke="#2a2018" stroke-width="1"/>
+  <rect x="330" y="115" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="375" y="131" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">has_item</text><text x="430" y="131" font-family="monospace" font-size="9" fill="#5a4a30">player has it</text>
+  <rect x="330" y="148" width="110" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="385" y="164" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">not_has_item</text><text x="450" y="164" font-family="monospace" font-size="9" fill="#5a4a30">player lacks it</text>
+  <rect x="330" y="181" width="110" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="385" y="197" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">item_count</text><text x="450" y="197" font-family="monospace" font-size="9" fill="#5a4a30">has N+ items</text>
+
+  <!-- World Checks -->
+  <rect x="20" y="260" width="260" height="240" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="150" y="284" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">World Checks</text>
+  <line x1="40" y1="293" x2="260" y2="293" stroke="#2a2018" stroke-width="1"/>
+  <rect x="40" y="305" width="80" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="80" y="321" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">view_is</text><text x="130" y="321" font-family="monospace" font-size="9" fill="#5a4a30">in specific view</text>
+  <rect x="40" y="338" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="354" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">phase_is</text><text x="140" y="354" font-family="monospace" font-size="9" fill="#5a4a30">game in phase</text>
+  <rect x="40" y="371" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="387" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">is_hiding</text><text x="140" y="387" font-family="monospace" font-size="9" fill="#5a4a30">player hidden</text>
+  <rect x="40" y="404" width="110" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="95" y="420" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">not_hiding</text><text x="160" y="420" font-family="monospace" font-size="9" fill="#5a4a30">player visible</text>
+  <rect x="40" y="440" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="100" y="456" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">noise_above</text><text x="170" y="456" font-family="monospace" font-size="9" fill="#5a4a30">noise > N</text>
+  <rect x="40" y="470" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="100" y="486" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">noise_below</text><text x="170" y="486" font-family="monospace" font-size="9" fill="#5a4a30">noise &lt; N</text>
+
+  <!-- Composites -->
+  <rect x="310" y="260" width="260" height="130" rx="4" fill="#151210" stroke="#c0a030" stroke-width="2"/>
+  <text x="440" y="284" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Composites</text>
+  <line x1="330" y1="293" x2="550" y2="293" stroke="#2a2018" stroke-width="1"/>
+  <rect x="330" y="308" width="80" height="28" rx="14" fill="#1a1510" stroke="#c0a030" stroke-width="1.5"/><text x="370" y="327" text-anchor="middle" font-family="monospace" font-size="11" fill="#c0a030">all_of</text><text x="420" y="327" font-family="monospace" font-size="10" fill="#e0d0a0">ALL true (AND)</text>
+  <rect x="330" y="348" width="80" height="28" rx="14" fill="#1a1510" stroke="#c0a030" stroke-width="1.5"/><text x="370" y="367" text-anchor="middle" font-family="monospace" font-size="11" fill="#c0a030">any_of</text><text x="420" y="367" font-family="monospace" font-size="10" fill="#e0d0a0">ANY true (OR)</text>
+
+  <!-- AI / Future -->
+  <rect x="600" y="70" width="280" height="200" rx="4" fill="#0d0d0a" stroke="#5a4a30" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="740" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#5a4a30">AI / Future</text>
+  <line x1="620" y1="103" x2="860" y2="103" stroke="#3a2a18" stroke-width="1"/>
+  <rect x="620" y="118" width="100" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="670" y="134" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">killer_is</text><text x="730" y="134" font-family="monospace" font-size="9" fill="#3a2a18">killer state</text>
+  <rect x="620" y="151" width="110" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="675" y="167" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">time_after</text><text x="740" y="167" font-family="monospace" font-size="9" fill="#3a2a18">clock > T</text>
+  <rect x="620" y="184" width="120" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="680" y="200" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">time_before</text><text x="750" y="200" font-family="monospace" font-size="9" fill="#3a2a18">clock &lt; T</text>
+  <text x="740" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#3a2a18" font-style="italic">Requires events system</text>
+  <text x="740" y="254" text-anchor="middle" font-family="monospace" font-size="9" fill="#3a2a18" font-style="italic">and killer AI state machine</text>
+
+  <!-- How conditions work -->
+  <rect x="600" y="290" width="280" height="210" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="740" y="314" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">How Conditions Work</text>
+  <line x1="620" y1="323" x2="860" y2="323" stroke="#2a2018" stroke-width="1"/>
+  <text x="620" y="344" font-family="monospace" font-size="10" fill="#8a7a5a">Each interaction has a</text>
+  <text x="620" y="360" font-family="monospace" font-size="10" fill="#e0d0a0">  when: Condition[]</text>
+  <text x="620" y="380" font-family="monospace" font-size="10" fill="#8a7a5a">ALL must be true (implicit AND)</text>
+  <text x="620" y="400" font-family="monospace" font-size="10" fill="#8a7a5a">Empty when[] = always true</text>
+  <text x="620" y="428" font-family="monospace" font-size="10" fill="#8a7a5a">First matching interaction</text>
+  <text x="620" y="444" font-family="monospace" font-size="10" fill="#8a7a5a">wins (order matters).</text>
+  <text x="620" y="472" font-family="monospace" font-size="10" fill="#8a7a5a">Use composites to build</text>
+  <text x="620" y="488" font-family="monospace" font-size="10" fill="#8a7a5a">complex logic trees.</text>
+
+  <!-- Legend -->
+  <rect x="310" y="410" width="260" height="90" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1"/>
+  <text x="440" y="432" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#8a7a5a">Legend</text>
+  <rect x="330" y="444" width="40" height="16" rx="8" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="380" y="456" font-family="monospace" font-size="9" fill="#8a7a5a">Implemented</text>
+  <rect x="330" y="468" width="40" height="16" rx="8" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="380" y="480" font-family="monospace" font-size="9" fill="#5a4a30">Not yet implemented</text>
+</svg>

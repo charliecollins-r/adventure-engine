@@ -2,164 +2,135 @@
 
 > **How the Adventure Engine works under the hood** — from JSON file to playable game.
 
-Technical reference for developers who want to understand, extend, or contribute to the engine internals. For the JSON authoring specification, see [SCENARIO_SCHEMA.md](SCENARIO_SCHEMA.md). For the project overview, see the [README](../README.md).
+Technical reference for developers who want to understand, extend, or build on the engine. For the JSON authoring specification, see [SCENARIO_SCHEMA.md](SCENARIO_SCHEMA.md). For the project overview, see the [README](../README.md).
 
 ---
 
 ## Table of Contents
 
 - [System Overview](#system-overview)
-- [Architecture Diagram](#architecture-diagram)
-- [The Scenario Engine](#the-scenario-engine)
+- [The ScenarioEngine](#the-scenarioengine)
+- [Condition System](#condition-system)
+- [Effect System](#effect-system)
 - [Interaction Resolution](#interaction-resolution)
-- [The Condition System](#the-condition-system)
-- [The Effect System](#the-effect-system)
 - [View Navigation](#view-navigation)
 - [The Five Verbs](#the-five-verbs)
-- [Data Flow](#data-flow)
+- [The React Layer](#the-react-layer)
 - [Coordinate System](#coordinate-system)
-- [Rendering Pipeline](#rendering-pipeline)
-- [Future Architecture](#future-architecture)
+- [Scenario JSON Format](#scenario-json-format)
+- [Design Patterns](#design-patterns)
+- [Future Systems](#future-systems)
 
 ---
 
 ## System Overview
 
-The Adventure Engine is a **pure client-side state machine**. There is no server required for gameplay. The entire pipeline is:
+The Adventure Engine is a **pure client-side state machine**. No server is required for gameplay. The entire pipeline is:
 
 ```
-scenario.json + background images → ScenarioEngine (TypeScript) → React components → playable game
+scenario.json + background art  →  ScenarioEngine (TypeScript)  →  React components  →  playable game
 ```
 
 The engine has three strict layers:
 
 | Layer | Responsibility | Side Effects |
 |-------|---------------|--------------|
-| **ScenarioEngine** | State management, condition evaluation, effect application | None — pure state machine |
-| **React Components** | Render engine state as interactive UI | DOM updates only |
 | **Scenario JSON** | Define the entire game — views, objects, puzzles, narrative | Static data |
+| **ScenarioEngine** | State management, condition evaluation, effect application | None (pure state machine) |
+| **React Components** | Render engine state as interactive UI | DOM updates only |
 
-This separation means the engine can be tested without a browser, scenarios can be validated without rendering, and the renderer can be swapped (React → Phaser) without touching game logic.
-
----
-
-## Architecture Diagram
-
-<p align="center">
-  <img src="images/architecture-overview.svg" width="800" alt="System Architecture Overview" />
-</p>
+This separation means the engine can be tested without a browser, scenarios can be validated without rendering, and the renderer can be swapped (React → Phaser → terminal) without touching game logic. The engine never calls React; React polls the engine.
 
 ---
 
-## The Scenario Engine
+## The ScenarioEngine
 
-`ScenarioEngine` (`client/src/engine/ScenarioEngine.ts`) is the heart of the system — a pure TypeScript class with no rendering logic, no DOM access, and no side effects beyond internal state mutation.
+`ScenarioEngine` (`client/src/engine/ScenarioEngine.ts`) is the heart of the system — a single TypeScript class (~580 lines) with no rendering logic, no DOM access, and no side effects beyond internal state mutation (plus `setTimeout` for `delay_then`).
 
-### Construction
+### Construction and Initialization
 
 When a scenario JSON is loaded, the constructor:
 
-1. Stores the full scenario definition
-2. Sets the initial view from `scenario.setting.initial_view`
-3. Copies initial flags from `scenario.flags`
-4. Indexes all objects into a `Map<string, ScenarioObject>` for O(1) lookup
-5. Indexes all items into a `Map<string, Item>`
-6. Records each object's `initial_state` and `initially_visible`
-7. Sets the initial phase (first entry in `scenario.phases`, if any)
-8. Applies `on_enter` effects for the initial phase
-
-### State Shape
-
-The engine maintains these mutable fields:
+1. **Sets the initial view** from `scenario.setting.initial_view`
+2. **Copies initial flags** from `scenario.flags` (shallow copy so mutations don't affect the source)
+3. **Builds O(1) lookup indexes** — `Map<string, ScenarioObject>` and `Map<string, Item>` for instant access by ID
+4. **Records initial state** — each object's `initial_state` and `initially_visible` go into fast-lookup dictionaries
+5. **Sets the initial phase** — first entry in `scenario.phases`, if any
+6. **Applies first phase effects** — runs `on_enter` effects for the initial phase (typically the opening narrative)
 
 ```typescript
-private _currentViewId: string;          // Which screen the player sees
-private flags: Record<string, string>;   // Key-value pairs tracking progress
-private objectStates: Record<string, string>; // Per-object state machine
-private objectVisibility: Record<string, boolean>; // Which objects are visible
-private inventory: string[];             // Item IDs the player carries
-private _noiseLevel: number;             // 0-100 stealth meter
-private _messages: string[];             // Current message queue
-private viewHistory: string[];           // Stack for back navigation
-private _gameOver: GameOverResult | null;// Win/lose state
-private _currentPhaseId: string | null;  // Current game phase
-private _isHiding: boolean;             // Player hiding from killer
+constructor(scenario: Scenario) {
+  this._currentViewId = scenario.setting.initial_view;
+  this.flags = { ...scenario.flags };
+
+  this.objectIndex = new Map();
+  for (const obj of scenario.objects) {
+    this.objectIndex.set(obj.id, obj);
+    this.objectStates[obj.id] = obj.initial_state;
+    this.objectVisibility[obj.id] = obj.initially_visible;
+  }
+
+  this.itemIndex = new Map();
+  for (const item of scenario.items) {
+    this.itemIndex.set(item.id, item);
+  }
+
+  if (this._currentPhaseId && scenario.phases?.[0]?.on_enter) {
+    this.applyEffects(scenario.phases[0].on_enter);
+  }
+}
 ```
 
-All state reads go through getter methods. The engine never exposes mutable references — arrays are copied, objects are frozen where appropriate.
+### State Fields
+
+| Field | Type | Purpose |
+|-------|------|---------|
+| `_currentViewId` | `string` | Which view (screen/room) the player is in |
+| `flags` | `Record<string, string>` | Key-value pairs tracking game progress |
+| `objectStates` | `Record<string, string>` | Current state of each object (e.g., `"locked"`, `"open"`) |
+| `objectVisibility` | `Record<string, boolean>` | Whether each object is visible in its view |
+| `inventory` | `string[]` | IDs of items the player carries |
+| `_noiseLevel` | `number` | 0–100 noise meter (triggers killer attention) |
+| `_messages` | `string[]` | Current messages to display |
+| `viewHistory` | `string[]` | Stack of previous view IDs for back-navigation |
+| `_gameOver` | `GameOverResult \| null` | Win/lose state |
+| `_currentPhaseId` | `string \| null` | Current game phase |
+| `_isHiding` | `boolean` | Whether the player is hiding from the killer |
+
+All state is exposed through read-only getter methods. The engine never hands out mutable references.
 
 ### Key Methods
 
 | Method | Purpose |
 |--------|---------|
-| `interact(objectId, verb, itemId?)` | The main game action — resolve verb + object + conditions → effects |
+| `interact(objectId, verb, itemId?)` | Primary game action — resolve verb + object + conditions → effects |
 | `navigateToView(viewId)` | Push current view to stack and move to new view |
 | `navigateBack()` | Pop view stack and return to previous view |
 | `combineItems(itemA, itemB)` | Attempt to combine two inventory items |
 | `examineItem(itemId, verb)` | Use a verb on an inventory item |
-| `getVisibleObjects()` | Return objects in the current view that are visible |
-| `getAvailableVerbs(objectId)` | Which verbs have valid interactions for this object |
-| `getUsableItems(objectId)` | Which inventory items can be used on this object |
+| `getVisibleObjects()` | Return objects in the current view whose visibility is `true` |
+| `getAvailableVerbs(objectId)` | Scan interactions to find which verbs have satisfied conditions |
+| `getUsableItems(objectId)` | Find which inventory items have valid `use_item` interactions on this object |
+| `dismissMessages()` | Clear the current message queue |
+| `decayNoise(amount)` | Reduce noise level (used by killer AI timing) |
 
 ---
 
-## Interaction Resolution
+## Condition System
 
-This is the core game loop — what happens when the player clicks an object with a verb selected.
+Conditions are the gating mechanism. Every interaction has a `when` array of conditions. All must be true (implicit AND) for the interaction to fire.
 
-### Resolution Flow
-
-<p align="center">
-  <img src="images/interaction-flow.svg" width="800" alt="Interaction Resolution Flow" />
-</p>
-
-### Interaction Matching
-
-The `findMatchingInteraction` method iterates through an object's interactions in order. For each interaction:
-
-1. Does the `verb` match?
-2. If `use_item`, does the `item` match?
-3. Do **all** conditions in `when[]` evaluate to true?
-
-The **first** match wins. This means interaction order matters — more specific conditions should come first in the JSON.
-
-### Concrete Example
-
-From The Lighthouse Keeper — cutting the wire mesh on the window:
-
-```json
-{
-  "verb": "use_item",
-  "item": "wire_cutters",
-  "when": [
-    { "type": "object_state", "object": "window", "state": "mesh_intact" }
-  ],
-  "then": [
-    { "type": "message", "text": "You cut through the wire mesh. Cold air rushes in." },
-    { "type": "set_state", "object": "window", "state": "mesh_cut" },
-    { "type": "add_noise", "amount": 25 }
-  ],
-  "noise": 0
+```typescript
+private evaluateConditions(conditions: Condition[]): boolean {
+  if (conditions.length === 0) return true;  // empty = always matches
+  for (const c of conditions) {
+    if (!this.evaluateCondition(c)) return false;
+  }
+  return true;
 }
 ```
 
-Resolution:
-1. Player selects "Use" verb, selects wire_cutters from inventory, clicks window
-2. Engine maps `use` + item to `use_item`
-3. Checks: Is `window` state `mesh_intact`? → Yes
-4. Applies effects: show message, change window state, add 25 noise
-5. Window state is now `mesh_cut` — this interaction won't match again
-6. Other interactions gated on `mesh_cut` now become available
-
----
-
-## The Condition System
-
-Conditions are boolean tests against game state. Every interaction has a `when[]` array — all conditions must be true (implicit AND) for the interaction to match.
-
-<p align="center">
-  <img src="images/condition-types.svg" width="800" alt="Condition Types Taxonomy" />
-</p>
+An empty `when` array always passes — unconditional interactions fire regardless of game state.
 
 ### Condition Types
 
@@ -173,105 +144,215 @@ Conditions are boolean tests against game state. Every interaction has a `when[]
 | `view_is` | Player is in a specific view | `view` |
 | `not_in_view` | Player is NOT in a specific view | `view` |
 | `phase_is` | Game is in a specific phase | `phase` |
-| `is_hiding` | Player is currently hiding | — |
-| `not_hiding` | Player is NOT hiding | — |
+| `is_hiding` | Player is currently hiding | *(none)* |
+| `not_hiding` | Player is NOT hiding | *(none)* |
 | `noise_above` | Noise level exceeds threshold | `threshold` |
 | `noise_below` | Noise level is below threshold | `threshold` |
 | `item_count` | Player has at least N items | `count` |
-| `killer_is` | Killer AI is in a specific state | `state` *(stub — returns false)* |
+| `killer_is` | Killer AI is in a specific state | *(stub — returns `false`)* |
 
 ### Composite Conditions
 
-Two composite types allow complex logic:
+Two composite types allow complex boolean logic:
 
-| Type | Logic | Evaluation |
-|------|-------|------------|
-| `all_of` | All sub-conditions must be true | `conditions[].every(c => evaluate(c))` |
-| `any_of` | At least one must be true | `conditions[].some(c => evaluate(c))` |
+| Type | Behavior |
+|------|----------|
+| `all_of` | `conditions.every(sub => evaluate(sub))` — logical AND |
+| `any_of` | `conditions.some(sub => evaluate(sub))` — logical OR |
 
-Composites nest arbitrarily, enabling expressions like:
+Composites nest arbitrarily:
 
 ```json
 {
-  "type": "any_of",
+  "type": "all_of",
   "conditions": [
+    { "type": "has_item", "item": "keycard" },
     {
-      "type": "all_of",
+      "type": "any_of",
       "conditions": [
-        { "type": "has_item", "item": "key" },
-        { "type": "object_state", "object": "door", "state": "locked" }
+        { "type": "flag_is", "flag": "hacked_terminal", "value": "true" },
+        { "type": "object_state", "object": "door_panel", "state": "overridden" }
       ]
-    },
-    { "type": "flag_is", "flag": "door_forced", "value": "true" }
+    }
   ]
 }
 ```
 
-*"Either (player has key AND door is locked) OR the door was forced open."*
+*"Player has the keycard AND (has hacked the terminal OR overridden the door panel)."*
+
+Since the top-level `when` array is an implicit AND, `all_of` is mainly useful inside `any_of` for nested logic. Every scenario uses `all_of`; 11 of 13 use `any_of`.
+
+**Default behavior:** Unknown condition types return `true` — the engine fails open, preventing undefined future condition types from breaking existing scenarios.
 
 ---
 
-## The Effect System
+## Effect System
 
-Effects mutate game state. When an interaction matches, its `then[]` array executes in order.
-
-<p align="center">
-  <img src="images/effect-pipeline.svg" width="800" alt="Effect Execution Pipeline" />
-</p>
+Effects mutate game state. When an interaction matches, its `then[]` array executes in order. The `applyEffects` method returns an array of message strings for display.
 
 ### Effect Types
 
-| Type | What It Does | Key Fields |
-|------|-------------|------------|
-| `message` | Display narrative text | `text` |
-| `random_message` | Display one of several texts at random | `messages[]` |
-| `set_flag` | Set a flag to a value | `flag`, `value` |
-| `set_state` | Change an object's state | `object`, `state` |
-| `add_item` | Add item to inventory | `item` |
-| `remove_item` | Remove item from inventory | `item` |
-| `set_view` | Navigate to a different view | `view` |
-| `add_noise` | Increase noise level | `amount` |
-| `set_noise` | Set noise to exact level | `amount` |
-| `show_object` | Make an object visible | `object` |
-| `hide_object` | Make an object invisible | `object` |
-| `game_over` | End the game | `result` (win/lose), `reason` |
-| `advance_phase` | Move to a new game phase | `phase` |
-| `start_hiding` | Player enters hiding | — |
-| `stop_hiding` | Player leaves hiding | — |
-| `transform_item` | Replace one inventory item with another | `item`, `into` |
-| `delay_then` | Apply effects after a delay | `seconds`, `effects[]` |
-| `conditional_effect` | Branch effects based on conditions | `when[]`, `then[]`, `else[]` |
+**Narrative:**
 
-### Branching Effects
+| Type | Fields | Action |
+|------|--------|--------|
+| `message` | `text` | Display a message to the player |
+| `random_message` | `messages[]` | Pick and display a random message from the list |
 
-The `conditional_effect` type enables runtime branching within effect chains:
+**State mutation:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `set_flag` | `flag`, `value` | Set a progress flag (defaults to `"true"`) |
+| `set_state` | `object`, `state` | Change an object's state string |
+| `add_item` | `item` | Add item to inventory (no duplicates) |
+| `remove_item` | `item` | Remove item from inventory |
+| `show_object` | `object` | Make an object visible in its view |
+| `hide_object` | `object` | Make an object invisible |
+| `transform_item` | `item`, `into` | Replace one inventory item with another in-place |
+
+**Navigation:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `set_view` | `view` | Navigate to a different view (pushes current to history stack) |
+
+**Noise:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `add_noise` | `amount` | Increase noise level (clamped to 100) |
+| `set_noise` | `amount` | Set noise level to an exact value (clamped 0–100) |
+
+**Game flow:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `game_over` | `result` (win/lose), `reason` | End the game with a message |
+| `advance_phase` | `phase` | Move to a new phase, run its `on_enter` effects |
+| `start_hiding` | *(none)* | Player enters hiding |
+| `stop_hiding` | *(none)* | Player exits hiding |
+
+**Temporal and conditional:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `delay_then` | `seconds`, `effects[]` | Run nested effects after a delay via `setTimeout` |
+| `conditional_effect` | `when[]`, `then[]`, `else[]` | Branch: if conditions met, run `then`; otherwise `else` |
+
+**Stub (no-op, pending implementation):**
+
+| Type | Purpose |
+|------|---------|
+| `visual_cue` | Screen effects (flicker, shake) |
+| `play_sound` | Audio playback |
+| `trigger_event` | Activate a scenario event |
+
+### Branching Effects: conditional_effect
+
+Effects can branch on runtime conditions, enabling if/else logic within a single interaction:
 
 ```json
 {
   "type": "conditional_effect",
-  "when": [{ "type": "has_item", "item": "flashlight" }],
-  "then": [
-    { "type": "message", "text": "Your flashlight illuminates a hidden passage." },
-    { "type": "show_object", "object": "secret_passage" }
-  ],
+  "when": [{ "type": "flag_is", "flag": "alarm_disabled", "value": "true" }],
+  "then": [{ "type": "message", "text": "You slip through undetected." }],
   "else": [
-    { "type": "message", "text": "It's too dark to see anything." }
+    { "type": "message", "text": "The alarm blares!" },
+    { "type": "add_noise", "amount": 50 }
   ]
 }
 ```
 
-### Deferred Effects
+### Deferred Effects: delay_then
 
-`delay_then` uses `setTimeout` to apply effects after a pause:
+`delay_then` uses `setTimeout` to schedule effects in the future. Delayed effects run independently and push messages directly to `_messages`. The engine re-checks win/lose conditions after each delayed batch:
+
+```typescript
+case 'delay_then':
+  setTimeout(() => {
+    const delayMessages = this.applyEffects(delayedEffects);
+    this._messages.push(...delayMessages);
+    this.checkGameEndConditions();
+  }, delayMs);
+```
+
+This enables timed narrative beats: "The door creaks open." → *(3 seconds)* → "Footsteps echo in the hallway."
+
+---
+
+## Interaction Resolution
+
+This is the core game loop — what happens when the player clicks an object with a verb selected.
+
+### Step 1: The `interact` Method
+
+```typescript
+interact(objectId: string, verb: string, itemId?: string): InteractionResult
+```
+
+1. If the game is over, return early
+2. Look up the object by ID from `objectIndex`
+3. Translate `use` verb to `use_item` when an item is selected
+4. Search for a matching interaction
+5. If none found: return the object's `description` for `look`, or a default failure message for other verbs
+6. If found: apply effects, add noise, check win/lose conditions
+
+### Step 2: Finding a Matching Interaction
+
+```typescript
+private findMatchingInteraction(interactions, verb, itemId?): Interaction | null {
+  for (const interaction of interactions) {
+    if (interaction.verb !== verb) continue;
+    if (verb === 'use_item' && interaction.item !== itemId) continue;
+    if (this.evaluateConditions(interaction.when)) {
+      return interaction;
+    }
+  }
+  return null;
+}
+```
+
+Interactions are searched **in order**. The first one whose verb matches, whose item matches (for `use_item`), and whose conditions all pass is selected. **Order matters** — scenario authors list more specific interactions before general fallbacks.
+
+### Concrete Example
+
+From The Lighthouse Keeper — the ankle chain has multiple look interactions gated on different states:
 
 ```json
 {
-  "type": "delay_then",
-  "seconds": 3,
-  "effects": [
-    { "type": "message", "text": "You hear footsteps approaching..." },
-    { "type": "add_noise", "amount": 10 }
+  "verb": "look",
+  "when": [{ "type": "object_state", "object": "chain", "state": "locked" }],
+  "then": [
+    { "type": "message", "text": "One link near the floor bolt is paper-thin with rust. If you could weaken it further..." },
+    { "type": "set_flag", "flag": "awake", "value": "true" }
   ]
+},
+{
+  "verb": "look",
+  "when": [{ "type": "object_state", "object": "chain", "state": "greased" }],
+  "then": [
+    { "type": "message", "text": "The grease is eating into the corroded link. One good yank should do it." }
+  ]
+}
+```
+
+The engine tries the first `look` interaction: is chain state `"locked"`? If yes, show the locked description and set the awake flag. If not, try the second: is chain state `"greased"`? The state evolves as the player progresses, and different interactions fire for the same verb+object combination.
+
+### Win/Lose Checking
+
+After every interaction and delayed effect batch, the engine scans `win_conditions` and `lose_conditions`:
+
+```typescript
+private checkGameEndConditions(): void {
+  if (this._gameOver) return;
+  for (const wc of this.scenario.win_conditions ?? []) {
+    if (wc.conditions && this.evaluateConditions(wc.conditions)) {
+      this._gameOver = { won: true, conditionId: wc.id, text: wc.description };
+      return;
+    }
+  }
+  // ...same for lose_conditions with won: false
 }
 ```
 
@@ -279,27 +360,65 @@ The `conditional_effect` type enables runtime branching within effect chains:
 
 ## View Navigation
 
-Views are the "rooms" or "screens" of the game. Each view defines:
+Views are the screens of the game. Each view has a unique `id`, an optional background image, and a list of object IDs (references into the top-level `objects` array).
 
-- A list of object IDs visible in that view
-- An optional background image file
-- An optional back label for return navigation
+### Forward Navigation
 
-### View Stack
+Navigation between views is handled entirely by `set_view` effects on navigation objects:
 
-<p align="center">
-  <img src="images/view-navigation.svg" width="800" alt="View Navigation Model" />
-</p>
+```json
+{
+  "id": "nav_stasis_hold_to_pod_cluster",
+  "name": "Pod Cluster Passage",
+  "interactions": [{
+    "verb": "hand",
+    "when": [],
+    "then": [
+      { "type": "message", "text": "You move to Pod Cluster." },
+      { "type": "set_view", "view": "act1_pod_cluster" }
+    ]
+  }]
+}
+```
 
-The engine maintains a `viewHistory` stack for back navigation:
+When `set_view` fires, the current view is pushed onto `viewHistory` and the new view becomes active:
 
-- `set_view` effect pushes the current view onto the stack and navigates to the target
-- `navigateBack()` pops the stack and returns to the previous view
-- The Back button appears when the stack is non-empty or the view has a `back_label`
+```typescript
+case 'set_view':
+  this.viewHistory.push(this._currentViewId);
+  this._currentViewId = e.view;
+```
 
-### Closeup Views
+### Back Navigation
 
-Sub-views (like zooming into a desk, opening a drawer) use the same view mechanism. A "look at desk" interaction uses `set_view` to push a closeup view, and the back button returns to the room.
+The `viewHistory` acts as a stack. `navigateBack()` pops the most recent view:
+
+```typescript
+navigateBack(): void {
+  const previous = this.viewHistory.pop();
+  if (previous) {
+    this._currentViewId = previous;
+    this._messages = [];
+  }
+}
+```
+
+The UI shows a "< Back" button when `viewHistory` is non-empty or the view has a `back_label`.
+
+### Conditional Navigation
+
+Navigation can be gated by conditions — locked doors, hidden passages, phase-dependent routing:
+
+```json
+{
+  "verb": "hand",
+  "when": [{ "type": "flag_is", "flag": "airlock_unlocked", "value": "true" }],
+  "then": [
+    { "type": "message", "text": "The airlock hisses open." },
+    { "type": "set_view", "view": "act2_planet_surface" }
+  ]
+}
+```
 
 ---
 
@@ -310,10 +429,10 @@ The engine supports exactly five verbs, inherited from the Sierra/LucasArts trad
 | Verb | Engine ID | Cursor | What the Player Does |
 |------|-----------|--------|---------------------|
 | Look | `look` | `help` | Examine, read, observe |
-| Hand | `hand` | `pointer` | Touch, push, pull, open, close |
-| Take | `take` | `grab` | Pick up, add to inventory |
+| Hand | `hand` | `pointer` | Touch, push, pull, open, close, flip, press |
+| Take | `take` | `grab` | Pick up and add to inventory |
 | Talk | `talk` | `text` | Speak, listen, read aloud |
-| Use | `use` / `use_item` | `cell` | Apply inventory item to object |
+| Use | `use` → `use_item` | `cell` | Apply an inventory item to a world object |
 
 ### Why Exactly Five
 
@@ -321,185 +440,339 @@ Every physical manipulation (push, pull, open, close, turn, flip) maps to `hand`
 
 ### The Use Verb
 
-"Use" is the puzzle verb. When selected, the player first selects an inventory item, then clicks a world object. The engine internally maps this to a `use_item` interaction with the selected item ID:
+"Use" is the puzzle verb. When selected, the player first selects an inventory item, then clicks a world object. The engine internally maps this:
 
 ```
 Player action:  Use verb → select "wrench" → click "bolt"
 Engine call:    interact("bolt", "use_item", "wrench")
-Interaction:    { verb: "use_item", item: "wrench", when: [...], then: [...] }
+Matched JSON:   { "verb": "use_item", "item": "wrench", "when": [...], "then": [...] }
 ```
+
+### Default Failure Messages
+
+When no interaction matches, the engine provides sensible defaults:
+
+| Verb | Fallback Message |
+|------|-----------------|
+| `look` | Returns the object's `description` field (always succeeds) |
+| `hand` | "You can't do anything with {name} right now." |
+| `take` | "You can't take {name}." |
+| `talk` | "{name} doesn't respond." |
+| `use` | "That doesn't work." |
 
 ---
 
-## Data Flow
+## The React Layer
 
-The complete flow from user action to screen update:
+Six components form the UI, orchestrated by `ScenarioPlayer`.
+
+### Component Tree
 
 ```
-User → ScenarioPlayer → ScenarioEngine → Game State
-  │         │                  │              │
-  │ click   │                  │              │
-  ├────────>│ interact()       │              │
-  │         ├─────────────────>│ read state   │
-  │         │                  ├─────────────>│
-  │         │                  │ match + eval │
-  │         │                  │<─────────────┤
-  │         │                  │ apply effects│
-  │         │                  ├─────────────>│
-  │         │                  │ check win/lose│
-  │         │   {success, messages, noise}    │
-  │         │<─────────────────┤              │
-  │         │ bump() re-render │              │
-  │         │ read fresh state │              │
-  │         ├─────────────────>│              │
-  │ updated │                  │              │
-  │<────────┤                  │              │
+ScenarioPlayer
+├── Title Bar
+│   ├── Scenario Title
+│   ├── NoiseIndicator (color-coded progress bar)
+│   └── Exit Button
+└── Game Area (960px wide)
+    ├── GameView (960×540 viewport)
+    │   ├── Background Image (<img> with object-fit: cover)
+    │   ├── Object Hotspots (positioned <div>s)
+    │   ├── Cursor Label (active verb / "Use {item} on...")
+    │   └── Back Button (when navigation stack > 0)
+    ├── MessagePanel (story text, click to dismiss)
+    ├── InventoryPanel (horizontal scrolling item bar)
+    ├── VerbBar (Look, Hand, Take, Talk, Use)
+    └── Game Over Overlay (when gameOver ≠ null)
 ```
 
-### The Bump Pattern
+### ScenarioPlayer — The Orchestrator
 
-`ScenarioPlayer` uses a version counter to trigger React re-renders:
+The top-level component owns:
+
+- A `useRef<ScenarioEngine>` — the engine instance, stable across renders
+- `activeVerb` state — which verb is selected
+- `selectedItem` state — which inventory item is selected for `use`
+- A `bump()` callback — increments a dummy counter to force re-render after engine state changes
 
 ```typescript
 const [, setVersion] = useState(0);
 const bump = useCallback(() => setVersion(v => v + 1), []);
 ```
 
-After every engine call, `bump()` increments the counter. React sees the state change and re-renders. On the next render, components read fresh state from the engine's getter methods. This avoids the overhead of converting engine state to React state objects.
+After every engine call, `bump()` triggers a re-render. Components then read fresh state from engine getters. This avoids the overhead of converting engine state to React state objects.
+
+### GameView — Background and Hotspots
+
+Renders the 960×540 viewport:
+
+1. **Background image** — loaded from `/scenarios/{scenarioId}/{background_file}` with `object-fit: cover`. Falls back to the scenario's `room_style.background_color` if no image exists or loading fails (an `onError` handler hides broken images)
+2. **Object hotspots** — positioned `<div>` elements at scaled coordinates. Transparent when a background image is present (invisible overlays on painted art). On hover: gold border (`#c0a030`) and label tooltip
+3. **Cursor label** — top-right indicator showing the active verb or "Use {item} on..."
+4. **Back button** — bottom-center when back-navigation is available
+
+### VerbBar, InventoryPanel, MessagePanel
+
+- **VerbBar** — five buttons. Active verb is highlighted. Unavailable verbs are dimmed.
+- **InventoryPanel** — horizontal scrolling bar. Click selects for `use`; double-click / right-click examines.
+- **MessagePanel** — displays messages from the last interaction. Falls back to `ambient_text` when empty. Click dismisses.
+
+### NoiseIndicator
+
+A color-coded progress bar:
+
+| Level | Color | Meaning |
+|-------|-------|---------|
+| 0–30 | Green | Safe |
+| 31–60 | Yellow | Caution |
+| 61–80 | Orange | Danger |
+| 81–100 | Red | Killer alerted |
+
+### Data Flow
+
+```
+User clicks object
+  → ScenarioPlayer.handleObjectClick()
+    → engine.interact(objectId, verb, itemId?)
+      → findMatchingInteraction()
+      → evaluateConditions()
+      → applyEffects()
+      → checkGameEndConditions()
+    ← InteractionResult { success, messages, noiseGenerated }
+  → bump()  // force re-render
+  → Components read fresh state from engine getters
+```
 
 ---
 
 ## Coordinate System
 
-Object positions use a **960x720 coordinate space** with origin at the top-left.
+Scenario authors place objects in a **960×720 coordinate space** (origin at top-left). The engine renders into a **960×540 pixel viewport**.
 
 ### Scaling
 
-The render viewport is 960x540 pixels. The engine maps coordinates:
-
-```
-SCALE_X = 960 / 960 = 1.0    (no horizontal scaling)
-SCALE_Y = 540 / 720 = 0.75   (vertical compression)
+```typescript
+const SCALE_X = 960 / 960 = 1.0;    // no horizontal scaling
+const SCALE_Y = 540 / 720 = 0.75;   // vertical compression
 ```
 
-An object at position `(480, 360)` in the coordinate space renders at pixel `(480, 270)` in the viewport.
+An object at JSON position `(480, 360)` renders at pixel `(480, 270)` in the viewport. Object sizes scale the same way.
 
-### Why 960x720
+### Why 960×720
 
-- Matches the actual coordinate ranges found across all 13 scenarios (x: 50–950, y: 30–720)
-- 4:3 aspect ratio aligns with the classic adventure game tradition
-- Renders into a 16:9 viewport (960x540) by compressing vertically
-- Background images (any resolution, 1920x1080 recommended) scale with `object-fit: cover`
+- **Horizontal resolution matches the viewport** — no X scaling needed, positions are pixel-accurate horizontally
+- **4:3 authoring ratio** is more natural for placing objects than 16:9
+- **The 0.75 Y scale** compresses gracefully without distorting hit targets
+- **Background images** use `object-fit: cover` so any resolution works (1920×1080 recommended)
+- **Matches real scenario data** — coordinate ranges across all 13 scenarios span x: 50–950, y: 30–720
 
-### Object Sizing
+---
 
-Each object has a `size` in the same coordinate space:
+## Scenario JSON Format
+
+A scenario JSON has this top-level structure:
 
 ```json
 {
-  "position": { "x": 480, "y": 360 },
-  "size": { "width": 100, "height": 80 }
+  "schema_version": "1.0",
+  "metadata": { "id": "my-scenario", "title": "...", "difficulty": "medium", ... },
+  "setting": { "initial_view": "room_1", "ambient_text": "...", "room_style": { ... } },
+  "views": [{ "id": "room_1", "background_file": "backgrounds/room.webp", "objects": ["door", "desk"] }],
+  "flags": { "game_started": "false", "found_key": "false" },
+  "items": [{ "id": "key", "name": "Rusty Key", "description": "...", "examine": [...] }],
+  "objects": [{ "id": "door", "name": "Door", "position": {...}, "interactions": [...] }],
+  "combinations": [{ "items": ["wire", "tape"], "result": "patched_wire", ... }],
+  "puzzle_widgets": [{ "id": "keypad", "widget_type": "keypad", "config": {...}, ... }],
+  "phases": [{ "id": "calm", "on_enter": [...], "killer_overrides": {...} }],
+  "events": [{ "id": "creak", "trigger": {"type": "timer", "seconds": 120}, ... }],
+  "killer": { "name": "The Warden", "base_behavior": {...}, "search_behavior": {...} },
+  "win_conditions": [{ "id": "escape", "conditions": [...] }],
+  "lose_conditions": [{ "id": "caught", "conditions": [...] }],
+  "hints": [{ "after_seconds": 60, "condition": {...}, "text": "..." }],
+  "solution_paths": [{ "id": "main", "steps": ["take_nail", "pry_board", ...] }]
 }
 ```
 
-Position is the top-left corner. The rendered hotspot becomes:
-- Left: `480 * 1.0 = 480px`
-- Top: `360 * 0.75 = 270px`
-- Width: `100 * 1.0 = 100px`
-- Height: `80 * 0.75 = 60px`
+### Key Structural Decisions
+
+- **Views reference objects by ID string** — a view's `objects` array contains strings like `["door", "desk"]`, not inline definitions. Object definitions live in the top-level `objects` array. One object can appear in multiple views.
+- **Flags are string key-value pairs** — not booleans. This supports multi-value states like `"chain_state": "locked"` / `"greased"` / `"broken"`.
+- **Interactions are ordered** — the engine takes the first match, so more specific conditions come before general fallbacks.
+- **Objects and items are global** — they exist at the scenario level, not scoped to views. Views list which objects they display.
+
+For the full 1700+ line specification with all field definitions and 30 design patterns, see [SCENARIO_SCHEMA.md](SCENARIO_SCHEMA.md).
 
 ---
 
-## Rendering Pipeline
+## Design Patterns
 
-The UI is built from six React components, all reading from the same `ScenarioEngine` instance:
+The schema spec documents **30 proven puzzle patterns** organized into six categories: Structure, Item & Knowledge, Risk & Reward, Solution Design, Story & Choice, and Environment & Adaptation. Patterns are purely structural — they describe how to arrange conditions, effects, and objects in JSON. No engine changes needed.
 
+### The Dependency Chain (Pattern 2)
+
+A linear sequence where each step unlocks the next:
+
+```json
+[
+  {
+    "verb": "take", "when": [],
+    "then": [
+      { "type": "add_item", "item": "nail" },
+      { "type": "message", "text": "You pull the nail free." }
+    ]
+  },
+  {
+    "verb": "use_item", "item": "nail",
+    "when": [{ "type": "object_state", "object": "floorboard", "state": "loose" }],
+    "then": [
+      { "type": "set_state", "object": "floorboard", "state": "pried" },
+      { "type": "show_object", "object": "hidden_box" }
+    ]
+  }
+]
 ```
-ScenarioPlayer
-├── Title Bar + NoiseIndicator
-├── GameView
-│   ├── Background Image (<img>)
-│   ├── Object Hotspots (positioned <div>s)
-│   ├── Cursor Label (active verb/item)
-│   └── Back Button (when stack > 0)
-├── MessagePanel
-├── InventoryPanel
-├── VerbBar
-└── Game Over Overlay (when gameOver ≠ null)
+
+### The Fork (Pattern 3)
+
+Two independent branches converge with `all_of`:
+
+```json
+{
+  "verb": "hand",
+  "when": [{
+    "type": "all_of",
+    "conditions": [
+      { "type": "has_item", "item": "torn_note_a" },
+      { "type": "has_item", "item": "torn_note_b" }
+    ]
+  }],
+  "then": [
+    { "type": "message", "text": "You piece the notes together: the safe code is 7-4-1." },
+    { "type": "set_flag", "flag": "knows_safe_code", "value": "true" }
+  ]
+}
 ```
 
-### Component Responsibilities
+### The Noise Tradeoff (Pattern 11)
 
-| Component | Renders | Reads From Engine |
-|-----------|---------|-------------------|
-| **ScenarioPlayer** | Layout container, state orchestration | All getters |
-| **GameView** | Background image, object hotspots, cursor label | `getCurrentView()`, `getVisibleObjects()`, `getBackgroundFile()` |
-| **VerbBar** | Five verb buttons with active/hover states | — (controlled by parent) |
-| **InventoryPanel** | Item list with selection | `getInventory()` |
-| **MessagePanel** | Story text with dismiss | `getMessages()` |
-| **NoiseIndicator** | Noise level progress bar | `getNoiseLevel()` |
+Same puzzle, two solutions with different risk:
 
-### Object Hotspots
+```json
+[
+  {
+    "verb": "hand",
+    "when": [{ "type": "object_state", "object": "glass_case", "state": "intact" }],
+    "then": [
+      { "type": "message", "text": "You smash the case! Glass flies everywhere." },
+      { "type": "set_state", "object": "glass_case", "state": "broken" },
+      { "type": "show_object", "object": "scalpel" }
+    ],
+    "noise": 40
+  },
+  {
+    "verb": "use_item", "item": "lockpick",
+    "when": [{ "type": "object_state", "object": "glass_case", "state": "intact" }],
+    "then": [
+      { "type": "message", "text": "You pick the lock. The case opens silently." },
+      { "type": "set_state", "object": "glass_case", "state": "open" },
+      { "type": "show_object", "object": "scalpel" }
+    ],
+    "noise": 5
+  }
+]
+```
 
-Objects render as positioned `<div>` elements over the background. Each hotspot:
+### The Revelation Tool (Pattern 9)
 
-- Is absolutely positioned using scaled coordinates
-- Has a transparent background when a background image is present (so the painted art shows through)
-- Shows a gold border (`#c0a030`) on hover
-- Displays the object's label below on hover
-- Uses the active verb's cursor style
+One item transforms the entire room into a second layer of puzzles:
 
-### Background Images
+```json
+{
+  "verb": "use_item",
+  "item": "uv_flashlight",
+  "when": [{ "type": "object_state", "object": "poster", "state": "hanging" }],
+  "then": [
+    { "type": "message", "text": "Under the UV light, invisible ink glows: '7-4-1-9'" },
+    { "type": "set_flag", "flag": "found_uv_code", "value": "true" }
+  ]
+}
+```
 
-When a view has a `background_file`, the image loads from `/scenarios/{scenarioId}/{backgroundFile}`. The `<img>` fills the viewport with `object-fit: cover` and includes an `onError` handler that hides broken images gracefully.
+### Combinatorial Depth
+
+A typical scenario uses 8–12 of the 30 patterns. That's over **30 million unique pattern combinations** (C(30,10) = 30,045,015) before accounting for theme, narrative, items, and killer personality. The design space is effectively infinite.
 
 ---
 
-## Future Architecture
+## Future Systems
 
-### Server Integration
+These systems are fully specified in the [schema](SCENARIO_SCHEMA.md) and referenced by all 13 scenario JSONs, but are not yet implemented in the engine.
 
-The Spring Boot backend (`server/`) is planned for:
+### Events System
 
-- **Scenario Validation** — verify JSON against the schema, check for dead ends, unreachable items
-- **Playtesting Simulation** — automated walkthrough verification using `solution_paths`
-- **Save/Load** — sync game state across sessions
-- **Analytics** — track which puzzles players get stuck on
+Timed and condition-triggered narrative beats. Events have a trigger (timer or condition check), can be one-shot or repeating, and fire a list of effects:
 
-The game engine stays client-side. The server is a tooling layer, not a runtime dependency.
+```typescript
+interface ScenarioEvent {
+  id: string;
+  trigger: { type: string; seconds?: number; };
+  one_shot: boolean;
+  effects: Effect[];
+}
+```
+
+Events enable atmospheric moments ("The lights flicker at the 2-minute mark"), story reveals ("After three puzzles, the phone rings"), and time pressure ("Killer starts patrolling after 5 minutes"). All 13 scenarios define events.
+
+### Puzzle Widgets
+
+Pre-built UI components for physical puzzles: keypads, combination locks, toggle panels, dials, sliders, and sequence memory challenges. Each widget has a `config` with a solution and parameters, and an `on_solve` effect list:
+
+```typescript
+interface PuzzleWidget {
+  id: string;
+  widget_type: string;  // "keypad", "combination_lock", "toggle_panel", etc.
+  position: Position;
+  size: Size;
+  view: string;
+  config: PuzzleWidgetConfig;
+  on_solve: Effect[];
+}
+```
+
+These render as overlay UI elements on top of the game view. All 13 scenarios define at least one puzzle widget.
 
 ### Killer AI
 
-<p align="center">
-  <img src="images/killer-state-machine.svg" width="800" alt="Killer AI State Machine" />
-</p>
+An optional AI antagonist with patrol timers, noise-based detection, search behaviors, and personality-driven dialogue:
 
-The AI antagonist system (defined in `scenario.killer`) will manage:
+```typescript
+interface Killer {
+  name: string;
+  base_behavior: {
+    check_interval_seconds: number;
+    noise_threshold_curious: number;      // triggers curiosity
+    noise_threshold_investigate: number;  // triggers search
+    noise_threshold_immediate: number;    // triggers instant catch
+    noise_decay_per_second: number;
+  };
+  search_behavior: {
+    thoroughness: number;       // 0.0-1.0, probability of checking hiding spots
+    evidence_flags: string[];   // flags that increase thoroughness
+  };
+}
+```
 
-- Patrol timers and routes
-- Noise threshold detection
-- Search behavior when alerted
-- Phase-based escalation
-- Personality-driven dialogue
-
-Currently stubbed (`killer_is` condition returns false). When implemented, the killer AI may run server-side for competitive multiplayer modes where players shouldn't be able to inspect the killer's state.
-
-### Phaser Rendering
-
-Phaser 3.80 is already in `package.json` for future use. The transition plan:
-
-1. Keep `ScenarioEngine` unchanged — it has no rendering logic
-2. Replace React component rendering with Phaser scenes
-3. Add sprite animations, particle effects, screen transitions
-4. Use Phaser's camera system for the spatial movement system
+Phases modify killer behavior — early phases have longer intervals and lower thoroughness, while late phases have aggressive, nearly unavoidable patrols. Currently stubbed: the `killer_is` condition returns `false`. When implemented, killer AI may run server-side for competitive multiplayer.
 
 ### Multiplayer
 
-Future competitive mode where one player controls the protagonist and another controls the killer AI. This requires:
+The Spring Boot backend (`server/`) is positioned for future multiplayer modes:
 
-- Server-side engine authority (prevent state inspection)
-- WebSocket game state sync
-- Separate UI for killer player (patrol routes, noise visualization, search commands)
+- **Competitive** — separate players, shared killer AI, racing to escape
+- **Cooperative** — shared world, complementary inventory
+- **Asymmetric** — one player controls the killer
+
+The engine's architecture — pure state machine with serializable state — supports this transition. The game engine stays client-side; the server synchronizes state and manages fairness.
 
 ---
 
