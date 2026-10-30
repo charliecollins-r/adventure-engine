@@ -1,0 +1,2273 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "id": "the-wizards-apprentice",
+    "title": "The Wizard's Apprentice",
+    "description": "You're visiting the wizard Fizzlepop's tower to deliver cookies when a gust of wind blows the door shut and the enchanted lock clicks! Fizzlepop is out buying potion ingredients. Find the spare key or brew an unlocking charm to get home before lunch!",
+    "author": "ai-generated",
+    "difficulty": "easy",
+    "estimated_minutes": 15,
+    "tags": [
+      "kids",
+      "friendly",
+      "wizard",
+      "magic",
+      "cozy",
+      "family"
+    ],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle",
+      "2-dependency-chain",
+      "3-fork",
+      "4-progressive-reveal",
+      "6-dual-purpose-item",
+      "8-knowledge-gate",
+      "18-red-herring",
+      "19-emergent-combination",
+      "20-multi-path-solution"
+    ]
+  },
+  "setting": {
+    "initial_view": "front_hall",
+    "ambient_text": "The wizard's tower is warm and cozy. Sunlight streams through round windows. Somewhere above, you hear the gentle swish-swish of Bristle the enchanted broom, happily sweeping.",
+    "room_style": {
+      "background_color": "#2a1f3d",
+      "wall_color": "#3d2e55",
+      "floor_color": "#4a3a28"
+    }
+  },
+  "views": [
+    {
+      "id": "front_hall",
+      "background_key": "front_hall",
+      "background_file": "backgrounds/front_hall.png",
+      "objects": [
+        "front_door",
+        "coat_rack",
+        "star_rug",
+        "spiral_stairs",
+        "guest_table",
+        "guest_book",
+        "cat_cushion",
+        "cookie_basket",
+        "tapestry"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "background_key": "kitchen",
+      "background_file": "backgrounds/kitchen.png",
+      "objects": [
+        "kitchen_table",
+        "cauldron",
+        "high_shelf",
+        "recipe_book_obj",
+        "cookie_jar",
+        "step_stool_obj",
+        "kitchen_window",
+        "kitchen_sink"
+      ]
+    },
+    {
+      "id": "library",
+      "background_key": "library",
+      "background_file": "backgrounds/library.png",
+      "objects": [
+        "bookshelves",
+        "reading_chair",
+        "glowing_globe",
+        "library_desk",
+        "magnifying_glass_obj",
+        "fizzlepop_portrait",
+        "telescope",
+        "floating_books"
+      ]
+    },
+    {
+      "id": "potion_room",
+      "background_key": "potion_room",
+      "background_file": "backgrounds/potion_room.png",
+      "objects": [
+        "potion_shelves",
+        "workbench",
+        "chalkboard_obj",
+        "potion_cabinet",
+        "funny_sign",
+        "test_tubes",
+        "mortar_pestle"
+      ]
+    },
+    {
+      "id": "garden_balcony",
+      "background_key": "garden_balcony",
+      "background_file": "backgrounds/garden_balcony.png",
+      "objects": [
+        "flower_pots",
+        "birdbath",
+        "sundial",
+        "watering_can",
+        "balcony_view",
+        "fairy_lights",
+        "rainbow_sprinkle_pot"
+      ]
+    },
+    {
+      "id": "bedroom",
+      "background_key": "bedroom",
+      "background_file": "backgrounds/bedroom.png",
+      "objects": [
+        "four_poster_bed",
+        "nightstand",
+        "glowing_orb",
+        "wardrobe",
+        "cloud_rug",
+        "music_box",
+        "treasure_chest_obj",
+        "framed_photo"
+      ]
+    },
+    {
+      "id": "recipe_closeup",
+      "background_key": "recipe_closeup",
+      "background_file": "backgrounds/recipe_closeup.png",
+      "objects": [
+        "recipe_page"
+      ],
+      "back_label": "Step back from recipe book"
+    },
+    {
+      "id": "chalkboard_closeup",
+      "background_key": "chalkboard_closeup",
+      "background_file": "backgrounds/chalkboard_closeup.png",
+      "objects": [
+        "chalkboard_writing"
+      ],
+      "back_label": "Step back from chalkboard"
+    }
+  ],
+  "flags": {
+    "cat_moved": "false",
+    "coin_taken": "false",
+    "guest_book_read": "false",
+    "fizzlepop_note_found": "false",
+    "knows_cabinet_code": "false",
+    "recipe_read": "false",
+    "knows_magic_word": "false",
+    "step_stool_placed": "false",
+    "moonbeam_sugar_taken": "false",
+    "giggle_dust_taken": "false",
+    "rainbow_sprinkle_taken": "false",
+    "cauldron_has_sugar": "false",
+    "cauldron_has_dust": "false",
+    "cauldron_has_sprinkle": "false",
+    "potion_brewed": "false",
+    "cabinet_opened": "false",
+    "sundial_examined": "false",
+    "knows_chest_combo": "false",
+    "chest_opened": "false",
+    "spare_key_taken": "false",
+    "magnifying_glass_taken": "false",
+    "cookie_taken": "false",
+    "wishing_well_used": "false",
+    "explored_upstairs": "false",
+    "has_unlocking_potion": "false",
+    "has_spare_key": "false",
+    "bristle_has_cookie": "false"
+  },
+  "items": [
+    {
+      "id": "shiny_coin",
+      "name": "Shiny Coin",
+      "description": "A bright golden coin with a star stamped on one side.",
+      "icon": "coin",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A sparkly gold coin with a little star on one side and a crescent moon on the other. It's very pretty!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cookie",
+      "name": "Cookie",
+      "description": "A delicious chocolate chip cookie from the village bakery.",
+      "icon": "cookie",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A big, soft chocolate chip cookie. It smells amazing! You brought a whole basket of these for Fizzlepop." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moonbeam_sugar",
+      "name": "Moonbeam Sugar",
+      "description": "A small crystal jar filled with glittering white sugar that sparkles like starlight.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The sugar sparkles and twinkles inside the jar. If you tilt it, it catches the light like tiny diamonds. The label reads 'Moonbeam Sugar — Handle with wonder!'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "giggle_dust",
+      "name": "Giggle Dust",
+      "description": "A small pouch of fine pink powder that makes you want to smile.",
+      "icon": "pouch",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A soft pink powder that seems to glow faintly. Just holding the pouch makes you feel a little giggly. Tee hee!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rainbow_sprinkle",
+      "name": "Rainbow Sprinkle",
+      "description": "A tiny bottle of multicolored sprinkles that shimmer and change color.",
+      "icon": "sprinkle",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The sprinkles keep changing colors — red, orange, yellow, green, blue, purple — like a tiny rainbow in a bottle!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unlocking_potion",
+      "name": "Unlocking Potion",
+      "description": "A small bottle of swirling golden liquid. It smells like sunshine and cookies.",
+      "icon": "potion",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The potion swirls with gold and silver sparkles. The label (in your own handwriting!) reads: 'Pour on a lock and say the magic word!'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spare_key",
+      "name": "Spare Key",
+      "description": "A big brass key with a star-shaped bow. It matches the front door lock!",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A chunky brass key with a star shape at the top. A little tag tied to it reads: 'SPARE — for when I lock myself out. Again. — Fizzlepop'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnifying_glass",
+      "name": "Magnifying Glass",
+      "description": "A fancy brass magnifying glass with a crystal lens.",
+      "icon": "magnifier",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A beautiful magnifying glass with a polished crystal lens and a brass handle shaped like a wand. Everything looks bigger and clearer through it!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "step_stool",
+      "name": "Step Stool",
+      "description": "A small wooden step stool, just the right size for reaching high places.",
+      "icon": "stool",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A sturdy little wooden stool with 'Property of Short Wizards' carved into the side." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fizzlepop_note",
+      "name": "Fizzlepop's Note",
+      "description": "A folded note from the wizard himself.",
+      "icon": "note",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Dear visitor, I've gone out for potion ingredients. Help yourself to tea! P.S. — Cabinet code is still 1-2-3. I really should change that! — Fizzlepop" },
+            { "type": "set_flag", "flag": "knows_cabinet_code", "value": "true" }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinations": [],
+  "objects": [
+    {
+      "id": "front_door",
+      "name": "Front Door",
+      "description": "A big wooden door with an iron lock. There's a cheerful 'Welcome!' mat in front of it.",
+      "position": { "x": 512, "y": 400 },
+      "size": { "width": 140, "height": 250 },
+      "visual": { "color": "#5a3a1a", "label": "Front Door" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "front_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A big, sturdy wooden door with a large iron keyhole. It's locked tight! You'll need a key or some kind of magic to open it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "front_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You push and pull on the door, but it won't budge! The enchanted lock holds firm." }
+          ],
+          "noise": 10
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "object_state", "object": "front_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "\"Open sesame!\" ...Nothing happens. \"Abracadabra?\" Still nothing. You'll need the RIGHT magic word." }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "spare_key",
+          "when": [{ "type": "object_state", "object": "front_door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "You put the star-shaped key in the lock and turn it. CLICK! The door swings open and warm sunshine floods in. You're free! Time to get home for lunch!" },
+            { "type": "remove_item", "item": "spare_key" },
+            { "type": "set_state", "object": "front_door", "state": "open" },
+            { "type": "game_over", "result": "win", "reason": "You found Fizzlepop's spare key and unlocked the front door! The sunshine feels wonderful on your face. What an adventure! You'll have to tell Fizzlepop all about it when he gets home." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "unlocking_potion",
+          "when": [
+            { "type": "object_state", "object": "front_door", "state": "locked" },
+            { "type": "flag_is", "flag": "knows_magic_word", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pour the golden potion on the lock. It fizzes and sparkles! You take a deep breath and say: 'ALOHOMORA!' The lock glows, clicks, and the door swings wide open! Brilliant!" },
+            { "type": "remove_item", "item": "unlocking_potion" },
+            { "type": "set_state", "object": "front_door", "state": "open" },
+            { "type": "game_over", "result": "win", "reason": "You brewed your very own unlocking potion and cast the charm perfectly! Fizzlepop would be so proud of his apprentice. Time to get home for lunch!" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "unlocking_potion",
+          "when": [
+            { "type": "object_state", "object": "front_door", "state": "locked" },
+            { "type": "flag_not", "flag": "knows_magic_word", "value": "true" }
+          ],
+          "then": [
+            { "type": "message", "text": "You pour a little potion on the lock... but nothing happens! You need to say the magic word too. But what is it? Maybe there's a clue somewhere in the tower." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "shiny_coin",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You try putting the coin in the keyhole. It doesn't fit! This lock needs a proper key, not money." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coat_rack",
+      "name": "Coat Rack",
+      "description": "A wooden coat rack with Fizzlepop's hat and cloak.",
+      "position": { "x": 150, "y": 300 },
+      "size": { "width": 60, "height": 150 },
+      "visual": { "color": "#4a3520", "label": "Coat Rack" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Fizzlepop's coat rack! His tall purple wizard hat sits on top, and his favorite starry cloak hangs from a peg. They smell like cinnamon and old books." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You try on Fizzlepop's hat. It falls right over your eyes — way too big! You put it back with a giggle." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "star_rug",
+      "name": "Star Rug",
+      "description": "A round rug with a big yellow star pattern.",
+      "position": { "x": 512, "y": 600 },
+      "size": { "width": 200, "height": 80 },
+      "visual": { "color": "#3a2a6a", "label": "Star Rug" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A soft, round rug with a big golden star woven into it. It looks very cozy. The edges are a deep purple with little silver moons." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "cookie",
+          "when": [],
+          "then": [
+            { "type": "remove_item", "item": "cookie" },
+            { "type": "set_flag", "flag": "bristle_has_cookie", "value": "true" },
+            { "type": "message", "text": "You leave the cookie on the rug. If Bristle comes by, maybe the delicious smell will distract it for a while!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spiral_stairs",
+      "name": "Spiral Staircase",
+      "description": "A stone spiral staircase leading upward into the tower.",
+      "position": { "x": 850, "y": 350 },
+      "size": { "width": 100, "height": 200 },
+      "visual": { "color": "#3a3a4a", "label": "Stairs Up" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A winding stone staircase spirals upward into the tower. You can see warm light glowing from rooms above. The steps are worn smooth from centuries of wizard feet!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You climb the stairs! The tower opens up into wonderful rooms above." },
+            { "type": "set_flag", "flag": "explored_upstairs", "value": "true" }
+          ],
+          "noise": 5
+        }
+      ]
+    },
+    {
+      "id": "guest_table",
+      "name": "Guest Table",
+      "description": "A small wooden table near the entrance.",
+      "position": { "x": 300, "y": 450 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#5a4a30", "label": "Table" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A small wooden table with a guest book and a quill pen. There's also a little bowl of wrapped candies!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guest_book",
+      "name": "Guest Book",
+      "description": "A thick leather-bound guest book with a quill pen.",
+      "position": { "x": 300, "y": 420 },
+      "size": { "width": 60, "height": 40 },
+      "visual": { "color": "#4a2a1a", "label": "Guest Book" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "guest_book", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "A big leather guest book with gold lettering: 'Fizzlepop's Tower — Please Sign In!' A quill pen rests beside it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "guest_book", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You open the guest book. The last entry reads: 'Gone to buy potion ingredients. Back by dinnertime! If you're locked in, check the recipe book in the kitchen or the treasure chest in the bedroom. — Fizzlepop.' There's a folded note tucked between the pages!" },
+            { "type": "set_state", "object": "guest_book", "state": "open" },
+            { "type": "set_flag", "flag": "guest_book_read", "value": "true" },
+            { "type": "show_object", "object": "folded_note" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "guest_book", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The guest book is open to Fizzlepop's note. He says to check the recipe book in the kitchen or the treasure chest in the bedroom!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "folded_note",
+      "name": "Folded Note",
+      "description": "A folded note tucked into the guest book.",
+      "position": { "x": 320, "y": 410 },
+      "size": { "width": 30, "height": 20 },
+      "visual": { "color": "#e8dcc8", "label": "Note" },
+      "initial_state": "default",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "add_item", "item": "fizzlepop_note" },
+            { "type": "set_flag", "flag": "fizzlepop_note_found", "value": "true" },
+            { "type": "hide_object", "object": "folded_note" },
+            { "type": "message", "text": "You pick up Fizzlepop's note and put it in your pocket!" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A folded piece of paper with 'READ ME!' written on the outside in sparkly purple ink." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_cushion",
+      "name": "Cat on Cushion",
+      "description": "A fluffy orange cat napping on a velvet cushion.",
+      "position": { "x": 680, "y": 550 },
+      "size": { "width": 80, "height": 50 },
+      "visual": { "color": "#e8a040", "label": "Cat" },
+      "initial_state": "sleeping",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cat_cushion", "state": "sleeping" }],
+          "then": [
+            { "type": "message", "text": "A beautiful fluffy orange cat is curled up on a purple velvet cushion, purring gently. It looks SO soft and cuddly!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cat_cushion", "state": "sleeping" }],
+          "then": [
+            { "type": "message", "text": "You give the cat gentle pets. It purrs louder, stretches its legs, yawns, and hops down from the cushion to rub against your legs. Something shiny was hidden under the cushion!" },
+            { "type": "set_state", "object": "cat_cushion", "state": "awake" },
+            { "type": "set_flag", "flag": "cat_moved", "value": "true" },
+            { "type": "show_object", "object": "cushion_coin" }
+          ],
+          "noise": 2
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "object_state", "object": "cat_cushion", "state": "sleeping" }],
+          "then": [
+            { "type": "message", "text": "\"Here kitty kitty!\" The cat opens one eye, looks at you, and goes right back to sleep. Typical cat." }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cat_cushion", "state": "awake" }],
+          "then": [
+            { "type": "message", "text": "The cat is now weaving between your legs, purring happily. The velvet cushion is empty — there's something shiny on it!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cat_cushion", "state": "awake" }],
+          "then": [
+            { "type": "message", "text": "You scratch the cat behind its ears. It purrs SO loudly! What a sweet kitty." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cushion_coin",
+      "name": "Shiny Object on Cushion",
+      "description": "Something shiny sitting on the cushion where the cat was sleeping.",
+      "position": { "x": 680, "y": 560 },
+      "size": { "width": 25, "height": 25 },
+      "visual": { "color": "#ffd700", "label": "Shiny!" },
+      "initial_state": "default",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A bright golden coin! The cat was sleeping right on top of it." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [],
+          "then": [
+            { "type": "add_item", "item": "shiny_coin" },
+            { "type": "set_flag", "flag": "coin_taken", "value": "true" },
+            { "type": "hide_object", "object": "cushion_coin" },
+            { "type": "message", "text": "You pick up the shiny gold coin. Finders keepers!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cookie_basket",
+      "name": "Cookie Basket",
+      "description": "The basket of cookies you brought for Fizzlepop.",
+      "position": { "x": 400, "y": 500 },
+      "size": { "width": 60, "height": 40 },
+      "visual": { "color": "#8a6a3a", "label": "Cookies" },
+      "initial_state": "full",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Your basket of chocolate chip cookies from the village bakery. They smell SO good! Fizzlepop is going to love them." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "flag_not", "flag": "cookie_taken", "value": "true" }],
+          "then": [
+            { "type": "add_item", "item": "cookie" },
+            { "type": "set_flag", "flag": "cookie_taken", "value": "true" },
+            { "type": "message", "text": "You take one cookie from the basket. Fizzlepop won't mind — there are plenty! It's warm and soft and chocolatey." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "flag_is", "flag": "cookie_taken", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Better leave the rest for Fizzlepop! One cookie is enough." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tapestry",
+      "name": "Tapestry",
+      "description": "A colorful tapestry showing a friendly dragon and dancing fairies.",
+      "position": { "x": 100, "y": 250 },
+      "size": { "width": 100, "height": 120 },
+      "visual": { "color": "#5a2a6a", "label": "Tapestry" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A beautiful woven tapestry showing a friendly green dragon breathing rainbow fire while tiny fairies dance in the air around it. It's a lovely picture!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You peek behind the tapestry — just dusty stone wall. But it's big enough to hide behind if you need to!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kitchen_table",
+      "name": "Kitchen Table",
+      "description": "A big wooden table covered in mixing bowls and cooking supplies.",
+      "position": { "x": 400, "y": 450 },
+      "size": { "width": 200, "height": 100 },
+      "visual": { "color": "#6a5230", "label": "Table" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A big wooden table with mixing bowls, wooden spoons, and a dusting of flour. Fizzlepop was baking something before he left! It smells wonderful." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cauldron",
+      "name": "Bubbling Cauldron",
+      "description": "A big black cauldron over the fireplace, gently bubbling.",
+      "position": { "x": 700, "y": 350 },
+      "size": { "width": 120, "height": 100 },
+      "visual": { "color": "#1a1a2a", "label": "Cauldron" },
+      "initial_state": "empty",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cauldron", "state": "empty" }],
+          "then": [
+            { "type": "message", "text": "A big iron cauldron hanging over the fireplace. It has some warm water bubbling inside, kept at just the right temperature for potion-making!" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cauldron", "state": "brewing" }],
+          "then": [
+            { "type": "message", "text": "The cauldron is bubbling with a mix of ingredients! It's starting to shimmer and change color." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "cauldron", "state": "ready" }],
+          "then": [
+            { "type": "message", "text": "The cauldron glows with a brilliant golden light! The unlocking potion is ready!" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "moonbeam_sugar",
+          "when": [{ "type": "flag_not", "flag": "cauldron_has_sugar", "value": "true" }],
+          "then": [
+            { "type": "remove_item", "item": "moonbeam_sugar" },
+            { "type": "set_flag", "flag": "cauldron_has_sugar", "value": "true" },
+            { "type": "message", "text": "You sprinkle the Moonbeam Sugar into the cauldron. It dissolves with a beautiful shimmer! The water glows silver." },
+            { "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "cauldron_has_dust", "value": "true" },
+                { "type": "flag_is", "flag": "cauldron_has_sprinkle", "value": "true" }
+              ],
+              "then": [
+                { "type": "set_state", "object": "cauldron", "state": "ready" },
+                { "type": "set_flag", "flag": "potion_brewed", "value": "true" },
+                { "type": "set_flag", "flag": "has_unlocking_potion", "value": "true" },
+                { "type": "add_item", "item": "unlocking_potion" },
+                { "type": "message", "text": "POOF! All three ingredients combine in a burst of golden sparkles! The unlocking potion is ready! You scoop some into a little bottle." },
+                { "type": "visual_cue", "cue": "flash" }
+              ],
+              "else": [
+                { "type": "set_state", "object": "cauldron", "state": "brewing" }
+              ]
+            }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "use_item",
+          "item": "giggle_dust",
+          "when": [{ "type": "flag_not", "flag": "cauldron_has_dust", "value": "true" }],
+          "then": [
+            { "type": "remove_item", "item": "giggle_dust" },
+            { "type": "set_flag", "flag": "cauldron_has_dust", "value": "true" },
+            { "type": "message", "text": "You shake the Giggle Dust into the cauldron. It poofs into a pink cloud and you can't help but laugh! Tee hee!" },
+            { "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "cauldron_has_sugar", "value": "true" },
+                { "type": "flag_is", "flag": "cauldron_has_sprinkle", "value": "true" }
+              ],
+              "then": [
+                { "type": "set_state", "object": "cauldron", "state": "ready" },
+                { "type": "set_flag", "flag": "potion_brewed", "value": "true" },
+                { "type": "set_flag", "flag": "has_unlocking_potion", "value": "true" },
+                { "type": "add_item", "item": "unlocking_potion" },
+                { "type": "message", "text": "POOF! All three ingredients combine in a burst of golden sparkles! The unlocking potion is ready! You scoop some into a little bottle." },
+                { "type": "visual_cue", "cue": "flash" }
+              ],
+              "else": [
+                { "type": "set_state", "object": "cauldron", "state": "brewing" }
+              ]
+            }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "use_item",
+          "item": "rainbow_sprinkle",
+          "when": [{ "type": "flag_not", "flag": "cauldron_has_sprinkle", "value": "true" }],
+          "then": [
+            { "type": "remove_item", "item": "rainbow_sprinkle" },
+            { "type": "set_flag", "flag": "cauldron_has_sprinkle", "value": "true" },
+            { "type": "message", "text": "You shake the Rainbow Sprinkles into the cauldron. They swirl in circles, leaving trails of every color!" },
+            { "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "cauldron_has_sugar", "value": "true" },
+                { "type": "flag_is", "flag": "cauldron_has_dust", "value": "true" }
+              ],
+              "then": [
+                { "type": "set_state", "object": "cauldron", "state": "ready" },
+                { "type": "set_flag", "flag": "potion_brewed", "value": "true" },
+                { "type": "set_flag", "flag": "has_unlocking_potion", "value": "true" },
+                { "type": "add_item", "item": "unlocking_potion" },
+                { "type": "message", "text": "POOF! All three ingredients combine in a burst of golden sparkles! The unlocking potion is ready! You scoop some into a little bottle." },
+                { "type": "visual_cue", "cue": "flash" }
+              ],
+              "else": [
+                { "type": "set_state", "object": "cauldron", "state": "brewing" }
+              ]
+            }
+          ],
+          "noise": 3
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "cauldron", "state": "empty" }],
+          "then": [
+            { "type": "message", "text": "The water is warm and tingly! It's ready for ingredients. You just need the right recipe..." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "cookie",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Hmm... a cookie probably isn't a potion ingredient. Better save it!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "high_shelf",
+      "name": "High Shelf",
+      "description": "A shelf near the ceiling, too high to reach normally.",
+      "position": { "x": 200, "y": 150 },
+      "size": { "width": 150, "height": 40 },
+      "visual": { "color": "#5a4a30", "label": "High Shelf" },
+      "initial_state": "unreachable",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A high shelf near the ceiling with colorful jars. You can see one labeled 'Moonbeam Sugar' with sparkly white crystals inside. But it's way too high to reach!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "high_shelf", "state": "unreachable" }],
+          "then": [
+            { "type": "message", "text": "You stretch up on your tiptoes... nope! Still can't reach. You need something to stand on." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "step_stool",
+          "when": [{ "type": "flag_not", "flag": "moonbeam_sugar_taken", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You place the step stool and climb up. Now you can reach! You carefully take down the jar of Moonbeam Sugar." },
+            { "type": "set_state", "object": "high_shelf", "state": "reachable" },
+            { "type": "set_flag", "flag": "step_stool_placed", "value": "true" },
+            { "type": "set_flag", "flag": "moonbeam_sugar_taken", "value": "true" },
+            { "type": "remove_item", "item": "step_stool" },
+            { "type": "add_item", "item": "moonbeam_sugar" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "high_shelf", "state": "reachable" }],
+          "then": [
+            { "type": "message", "text": "You've already taken the Moonbeam Sugar. The other jars are just regular cooking spices." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recipe_book_obj",
+      "name": "Recipe Book",
+      "description": "An open recipe book on a wooden stand.",
+      "position": { "x": 550, "y": 300 },
+      "size": { "width": 70, "height": 50 },
+      "visual": { "color": "#6a3a20", "label": "Recipe Book" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An open recipe book on a stand. The page shows 'Fizzlepop's Famous Unlocking Charm.' You should take a closer look!" },
+            { "type": "set_view", "view": "recipe_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You lean in to read the recipe more closely..." },
+            { "type": "set_view", "view": "recipe_closeup" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cookie_jar",
+      "name": "Cookie Jar",
+      "description": "A ceramic cookie jar shaped like a wizard's hat.",
+      "position": { "x": 200, "y": 200 },
+      "size": { "width": 50, "height": 60 },
+      "visual": { "color": "#7a5a8a", "label": "Cookie Jar" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A cookie jar shaped like a purple wizard hat! It's on the high shelf too, out of reach. Fizzlepop must really like keeping things up high." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "step_stool_obj",
+      "name": "Step Stool",
+      "description": "A small wooden step stool in the corner.",
+      "position": { "x": 100, "y": 600 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#7a6a40", "label": "Step Stool" },
+      "initial_state": "on_floor",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A sturdy little wooden step stool. 'Property of Short Wizards' is carved into the side. How cute!" }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "step_stool" }],
+          "then": [
+            { "type": "add_item", "item": "step_stool" },
+            { "type": "hide_object", "object": "step_stool_obj" },
+            { "type": "message", "text": "You pick up the step stool. It's light enough to carry around!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kitchen_window",
+      "name": "Kitchen Window",
+      "description": "A window with cheerful checkered curtains.",
+      "position": { "x": 800, "y": 200 },
+      "size": { "width": 80, "height": 80 },
+      "visual": { "color": "#4a6a8a", "label": "Window" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Through the window you can see the sunny village below. Smoke rises from chimneys and tiny people walk between cottages. Your house is down there somewhere!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kitchen_sink",
+      "name": "Kitchen Sink",
+      "description": "A stone sink with brass faucets.",
+      "position": { "x": 900, "y": 400 },
+      "size": { "width": 70, "height": 50 },
+      "visual": { "color": "#6a6a7a", "label": "Sink" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A deep stone sink with two brass faucets. One has a little label: 'Hot' and the other: 'Extra Hot.' Wizards don't do cold water, apparently." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You turn the faucet and warm water comes out. You wash your hands — good hygiene, even in a wizard's tower!" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "recipe_page",
+      "name": "Recipe Page",
+      "description": "The unlocking charm recipe page.",
+      "position": { "x": 512, "y": 384 },
+      "size": { "width": 400, "height": 300 },
+      "visual": { "color": "#e8dcc8", "label": "Recipe" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "recipe_read", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Fizzlepop's Famous Unlocking Charm! Ingredients: 1 jar Moonbeam Sugar, 1 pouch Giggle Dust, 1 bottle Rainbow Sprinkle. Stir three times clockwise in a cauldron, then pour on any lock. Say the magic word! The magic word is written but the last letter is smudged: 'A-L-O-H-O-M-O-R-...' You can't read it! Maybe it's written down somewhere else in the tower." },
+            { "type": "set_flag", "flag": "recipe_read", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "recipe_read", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The unlocking charm recipe: Moonbeam Sugar + Giggle Dust + Rainbow Sprinkle in a cauldron. The magic word is smudged — 'ALOHOMOR...' something." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "magnifying_glass",
+          "when": [{ "type": "flag_not", "flag": "knows_magic_word", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You look at the smudged letter through the magnifying glass... it's an 'A'! The magic word is ALOHOMORA! Wait, that sounds familiar..." },
+            { "type": "set_flag", "flag": "knows_magic_word", "value": "true" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "magnifying_glass",
+          "when": [{ "type": "flag_is", "flag": "knows_magic_word", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You already figured out the magic word: ALOHOMORA!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bookshelves",
+      "name": "Bookshelves",
+      "description": "Floor-to-ceiling bookshelves packed with colorful books.",
+      "position": { "x": 200, "y": 300 },
+      "size": { "width": 150, "height": 300 },
+      "visual": { "color": "#4a3a2a", "label": "Books" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Hundreds of books! 'Spells for Beginners,' 'Advanced Toad Transformation,' 'Cooking with Dragon Fire,' '1001 Knock-Knock Jokes for Wizards'... Fizzlepop reads everything!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You pull out a random book: '101 Ways to Organize Your Spell Components.' It's... actually pretty boring. You put it back." }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "reading_chair",
+      "name": "Reading Chair",
+      "description": "A comfy armchair with a patchwork quilt.",
+      "position": { "x": 700, "y": 450 },
+      "size": { "width": 80, "height": 80 },
+      "visual": { "color": "#8a2a2a", "label": "Chair" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A big squashy armchair covered in red velvet with a colorful patchwork quilt thrown over the arm. It looks SO comfortable!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You sink into the chair. Oh, it IS as comfortable as it looks! You could sit here and read all day... but you need to get home!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glowing_globe",
+      "name": "Glowing Globe",
+      "description": "A globe that gives off a soft golden glow.",
+      "position": { "x": 500, "y": 350 },
+      "size": { "width": 50, "height": 60 },
+      "visual": { "color": "#daa520", "label": "Globe" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A magical globe that glows softly. It shows the whole world! There are little sparkly dots on it — maybe they show where all the wizards live?" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You spin the globe gently. The glowing dots swirl and twinkle. Pretty!" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "library_desk",
+      "name": "Library Desk",
+      "description": "A wooden desk with scrolls and a magnifying glass.",
+      "position": { "x": 400, "y": 500 },
+      "size": { "width": 100, "height": 60 },
+      "visual": { "color": "#5a4a30", "label": "Desk" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A neat wooden desk with rolled-up scrolls and a fancy brass magnifying glass. Fizzlepop must use this for reading tiny magical text." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "magnifying_glass_obj",
+      "name": "Magnifying Glass",
+      "description": "A brass magnifying glass with a crystal lens.",
+      "position": { "x": 430, "y": 490 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#b8860b", "label": "Magnifier" },
+      "initial_state": "on_desk",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A beautiful magnifying glass with a polished crystal lens and a brass handle. It would help you read really tiny text!" }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [{ "type": "not_has_item", "item": "magnifying_glass" }],
+          "then": [
+            { "type": "add_item", "item": "magnifying_glass" },
+            { "type": "set_flag", "flag": "magnifying_glass_taken", "value": "true" },
+            { "type": "hide_object", "object": "magnifying_glass_obj" },
+            { "type": "message", "text": "You pick up the magnifying glass. Fizzlepop won't mind if you borrow it!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fizzlepop_portrait",
+      "name": "Fizzlepop's Portrait",
+      "description": "A framed painting of the wizard Fizzlepop.",
+      "position": { "x": 800, "y": 200 },
+      "size": { "width": 60, "height": 80 },
+      "visual": { "color": "#5a3a6a", "label": "Portrait" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A portrait of Fizzlepop himself! He's smiling warmly, wearing his favorite purple hat. His eyes seem to twinkle even in the painting. A brass plate reads: 'Fizzlepop — Wizard, Baker, Friend.'" }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "\"I wish you were here, Fizzlepop! I need to get home for lunch!\" The painting doesn't answer... but you could swear Fizzlepop's smile gets a tiny bit wider." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "telescope",
+      "name": "Telescope",
+      "description": "A brass telescope pointing through a round window.",
+      "position": { "x": 900, "y": 300 },
+      "size": { "width": 40, "height": 80 },
+      "visual": { "color": "#b8860b", "label": "Telescope" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You look through the telescope! You can see the village, the bakery, the river, and even your house! Your dog is sleeping on the front porch. You wave, but of course no one can see you." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "floating_books",
+      "name": "Floating Books",
+      "description": "Several books floating gently in the air.",
+      "position": { "x": 350, "y": 200 },
+      "size": { "width": 80, "height": 60 },
+      "visual": { "color": "#6a5a8a", "label": "Floating Books" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Three books float lazily in the air, their pages gently fluttering. They're sorting themselves back onto the shelves, one page at a time. Magic is so cool!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You grab one of the floating books. It wiggles in your hands like a fish and then zips back up into the air. The book seems offended!" }
+          ],
+          "noise": 4
+        }
+      ]
+    },
+    {
+      "id": "potion_shelves",
+      "name": "Potion Shelves",
+      "description": "Shelves of colorful glowing potion bottles.",
+      "position": { "x": 150, "y": 250 },
+      "size": { "width": 120, "height": 200 },
+      "visual": { "color": "#3a3a5a", "label": "Potions" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Rows and rows of glass bottles filled with glowing liquids! Pink, blue, green, gold — every color you can imagine. Labels read things like 'Hiccup Cure,' 'Instant Sunshine,' and 'Emergency Nap Juice.'" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Better not touch these — who knows what they do! The 'Emergency Nap Juice' looks tempting though..." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workbench",
+      "name": "Workbench",
+      "description": "A wooden workbench with potion-making supplies.",
+      "position": { "x": 500, "y": 400 },
+      "size": { "width": 120, "height": 60 },
+      "visual": { "color": "#5a4a30", "label": "Workbench" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A sturdy workbench with a mortar and pestle, tiny brass scales, and a rack of bubbling test tubes. Everything a wizard needs for potion-making!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chalkboard_obj",
+      "name": "Chalkboard",
+      "description": "A green chalkboard with writing on it.",
+      "position": { "x": 800, "y": 250 },
+      "size": { "width": 100, "height": 80 },
+      "visual": { "color": "#2a5a2a", "label": "Chalkboard" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A chalkboard with writing on it. You should take a closer look!" },
+            { "type": "set_view", "view": "chalkboard_closeup" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You move closer to read the chalkboard..." },
+            { "type": "set_view", "view": "chalkboard_closeup" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "potion_cabinet",
+      "name": "Ingredient Cabinet",
+      "description": "A small wooden cabinet with a combination padlock.",
+      "position": { "x": 350, "y": 400 },
+      "size": { "width": 70, "height": 80 },
+      "visual": { "color": "#5a4a3a", "label": "Cabinet" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "potion_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A small wooden cabinet with a tiny combination padlock. The lock has three number dials. I bet the combination is written down somewhere — wizards always forget their codes!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "potion_cabinet", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is locked! It has a three-digit combination lock. You need to find the right numbers." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "potion_cabinet", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The cabinet is open. It held the Giggle Dust — now it's empty except for some dust bunnies." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funny_sign",
+      "name": "Warning Sign",
+      "description": "A handmade sign on the wall.",
+      "position": { "x": 600, "y": 200 },
+      "size": { "width": 80, "height": 40 },
+      "visual": { "color": "#e8dcc8", "label": "Sign" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A handmade sign reads: 'Do NOT mix the purple and the orange. Trust me. — Fizzlepop. P.S. I mean it. P.P.S. The ceiling took weeks to clean.'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "test_tubes",
+      "name": "Test Tubes",
+      "description": "A rack of gently bubbling test tubes.",
+      "position": { "x": 550, "y": 380 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#6a8aaa", "label": "Test Tubes" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A rack of glass test tubes filled with bubbling liquids. One is bright pink, one is lime green, and one is... is that one singing? You hear a tiny song coming from the blue one." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mortar_pestle",
+      "name": "Mortar and Pestle",
+      "description": "A brass mortar and pestle for grinding ingredients.",
+      "position": { "x": 450, "y": 420 },
+      "size": { "width": 40, "height": 35 },
+      "visual": { "color": "#b8860b", "label": "Mortar" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A heavy brass mortar and pestle for grinding potion ingredients. There are faint traces of purple powder inside." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chalkboard_writing",
+      "name": "Chalkboard Writing",
+      "description": "The writing on the chalkboard.",
+      "position": { "x": 512, "y": 384 },
+      "size": { "width": 400, "height": 300 },
+      "visual": { "color": "#2a5a2a", "label": "Chalk Writing" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "knows_magic_word", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The chalkboard reads: 'Unlocking Potion (backup method) — Mix: 1 Moonbeam Sugar + 1 Giggle Dust + 1 Rainbow Sprinkle. Stir clockwise. Pour on any lock.' And at the bottom, in messy handwriting: 'The magic word is ALOHOMORA. Don't forget again!! :)'" },
+            { "type": "set_flag", "flag": "knows_magic_word", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "knows_magic_word", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The chalkboard confirms: the magic word is ALOHOMORA! Fizzlepop really needs to stop forgetting it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flower_pots",
+      "name": "Flower Pots",
+      "description": "Flower pots with friendly magical plants.",
+      "position": { "x": 150, "y": 400 },
+      "size": { "width": 100, "height": 80 },
+      "visual": { "color": "#3a6a3a", "label": "Plants" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Colorful flower pots with magical plants! They wave gently back and forth like they're dancing to music only they can hear. One plant has little eyes and blinks at you." }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "\"Hello, little plants!\" The flowers bob excitedly and the one with eyes blows you a little pollen kiss. Achoo!" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "birdbath",
+      "name": "Birdbath",
+      "description": "A stone birdbath with tiny paper birds.",
+      "position": { "x": 700, "y": 350 },
+      "size": { "width": 60, "height": 60 },
+      "visual": { "color": "#8a8a9a", "label": "Birdbath" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A stone birdbath where tiny origami birds splash in the water! They're made of paper but move like real birds. One looks up at you and chirps a tiny paper chirp." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "shiny_coin",
+          "when": [{ "type": "flag_not", "flag": "wishing_well_used", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You toss the shiny coin into the birdbath. \"I wish I could get home for lunch!\" The coin sinks with a satisfying plink! The paper birds chirp excitedly. Nothing magical happens... but you feel cheerful!" },
+            { "type": "remove_item", "item": "shiny_coin" },
+            { "type": "set_flag", "flag": "wishing_well_used", "value": "true" }
+          ],
+          "noise": 2
+        }
+      ]
+    },
+    {
+      "id": "sundial",
+      "name": "Sundial",
+      "description": "A stone sundial with carved rune markings.",
+      "position": { "x": 450, "y": 400 },
+      "size": { "width": 70, "height": 70 },
+      "visual": { "color": "#8a8a7a", "label": "Sundial" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A stone sundial with strange carved rune markings around the edge. Three symbols stand out — they look like a star, a moon, and a sun — but the details are hard to make out with just your eyes." }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "magnifying_glass",
+          "when": [{ "type": "flag_not", "flag": "knows_chest_combo", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Through the magnifying glass, the runes are crystal clear! Three symbols numbered in order: 1-Star, 2-Moon, 3-Sun. Below them in tiny text: 'The order of things matters. — F.' This must be a combination for something!" },
+            { "type": "set_flag", "flag": "sundial_examined", "value": "true" },
+            { "type": "set_flag", "flag": "knows_chest_combo", "value": "true" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "magnifying_glass",
+          "when": [{ "type": "flag_is", "flag": "knows_chest_combo", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The sundial runes: 1-Star, 2-Moon, 3-Sun. You already memorized the order!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You trace your fingers over the carved runes. They feel warm in the sunlight. The details are too small to read clearly without some kind of magnifier." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "watering_can",
+      "name": "Elephant Watering Can",
+      "description": "A watering can shaped like a cute elephant.",
+      "position": { "x": 250, "y": 500 },
+      "size": { "width": 50, "height": 40 },
+      "visual": { "color": "#6a8aaa", "label": "Watering Can" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "An adorable watering can shaped like a little elephant! Water pours from its trunk. It has a little name tag: 'Splish.'" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You water some of the plants. They perk up and wave their leaves at you as a thank-you!" }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "balcony_view",
+      "name": "Balcony View",
+      "description": "A beautiful view of the valley below.",
+      "position": { "x": 512, "y": 200 },
+      "size": { "width": 200, "height": 100 },
+      "visual": { "color": "#5a8a5a", "label": "View" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "What a view! Rolling green hills stretch to the horizon. The village below has tiny thatched-roof cottages, a winding river, and fields of golden wheat. You can see the bakery where you got the cookies!" }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "\"HELLO DOWN THERE!\" you shout over the balcony. A distant farmer waves back! But they're much too far away to help." }
+          ],
+          "noise": 15
+        }
+      ]
+    },
+    {
+      "id": "fairy_lights",
+      "name": "Fairy Lights",
+      "description": "Twinkling fairy lights strung along the railing.",
+      "position": { "x": 512, "y": 550 },
+      "size": { "width": 300, "height": 30 },
+      "visual": { "color": "#daa520", "label": "Fairy Lights" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "Strings of tiny fairy lights twinkle along the stone railing. They glow in soft rainbow colors, changing slowly from pink to gold to blue. They're real fairy lights — you can see teeny tiny fairies sleeping inside each one!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rainbow_sprinkle_pot",
+      "name": "Sparkly Flower Pot",
+      "description": "A flower pot that sparkles with rainbow colors.",
+      "position": { "x": 600, "y": 480 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#ff69b4", "label": "Sparkly Pot" },
+      "initial_state": "has_sprinkle",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "rainbow_sprinkle_pot", "state": "has_sprinkle" }],
+          "then": [
+            { "type": "message", "text": "A flower pot that changes colors constantly — red, orange, yellow, green, blue, purple! A little bottle of Rainbow Sprinkles is nestled among the flowers, catching the sunlight." }
+          ]
+        },
+        {
+          "verb": "take",
+          "when": [
+            { "type": "object_state", "object": "rainbow_sprinkle_pot", "state": "has_sprinkle" },
+            { "type": "not_has_item", "item": "rainbow_sprinkle" }
+          ],
+          "then": [
+            { "type": "add_item", "item": "rainbow_sprinkle" },
+            { "type": "set_state", "object": "rainbow_sprinkle_pot", "state": "empty" },
+            { "type": "set_flag", "flag": "rainbow_sprinkle_taken", "value": "true" },
+            { "type": "message", "text": "You carefully pick up the bottle of Rainbow Sprinkles from among the flowers. The pot's colors dim a little without them." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "rainbow_sprinkle_pot", "state": "empty" }],
+          "then": [
+            { "type": "message", "text": "The flower pot still changes colors, but more softly now without the Rainbow Sprinkles adding extra sparkle." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "four_poster_bed",
+      "name": "Four-Poster Bed",
+      "description": "A grand bed with a starry blue canopy.",
+      "position": { "x": 350, "y": 350 },
+      "size": { "width": 180, "height": 150 },
+      "visual": { "color": "#1a1a5a", "label": "Bed" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A magnificent four-poster bed with a dark blue canopy covered in tiny silver stars and moons. They seem to twinkle! The pillows are fluffy and the blankets look incredibly warm." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You bounce on the bed a little. SO bouncy! The stars on the canopy twinkle faster when you bounce. Wheee!" }
+          ],
+          "noise": 8
+        }
+      ]
+    },
+    {
+      "id": "nightstand",
+      "name": "Nightstand",
+      "description": "A wooden nightstand with a glowing orb and a music box.",
+      "position": { "x": 550, "y": 400 },
+      "size": { "width": 50, "height": 50 },
+      "visual": { "color": "#5a4a30", "label": "Nightstand" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A wooden nightstand with a glowing crystal orb lamp and a small music box. There's also a pair of reading glasses and a bookmark that says 'I'd rather be casting spells.'" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glowing_orb",
+      "name": "Glowing Orb Lamp",
+      "description": "A crystal orb that gives off a soft, warm light.",
+      "position": { "x": 560, "y": 380 },
+      "size": { "width": 30, "height": 30 },
+      "visual": { "color": "#daa520", "label": "Orb" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A beautiful crystal orb that glows with a warm golden light. It doesn't need a candle or electricity — it's pure magic! If you look closely, tiny clouds drift inside it." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You touch the orb. It changes color — blue, then green, then purple, then back to gold. It's a wizard's night light!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wardrobe",
+      "name": "Wardrobe",
+      "description": "A tall wooden wardrobe, slightly ajar.",
+      "position": { "x": 150, "y": 300 },
+      "size": { "width": 80, "height": 170 },
+      "visual": { "color": "#4a3a2a", "label": "Wardrobe" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A tall wooden wardrobe, slightly ajar. You can see colorful robes hanging inside — purple, blue, green, one with stars, one with moons, and one covered in tiny rubber ducks. Fizzlepop has interesting fashion taste." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You open the wardrobe wider. Just robes! Lots and lots of wizard robes. It smells like lavender and old books in here." }
+          ],
+          "noise": 3
+        }
+      ]
+    },
+    {
+      "id": "cloud_rug",
+      "name": "Cloud Rug",
+      "description": "A fluffy white rug shaped like a cloud.",
+      "position": { "x": 350, "y": 550 },
+      "size": { "width": 120, "height": 40 },
+      "visual": { "color": "#e8e8f0", "label": "Cloud Rug" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The fluffiest rug you've ever seen, shaped like a cloud. It looks like it might actually be a cloud that Fizzlepop caught and flattened into a rug. Your feet sink in like walking on marshmallows!" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "music_box",
+      "name": "Music Box",
+      "description": "A small wooden music box on the nightstand.",
+      "position": { "x": 580, "y": 410 },
+      "size": { "width": 30, "height": 25 },
+      "visual": { "color": "#8a6a3a", "label": "Music Box" },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A delicate wooden music box with a tiny crank on the side. Stars and moons are inlaid in the lid." }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "music_box", "state": "closed" }],
+          "then": [
+            { "type": "message", "text": "You open the music box and turn the crank. A gentle, tinkly melody plays — it sounds like starlight, if starlight had a sound. A tiny dancer made of light twirls inside the box." },
+            { "type": "set_state", "object": "music_box", "state": "playing" }
+          ],
+          "noise": 5
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "music_box", "state": "playing" }],
+          "then": [
+            { "type": "message", "text": "You close the music box gently. The melody fades away." },
+            { "type": "set_state", "object": "music_box", "state": "closed" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "treasure_chest_obj",
+      "name": "Treasure Chest",
+      "description": "A wooden treasure chest with brass fittings at the foot of the bed.",
+      "position": { "x": 350, "y": 600 },
+      "size": { "width": 100, "height": 60 },
+      "visual": { "color": "#5a3a1a", "label": "Chest" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "treasure_chest_obj", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "A sturdy wooden chest with brass corners and a picture lock on the front. It has three picture dials showing different symbols — a star, a moon, and a sun. You need to put them in the right order!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "treasure_chest_obj", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The chest is locked with a picture combination. Three dials with symbols need to be set in the right order. Maybe there's a clue somewhere in the tower..." }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "object_state", "object": "treasure_chest_obj", "state": "open" }],
+          "then": [
+            { "type": "message", "text": "The treasure chest is open! Inside there are some old spell books, a cozy scarf, and the hook where the spare key used to hang." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "framed_photo",
+      "name": "Framed Photo",
+      "description": "A framed photo on the wall.",
+      "position": { "x": 800, "y": 250 },
+      "size": { "width": 50, "height": 60 },
+      "visual": { "color": "#8a7a5a", "label": "Photo" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "A framed photo of Fizzlepop with his arm around a young apprentice — that's you! You're both smiling and covered in flour from a baking lesson gone wonderfully wrong. It makes you smile." }
+          ]
+        }
+      ]
+    }
+  ],
+  "puzzle_widgets": [
+    {
+      "id": "cabinet_lock",
+      "widget_type": "combination_lock",
+      "position": { "x": 370, "y": 420 },
+      "size": { "width": 50, "height": 40 },
+      "view": "potion_room",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 3,
+        "values_per_dial": 10,
+        "solution": [1, 2, 3],
+        "dial_labels": ["I", "II", "III"]
+      },
+      "on_solve": [
+        { "type": "set_state", "object": "potion_cabinet", "state": "open" },
+        { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
+        { "type": "set_flag", "flag": "giggle_dust_taken", "value": "true" },
+        { "type": "add_item", "item": "giggle_dust" },
+        { "type": "message", "text": "Click! The cabinet opens! Inside you find a pouch of Giggle Dust. Even just opening the pouch makes you grin!" }
+      ],
+      "on_fail": [
+        { "type": "message", "text": "Hmm, that's not right. The lock doesn't open. Try different numbers!" }
+      ],
+      "noise_per_interaction": 1,
+      "max_attempts": 20,
+      "on_max_fail": [
+        { "type": "message", "text": "Keep trying! Maybe there's a note somewhere with the combination written down?" }
+      ]
+    },
+    {
+      "id": "chest_sequence",
+      "widget_type": "sequence_puzzle",
+      "position": { "x": 350, "y": 610 },
+      "size": { "width": 100, "height": 40 },
+      "view": "bedroom",
+      "initially_visible": true,
+      "config": {
+        "steps": [
+          { "id": "star_dial", "label": "Star", "position": { "x": 10, "y": 10 } },
+          { "id": "moon_dial", "label": "Moon", "position": { "x": 40, "y": 10 } },
+          { "id": "sun_dial", "label": "Sun", "position": { "x": 70, "y": 10 } }
+        ],
+        "solution_order": ["star_dial", "moon_dial", "sun_dial"],
+        "reset_on_error": true,
+        "correct_step_message": "Click! That symbol locks into place!",
+        "wrong_step_message": "Nope! The dials reset. Try a different order!",
+        "wrong_step_noise": 3
+      },
+      "on_solve": [
+        { "type": "set_state", "object": "treasure_chest_obj", "state": "open" },
+        { "type": "set_flag", "flag": "chest_opened", "value": "true" },
+        { "type": "set_flag", "flag": "spare_key_taken", "value": "true" },
+        { "type": "set_flag", "flag": "has_spare_key", "value": "true" },
+        { "type": "add_item", "item": "spare_key" },
+        { "type": "message", "text": "Star... Moon... Sun... CLICK CLICK CLICK! The chest springs open! Inside, hanging from a little hook, is a shiny brass key with a star shape! It must be the spare key for the front door!" },
+        { "type": "visual_cue", "cue": "flash" }
+      ],
+      "on_fail": [
+        { "type": "message", "text": "The symbols reset. That wasn't the right order. There must be a clue somewhere showing the correct sequence!" }
+      ],
+      "noise_per_interaction": 2
+    }
+  ],
+  "phases": [
+    {
+      "id": "arrival",
+      "name": "Arrival",
+      "starts_when": [],
+      "on_enter": [
+        { "type": "message", "text": "Oh no! A gust of wind blew the front door shut and the enchanted lock clicked! Fizzlepop is out buying potion ingredients. You need to find a way to unlock the door and get home before lunch!" }
+      ],
+      "ambient_text": "The tower is warm and cozy. You can hear the distant swish-swish of Bristle the enchanted broom, cleaning upstairs.",
+      "killer_overrides": {
+        "check_interval_seconds": 120,
+        "noise_threshold_investigate": 80
+      }
+    },
+    {
+      "id": "exploring",
+      "name": "Exploring",
+      "starts_when": [{ "type": "flag_is", "flag": "explored_upstairs", "value": "true" }],
+      "on_enter": [
+        { "type": "message", "text": "The tower is full of wonderful rooms to explore! There must be a spare key or some magic that can open the front door." }
+      ],
+      "ambient_text": "Bristle swishes around the tower, keeping everything tidy. You hear it getting closer sometimes — better be neat!",
+      "killer_overrides": {
+        "check_interval_seconds": 80,
+        "noise_threshold_investigate": 60
+      }
+    },
+    {
+      "id": "almost_there",
+      "name": "Almost There!",
+      "starts_when": [
+        { "type": "any_of", "conditions": [
+          { "type": "flag_is", "flag": "has_spare_key", "value": "true" },
+          { "type": "flag_is", "flag": "has_unlocking_potion", "value": "true" }
+        ]}
+      ],
+      "on_enter": [
+        { "type": "message", "text": "You have what you need to open the front door! Better hurry back downstairs — Bristle is getting more active!" }
+      ],
+      "ambient_text": "Swish-swish-SWISH! Bristle is sweeping faster now. Better get to the front door quickly!",
+      "killer_overrides": {
+        "check_interval_seconds": 50,
+        "noise_threshold_investigate": 40
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "bristle_intro",
+      "trigger": { "type": "time_after", "seconds": 30 },
+      "one_shot": true,
+      "effects": [
+        { "type": "message", "text": "Swish-swish-swish! You hear Bristle the enchanted broom sweeping somewhere in the tower. It sounds busy but far away." }
+      ]
+    },
+    {
+      "id": "cat_follows",
+      "trigger": { "type": "flag_is", "flag": "cat_moved", "value": "true" },
+      "one_shot": true,
+      "effects": [
+        { "type": "delay_then", "seconds": 10, "effects": [
+          { "type": "message", "text": "The orange cat has followed you! It rubs against your legs, purring. It seems to want to help... or maybe it just wants more pets." }
+        ]}
+      ]
+    }
+  ],
+  "killer": {
+    "name": "Bristle the Enchanted Broom",
+    "description": "An enchanted cleaning broom that takes its job VERY seriously. It's not mean — it just can't stand a mess! If it catches you being too noisy, it'll sweep you right back to the front hall.",
+
+    "base_behavior": {
+      "check_interval_seconds": 80,
+      "interval_variance_seconds": 15,
+      "noise_threshold_curious": 30,
+      "noise_threshold_investigate": 60,
+      "noise_threshold_immediate": 90,
+      "noise_decay_per_second": 3,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 8
+    },
+
+    "search_behavior": {
+      "thoroughness": 0.2,
+      "evidence_flags": [],
+      "thoroughness_on_evidence": 0.4,
+      "search_order": "random"
+    },
+
+    "personality": {
+      "on_approach": [
+        "Swish-swish-swish! Bristle is sweeping closer!",
+        "You hear the rapid scraping of straw on stone — Bristle is coming!",
+        "Swish-SWISH-SWISH! Bristle heard something and it's headed your way!"
+      ],
+      "on_search": [
+        "Bristle pokes into corners, its handle tilting curiously. Swish... swish...",
+        "The broom sweeps back and forth, checking behind furniture.",
+        "Bristle ruffles its bristles suspiciously. Is someone making a mess in here?"
+      ],
+      "on_clear": [
+        "Bristle seems satisfied. It sweeps away, humming to itself (if brooms can hum).",
+        "The broom gives one final swish and heads back to its cleaning routine.",
+        "Bristle hasn't found anything. It straightens itself up importantly and leaves."
+      ],
+      "on_evidence": [
+        "Bristle notices something out of place! Its bristles ruffle indignantly.",
+        "SWISH SWISH SWISH! Bristle is NOT happy about this mess!"
+      ],
+      "on_catch": [
+        "Bristle sweeps around your feet in excited circles and herds you back to the front hall! 'Back to the start!' it seems to say. That broom means business!"
+      ]
+    },
+
+    "on_visit_effects": [
+      {
+        "conditions": [{ "type": "object_state", "object": "music_box", "state": "playing" }],
+        "effects": [
+          { "type": "set_state", "object": "music_box", "state": "closed" },
+          { "type": "message", "text": "Bristle closes the music box with a disapproving swish. No music during cleaning time!" }
+        ]
+      }
+    ],
+
+    "special_behaviors": [
+      {
+        "id": "cookie_distraction",
+        "trigger": { "type": "flag_is", "flag": "bristle_has_cookie", "value": "true" },
+        "effect": "distracted",
+        "duration_seconds": 45,
+        "description": "Bristle found a cookie! Even enchanted brooms can appreciate a good cookie."
+      }
+    ]
+  },
+  "win_conditions": [
+    {
+      "id": "key_escape",
+      "description": "Unlock the front door with the spare key",
+      "conditions": [
+        { "type": "flag_is", "flag": "has_spare_key", "value": "true" },
+        { "type": "object_state", "object": "front_door", "state": "open" }
+      ]
+    },
+    {
+      "id": "potion_escape",
+      "description": "Use the unlocking potion and magic word on the front door",
+      "conditions": [
+        { "type": "flag_is", "flag": "has_unlocking_potion", "value": "true" },
+        { "type": "flag_is", "flag": "knows_magic_word", "value": "true" },
+        { "type": "object_state", "object": "front_door", "state": "open" }
+      ]
+    }
+  ],
+  "lose_conditions": [
+    {
+      "id": "caught_by_bristle",
+      "description": "Caught by Bristle — swept back to the front hall (not a real loss, just a reset!)"
+    }
+  ],
+  "hints": [
+    {
+      "id": "hint_explore",
+      "after_seconds": 60,
+      "text": "Try petting the cat! It might move and reveal something.",
+      "relates_to": "cat_cushion"
+    },
+    {
+      "id": "hint_guest_book",
+      "after_seconds": 90,
+      "text": "Have you looked at the guest book on the table? Fizzlepop might have left a note!",
+      "relates_to": "guest_book"
+    },
+    {
+      "id": "hint_stairs",
+      "after_seconds": 120,
+      "condition": { "type": "flag_not", "flag": "explored_upstairs", "value": "true" },
+      "text": "The spiral staircase leads to more rooms. Try going up!",
+      "relates_to": "spiral_stairs"
+    },
+    {
+      "id": "hint_recipe",
+      "after_seconds": 180,
+      "condition": { "type": "flag_not", "flag": "recipe_read", "value": "true" },
+      "text": "There's a recipe book open in the kitchen. It might have something useful!",
+      "relates_to": "recipe_book_obj"
+    },
+    {
+      "id": "hint_magnifying",
+      "after_seconds": 240,
+      "condition": { "type": "not_has_item", "item": "magnifying_glass" },
+      "text": "The magnifying glass on the library desk could help you read small text...",
+      "relates_to": "magnifying_glass_obj"
+    },
+    {
+      "id": "hint_sundial",
+      "after_seconds": 300,
+      "condition": { "type": "flag_not", "flag": "knows_chest_combo", "value": "true" },
+      "text": "The sundial in the garden has interesting symbols. Try using the magnifying glass on it!",
+      "relates_to": "sundial"
+    },
+    {
+      "id": "hint_cabinet",
+      "after_seconds": 240,
+      "condition": { "type": "flag_not", "flag": "cabinet_opened", "value": "true" },
+      "text": "The potion cabinet has a 3-digit lock. Did Fizzlepop write the code down somewhere?",
+      "relates_to": "potion_cabinet"
+    },
+    {
+      "id": "hint_cauldron",
+      "after_seconds": 360,
+      "condition": {
+        "type": "all_of",
+        "conditions": [
+          { "type": "flag_is", "flag": "recipe_read", "value": "true" },
+          { "type": "flag_not", "flag": "potion_brewed", "value": "true" }
+        ]
+      },
+      "text": "You know the recipe! Put the ingredients in the cauldron in the kitchen.",
+      "relates_to": "cauldron"
+    }
+  ],
+  "solution_paths": [
+    {
+      "id": "spare_key_path",
+      "name": "Find the Spare Key",
+      "description": "Find the magnifying glass, read the sundial runes, solve the treasure chest puzzle, and use the spare key on the front door.",
+      "difficulty": "easy",
+      "steps": [
+        { "action": "Go upstairs via spiral staircase", "noise": 5 },
+        { "action": "Take magnifying glass from library desk", "noise": 0 },
+        { "action": "Go to garden balcony", "noise": 0 },
+        { "action": "Use magnifying glass on sundial — learn Star-Moon-Sun order", "noise": 0 },
+        { "action": "Go to bedroom", "noise": 0 },
+        { "action": "Solve treasure chest sequence (Star → Moon → Sun)", "noise": 6 },
+        { "action": "Go to front hall", "noise": 0 },
+        { "action": "Use spare key on front door — WIN!", "noise": 0 }
+      ],
+      "total_noise_estimate": 11,
+      "estimated_time_seconds": 300
+    },
+    {
+      "id": "potion_path",
+      "name": "Brew the Unlocking Charm",
+      "description": "Gather three ingredients, brew the potion, learn the magic word, and use the potion on the front door.",
+      "difficulty": "easy",
+      "steps": [
+        { "action": "Open guest book — find Fizzlepop's note with cabinet code", "noise": 0 },
+        { "action": "Take Fizzlepop's note (code is 1-2-3)", "noise": 0 },
+        { "action": "Go upstairs via spiral staircase", "noise": 5 },
+        { "action": "Go to kitchen — read recipe book", "noise": 0 },
+        { "action": "Take step stool", "noise": 0 },
+        { "action": "Use step stool on high shelf — get Moonbeam Sugar", "noise": 5 },
+        { "action": "Go to potion room — solve cabinet lock (1-2-3) — get Giggle Dust", "noise": 3 },
+        { "action": "Read chalkboard — learn magic word ALOHOMORA", "noise": 0 },
+        { "action": "Go to garden — take Rainbow Sprinkle from flower pot", "noise": 0 },
+        { "action": "Go to kitchen — use all three ingredients on cauldron", "noise": 11 },
+        { "action": "Go to front hall", "noise": 0 },
+        { "action": "Use unlocking potion on front door — WIN!", "noise": 0 }
+      ],
+      "total_noise_estimate": 24,
+      "estimated_time_seconds": 480
+    }
+  ]
+}
