@@ -18,6 +18,9 @@ function serveScenarios(): Plugin {
             '.webp': 'image/webp',
             '.png': 'image/png',
             '.jpg': 'image/jpeg',
+            '.mp3': 'audio/mpeg',
+            '.wav': 'audio/wav',
+            '.ogg': 'audio/ogg',
           }
           if (types[ext]) res.setHeader('Content-Type', types[ext])
           fs.createReadStream(filePath).pipe(res)

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type CSSProperties } from 'react';
+import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import type { Scenario } from '../engine/types';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { GameView } from './GameView';
@@ -105,8 +105,42 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [muted, setMuted] = useState(false);
+  const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
+
+  useEffect(() => {
+    const raw = scenario.setting.ambient_audio;
+    if (!raw) return;
+
+    const files = Array.isArray(raw) ? raw : [raw];
+    const scenarioId = scenario.metadata.id;
+    const elements: HTMLAudioElement[] = [];
+
+    for (const file of files) {
+      const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
+      audio.loop = true;
+      audio.volume = 0.35;
+      audio.play().catch(() => {});
+      elements.push(audio);
+    }
+    audioRefs.current = elements;
+
+    return () => {
+      for (const a of elements) {
+        a.pause();
+        a.src = '';
+      }
+      audioRefs.current = [];
+    };
+  }, [scenario]);
+
+  useEffect(() => {
+    for (const a of audioRefs.current) {
+      a.muted = muted;
+    }
+  }, [muted]);
 
   const handleObjectClick = useCallback(
     (objectId: string) => {
@@ -186,18 +220,34 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           <div style={styles.title}>{scenario.metadata.title}</div>
           <NoiseIndicator level={noiseLevel} />
         </div>
-        <button
-          style={styles.exitButton}
-          onClick={onExit}
-          onMouseEnter={(e) => {
-            (e.target as HTMLElement).style.borderColor = '#6a5a30';
-          }}
-          onMouseLeave={(e) => {
-            (e.target as HTMLElement).style.borderColor = '#2a2018';
-          }}
-        >
-          Exit
-        </button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {scenario.setting.ambient_audio && (
+            <button
+              style={styles.exitButton}
+              onClick={() => setMuted((m) => !m)}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.borderColor = '#6a5a30';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.borderColor = '#2a2018';
+              }}
+            >
+              {muted ? 'Unmute' : 'Mute'}
+            </button>
+          )}
+          <button
+            style={styles.exitButton}
+            onClick={onExit}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.borderColor = '#6a5a30';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.borderColor = '#2a2018';
+            }}
+          >
+            Exit
+          </button>
+        </div>
       </div>
 
       {/* Game area */}

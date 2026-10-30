@@ -20,6 +20,7 @@ export interface Setting {
   initial_view: string;
   ambient_text: string;
   room_style: RoomStyle;
+  ambient_audio?: string | string[];
 }
 
 export interface View {

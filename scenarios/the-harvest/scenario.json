@@ -58,7 +58,11 @@
       "background_color": "#050a0f",
       "wall_color": "#0a1a15",
       "floor_color": "#0c0e12"
-    }
+    },
+    "ambient_audio": [
+      "audio/ambient_ship.mp3",
+      "audio/ambient_lab.mp3"
+    ]
   },
   "views": [
     {
