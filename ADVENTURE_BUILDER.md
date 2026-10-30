@@ -43,6 +43,8 @@ scenarios/my-scenario/
 ├── backgrounds/           # Background images for each view
 │   ├── main_room.webp     #   1920x1080 recommended, any resolution works
 │   └── closet_closeup.webp
+├── closeups/              # Detail images for show_closeup effect (optional)
+│   └── safe_interior.webp #   Any resolution, shown in framed overlay
 ├── audio/                 # Ambient audio tracks (optional)
 │   └── rain_loop.mp3      #   MP3/WAV/OGG supported, loops automatically
 └── items/                 # Item icons for inventory panel (optional)
@@ -346,30 +348,139 @@ Even when an action does nothing, the player gets a King's Quest-style message. 
 
 ## Coordinate System
 
-All object positions use a **960x720 coordinate space** with origin at top-left:
+All object positions use a **960x720 coordinate space** with origin at top-left. **Position** is the **top-left corner** of the hotspot rectangle, not its center.
 
 ```
 (0,0) ─────────────────────── (960,0)
   │                               │
   │     960 x 720 design space    │
   │                               │
-  │    Objects positioned here    │
-  │    as center-point coords     │
+  │    Position = top-left corner │
+  │    of the hotspot box          │
   │                               │
 (0,720) ────────────────────── (960,720)
 ```
 
-- **Background images** can be any resolution (1920x1080 recommended). The engine scales them to fill the viewport.
-- **The viewport** renders at 960x540 pixels. The engine maps 960x720 coordinates to this viewport (SCALE_X = 1.0, SCALE_Y = 0.75).
-- **Object positions** are the center point of the hotspot region in the 960x720 coordinate space.
-- **Object sizes** define the clickable area in the same coordinate space.
+- **Background images** can be any resolution (1376x768 and 1920x1080 are common). The engine renders them with `object-fit: cover` to fill the 960x540 pixel viewport.
+- **The viewport** renders at 960x540 pixels. The engine maps the 960x720 coordinate space to this viewport using `SCALE_X = 1.0` (no horizontal change) and `SCALE_Y = 0.75` (vertical compression).
+- **Object positions** are the **top-left corner** of the hotspot box in the 960x720 space.
+- **Object sizes** define the clickable area dimensions in the same 960x720 space.
 
-### Positioning Tips
+### How Positions Actually Render
 
-- Place objects where they visually appear in your background art
-- Nav hotspots (doorways, exits) should cover the entire visible opening
-- Make clickable areas generous — slightly larger is better than pixel-precise
-- Test with backgrounds loaded to verify alignment
+The engine positions hotspots as absolutely-positioned `<div>` elements inside the 960x540 viewport:
+
+```
+Rendered left  = position.x × 1.0     (no horizontal scaling)
+Rendered top   = position.y × 0.75    (vertical compression)
+Rendered width = size.width × 1.0
+Rendered height= size.height × 0.75
+```
+
+**Example**: An object at `position: {x: 480, y: 360}` with `size: {width: 100, height: 80}` renders as a div at `left: 480px, top: 270px, width: 100px, height: 60px` inside the 960x540 viewport.
+
+### Converting Background Image Coordinates to JSON Positions
+
+This is the most common task: you have a background image and need to place a hotspot over a specific visual element. Here's the step-by-step process:
+
+#### Step 1: Measure the pixel coordinates in your image
+
+Open your background image in any image editor and find the **bounding box** of the area you want to make clickable. Record:
+- The **top-left pixel** `(img_x, img_y)` of the region
+- The **width and height** in pixels `(img_w, img_h)`
+
+#### Step 2: Convert image pixels to the 960x720 coordinate space
+
+The background image is rendered with `object-fit: cover`, which scales the image to fill the 960x540 viewport (may crop edges). The conversion depends on your image resolution:
+
+**For 1376x768 images** (current Harvest backgrounds):
+```
+json_x = img_x × (960 / 1376)  ≈  img_x × 0.698
+json_y = img_y × (720 / 768)   ≈  img_y × 0.9375
+json_w = img_w × (960 / 1376)  ≈  img_w × 0.698
+json_h = img_h × (720 / 768)   ≈  img_h × 0.9375
+```
+
+**For 1920x1080 images** (recommended resolution):
+```
+json_x = img_x × (960 / 1920)  =  img_x × 0.5
+json_y = img_y × (720 / 1080)  ≈  img_y × 0.667
+json_w = img_w × (960 / 1920)  =  img_w × 0.5
+json_h = img_h × (720 / 1080)  ≈  img_h × 0.667
+```
+
+**General formula** for any image resolution `(IMG_W × IMG_H)`:
+```
+json_x = img_x × (960 / IMG_W)
+json_y = img_y × (720 / IMG_H)
+json_w = img_w × (960 / IMG_W)
+json_h = img_h × (720 / IMG_H)
+```
+
+> **Important**: `object-fit: cover` may crop the image if its aspect ratio doesn't match 16:9. For 1376x768 (≈1.79:1) the match is nearly exact. For other ratios, the engine crops from edges — your measurements should account for any visible cropping.
+
+#### Step 3: Round and validate
+
+- Round all values to the nearest integer
+- Verify `json_x + json_w ≤ 960` and `json_y + json_h ≤ 720`
+- Be generous with size — a hotspot that's 10-20% larger than the visual element is better than one that's pixel-perfect but hard to click
+
+#### Worked Example
+
+Placing a hotspot over a broken pod in a 1376x768 background:
+
+1. In the image editor, the broken pod occupies roughly pixels (265, 500) to (315, 540)
+   - `img_x=265, img_y=500, img_w=50, img_h=40`
+
+2. Convert using 1376x768 factors:
+   - `json_x = 265 × 0.698 ≈ 185`
+   - `json_y = 500 × 0.9375 ≈ 469`
+   - `json_w = 50 × 0.698 ≈ 35`
+   - `json_h = 40 × 0.9375 ≈ 38`
+
+3. Final JSON:
+   ```json
+   "position": { "x": 185, "y": 469 },
+   "size": { "width": 35, "height": 38 }
+   ```
+
+### Using Debug Mode to Verify Positions
+
+The game has a **Debug Mode** button in the title bar that shows all hotspot boundaries:
+
+- **Gold outlines**: Regular interactive objects
+- **Red outlines**: Navigation hotspots (objects starting with `nav_`)
+- **Labels**: Object names appear on hover in debug mode
+
+**Workflow**: Set approximate positions → launch `npm run dev` → load the scenario → toggle Debug Mode → compare outlines to background art → adjust JSON values → refresh.
+
+### Positioning Tips and Common Mistakes
+
+**Do:**
+- Start with generous hotspot sizes (30-60 range), then shrink if overlapping
+- Use debug mode early and often — don't guess positions blind
+- For nav hotspots (doorways, passages), cover the entire visible opening plus a little margin
+- For small objects (keyholes, switches), make the hotspot at least 25×25 so it's easy to click
+- Keep notes on your image dimensions — the conversion factor changes with resolution
+
+**Don't:**
+- Don't assume positions are center-point — they are **top-left corner** of the hotspot box
+- Don't forget the Y compression — an object at image Y=400 is NOT at JSON Y=400
+- Don't place hotspots that extend beyond 960×720 — they'll render outside the viewport
+- Don't mix up image pixel coordinates with JSON coordinates — always convert
+- Don't make hotspots too small (under 20×15) — they become frustrating to click
+
+### For AI Agents: Positioning Checklist
+
+When generating or modifying object positions:
+
+1. **Know the image resolution** — check the actual background file dimensions, don't assume 1920x1080
+2. **Apply the correct conversion factor** — `960/IMG_W` for X, `720/IMG_H` for Y
+3. **Position is top-left, not center** — the rendered div starts at `(x, y)`, not centered on it
+4. **Validate bounds** — every `position.x + size.width ≤ 960` and `position.y + size.height ≤ 720`
+5. **Check for overlap** — objects in the same view shouldn't have hotspots that significantly overlap
+6. **Nav objects need generous sizing** — doorways should be easy click targets (80-200px wide typically)
+7. **Test with debug mode** — if you can run the dev server, verify visually before finalizing
 
 ---
 
@@ -645,6 +756,13 @@ Effects change the game world. They execute in order within a `then` array.
 | `advance_phase` | `phase` | Jump to a named game phase |
 | `start_hiding` | — | Player enters hiding |
 | `stop_hiding` | — | Player leaves hiding |
+
+### Visual & Animation Effects
+
+| Type | Fields | What It Does |
+|------|--------|-------------|
+| `set_animation` | `object`, `value` | Change or clear an object's `visual.animation`. Empty string `""` stops glimmer/pulse effects. Use to suppress attention-drawing animations after an object has been fully interacted with. |
+| `show_closeup` | `image` | Show a framed close-up image in a dismissable overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks anywhere or presses Escape to dismiss. |
 
 ### Advanced Effects
 

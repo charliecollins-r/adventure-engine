@@ -537,11 +537,12 @@ User clicks object
 
 ## Coordinate System
 
-Scenario authors place objects in a **960x720 coordinate space** (origin at top-left). The engine renders into a **960x540 pixel viewport**.
+Scenario authors place objects in a **960x720 coordinate space** (origin at top-left). The engine renders into a **960x540 pixel viewport**. Object positions are the **top-left corner** of the hotspot box, not the center.
 
 ### Scaling Constants
 
 ```typescript
+// GameView.tsx
 const VIEW_WIDTH = 960;
 const VIEW_HEIGHT = 540;
 const COORD_SPACE_W = 960;
@@ -552,36 +553,95 @@ const SCALE_Y = VIEW_HEIGHT / COORD_SPACE_H;  // = 0.75 (vertical compression)
 
 ### Position Mapping
 
-An object at JSON position `(480, 360)` renders at pixel `(480, 270)` in the viewport.
+An object at JSON position `(480, 360)` renders at viewport pixel `(480, 270)`. Position is the **top-left corner** of the hotspot div:
 
 ```typescript
 function objectHotspotStyle(x, y, w, h, ...): CSSProperties {
   return {
-    left: `${x * SCALE_X}px`,   // x * 1.0
-    top: `${y * SCALE_Y}px`,    // y * 0.75
-    width: `${w * SCALE_X}px`,  // w * 1.0
-    height: `${h * SCALE_Y}px`, // h * 0.75
+    left: `${x * SCALE_X}px`,   // x × 1.0 — no horizontal change
+    top: `${y * SCALE_Y}px`,    // y × 0.75 — vertical compression
+    width: `${w * SCALE_X}px`,  // w × 1.0
+    height: `${h * SCALE_Y}px`, // h × 0.75
   };
 }
 ```
+
+### Background Image Rendering Pipeline
+
+Background images are rendered as an `<img>` element inside the 960x540 viewport div:
+
+```typescript
+// GameView.tsx — background rendering
+<img
+  src={`/scenarios/${scenarioId}/${bgFile}`}
+  style={{
+    position: 'absolute',
+    top: 0, left: 0,
+    width: '100%',          // fills viewport width (960px)
+    height: '100%',         // fills viewport height (540px)
+    objectFit: 'cover',     // scale to fill, may crop edges
+    pointerEvents: 'none',
+    zIndex: 0,
+  }}
+/>
+```
+
+`object-fit: cover` means the image scales to completely fill the 960x540 viewport, potentially cropping edges if the aspect ratio doesn't match 16:9. For near-16:9 images (e.g., 1376x768 ≈ 1.79:1), cropping is negligible.
+
+### Image-to-Coordinate Conversion
+
+To convert a pixel position in the source background image to JSON coordinates:
+
+```
+json_x = img_pixel_x × (960 / image_width)
+json_y = img_pixel_y × (720 / image_height)
+json_w = img_pixel_w × (960 / image_width)
+json_h = img_pixel_h × (720 / image_height)
+```
+
+**Current Harvest backgrounds (1376×768)**:
+- X factor: `960 / 1376 ≈ 0.698`
+- Y factor: `720 / 768  ≈ 0.9375`
+
+**1920×1080 images**:
+- X factor: `960 / 1920 = 0.5`
+- Y factor: `720 / 1080 ≈ 0.667`
 
 ### Why 960x720
 
 - **Horizontal resolution matches the viewport** — no X scaling needed, positions are pixel-accurate horizontally
 - **4:3 authoring ratio** is more natural for placing objects than 16:9
 - **The 0.75 Y scale** compresses gracefully without distorting hit targets
-- **Background images** use `object-fit: cover` so any resolution works (1920x1080 recommended)
+- **Background images** use `object-fit: cover` so any resolution works (1376x768 and 1920x1080 most common)
 - **Matches real scenario data** — coordinate ranges across all 13 scenarios span x: 50-950, y: 30-720
 
-### Hotspot Visibility
+### Hotspot Rendering and Debug Mode
 
-With a background image present:
-- **Normal state**: fully transparent (opacity 0), invisible overlay on the painted art
-- **Hovered**: opacity 0.3 with a colored border and label tooltip
+Hotspots are absolutely-positioned `<div>` elements layered over the background:
 
-Without a background image:
-- **Normal state**: semi-transparent color block (opacity 0.35)
-- **Hovered**: opacity 0.6 with border and label
+**With a background image (normal gameplay)**:
+- **Normal**: fully transparent — invisible overlay on the painted art. Only animation indicators (glimmer/pulse) are visible.
+- **Hovered (debug off)**: no visual change (cursor icon is the only feedback)
+- **Hovered (debug on)**: border and label tooltip appear
+
+**Debug mode** (toggled via the Debug button in title bar):
+- **Nav objects** (`id.startsWith('nav_')`) — red outline, red tint background, z-index 2
+- **Regular objects** — gold outline, gold tint background, z-index 1
+- **On hover** — label showing `visual.label` text below the hotspot
+
+Debug mode is the primary tool for verifying hotspot alignment against background art. The rendering in `GameView.tsx` (`objectHotspotStyle` function at line 69) applies debug borders unconditionally when `debugMode` is true.
+
+### Position Validation Checklist (for engine contributors and AI agents)
+
+When reviewing or generating object positions:
+
+1. **Position is top-left corner** — the hotspot box starts at `(x, y)`, it is not centered there
+2. **Bounds check**: `position.x + size.width ≤ 960` and `position.y + size.height ≤ 720`
+3. **Image resolution awareness** — check actual file dimensions before converting; don't assume 1920x1080
+4. **Y-axis compression** — visual position in the viewport is `y × 0.75`, which catches people off guard
+5. **Overlap detection** — objects in the same view shouldn't have hotspots that significantly overlap (z-index only distinguishes nav from non-nav)
+6. **Nav sizing** — doorways and passages typically need generous hotspots (80-200px wide) since players need to find and click them easily
+7. **Minimum clickable size** — hotspots smaller than ~25×20 in the coordinate space become frustrating to click in the compressed viewport
 
 ---
 

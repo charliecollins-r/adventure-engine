@@ -75,6 +75,7 @@ When you contribute to this project, follow these rules:
 6. **Update "Current State"** section below when completing work
 7. **Never let docs drift from reality** — if you see something outdated, fix it
 8. **Everything must be schema-driven** — never hardcode scenario-specific behavior in the engine. All game logic comes from the JSON. A third-party dev must be able to create a complete scenario package without writing code.
+9. **Maintain hotspot positioning accuracy** — when adding or modifying object positions in any scenario JSON: (a) check the actual background image dimensions, (b) apply the correct conversion formula (`json_x = img_x × (960/IMG_W)`, `json_y = img_y × (720/IMG_H)`), (c) validate bounds (`x+w ≤ 960`, `y+h ≤ 720`), (d) verify with debug mode when possible. Position is **top-left corner** of the hotspot box. See ADVENTURE_BUILDER.md "Coordinate System" for the full guide.
 
 ---
 
@@ -104,9 +105,11 @@ When you contribute to this project, follow these rules:
 The complete schema is in `docs/SCENARIO_SCHEMA.md` (1700+ lines). Key concepts:
 
 ### Coordinate System
-- **960x720 coordinate space** — object positions are center-point on this grid (origin at top-left)
-- Background images can be any resolution (1920x1080 recommended); the engine scales to fit
-- The render viewport is 960x540 pixels; the engine maps 960x720 coordinates to this viewport
+- **960x720 coordinate space** — object `position` is the **top-left corner** of the hotspot box (origin at top-left)
+- Background images can be any resolution (1376x768 and 1920x1080 are common); rendered with `object-fit: cover`
+- The render viewport is 960x540 pixels; scaling: `SCALE_X = 1.0`, `SCALE_Y = 0.75`
+- **Image-to-JSON conversion**: `json_x = img_pixel_x × (960 / IMG_W)`, `json_y = img_pixel_y × (720 / IMG_H)`
+- **Bounds rule**: `position.x + size.width ≤ 960` and `position.y + size.height ≤ 720`
 
 ### Views
 Screens/locations. Each has a background key, optional background_file, and a list of object IDs. Views can be "closeup" sub-views (e.g., zoom into a desk).
@@ -264,6 +267,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Navigation routing corrected**: Feeding Station is secondary hub (4 exits), Processing Lab and Security Hub are dead ends.
 - **Animation suppression**: `set_animation` effect clears glimmer/pulse on completed objects so they stop drawing attention after the player has collected items or gained knowledge from them.
 - **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. First use: Specimen Archive pod wall shows close-up of preserved alien specimens.
+- **Hotspot positioning guide**: Comprehensive documentation across ADVENTURE_BUILDER.md, TECHNICAL_DEEP_DIVE.md, SCENARIO_SCHEMA.md, and CLAUDE.md covering image-to-coordinate conversion formulas, worked examples, debug mode workflow, common mistakes, and an AI agent checklist. Self-maintenance rule #9 requires verifying positions against actual background image dimensions.
 
 ---
 
