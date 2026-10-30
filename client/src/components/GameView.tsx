@@ -89,8 +89,8 @@ function objectHotspotStyle(
     boxSizing: 'border-box',
   };
   if (debugMode) {
-    base.border = `2px solid ${isNav ? 'rgba(74,144,217,0.6)' : 'rgba(192,160,48,0.4)'}`;
-    base.backgroundColor = isNav ? 'rgba(74,144,217,0.08)' : 'rgba(192,160,48,0.06)';
+    base.border = `2px solid ${isNav ? 'rgba(220,50,50,0.7)' : 'rgba(192,160,48,0.4)'}`;
+    base.backgroundColor = isNav ? 'rgba(220,50,50,0.06)' : 'rgba(192,160,48,0.06)';
   }
   if (hovered) {
     base.border = `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`;
@@ -99,16 +99,18 @@ function objectHotspotStyle(
 }
 
 const ANIMATION_KEYFRAMES = `
-@keyframes hotspot-glimmer {
-  0%, 100% { box-shadow: none; }
-  15% { box-shadow: inset 0 0 8px 2px rgba(200, 220, 255, 0.3); }
-  30% { box-shadow: none; }
-  45% { box-shadow: inset 0 0 4px 1px rgba(200, 220, 255, 0.15); }
-  55% { box-shadow: none; }
+@keyframes glint-flash {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  8% { opacity: 1; transform: scale(1) rotate(15deg); }
+  12% { opacity: 0.6; transform: scale(0.8) rotate(20deg); }
+  16% { opacity: 0; transform: scale(0.3) rotate(25deg); }
+  30% { opacity: 0; }
+  34% { opacity: 0.5; transform: scale(0.6) rotate(-10deg); }
+  37% { opacity: 0; transform: scale(0.3) rotate(-5deg); }
 }
-@keyframes hotspot-pulse {
-  0%, 100% { box-shadow: none; }
-  50% { box-shadow: inset 0 0 6px 2px rgba(200, 180, 100, 0.25); }
+@keyframes screen-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 @keyframes ambient-flicker {
   0%, 100% { opacity: 0; }
@@ -256,12 +258,8 @@ export function GameView({
           isNav,
           debugMode,
         );
-        const animStyle: CSSProperties = {};
-        if (animation === 'glimmer' && !isHovered) {
-          animStyle.animation = 'hotspot-glimmer 6s ease-in-out infinite';
-        } else if (animation === 'pulse' && !isHovered) {
-          animStyle.animation = 'hotspot-pulse 3s ease-in-out infinite';
-        }
+        const showGlint = animation === 'glimmer' && !isHovered;
+        const showGlow = animation === 'pulse' && !isHovered;
         return (
           <div
             key={obj.id}
@@ -269,12 +267,46 @@ export function GameView({
             style={{
               ...hotspotStyle,
               zIndex: isNav ? 2 : 1,
-              ...animStyle,
+              overflow: 'visible',
             }}
             onClick={() => onObjectClick(obj.id)}
             onMouseEnter={() => setHoveredObject(obj.id)}
             onMouseLeave={() => setHoveredObject(null)}
           >
+            {showGlint && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '30%',
+                  left: '40%',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(200,220,255,0.6) 30%, transparent 70%)',
+                  boxShadow: '0 0 6px 3px rgba(200,220,255,0.4), 0 0 12px 4px rgba(255,255,255,0.15)',
+                  animation: 'glint-flash 8s ease-in-out infinite',
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+            {showGlow && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  width: '6px',
+                  height: '6px',
+                  marginTop: '-3px',
+                  marginLeft: '-3px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(140,220,180,0.8) 0%, rgba(100,200,150,0.3) 40%, transparent 70%)',
+                  boxShadow: '0 0 8px 4px rgba(100,200,150,0.2)',
+                  animation: 'screen-glow 4s ease-in-out infinite',
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
             {isHovered && <div style={styles.objectLabel}>{obj.visual.label}</div>}
           </div>
         );
