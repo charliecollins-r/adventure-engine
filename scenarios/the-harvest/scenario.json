@@ -3510,6 +3510,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The dispenser is rooted to the wall by a tangle of feeding tubes. It pulses slightly when you push against it."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You read the dispenser's output gauge aloud. The nutrient mixture is still cycling \u2014 pale green fluid pumping through translucent tubes. Someone, or something, is still being fed."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3540,6 +3560,36 @@
             {
               "type": "message",
               "text": "Shallow troughs of grey nutrient paste, half-eaten. The paste is replenished automatically. Something has been feeding here recently \u2014 you can see marks in the paste where a creature has scooped it out."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You dip a finger into the residue lining the trough. It's thick, lukewarm, and smells faintly of copper and chlorophyll. You wipe your hand on your suit."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The troughs are carved directly into the floor \u2014 depressions in the ship's living tissue. They can't be moved."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"What were they feeding in here?\" you whisper. The troughs are sized for something large \u2014 larger than you. The scrape marks along the edges suggest the occupants didn't come willingly."
             }
           ]
         }
@@ -3582,6 +3632,26 @@
             {
               "type": "message",
               "text": "You try making sounds at the nearest creature. It stops pacing and stares at you through the barrier. It makes a low, mournful sound in return. You don't share a language, but you share a situation. It returns to pacing."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your hand gets within inches before the hair on your arm stands up. The barrier is invisible but the static charge is unmistakable. Touching it would be unwise."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The barrier emitters are embedded in the ceiling and floor. Whatever powers them is deep inside the ship's walls."
             }
           ]
         }
@@ -3810,6 +3880,26 @@
               "amount": 20
             }
           ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The console is fused to the floor by thick cables of organic conduit. It's not going anywhere."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You mutter the alien symbols on the display under your breath. None of them resolve into anything meaningful, but a few recur \u2014 status codes, maybe. Or countdown timers."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3840,6 +3930,36 @@
             {
               "type": "message",
               "text": "The screen is cracked in a starburst pattern \u2014 something impacted it hard. The surrounding console has scorch marks. A chair is knocked over nearby. Someone fought the Choir here. The Choir won, obviously. But whoever it was put up a fight."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You trace the crack with your finger. The glass is warm \u2014 not from heat, but from whatever bioluminescent process still lights the display from within."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The screen is embedded in the console housing. Prying it out would take tools you don't have."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fractured display flickers between two images \u2014 a schematic of the ship's lower decks and something that might be a manifest. Both are too corrupted to read clearly."
             }
           ]
         }
@@ -3897,6 +4017,26 @@
               "type": "set_flag",
               "flag": "containment_key_obtained",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The drawer slides on organic rails but won't detach from the console. It's grown into the structure."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A faint label above the drawer slot \u2014 three alien glyphs and what looks like a security clearance level. The lowest tier, if you're reading the hierarchy right."
             }
           ]
         }
@@ -12780,6 +12920,26 @@
               "text": "You duck through the low passage. The air grows colder and the chemical smell intensifies."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push through a heavy membrane that serves as a door. It peels apart reluctantly, like splitting wet tissue."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A draft of cold, sterile air rolls out from the morgue. It smells of chemicals and something older \u2014 decay held in suspension."
+            }
+          ]
         }
       ]
     },
@@ -13160,6 +13320,26 @@
               "text": "You head back through the passage toward the containment corridor."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You duck under a low archway of fused bone and chitin, heading back toward the main corridor."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The corridor echoes back at you \u2014 a wet, reverberant sound, like speaking inside a throat."
+            }
+          ]
         }
       ]
     },
@@ -13198,6 +13378,26 @@
             {
               "type": "message",
               "text": "You squeeze through the floor vent and drop into the ventilation shaft. Red emergency lights cast everything in crimson."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You grip the edges of the vent opening and hoist yourself up. The metal is slick with condensation."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Air moves through the shaft in rhythmic gusts. Inhale, exhale. The ship is breathing through these vents."
             }
           ]
         }
@@ -13280,6 +13480,26 @@
               "text": "You step back through the translucent panels into the corridor."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push aside a curtain of dangling neural fibers and step back into the corridor."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The corridor hums faintly beyond the doorway. You can hear the ship breathing."
+            }
+          ]
         }
       ]
     },
@@ -13318,6 +13538,26 @@
             {
               "type": "message",
               "text": "You push through the heavy door into the cold, dry air of the Specimen Archive."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You slide open the archive door \u2014 it moves smoothly, the only well-maintained mechanism you've seen on this ship."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Faint crystalline harmonics drift from the archive. The specimens inside resonate at frequencies you can almost hear."
             }
           ]
         }
