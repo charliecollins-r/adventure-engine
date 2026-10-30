@@ -180,6 +180,7 @@
     {
       "id": "act1_specimen_archive",
       "objects": [
+        "specimen_pod_wall",
         "crystal_rack",
         "personal_log_crystal",
         "reading_device",
@@ -4441,6 +4442,72 @@
             {
               "type": "message",
               "text": "The reading device is a console grown from the archive wall. Thick neural cables feed into its base."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "specimen_pod_wall",
+      "name": "Specimen Pods",
+      "description": "Rows of amber preservation pods line the wall, each containing a different alien specimen suspended in fluid.",
+      "position": {
+        "x": 750,
+        "y": 230
+      },
+      "size": {
+        "width": 200,
+        "height": 350
+      },
+      "visual": {
+        "color": "#3a4a2a",
+        "label": "Pods"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You peer closer at the specimen pods. Each contains a perfectly preserved creature from a different world — an ammonite-like spiral with tendrils, a skeletal predator curled in fetal position, a bulbous cephalopod with too many eyes. All suspended in amber fluid, cataloged trophies of consumed civilizations."
+            },
+            {
+              "type": "show_closeup",
+              "image": "closeups/specimen_jars.webp"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your palm against the nearest pod. The glass is warm and faintly vibrates — the preservation fluid is circulating. These specimens are being kept alive, or at least in a state between life and death."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"What were you?\" you whisper to the curled skeleton. Its empty eye sockets stare back through the amber fluid. No answer — just the low hum of the preservation system."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pods are embedded deep in the living wall of the ship. There's no way to move or detach them."
             }
           ]
         }

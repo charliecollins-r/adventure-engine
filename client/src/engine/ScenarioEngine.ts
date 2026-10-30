@@ -24,6 +24,7 @@ export class ScenarioEngine {
   private _gameOver: GameOverResult | null;
   private _currentPhaseId: string | null;
   private _isHiding: boolean;
+  private _closeupImage: string | null;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -42,6 +43,7 @@ export class ScenarioEngine {
     this._gameOver = null;
     this._currentPhaseId = scenario.phases?.[0]?.id ?? null;
     this._isHiding = false;
+    this._closeupImage = null;
 
     this.objectIndex = new Map();
     for (const obj of scenario.objects) {
@@ -357,6 +359,14 @@ export class ScenarioEngine {
     this._messages = [];
   }
 
+  getCloseupImage(): string | null {
+    return this._closeupImage;
+  }
+
+  dismissCloseup(): void {
+    this._closeupImage = null;
+  }
+
   decayNoise(amount: number): void {
     this._noiseLevel = Math.max(0, this._noiseLevel - amount);
   }
@@ -498,6 +508,12 @@ export class ScenarioEngine {
         case 'set_animation':
           if (e.object) {
             this.objectAnimations[e.object] = e.value ?? '';
+          }
+          break;
+
+        case 'show_closeup':
+          if (e.image) {
+            this._closeupImage = e.image;
           }
           break;
 

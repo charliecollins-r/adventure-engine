@@ -647,6 +647,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `transform_item` | `from`, `to` | Replace one inventory item with another. |
 | `trigger_event` | `event` | Manually fire a named event. |
 | `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"` |
+| `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks to dismiss. |
 | `set_view` | `view` | Switch to a different view (closeup or back to main). |
 | `play_sound` | `sound` | Play a named sound effect (from a standard library). |
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |

@@ -48,7 +48,8 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   ├── design.md
 │   │   ├── deep-design.md
 │   │   ├── audio/                    ←   Ambient audio tracks
-│   │   └── backgrounds/              ←   11 Act 1 backgrounds
+│   │   ├── backgrounds/              ←   11 Act 1 backgrounds
+│   │   └── closeups/                 ←   Detail images for show_closeup effect
 │   └── ... (15 scenarios total, 13 with JSONs, 2 design-only)
 ├── docs/
 │   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — full JSON reference
@@ -132,7 +133,7 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 `flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `noise_above`, `noise_below`, `phase_is`, `time_after`, `time_before`, `item_count`, `is_hiding`, `not_hiding`, `killer_is` + composites: `any_of`, `all_of`
 
 ### Effect Types (20+)
-`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`
+`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`
 
 ### Other Systems
 - **Items**: Inventory objects with examine interactions
@@ -262,6 +263,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Response shorthand**: Interactions can use `response` string instead of `then` effects array for simple messages.
 - **Navigation routing corrected**: Feeding Station is secondary hub (4 exits), Processing Lab and Security Hub are dead ends.
 - **Animation suppression**: `set_animation` effect clears glimmer/pulse on completed objects so they stop drawing attention after the player has collected items or gained knowledge from them.
+- **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. First use: Specimen Archive pod wall shows close-up of preserved alien specimens.
 
 ---
 

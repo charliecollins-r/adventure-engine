@@ -6,6 +6,7 @@ import { IntroSequence } from './IntroSequence';
 import { InventoryPanel } from './InventoryPanel';
 import { MessagePanel } from './MessagePanel';
 import { NoiseIndicator } from './NoiseIndicator';
+import { CloseupOverlay } from './CloseupOverlay';
 
 interface ScenarioPlayerProps {
   scenario: Scenario;
@@ -268,7 +269,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
   const gameOverResult = engine.getGameOverResult();
+  const closeupImage = engine.getCloseupImage();
   const ambientText = scenario.setting.ambient_text;
+
+  const handleCloseupDismiss = useCallback(() => {
+    engine.dismissCloseup();
+    bump();
+  }, [engine, bump]);
 
   if (showIntro && scenario.setting.intro_text?.length) {
     return (
@@ -356,6 +363,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         />
         {/* Right-click cycles verbs KQ5-style — no verb bar needed */}
       </div>
+
+      {/* Closeup overlay */}
+      {closeupImage && (
+        <CloseupOverlay
+          imageSrc={`/scenarios/${scenario.metadata.id}/${closeupImage}`}
+          onClose={handleCloseupDismiss}
+        />
+      )}
 
       {/* Game over overlay */}
       {gameOverResult && (

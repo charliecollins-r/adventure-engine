@@ -80,6 +80,7 @@ export interface Effect {
   seconds?: number;
   effects?: Effect[];
   cue?: string;
+  image?: string;
   messages?: string[];
   visible?: boolean;
   when?: Condition[];
