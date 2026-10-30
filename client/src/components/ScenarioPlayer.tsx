@@ -233,6 +233,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         setSelectedItem(null);
       } else {
         setSelectedItem(itemId);
+        const item = engine.getInventory().find((it) => it.id === itemId);
+        if (item) {
+          engine.showMessage(item.description);
+          bump();
+        }
       }
     },
     [engine, selectedItem, bump],
