@@ -3061,6 +3061,26 @@
               "text": "You climb onto the nearest table. Standing on it gives you a better view of the room \u2014 and access to the higher shelves. The restraints twitch when you touch them, sensing biomass. You step back quickly."
             }
           ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tables are anchored to the floor by thick organic stalks. They're part of the ship's anatomy, not furniture."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You mutter to yourself, studying the stained surface. \"Whatever they did here... they did it to a lot of us.\""
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3117,6 +3137,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The rack is grown directly from the wall. Pulling it would be like trying to remove a rib."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You name each tool under your breath, trying to guess their purpose. None of the shapes match any surgery you've seen. That's not reassuring."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3147,6 +3187,36 @@
             {
               "type": "message",
               "text": "Dozens of sealed jars containing biological samples \u2014 tissue, fluid, organs. Each is labeled with the same alien notation you've seen on the pods. Some samples are recognizable (a heart, an eye), others are abstract shapes in fluid. Your stomach turns."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach toward the jars but pull back. The contents shift when your shadow falls across them, as if reacting to your presence."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The jars are seated in recesses molded perfectly to their shape. They weren't placed here \u2014 they were grown in place."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You lean close and whisper. The pale thing in the nearest jar twitches. You step back quickly. It heard you."
             }
           ]
         }
@@ -3195,6 +3265,26 @@
               "type": "set_flag",
               "flag": "security_sequence_known",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The display is a bioluminescent membrane stretched across an organic frame. It can't be moved any more than you could move a patch of skin."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You try speaking to the display. A symbol flickers in response \u2014 the ship might understand vocal commands, but you don't know its language. Yet."
             }
           ]
         }
@@ -12522,6 +12612,26 @@
         {
           "verb": "hand",
           "response": "The conduits are warm and faintly pulsing. You pull your hand back \u2014 the surface feels disturbingly like skin."
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pipes are fused into the walls \u2014 part of the ship itself. They pulse faintly, like veins."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your ear close. A wet, rhythmic gurgling echoes through the metal. Something is being pumped through the ship."
+            }
+          ]
         }
       ]
     },
@@ -12550,6 +12660,26 @@
         {
           "verb": "hand",
           "response": "The grating is bolted down firmly. Through the gaps you can see bioluminescent fluid pumping through transparent tubes."
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The grating is bolted down with organic rivets that seem to have grown into the floor. It won't budge."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You whisper into the grate. Your voice disappears into the dark below without echo, as if something down there absorbed the sound."
+            }
+          ]
         }
       ]
     },
@@ -12690,6 +12820,26 @@
               "text": "You pass under the archway and back into the containment corridor."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your palm against the doorframe. It contracts slightly at your touch, then relaxes. The ship knows you're here."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The corridor beyond echoes with the ship's omnipresent hum. At least out there you have options for where to go."
+            }
+          ]
         }
       ]
     },
@@ -12728,6 +12878,26 @@
             {
               "type": "message",
               "text": "You head back through the corridor into the massive stasis hold."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You trace your fingers along the archway. The surface is warm and slightly damp, like touching the inside of a throat."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The stasis hold behind you hums with the drone of a hundred occupied pods. You don't want to go back... but you might have to."
             }
           ]
         }
@@ -12770,6 +12940,26 @@
               "text": "The heavy door grinds open. The stench of preservative chemicals hits you immediately."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push against the membrane-like door. It yields with a wet sucking sound, revealing the lab beyond."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A faint chemical smell wafts from the lab entrance. Something acidic, something organic. The smell of specimens being processed."
+            }
+          ]
         }
       ]
     },
@@ -12810,6 +13000,26 @@
               "text": "You walk deeper into the organic corridor. The purple glow intensifies as you reach the feeding station."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The passage deeper into the ship feels warmer. The walls here are slick with condensation \u2014 or something worse."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "From deeper in the corridor you hear a distant mechanical churning. It sounds like machinery designed to sustain something alive."
+            }
+          ]
         }
       ]
     },
@@ -12848,6 +13058,26 @@
             {
               "type": "message",
               "text": "The translucent panels part with a wet hiss. Monitor screens illuminate a small control room."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You feel along the right-side passage entrance. Faint grooves in the wall might be alien signage, worn smooth by time."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A low electronic hum emanates from the right passage. Screens are still active in there \u2014 the ship's systems haven't fully died."
             }
           ]
         }
