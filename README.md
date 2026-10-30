@@ -2,7 +2,7 @@
 
 **A JSON-driven game engine inspired by the golden age of point-and-click adventure games.**
 
-Define an entire adventure scenario — puzzles, narrative, AI antagonists, branching outcomes — as a single JSON file and a set of background images. No code changes. No plugins. No scripting language. Drop in JSON, drop in art, play.
+Define an entire adventure — puzzles, narrative, branching outcomes, and optionally an AI antagonist — as a single JSON file and a set of background images. No code changes. No plugins. No scripting language. Drop in JSON, drop in art, play.
 
 <p align="center">
   <img src="assets/act1-backgrounds/act1_stasis_hold.webp" width="800" alt="The Stasis Hold — Act 1 of The Harvest" />
@@ -14,10 +14,10 @@ Define an entire adventure scenario — puzzles, narrative, AI antagonists, bran
 
 ## What Is This?
 
-Adventure Engine is a browser-based single-player adventure game engine where:
+Adventure Engine is a browser-based point-and-click adventure game engine where:
 
-- **You are always the captive** — trapped, solving puzzles to escape before an AI-controlled antagonist catches you
-- **Every scenario is pure data** — one JSON file defines all game logic, interactions, puzzles, narrative, and killer behavior
+- **Every scenario is pure data** — one JSON file defines all game logic, interactions, puzzles, narrative, and (optionally) antagonist behavior
+- **Any genre works** — horror escape rooms with an AI killer, cozy wizard puzzles, sci-fi exploration, pure adventure with no antagonist at all
 - **Background art is human-created** — painted scenes in the style of Sierra's King's Quest V/VI, rendered at 1920x1080
 - **The engine is generic** — it reads any valid scenario JSON and runs it without scenario-specific code
 - **Scenarios can be AI-generated** — give an LLM the [schema spec](docs/SCENARIO_SCHEMA.md) and a theme, get a playable level
@@ -33,7 +33,7 @@ The interaction model draws from the best of classic adventure gaming:
 | **Monkey Island** | Item combinations, dialogue-as-puzzle, no-dead-ends philosophy, alternate solutions |
 | **Myst** | Environmental manipulation, code/pattern input, observation puzzles, power routing |
 | **The Room** | Nested examination layers — object within object within object |
-| **Resident Evil** | Noise-as-risk, hiding mechanics, evidence the antagonist notices on patrol |
+| **Resident Evil** | Noise-as-risk, hiding mechanics, evidence the antagonist notices on patrol (optional) |
 | **Outer Wilds** | Knowledge-as-key — information gates progress, not just items |
 
 ---
@@ -139,9 +139,9 @@ For Myst-style interactive elements, the schema defines **puzzle widgets** — p
 - `keypad` — Numeric code entry
 - `dial` — Rotational input
 
-### Killer AI
+### Antagonist AI (Optional)
 
-Every scenario configures its antagonist through JSON — patrol timing, noise thresholds, search thoroughness, evidence awareness, personality dialogue, and phase-based behavior escalation. The killer is a server-side state machine that reacts to player actions in real time.
+Scenarios can optionally include an AI-controlled antagonist — patrol timing, noise thresholds, search thoroughness, evidence awareness, personality dialogue, and phase-based behavior escalation. The antagonist is a server-side state machine that reacts to player actions in real time. Omit it entirely for a pure point-and-click adventure with no threat mechanic.
 
 ### 30 Design Patterns
 
@@ -313,7 +313,7 @@ The engine is built in two halves:
 See [PLAN.md](PLAN.md) for the full implementation roadmap. Current focus:
 
 1. **Scenario engine** — Generic condition/effect interpreter that runs any valid JSON
-2. **Killer AI** — Server-side state machine with configurable behavior per scenario
+2. **Antagonist AI (optional)** — Server-side state machine with configurable behavior per scenario
 3. **Verb UI** — Classic point-and-click verb selector (look, hand, take, talk, use item)
 4. **Puzzle widgets** — Pre-built interactive components (locks, keypads, panels)
 5. **Scene navigation** — Point-and-click transitions between connected views
@@ -374,7 +374,7 @@ Each view defines its animation preset in the scenario JSON — glow zone positi
 - [x] Act 1 level map with spatial connectivity and navigation hotspots
 - [x] Ambient animation system (Canvas2D, 7 layers, 5 mood presets)
 - [ ] Scenario engine (generic JSON interpreter) — **next**
-- [ ] Killer AI state machine
+- [ ] Antagonist AI state machine (optional per scenario)
 - [ ] Verb selector UI
 - [ ] Puzzle widget components
 - [ ] Point-and-click scene navigation
@@ -382,7 +382,7 @@ Each view defines its animation preset in the scenario JSON — glow zone positi
 - [ ] Scenario validation tooling
 - [ ] Sound/music system
 - [ ] Scenario browser / title screen
-- [ ] Multiplayer mode (second player as killer)
+- [ ] Multiplayer mode (co-op or second player as antagonist)
 - [ ] Community scenario marketplace
 
 ---
