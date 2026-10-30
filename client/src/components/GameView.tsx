@@ -274,20 +274,26 @@ export function GameView({
             onMouseLeave={() => setHoveredObject(null)}
           >
             {showGlint && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '30%',
-                  left: '40%',
-                  width: '10px',
-                  height: '10px',
+              <div style={{ position: 'absolute', top: '30%', left: '40%', width: '0px', height: '0px', pointerEvents: 'none', animation: 'glint-flash 8s ease-in-out infinite' }}>
+                <div style={{
+                  position: 'absolute', top: '-6px', left: '-1px', width: '2px', height: '12px',
+                  background: 'linear-gradient(180deg, transparent, rgba(255,255,255,0.95), transparent)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: '-1px', left: '-6px', width: '12px', height: '2px',
+                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: '-4px', left: '-4px', width: '8px', height: '8px',
+                  transform: 'rotate(45deg)',
+                  background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,230,255,0.7) 40%, transparent 70%)',
+                }} />
+                <div style={{
+                  position: 'absolute', top: '-8px', left: '-8px', width: '16px', height: '16px',
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(200,220,255,0.6) 30%, transparent 70%)',
-                  boxShadow: '0 0 6px 3px rgba(200,220,255,0.4), 0 0 12px 4px rgba(255,255,255,0.15)',
-                  animation: 'glint-flash 8s ease-in-out infinite',
-                  pointerEvents: 'none',
-                }}
-              />
+                  background: 'radial-gradient(circle, rgba(200,220,255,0.3) 0%, transparent 70%)',
+                }} />
+              </div>
             )}
             {showGlow && (
               <div

@@ -12399,11 +12399,11 @@
       "description": "A passage leading to Containment Corridor.",
       "position": {
         "x": 135,
-        "y": 55
+        "y": 40
       },
       "size": {
-        "width": 160,
-        "height": 340
+        "width": 335,
+        "height": 453
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12438,12 +12438,12 @@
       "name": "Rear Passage",
       "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 320,
-        "y": 10
+        "x": 400,
+        "y": 0
       },
       "size": {
-        "width": 160,
-        "height": 160
+        "width": 260,
+        "height": 213
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12478,12 +12478,12 @@
       "name": "Back Archway",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 400,
-        "y": 60
+        "x": 370,
+        "y": 50
       },
       "size": {
-        "width": 160,
-        "height": 280
+        "width": 220,
+        "height": 350
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12518,12 +12518,12 @@
       "name": "Stasis Hold",
       "description": "A passage leading to Stasis Hold.",
       "position": {
-        "x": 350,
-        "y": 640
+        "x": 340,
+        "y": 653
       },
       "size": {
-        "width": 260,
-        "height": 70
+        "width": 310,
+        "height": 67
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12558,12 +12558,12 @@
       "name": "Left Door",
       "description": "A passage leading to Processing Lab.",
       "position": {
-        "x": 190,
-        "y": 130
+        "x": 110,
+        "y": 100
       },
       "size": {
-        "width": 200,
-        "height": 460
+        "width": 420,
+        "height": 573
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12598,12 +12598,12 @@
       "name": "Far End",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 370,
-        "y": 80
+        "x": 570,
+        "y": 160
       },
       "size": {
-        "width": 220,
-        "height": 260
+        "width": 300,
+        "height": 393
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12638,12 +12638,12 @@
       "name": "Right Door",
       "description": "A passage leading to Security Hub.",
       "position": {
-        "x": 750,
-        "y": 130
+        "x": 830,
+        "y": 100
       },
       "size": {
-        "width": 180,
-        "height": 460
+        "width": 160,
+        "height": 547
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12678,12 +12678,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 350,
-        "y": 650
+        "x": 300,
+        "y": 640
       },
       "size": {
-        "width": 260,
-        "height": 60
+        "width": 360,
+        "height": 70
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12719,11 +12719,11 @@
       "description": "A passage leading to Containment Corridor.",
       "position": {
         "x": 0,
-        "y": 180
+        "y": 120
       },
       "size": {
-        "width": 80,
-        "height": 340
+        "width": 70,
+        "height": 547
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12758,12 +12758,12 @@
       "name": "Floor Vent",
       "description": "A passage leading to Ventilation Shaft.",
       "position": {
-        "x": 350,
-        "y": 650
+        "x": 330,
+        "y": 640
       },
       "size": {
-        "width": 260,
-        "height": 60
+        "width": 330,
+        "height": 80
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12798,12 +12798,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 350,
-        "y": 660
+        "x": 300,
+        "y": 650
       },
       "size": {
-        "width": 260,
-        "height": 50
+        "width": 360,
+        "height": 60
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12838,12 +12838,12 @@
       "name": "Back to Corridor",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 350,
-        "y": 650
+        "x": 300,
+        "y": 640
       },
       "size": {
-        "width": 260,
-        "height": 60
+        "width": 360,
+        "height": 70
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12878,12 +12878,12 @@
       "name": "Right Passage",
       "description": "A sealed doorway on the right wall of the feeding station, leading to the Specimen Archive.",
       "position": {
-        "x": 870,
-        "y": 140
+        "x": 780,
+        "y": 187
       },
       "size": {
-        "width": 90,
-        "height": 340
+        "width": 180,
+        "height": 400
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12918,12 +12918,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 780,
-        "y": 120
+        "x": 720,
+        "y": 100
       },
       "size": {
-        "width": 140,
-        "height": 380
+        "width": 200,
+        "height": 450
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -14505,12 +14505,12 @@
       "id": "nav_act1_ventilation_shaft_to_act1_airlock_bay",
       "name": "Shaft Exit",
       "position": {
-        "x": 380,
-        "y": 180
+        "x": 330,
+        "y": 140
       },
       "size": {
-        "width": 200,
-        "height": 250
+        "width": 300,
+        "height": 340
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -14543,12 +14543,12 @@
       "id": "nav_act1_airlock_bay_to_act1_ventilation_shaft",
       "name": "Ventilation Shaft",
       "position": {
-        "x": 350,
-        "y": 650
+        "x": 300,
+        "y": 640
       },
       "size": {
-        "width": 260,
-        "height": 60
+        "width": 360,
+        "height": 70
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
