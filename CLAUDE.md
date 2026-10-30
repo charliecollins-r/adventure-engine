@@ -26,14 +26,14 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   ├── components/               ← React UI components
 │   │   │   ├── ScenarioPlayer.tsx    ← Main game orchestrator
 │   │   │   ├── ScenarioLoader.tsx    ← Scenario selection screen
-│   │   │   ├── GameView.tsx          ← Renders background + object hotspots
-│   │   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
+│   │   │   ├── GameView.tsx          ← Renders background + object hotspots + animations
+│   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
 │   │   │   ├── InventoryPanel.tsx    ← Item display and selection
 │   │   │   ├── MessagePanel.tsx      ← Story text display
 │   │   │   └── NoiseIndicator.tsx    ← Noise level meter
 │   │   ├── App.tsx                   ← Entry: ScenarioLoader → ScenarioPlayer
 │   │   └── App.css                   ← Dark theme base styles
-│   ├── public/                        ← Static assets (Vite middleware serves scenarios)
+│   ├── public/scenarios → ../../scenarios  ← Symlink so Vite serves scenario content
 │   ├── package.json                  ← React 19
 │   └── vite.config.ts
 ├── server/                            ← Spring Boot 3 backend (Java 21, Maven)
@@ -257,6 +257,10 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Branch**: `claude/dreamy-volta-ha3r6v`
 - **Architecture doc** at `docs/ARCHITECTURE.md` with SVG diagrams in `docs/images/`
 - **Gameplay screenshots** in `docs/images/` referenced by README
+- **Documentation suite**: README.md (ecosystem overview), ADVENTURE_BUILDER.md (third-party dev guide), TECHNICAL_DEEP_DIVE.md (engine internals), docs/SCENARIO_SCHEMA.md (JSON reference), docs/ARCHITECTURE.md (architecture diagrams)
+- **Hotspot animation system**: CSS glimmer/pulse animations driven by `visual.animation` in schema. Applied to key Harvest objects.
+- **Response shorthand**: Interactions can use `response` string instead of `then` effects array for simple messages.
+- **Navigation routing corrected**: Feeding Station is secondary hub (4 exits), Processing Lab and Security Hub are dead ends.
 
 ---
 
