@@ -12598,12 +12598,12 @@
       "name": "Far End",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 380,
-        "y": 120
+        "x": 430,
+        "y": 72
       },
       "size": {
-        "width": 200,
-        "height": 320
+        "width": 240,
+        "height": 420
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
