@@ -2560,6 +2560,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You whisper to yourself, staring at the empty pod. \"How long was I in there?\" The ship offers no answer, only the wet drip of stasis fluid."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pod is fused to the wall by thick organic brackets. It's not going anywhere \u2014 and neither is what happened inside it."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -2622,6 +2642,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You listen to the fluid gurgling into the drain. It sounds almost like breathing \u2014 a rhythmic pulse synced to something deep in the ship."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The channel is carved directly into the floor, part of the ship's living architecture. You couldn't pry it loose without tools."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -2662,6 +2702,26 @@
         {
           "verb": "hand",
           "response": "You tap on the nearest pod's surface. The amber fluid inside swirls briefly. The creature within doesn't stir."
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Can you hear me?\" you murmur, pressing close to a pod. The creature inside doesn't stir. Maybe that's a mercy."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pods are integrated into the wall like organs in a body. They're grown in place \u2014 you'd need to cut them free."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -2716,6 +2776,26 @@
               "type": "set_flag",
               "flag": "specimen_tag_taken",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You mouth the alien numerals on the tag hook. The symbols feel wrong in your throat, like a language not meant for human vocal cords."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The hook is a small nub of bio-metal protruding from the pod frame. It bends slightly but won't break off."
             }
           ]
         }
@@ -2791,6 +2871,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You try reading the alien script aloud. The syllables come out as clicking sounds that feel disturbingly natural. You stop yourself."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The labels are etched directly into the pod surfaces \u2014 organic ink fused into organic glass. They're part of the pods themselves."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -2837,6 +2937,26 @@
               "amount": 5
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"What do these buttons actually do?\" you wonder aloud. The controls pulse faintly in response, as if the ship heard you."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The controls are grown into the wall, connected by tendrils that disappear into the ship's flesh. They're not removable."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -2867,6 +2987,36 @@
             {
               "type": "message",
               "text": "A creature the size of a large dog \u2014 six legs, iridescent carapace, compound eyes that catch the bioluminescent light. It's perfectly preserved, curled in a resting position. Its world is probably dead now, consumed like all the others marked in red on the archive's holographic display. This is all that remains of its kind."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your palm against the pod glass. It's ice cold. The insect's compound eyes seem to track your hand, but surely that's a trick of the amber fluid."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"What are you?\" you ask the frozen creature. Its mandibles are parted mid-screech. Whatever it was doing when they caught it, it wasn't going quietly."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The specimen pod is anchored to the wall by the same organic brackets as every other pod. It weighs more than you could lift."
             }
           ]
         }
@@ -12438,6 +12588,26 @@
             {
               "type": "message",
               "text": "You slip through the archway between towering pod racks. The corridor beyond hums with energy."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You trail your fingers along the archway's edge. The surface is warm and slightly damp \u2014 like touching the inside of a mouth."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You call out into the corridor beyond. Your voice bounces back flat and dead. Whatever's down there absorbs sound."
             }
           ]
         }
