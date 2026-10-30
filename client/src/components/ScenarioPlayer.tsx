@@ -272,6 +272,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         <InventoryPanel
           items={inventory}
           selectedItem={selectedItem}
+          scenarioId={scenario.metadata.id}
           onItemSelect={handleItemSelect}
           onItemExamine={handleItemExamine}
         />

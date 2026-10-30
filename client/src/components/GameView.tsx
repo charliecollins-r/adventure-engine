@@ -89,7 +89,7 @@ function objectHotspotStyle(
   };
 }
 
-const GLIMMER_KEYFRAMES = `
+const ANIMATION_KEYFRAMES = `
 @keyframes hotspot-glimmer {
   0%, 100% { box-shadow: none; }
   15% { box-shadow: inset 0 0 8px 2px rgba(200, 220, 255, 0.3); }
@@ -101,6 +101,21 @@ const GLIMMER_KEYFRAMES = `
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.35; }
 }
+@keyframes ambient-flicker {
+  0%, 100% { opacity: 0; }
+  20% { opacity: 0.03; }
+  40% { opacity: 0; }
+  60% { opacity: 0.05; }
+  80% { opacity: 0.02; }
+}
+@keyframes ambient-breathe {
+  0%, 100% { opacity: 0.04; }
+  50% { opacity: 0.08; }
+}
+@keyframes ambient-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
 `;
 
 let stylesInjected = false;
@@ -108,9 +123,30 @@ function injectAnimationStyles() {
   if (stylesInjected) return;
   stylesInjected = true;
   const el = document.createElement('style');
-  el.textContent = GLIMMER_KEYFRAMES;
+  el.textContent = ANIMATION_KEYFRAMES;
   document.head.appendChild(el);
 }
+
+const AMBIENT_STYLES: Record<string, CSSProperties> = {
+  flicker: {
+    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+    background: 'radial-gradient(ellipse at 50% 30%, rgba(100, 200, 150, 0.15), transparent 70%)',
+    animation: 'ambient-flicker 8s ease-in-out infinite',
+    pointerEvents: 'none', zIndex: 1,
+  },
+  breathe: {
+    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+    background: 'radial-gradient(ellipse at 50% 50%, rgba(80, 120, 180, 0.12), transparent 60%)',
+    animation: 'ambient-breathe 10s ease-in-out infinite',
+    pointerEvents: 'none', zIndex: 1,
+  },
+  scan: {
+    position: 'absolute', top: 0, left: 0, width: '100%', height: '200%',
+    background: 'linear-gradient(180deg, transparent 40%, rgba(100, 220, 160, 0.04) 50%, transparent 60%)',
+    animation: 'ambient-scan 12s linear infinite',
+    pointerEvents: 'none', zIndex: 1,
+  },
+};
 
 export function GameView({
   engine,
@@ -131,6 +167,8 @@ export function GameView({
   const bgFile = engine.getBackgroundFile();
   const scenarioId = engine.getScenario().metadata.id;
   const cursor = VERB_CURSORS[activeVerb] ?? 'default';
+
+  const roomAnimation = view.room_animation;
 
   const cursorLabel = selectedItem
     ? `Use ${engine.getInventory().find((it) => it.id === selectedItem)?.name ?? selectedItem} on...`
@@ -172,6 +210,11 @@ export function GameView({
         />
       )}
 
+      {/* Ambient room animation overlay */}
+      {roomAnimation && AMBIENT_STYLES[roomAnimation] && (
+        <div style={AMBIENT_STYLES[roomAnimation]} />
+      )}
+
       {/* Cursor action label */}
       <div
         style={{
@@ -193,6 +236,21 @@ export function GameView({
         const isHovered = hoveredObject === obj.id;
         const isNav = obj.id.startsWith('nav_');
         const animation = obj.visual.animation;
+        const hasAnim = !!animation && !isHovered;
+        const hotspotStyle = objectHotspotStyle(
+          obj.position.x,
+          obj.position.y,
+          obj.size.width,
+          obj.size.height,
+          obj.visual.color,
+          isHovered,
+          cursor,
+          !!bgFile,
+        );
+        if (hasAnim) {
+          hotspotStyle.opacity = 1;
+          hotspotStyle.backgroundColor = 'transparent';
+        }
         const animStyle: CSSProperties = {};
         if (animation === 'glimmer' && !isHovered) {
           animStyle.animation = 'hotspot-glimmer 6s ease-in-out infinite';
@@ -204,16 +262,7 @@ export function GameView({
             key={obj.id}
             data-object-hotspot
             style={{
-              ...objectHotspotStyle(
-                obj.position.x,
-                obj.position.y,
-                obj.size.width,
-                obj.size.height,
-                obj.visual.color,
-                isHovered,
-                cursor,
-                !!bgFile,
-              ),
+              ...hotspotStyle,
               position: 'absolute',
               zIndex: isNav ? 2 : 1,
               border: isHovered

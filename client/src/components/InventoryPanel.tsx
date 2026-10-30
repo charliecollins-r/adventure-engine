@@ -4,6 +4,7 @@ import type { Item } from '../engine/types';
 interface InventoryPanelProps {
   items: Item[];
   selectedItem: string | null;
+  scenarioId: string;
   onItemSelect: (itemId: string) => void;
   onItemExamine: (itemId: string) => void;
 }
@@ -55,6 +56,7 @@ function itemStyle(selected: boolean, hovered: boolean): CSSProperties {
 export function InventoryPanel({
   items,
   selectedItem,
+  scenarioId,
   onItemSelect,
   onItemExamine,
 }: InventoryPanelProps) {
@@ -64,23 +66,42 @@ export function InventoryPanel({
     <div style={styles.panel}>
       <span style={styles.label}>Items</span>
       {items.length === 0 && <span style={styles.empty}>Empty</span>}
-      {items.map((item) => (
-        <button
-          key={item.id}
-          style={itemStyle(selectedItem === item.id, hovered === item.id)}
-          onClick={() => onItemSelect(item.id)}
-          onDoubleClick={() => onItemExamine(item.id)}
-          onContextMenu={(e) => {
-            e.preventDefault();
-            onItemExamine(item.id);
-          }}
-          onMouseEnter={() => setHovered(item.id)}
-          onMouseLeave={() => setHovered(null)}
-          title={`${item.name} — right-click to examine`}
-        >
-          {item.name}
-        </button>
-      ))}
+      {items.map((item) => {
+        const iconSrc = item.icon && !item.icon.startsWith('#')
+          ? `/scenarios/${scenarioId}/${item.icon}`
+          : null;
+        return (
+          <button
+            key={item.id}
+            style={itemStyle(selectedItem === item.id, hovered === item.id)}
+            onClick={() => onItemSelect(item.id)}
+            onDoubleClick={() => onItemExamine(item.id)}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              onItemExamine(item.id);
+            }}
+            onMouseEnter={() => setHovered(item.id)}
+            onMouseLeave={() => setHovered(null)}
+            title={`${item.name} — right-click to examine`}
+          >
+            {iconSrc ? (
+              <img
+                src={iconSrc}
+                alt={item.name}
+                style={{ width: '28px', height: '28px', objectFit: 'contain', verticalAlign: 'middle' }}
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                  const span = document.createElement('span');
+                  span.textContent = item.name;
+                  (e.target as HTMLElement).parentElement?.appendChild(span);
+                }}
+              />
+            ) : (
+              item.name
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }

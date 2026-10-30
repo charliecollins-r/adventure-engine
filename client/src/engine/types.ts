@@ -29,6 +29,7 @@ export interface View {
   background_file?: string;
   objects: string[];
   back_label?: string;
+  room_animation?: string;
 }
 
 export interface Position {

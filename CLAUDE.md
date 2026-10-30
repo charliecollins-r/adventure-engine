@@ -27,13 +27,13 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   │   ├── ScenarioPlayer.tsx    ← Main game orchestrator
 │   │   │   ├── ScenarioLoader.tsx    ← Scenario selection screen
 │   │   │   ├── GameView.tsx          ← Renders background + object hotspots
-│   │   │   ├── VerbBar.tsx           ← Verb selection (look, hand, take, talk, use)
+│   │   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
 │   │   │   ├── InventoryPanel.tsx    ← Item display and selection
 │   │   │   ├── MessagePanel.tsx      ← Story text display
 │   │   │   └── NoiseIndicator.tsx    ← Noise level meter
 │   │   ├── App.tsx                   ← Entry: ScenarioLoader → ScenarioPlayer
 │   │   └── App.css                   ← Dark theme base styles
-│   ├── public/scenarios → ../../scenarios  ← Symlink so Vite serves scenario content
+│   ├── public/                        ← Static assets (Vite middleware serves scenarios)
 │   ├── package.json                  ← React 19
 │   └── vite.config.ts
 ├── server/                            ← Spring Boot 3 backend (Java 21, Maven)
@@ -47,13 +47,16 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   ├── scenario.json
 │   │   ├── design.md
 │   │   ├── deep-design.md
-│   │   └── backgrounds/              ← 11 Act 1 backgrounds
+│   │   ├── audio/                    ←   Ambient audio tracks
+│   │   └── backgrounds/              ←   11 Act 1 backgrounds
 │   └── ... (15 scenarios total, 13 with JSONs, 2 design-only)
 ├── docs/
-│   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — read this first
-│   ├── ARCHITECTURE.md               ← Engine internals deep dive (diagrams, data flow)
+│   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — full JSON reference
+│   ├── ARCHITECTURE.md               ← Engine internals (diagrams, data flow)
 │   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
 │   └── images/                       ← Screenshots for README
+├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
+├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)
 └── .gitignore
 ```
 
@@ -65,9 +68,12 @@ When you contribute to this project, follow these rules:
 
 1. **Update CLAUDE.md** when you change the repo structure, add/remove files or folders, change the tech stack, make architecture decisions, add scenarios, or change the coordinate system / schema
 2. **Update README.md** when you change anything user-facing: repo structure, getting started instructions, scenario list, roadmap items, tech stack
-3. **Keep the scenario list current** in both CLAUDE.md and README.md when adding or removing scenarios
-4. **Update "Current State"** section below when completing work
-5. **Never let docs drift from reality** — if you see something outdated, fix it
+3. **Update ADVENTURE_BUILDER.md** when you change anything a scenario author needs to know: schema fields, supported features, verbs, coordinate system, asset formats, registration process
+4. **Update TECHNICAL_DEEP_DIVE.md** when you change engine internals: ScenarioEngine behavior, new condition/effect types, component architecture, rendering pipeline, build config
+5. **Keep the scenario list current** in both CLAUDE.md and README.md when adding or removing scenarios
+6. **Update "Current State"** section below when completing work
+7. **Never let docs drift from reality** — if you see something outdated, fix it
+8. **Everything must be schema-driven** — never hardcode scenario-specific behavior in the engine. All game logic comes from the JSON. A third-party dev must be able to create a complete scenario package without writing code.
 
 ---
 

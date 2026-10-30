@@ -75,7 +75,8 @@
         "nav_act1_stasis_hold_to_act1_containment_corridor"
       ],
       "background_key": "act1_stasis_hold",
-      "background_file": "backgrounds/act1_stasis_hold.webp"
+      "background_file": "backgrounds/act1_stasis_hold.webp",
+      "room_animation": "breathe"
     },
     {
       "id": "act1_pod_cluster",
@@ -86,7 +87,8 @@
       ],
       "background_key": "act1_pod_cluster",
       "background_file": "backgrounds/act1_pod_cluster.webp",
-      "back_label": "Back to Stasis Hold"
+      "back_label": "Back to Stasis Hold",
+      "room_animation": "breathe"
     },
     {
       "id": "act1_processing_lab",
@@ -98,7 +100,8 @@
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
       "background_key": "act1_processing_lab",
-      "background_file": "backgrounds/act1_processing_lab.webp"
+      "background_file": "backgrounds/act1_processing_lab.webp",
+      "room_animation": "flicker"
     },
     {
       "id": "act1_containment_corridor",
@@ -111,7 +114,8 @@
         "nav_act1_containment_corridor_to_act1_security_hub"
       ],
       "background_key": "act1_containment_corridor",
-      "background_file": "backgrounds/act1_containment_corridor.webp"
+      "background_file": "backgrounds/act1_containment_corridor.webp",
+      "room_animation": "flicker"
     },
     {
       "id": "act1_morgue",
@@ -123,7 +127,8 @@
         "nav_act1_morgue_to_act1_feeding_station"
       ],
       "background_key": "act1_morgue",
-      "background_file": "backgrounds/act1_morgue.webp"
+      "background_file": "backgrounds/act1_morgue.webp",
+      "room_animation": "breathe"
     },
     {
       "id": "act1_feeding_station",
@@ -137,7 +142,8 @@
         "nav_act1_feeding_station_to_act1_specimen_archive"
       ],
       "background_key": "act1_feeding_station",
-      "background_file": "backgrounds/act1_feeding_station.webp"
+      "background_file": "backgrounds/act1_feeding_station.webp",
+      "room_animation": "flicker"
     },
     {
       "id": "act1_ventilation_shaft",
@@ -148,7 +154,8 @@
         "nav_act1_ventilation_shaft_to_act1_airlock_bay"
       ],
       "background_key": "act1_ventilation_shaft",
-      "background_file": "backgrounds/act1_ventilation_shaft.webp"
+      "background_file": "backgrounds/act1_ventilation_shaft.webp",
+      "room_animation": "flicker"
     },
     {
       "id": "act1_security_hub",
@@ -159,7 +166,8 @@
         "nav_act1_security_hub_to_act1_containment_corridor"
       ],
       "background_key": "act1_security_hub",
-      "background_file": "backgrounds/act1_security_hub.webp"
+      "background_file": "backgrounds/act1_security_hub.webp",
+      "room_animation": "scan"
     },
     {
       "id": "act1_specimen_archive",
@@ -171,7 +179,8 @@
         "nav_act1_specimen_archive_to_act1_feeding_station"
       ],
       "background_key": "act1_specimen_archive",
-      "background_file": "backgrounds/act1_specimen_archive.webp"
+      "background_file": "backgrounds/act1_specimen_archive.webp",
+      "room_animation": "breathe"
     },
     {
       "id": "act1_airlock_bay",
@@ -184,7 +193,8 @@
         "nav_act1_airlock_bay_to_act1_ventilation_shaft"
       ],
       "background_key": "act1_airlock_bay",
-      "background_file": "backgrounds/act1_airlock_bay.webp"
+      "background_file": "backgrounds/act1_airlock_bay.webp",
+      "room_animation": "breathe"
     },
     {
       "id": "act2_navigation_bridge",
@@ -12388,12 +12398,12 @@
       "name": "Dark Archway",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 400,
-        "y": 150
+        "x": 310,
+        "y": 130
       },
       "size": {
-        "width": 200,
-        "height": 120
+        "width": 160,
+        "height": 210
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12428,12 +12438,12 @@
       "name": "Rear Passage",
       "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 480,
-        "y": 150
+        "x": 420,
+        "y": 50
       },
       "size": {
-        "width": 160,
-        "height": 120
+        "width": 140,
+        "height": 130
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12868,12 +12878,12 @@
       "name": "Right Passage",
       "description": "A sealed doorway on the right wall of the feeding station, leading to the Specimen Archive.",
       "position": {
-        "x": 900,
-        "y": 320
+        "x": 860,
+        "y": 200
       },
       "size": {
         "width": 100,
-        "height": 220
+        "height": 260
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
