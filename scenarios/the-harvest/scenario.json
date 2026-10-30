@@ -2446,11 +2446,11 @@
       "description": "The stasis pod you woke in. The glass is cracked, amber fluid pooling beneath it. Fragments of the pod casing litter the floor.",
       "position": {
         "x": 200,
-        "y": 480
+        "y": 500
       },
       "size": {
-        "width": 200,
-        "height": 180
+        "width": 120,
+        "height": 100
       },
       "visual": {
         "color": "#2a4a3a",
@@ -2563,8 +2563,8 @@
         "y": 640
       },
       "size": {
-        "width": 180,
-        "height": 80
+        "width": 100,
+        "height": 50
       },
       "visual": {
         "color": "#1a2a1a",
@@ -2621,12 +2621,12 @@
       "name": "Occupied Stasis Pods",
       "description": "Rows of intact pods stretching into the shadows above. Most contain dead specimens. Some glow faintly \u2014 still active.",
       "position": {
-        "x": 480,
-        "y": 250
+        "x": 500,
+        "y": 260
       },
       "size": {
-        "width": 400,
-        "height": 250
+        "width": 250,
+        "height": 150
       },
       "visual": {
         "color": "#1a3a2a",
@@ -2665,8 +2665,8 @@
         "y": 570
       },
       "size": {
-        "width": 80,
-        "height": 60
+        "width": 50,
+        "height": 35
       },
       "visual": {
         "color": "#8a6a2a",
@@ -2721,8 +2721,8 @@
         "y": 120
       },
       "size": {
-        "width": 500,
-        "height": 80
+        "width": 300,
+        "height": 50
       },
       "visual": {
         "color": "#3a5a4a",
@@ -2794,8 +2794,8 @@
         "y": 620
       },
       "size": {
-        "width": 200,
-        "height": 100
+        "width": 130,
+        "height": 60
       },
       "visual": {
         "color": "#2a3a2a",
@@ -2840,8 +2840,8 @@
         "y": 280
       },
       "size": {
-        "width": 120,
-        "height": 120
+        "width": 80,
+        "height": 80
       },
       "visual": {
         "color": "#4a3a1a",
@@ -2869,11 +2869,11 @@
       "description": "Long tables with organic restraints, designed for specimens much larger than you.",
       "position": {
         "x": 480,
-        "y": 450
+        "y": 470
       },
       "size": {
-        "width": 350,
-        "height": 150
+        "width": 200,
+        "height": 100
       },
       "visual": {
         "color": "#2a2a3a",
@@ -2911,11 +2911,11 @@
       "description": "A rack of alien surgical tools \u2014 curved bone-like instruments, probes, and extractors.",
       "position": {
         "x": 450,
-        "y": 620
+        "y": 630
       },
       "size": {
-        "width": 200,
-        "height": 80
+        "width": 120,
+        "height": 50
       },
       "visual": {
         "color": "#3a3a4a",
@@ -2967,11 +2967,11 @@
       "description": "Shelves of preserved biological samples in sealed jars.",
       "position": {
         "x": 80,
-        "y": 300
+        "y": 310
       },
       "size": {
-        "width": 120,
-        "height": 200
+        "width": 80,
+        "height": 140
       },
       "visual": {
         "color": "#3a4a3a",
@@ -3002,8 +3002,8 @@
         "y": 170
       },
       "size": {
-        "width": 180,
-        "height": 130
+        "width": 120,
+        "height": 90
       },
       "visual": {
         "color": "#1a3a4a",
@@ -3050,8 +3050,8 @@
         "y": 300
       },
       "size": {
-        "width": 180,
-        "height": 250
+        "width": 120,
+        "height": 180
       },
       "visual": {
         "color": "#2a2a2a",
@@ -3096,8 +3096,8 @@
         "y": 400
       },
       "size": {
-        "width": 180,
-        "height": 120
+        "width": 120,
+        "height": 80
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3125,11 +3125,11 @@
       "description": "Large vats where failed specimens are dissolved and their biological material reclaimed.",
       "position": {
         "x": 550,
-        "y": 160
+        "y": 170
       },
       "size": {
-        "width": 150,
-        "height": 200
+        "width": 100,
+        "height": 140
       },
       "visual": {
         "color": "#2a3a1a",
@@ -3160,8 +3160,8 @@
         "y": 500
       },
       "size": {
-        "width": 80,
-        "height": 80
+        "width": 50,
+        "height": 50
       },
       "visual": {
         "color": "#4a5a4a",
@@ -3214,11 +3214,11 @@
       "description": "An automated dispenser that drips grey nutrient paste into troughs at regular intervals.",
       "position": {
         "x": 620,
-        "y": 340
+        "y": 350
       },
       "size": {
-        "width": 180,
-        "height": 200
+        "width": 100,
+        "height": 130
       },
       "visual": {
         "color": "#4a4a3a",
@@ -3270,11 +3270,11 @@
       "description": "Long troughs filled with grey nutrient paste for living specimens.",
       "position": {
         "x": 400,
-        "y": 530
+        "y": 540
       },
       "size": {
-        "width": 200,
-        "height": 100
+        "width": 130,
+        "height": 70
       },
       "visual": {
         "color": "#3a3a2a",
@@ -3302,11 +3302,11 @@
       "description": "Small enclosures behind shimmering energy barriers, holding living specimens.",
       "position": {
         "x": 200,
-        "y": 300
+        "y": 310
       },
       "size": {
-        "width": 200,
-        "height": 200
+        "width": 120,
+        "height": 130
       },
       "visual": {
         "color": "#2a3a4a",
@@ -3347,8 +3347,8 @@
         "y": 350
       },
       "size": {
-        "width": 140,
-        "height": 140
+        "width": 80,
+        "height": 80
       },
       "visual": {
         "color": "#4a3a2a",
@@ -3403,8 +3403,8 @@
         "y": 350
       },
       "size": {
-        "width": 180,
-        "height": 180
+        "width": 100,
+        "height": 100
       },
       "visual": {
         "color": "#3a1a1a",
@@ -3453,11 +3453,11 @@
       "description": "The main control station for containment deck security. Multiple screens show surveillance feeds.",
       "position": {
         "x": 480,
-        "y": 470
+        "y": 480
       },
       "size": {
-        "width": 300,
-        "height": 120
+        "width": 180,
+        "height": 80
       },
       "visual": {
         "color": "#2a2a4a",
@@ -3573,8 +3573,8 @@
         "y": 200
       },
       "size": {
-        "width": 100,
-        "height": 80
+        "width": 70,
+        "height": 55
       },
       "visual": {
         "color": "#2a2a3a",
@@ -3605,8 +3605,8 @@
         "y": 560
       },
       "size": {
-        "width": 120,
-        "height": 60
+        "width": 80,
+        "height": 40
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3662,8 +3662,8 @@
         "y": 300
       },
       "size": {
-        "width": 150,
-        "height": 300
+        "width": 100,
+        "height": 200
       },
       "visual": {
         "color": "#3a4a5a",
@@ -3704,8 +3704,8 @@
         "y": 480
       },
       "size": {
-        "width": 80,
-        "height": 60
+        "width": 50,
+        "height": 40
       },
       "visual": {
         "color": "#5a6a7a",
@@ -3762,11 +3762,11 @@
       "description": "A pedestal-mounted device for reading data crystals, projecting holographic content.",
       "position": {
         "x": 480,
-        "y": 500
+        "y": 510
       },
       "size": {
-        "width": 150,
-        "height": 120
+        "width": 100,
+        "height": 80
       },
       "visual": {
         "color": "#4a5a6a",
@@ -3813,8 +3813,8 @@
         "y": 200
       },
       "size": {
-        "width": 300,
-        "height": 200
+        "width": 180,
+        "height": 140
       },
       "visual": {
         "color": "#2a1a3a",
@@ -3851,8 +3851,8 @@
         "y": 300
       },
       "size": {
-        "width": 220,
-        "height": 250
+        "width": 150,
+        "height": 170
       },
       "visual": {
         "color": "#1a2a4a",
@@ -3885,11 +3885,11 @@
       "description": "Heavy mechanical clamps where your ship, the Outrider, was once docked. The clamps are open and empty.",
       "position": {
         "x": 500,
-        "y": 580
+        "y": 590
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 120,
+        "height": 40
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3925,8 +3925,8 @@
         "y": 330
       },
       "size": {
-        "width": 120,
-        "height": 250
+        "width": 80,
+        "height": 170
       },
       "visual": {
         "color": "#3a4a3a",
@@ -4007,8 +4007,8 @@
         "y": 460
       },
       "size": {
-        "width": 80,
-        "height": 100
+        "width": 55,
+        "height": 70
       },
       "visual": {
         "color": "#4a2a2a",
@@ -4077,8 +4077,8 @@
         "y": 320
       },
       "size": {
-        "width": 220,
-        "height": 300
+        "width": 150,
+        "height": 200
       },
       "visual": {
         "color": "#2a2a2a",
@@ -12345,8 +12345,8 @@
         "y": 80
       },
       "size": {
-        "width": 200,
-        "height": 80
+        "width": 130,
+        "height": 50
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -12373,8 +12373,8 @@
         "y": 580
       },
       "size": {
-        "width": 300,
-        "height": 80
+        "width": 180,
+        "height": 50
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -12398,12 +12398,12 @@
       "name": "Dark Archway",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 310,
-        "y": 130
+        "x": 175,
+        "y": 140
       },
       "size": {
-        "width": 160,
-        "height": 210
+        "width": 80,
+        "height": 170
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12438,12 +12438,12 @@
       "name": "Rear Passage",
       "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 420,
-        "y": 50
+        "x": 370,
+        "y": 30
       },
       "size": {
-        "width": 140,
-        "height": 130
+        "width": 80,
+        "height": 100
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12478,12 +12478,12 @@
       "name": "Back Archway",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 480,
-        "y": 180
+        "x": 460,
+        "y": 100
       },
       "size": {
-        "width": 200,
-        "height": 150
+        "width": 80,
+        "height": 160
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12518,12 +12518,12 @@
       "name": "Stasis Hold",
       "description": "A passage leading to Stasis Hold.",
       "position": {
-        "x": 480,
-        "y": 650
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 70
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12558,12 +12558,12 @@
       "name": "Left Door",
       "description": "A passage leading to Processing Lab.",
       "position": {
-        "x": 120,
-        "y": 280
+        "x": 65,
+        "y": 220
       },
       "size": {
-        "width": 150,
-        "height": 200
+        "width": 70,
+        "height": 160
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12598,11 +12598,11 @@
       "name": "Far End",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 480,
-        "y": 200
+        "x": 430,
+        "y": 120
       },
       "size": {
-        "width": 160,
+        "width": 100,
         "height": 100
       },
       "visual": {
@@ -12638,12 +12638,12 @@
       "name": "Right Door",
       "description": "A passage leading to Security Hub.",
       "position": {
-        "x": 700,
-        "y": 280
+        "x": 835,
+        "y": 220
       },
       "size": {
-        "width": 150,
-        "height": 200
+        "width": 70,
+        "height": 160
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12678,12 +12678,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 480,
-        "y": 660
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12718,11 +12718,11 @@
       "name": "Corridor Entrance",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 50,
-        "y": 350
+        "x": 15,
+        "y": 260
       },
       "size": {
-        "width": 100,
+        "width": 50,
         "height": 200
       },
       "visual": {
@@ -12758,12 +12758,12 @@
       "name": "Floor Vent",
       "description": "A passage leading to Ventilation Shaft.",
       "position": {
-        "x": 480,
-        "y": 660
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12798,12 +12798,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 480,
-        "y": 660
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12838,12 +12838,12 @@
       "name": "Back to Corridor",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 480,
-        "y": 660
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12878,12 +12878,12 @@
       "name": "Right Passage",
       "description": "A sealed doorway on the right wall of the feeding station, leading to the Specimen Archive.",
       "position": {
-        "x": 860,
+        "x": 910,
         "y": 200
       },
       "size": {
-        "width": 100,
-        "height": 260
+        "width": 50,
+        "height": 200
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12918,12 +12918,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 830,
-        "y": 350
+        "x": 820,
+        "y": 180
       },
       "size": {
-        "width": 130,
-        "height": 250
+        "width": 70,
+        "height": 220
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -14505,12 +14505,12 @@
       "id": "nav_act1_ventilation_shaft_to_act1_airlock_bay",
       "name": "Shaft Exit",
       "position": {
-        "x": 480,
-        "y": 300
+        "x": 460,
+        "y": 240
       },
       "size": {
-        "width": 200,
-        "height": 200
+        "width": 120,
+        "height": 140
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -14543,12 +14543,12 @@
       "id": "nav_act1_airlock_bay_to_act1_ventilation_shaft",
       "name": "Ventilation Shaft",
       "position": {
-        "x": 480,
-        "y": 660
+        "x": 430,
+        "y": 670
       },
       "size": {
-        "width": 200,
-        "height": 60
+        "width": 100,
+        "height": 40
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",

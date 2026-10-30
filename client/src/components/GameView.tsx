@@ -5,6 +5,7 @@ interface GameViewProps {
   engine: ScenarioEngine;
   activeVerb: string;
   selectedItem: string | null;
+  debugMode: boolean;
   onObjectClick: (objectId: string) => void;
   onBackClick: () => void;
   onEmptyClick?: () => void;
@@ -68,25 +69,33 @@ function objectHotspotStyle(
   y: number,
   w: number,
   h: number,
-  color: string,
   hovered: boolean,
   cursor: string,
-  hasBackground: boolean,
+  isNav: boolean,
+  debugMode: boolean,
 ): CSSProperties {
-  return {
+  const base: CSSProperties = {
     position: 'absolute',
     left: `${x * SCALE_X}px`,
     top: `${y * SCALE_Y}px`,
     width: `${w * SCALE_X}px`,
     height: `${h * SCALE_Y}px`,
-    backgroundColor: hasBackground ? 'transparent' : color,
-    opacity: hasBackground ? (hovered ? 0.3 : 0) : (hovered ? 0.6 : 0.35),
-    border: hovered ? '2px solid #c0a030' : '2px solid transparent',
+    backgroundColor: 'transparent',
+    opacity: 1,
+    border: '2px solid transparent',
     borderRadius: '2px',
     cursor,
-    transition: 'opacity 0.15s ease, border-color 0.15s ease',
+    transition: 'border-color 0.15s ease',
     boxSizing: 'border-box',
   };
+  if (debugMode) {
+    base.border = `2px solid ${isNav ? 'rgba(74,144,217,0.6)' : 'rgba(192,160,48,0.4)'}`;
+    base.backgroundColor = isNav ? 'rgba(74,144,217,0.08)' : 'rgba(192,160,48,0.06)';
+  }
+  if (hovered) {
+    base.border = `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`;
+  }
+  return base;
 }
 
 const ANIMATION_KEYFRAMES = `
@@ -98,8 +107,8 @@ const ANIMATION_KEYFRAMES = `
   55% { box-shadow: none; }
 }
 @keyframes hotspot-pulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.35; }
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: inset 0 0 6px 2px rgba(200, 180, 100, 0.25); }
 }
 @keyframes ambient-flicker {
   0%, 100% { opacity: 0; }
@@ -152,6 +161,7 @@ export function GameView({
   engine,
   activeVerb,
   selectedItem,
+  debugMode,
   onObjectClick,
   onBackClick,
   onEmptyClick,
@@ -236,21 +246,16 @@ export function GameView({
         const isHovered = hoveredObject === obj.id;
         const isNav = obj.id.startsWith('nav_');
         const animation = obj.visual.animation;
-        const hasAnim = !!animation && !isHovered;
         const hotspotStyle = objectHotspotStyle(
           obj.position.x,
           obj.position.y,
           obj.size.width,
           obj.size.height,
-          obj.visual.color,
           isHovered,
           cursor,
-          !!bgFile,
+          isNav,
+          debugMode,
         );
-        if (hasAnim) {
-          hotspotStyle.opacity = 1;
-          hotspotStyle.backgroundColor = 'transparent';
-        }
         const animStyle: CSSProperties = {};
         if (animation === 'glimmer' && !isHovered) {
           animStyle.animation = 'hotspot-glimmer 6s ease-in-out infinite';
@@ -263,11 +268,7 @@ export function GameView({
             data-object-hotspot
             style={{
               ...hotspotStyle,
-              position: 'absolute',
               zIndex: isNav ? 2 : 1,
-              border: isHovered
-                ? `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`
-                : '2px solid transparent',
               ...animStyle,
             }}
             onClick={() => onObjectClick(obj.id)}

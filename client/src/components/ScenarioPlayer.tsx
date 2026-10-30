@@ -106,6 +106,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
+  const [debugMode, setDebugMode] = useState(false);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
@@ -163,10 +164,17 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const handleEmptyClick = useCallback(() => {
     engine.dismissMessages();
     if (selectedItem) {
+      engine.showMessage("You can't use that here.");
       setSelectedItem(null);
       bump();
-    } else if (activeVerb === 'move') {
-      engine.showMessage("You can't go that way.");
+    } else {
+      const msgs: Record<string, string> = {
+        move: "You can't go that way.",
+        look: "You don't see anything noteworthy there.",
+        hand: "There's nothing to interact with there.",
+        talk: "There's nobody to talk to there.",
+      };
+      engine.showMessage(msgs[activeVerb] ?? 'Nothing happens.');
       bump();
     }
   }, [engine, activeVerb, selectedItem, bump]);
@@ -229,6 +237,22 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           <NoiseIndicator level={noiseLevel} />
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button
+            style={{
+              ...styles.exitButton,
+              color: debugMode ? '#e0c040' : '#6a5a3a',
+              borderColor: debugMode ? '#6a5a30' : '#2a2018',
+            }}
+            onClick={() => setDebugMode((d) => !d)}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.borderColor = '#6a5a30';
+            }}
+            onMouseLeave={(e) => {
+              if (!debugMode) (e.target as HTMLElement).style.borderColor = '#2a2018';
+            }}
+          >
+            {debugMode ? 'Debug ON' : 'Debug'}
+          </button>
           {scenario.setting.ambient_audio && (
             <button
               style={styles.exitButton}
@@ -264,6 +288,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           engine={engine}
           activeVerb={activeVerb}
           selectedItem={selectedItem}
+          debugMode={debugMode}
           onObjectClick={handleObjectClick}
           onBackClick={handleBackClick}
           onEmptyClick={handleEmptyClick}
