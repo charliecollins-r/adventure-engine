@@ -144,7 +144,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleObjectClick = useCallback(
     (objectId: string) => {
-      if (activeVerb === 'use' && selectedItem) {
+      if (selectedItem) {
         engine.interact(objectId, 'use_item', selectedItem);
         setSelectedItem(null);
       } else {
@@ -160,30 +160,38 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [engine, bump]);
 
+  const handleEmptyClick = useCallback(() => {
+    engine.dismissMessages();
+    if (selectedItem) {
+      setSelectedItem(null);
+      bump();
+    } else if (activeVerb === 'move') {
+      engine.showMessage("You can't go that way.");
+      bump();
+    }
+  }, [engine, activeVerb, selectedItem, bump]);
+
   const handleVerbSelect = useCallback(
     (verb: string) => {
       setActiveVerb(verb);
-      if (verb !== 'use') {
-        setSelectedItem(null);
-      }
+      setSelectedItem(null);
     },
     [],
   );
 
   const handleItemSelect = useCallback(
     (itemId: string) => {
-      if (activeVerb === 'use' && selectedItem && selectedItem !== itemId) {
+      if (selectedItem && selectedItem !== itemId) {
         engine.combineItems(selectedItem, itemId);
         setSelectedItem(null);
         bump();
-      } else if (activeVerb === 'use') {
-        setSelectedItem(selectedItem === itemId ? null : itemId);
+      } else if (selectedItem === itemId) {
+        setSelectedItem(null);
       } else {
-        engine.examineItem(itemId, activeVerb);
-        bump();
+        setSelectedItem(itemId);
       }
     },
-    [engine, activeVerb, selectedItem, bump],
+    [engine, selectedItem, bump],
   );
 
   const handleItemExamine = useCallback(
@@ -258,6 +266,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           selectedItem={selectedItem}
           onObjectClick={handleObjectClick}
           onBackClick={handleBackClick}
+          onEmptyClick={handleEmptyClick}
         />
         <MessagePanel messages={messages} ambientText={ambientText} onDismiss={handleDismiss} />
         <InventoryPanel

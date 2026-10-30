@@ -3,7 +3,7 @@
   "metadata": {
     "id": "the-defectors-gambit",
     "title": "The Defector's Gambit",
-    "description": "East Berlin, 1963. You awaken handcuffed to a radiator in a Stasi safe house. Oberst Klaus Dietrich — intelligence officer, chess enthusiast, philosopher — has questions about your contacts in the West. Answer them, and your network dies. Stay silent, and you die. Find a third option before Dietrich returns from his phone call.",
+    "description": "East Berlin, 1963. You awaken handcuffed to a radiator in a Stasi safe house. Oberst Klaus Dietrich \u2014 intelligence officer, chess enthusiast, philosopher \u2014 has questions about your contacts in the West. Answer them, and your network dies. Stay silent, and you die. Find a third option before Dietrich returns from his phone call.",
     "author": "ai-generated",
     "difficulty": "hard",
     "estimated_minutes": 15,
@@ -47,7 +47,7 @@
   },
   "setting": {
     "initial_view": "main",
-    "ambient_text": "A bare bulb swings overhead. Through the wall, muffled German — Dietrich on the telephone. The radiator you're cuffed to ticks with heat. Somewhere outside, a church bell tolls the hour.",
+    "ambient_text": "A bare bulb swings overhead. Through the wall, muffled German \u2014 Dietrich on the telephone. The radiator you're cuffed to ticks with heat. Somewhere outside, a church bell tolls the hour.",
     "room_style": {
       "background_color": "#1a1a16",
       "wall_color": "#2a2820",
@@ -196,7 +196,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard issue — Stasi secretaries wear these. Someone was in Dietrich's chair recently. The wire is thin enough to work inside a lock mechanism."
+              "text": "Standard issue \u2014 Stasi secretaries wear these. Someone was in Dietrich's chair recently. The wire is thin enough to work inside a lock mechanism."
             }
           ]
         },
@@ -215,7 +215,7 @@
     {
       "id": "your_file",
       "name": "Your Dossier",
-      "description": "A manila folder stamped GEHEIM. Your cover identity — and how much the Stasi knows about you.",
+      "description": "A manila folder stamped GEHEIM. Your cover identity \u2014 and how much the Stasi knows about you.",
       "icon": "folder",
       "examine": [
         {
@@ -230,7 +230,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Subject: WEBER, ERNST (suspected alias). Cross-references to OPERATION LOOKING GLASS. They know your cover name but not your real one. Dietrich's handwritten note: 'Confirm handler identity — Checkpoint Charlie contact?' He's close. Too close."
+              "text": "Subject: WEBER, ERNST (suspected alias). Cross-references to OPERATION LOOKING GLASS. They know your cover name but not your real one. Dietrich's handwritten note: 'Confirm handler identity \u2014 Checkpoint Charlie contact?' He's close. Too close."
             },
             {
               "type": "set_flag",
@@ -251,7 +251,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your file. Everything Dietrich knows. Everything he suspects. Destroying this would buy your network time — but not get you out."
+              "text": "Your file. Everything Dietrich knows. Everything he suspects. Destroying this would buy your network time \u2014 but not get you out."
             }
           ]
         },
@@ -266,7 +266,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You flick the lighter. The file catches fast — cheap East German paper. The flames consume Dietrich's notes, his cross-references, his suspicions. Smoke curls toward the ceiling. Your network is safe. Now save yourself."
+              "text": "You flick the lighter. The file catches fast \u2014 cheap East German paper. The flames consume Dietrich's notes, his cross-references, his suspicions. Smoke curls toward the ceiling. Your network is safe. Now save yourself."
             },
             {
               "type": "set_flag",
@@ -307,7 +307,7 @@
     {
       "id": "cipher_sheet",
       "name": "Cipher Sheet",
-      "description": "A one-time pad — rows of five-letter groups. Standard field encryption.",
+      "description": "A one-time pad \u2014 rows of five-letter groups. Standard field encryption.",
       "icon": "paper",
       "examine": [
         {
@@ -322,7 +322,7 @@
           "then": [
             {
               "type": "message",
-              "text": "OTP-47B. Your own one-time pad — confiscated from you on capture. The groups are randomized but you recognize the format. Your handler uses the matching pad. With this and the right frequency, you can send an authenticated distress signal."
+              "text": "OTP-47B. Your own one-time pad \u2014 confiscated from you on capture. The groups are randomized but you recognize the format. Your handler uses the matching pad. With this and the right frequency, you can send an authenticated distress signal."
             },
             {
               "type": "set_flag",
@@ -384,7 +384,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Five keys on a plain ring. Two are standard door keys — one likely for this room. One small key fits a desk or cabinet lock. The other two are unmarked. Dietrich's entire domain on a ring."
+              "text": "Five keys on a plain ring. Two are standard door keys \u2014 one likely for this room. One small key fits a desk or cabinet lock. The other two are unmarked. Dietrich's entire domain on a ring."
             }
           ]
         }
@@ -402,7 +402,7 @@
           "then": [
             {
               "type": "message",
-              "text": "American make — a Zippo, chrome finish. Engraved 'Berlin '58'. Dietrich's souvenir from the crisis? Or confiscated from another Western agent? It still works — the flame catches on the first strike."
+              "text": "American make \u2014 a Zippo, chrome finish. Engraved 'Berlin '58'. Dietrich's souvenir from the crisis? Or confiscated from another Western agent? It still works \u2014 the flame catches on the first strike."
             }
           ]
         }
@@ -426,7 +426,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Monogrammed K.D. — Klaus Dietrich. Contains three Juwel cigarettes and... something else. A thin strip taped inside the lid. Microfilm."
+              "text": "Monogrammed K.D. \u2014 Klaus Dietrich. Contains three Juwel cigarettes and... something else. A thin strip taped inside the lid. Microfilm."
             },
             {
               "type": "set_flag",
@@ -447,7 +447,7 @@
           "then": [
             {
               "type": "message",
-              "text": "K.D.'s cigarette case. The microfilm is gone — you have it."
+              "text": "K.D.'s cigarette case. The microfilm is gone \u2014 you have it."
             }
           ]
         },
@@ -463,7 +463,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You carefully peel the microfilm strip from inside the lid. It's tiny — you'd need magnification to read it."
+              "text": "You carefully peel the microfilm strip from inside the lid. It's tiny \u2014 you'd need magnification to read it."
             },
             {
               "type": "add_item",
@@ -495,7 +495,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Miniaturized photographs on a strip of film. The frames are impossibly small — you'd need a magnifying lens or a light source to read them. What was Dietrich hiding in his own cigarette case?"
+              "text": "Miniaturized photographs on a strip of film. The frames are impossibly small \u2014 you'd need a magnifying lens or a light source to read them. What was Dietrich hiding in his own cigarette case?"
             }
           ]
         },
@@ -510,7 +510,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hold the microfilm up and use the desk lamp lens to magnify it against the light. Names. Dates. Western agents Dietrich has been protecting — trading intelligence to both sides. The Oberst is a double agent. This is leverage. Pure, devastating leverage."
+              "text": "You hold the microfilm up and use the desk lamp lens to magnify it against the light. Names. Dates. Western agents Dietrich has been protecting \u2014 trading intelligence to both sides. The Oberst is a double agent. This is leverage. Pure, devastating leverage."
             },
             {
               "type": "set_flag",
@@ -556,7 +556,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Red ink, well-saturated. The stamp impression reads: 'MINISTERIUM FÜR STAATSSICHERHEIT — BEZIRKSVERWALTUNG BERLIN'. The official seal of the Berlin district MfS office. With the right stamp, this makes any document look authentic."
+              "text": "Red ink, well-saturated. The stamp impression reads: 'MINISTERIUM F\u00dcR STAATSSICHERHEIT \u2014 BEZIRKSVERWALTUNG BERLIN'. The official seal of the Berlin district MfS office. With the right stamp, this makes any document look authentic."
             },
             {
               "type": "set_flag",
@@ -579,7 +579,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Carved rubber on a wooden handle. Press it into the ink pad, then onto paper — instant bureaucratic authority. In East Germany, a stamp like this is more powerful than a gun."
+              "text": "Carved rubber on a wooden handle. Press it into the ink pad, then onto paper \u2014 instant bureaucratic authority. In East Germany, a stamp like this is more powerful than a gun."
             },
             {
               "type": "set_flag",
@@ -608,7 +608,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Field radio operations manual. Page after page of frequency assignments. You scan for anything useful... There — WESTERN MONITORING FREQUENCIES. The CIA listening post at Teufelsberg monitors 4.725 MHz continuously. Your handler CARDINAL would hear a coded message on that frequency within minutes."
+              "text": "Field radio operations manual. Page after page of frequency assignments. You scan for anything useful... There \u2014 WESTERN MONITORING FREQUENCIES. The CIA listening post at Teufelsberg monitors 4.725 MHz continuously. Your handler CARDINAL would hear a coded message on that frequency within minutes."
             },
             {
               "type": "set_flag",
@@ -629,7 +629,7 @@
           "then": [
             {
               "type": "message",
-              "text": "4.725 MHz — the CIA listening post at Teufelsberg. CARDINAL monitors it."
+              "text": "4.725 MHz \u2014 the CIA listening post at Teufelsberg. CARDINAL monitors it."
             }
           ]
         }
@@ -647,7 +647,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A Pelikan Souverän — expensive for an East German officer. Blue-black ink, fine nib. Dietrich's handwriting tool. Good enough to forge a signature if you've studied his hand."
+              "text": "A Pelikan Souver\u00e4n \u2014 expensive for an East German officer. Blue-black ink, fine nib. Dietrich's handwriting tool. Good enough to forge a signature if you've studied his hand."
             }
           ]
         }
@@ -674,7 +674,7 @@
     {
       "id": "forged_papers",
       "name": "Forged Transfer Papers",
-      "description": "Transfer Form 17-B — filled out, signed, stamped. It looks authentic.",
+      "description": "Transfer Form 17-B \u2014 filled out, signed, stamped. It looks authentic.",
       "icon": "document",
       "examine": [
         {
@@ -683,7 +683,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Prisoner WEBER, ERNST. Transfer to Hohenschönhausen facility for enhanced interrogation. Authorized by Oberst K. Dietrich. Stamped with the district seal. A guard who doesn't look too closely would process this without question."
+              "text": "Prisoner WEBER, ERNST. Transfer to Hohensch\u00f6nhausen facility for enhanced interrogation. Authorized by Oberst K. Dietrich. Stamped with the district seal. A guard who doesn't look too closely would process this without question."
             }
           ]
         }
@@ -698,7 +698,7 @@
       ],
       "result": "forged_papers",
       "consumes": true,
-      "message": "You study Dietrich's handwriting from the notes in your file — the sharp angular K, the looping D. You fill in the transfer form: destination Hohenschönhausen, authorization Oberst Dietrich. The forgery isn't perfect, but in the right light, under the right pressure... it might pass.",
+      "message": "You study Dietrich's handwriting from the notes in your file \u2014 the sharp angular K, the looping D. You fill in the transfer form: destination Hohensch\u00f6nhausen, authorization Oberst Dietrich. The forgery isn't perfect, but in the right light, under the right pressure... it might pass.",
       "noise": 2,
       "conditions": [
         {
@@ -725,7 +725,7 @@
       ],
       "result": "forged_papers",
       "consumes": false,
-      "message": "You press the rubber stamp into the ink pad, then firmly onto the transfer form. The crimson seal of the Ministerium für Staatssicherheit blooms on the paper. Official. Unquestionable. The bureaucratic machinery of the state, turned against itself.",
+      "message": "You press the rubber stamp into the ink pad, then firmly onto the transfer form. The crimson seal of the Ministerium f\u00fcr Staatssicherheit blooms on the paper. Official. Unquestionable. The bureaucratic machinery of the state, turned against itself.",
       "noise": 1,
       "conditions": [
         {
@@ -741,7 +741,7 @@
       ],
       "result": "microfilm",
       "consumes": false,
-      "message": "You hold the microfilm against the light and peer through the magnifying lens. Names swim into focus — Western agents Dietrich has been protecting. Dates of secret meetings. Dead drop locations. The Oberst is playing both sides. This changes everything.",
+      "message": "You hold the microfilm against the light and peer through the magnifying lens. Names swim into focus \u2014 Western agents Dietrich has been protecting. Dates of secret meetings. Dead drop locations. The Oberst is playing both sides. This changes everything.",
       "noise": 0,
       "conditions": []
     }
@@ -779,7 +779,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Soviet-made cast iron, bolted to the wall with four rusted brackets. The pipe connecting it runs up through the floor and into the ceiling. Your right wrist is handcuffed to the inlet pipe. The pipe itself is old — the threading where sections join is corroded."
+              "text": "Soviet-made cast iron, bolted to the wall with four rusted brackets. The pipe connecting it runs up through the floor and into the ceiling. Your right wrist is handcuffed to the inlet pipe. The pipe itself is old \u2014 the threading where sections join is corroded."
             },
             {
               "type": "set_flag",
@@ -816,7 +816,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pull against the cuffs. The metal bites into your wrist. The radiator doesn't budge — it's bolted solid. But the pipe... the pipe has some give where the sections thread together. You'd need a tool. Or a more delicate approach to the cuffs themselves."
+              "text": "You pull against the cuffs. The metal bites into your wrist. The radiator doesn't budge \u2014 it's bolted solid. But the pipe... the pipe has some give where the sections thread together. You'd need a tool. Or a more delicate approach to the cuffs themselves."
             }
           ],
           "noise": 5
@@ -838,7 +838,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You grip the pipe section and twist. The corroded threading grinds but gives slightly. With enough force — or a better grip — this section could come free."
+              "text": "You grip the pipe section and twist. The corroded threading grinds but gives slightly. With enough force \u2014 or a better grip \u2014 this section could come free."
             }
           ],
           "noise": 15
@@ -892,7 +892,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You work the bent hairpin into the handcuff lock. Feel for the ratchet... there. Push against the pawl... click. The cuff springs open. Your wrist is raw and red but you're free. You pocket the hairpin — it might be useful again."
+              "text": "You work the bent hairpin into the handcuff lock. Feel for the ratchet... there. Push against the pawl... click. The cuff springs open. Your wrist is raw and red but you're free. You pocket the hairpin \u2014 it might be useful again."
             },
             {
               "type": "set_flag",
@@ -930,7 +930,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You can't reach the pipe section — you're cuffed to the radiator. Free yourself first."
+              "text": "You can't reach the pipe section \u2014 you're cuffed to the radiator. Free yourself first."
             }
           ]
         }
@@ -968,7 +968,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard handcuffs — single-lock ratchet mechanism. Mass-produced, nothing fancy. A pin or thin wire in the right hands could defeat this lock in seconds. Your training covered exactly this. You just need the right tool."
+              "text": "Standard handcuffs \u2014 single-lock ratchet mechanism. Mass-produced, nothing fancy. A pin or thin wire in the right hands could defeat this lock in seconds. Your training covered exactly this. You just need the right tool."
             }
           ]
         },
@@ -1000,7 +1000,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You twist and pull. The ratchet just tightens. Brute force won't work here — you need finesse. A thin piece of metal to work the lock mechanism."
+              "text": "You twist and pull. The ratchet just tightens. Brute force won't work here \u2014 you need finesse. A thin piece of metal to work the lock mechanism."
             }
           ],
           "noise": 8
@@ -1033,7 +1033,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Heavy steel, bolted to the concrete floor. The surface is scratched with years of desperate fingernails. A single ashtray sits in the center, still warm. Dietrich's notes are gone — he took them. But he left the ashtray and his pen."
+              "text": "Heavy steel, bolted to the concrete floor. The surface is scratched with years of desperate fingernails. A single ashtray sits in the center, still warm. Dietrich's notes are gone \u2014 he took them. But he left the ashtray and his pen."
             }
           ]
         },
@@ -1070,7 +1070,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Solid steel, bolted down. It's not going anywhere. The underside has scratches — previous occupants tried to loosen the bolts. They failed."
+              "text": "Solid steel, bolted down. It's not going anywhere. The underside has scratches \u2014 previous occupants tried to loosen the bolts. They failed."
             }
           ],
           "noise": 3
@@ -1103,7 +1103,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Plain wooden chair, no padding. The back legs are slightly uneven — it rocks. Standard interrogation furniture: uncomfortable by design."
+              "text": "Plain wooden chair, no padding. The back legs are slightly uneven \u2014 it rocks. Standard interrogation furniture: uncomfortable by design."
             }
           ]
         }
@@ -1141,7 +1141,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Padded leather, brass rivets. Dietrich's chair — across the table from yours. The power dynamic is literal: comfort versus pain. Something glints on the floor beneath it — barely visible."
+              "text": "Padded leather, brass rivets. Dietrich's chair \u2014 across the table from yours. The power dynamic is literal: comfort versus pain. Something glints on the floor beneath it \u2014 barely visible."
             }
           ]
         },
@@ -1162,7 +1162,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You circle behind the chair. A hairpin lies on the floor beneath it — must have fallen from whoever sat here before you. On the seat cushion, a slight impression. Dietrich sat here for hours. The leather still holds his warmth."
+              "text": "You circle behind the chair. A hairpin lies on the floor beneath it \u2014 must have fallen from whoever sat here before you. On the seat cushion, a slight impression. Dietrich sat here for hours. The leather still holds his warmth."
             }
           ]
         },
@@ -1230,7 +1230,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You search Dietrich's chair thoroughly. Under the seat cushion — nothing. But the hairpin on the floor... you pick it up."
+              "text": "You search Dietrich's chair thoroughly. Under the seat cushion \u2014 nothing. But the hairpin on the floor... you pick it up."
             },
             {
               "type": "add_item",
@@ -1277,7 +1277,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A bare 60-watt bulb dangling from a cord. Classic interrogation lighting — the swinging motion is disorienting, casting shifting shadows. The cord runs to a switch by the door."
+              "text": "A bare 60-watt bulb dangling from a cord. Classic interrogation lighting \u2014 the swinging motion is disorienting, casting shifting shadows. The cord runs to a switch by the door."
             }
           ]
         },
@@ -1332,7 +1332,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your reflection stares back — bruised, tired, but alive. The mirror is large, mounted flush against the wall. You press your fingernail to the glass. No gap between your nail and its reflection. Two-way mirror. Someone could be watching from the other side right now."
+              "text": "Your reflection stares back \u2014 bruised, tired, but alive. The mirror is large, mounted flush against the wall. You press your fingernail to the glass. No gap between your nail and its reflection. Two-way mirror. Someone could be watching from the other side right now."
             },
             {
               "type": "set_flag",
@@ -1358,7 +1358,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Two-way mirror. An observation room is on the other side. During Dietrich's phone call, nobody should be manning it — but you can't be sure."
+              "text": "Two-way mirror. An observation room is on the other side. During Dietrich's phone call, nobody should be manning it \u2014 but you can't be sure."
             }
           ]
         },
@@ -1374,7 +1374,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tap the mirror. It sounds hollow — the observation room is right behind it. But smashing it would make tremendous noise and the glass would shred you. There must be a better way."
+              "text": "You tap the mirror. It sounds hollow \u2014 the observation room is right behind it. But smashing it would make tremendous noise and the glass would shred you. There must be a better way."
             }
           ],
           "noise": 8
@@ -1386,7 +1386,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You could shatter the mirror and break through to the observation room. But the noise would bring everyone running. The brute force approach — effective but desperate."
+              "text": "You could shatter the mirror and break through to the observation room. But the noise would bring everyone running. The brute force approach \u2014 effective but desperate."
             }
           ]
         },
@@ -1439,7 +1439,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard-issue Stasi filing cabinet. Three drawers, master lock at the top. Labeled: AKTIV, ARCHIV, OPERATIV. This is where they keep the files — including, presumably, yours. There's a desk lamp on top, along with a typewriter and paper tray."
+              "text": "Standard-issue Stasi filing cabinet. Three drawers, master lock at the top. Labeled: AKTIV, ARCHIV, OPERATIV. This is where they keep the files \u2014 including, presumably, yours. There's a desk lamp on top, along with a typewriter and paper tray."
             },
             {
               "type": "set_view",
@@ -1556,7 +1556,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Steel-reinforced door, hinges on the outside. A deadbolt lock — keyed from both sides. Through the gap at the bottom, you can see the hallway. Fluorescent lights. The muffled sound of Dietrich's voice comes from the adjacent room."
+              "text": "Steel-reinforced door, hinges on the outside. A deadbolt lock \u2014 keyed from both sides. Through the gap at the bottom, you can see the hallway. Fluorescent lights. The muffled sound of Dietrich's voice comes from the adjacent room."
             }
           ]
         },
@@ -1590,7 +1590,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You try each key on the ring. The second one slides into the deadbolt. Turn. The bolt retracts with a heavy clunk. The door is unlocked. Freedom — or a hallway full of guards — is on the other side."
+              "text": "You try each key on the ring. The second one slides into the deadbolt. Turn. The bolt retracts with a heavy clunk. The door is unlocked. Freedom \u2014 or a hallway full of guards \u2014 is on the other side."
             },
             {
               "type": "set_state",
@@ -1628,7 +1628,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You open the door and walk calmly into the hallway, transfer papers in hand. The guard at the end of the corridor stops you. 'Papers.' You hand over the forged Form 17-B. He squints at the seal, the signature, the facility code. 'Hohenschönhausen transfer. Late in the day for that.' You say nothing. He stamps your exit form and waves you through. You walk out the front door of a Stasi safe house carrying the most dangerous secret in East Berlin: the knowledge that Oberst Klaus Dietrich is a double agent. The cold October air has never tasted so sweet."
+              "reason": "You open the door and walk calmly into the hallway, transfer papers in hand. The guard at the end of the corridor stops you. 'Papers.' You hand over the forged Form 17-B. He squints at the seal, the signature, the facility code. 'Hohensch\u00f6nhausen transfer. Late in the day for that.' You say nothing. He stamps your exit form and waves you through. You walk out the front door of a Stasi safe house carrying the most dangerous secret in East Berlin: the knowledge that Oberst Klaus Dietrich is a double agent. The cold October air has never tasted so sweet."
             }
           ],
           "noise": 5
@@ -1678,7 +1678,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You ease the door open. The corridor is empty — the guard has gone to investigate. You move fast, silent, down the hall. Left turn. A fire exit. You push through into a rain-slicked alley. East Berlin stretches before you, gray and watchful. But you know these streets. In twenty minutes you'll be at the dead drop. In two hours, across the Wall. Dietrich will find an empty room and a mystery that will haunt him for years."
+              "reason": "You ease the door open. The corridor is empty \u2014 the guard has gone to investigate. You move fast, silent, down the hall. Left turn. A fire exit. You push through into a rain-slicked alley. East Berlin stretches before you, gray and watchful. But you know these streets. In twenty minutes you'll be at the dead drop. In two hours, across the Wall. Dietrich will find an empty room and a mystery that will haunt him for years."
             }
           ],
           "noise": 5
@@ -1713,7 +1713,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You wedge the pipe section into the door frame and lever hard. The frame groans. One more hit — CRACK. The deadbolt tears through the frame. The door hangs open, splintered. The entire building heard that."
+              "text": "You wedge the pipe section into the door frame and lever hard. The frame groans. One more hit \u2014 CRACK. The deadbolt tears through the frame. The door hangs open, splintered. The entire building heard that."
             },
             {
               "type": "set_state",
@@ -1760,7 +1760,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A narrow window. Iron bars set into the masonry. Through it you can see a courtyard, a wall, and beyond that — the rooftops of East Berlin. Second floor. The drop is survivable but the bars aren't moving without serious leverage."
+              "text": "A narrow window. Iron bars set into the masonry. Through it you can see a courtyard, a wall, and beyond that \u2014 the rooftops of East Berlin. Second floor. The drop is survivable but the bars aren't moving without serious leverage."
             },
             {
               "type": "set_view",
@@ -1802,7 +1802,7 @@
           "then": [
             {
               "type": "message",
-              "text": "'DER SOZIALISMUS SIEGT!' — Socialism Triumphs! A muscular worker shaking hands with a soldier. The poster is large — covering most of the south wall. The bottom right corner curls slightly. There's something behind it."
+              "text": "'DER SOZIALISMUS SIEGT!' \u2014 Socialism Triumphs! A muscular worker shaking hands with a soldier. The poster is large \u2014 covering most of the south wall. The bottom right corner curls slightly. There's something behind it."
             }
           ]
         },
@@ -1823,7 +1823,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You peel the poster carefully from the wall. Behind it — a small wall safe, recessed into the plaster. Combination dial. Four numbers. Dietrich's personal safe, hidden behind the party's propaganda. How appropriate."
+              "text": "You peel the poster carefully from the wall. Behind it \u2014 a small wall safe, recessed into the plaster. Combination dial. Four numbers. Dietrich's personal safe, hidden behind the party's propaganda. How appropriate."
             },
             {
               "type": "set_flag",
@@ -1892,7 +1892,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A Wertheim wall safe, pre-war manufacture. Four-number combination dial. Small enough for documents and personal effects. Dietrich went to some trouble to hide this — even from his own people. What's worth hiding from the Stasi inside a Stasi building?"
+              "text": "A Wertheim wall safe, pre-war manufacture. Four-number combination dial. Small enough for documents and personal effects. Dietrich went to some trouble to hide this \u2014 even from his own people. What's worth hiding from the Stasi inside a Stasi building?"
             }
           ]
         },
@@ -1908,7 +1908,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The safe stands open. Empty now — you've taken everything."
+              "text": "The safe stands open. Empty now \u2014 you've taken everything."
             }
           ]
         },
@@ -1957,7 +1957,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A rectangular heating vent set into the floor. Four flathead screws hold the grate in place. Through the slats you can see ductwork leading in two directions — one toward the radio room, another toward the street."
+              "text": "A rectangular heating vent set into the floor. Four flathead screws hold the grate in place. Through the slats you can see ductwork leading in two directions \u2014 one toward the radio room, another toward the street."
             }
           ]
         },
@@ -2009,7 +2009,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You bend the hairpin flat and work it into the screw heads. Tedious, but one by one they turn. The grate lifts free. The duct is narrow — too small to crawl through, but you can reach inside."
+              "text": "You bend the hairpin flat and work it into the screw heads. Tedious, but one by one they turn. The grate lifts free. The duct is narrow \u2014 too small to crawl through, but you can reach inside."
             },
             {
               "type": "set_state",
@@ -2036,7 +2036,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach into the duct. Dust, dead insects... and voices. Distant, echoing through the metalwork. You can hear the radio room — someone tuning frequencies. And closer, from the adjacent room — Dietrich's voice, still on the phone. The duct carries sound both ways. Careful what you say."
+              "text": "You reach into the duct. Dust, dead insects... and voices. Distant, echoing through the metalwork. You can hear the radio room \u2014 someone tuning frequencies. And closer, from the adjacent room \u2014 Dietrich's voice, still on the phone. The duct carries sound both ways. Careful what you say."
             }
           ],
           "noise": 2
@@ -2075,7 +2075,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A wooden coat rack, well-polished. Dietrich's gray wool overcoat hangs from the top hook. An officer's coat — heavy, well-tailored. Pockets."
+              "text": "A wooden coat rack, well-polished. Dietrich's gray wool overcoat hangs from the top hook. An officer's coat \u2014 heavy, well-tailored. Pockets."
             }
           ]
         },
@@ -2096,7 +2096,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You search Dietrich's overcoat. Left pocket: a monogrammed handkerchief. Right pocket: keys — a ring of brass keys. Inside breast pocket: a silver cigarette case and a Zippo lighter. Dietrich left his coat here when the phone rang. His mistake."
+              "text": "You search Dietrich's overcoat. Left pocket: a monogrammed handkerchief. Right pocket: keys \u2014 a ring of brass keys. Inside breast pocket: a silver cigarette case and a Zippo lighter. Dietrich left his coat here when the phone rang. His mistake."
             },
             {
               "type": "add_item",
@@ -2193,7 +2193,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Fine leather, brass hardware. Two combination latches — each with three digits. Dietrich's personal briefcase. He took his notes but left this under the table when the phone rang."
+              "text": "Fine leather, brass hardware. Two combination latches \u2014 each with three digits. Dietrich's personal briefcase. He took his notes but left this under the table when the phone rang."
             }
           ]
         },
@@ -2290,7 +2290,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Heavy crystal glass. Two Juwel cigarette butts — Dietrich's brand. One is still faintly warm. On the bottom of the ashtray, scratched into the glass with a sharp edge: '1-9-6-1'. A date? A code? Dietrich absently scratched it during interrogation. Nineteen sixty-one — the year the Wall went up."
+              "text": "Heavy crystal glass. Two Juwel cigarette butts \u2014 Dietrich's brand. One is still faintly warm. On the bottom of the ashtray, scratched into the glass with a sharp edge: '1-9-6-1'. A date? A code? Dietrich absently scratched it during interrogation. Nineteen sixty-one \u2014 the year the Wall went up."
             },
             {
               "type": "set_flag",
@@ -2316,7 +2316,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2327,7 +2327,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Too heavy and conspicuous to carry. But the number scratched in the bottom — that's useful."
+              "text": "Too heavy and conspicuous to carry. But the number scratched in the bottom \u2014 that's useful."
             }
           ]
         }
@@ -2359,7 +2359,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard Post Office model. The dial has numbers 0-9 and a district exchange label. It's an internal line — you could call other extensions in the building, but not outside. The cord stretches to the wall bracket."
+              "text": "Standard Post Office model. The dial has numbers 0-9 and a district exchange label. It's an internal line \u2014 you could call other extensions in the building, but not outside. The cord stretches to the wall bracket."
             },
             {
               "type": "set_flag",
@@ -2385,7 +2385,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pick up the receiver. A dial tone. You could dial an internal extension — maybe create a distraction? The guard post would be extension 1. Dietrich's office is extension 3."
+              "text": "You pick up the receiver. A dial tone. You could dial an internal extension \u2014 maybe create a distraction? The guard post would be extension 1. Dietrich's office is extension 3."
             }
           ],
           "noise": 2
@@ -2402,7 +2402,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The telephone is by the door — far out of reach while you're cuffed."
+              "text": "The telephone is by the door \u2014 far out of reach while you're cuffed."
             }
           ]
         },
@@ -2423,7 +2423,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You dial extension 1 — the guard post. It rings twice. 'Wache.' Guard speaking. You deepen your voice: 'Checkpoint breach alert. All guards to the front entrance immediately.' A pause. 'Jawohl!' The phone clicks dead. Footsteps in the corridor, receding fast. The corridor guard is gone."
+              "text": "You dial extension 1 \u2014 the guard post. It rings twice. 'Wache.' Guard speaking. You deepen your voice: 'Checkpoint breach alert. All guards to the front entrance immediately.' A pause. 'Jawohl!' The phone clicks dead. Footsteps in the corridor, receding fast. The corridor guard is gone."
             },
             {
               "type": "set_flag",
@@ -2441,7 +2441,7 @@
                 },
                 {
                   "type": "message",
-                  "text": "Footsteps return to the corridor. The false alarm has been discovered. The guard is back at his post — and suspicious."
+                  "text": "Footsteps return to the corridor. The false alarm has been discovered. The guard is back at his post \u2014 and suspicious."
                 },
                 {
                   "type": "add_noise",
@@ -2457,7 +2457,7 @@
     {
       "id": "cabinet_top_drawer",
       "name": "Top Drawer (AKTIV)",
-      "description": "The top drawer of the filing cabinet. Labeled 'AKTIV' — active cases.",
+      "description": "The top drawer of the filing cabinet. Labeled 'AKTIV' \u2014 active cases.",
       "position": {
         "x": 400,
         "y": 200
@@ -2491,7 +2491,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You slide open the top drawer. Active case files — dozens of manila folders. You flip through: WEBER, ERNST. That's your cover name. Your dossier."
+              "text": "You slide open the top drawer. Active case files \u2014 dozens of manila folders. You flip through: WEBER, ERNST. That's your cover name. Your dossier."
             },
             {
               "type": "set_state",
@@ -2534,7 +2534,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Active case files. You've already taken your dossier. The other files are other people's nightmares — you leave them."
+              "text": "Active case files. You've already taken your dossier. The other files are other people's nightmares \u2014 you leave them."
             }
           ]
         }
@@ -2543,7 +2543,7 @@
     {
       "id": "cabinet_middle_drawer",
       "name": "Middle Drawer (ARCHIV)",
-      "description": "The middle drawer. Labeled 'ARCHIV' — archived cases.",
+      "description": "The middle drawer. Labeled 'ARCHIV' \u2014 archived cases.",
       "position": {
         "x": 400,
         "y": 350
@@ -2577,7 +2577,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The archive drawer. Closed cases — some marked 'ERLEDIGT' (resolved), others 'VERSTORBEN' (deceased). Behind the files, pushed to the back: blank prisoner transfer forms. Form 17-B, a stack of them. And next to them — a rubber stamp and an ink pad."
+              "text": "The archive drawer. Closed cases \u2014 some marked 'ERLEDIGT' (resolved), others 'VERSTORBEN' (deceased). Behind the files, pushed to the back: blank prisoner transfer forms. Form 17-B, a stack of them. And next to them \u2014 a rubber stamp and an ink pad."
             },
             {
               "type": "set_state",
@@ -2621,7 +2621,7 @@
     {
       "id": "cabinet_bottom_drawer",
       "name": "Bottom Drawer (OPERATIV)",
-      "description": "The bottom drawer. Labeled 'OPERATIV' — operational materials.",
+      "description": "The bottom drawer. Labeled 'OPERATIV' \u2014 operational materials.",
       "position": {
         "x": 400,
         "y": 500
@@ -2655,7 +2655,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Operational materials. Cipher sheets, codebooks, field manuals. And there — your own cipher sheet, confiscated at capture. OTP-47B. Your one-time pad. If you can reach a radio and the right frequency, this is your lifeline to the West."
+              "text": "Operational materials. Cipher sheets, codebooks, field manuals. And there \u2014 your own cipher sheet, confiscated at capture. OTP-47B. Your one-time pad. If you can reach a radio and the right frequency, this is your lifeline to the West."
             },
             {
               "type": "set_state",
@@ -2714,7 +2714,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Blank paper and carbon sheets. Stasi bureaucracy runs on paper — everything in triplicate. Nothing remarkable here."
+              "text": "Blank paper and carbon sheets. Stasi bureaucracy runs on paper \u2014 everything in triplicate. Nothing remarkable here."
             }
           ]
         }
@@ -2752,7 +2752,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A green-shaded adjustable desk lamp. The lens is a thick convex glass — magnifying type, for reading fine print. It unscrews from the shade assembly."
+              "text": "A green-shaded adjustable desk lamp. The lens is a thick convex glass \u2014 magnifying type, for reading fine print. It unscrews from the shade assembly."
             }
           ]
         },
@@ -2768,7 +2768,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You unscrew the magnifying lens from the lamp shade. Thick glass, good optics. Useful for reading anything small — like microfilm."
+              "text": "You unscrew the magnifying lens from the lamp shade. Thick glass, good optics. Useful for reading anything small \u2014 like microfilm."
             },
             {
               "type": "add_item",
@@ -2826,7 +2826,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An Optima Elite — East German manufacture. A fresh sheet of paper is loaded. The ribbon is inked. Ready to type. Every Stasi typewriter has a unique type signature — like fingerprints for machines. Anything typed here could be traced to this office."
+              "text": "An Optima Elite \u2014 East German manufacture. A fresh sheet of paper is loaded. The ribbon is inked. Ready to type. Every Stasi typewriter has a unique type signature \u2014 like fingerprints for machines. Anything typed here could be traced to this office."
             }
           ]
         },
@@ -2841,7 +2841,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You consider typing the transfer form on the typewriter — more official than handwriting. But every Stasi typewriter is registered. This one's type signature would trace directly to this office. Handwriting is safer — Dietrich's handwriting, specifically. Forge it by hand."
+              "text": "You consider typing the transfer form on the typewriter \u2014 more official than handwriting. But every Stasi typewriter is registered. This one's type signature would trace directly to this office. Handwriting is safer \u2014 Dietrich's handwriting, specifically. Forge it by hand."
             }
           ]
         },
@@ -2884,7 +2884,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A Funkwerk Köpenick SE-300 shortwave transceiver. Military grade. Frequency range covers HF bands — including the ones Western intelligence monitors. The power switch is on the left, frequency dial on the right. A Morse key sits below the main unit."
+              "text": "A Funkwerk K\u00f6penick SE-300 shortwave transceiver. Military grade. Frequency range covers HF bands \u2014 including the ones Western intelligence monitors. The power switch is on the left, frequency dial on the right. A Morse key sits below the main unit."
             }
           ]
         },
@@ -2905,7 +2905,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You flip the power switch. The radio hums to life. Tubes glow warm orange behind the faceplate. The frequency dial reads 3.500 MHz — a Stasi operational channel. You need to tune it."
+              "text": "You flip the power switch. The radio hums to life. Tubes glow warm orange behind the faceplate. The frequency dial reads 3.500 MHz \u2014 a Stasi operational channel. You need to tune it."
             },
             {
               "type": "set_state",
@@ -2937,7 +2937,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You flip the switch. Nothing. The power is out — Western sabotage knocked the building's electricity. The radio is dead until power returns."
+              "text": "You flip the switch. Nothing. The power is out \u2014 Western sabotage knocked the building's electricity. The radio is dead until power returns."
             }
           ]
         },
@@ -2959,7 +2959,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You encode your message using the one-time pad. Agent LOOKING GLASS. Position compromised. Request immediate extraction. Checkpoint Charlie, dawn. You tap it out on the Morse key, one careful dit-dah at a time. The signal goes out into the ether — toward Teufelsberg, toward CARDINAL, toward home."
+              "text": "You encode your message using the one-time pad. Agent LOOKING GLASS. Position compromised. Request immediate extraction. Checkpoint Charlie, dawn. You tap it out on the Morse key, one careful dit-dah at a time. The signal goes out into the ether \u2014 toward Teufelsberg, toward CARDINAL, toward home."
             },
             {
               "type": "set_flag",
@@ -2992,7 +2992,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You have the cipher sheet but you don't know what frequency CARDINAL monitors. Sending on a random frequency would be pointless — or intercepted by the wrong people. You need to find the frequency first."
+              "text": "You have the cipher sheet but you don't know what frequency CARDINAL monitors. Sending on a random frequency would be pointless \u2014 or intercepted by the wrong people. You need to find the frequency first."
             }
           ]
         }
@@ -3024,7 +3024,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A large tuning dial graduated in MHz. Currently set to 3.500 — a Stasi operational channel. The dial covers 2.000 to 8.000 MHz."
+              "text": "A large tuning dial graduated in MHz. Currently set to 3.500 \u2014 a Stasi operational channel. The dial covers 2.000 to 8.000 MHz."
             }
           ]
         },
@@ -3045,7 +3045,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You turn the dial slowly to 4.725 MHz. The CIA listening post at Teufelsberg. Static gives way to silence — the frequency is monitored continuously but quiet. They're listening. Now you need your cipher sheet to send an authenticated message."
+              "text": "You turn the dial slowly to 4.725 MHz. The CIA listening post at Teufelsberg. Static gives way to silence \u2014 the frequency is monitored continuously but quiet. They're listening. Now you need your cipher sheet to send an authenticated message."
             },
             {
               "type": "set_state",
@@ -3105,7 +3105,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A standard straight key — brass contacts on a Bakelite base. Your Morse is rusty but adequate. Dit-dah, dit-dah. The muscle memory is still there."
+              "text": "A standard straight key \u2014 brass contacts on a Bakelite base. Your Morse is rusty but adequate. Dit-dah, dit-dah. The muscle memory is still there."
             }
           ]
         },
@@ -3121,7 +3121,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tap the key. No sound — the radio isn't powered on."
+              "text": "You tap the key. No sound \u2014 the radio isn't powered on."
             }
           ]
         },
@@ -3180,12 +3180,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Technical manuals for the SE-300 transceiver. Frequency allocation tables. And — a Stasi radio codebook. Field edition, current month. Frequency assignments for every monitoring station in the Eastern Bloc... and, more importantly, the frequencies they've identified as Western."
+              "text": "Technical manuals for the SE-300 transceiver. Frequency allocation tables. And \u2014 a Stasi radio codebook. Field edition, current month. Frequency assignments for every monitoring station in the Eastern Bloc... and, more importantly, the frequencies they've identified as Western."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_not",
@@ -3196,7 +3196,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You slip the codebook off the shelf. This is intelligence gold — but right now you need it for one specific thing: finding the frequency your handler monitors."
+              "text": "You slip the codebook off the shelf. This is intelligence gold \u2014 but right now you need it for one specific thing: finding the frequency your handler monitors."
             },
             {
               "type": "add_item",
@@ -3238,7 +3238,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Coaxial cable, running from the transceiver up through the ceiling to a rooftop antenna. The connection is solid. Without this, the radio can receive but not transmit — its signal wouldn't reach past the building."
+              "text": "Coaxial cable, running from the transceiver up through the ceiling to a rooftop antenna. The connection is solid. Without this, the radio can receive but not transmit \u2014 its signal wouldn't reach past the building."
             }
           ]
         }
@@ -3340,7 +3340,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Four iron bars, 20mm diameter, set into the window frame masonry. The mortar around the bottom of two bars looks slightly cracked — old building, decades of freeze-thaw cycles. With enough leverage applied to the weakest point..."
+              "text": "Four iron bars, 20mm diameter, set into the window frame masonry. The mortar around the bottom of two bars looks slightly cracked \u2014 old building, decades of freeze-thaw cycles. With enough leverage applied to the weakest point..."
             }
           ]
         },
@@ -3356,7 +3356,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You grip the bars and pull. They don't move. The iron is solid — it's the mortar that's weak. You'd need a lever."
+              "text": "You grip the bars and pull. They don't move. The iron is solid \u2014 it's the mortar that's weak. You'd need a lever."
             }
           ],
           "noise": 10
@@ -3374,7 +3374,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You wedge the pipe section between two bars and lever hard. The mortar around the weakest bar cracks, crumbles. You work the pipe back and forth — more mortar falls. The bar loosens. One more pull — it tears free from the frame. Then the next one. A gap wide enough to squeeze through."
+              "text": "You wedge the pipe section between two bars and lever hard. The mortar around the weakest bar cracks, crumbles. You work the pipe back and forth \u2014 more mortar falls. The bar loosens. One more pull \u2014 it tears free from the frame. Then the next one. A gap wide enough to squeeze through."
             },
             {
               "type": "set_state",
@@ -3401,7 +3401,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Two bars are gone. The gap is tight but passable. A two-story drop to the courtyard below. The wall on the far side is topped with wire — but there's a drain pipe that might hold your weight."
+              "text": "Two bars are gone. The gap is tight but passable. A two-story drop to the courtyard below. The wall on the far side is topped with wire \u2014 but there's a drain pipe that might hold your weight."
             }
           ]
         }
@@ -3492,7 +3492,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You squeeze through the gap where the bars were, drop to the courtyard, and run. The drain pipe holds your weight over the wall. You hit the alley on the other side running. East Berlin at night — dangerous, but you know these streets. You have a dead drop location, a compromised identity to shed, and a border to cross. But you're alive, you're free, and you carry Oberst Dietrich's secret with you. By morning, you'll be in the West."
+              "reason": "You squeeze through the gap where the bars were, drop to the courtyard, and run. The drain pipe holds your weight over the wall. You hit the alley on the other side running. East Berlin at night \u2014 dangerous, but you know these streets. You have a dead drop location, a compromised identity to shed, and a border to cross. But you're alive, you're free, and you carry Oberst Dietrich's secret with you. By morning, you'll be in the West."
             }
           ],
           "noise": 15
@@ -3525,7 +3525,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A narrow stone ledge. Pigeon droppings and old mortar dust. Something is scratched into the stone — tiny letters. Previous occupant's message? You'd need to look closer."
+              "text": "A narrow stone ledge. Pigeon droppings and old mortar dust. Something is scratched into the stone \u2014 tiny letters. Previous occupant's message? You'd need to look closer."
             }
           ]
         },
@@ -3535,7 +3535,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You brush away the dust and trace the scratches with your finger. Numbers: '19-08-61'. August 19, 1961 — six days after the Wall went up. And below: 'ES GIBT IMMER EINEN WEG' — There is always a way. Someone left you a message across the decades."
+              "text": "You brush away the dust and trace the scratches with your finger. Numbers: '19-08-61'. August 19, 1961 \u2014 six days after the Wall went up. And below: 'ES GIBT IMMER EINEN WEG' \u2014 There is always a way. Someone left you a message across the decades."
             }
           ]
         }
@@ -3573,7 +3573,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A crack in the plaster, running from floor to ceiling. The building is pre-war — bombing damage never properly repaired. The plaster hides old brickwork. Some of these bricks might be loose, especially where the crack is widest near the heating pipe."
+              "text": "A crack in the plaster, running from floor to ceiling. The building is pre-war \u2014 bombing damage never properly repaired. The plaster hides old brickwork. Some of these bricks might be loose, especially where the crack is widest near the heating pipe."
             }
           ]
         },
@@ -3617,7 +3617,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You swing the pipe into the exposed brickwork. Once. Twice. Bricks shift and tumble. The old mortar disintegrates. A section of wall gives way — daylight streams through. A hole just large enough to crawl through, opening onto the building's exterior wall. Two stories up, but a drain pipe runs right past the opening."
+              "text": "You swing the pipe into the exposed brickwork. Once. Twice. Bricks shift and tumble. The old mortar disintegrates. A section of wall gives way \u2014 daylight streams through. A hole just large enough to crawl through, opening onto the building's exterior wall. Two stories up, but a drain pipe runs right past the opening."
             },
             {
               "type": "set_state",
@@ -3645,7 +3645,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You squeeze through the breach in the wall. The cold air hits you immediately. You grab the drain pipe and lower yourself, hand over hand, to the alley below. Rain-slicked cobblestones. You're outside. You're free. The hole in the wall will tell Dietrich everything he needs to know — that his prisoner escaped, and more importantly, that his building's walls are as rotten as the state they serve."
+              "reason": "You squeeze through the breach in the wall. The cold air hits you immediately. You grab the drain pipe and lower yourself, hand over hand, to the alley below. Rain-slicked cobblestones. You're outside. You're free. The hole in the wall will tell Dietrich everything he needs to know \u2014 that his prisoner escaped, and more importantly, that his building's walls are as rotten as the state they serve."
             }
           ],
           "noise": 20
@@ -3694,7 +3694,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You twist the pipe at the joint. It moves — barely. The threads are corroded but not fused. With sustained effort, this section could come free."
+              "text": "You twist the pipe at the joint. It moves \u2014 barely. The threads are corroded but not fused. With sustained effort, this section could come free."
             },
             {
               "type": "set_flag",
@@ -3732,7 +3732,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Water-stained plaster. The surface is bubbled and peeling — decades of neglect. The wall behind it is old brick, potentially compromised by the crack running through it."
+              "text": "Water-stained plaster. The surface is bubbled and peeling \u2014 decades of neglect. The wall behind it is old brick, potentially compromised by the crack running through it."
             }
           ]
         },
@@ -3742,7 +3742,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You push against the plaster. It flexes slightly — the underlying brick isn't solid. But you'd need to expose the brick first through the crack to do any real damage."
+              "text": "You push against the plaster. It flexes slightly \u2014 the underlying brick isn't solid. But you'd need to expose the brick first through the crack to do any real damage."
             }
           ],
           "noise": 5
@@ -3934,7 +3934,7 @@
         },
         {
           "type": "message",
-          "text": "8-1-3. Click-click. Both latches release. Inside: a Pelikan fountain pen, interrogation notes in Dietrich's angular handwriting, and — your personal effects bag. They took everything when you were captured."
+          "text": "8-1-3. Click-click. Both latches release. Inside: a Pelikan fountain pen, interrogation notes in Dietrich's angular handwriting, and \u2014 your personal effects bag. They took everything when you were captured."
         },
         {
           "type": "set_flag",
@@ -4020,7 +4020,7 @@
       "on_solve": [
         {
           "type": "message",
-          "text": "Power — tune — encode — transmit. The sequence completes. Your coded message pulses across the airwaves. Somewhere at Teufelsberg, an analyst sits up straight. Agent LOOKING GLASS is alive. Extraction protocol activates."
+          "text": "Power \u2014 tune \u2014 encode \u2014 transmit. The sequence completes. Your coded message pulses across the airwaves. Somewhere at Teufelsberg, an analyst sits up straight. Agent LOOKING GLASS is alive. Extraction protocol activates."
         },
         {
           "type": "set_flag",
@@ -4035,7 +4035,7 @@
         {
           "type": "game_over",
           "result": "win",
-          "reason": "The message is sent. You destroy the cipher sheet and wait. Forty-seven minutes later, an explosion rocks the building — a diversionary charge on the east wall. In the chaos, a man in a Stasi uniform appears at your door. 'CARDINAL sends regards,' he whispers in English. He hands you a coat, an ID card, and a pistol. You walk out through the smoke and confusion. By dawn, you're at Checkpoint Charlie. By noon, you're in the West, debriefing over coffee and American cigarettes. Oberst Dietrich will spend the next month explaining how a prisoner vanished from a locked room during a building-wide emergency that nobody authorized."
+          "reason": "The message is sent. You destroy the cipher sheet and wait. Forty-seven minutes later, an explosion rocks the building \u2014 a diversionary charge on the east wall. In the chaos, a man in a Stasi uniform appears at your door. 'CARDINAL sends regards,' he whispers in English. He hands you a coat, an ID card, and a pistol. You walk out through the smoke and confusion. By dawn, you're at Checkpoint Charlie. By noon, you're in the West, debriefing over coffee and American cigarettes. Oberst Dietrich will spend the next month explaining how a prisoner vanished from a locked room during a building-wide emergency that nobody authorized."
         }
       ],
       "on_fail": [
@@ -4059,7 +4059,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Your head throbs. Your right wrist aches where the handcuff bites. Through the wall, Dietrich's voice — rapid German on the telephone. He stepped out to take a call. How long ago? Minutes? You're alone. For now."
+          "text": "Your head throbs. Your right wrist aches where the handcuff bites. Through the wall, Dietrich's voice \u2014 rapid German on the telephone. He stepped out to take a call. How long ago? Minutes? You're alone. For now."
         }
       ],
       "ambient_text": "Muffled conversation through the wall. The radiator ticks. A church bell, distant.",
@@ -4081,7 +4081,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Free from the cuffs. Your wrist is raw but functional. The room opens up — filing cabinet, coat rack, telephone, door. Dietrich's world, yours to search. Work fast. He won't be on the phone forever."
+          "text": "Free from the cuffs. Your wrist is raw but functional. The room opens up \u2014 filing cabinet, coat rack, telephone, door. Dietrich's world, yours to search. Work fast. He won't be on the phone forever."
         }
       ],
       "ambient_text": "The telephone conversation next door grows quieter. Dietrich is wrapping up.",
@@ -4129,7 +4129,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Dietrich's phone call has ended. Footsteps in the corridor. He's coming back — and he'll see immediately that something is wrong. Whatever your plan is, execute it now."
+          "text": "Dietrich's phone call has ended. Footsteps in the corridor. He's coming back \u2014 and he'll see immediately that something is wrong. Whatever your plan is, execute it now."
         },
         {
           "type": "visual_cue",
@@ -4156,7 +4156,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Footsteps in the corridor — a guard change. You hear two voices, then one set of steps walking away. A brief window where the new guard settles in, checks his paperwork."
+          "text": "Footsteps in the corridor \u2014 a guard change. You hear two voices, then one set of steps walking away. A brief window where the new guard settles in, checks his paperwork."
         },
         {
           "type": "set_flag",
@@ -4175,7 +4175,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Through the wall, Dietrich's voice rises — then silence. The phone call is over. You hear a chair scrape back. He's standing up."
+          "text": "Through the wall, Dietrich's voice rises \u2014 then silence. The phone call is over. You hear a chair scrape back. He's standing up."
         },
         {
           "type": "set_flag",
@@ -4217,7 +4217,7 @@
         },
         {
           "type": "message",
-          "text": "The lights die. Total darkness for three seconds — then emergency lighting kicks in, bathing everything in red. Muffled shouting from below. The power has been cut. Western sabotage? Or just East German infrastructure? Either way, the building is running on backup power. Some systems won't work."
+          "text": "The lights die. Total darkness for three seconds \u2014 then emergency lighting kicks in, bathing everything in red. Muffled shouting from below. The power has been cut. Western sabotage? Or just East German infrastructure? Either way, the building is running on backup power. Some systems won't work."
         },
         {
           "type": "set_flag",
@@ -4240,7 +4240,7 @@
             },
             {
               "type": "message",
-              "text": "The main lights flicker back on. Power restored. The confusion downstairs continues — you hear Dietrich barking orders."
+              "text": "The main lights flicker back on. Power restored. The confusion downstairs continues \u2014 you hear Dietrich barking orders."
             },
             {
               "type": "visual_cue",
@@ -4314,7 +4314,7 @@
   ],
   "killer": {
     "name": "Oberst Klaus Dietrich",
-    "description": "Stasi intelligence officer. Methodical, intellectual, coldly polite. Quotes Schiller and Kant between interrogation questions. Plays chess against himself. Respects worthy opponents — which makes him more dangerous, not less.",
+    "description": "Stasi intelligence officer. Methodical, intellectual, coldly polite. Quotes Schiller and Kant between interrogation questions. Plays chess against himself. Respects worthy opponents \u2014 which makes him more dangerous, not less.",
     "base_behavior": {
       "check_interval_seconds": 65,
       "interval_variance_seconds": 15,
@@ -4348,7 +4348,7 @@
       "on_search": [
         "I know you're here. The building is sealed.",
         "This is unnecessary. You cannot leave. We both know this.",
-        "Every fugitive makes the same mistake — they confuse movement with progress.",
+        "Every fugitive makes the same mistake \u2014 they confuse movement with progress.",
         "I'll find you. I always do. It's simply a matter of patience."
       ],
       "on_clear": [
@@ -4363,7 +4363,7 @@
         "You should not have touched my things."
       ],
       "on_catch": [
-        "Checkmate. As I said — patience.",
+        "Checkmate. As I said \u2014 patience.",
         "The game is over. Shall I tell you where you went wrong?",
         "You played well. Not well enough."
       ]
@@ -4546,7 +4546,7 @@
     },
     {
       "id": "time_limit",
-      "description": "Run out of time — Dietrich's superiors arrive for the formal interrogation",
+      "description": "Run out of time \u2014 Dietrich's superiors arrive for the formal interrogation",
       "conditions": [
         {
           "type": "time_after",
@@ -4561,7 +4561,7 @@
       "id": "hint_gateway",
       "phase": "interrogation",
       "delay_seconds": 30,
-      "text": "You're handcuffed to the radiator. Look around — even from here, you might be able to reach something useful near Dietrich's chair."
+      "text": "You're handcuffed to the radiator. Look around \u2014 even from here, you might be able to reach something useful near Dietrich's chair."
     },
     {
       "id": "hint_hairpin",
@@ -4585,7 +4585,7 @@
       "id": "hint_search_coat",
       "phase": "unattended",
       "delay_seconds": 20,
-      "text": "Dietrich left in a hurry — his overcoat is still on the rack. Check the pockets."
+      "text": "Dietrich left in a hurry \u2014 his overcoat is still on the rack. Check the pockets."
     },
     {
       "id": "hint_filing_cabinet",
@@ -4597,13 +4597,13 @@
           "item": "dietrich_keys"
         }
       ],
-      "text": "Dietrich's keys should open the filing cabinet. Your file — and other useful things — are inside."
+      "text": "Dietrich's keys should open the filing cabinet. Your file \u2014 and other useful things \u2014 are inside."
     },
     {
       "id": "hint_poster",
       "phase": "unattended",
       "delay_seconds": 70,
-      "text": "That propaganda poster on the south wall — the corner is peeling. What's behind it?"
+      "text": "That propaganda poster on the south wall \u2014 the corner is peeling. What's behind it?"
     },
     {
       "id": "hint_safe_code",
@@ -4616,7 +4616,7 @@
           "value": "true"
         }
       ],
-      "text": "The wall safe needs a 4-digit combination. Dietrich scratched something into the ashtray on the table — have you looked at it?"
+      "text": "The wall safe needs a 4-digit combination. Dietrich scratched something into the ashtray on the table \u2014 have you looked at it?"
     },
     {
       "id": "hint_radio_path",
@@ -4628,7 +4628,7 @@
           "item": "cipher_sheet"
         }
       ],
-      "text": "You have your cipher sheet. Look at the filing cabinet closeup — there's a radio room accessible. Find the right frequency and transmit."
+      "text": "You have your cipher sheet. Look at the filing cabinet closeup \u2014 there's a radio room accessible. Find the right frequency and transmit."
     },
     {
       "id": "hint_papers_path",
@@ -4646,14 +4646,14 @@
       "id": "hint_physical_path",
       "phase": "escape_attempt",
       "delay_seconds": 15,
-      "text": "The window bars, the cracked wall — either could be your way out if you have a strong enough lever. The heating pipe section from the radiator might work."
+      "text": "The window bars, the cracked wall \u2014 either could be your way out if you have a strong enough lever. The heating pipe section from the radiator might work."
     }
   ],
   "solution_paths": [
     {
       "id": "radio_extraction_path",
       "name": "The Signal",
-      "description": "Send a coded distress message to your CIA handler via radio. Spy tradecraft path — quiet, precise, professional.",
+      "description": "Send a coded distress message to your CIA handler via radio. Spy tradecraft path \u2014 quiet, precise, professional.",
       "difficulty": "medium",
       "noise_profile": "low-medium",
       "steps": [
@@ -4685,8 +4685,8 @@
         "Find hairpin, pick handcuffs (as above)",
         "Search Dietrich's coat for keys",
         "Unlock filing cabinet",
-        "Open top drawer — get your dossier (study Dietrich's handwriting)",
-        "Open middle drawer — get transfer forms, rubber stamp, ink pad",
+        "Open top drawer \u2014 get your dossier (study Dietrich's handwriting)",
+        "Open middle drawer \u2014 get transfer forms, rubber stamp, ink pad",
         "Open briefcase (combination 8-1-3, clue from window ledge inscription 19-08-61) to get pen",
         "Combine transfer_forms + pen (requires stamp_found, ink_pad_found, found_your_file flags)",
         "Combine forged_papers + ink_pad (requires rubber_stamp) to stamp them",

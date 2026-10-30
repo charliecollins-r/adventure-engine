@@ -553,7 +553,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -624,7 +624,7 @@
           "noise": 5
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "object_state",
@@ -868,7 +868,7 @@
           "noise": 3
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -892,7 +892,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -920,7 +920,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -952,7 +952,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1677,7 +1677,7 @@
           "noise": 8
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1701,7 +1701,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1862,7 +1862,7 @@
           "noise": 6
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2013,7 +2013,7 @@
           "noise": 5
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2037,7 +2037,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",

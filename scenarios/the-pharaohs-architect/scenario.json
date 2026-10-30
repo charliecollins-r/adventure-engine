@@ -3,7 +3,7 @@
   "metadata": {
     "id": "the-pharaohs-architect",
     "title": "The Pharaoh's Architect",
-    "description": "You fell through a crumbling floor into the sealed lower chambers of Pharaoh Khufu-Ankh's tomb. Above, the passage has collapsed. Below, Khepri — an ancient mechanical guardian of bronze and obsidian — patrols the corridors, its clockwork gears clicking in the darkness. Navigate ten chambers of ingenious ancient engineering to reach the hidden exit before Khepri finds you.",
+    "description": "You fell through a crumbling floor into the sealed lower chambers of Pharaoh Khufu-Ankh's tomb. Above, the passage has collapsed. Below, Khepri \u2014 an ancient mechanical guardian of bronze and obsidian \u2014 patrols the corridors, its clockwork gears clicking in the darkness. Navigate ten chambers of ingenious ancient engineering to reach the hidden exit before Khepri finds you.",
     "author": "ai-generated",
     "difficulty": "hard",
     "estimated_minutes": 25,
@@ -52,7 +52,7 @@
   },
   "setting": {
     "initial_view": "antechamber",
-    "ambient_text": "Dust motes drift in faint light filtering from cracks above. The air is stale — sealed for millennia. Somewhere in the darkness, gears click rhythmically. Something is moving.",
+    "ambient_text": "Dust motes drift in faint light filtering from cracks above. The air is stale \u2014 sealed for millennia. Somewhere in the darkness, gears click rhythmically. Something is moving.",
     "room_style": {
       "background_color": "#1a150e",
       "wall_color": "#2a2418",
@@ -449,7 +449,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Hieratic text — a cursive form of hieroglyphs. You can make out numerals: 3, 7, 1, 4, 9. A code?"
+              "text": "Hieratic text \u2014 a cursive form of hieroglyphs. You can make out numerals: 3, 7, 1, 4, 9. A code?"
             },
             {
               "type": "set_flag",
@@ -472,7 +472,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Solid copper with a wooden handle. The architect's personal tool — his cartouche is stamped on the handle."
+              "text": "Solid copper with a wooden handle. The architect's personal tool \u2014 his cartouche is stamped on the handle."
             },
             {
               "type": "set_flag",
@@ -513,7 +513,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Twelve teeth, precisely machined. The same alloy as Khepri's joints. This could repair — or sabotage — mechanical systems."
+              "text": "Twelve teeth, precisely machined. The same alloy as Khepri's joints. This could repair \u2014 or sabotage \u2014 mechanical systems."
             },
             {
               "type": "set_flag",
@@ -536,7 +536,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The architect's personal notes. Diagrams of the water system, the observatory lens alignment, and — crucially — the location of a hidden passage behind the workshop wall. A notation reads: 'The exit requires five seals. The worthy find them. The unworthy feed Khepri.'"
+              "text": "The architect's personal notes. Diagrams of the water system, the observatory lens alignment, and \u2014 crucially \u2014 the location of a hidden passage behind the workshop wall. A notation reads: 'The exit requires five seals. The worthy find them. The unworthy feed Khepri.'"
             },
             {
               "type": "set_flag",
@@ -597,7 +597,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The underside has a unique tooth pattern — a key for scarab-shaped locks. The wings are slightly loose, as if designed to open."
+              "text": "The underside has a unique tooth pattern \u2014 a key for scarab-shaped locks. The wings are slightly loose, as if designed to open."
             }
           ]
         },
@@ -666,7 +666,7 @@
           "then": [
             {
               "type": "message",
-              "text": "One leg ends in a sharp point — sharp enough to scratch metal or score stone. The pivot joint is the same alloy as Khepri's gears."
+              "text": "One leg ends in a sharp point \u2014 sharp enough to scratch metal or score stone. The pivot joint is the same alloy as Khepri's gears."
             },
             {
               "type": "set_flag",
@@ -712,7 +712,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Cedar oil mixed with natron. Still combustible after millennia — the seal was airtight. Enough to fill a channel or fuel a fire."
+              "text": "Cedar oil mixed with natron. Still combustible after millennia \u2014 the seal was airtight. Enough to fill a channel or fuel a fire."
             }
           ]
         }
@@ -738,7 +738,7 @@
     },
     {
       "id": "cartouche_seal_1",
-      "name": "Cartouche Seal — Khufu-Ankh",
+      "name": "Cartouche Seal \u2014 Khufu-Ankh",
       "description": "A stone cartouche bearing the pharaoh's name.",
       "icon": "seal",
       "examine": [
@@ -756,7 +756,7 @@
     },
     {
       "id": "cartouche_seal_2",
-      "name": "Cartouche Seal — Imhotep",
+      "name": "Cartouche Seal \u2014 Imhotep",
       "description": "A stone cartouche bearing the architect god's name.",
       "icon": "seal",
       "examine": [
@@ -766,7 +766,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Imhotep — patron of architects. The second of five seals."
+              "text": "Imhotep \u2014 patron of architects. The second of five seals."
             }
           ]
         }
@@ -774,7 +774,7 @@
     },
     {
       "id": "cartouche_seal_3",
-      "name": "Cartouche Seal — Thoth",
+      "name": "Cartouche Seal \u2014 Thoth",
       "description": "A stone cartouche bearing the knowledge god's name.",
       "icon": "seal",
       "examine": [
@@ -784,7 +784,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Thoth — lord of wisdom and writing. The third of five seals."
+              "text": "Thoth \u2014 lord of wisdom and writing. The third of five seals."
             }
           ]
         }
@@ -792,7 +792,7 @@
     },
     {
       "id": "cartouche_seal_4",
-      "name": "Cartouche Seal — Ma'at",
+      "name": "Cartouche Seal \u2014 Ma'at",
       "description": "A stone cartouche bearing the truth goddess's name.",
       "icon": "seal",
       "examine": [
@@ -802,7 +802,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Ma'at — goddess of truth and balance. The fourth of five seals."
+              "text": "Ma'at \u2014 goddess of truth and balance. The fourth of five seals."
             }
           ]
         }
@@ -810,7 +810,7 @@
     },
     {
       "id": "cartouche_seal_5",
-      "name": "Cartouche Seal — Ra",
+      "name": "Cartouche Seal \u2014 Ra",
       "description": "A stone cartouche bearing the sun god's name.",
       "icon": "seal",
       "examine": [
@@ -820,7 +820,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Ra — the sun. The fifth and final seal. With all five, the exit door can be opened."
+              "text": "Ra \u2014 the sun. The fifth and final seal. With all five, the exit door can be opened."
             }
           ]
         }
@@ -874,7 +874,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An ushabti — a servant for the afterlife. Solid gold, incredibly heavy for its size. The base is engraved: 'I shall answer for the Pharaoh in the place of labor.'"
+              "text": "An ushabti \u2014 a servant for the afterlife. Solid gold, incredibly heavy for its size. The base is engraved: 'I shall answer for the Pharaoh in the place of labor.'"
             }
           ]
         }
@@ -892,7 +892,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An apotropaic wand — used to draw protective circles. The curve is exactly the radius of Khepri's sensor range. The ancients measured the guardian's reach."
+              "text": "An apotropaic wand \u2014 used to draw protective circles. The curve is exactly the radius of Khepri's sensor range. The ancients measured the guardian's reach."
             }
           ]
         }
@@ -901,7 +901,7 @@
     {
       "id": "natron_pouch",
       "name": "Natron Pouch",
-      "description": "A leather pouch of natron — natural drying salt used in mummification.",
+      "description": "A leather pouch of natron \u2014 natural drying salt used in mummification.",
       "icon": "pouch",
       "examine": [
         {
@@ -910,7 +910,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Sodium carbonate crystals. Absorbs moisture, preserves organic material, and — importantly — is abrasive enough to corrode bronze joints."
+              "text": "Sodium carbonate crystals. Absorbs moisture, preserves organic material, and \u2014 importantly \u2014 is abrasive enough to corrode bronze joints."
             }
           ]
         }
@@ -980,7 +980,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The paste bubbles slightly. Ancient Egyptian embalmers used natron to dissolve flesh — this would eat through bronze fittings."
+              "text": "The paste bubbles slightly. Ancient Egyptian embalmers used natron to dissolve flesh \u2014 this would eat through bronze fittings."
             }
           ],
           "verb": "look"
@@ -1155,7 +1155,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Tons of limestone rubble. You're not going back that way. The only path is forward — deeper into the tomb."
+              "text": "Tons of limestone rubble. You're not going back that way. The only path is forward \u2014 deeper into the tomb."
             },
             {
               "type": "set_flag",
@@ -1209,7 +1209,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A mound of broken stone. Something glints between the rocks — pottery shards, a piece of copper."
+              "text": "A mound of broken stone. Something glints between the rocks \u2014 pottery shards, a piece of copper."
             }
           ]
         },
@@ -1225,7 +1225,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You dig through the rubble. A clay shard with writing, and a copper chisel — must have fallen with you from the upper level."
+              "text": "You dig through the rubble. A clay shard with writing, and a copper chisel \u2014 must have fallen with you from the upper level."
             },
             {
               "type": "add_item",
@@ -1326,7 +1326,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You strike the chisel against the stone wall. Sparks fly. The pitch catches — firelight floods the chamber, revealing hieroglyphs covering every surface."
+              "text": "You strike the chisel against the stone wall. Sparks fly. The pitch catches \u2014 firelight floods the chamber, revealing hieroglyphs covering every surface."
             },
             {
               "type": "set_state",
@@ -1393,7 +1393,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A massive stone door. A scarab-shaped depression in the center — a keyhole of sorts. Beyond this lies the Hall of Pillars."
+              "text": "A massive stone door. A scarab-shaped depression in the center \u2014 a keyhole of sorts. Beyond this lies the Hall of Pillars."
             }
           ]
         },
@@ -1541,7 +1541,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Storage jars for the afterlife. Seals are intact — preserved for thousands of years."
+              "text": "Storage jars for the afterlife. Seals are intact \u2014 preserved for thousands of years."
             }
           ]
         },
@@ -1619,7 +1619,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A massive stone column, toppled and cracked. The gap beneath is just large enough to squeeze into — a hiding spot if Khepri comes."
+              "text": "A massive stone column, toppled and cracked. The gap beneath is just large enough to squeeze into \u2014 a hiding spot if Khepri comes."
             }
           ]
         },
@@ -1670,7 +1670,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1782,7 +1782,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1828,7 +1828,7 @@
     {
       "id": "cartouche_panel",
       "name": "Cartouche Panel",
-      "description": "A panel of royal cartouches — names of pharaohs.",
+      "description": "A panel of royal cartouches \u2014 names of pharaohs.",
       "position": {
         "x": 300,
         "y": 300
@@ -1851,7 +1851,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Royal names in oval frames. You recognize Khufu-Ankh — the pharaoh entombed here. Below his name: five smaller cartouches representing the gods who guard the exit."
+              "text": "Royal names in oval frames. You recognize Khufu-Ankh \u2014 the pharaoh entombed here. Below his name: five smaller cartouches representing the gods who guard the exit."
             },
             {
               "type": "set_flag",
@@ -2003,7 +2003,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Hidden ink fluoresces: 'My workshop is behind the fourth pillar in the Hall. Press the architect's mark — my compass — three times.' A hidden passage hint!"
+              "text": "Hidden ink fluoresces: 'My workshop is behind the fourth pillar in the Hall. Press the architect's mark \u2014 my compass \u2014 three times.' A hidden passage hint!"
             },
             {
               "type": "set_flag",
@@ -2040,7 +2040,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Four pillars carved with scenes of daily life — farmers, builders, scribes. The fourth pillar has a compass symbol at its base, different from the rest."
+              "text": "Four pillars carved with scenes of daily life \u2014 farmers, builders, scribes. The fourth pillar has a compass symbol at its base, different from the rest."
             },
             {
               "type": "set_view",
@@ -2119,7 +2119,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Four pillars with carved scenes of the afterlife — judgment, the Field of Reeds, the sun's journey. Between them, deep shadows offer concealment."
+              "text": "Four pillars with carved scenes of the afterlife \u2014 judgment, the Field of Reeds, the sun's journey. Between them, deep shadows offer concealment."
             }
           ]
         }
@@ -2151,7 +2151,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A narrow shaft cut through solid rock to the surface. A beam of sunlight streams down, illuminating dust motes. Too narrow to climb through, but the light itself might be useful — if redirected."
+              "text": "A narrow shaft cut through solid rock to the surface. A beam of sunlight streams down, illuminating dust motes. Too narrow to climb through, but the light itself might be useful \u2014 if redirected."
             }
           ]
         },
@@ -2162,7 +2162,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You position the lens-mirror assembly in the light beam. The focused beam can now be directed anywhere in the hall — including into the connecting corridors where it might activate light-sensitive mechanisms!"
+              "text": "You position the lens-mirror assembly in the light beam. The focused beam can now be directed anywhere in the hall \u2014 including into the connecting corridors where it might activate light-sensitive mechanisms!"
             },
             {
               "type": "set_flag",
@@ -2248,7 +2248,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pour fine sand into the mechanism beneath the plate, jamming the gears. The plate sinks slightly and locks in place — disabled."
+              "text": "You pour fine sand into the mechanism beneath the plate, jamming the gears. The plate sinks slightly and locks in place \u2014 disabled."
             },
             {
               "type": "set_state",
@@ -2276,7 +2276,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You wedge the sand-packed gear into the plate mechanism. It seizes instantly — permanently disabled."
+              "text": "You wedge the sand-packed gear into the plate mechanism. It seizes instantly \u2014 permanently disabled."
             },
             {
               "type": "set_state",
@@ -2319,12 +2319,12 @@
           "then": [
             {
               "type": "message",
-              "text": "An archway leading east. You can see the shimmer of gold and lapis lazuli — the Scarab Chamber."
+              "text": "An archway leading east. You can see the shimmer of gold and lapis lazuli \u2014 the Scarab Chamber."
             }
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -2366,12 +2366,12 @@
           "then": [
             {
               "type": "message",
-              "text": "An archway leading west. Beyond, you glimpse the glint of a massive bronze scale — the Weighing Room of Ma'at."
+              "text": "An archway leading west. Beyond, you glimpse the glint of a massive bronze scale \u2014 the Weighing Room of Ma'at."
             }
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -2408,7 +2408,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -2542,7 +2542,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You light the fuse and touch it to the oil. WHOOSH! Fire races through the channels, lighting sconces throughout the connected chambers. The tomb blazes with light — and the flames create a temporary barrier in the corridors. Khepri won't cross fire."
+              "text": "You light the fuse and touch it to the oil. WHOOSH! Fire races through the channels, lighting sconces throughout the connected chambers. The tomb blazes with light \u2014 and the flames create a temporary barrier in the corridors. Khepri won't cross fire."
             },
             {
               "type": "set_flag",
@@ -2569,7 +2569,7 @@
                 },
                 {
                   "type": "message",
-                  "text": "The oil fires burn low. The corridors are passable again — for you and Khepri both."
+                  "text": "The oil fires burn low. The corridors are passable again \u2014 for you and Khepri both."
                 }
               ]
             }
@@ -2599,7 +2599,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -2641,7 +2641,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The primordial waters of Nun. Atum emerging. The separation of sky and earth. Beautiful work — and between the scenes, a numerical sequence: the positions of stars at creation. This is the code for the observatory alignment."
+              "text": "The primordial waters of Nun. Atum emerging. The separation of sky and earth. Beautiful work \u2014 and between the scenes, a numerical sequence: the positions of stars at creation. This is the code for the observatory alignment."
             },
             {
               "type": "set_flag",
@@ -2715,7 +2715,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Orion, Sirius, the Pleiades — the stars the Egyptians used to align their monuments. Markings indicate specific angles. This matches what would be needed for the Observatory."
+              "text": "Orion, Sirius, the Pleiades \u2014 the stars the Egyptians used to align their monuments. Markings indicate specific angles. This matches what would be needed for the Observatory."
             },
             {
               "type": "set_flag",
@@ -2752,7 +2752,7 @@
           "then": [
             {
               "type": "message",
-              "text": "'I, Menna, carved these pillars for forty seasons. I pray to Ptah: let my hands be remembered. If you read this, stranger, know that men like me built this wonder. Not slaves — craftsmen.' A poignant message from across the ages."
+              "text": "'I, Menna, carved these pillars for forty seasons. I pray to Ptah: let my hands be remembered. If you read this, stranger, know that men like me built this wonder. Not slaves \u2014 craftsmen.' A poignant message from across the ages."
             }
           ]
         },
@@ -2795,7 +2795,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A massive scarab mosaic — lapis lazuli, carnelian, turquoise, and gold. The wings, sun disc, and eye are each distinct sections. It looks like a puzzle."
+              "text": "A massive scarab mosaic \u2014 lapis lazuli, carnelian, turquoise, and gold. The wings, sun disc, and eye are each distinct sections. It looks like a puzzle."
             },
             {
               "type": "set_view",
@@ -2842,7 +2842,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You place the golden ushabti in the basin. The statue's eyes flash. The golden door behind it begins to grind open — the treasure room awaits. But using a priceless artifact as tribute... the moral weight lingers."
+              "text": "You place the golden ushabti in the basin. The statue's eyes flash. The golden door behind it begins to grind open \u2014 the treasure room awaits. But using a priceless artifact as tribute... the moral weight lingers."
             },
             {
               "type": "set_flag",
@@ -2874,7 +2874,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You place the heart scarab in the basin. The statue's eyes glow blue. Instead of the golden door, a hidden panel in the wall slides open — a passage directly to the Observatory! The scholarly path reveals a shortcut."
+              "text": "You place the heart scarab in the basin. The statue's eyes glow blue. Instead of the golden door, a hidden panel in the wall slides open \u2014 a passage directly to the Observatory! The scholarly path reveals a shortcut."
             },
             {
               "type": "set_flag",
@@ -2921,7 +2921,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An offering basin. What you place here determines which path opens — the treasure route or the knowledge route."
+              "text": "An offering basin. What you place here determines which path opens \u2014 the treasure route or the knowledge route."
             }
           ]
         }
@@ -3013,7 +3013,7 @@
           "noise": 5
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "object_state",
@@ -3061,7 +3061,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A giant bronze hourglass. When flipped, sand flows through for about 60 seconds. A mechanism connects it to the floor mosaic — starting the timer might activate the mosaic puzzle, but it also makes considerable noise."
+              "text": "A giant bronze hourglass. When flipped, sand flows through for about 60 seconds. A mechanism connects it to the floor mosaic \u2014 starting the timer might activate the mosaic puzzle, but it also makes considerable noise."
             },
             {
               "type": "set_view",
@@ -3081,7 +3081,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You flip the massive hourglass. Bronze gears engage. Sand begins to flow. The floor mosaic comes alive — tiles can now be pressed in sequence. You have about 60 seconds."
+              "text": "You flip the massive hourglass. Bronze gears engage. Sand begins to flow. The floor mosaic comes alive \u2014 tiles can now be pressed in sequence. You have about 60 seconds."
             },
             {
               "type": "set_state",
@@ -3144,7 +3144,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A polished bronze disc on the ceiling. It reflects the mosaic floor below — and from this angle, you can see that certain tiles are slightly raised, forming a pattern invisible from floor level. The wings, sun disc, and eye must be pressed in the right order!"
+              "text": "A polished bronze disc on the ceiling. It reflects the mosaic floor below \u2014 and from this angle, you can see that certain tiles are slightly raised, forming a pattern invisible from floor level. The wings, sun disc, and eye must be pressed in the right order!"
             },
             {
               "type": "set_flag",
@@ -3176,7 +3176,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -3185,7 +3185,7 @@
             },
             {
               "type": "message",
-              "text": "You squeeze through the narrow passage. It opens into a vast chamber — the Observatory. Stars are painted on the ceiling, and a complex lens apparatus sits at the center."
+              "text": "You squeeze through the narrow passage. It opens into a vast chamber \u2014 the Observatory. Stars are painted on the ceiling, and a complex lens apparatus sits at the center."
             }
           ],
           "noise": 3
@@ -3385,7 +3385,7 @@
             },
             {
               "type": "message",
-              "text": "Inside the compartment: the first cartouche seal — Khufu-Ankh, the Pharaoh himself."
+              "text": "Inside the compartment: the first cartouche seal \u2014 Khufu-Ankh, the Pharaoh himself."
             }
           ],
           "noise": 10
@@ -3418,12 +3418,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Interlocking bronze gears — the mechanism that powers the mosaic puzzle and the sand timer. Remarkably similar to Khepri's internal workings. A spare gear could be taken."
+              "text": "Interlocking bronze gears \u2014 the mechanism that powers the mosaic puzzle and the sand timer. Remarkably similar to Khepri's internal workings. A spare gear could be taken."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -3470,7 +3470,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You throw the lever. Counterweights shift. The sand timer resets — you can run the mosaic puzzle again if needed."
+              "text": "You throw the lever. Counterweights shift. The sand timer resets \u2014 you can run the mosaic puzzle again if needed."
             },
             {
               "type": "set_state",
@@ -3555,7 +3555,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -3602,7 +3602,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The Scales of Ma'at — where the dead's heart is weighed against the feather of truth. The right pan holds a stone heart. The left pan is empty, awaiting the feather. An Anubis statue watches with jackal eyes."
+              "text": "The Scales of Ma'at \u2014 where the dead's heart is weighed against the feather of truth. The right pan holds a stone heart. The left pan is empty, awaiting the feather. An Anubis statue watches with jackal eyes."
             },
             {
               "type": "set_view",
@@ -3647,7 +3647,7 @@
     {
       "id": "heart_jar_shelf",
       "name": "Heart Jar Shelf",
-      "description": "Shelves of canopic jars — the heart jar is prominent.",
+      "description": "Shelves of canopic jars \u2014 the heart jar is prominent.",
       "position": {
         "x": 750,
         "y": 300
@@ -3670,12 +3670,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Four canopic jars — one for each organ. The heart jar, topped with a human head (Imsety), is larger than the others. A heart scarab amulet rests beside it."
+              "text": "Four canopic jars \u2014 one for each organ. The heart jar, topped with a human head (Imsety), is larger than the others. A heart scarab amulet rests beside it."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -3727,7 +3727,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The jackal-headed god of the dead. Its obsidian eyes track movement — not supernatural, just clever engineering with weighted irises. It 'watches' whoever approaches the scales."
+              "text": "The jackal-headed god of the dead. Its obsidian eyes track movement \u2014 not supernatural, just clever engineering with weighted irises. It 'watches' whoever approaches the scales."
             }
           ]
         },
@@ -3785,7 +3785,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "object_state",
@@ -3833,7 +3833,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The 42 Negative Confessions — 'I have not stolen, I have not killed, I have not lied...' The scale of Ma'at requires truth. The feather must be placed on the left pan while speaking a confession."
+              "text": "The 42 Negative Confessions \u2014 'I have not stolen, I have not killed, I have not lied...' The scale of Ma'at requires truth. The feather must be placed on the left pan while speaking a confession."
             },
             {
               "type": "set_flag",
@@ -3927,7 +3927,7 @@
     {
       "id": "left_pan",
       "name": "Left Scale Pan",
-      "description": "The left pan of the scales — empty.",
+      "description": "The left pan of the scales \u2014 empty.",
       "position": {
         "x": 400,
         "y": 350
@@ -3990,7 +3990,7 @@
             },
             {
               "type": "message",
-              "text": "A compartment opens in the Anubis statue's base. Inside: the fourth cartouche seal — Ma'at."
+              "text": "A compartment opens in the Anubis statue's base. Inside: the fourth cartouche seal \u2014 Ma'at."
             }
           ],
           "noise": 8
@@ -4013,7 +4013,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You place the feather on the pan. The scales tip but don't balance. Something is missing — you must speak the confessions first. The feather lifts back to you."
+              "text": "You place the feather on the pan. The scales tip but don't balance. Something is missing \u2014 you must speak the confessions first. The feather lifts back to you."
             }
           ]
         }
@@ -4045,7 +4045,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A carved stone heart sits in the right pan. It represents the heart of the deceased, heavy with deeds — both good and bad."
+              "text": "A carved stone heart sits in the right pan. It represents the heart of the deceased, heavy with deeds \u2014 both good and bad."
             }
           ]
         }
@@ -4083,7 +4083,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The needle tilts right — the heart side is heavy. The feather pan is empty."
+              "text": "The needle tilts right \u2014 the heart side is heavy. The feather pan is empty."
             }
           ]
         },
@@ -4182,7 +4182,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The massive stone sarcophagus. The lid is carved with the pharaoh's likeness — golden death mask, crossed crook and flail. Worth examining closely."
+              "text": "The massive stone sarcophagus. The lid is carved with the pharaoh's likeness \u2014 golden death mask, crossed crook and flail. Worth examining closely."
             },
             {
               "type": "set_view",
@@ -4299,7 +4299,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You open the cracked baboon jar. Inside, wrapped in linen, is a crystal lens — polished quartz that refracts light. The ancients preserved it with the lungs, believing breath and light were connected."
+              "text": "You open the cracked baboon jar. Inside, wrapped in linen, is a crystal lens \u2014 polished quartz that refracts light. The ancients preserved it with the lungs, believing breath and light were connected."
             },
             {
               "type": "add_item",
@@ -4384,7 +4384,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Gold, lapis, carnelian, turquoise — a pharaoh's ransom. Among the treasures, you spot a golden ushabti servant figure and a bronze mirror. Worth taking?"
+              "text": "Gold, lapis, carnelian, turquoise \u2014 a pharaoh's ransom. Among the treasures, you spot a golden ushabti servant figure and a bronze mirror. Worth taking?"
             },
             {
               "type": "set_view",
@@ -4397,7 +4397,7 @@
     {
       "id": "guardian_alcove_empty",
       "name": "Guardian Alcove",
-      "description": "An empty alcove — something large stood here once.",
+      "description": "An empty alcove \u2014 something large stood here once.",
       "position": {
         "x": 100,
         "y": 350
@@ -4420,7 +4420,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A large alcove, empty. Bronze scratches on the floor show something massive once stood here — and recently walked out. Khepri's charging station? The alcove itself is deep enough to hide in."
+              "text": "A large alcove, empty. Bronze scratches on the floor show something massive once stood here \u2014 and recently walked out. Khepri's charging station? The alcove itself is deep enough to hide in."
             }
           ]
         },
@@ -4430,7 +4430,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press into the alcove. The bronze scratches tell you this is where Khepri rests between patrols. Risky — but deeply hidden."
+              "text": "You press into the alcove. The bronze scratches tell you this is where Khepri rests between patrols. Risky \u2014 but deeply hidden."
             },
             {
               "type": "start_hiding"
@@ -4443,7 +4443,7 @@
     {
       "id": "false_door",
       "name": "False Door",
-      "description": "A carved stone door that doesn't open — or does it?",
+      "description": "A carved stone door that doesn't open \u2014 or does it?",
       "position": {
         "x": 400,
         "y": 250
@@ -4472,7 +4472,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A carved stone door — a standard tomb feature. The ka (spirit) of the deceased passes through it. Not a real door. Or is it?"
+              "text": "A carved stone door \u2014 a standard tomb feature. The ka (spirit) of the deceased passes through it. Not a real door. Or is it?"
             }
           ]
         },
@@ -4488,7 +4488,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now you know the truth — the architect built a real passage behind this false door. There must be a hidden mechanism."
+              "text": "Now you know the truth \u2014 the architect built a real passage behind this false door. There must be a hidden mechanism."
             }
           ]
         },
@@ -4504,7 +4504,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You push. Solid stone. It's a false door — decorative, meant for the spirit world."
+              "text": "You push. Solid stone. It's a false door \u2014 decorative, meant for the spirit world."
             }
           ]
         },
@@ -4520,7 +4520,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Knowing it's real, you search for the mechanism. A section of the carved border is slightly proud — a button! You press it. The false door swings inward, revealing a passage to the Water Channel room."
+              "text": "Knowing it's real, you search for the mechanism. A section of the carved border is slightly proud \u2014 a button! You press it. The false door swings inward, revealing a passage to the Water Channel room."
             },
             {
               "type": "set_state",
@@ -4543,7 +4543,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You probe the seams with the compass-chisel. A hidden mechanism clicks — the door pivots open! An engineer's path, bypassing the need to discover the secret through the paintings."
+              "text": "You probe the seams with the compass-chisel. A hidden mechanism clicks \u2014 the door pivots open! An engineer's path, bypassing the need to discover the secret through the paintings."
             },
             {
               "type": "set_state",
@@ -4576,7 +4576,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -4655,7 +4655,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -4671,7 +4671,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You lift the death mask. It's lighter than expected — hollow gold over wood. Underneath: an inscription only the pharaoh was meant to read. A code for the treasury."
+              "text": "You lift the death mask. It's lighter than expected \u2014 hollow gold over wood. Underneath: an inscription only the pharaoh was meant to read. A code for the treasury."
             },
             {
               "type": "set_state",
@@ -4719,7 +4719,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A slot for a scroll — the Book of the Dead was traditionally placed here. It's empty, but the slot itself has a false bottom."
+              "text": "A slot for a scroll \u2014 the Book of the Dead was traditionally placed here. It's empty, but the slot itself has a false bottom."
             }
           ]
         },
@@ -4793,7 +4793,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -4803,7 +4803,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pocket the golden ushabti. Heavy, solid gold. Worth a fortune — and possibly useful as a weight or offering."
+              "text": "You pocket the golden ushabti. Heavy, solid gold. Worth a fortune \u2014 and possibly useful as a weight or offering."
             },
             {
               "type": "add_item",
@@ -4851,7 +4851,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You open the box. Inside: protective amulets. One is shaped like an ivory wand — a hippo-ivory apotropaic wand used to ward off evil."
+              "text": "You open the box. Inside: protective amulets. One is shaped like an ivory wand \u2014 a hippo-ivory apotropaic wand used to ward off evil."
             },
             {
               "type": "set_state",
@@ -4920,7 +4920,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -5003,12 +5003,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Copper chisels, measuring rods, plumb bobs, set squares. The toolkit of an ancient master builder. Most are too specialized, but one set catches your eye — a compass and reed pen set."
+              "text": "Copper chisels, measuring rods, plumb bobs, set squares. The toolkit of an ancient master builder. Most are too specialized, but one set catches your eye \u2014 a compass and reed pen set."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -5023,7 +5023,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You take the architect's compass — a precision instrument with a sharp point."
+              "text": "You take the architect's compass \u2014 a precision instrument with a sharp point."
             },
             {
               "type": "add_item",
@@ -5038,7 +5038,7 @@
           "noise": 3
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -5099,7 +5099,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A clay model of the entire tomb! You can see every chamber, every corridor, every trap. Khepri's patrol route is marked with bronze pins. The exit is at the northeast — through the Exit Corridor, past the Treasury."
+              "text": "A clay model of the entire tomb! You can see every chamber, every corridor, every trap. Khepri's patrol route is marked with bronze pins. The exit is at the northeast \u2014 through the Exit Corridor, past the Treasury."
             },
             {
               "type": "set_flag",
@@ -5168,12 +5168,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Construction records, worker schedules, supply lists. Most are too fragile to unroll. One scroll, however, is rolled tightly in a protective case — the architect's personal journal."
+              "text": "Construction records, worker schedules, supply lists. Most are too fragile to unroll. One scroll, however, is rolled tightly in a protective case \u2014 the architect's personal journal."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -5237,7 +5237,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You light the charcoal with the oil-soaked fuse. It catches! The forge glows red. The heat is intense but focused — you could cast bronze or heat metal."
+              "text": "You light the charcoal with the oil-soaked fuse. It catches! The forge glows red. The heat is intense but focused \u2014 you could cast bronze or heat metal."
             },
             {
               "type": "set_state",
@@ -5282,7 +5282,7 @@
             },
             {
               "type": "message",
-              "text": "Inside the mold was hidden: the third cartouche seal — Thoth, god of knowledge. The architect hid it where only a craftsman would find it."
+              "text": "Inside the mold was hidden: the third cartouche seal \u2014 Thoth, god of knowledge. The architect hid it where only a craftsman would find it."
             }
           ],
           "noise": 20
@@ -5353,7 +5353,7 @@
           "then": [
             {
               "type": "message",
-              "text": "According to the blueprints, a passage to the Water Channel room is behind this wall. There's a seam in the stone — another hidden door."
+              "text": "According to the blueprints, a passage to the Water Channel room is behind this wall. There's a seam in the stone \u2014 another hidden door."
             }
           ]
         },
@@ -5396,7 +5396,7 @@
           "noise": 12
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "object_state",
@@ -5508,7 +5508,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Black (carbon), red (ochre), and blue (lapis) inks. The red and black have dried, but some blue ink remains liquid — preserved in its stone well."
+              "text": "Black (carbon), red (ochre), and blue (lapis) inks. The red and black have dried, but some blue ink remains liquid \u2014 preserved in its stone well."
             }
           ]
         }
@@ -5577,7 +5577,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The complete tomb layout, drawn by the architect himself. Every room, passage, trap, and mechanism. Khepri's patrol route marked in red ink. The guardian follows a predictable circuit: Hall → Scarab → Weighing → Burial → back to Hall. A full circuit takes about 90 seconds."
+              "text": "The complete tomb layout, drawn by the architect himself. Every room, passage, trap, and mechanism. Khepri's patrol route marked in red ink. The guardian follows a predictable circuit: Hall \u2192 Scarab \u2192 Weighing \u2192 Burial \u2192 back to Hall. A full circuit takes about 90 seconds."
             },
             {
               "type": "set_flag",
@@ -5688,7 +5688,7 @@
           "then": [
             {
               "type": "message",
-              "text": "'My exit: through the Water Channel to the Observatory. Align the stars, redirect the light to the Treasury entrance. The Treasury connects to the Exit Corridor. The final door requires five cartouche seals — or the emergency release, which I alone know: behind the third cartouche slot, press and hold for ten heartbeats.'"
+              "text": "'My exit: through the Water Channel to the Observatory. Align the stars, redirect the light to the Treasury entrance. The Treasury connects to the Exit Corridor. The final door requires five cartouche seals \u2014 or the emergency release, which I alone know: behind the third cartouche slot, press and hold for ten heartbeats.'"
             },
             {
               "type": "set_flag",
@@ -5725,7 +5725,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Crystal-clear water flows through a precisely-cut stone channel. The ancient engineers tapped an underground spring. The water splits at two sluice gates — the flow must be managed to power the Observatory lens."
+              "text": "Crystal-clear water flows through a precisely-cut stone channel. The ancient engineers tapped an underground spring. The water splits at two sluice gates \u2014 the flow must be managed to power the Observatory lens."
             },
             {
               "type": "set_view",
@@ -5821,7 +5821,7 @@
           "then": [
             {
               "type": "message",
-              "text": "With the reservoir pressurized, you open Gate B. Water surges through the pipe to the Observatory. The water wheel begins to turn — the lens mechanism has power!"
+              "text": "With the reservoir pressurized, you open Gate B. Water surges through the pipe to the Observatory. The water wheel begins to turn \u2014 the lens mechanism has power!"
             },
             {
               "type": "set_state",
@@ -5897,7 +5897,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A bronze water wheel, currently still. It needs pressurized water flow to turn. Gears connect it to a shaft leading upward — to the Observatory's lens mechanism."
+              "text": "A bronze water wheel, currently still. It needs pressurized water flow to turn. Gears connect it to a shaft leading upward \u2014 to the Observatory's lens mechanism."
             }
           ]
         },
@@ -5945,7 +5945,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A deep pool of clear water. Something glints at the bottom — a chest, submerged. The water is too deep to reach easily."
+              "text": "A deep pool of clear water. Something glints at the bottom \u2014 a chest, submerged. The water is too deep to reach easily."
             }
           ]
         }
@@ -5977,7 +5977,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The overflow drain. If opened, it would empty the reservoir — making the submerged chest accessible, but cutting water pressure to the Observatory."
+              "text": "The overflow drain. If opened, it would empty the reservoir \u2014 making the submerged chest accessible, but cutting water pressure to the Observatory."
             }
           ]
         },
@@ -5987,7 +5987,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You open the drain. Water rushes out, draining the reservoir. The submerged chest is now accessible — but the water wheel slows and stops. You'll need to close the drain and rebuild pressure if you need the Observatory."
+              "text": "You open the drain. Water rushes out, draining the reservoir. The submerged chest is now accessible \u2014 but the water wheel slows and stops. You'll need to close the drain and rebuild pressure if you need the Observatory."
             },
             {
               "type": "set_flag",
@@ -6040,7 +6040,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -6088,7 +6088,7 @@
           "then": [
             {
               "type": "message",
-              "text": "With the reservoir drained, you pry open the waterproof chest. Inside: the fifth and final cartouche seal — Ra, the sun god. The architect hid it where only someone who understood the water system could reach it."
+              "text": "With the reservoir drained, you pry open the waterproof chest. Inside: the fifth and final cartouche seal \u2014 Ra, the sun god. The architect hid it where only someone who understood the water system could reach it."
             },
             {
               "type": "add_item",
@@ -6227,7 +6227,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Pressure reads zero. The system needs water flow to both valves — A first for pressure, then B to direct it."
+              "text": "Pressure reads zero. The system needs water flow to both valves \u2014 A first for pressure, then B to direct it."
             }
           ]
         }
@@ -6427,7 +6427,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Orion, Sirius, and the Pleiades — the three constellations that must be aligned with the star chart above."
+              "text": "Orion, Sirius, and the Pleiades \u2014 the three constellations that must be aligned with the star chart above."
             }
           ]
         }
@@ -6459,7 +6459,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A complete Egyptian zodiac carved into the floor. The twelve decans are marked with gold inlay. Beautiful, but decorative — the actual puzzle is in the alignment rings above."
+              "text": "A complete Egyptian zodiac carved into the floor. The twelve decans are marked with gold inlay. Beautiful, but decorative \u2014 the actual puzzle is in the alignment rings above."
             }
           ]
         }
@@ -6545,7 +6545,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Orion — Sah in Egyptian astronomy. The belt stars are marked with three dots in a line. The alignment ring's Orion marker must point to this position: 15 degrees from north."
+              "text": "Orion \u2014 Sah in Egyptian astronomy. The belt stars are marked with three dots in a line. The alignment ring's Orion marker must point to this position: 15 degrees from north."
             }
           ]
         }
@@ -6577,7 +6577,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Sopdet — Sirius. The most important star in Egyptian astronomy. Its heliacal rising marked the New Year and the Nile flood. At zenith — directly overhead. The alignment ring must point straight up."
+              "text": "Sopdet \u2014 Sirius. The most important star in Egyptian astronomy. Its heliacal rising marked the New Year and the Nile flood. At zenith \u2014 directly overhead. The alignment ring must point straight up."
             }
           ]
         }
@@ -6609,7 +6609,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The Pleiades — seven stars in a cluster. The alignment ring marker must point to 45 degrees east."
+              "text": "The Pleiades \u2014 seven stars in a cluster. The alignment ring marker must point to 45 degrees east."
             }
           ]
         }
@@ -6641,7 +6641,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The reference point — north. All alignment measurements are relative to this marker."
+              "text": "The reference point \u2014 north. All alignment measurements are relative to this marker."
             }
           ]
         }
@@ -6819,12 +6819,12 @@
           "then": [
             {
               "type": "message",
-              "text": "A fortune in gold. Amulets, figurines, vessels, jewelry. Priceless beyond measure. But none of it helps you escape — it's just treasure."
+              "text": "A fortune in gold. Amulets, figurines, vessels, jewelry. Priceless beyond measure. But none of it helps you escape \u2014 it's just treasure."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [],
           "then": [
             {
@@ -6874,7 +6874,7 @@
     {
       "id": "ceremonial_weapons_rack",
       "name": "Ceremonial Weapons",
-      "description": "Display rack of golden weapons — khopesh swords, spears, and maces.",
+      "description": "Display rack of golden weapons \u2014 khopesh swords, spears, and maces.",
       "position": {
         "x": 800,
         "y": 300
@@ -6897,7 +6897,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Ceremonial weapons — gold-plated, beautiful, but too soft to be practical. A khopesh sword, a war mace, and ceremonial daggers. None would help against a bronze automaton."
+              "text": "Ceremonial weapons \u2014 gold-plated, beautiful, but too soft to be practical. A khopesh sword, a war mace, and ceremonial daggers. None would help against a bronze automaton."
             }
           ]
         },
@@ -6907,7 +6907,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You grab the khopesh. It bends in your hand — gold over wood. Ceremonial, not functional. Useless."
+              "text": "You grab the khopesh. It bends in your hand \u2014 gold over wood. Ceremonial, not functional. Useless."
             }
           ],
           "noise": 5
@@ -6917,7 +6917,7 @@
     {
       "id": "throne_replica",
       "name": "Throne",
-      "description": "A golden throne — a replica of the pharaoh's seat of power.",
+      "description": "A golden throne \u2014 a replica of the pharaoh's seat of power.",
       "position": {
         "x": 512,
         "y": 200
@@ -6940,7 +6940,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The pharaoh's golden throne. Lions form the armrests. You could sit on it — or hide behind it."
+              "text": "The pharaoh's golden throne. Lions form the armrests. You could sit on it \u2014 or hide behind it."
             }
           ]
         },
@@ -6996,7 +6996,7 @@
               "then": [
                 {
                   "type": "message",
-                  "text": "You remember from the architect's plans — this floor section is a trap! Step on it and spikes deploy from the walls. It can be disarmed by pressing the tile sequence: left-right-center."
+                  "text": "You remember from the architect's plans \u2014 this floor section is a trap! Step on it and spikes deploy from the walls. It can be disarmed by pressing the tile sequence: left-right-center."
                 }
               ],
               "else": [
@@ -7057,7 +7057,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You step on the wrong tile. Bronze spikes shoot from the wall — you leap back just in time. Heart pounding."
+              "text": "You step on the wrong tile. Bronze spikes shoot from the wall \u2014 you leap back just in time. Heart pounding."
             },
             {
               "type": "add_noise",
@@ -7103,7 +7103,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A sun-symbol door. It needs focused light from the Observatory to open — or it can be forced with enough leverage."
+              "text": "A sun-symbol door. It needs focused light from the Observatory to open \u2014 or it can be forced with enough leverage."
             }
           ]
         },
@@ -7124,7 +7124,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "flag_is",
@@ -7167,7 +7167,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You wedge the chisel into the door mechanism and lever with all your strength. The ancient lock shatters — brute force over elegance."
+              "text": "You wedge the chisel into the door mechanism and lever with all your strength. The ancient lock shatters \u2014 brute force over elegance."
             },
             {
               "type": "set_state",
@@ -7218,7 +7218,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Dried offerings — grain, fruit (desiccated), and beer jars (long evaporated). The table itself has nothing useful."
+              "text": "Dried offerings \u2014 grain, fruit (desiccated), and beer jars (long evaporated). The table itself has nothing useful."
             }
           ]
         }
@@ -7250,7 +7250,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A four-symbol keypad built into the scarab lock. Hieratic numerals on each button — you need the right four-digit code."
+              "text": "A four-symbol keypad built into the scarab lock. Hieratic numerals on each button \u2014 you need the right four-digit code."
             }
           ]
         }
@@ -7282,17 +7282,17 @@
           "then": [
             {
               "type": "message",
-              "text": "The chest contains the pharaoh's most precious possession: a scroll of divine knowledge and — tucked beneath it — a cartouche seal."
+              "text": "The chest contains the pharaoh's most precious possession: a scroll of divine knowledge and \u2014 tucked beneath it \u2014 a cartouche seal."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [],
           "then": [
             {
               "type": "message",
-              "text": "You take the scroll and the cartouche seal. The scroll describes the Observatory alignment in detail — useful if you haven't figured it out yet."
+              "text": "You take the scroll and the cartouche seal. The scroll describes the Observatory alignment in detail \u2014 useful if you haven't figured it out yet."
             },
             {
               "type": "set_flag",
@@ -7330,7 +7330,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The bottom of the chest feels hollow. A hidden compartment — classic tomb architecture."
+              "text": "The bottom of the chest feels hollow. A hidden compartment \u2014 classic tomb architecture."
             }
           ]
         },
@@ -7340,7 +7340,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pry open the false bottom. Inside: a wrapped object. You unwrap it — a detailed miniature of Khepri, with joints that move. A blueprint in three dimensions."
+              "text": "You pry open the false bottom. Inside: a wrapped object. You unwrap it \u2014 a detailed miniature of Khepri, with joints that move. A blueprint in three dimensions."
             },
             {
               "type": "set_flag",
@@ -7379,7 +7379,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The scarab amulet fits perfectly. Click — the chest unlocks from both the keypad side AND reveals the hidden compartment."
+              "text": "The scarab amulet fits perfectly. Click \u2014 the chest unlocks from both the keypad side AND reveals the hidden compartment."
             },
             {
               "type": "show_object",
@@ -7421,7 +7421,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The final corridor. Reliefs depict the sun's journey across the sky. At the far end: the final door, and beside it — daylight! Cracks in the ceiling let sunlight stream in."
+              "text": "The final corridor. Reliefs depict the sun's journey across the sky. At the far end: the final door, and beside it \u2014 daylight! Cracks in the ceiling let sunlight stream in."
             }
           ]
         }
@@ -7473,7 +7473,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Immovable. The five cartouche seals, or the emergency release — those are the only ways through."
+              "text": "Immovable. The five cartouche seals, or the emergency release \u2014 those are the only ways through."
             }
           ],
           "noise": 8
@@ -7483,7 +7483,7 @@
     {
       "id": "guardian_track",
       "name": "Guardian Track",
-      "description": "Bronze rails in the floor — Khepri's patrol track.",
+      "description": "Bronze rails in the floor \u2014 Khepri's patrol track.",
       "position": {
         "x": 700,
         "y": 600
@@ -7641,7 +7641,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Another trap — the architect's plans warned about this one too. Same disarm sequence: left-right-center."
+              "text": "Another trap \u2014 the architect's plans warned about this one too. Same disarm sequence: left-right-center."
             }
           ]
         },
@@ -7712,7 +7712,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Three levers. One is labeled with a sun, one with a moon, one with a star. A test — only the sun lever opens supplementary locks. The others trigger noise."
+              "text": "Three levers. One is labeled with a sun, one with a moon, one with a star. A test \u2014 only the sun lever opens supplementary locks. The others trigger noise."
             }
           ]
         },
@@ -7738,7 +7738,7 @@
               "else": [
                 {
                   "type": "message",
-                  "text": "You pull a lever at random — the moon. A grinding sound, then a loud gong echoes through the tomb. Wrong choice."
+                  "text": "You pull a lever at random \u2014 the moon. A grinding sound, then a loud gong echoes through the tomb. Wrong choice."
                 },
                 {
                   "type": "add_noise",
@@ -7884,7 +7884,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Ra's seal — the last one. All five click into place simultaneously. The door mechanism engages. Ancient gears turn. The stone slab rises with thunderous grinding. Sunlight floods the corridor. You're free."
+              "text": "Ra's seal \u2014 the last one. All five click into place simultaneously. The door mechanism engages. Ancient gears turn. The stone slab rises with thunderous grinding. Sunlight floods the corridor. You're free."
             },
             {
               "type": "set_flag",
@@ -7894,7 +7894,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You placed all five cartouche seals. The final door opens to blinding sunlight. You emerge into the desert, blinking, alive. Behind you, Khepri's clicks fade into silence. The Pharaoh's tomb keeps its treasures — but not its prisoner. You've earned passage through knowledge, craft, and truth."
+              "reason": "You placed all five cartouche seals. The final door opens to blinding sunlight. You emerge into the desert, blinking, alive. Behind you, Khepri's clicks fade into silence. The Pharaoh's tomb keeps its treasures \u2014 but not its prisoner. You've earned passage through knowledge, craft, and truth."
             }
           ],
           "noise": 40
@@ -8002,7 +8002,7 @@
             {
               "type": "game_over",
               "result": "win",
-              "reason": "Using the architect Senenmut's own emergency release — hidden behind the third cartouche slot — you bypass the five-seal lock entirely. The door opens to the desert. You escape not through divine approval, but through the architect's human ingenuity. His secret, kept for three millennia, saved your life."
+              "reason": "Using the architect Senenmut's own emergency release \u2014 hidden behind the third cartouche slot \u2014 you bypass the five-seal lock entirely. The door opens to the desert. You escape not through divine approval, but through the architect's human ingenuity. His secret, kept for three millennia, saved your life."
             }
           ],
           "noise": 5
@@ -8014,7 +8014,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hold the forged decree to the door. Nothing. Of course — the door mechanism is purely mechanical. It can't read. But the attempt was creative."
+              "text": "You hold the forged decree to the door. Nothing. Of course \u2014 the door mechanism is purely mechanical. It can't read. But the attempt was creative."
             }
           ]
         }
@@ -8083,9 +8083,9 @@
       "config": {
         "positions": [
           "North",
-          "15°E",
-          "30°E",
-          "45°E",
+          "15\u00b0E",
+          "30\u00b0E",
+          "45\u00b0E",
           "East",
           "South",
           "West",
@@ -8192,7 +8192,7 @@
         },
         {
           "type": "message",
-          "text": "The mosaic shudders and sinks, revealing a hidden compartment. Inside: the first cartouche seal — Khufu-Ankh!"
+          "text": "The mosaic shudders and sinks, revealing a hidden compartment. Inside: the first cartouche seal \u2014 Khufu-Ankh!"
         }
       ],
       "on_fail": [
@@ -8300,7 +8300,7 @@
         {
           "type": "game_over",
           "result": "win",
-          "reason": "You cracked the combination lock hidden behind the emergency release panel. The clay shard you found in the rubble — the very first item you picked up — held the answer all along. The door opens. Sunlight floods in. You are free."
+          "reason": "You cracked the combination lock hidden behind the emergency release panel. The clay shard you found in the rubble \u2014 the very first item you picked up \u2014 held the answer all along. The door opens. Sunlight floods in. You are free."
         }
       ],
       "on_fail": [
@@ -8324,7 +8324,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Dust. Darkness. Pain. You fell through the floor of the upper tomb into sealed chambers below. As your eyes adjust, you hear it — click... click... click... — the rhythmic sound of ancient machinery. Something is moving in the corridors. Something that has been moving for three thousand years."
+          "text": "Dust. Darkness. Pain. You fell through the floor of the upper tomb into sealed chambers below. As your eyes adjust, you hear it \u2014 click... click... click... \u2014 the rhythmic sound of ancient machinery. Something is moving in the corridors. Something that has been moving for three thousand years."
         }
       ],
       "ambient_text": "Distant clicking echoes through stone corridors. Dust motes drift in faint light.",
@@ -8346,7 +8346,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Torchlight reveals the scale of this place. Ten chambers of ancient engineering surround you. And in the corridors between them, Khepri patrols — an automaton that never tires, never sleeps, and never forgives intrusion."
+          "text": "Torchlight reveals the scale of this place. Ten chambers of ancient engineering surround you. And in the corridors between them, Khepri patrols \u2014 an automaton that never tires, never sleeps, and never forgives intrusion."
         }
       ],
       "ambient_text": "Clicking grows closer, then recedes. Khepri patrols the corridors in a tireless circuit.",
@@ -8382,7 +8382,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "The clicking accelerates. Khepri has detected significant disturbance. The guardian's patrol tightens — it's searching specifically for you now. Its bronze head swivels, obsidian eyes scanning. Be very, very careful."
+          "text": "The clicking accelerates. Khepri has detected significant disturbance. The guardian's patrol tightens \u2014 it's searching specifically for you now. Its bronze head swivels, obsidian eyes scanning. Be very, very careful."
         },
         {
           "type": "visual_cue",
@@ -8409,7 +8409,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "You can see daylight. The exit corridor is open. But Khepri stands between you and freedom. One final gauntlet — navigate the corridor, avoid the traps, reach the door. This is the architect's final trial."
+          "text": "You can see daylight. The exit corridor is open. But Khepri stands between you and freedom. One final gauntlet \u2014 navigate the corridor, avoid the traps, reach the door. This is the architect's final trial."
         },
         {
           "type": "visual_cue",
@@ -8453,7 +8453,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Sand shifts somewhere above. The tomb is not entirely stable — your fall weakened the ceiling. Time is not infinite here."
+          "text": "Sand shifts somewhere above. The tomb is not entirely stable \u2014 your fall weakened the ceiling. Time is not infinite here."
         },
         {
           "type": "visual_cue",
@@ -8471,7 +8471,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Through a doorway, you catch a glimpse — bronze legs, scarab-shaped body, obsidian eyes that glow faintly red. Khepri passes through the Hall of Pillars on its endless circuit. It's enormous, and its footsteps are precisely timed."
+          "text": "Through a doorway, you catch a glimpse \u2014 bronze legs, scarab-shaped body, obsidian eyes that glow faintly red. Khepri passes through the Hall of Pillars on its endless circuit. It's enormous, and its footsteps are precisely timed."
         },
         {
           "type": "visual_cue",
@@ -8521,7 +8521,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "The water system rumbles. With the valves open, pressure has built throughout the tomb's hydraulic network. You hear distant mechanisms engaging — the observatory lens can now be powered."
+          "text": "The water system rumbles. With the valves open, pressure has built throughout the tomb's hydraulic network. You hear distant mechanisms engaging \u2014 the observatory lens can now be powered."
         },
         {
           "type": "play_sound",
@@ -8549,7 +8549,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Khepri enters the Burial Chamber and stops. Its head swivels to the open sarcophagus. A low mechanical growl — gears grinding in what almost sounds like anger. The guardian has seen the desecration. It will search harder now."
+          "text": "Khepri enters the Burial Chamber and stops. Its head swivels to the open sarcophagus. A low mechanical growl \u2014 gears grinding in what almost sounds like anger. The guardian has seen the desecration. It will search harder now."
         },
         {
           "type": "visual_cue",
@@ -8594,7 +8594,7 @@
           "effects": [
             {
               "type": "message",
-              "text": "Khepri's patrol route is erratic now. Grinding, lurching steps replace the precise clicking. The natron paste is working — the guardian is corroding from within."
+              "text": "Khepri's patrol route is erratic now. Grinding, lurching steps replace the precise clicking. The natron paste is working \u2014 the guardian is corroding from within."
             }
           ]
         }
@@ -8603,7 +8603,7 @@
   ],
   "killer": {
     "name": "Khepri",
-    "description": "An ancient mechanical guardian — a bronze scarab automaton the size of a large dog, running on clockwork gears and counterweight mechanisms. It has patrolled these corridors for over three thousand years without stopping.",
+    "description": "An ancient mechanical guardian \u2014 a bronze scarab automaton the size of a large dog, running on clockwork gears and counterweight mechanisms. It has patrolled these corridors for over three thousand years without stopping.",
     "base_behavior": {
       "check_interval_seconds": 60,
       "interval_variance_seconds": 15,
@@ -8634,7 +8634,7 @@
       "on_search": [
         "Khepri's head rotates slowly, scanning. Bronze feelers extend from its scarab shell.",
         "The automaton probes each shadow, each alcove. Methodical. Tireless.",
-        "Click-click-click-click — rapid scanning. Khepri knows you're here."
+        "Click-click-click-click \u2014 rapid scanning. Khepri knows you're here."
       ],
       "on_clear": [
         "Khepri's head retracts. The clicking resumes its slow, steady rhythm. It moves on.",
@@ -8642,9 +8642,9 @@
         "The red glow fades down the corridor. Safe. Barely."
       ],
       "on_evidence": [
-        "Khepri stops at the disturbed area. Its head tilts. Gears grind — processing. Anger?",
+        "Khepri stops at the disturbed area. Its head tilts. Gears grind \u2014 processing. Anger?",
         "The automaton discovers the change. Bronze feelers probe the evidence. The clicking intensifies.",
-        "A mechanical screech — Khepri has found proof of intrusion. It will search harder now."
+        "A mechanical screech \u2014 Khepri has found proof of intrusion. It will search harder now."
       ],
       "on_catch": [
         "Khepri's bronze arms seize you. Three thousand years of mechanical patience, and the guardian has finally found its prey. The tomb keeps what enters."
@@ -8936,17 +8936,17 @@
       "name": "The Scholar's Path",
       "description": "Solve puzzles through knowledge and observation. Minimal noise, maximum understanding.",
       "steps": [
-        "Search rubble → get clay_shard + copper_chisel",
-        "Light torch with chisel → reveals hieroglyphs",
-        "Read hieroglyph wall → learn tomb layout and seal locations",
-        "Find scarab amulet in alcove → open north door to Hall of Pillars",
-        "Read pillar inscriptions → learn star alignment code",
-        "Use crystal lens on hieroglyphs → find hidden messages about workshop",
-        "Open workshop via fourth pillar → explore architect's workspace",
-        "Study blueprints → learn water system and Khepri's weaknesses",
-        "Follow water system to Observatory → align stars",
-        "Focused light opens Treasury → find remaining seals",
-        "Place all five cartouche seals → escape through final door"
+        "Search rubble \u2192 get clay_shard + copper_chisel",
+        "Light torch with chisel \u2192 reveals hieroglyphs",
+        "Read hieroglyph wall \u2192 learn tomb layout and seal locations",
+        "Find scarab amulet in alcove \u2192 open north door to Hall of Pillars",
+        "Read pillar inscriptions \u2192 learn star alignment code",
+        "Use crystal lens on hieroglyphs \u2192 find hidden messages about workshop",
+        "Open workshop via fourth pillar \u2192 explore architect's workspace",
+        "Study blueprints \u2192 learn water system and Khepri's weaknesses",
+        "Follow water system to Observatory \u2192 align stars",
+        "Focused light opens Treasury \u2192 find remaining seals",
+        "Place all five cartouche seals \u2192 escape through final door"
       ],
       "estimated_noise": "Low (mostly observation-based)",
       "patterns_emphasized": [
@@ -8962,12 +8962,12 @@
       "name": "The Engineer's Path",
       "description": "Manipulate the tomb's mechanical systems. Use the architect's tools and knowledge of machines.",
       "steps": [
-        "Search rubble → get clay_shard + copper_chisel",
-        "Light torch → explore",
+        "Search rubble \u2192 get clay_shard + copper_chisel",
+        "Light torch \u2192 explore",
         "Find workshop through pillar mechanism",
-        "Study gear schematics → understand Khepri's weaknesses",
-        "Forge bronze key at workshop → gain cartouche seal 3",
-        "Manage water system → power Observatory",
+        "Study gear schematics \u2192 understand Khepri's weaknesses",
+        "Forge bronze key at workshop \u2192 gain cartouche seal 3",
+        "Manage water system \u2192 power Observatory",
         "Build sabotage gear or tripwire trap from bronze gear + sand/wire",
         "Disable Khepri with trap or corrosive paste",
         "Navigate to exit with guardian disabled",
@@ -8984,11 +8984,11 @@
     {
       "id": "warriors_path",
       "name": "The Warrior's Path",
-      "description": "Brute force through obstacles. Loud, fast, risky — but direct.",
+      "description": "Brute force through obstacles. Loud, fast, risky \u2014 but direct.",
       "steps": [
-        "Search rubble → get tools",
-        "Smash through doors with chisel → maximum noise",
-        "Use oil fire to create barrier → 60 second window",
+        "Search rubble \u2192 get tools",
+        "Smash through doors with chisel \u2192 maximum noise",
+        "Use oil fire to create barrier \u2192 60 second window",
         "Sprint through chambers, grabbing essential items",
         "Use chisel to force treasury door open (bypasses Observatory puzzle)",
         "Trigger traps with ivory wand from a distance",

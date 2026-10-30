@@ -1011,7 +1011,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -1142,7 +1142,7 @@
           "noise": 12
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [
             {
               "type": "object_state",
@@ -1685,7 +1685,7 @@
           "noise": 5
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [],
           "then": [
             {
@@ -1998,7 +1998,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "move",
           "when": [],
           "then": [
             {
@@ -2044,7 +2044,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -2449,7 +2449,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2480,7 +2480,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2532,7 +2532,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2594,7 +2594,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2656,7 +2656,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2811,7 +2811,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2872,7 +2872,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -2933,7 +2933,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -3025,7 +3025,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -3148,7 +3148,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",

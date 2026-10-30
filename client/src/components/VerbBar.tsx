@@ -8,10 +8,9 @@ interface VerbBarProps {
 
 const VERBS = [
   { id: 'look', label: 'Look' },
+  { id: 'move', label: 'Move' },
   { id: 'hand', label: 'Hand' },
-  { id: 'take', label: 'Take' },
   { id: 'talk', label: 'Talk' },
-  { id: 'use', label: 'Use' },
 ];
 
 const styles: Record<string, CSSProperties> = {

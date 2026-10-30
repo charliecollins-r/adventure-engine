@@ -3,7 +3,7 @@
   "metadata": {
     "id": "pressure-point",
     "title": "Pressure Point",
-    "description": "You awaken in a damaged deep-sea research module at 3000 meters depth. The hull groans under 300 atmospheres. Dr. Yuki Tanaka — the station's marine biologist — has sealed the module and is deliberately flooding compartments. She calls you 'Subject 7.' Find a way to the surface before the ocean claims you.",
+    "description": "You awaken in a damaged deep-sea research module at 3000 meters depth. The hull groans under 300 atmospheres. Dr. Yuki Tanaka \u2014 the station's marine biologist \u2014 has sealed the module and is deliberately flooding compartments. She calls you 'Subject 7.' Find a way to the surface before the ocean claims you.",
     "author": "ai-generated",
     "difficulty": "hard",
     "estimated_minutes": 12,
@@ -235,7 +235,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You click it on. A dim violet glow. You notice faint markings on your own wrist — numbers written in fluorescent ink: '7'. Your subject number."
+              "text": "You click it on. A dim violet glow. You notice faint markings on your own wrist \u2014 numbers written in fluorescent ink: '7'. Your subject number."
             },
             {
               "type": "set_flag",
@@ -264,7 +264,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Day 187. Tanaka won't let anyone near Module C. Says the specimens need 'controlled conditions.' Rodriguez tried to radio topside — Tanaka cut the main antenna cable. Emergency frequency is 121.5 MHz but the backup antenna only works on... the rest is torn."
+              "text": "Day 187. Tanaka won't let anyone near Module C. Says the specimens need 'controlled conditions.' Rodriguez tried to radio topside \u2014 Tanaka cut the main antenna cable. Emergency frequency is 121.5 MHz but the backup antenna only works on... the rest is torn."
             },
             {
               "type": "set_flag",
@@ -290,7 +290,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The page describes Tanaka's descent into obsession. The bottom is torn — the frequency info is missing."
+              "text": "The page describes Tanaka's descent into obsession. The bottom is torn \u2014 the frequency info is missing."
             }
           ]
         },
@@ -306,7 +306,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Under UV light, someone wrote in fluorescent ink: 'BACKUP FREQ 156.8 MHz — Rodriguez'. Smart thinking, hiding the information from Tanaka."
+              "text": "Under UV light, someone wrote in fluorescent ink: 'BACKUP FREQ 156.8 MHz \u2014 Rodriguez'. Smart thinking, hiding the information from Tanaka."
             }
           ]
         },
@@ -323,7 +323,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The UV light reveals hidden writing in fluorescent ink: 'BACKUP FREQ 156.8 MHz — Rodriguez'. Someone anticipated Tanaka's sabotage."
+              "text": "The UV light reveals hidden writing in fluorescent ink: 'BACKUP FREQ 156.8 MHz \u2014 Rodriguez'. Someone anticipated Tanaka's sabotage."
             },
             {
               "type": "set_flag",
@@ -351,7 +351,7 @@
           "then": [
             {
               "type": "message",
-              "text": "DeepSeal Pro — emergency hull patch compound. Apply to crack, hardens in 30 seconds. Rated to 400 ATM. About one-third left in the tube."
+              "text": "DeepSeal Pro \u2014 emergency hull patch compound. Apply to crack, hardens in 30 seconds. Rated to 400 ATM. About one-third left in the tube."
             }
           ]
         }
@@ -433,7 +433,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A torque-calibrated wrench for deep-sea pressure fittings. The markings go up to 600 ATM. Hefty — could double as a weapon in a pinch."
+              "text": "A torque-calibrated wrench for deep-sea pressure fittings. The markings go up to 600 ATM. Hefty \u2014 could double as a weapon in a pinch."
             }
           ]
         }
@@ -469,7 +469,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard valve key. Fits the square sockets on the overhead pipe shut-off valves. Yellow handle — matches the ceiling pipe markings."
+              "text": "Standard valve key. Fits the square sockets on the overhead pipe shut-off valves. Yellow handle \u2014 matches the ceiling pipe markings."
             }
           ]
         }
@@ -487,7 +487,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Magnesium-based underwater flare. Pull-ignition. Burns for 60 seconds at extreme brightness. Would attract every creature within half a kilometer. The label warns: 'INTENSE LIGHT — DO NOT USE NEAR PHOTOSENSITIVE FAUNA.'"
+              "text": "Magnesium-based underwater flare. Pull-ignition. Burns for 60 seconds at extreme brightness. Would attract every creature within half a kilometer. The label warns: 'INTENSE LIGHT \u2014 DO NOT USE NEAR PHOTOSENSITIVE FAUNA.'"
             }
           ]
         }
@@ -538,7 +538,7 @@
       ],
       "result": "repaired_antenna_cable",
       "consumes": false,
-      "message": "You strip both ends of the cable with the multi-tool's wire cutters and prep the connectors. A clean splice — it should carry a signal.",
+      "message": "You strip both ends of the cable with the multi-tool's wire cutters and prep the connectors. A clean splice \u2014 it should carry a signal.",
       "noise": 8,
       "conditions": []
     },
@@ -549,7 +549,7 @@
       ],
       "result": "creature_lure",
       "consumes": true,
-      "message": "You smear the bioluminescent fluid across the flare casing. It pulses with an alien rhythm. When lit, this will drive Tanaka's precious specimens into a frenzy — and her with them.",
+      "message": "You smear the bioluminescent fluid across the flare casing. It pulses with an alien rhythm. When lit, this will drive Tanaka's precious specimens into a frenzy \u2014 and her with them.",
       "noise": 3,
       "conditions": []
     },
@@ -606,7 +606,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A pressure bulkhead rated for 500 ATM. The status light glows red — sealed from the other side. Through the reinforced glass porthole, you see Dr. Tanaka's lab. She moves between tanks of luminous creatures, humming to herself."
+              "text": "A pressure bulkhead rated for 500 ATM. The status light glows red \u2014 sealed from the other side. Through the reinforced glass porthole, you see Dr. Tanaka's lab. She moves between tanks of luminous creatures, humming to herself."
             },
             {
               "type": "set_flag",
@@ -627,7 +627,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You jammed the bulkhead wheel with the pressure wrench. It won't spin — Tanaka is locked out. But you can hear her pounding from the other side."
+              "text": "You jammed the bulkhead wheel with the pressure wrench. It won't spin \u2014 Tanaka is locked out. But you can hear her pounding from the other side."
             }
           ]
         },
@@ -643,7 +643,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You strain against the wheel lock. It's electronically sealed — brute force won't open it."
+              "text": "You strain against the wheel lock. It's electronically sealed \u2014 brute force won't open it."
             }
           ],
           "noise": 15
@@ -682,7 +682,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You wedge the wrench into the wheel mechanism. It locks the wheel solid — even if Tanaka unseals the door electronically, she can't spin the wheel to open it. You've locked HER out."
+              "text": "You wedge the wrench into the wheel mechanism. It locks the wheel solid \u2014 even if Tanaka unseals the door electronically, she can't spin the wheel to open it. You've locked HER out."
             },
             {
               "type": "set_state",
@@ -762,7 +762,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Absolute blackness — then movement. Bioluminescent shapes drift past: jellyfish trailing curtains of blue light, angular fish with glowing lures. Beautiful and alien. The pressure out there would crush you to nothing."
+              "text": "Absolute blackness \u2014 then movement. Bioluminescent shapes drift past: jellyfish trailing curtains of blue light, angular fish with glowing lures. Beautiful and alien. The pressure out there would crush you to nothing."
             }
           ]
         },
@@ -792,7 +792,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The creatures are pressed against every viewport now. Hundreds of them. Pulsing in unison. The glass creaks. They're not just watching anymore — they're pushing."
+              "text": "The creatures are pressed against every viewport now. Hundreds of them. Pulsing in unison. The glass creaks. They're not just watching anymore \u2014 they're pushing."
             },
             {
               "type": "visual_cue",
@@ -857,7 +857,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Three pressurized tanks filled with murky seawater. Bioluminescent organisms drift inside — some recognizable (jellyfish, cephalopods), others... not. One tank is labeled 'SUBJECT PREPARATION — DO NOT OPEN.' The fluid inside is a sickly yellow-green."
+              "text": "Three pressurized tanks filled with murky seawater. Bioluminescent organisms drift inside \u2014 some recognizable (jellyfish, cephalopods), others... not. One tank is labeled 'SUBJECT PREPARATION \u2014 DO NOT OPEN.' The fluid inside is a sickly yellow-green."
             },
             {
               "type": "set_flag",
@@ -894,7 +894,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The tank valves are locked. You could force one open, but pressurized seawater at this depth would spray everywhere — and whatever's inside would come with it."
+              "text": "The tank valves are locked. You could force one open, but pressurized seawater at this depth would spray everywhere \u2014 and whatever's inside would come with it."
             }
           ],
           "noise": 5
@@ -912,12 +912,12 @@
           "then": [
             {
               "type": "message",
-              "text": "You could crack a tank valve with this, but releasing pressurized specimens would flood the immediate area and attract Tanaka's attention instantly. That might be exactly what you want — or a fatal mistake."
+              "text": "You could crack a tank valve with this, but releasing pressurized specimens would flood the immediate area and attract Tanaka's attention instantly. That might be exactly what you want \u2014 or a fatal mistake."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -1067,7 +1067,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A reinforced locker for emergency dive equipment. Padlocked. Through the ventilation slits, you can see a dive suit, tanks, and gear inside. You could hide inside if you got it open — it's big enough."
+              "text": "A reinforced locker for emergency dive equipment. Padlocked. Through the ventilation slits, you can see a dive suit, tanks, and gear inside. You could hide inside if you got it open \u2014 it's big enough."
             }
           ]
         },
@@ -1103,7 +1103,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The padlock holds firm. Standard marine padlock — you'd need a tool."
+              "text": "The padlock holds firm. Standard marine padlock \u2014 you'd need a tool."
             }
           ],
           "noise": 8
@@ -1189,7 +1189,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A steel floor grate over the bilge channel. Water sloshes beneath it — more than there should be. Four bolts hold it down. Something glints in the water below."
+              "text": "A steel floor grate over the bilge channel. Water sloshes beneath it \u2014 more than there should be. Four bolts hold it down. Something glints in the water below."
             }
           ]
         },
@@ -1239,7 +1239,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You work the bolts loose one by one with the flathead driver. The last bolt pops free and the grate lifts. Below: ankle-deep seawater and — there — a valve key wedged against the pipe junction."
+              "text": "You work the bolts loose one by one with the flathead driver. The last bolt pops free and the grate lifts. Below: ankle-deep seawater and \u2014 there \u2014 a valve key wedged against the pipe junction."
             },
             {
               "type": "set_state",
@@ -1294,7 +1294,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Emergency systems panel. Behind the locked cover: ascent pod controls, emergency beacon, backup power switch. A keypad lock requires a 4-digit code. The label reads: 'CODE ON STATION REGISTRY — CAPTAIN'S COPY.'"
+              "text": "Emergency systems panel. Behind the locked cover: ascent pod controls, emergency beacon, backup power switch. A keypad lock requires a 4-digit code. The label reads: 'CODE ON STATION REGISTRY \u2014 CAPTAIN'S COPY.'"
             }
           ]
         },
@@ -1330,7 +1330,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The cover won't budge. Electronic keypad lock — you need the code."
+              "text": "The cover won't budge. Electronic keypad lock \u2014 you need the code."
             }
           ],
           "noise": 5
@@ -1348,7 +1348,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The panel is designed to resist forced entry — it's an emergency system, not a snack cabinet. You need the code."
+              "text": "The panel is designed to resist forced entry \u2014 it's an emergency system, not a snack cabinet. You need the code."
             }
           ],
           "noise": 12
@@ -1389,7 +1389,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A network of pipes — water, air, ballast, communications conduit. Several are sweating condensation. One pipe has a hairline crack, dripping steadily. Yellow-marked shut-off valves require a square-socket key. The ballast lines run to the pressure control station."
+              "text": "A network of pipes \u2014 water, air, ballast, communications conduit. Several are sweating condensation. One pipe has a hairline crack, dripping steadily. Yellow-marked shut-off valves require a square-socket key. The ballast lines run to the pressure control station."
             }
           ]
         },
@@ -1421,7 +1421,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've shut off the flood valves and redirected pressure to the ballast system. The pipes thrum with redirected force — all that energy is now feeding the ballast tanks."
+              "text": "You've shut off the flood valves and redirected pressure to the ballast system. The pipes thrum with redirected force \u2014 all that energy is now feeding the ballast tanks."
             }
           ]
         },
@@ -1437,7 +1437,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press your thumb over the crack. Water sprays between your fingers — the pressure is incredible. You can't hold it."
+              "text": "You press your thumb over the crack. Water sprays between your fingers \u2014 the pressure is incredible. You can't hold it."
             }
           ],
           "noise": 5
@@ -1516,7 +1516,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You could redirect the pipe pressure, but the flood valves are still open — the system would just push more water in. Close the flood valves at the pressure control station first."
+              "text": "You could redirect the pipe pressure, but the flood valves are still open \u2014 the system would just push more water in. Close the flood valves at the pressure control station first."
             }
           ]
         },
@@ -1573,7 +1573,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A large supply crate, lid cracked from pressure damage. You could squeeze inside to hide. Stenciled on the side: 'STATION SUPPLY — MODULE B — REG# 0451.'"
+              "text": "A large supply crate, lid cracked from pressure damage. You could squeeze inside to hide. Stenciled on the side: 'STATION SUPPLY \u2014 MODULE B \u2014 REG# 0451.'"
             },
             {
               "type": "conditional_effect",
@@ -1675,12 +1675,12 @@
           "then": [
             {
               "type": "message",
-              "text": "Empty mounting brackets. The suits are stored in the dive locker. But you notice a multi-tool hanging from a lanyard on one hook — someone's personal kit, left behind in the evacuation."
+              "text": "Empty mounting brackets. The suits are stored in the dive locker. But you notice a multi-tool hanging from a lanyard on one hook \u2014 someone's personal kit, left behind in the evacuation."
             }
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -1705,7 +1705,7 @@
           "noise": 3
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "has_item",
@@ -1749,7 +1749,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The intercom crackles with static. Tanaka uses this to monitor — and taunt — her 'subjects.' The speaker is wired into the station's internal communication system."
+              "text": "The intercom crackles with static. Tanaka uses this to monitor \u2014 and taunt \u2014 her 'subjects.' The speaker is wired into the station's internal communication system."
             }
           ]
         },
@@ -1774,7 +1774,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You could rip it off the wall, but it's hardwired — Tanaka can listen through the other intercoms anyway. Better to not draw attention."
+              "text": "You could rip it off the wall, but it's hardwired \u2014 Tanaka can listen through the other intercoms anyway. Better to not draw attention."
             }
           ],
           "noise": 20
@@ -1815,7 +1815,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A thin film of seawater spreading across the deck. It seeps from somewhere below — the bilge pumps should handle this, but they're barely running. Faint bioluminescent specks glow in the water. Even the puddles carry life at this depth."
+              "text": "A thin film of seawater spreading across the deck. It seeps from somewhere below \u2014 the bilge pumps should handle this, but they're barely running. Faint bioluminescent specks glow in the water. Even the puddles carry life at this depth."
             }
           ]
         },
@@ -1831,7 +1831,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The water is ankle-deep now and rising. You can feel the cold through your shoes. The bioluminescent organisms have multiplied — the floor glows with ghostly blue light."
+              "text": "The water is ankle-deep now and rising. You can feel the cold through your shoes. The bioluminescent organisms have multiplied \u2014 the floor glows with ghostly blue light."
             }
           ]
         },
@@ -1847,7 +1847,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Knee-deep. Freezing. The water is thick with bioluminescent organisms — the whole floor pulses with alien light. Every step sends ripples of blue-green. This module is sinking."
+              "text": "Knee-deep. Freezing. The water is thick with bioluminescent organisms \u2014 the whole floor pulses with alien light. Every step sends ripples of blue-green. This module is sinking."
             },
             {
               "type": "visual_cue",
@@ -1861,7 +1861,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Ice cold. Your fingers go numb in seconds. The water tastes of salt and something metallic — hull corrosion."
+              "text": "Ice cold. Your fingers go numb in seconds. The water tastes of salt and something metallic \u2014 hull corrosion."
             }
           ]
         }
@@ -1917,7 +1917,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The vent shaft opening. Too narrow to crawl through, but you can see into the next module — Tanaka's main lab. She's pacing between tanks, muttering to her specimens."
+              "text": "The vent shaft opening. Too narrow to crawl through, but you can see into the next module \u2014 Tanaka's main lab. She's pacing between tanks, muttering to her specimens."
             }
           ]
         },
@@ -1933,7 +1933,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screws are recessed — you can't grip them with your fingers."
+              "text": "The screws are recessed \u2014 you can't grip them with your fingers."
             }
           ]
         },
@@ -1950,7 +1950,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Four screws, four turns each. The cover swings open. Through the shaft, you can see into Tanaka's module — and more importantly, she can hear you. Sound carries perfectly through the ductwork."
+              "text": "Four screws, four turns each. The cover swings open. Through the shaft, you can see into Tanaka's module \u2014 and more importantly, she can hear you. Sound carries perfectly through the ductwork."
             },
             {
               "type": "set_state",
@@ -1978,7 +1978,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You crack the flare and toss it into the shaft. Blinding light fills the ductwork. From the other side, Tanaka screams — the flare's light is agitating every specimen in her lab. \"MY CHILDREN! Subject 7, WHAT HAVE YOU DONE?!\" She scrambles to cover the tanks."
+              "text": "You crack the flare and toss it into the shaft. Blinding light fills the ductwork. From the other side, Tanaka screams \u2014 the flare's light is agitating every specimen in her lab. \"MY CHILDREN! Subject 7, WHAT HAVE YOU DONE?!\" She scrambles to cover the tanks."
             },
             {
               "type": "remove_item",
@@ -2082,7 +2082,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pick it up. Heavier than expected. The cracked visor spider-webs under your touch — it's barely holding together."
+              "text": "You pick it up. Heavier than expected. The cracked visor spider-webs under your touch \u2014 it's barely holding together."
             }
           ]
         },
@@ -2104,7 +2104,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pop the cracked visor out and seat the replacement. Without sealant, it's just sitting there — the pressure would blow it off instantly."
+              "text": "You pop the cracked visor out and seat the replacement. Without sealant, it's just sitting there \u2014 the pressure would blow it off instantly."
             }
           ]
         },
@@ -2121,7 +2121,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Sealant alone won't fix it — you need a replacement visor first. Sealing over a cracked polycarbonate is a death sentence at pressure."
+              "text": "Sealant alone won't fix it \u2014 you need a replacement visor first. Sealing over a cracked polycarbonate is a death sentence at pressure."
             }
           ]
         }
@@ -2161,7 +2161,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Eight tank slots, seven showing red (empty). One tank in the back shows amber — partial fill, maybe 15 minutes of breathing time. Better than nothing for an emergency ascent."
+              "text": "Eight tank slots, seven showing red (empty). One tank in the back shows amber \u2014 partial fill, maybe 15 minutes of breathing time. Better than nothing for an emergency ascent."
             }
           ]
         },
@@ -2182,7 +2182,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2217,7 +2217,7 @@
           "noise": 10
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2282,7 +2282,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Module internal pressure: 1.2 ATM. Slightly above normal — the hull is weeping. External: 295 ATM. The needle trembles."
+              "text": "Module internal pressure: 1.2 ATM. Slightly above normal \u2014 the hull is weeping. External: 295 ATM. The needle trembles."
             }
           ]
         },
@@ -2297,7 +2297,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Internal pressure: 2.1 ATM and climbing. Water is compressing the air. External still 295 ATM. The differential is shrinking — that's not good."
+              "text": "Internal pressure: 2.1 ATM and climbing. Water is compressing the air. External still 295 ATM. The differential is shrinking \u2014 that's not good."
             }
           ]
         },
@@ -2421,7 +2421,7 @@
             },
             {
               "type": "message",
-              "text": "Digging deeper into the toolbox, beneath the rust and old cable ties, you find a spare circuit board in an anti-static bag. Standard marine radio replacement board — exactly what the console needs."
+              "text": "Digging deeper into the toolbox, beneath the rust and old cable ties, you find a spare circuit board in an anti-static bag. Standard marine radio replacement board \u2014 exactly what the console needs."
             },
             {
               "type": "add_noise",
@@ -2475,7 +2475,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You check the kit contents. Complete — patches for every standard seal point. You'll need the suit itself to work on."
+              "text": "You check the kit contents. Complete \u2014 patches for every standard seal point. You'll need the suit itself to work on."
             }
           ]
         }
@@ -2515,7 +2515,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A deep-sea emergency beacon. At this depth, the signal can't reach the surface directly — but if triggered inside the ascent pod during ascent, it would broadcast your position the moment you hit comms depth around 200 meters."
+              "text": "A deep-sea emergency beacon. At this depth, the signal can't reach the surface directly \u2014 but if triggered inside the ascent pod during ascent, it would broadcast your position the moment you hit comms depth around 200 meters."
             }
           ]
         },
@@ -2531,7 +2531,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The beacon blinks red. It's broadcasting — but at 3000m, the signal goes nowhere. You need to ascend first."
+              "text": "The beacon blinks red. It's broadcasting \u2014 but at 3000m, the signal goes nowhere. You need to ascend first."
             }
           ]
         },
@@ -2664,7 +2664,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The RCS-4000 communications console. The main circuit board has been pulled out and smashed — Tanaka's work. An empty board slot gapes like a missing tooth. The antenna cable junction shows a clean cut — also sabotaged. But the rest of the hardware looks intact. If you could replace the circuit board and splice the antenna cable..."
+              "text": "The RCS-4000 communications console. The main circuit board has been pulled out and smashed \u2014 Tanaka's work. An empty board slot gapes like a missing tooth. The antenna cable junction shows a clean cut \u2014 also sabotaged. But the rest of the hardware looks intact. If you could replace the circuit board and splice the antenna cable..."
             }
           ]
         },
@@ -2680,7 +2680,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The replacement board is seated and the antenna cable is spliced. The console hums with power. The frequency dial reads 121.5 MHz — standard emergency. But the crew log mentioned a backup frequency..."
+              "text": "The replacement board is seated and the antenna cable is spliced. The console hums with power. The frequency dial reads 121.5 MHz \u2014 standard emergency. But the crew log mentioned a backup frequency..."
             }
           ]
         },
@@ -2696,7 +2696,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The console is broadcasting your mayday on 156.8 MHz. The signal strength meter bounces — it's getting through. Now you just need to survive until rescue arrives... or find a faster way out."
+              "text": "The console is broadcasting your mayday on 156.8 MHz. The signal strength meter bounces \u2014 it's getting through. Now you just need to survive until rescue arrives... or find a faster way out."
             }
           ]
         },
@@ -2712,7 +2712,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You examine the damage. The circuit board is destroyed beyond repair — you need a replacement. The antenna cable is cleanly cut — it could be spliced with a new segment and the right tools."
+              "text": "You examine the damage. The circuit board is destroyed beyond repair \u2014 you need a replacement. The antenna cable is cleanly cut \u2014 it could be spliced with a new segment and the right tools."
             }
           ]
         },
@@ -2733,7 +2733,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You seat the replacement board and connect the spliced antenna cable. The console powers up — lights flicker across the panel, then stabilize. The communications system is operational."
+              "text": "You seat the replacement board and connect the spliced antenna cable. The console powers up \u2014 lights flicker across the panel, then stabilize. The communications system is operational."
             },
             {
               "type": "set_state",
@@ -2833,7 +2833,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The frequency tuning dial. Currently set to 121.5 MHz — the universal emergency frequency. But Tanaka probably monitors that. The crew log hinted at a backup frequency..."
+              "text": "The frequency tuning dial. Currently set to 121.5 MHz \u2014 the universal emergency frequency. But Tanaka probably monitors that. The crew log hinted at a backup frequency..."
             }
           ]
         },
@@ -2870,7 +2870,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You could broadcast on 121.5 MHz — the emergency frequency — but Tanaka might be monitoring it. You need the backup frequency. The crew log mentioned it, but the information was incomplete..."
+              "text": "You could broadcast on 121.5 MHz \u2014 the emergency frequency \u2014 but Tanaka might be monitoring it. You need the backup frequency. The crew log mentioned it, but the information was incomplete..."
             }
           ]
         }
@@ -2962,7 +2962,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pick up the handset. Broadcasting on 121.5 might reach the surface — but Tanaka monitors the emergency frequency. She'd know you've repaired the radio and escalate immediately. Find the backup frequency first."
+              "text": "You pick up the handset. Broadcasting on 121.5 might reach the surface \u2014 but Tanaka monitors the emergency frequency. She'd know you've repaired the radio and escalate immediately. Find the backup frequency first."
             }
           ]
         },
@@ -2994,7 +2994,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"ABYSSAL-7 to DEPTH STAR — still here. Module flooding, situation critical.\" The reply crackles: \"Copy, ABYSSAL-7. Rescue ETA thirty-five minutes. Can you reach the ascent pod?\" You could — if you can solve the pod release."
+              "text": "\"ABYSSAL-7 to DEPTH STAR \u2014 still here. Module flooding, situation critical.\" The reply crackles: \"Copy, ABYSSAL-7. Rescue ETA thirty-five minutes. Can you reach the ascent pod?\" You could \u2014 if you can solve the pod release."
             }
           ]
         }
@@ -3028,7 +3028,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Station ABYSSAL-7 Operations Log. The last entry is from the captain: 'Day 193. Tanaka has barricaded Module C. Rodriguez and Chen are missing. I've hidden the backup radio frequency where she can't find it — not without the right light. Emergency code remains station standard. If anyone reads this: GET OUT. — Capt. Vasquez.'"
+              "text": "Station ABYSSAL-7 Operations Log. The last entry is from the captain: 'Day 193. Tanaka has barricaded Module C. Rodriguez and Chen are missing. I've hidden the backup radio frequency where she can't find it \u2014 not without the right light. Emergency code remains station standard. If anyone reads this: GET OUT. \u2014 Capt. Vasquez.'"
             }
           ]
         },
@@ -3045,7 +3045,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You sweep the UV light across the pages. On the inside back cover, glowing violet text appears: 'BACKUP FREQ 156.8 MHz — Rodriguez.' And below, in the captain's writing: 'God help us all.'"
+              "text": "You sweep the UV light across the pages. On the inside back cover, glowing violet text appears: 'BACKUP FREQ 156.8 MHz \u2014 Rodriguez.' And below, in the captain's writing: 'God help us all.'"
             },
             {
               "type": "set_flag",
@@ -3106,7 +3106,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The radio's circuit board, smashed to fragments. Tanaka was thorough — every IC is cracked. You'll need a replacement board entirely."
+              "text": "The radio's circuit board, smashed to fragments. Tanaka was thorough \u2014 every IC is cracked. You'll need a replacement board entirely."
             }
           ]
         },
@@ -3125,7 +3125,7 @@
     {
       "id": "cable_junction",
       "name": "Antenna Cable Junction",
-      "description": "Where the antenna cable meets the radio — cut clean through.",
+      "description": "Where the antenna cable meets the radio \u2014 cut clean through.",
       "position": {
         "x": 450,
         "y": 200
@@ -3156,7 +3156,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The antenna coaxial cable has been cut with surgical precision. About 20cm of cable is missing — Tanaka removed a whole segment. You'd need a replacement cable segment and tools to splice it."
+              "text": "The antenna coaxial cable has been cut with surgical precision. About 20cm of cable is missing \u2014 Tanaka removed a whole segment. You'd need a replacement cable segment and tools to splice it."
             }
           ]
         },
@@ -3211,7 +3211,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The sonar shows the station surrounded by small contacts — the bioluminescent creatures. They circle the station in lazy patterns. One large contact sits motionless on the seabed nearby."
+              "text": "The sonar shows the station surrounded by small contacts \u2014 the bioluminescent creatures. They circle the station in lazy patterns. One large contact sits motionless on the seabed nearby."
             }
           ]
         },
@@ -3226,7 +3226,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The creature contacts have multiplied. They're closing in. The large seabed contact has moved — it's directly beneath the station now. Something very big is down there."
+              "text": "The creature contacts have multiplied. They're closing in. The large seabed contact has moved \u2014 it's directly beneath the station now. Something very big is down there."
             }
           ]
         },
@@ -3241,7 +3241,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The sonar is overwhelmed — hundreds of contacts, all converging on the station. The large contact is directly below, and it's... rising."
+              "text": "The sonar is overwhelmed \u2014 hundreds of contacts, all converging on the station. The large contact is directly below, and it's... rising."
             },
             {
               "type": "visual_cue",
@@ -3261,7 +3261,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hit the active ping button. PING. The sonar sweeps outward. Every creature contact freezes for a moment — then they scatter. In about 30 seconds they'll regroup, but the ping carries through the hull. Tanaka heard it."
+              "text": "You hit the active ping button. PING. The sonar sweeps outward. Every creature contact freezes for a moment \u2014 then they scatter. In about 30 seconds they'll regroup, but the ping carries through the hull. Tanaka heard it."
             },
             {
               "type": "set_flag",
@@ -3325,7 +3325,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Hull integrity: 71%. Two hull sections amber, one red. If the ballast tanks could be filled and the emergency blow activated, the module would rocket to the surface — but the flood valves are feeding water in, not air."
+              "text": "Hull integrity: 71%. Two hull sections amber, one red. If the ballast tanks could be filled and the emergency blow activated, the module would rocket to the surface \u2014 but the flood valves are feeding water in, not air."
             }
           ]
         },
@@ -3384,7 +3384,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The ballast control system. Three toggle switches control compressed air routing to the ballast tanks. Currently locked by the safety interlock — you need to close the flood valves first, then redirect pipe pressure, then blow the tanks. It's a multi-step system designed to prevent accidental surfacing."
+              "text": "The ballast control system. Three toggle switches control compressed air routing to the ballast tanks. Currently locked by the safety interlock \u2014 you need to close the flood valves first, then redirect pipe pressure, then blow the tanks. It's a multi-step system designed to prevent accidental surfacing."
             }
           ]
         },
@@ -3400,7 +3400,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The safety interlock is green — flood valves closed, pipe pressure redirected. The ballast tank toggles are armed. Set the correct pattern and hit the emergency blow."
+              "text": "The safety interlock is green \u2014 flood valves closed, pipe pressure redirected. The ballast tank toggles are armed. Set the correct pattern and hit the emergency blow."
             }
           ]
         },
@@ -3462,7 +3462,7 @@
     {
       "id": "emergency_ascent_lever",
       "name": "Ascent Pod Release Lever",
-      "description": "A heavy red lever labeled 'EMERGENCY ASCENT — PULL TO RELEASE.'",
+      "description": "A heavy red lever labeled 'EMERGENCY ASCENT \u2014 PULL TO RELEASE.'",
       "position": {
         "x": 700,
         "y": 350
@@ -3487,7 +3487,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The manual release lever for the emergency ascent pod. A sign reads: 'DUAL AUTHORIZATION REQUIRED — Manual lever AND electronic override must both be activated. Pod accommodates 1 person. Ensure pressure suit is sealed before release.'"
+              "text": "The manual release lever for the emergency ascent pod. A sign reads: 'DUAL AUTHORIZATION REQUIRED \u2014 Manual lever AND electronic override must both be activated. Pod accommodates 1 person. Ensure pressure suit is sealed before release.'"
             }
           ]
         },
@@ -3577,7 +3577,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The lever won't budge. The electronic override hasn't been activated — dual authorization required. You need to enter the release code on the override panel."
+              "text": "The lever won't budge. The electronic override hasn't been activated \u2014 dual authorization required. You need to enter the release code on the override panel."
             }
           ]
         }
@@ -3617,7 +3617,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Four motorized flood valves — all open, feeding seawater into the module. Tanaka opened them remotely. The electronic controls are locked, but each valve has a manual override wheel. You'd need a valve key to turn them."
+              "text": "Four motorized flood valves \u2014 all open, feeding seawater into the module. Tanaka opened them remotely. The electronic controls are locked, but each valve has a manual override wheel. You'd need a valve key to turn them."
             }
           ]
         },
@@ -3633,7 +3633,7 @@
           "then": [
             {
               "type": "message",
-              "text": "All four flood valves are shut. The water is no longer rising — but what's already in the module isn't going anywhere either."
+              "text": "All four flood valves are shut. The water is no longer rising \u2014 but what's already in the module isn't going anywhere either."
             }
           ]
         },
@@ -3649,7 +3649,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The valve wheels are square-socket — they need a specific key. You can't grip them with bare hands."
+              "text": "The valve wheels are square-socket \u2014 they need a specific key. You can't grip them with bare hands."
             }
           ],
           "noise": 8
@@ -3667,7 +3667,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You fit the valve key and crank each valve shut. One... two... three... four. The roar of incoming water dies to silence. The module groans — the pressure is still there, but no more water is coming in."
+              "text": "You fit the valve key and crank each valve shut. One... two... three... four. The roar of incoming water dies to silence. The module groans \u2014 the pressure is still there, but no more water is coming in."
             },
             {
               "type": "set_state",
@@ -3717,7 +3717,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Hull integrity display. Module B (you're here): 87%. Module A (Tanaka's lab): 95%. Module C: OFFLINE. External hull: minor stress fractures in sections 4 and 7. The station was built for permanent depth — but not for deliberate flooding."
+              "text": "Hull integrity display. Module B (you're here): 87%. Module A (Tanaka's lab): 95%. Module C: OFFLINE. External hull: minor stress fractures in sections 4 and 7. The station was built for permanent depth \u2014 but not for deliberate flooding."
             }
           ]
         },
@@ -3747,7 +3747,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Module B: 52%. STRUCTURAL FAILURE IMMINENT. The display is screaming. Every section is red or amber. You can hear the hull flexing — the metal is singing."
+              "text": "Module B: 52%. STRUCTURAL FAILURE IMMINENT. The display is screaming. Every section is red or amber. You can hear the hull flexing \u2014 the metal is singing."
             },
             {
               "type": "visual_cue",
@@ -3807,7 +3807,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The override panel shows green — code accepted. The ascent pod electronic lock is released. Now you need the manual lever too."
+              "text": "The override panel shows green \u2014 code accepted. The ascent pod electronic lock is released. Now you need the manual lever too."
             }
           ]
         },
@@ -3851,7 +3851,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Heavy-duty zip ties, the kind used for industrial cable bundling. Your wrists are bound to the chair's metal armrest. But the cold has made the plastic brittle — you can feel it cracking when you flex."
+              "text": "Heavy-duty zip ties, the kind used for industrial cable bundling. Your wrists are bound to the chair's metal armrest. But the cold has made the plastic brittle \u2014 you can feel it cracking when you flex."
             }
           ]
         },
@@ -3867,7 +3867,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You flex your wrists hard against the cold plastic. SNAP. The brittle zip ties shatter. You're free. A sharp fragment of plastic falls to the floor — could be useful as a makeshift shiv."
+              "text": "You flex your wrists hard against the cold plastic. SNAP. The brittle zip ties shatter. You're free. A sharp fragment of plastic falls to the floor \u2014 could be useful as a makeshift shiv."
             },
             {
               "type": "set_state",
@@ -3966,7 +3966,7 @@
       "on_max_fail": [
         {
           "type": "message",
-          "text": "The keypad locks out after too many wrong attempts. A backup mechanical release catches your eye — the multi-tool might work on the panel screws."
+          "text": "The keypad locks out after too many wrong attempts. A backup mechanical release catches your eye \u2014 the multi-tool might work on the panel screws."
         },
         {
           "type": "add_noise",
@@ -4030,7 +4030,7 @@
         },
         {
           "type": "message",
-          "text": "The correct pattern! Compressed air roars into the ballast tanks. The entire station shudders, then LURCHES upward. Alarms scream. Through the viewport, the ocean floor drops away. You're ascending — the whole module, rocketing toward the surface."
+          "text": "The correct pattern! Compressed air roars into the ballast tanks. The entire station shudders, then LURCHES upward. Alarms scream. Through the viewport, the ocean floor drops away. You're ascending \u2014 the whole module, rocketing toward the surface."
         },
         {
           "type": "delay_then",
@@ -4038,12 +4038,12 @@
           "effects": [
             {
               "type": "message",
-              "text": "The ascent takes eight agonizing minutes. The hull screams. Creatures scatter. Light grows above. Then — BREACH. The module erupts through the surface in a fountain of spray. Sunlight. Wind. Air. You're alive. The entire station module bobs on the waves, its emergency beacon wailing."
+              "text": "The ascent takes eight agonizing minutes. The hull screams. Creatures scatter. Light grows above. Then \u2014 BREACH. The module erupts through the surface in a fountain of spray. Sunlight. Wind. Air. You're alive. The entire station module bobs on the waves, its emergency beacon wailing."
             },
             {
               "type": "game_over",
               "result": "win",
-              "reason": "You blew the ballast tanks and surfaced the entire research module. Dr. Tanaka, trapped in Module A, surfaces with you — screaming about her ruined specimens. Rescue ships are already converging on your beacon signal."
+              "reason": "You blew the ballast tanks and surfaced the entire research module. Dr. Tanaka, trapped in Module A, surfaces with you \u2014 screaming about her ruined specimens. Rescue ships are already converging on your beacon signal."
             }
           ]
         }
@@ -4055,7 +4055,7 @@
         },
         {
           "type": "message",
-          "text": "Wrong pattern. The tanks pressurize unevenly — the module lurches sideways before the safety system resets. Try again."
+          "text": "Wrong pattern. The tanks pressurize unevenly \u2014 the module lurches sideways before the safety system resets. Try again."
         },
         {
           "type": "visual_cue",
@@ -4092,7 +4092,7 @@
       "on_solve": [
         {
           "type": "message",
-          "text": "The dial clicks to 156.8 MHz — Rodriguez's backup frequency. The signal meter jumps. This frequency bypasses Tanaka's monitoring. You're clear to transmit."
+          "text": "The dial clicks to 156.8 MHz \u2014 Rodriguez's backup frequency. The signal meter jumps. This frequency bypasses Tanaka's monitoring. You're clear to transmit."
         }
       ],
       "on_fail": [
@@ -4105,7 +4105,7 @@
           "messages": [
             "Static. Nothing on this frequency.",
             "You pick up deep-sea hydrophone noise. Clicks and groans from the abyss. Not helpful.",
-            "Faint signal — but it's one of Tanaka's specimen monitoring frequencies. Don't linger here."
+            "Faint signal \u2014 but it's one of Tanaka's specimen monitoring frequencies. Don't linger here."
           ]
         }
       ],
@@ -4215,7 +4215,7 @@
         },
         {
           "type": "message",
-          "text": "The lights flicker. A deep metallic groan runs through the hull — the station adjusting to increasing internal pressure. A rivet pops somewhere above with a sharp PING."
+          "text": "The lights flicker. A deep metallic groan runs through the hull \u2014 the station adjusting to increasing internal pressure. A rivet pops somewhere above with a sharp PING."
         }
       ]
     },
@@ -4229,7 +4229,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Something SLAMS against the viewport. You spin — a massive eye, easily a meter across, stares in at you. Bioluminescent patterns ripple across the creature's skin. Then it's gone, sliding back into the dark. The creatures know you're here."
+          "text": "Something SLAMS against the viewport. You spin \u2014 a massive eye, easily a meter across, stares in at you. Bioluminescent patterns ripple across the creature's skin. Then it's gone, sliding back into the dark. The creatures know you're here."
         },
         {
           "type": "visual_cue",
@@ -4247,7 +4247,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "The intercom crackles: \"Subject 7, your cortisol levels must be fascinating right now. I wish I could take a sample. Don't worry — the pressure adaptation process is survivable. Mostly. The last three subjects... well. You're different. I can feel it.\""
+          "text": "The intercom crackles: \"Subject 7, your cortisol levels must be fascinating right now. I wish I could take a sample. Don't worry \u2014 the pressure adaptation process is survivable. Mostly. The last three subjects... well. You're different. I can feel it.\""
         }
       ]
     },
@@ -4265,7 +4265,7 @@
         },
         {
           "type": "message",
-          "text": "A THUNDEROUS crash from below. The floor buckles. An alarm screams: 'MODULE C — HULL BREACH. MODULE C — CATASTROPHIC FAILURE.' Module C — the one that was offline — just imploded. The station lurches. If Module B goes next..."
+          "text": "A THUNDEROUS crash from below. The floor buckles. An alarm screams: 'MODULE C \u2014 HULL BREACH. MODULE C \u2014 CATASTROPHIC FAILURE.' Module C \u2014 the one that was offline \u2014 just imploded. The station lurches. If Module B goes next..."
         },
         {
           "type": "add_noise",
@@ -4283,7 +4283,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "Every creature outside begins pulsing in synchrony. Blue. Green. Blue. Green. The rhythm matches your heartbeat. Through the viewport, the deep lights up — not scattered individual creatures, but a single coordinated display stretching into the void. Tanaka's voice, awestruck: \"They're singing for you, Subject 7. The Mother is coming. Can you hear Her?\""
+          "text": "Every creature outside begins pulsing in synchrony. Blue. Green. Blue. Green. The rhythm matches your heartbeat. Through the viewport, the deep lights up \u2014 not scattered individual creatures, but a single coordinated display stretching into the void. Tanaka's voice, awestruck: \"They're singing for you, Subject 7. The Mother is coming. Can you hear Her?\""
         },
         {
           "type": "visual_cue",
@@ -4349,7 +4349,7 @@
   ],
   "killer": {
     "name": "Dr. Yuki Tanaka",
-    "description": "Marine biologist. Spent 193 days at depth studying bioluminescent deep-sea organisms. Something she discovered drove her to madness — she believes the creatures are sentient, that they communicate through pressure changes, and that they need human 'subjects' to study in return. Clinical, detached, alternating between cold scientific analysis and manic reverence for 'the deep ones.'",
+    "description": "Marine biologist. Spent 193 days at depth studying bioluminescent deep-sea organisms. Something she discovered drove her to madness \u2014 she believes the creatures are sentient, that they communicate through pressure changes, and that they need human 'subjects' to study in return. Clinical, detached, alternating between cold scientific analysis and manic reverence for 'the deep ones.'",
     "base_behavior": {
       "check_interval_seconds": 55,
       "interval_variance_seconds": 12,
@@ -4375,11 +4375,11 @@
         "Time to check your vitals, Subject 7...",
         "Hold still. I need to observe your stress response.",
         "The deep ones are curious about you. Let me take a closer look.",
-        "Routine observation. Don't be alarmed — elevated cortisol is expected."
+        "Routine observation. Don't be alarmed \u2014 elevated cortisol is expected."
       ],
       "on_search": [
         "Subject 7, hiding skews the data. Please cooperate.",
-        "I can hear your breathing. Carbon dioxide output increases 400% under stress — fascinating.",
+        "I can hear your breathing. Carbon dioxide output increases 400% under stress \u2014 fascinating.",
         "The specimens can sense your heartbeat through the water. There's nowhere to hide from them.",
         "Come now. The Mother doesn't like it when her subjects resist."
       ],
@@ -4389,12 +4389,12 @@
         "Good. Stay calm. The adaptation process works better when you're relaxed."
       ],
       "on_evidence": [
-        "Someone's been busy. Adaptation-driven problem-solving — I'll note that in your file.",
+        "Someone's been busy. Adaptation-driven problem-solving \u2014 I'll note that in your file.",
         "You've been tampering with equipment, Subject 7. The deep ones won't like that.",
         "Interesting. Tool use under extreme stress. Very promising data."
       ],
       "on_catch": [
-        "There you are, Subject 7. The deep ones were right — you do have remarkable survival instincts. Now, let's begin the real experiment.",
+        "There you are, Subject 7. The deep ones were right \u2014 you do have remarkable survival instincts. Now, let's begin the real experiment.",
         "Subject 7, captured. Commencing pressure adaptation protocol. This will be... uncomfortable."
       ]
     },
@@ -4476,7 +4476,7 @@
         },
         "effect": "distracted",
         "duration_seconds": 60,
-        "description": "Tanaka is locked out by the jammed bulkhead — she can still flood the module but can't enter."
+        "description": "Tanaka is locked out by the jammed bulkhead \u2014 she can still flood the module but can't enter."
       },
       {
         "id": "critical_phase_rage",
@@ -4515,7 +4515,7 @@
     {
       "id": "time_limit",
       "seconds": 600,
-      "message": "The hull gives way. The ocean rushes in — a wall of black water and crushing pressure. The last thing you see is the bioluminescent creatures flooding through the breach, pulsing in triumph. Dr. Tanaka's voice over the intercom, serene: 'The Mother welcomes you, Subject 7.'",
+      "message": "The hull gives way. The ocean rushes in \u2014 a wall of black water and crushing pressure. The last thing you see is the bioluminescent creatures flooding through the breach, pulsing in triumph. Dr. Tanaka's voice over the intercom, serene: 'The Mother welcomes you, Subject 7.'",
       "description": "Module B suffers catastrophic structural failure."
     }
   ],
@@ -4677,10 +4677,10 @@
         {
           "action": "Struggle free from zip ties (hand chair)",
           "noise": 20,
-          "note": "Gateway puzzle — first action"
+          "note": "Gateway puzzle \u2014 first action"
         },
         {
-          "action": "Search lab bench (hand) — get crew log page + UV penlight",
+          "action": "Search lab bench (hand) \u2014 get crew log page + UV penlight",
           "noise": 12,
           "note": "Dual-purpose items"
         },
@@ -4690,12 +4690,12 @@
           "note": "The key enabler tool"
         },
         {
-          "action": "Open supply crate (hand) — get sealant tube + cable segment + learn code 0451",
+          "action": "Open supply crate (hand) \u2014 get sealant tube + cable segment + learn code 0451",
           "noise": 15,
           "note": "Cross-reference: code on crate"
         },
         {
-          "action": "Combine cable segment + multi-tool — get repaired antenna cable",
+          "action": "Combine cable segment + multi-tool \u2014 get repaired antenna cable",
           "noise": 8,
           "note": "Emergent combination"
         },
@@ -4705,7 +4705,7 @@
           "note": "Dependency chain"
         },
         {
-          "action": "Use UV penlight on logbook — learn backup frequency 156.8",
+          "action": "Use UV penlight on logbook \u2014 learn backup frequency 156.8",
           "noise": 0,
           "note": "Revelation tool + knowledge gate"
         },
@@ -4715,7 +4715,7 @@
           "note": "Knowledge applied"
         },
         {
-          "action": "Talk into handset — send mayday",
+          "action": "Talk into handset \u2014 send mayday",
           "noise": 25,
           "note": "Rescue called"
         },
@@ -4748,7 +4748,7 @@
           "note": "Essential tool"
         },
         {
-          "action": "Open supply crate — get sealant + cable + learn code 0451",
+          "action": "Open supply crate \u2014 get sealant + cable + learn code 0451",
           "noise": 15,
           "note": "Registry number = override code"
         },
@@ -4773,7 +4773,7 @@
           "note": ""
         },
         {
-          "action": "Open toolbox — get pressure wrench + replacement visor",
+          "action": "Open toolbox \u2014 get pressure wrench + replacement visor",
           "noise": 10,
           "note": "Nested secret"
         },
@@ -4783,12 +4783,12 @@
           "note": "Air supply secured"
         },
         {
-          "action": "Combine visor + sealant on dive helmet — fix visor",
+          "action": "Combine visor + sealant on dive helmet \u2014 fix visor",
           "noise": 2,
           "note": "Repair chain"
         },
         {
-          "action": "Read depth chart — learn pod requirements",
+          "action": "Read depth chart \u2014 learn pod requirements",
           "noise": 0,
           "note": "Knowledge gate"
         },
@@ -4800,7 +4800,7 @@
         {
           "action": "Pull ascent lever with helmet + air tank equipped",
           "noise": 50,
-          "note": "Point of no return — escape!"
+          "note": "Point of no return \u2014 escape!"
         }
       ]
     },
@@ -4821,7 +4821,7 @@
           "note": "Essential tool"
         },
         {
-          "action": "Open supply crate — get sealant + cable + learn code 0451",
+          "action": "Open supply crate \u2014 get sealant + cable + learn code 0451",
           "noise": 15,
           "note": "Sealant needed for hull"
         },
@@ -4831,7 +4831,7 @@
           "note": "Prerequisite for pressure redirect"
         },
         {
-          "action": "Remove deck grate with multi-tool — get valve key",
+          "action": "Remove deck grate with multi-tool \u2014 get valve key",
           "noise": 20,
           "note": "Key to flood valves"
         },
@@ -4846,14 +4846,14 @@
           "note": ""
         },
         {
-          "action": "Use valve key on flood valve array — close all valves",
+          "action": "Use valve key on flood valve array \u2014 close all valves",
           "noise": 25,
           "note": "Stop the flooding"
         },
         {
-          "action": "Use valve key on ceiling pipes — redirect pressure",
+          "action": "Use valve key on ceiling pipes \u2014 redirect pressure",
           "noise": 30,
-          "note": "Myst machine — power routing"
+          "note": "Myst machine \u2014 power routing"
         },
         {
           "action": "Activate ballast panel (now unlocked)",
@@ -4863,12 +4863,12 @@
         {
           "action": "Solve ballast toggle puzzle (lights-out mechanic)",
           "noise": 3,
-          "note": "Final puzzle — linked toggles"
+          "note": "Final puzzle \u2014 linked toggles"
         },
         {
           "action": "Module surfaces!",
           "noise": 0,
-          "note": "Win — everyone surfaces, including Tanaka"
+          "note": "Win \u2014 everyone surfaces, including Tanaka"
         }
       ]
     }

@@ -110,16 +110,17 @@ Clickable hotspots in views. Have position (960x720 coords), size, visual appear
 ### Interactions
 Verb + conditions → effects. "If player uses wrench on bolt AND bolt_state is 'tight' THEN set bolt_state to 'loose' AND show message."
 
-### Five Verbs (the only five)
+### Four Verbs + Inventory Use
 | Verb | What It Does |
 |------|-------------|
-| `look` | Examine visually. Always safe. |
-| `hand` | Touch, push, pull, open, close, manipulate. |
-| `take` | Pick up and add to inventory. |
+| `look` | Examine visually. Always safe. Fallback shows object description. |
+| `move` | Navigate between rooms. Used on nav hotspots (doorways, passages, exits). |
+| `hand` | Touch, push, pull, open, close, take. All physical manipulation including picking up items. |
 | `talk` | Speak, listen, read aloud. |
-| `use_item` | Apply an inventory item to a world object. |
 
-No other verbs exist. `hand` covers all physical manipulation (push, pull, open, close are sub-cases).
+**Using inventory items**: Select an item from the inventory panel (click it), then click a world object. The engine calls `use_item` internally. No "use" verb button — it's implicit via inventory selection.
+
+The engine falls back from `hand` to `take` for backwards compatibility with older scenario JSONs. Every click produces KQ5-style feedback, even when nothing happens ("You can't do anything useful with X right now.").
 
 ### Condition Types (14 + composites)
 `flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `noise_above`, `noise_below`, `phase_is`, `time_after`, `time_before`, `item_count`, `is_hiding`, `not_hiding`, `killer_is` + composites: `any_of`, `all_of`
@@ -238,9 +239,13 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 
 - **15 scenarios designed**, 13 with complete JSONs, 2 design-only
 - **Engine POC** functional: ScenarioEngine + React components, scenario loader, background rendering
+- **Verb system redesigned**: 4 verbs (look, move, hand, talk) + implicit inventory use. KQ5-style feedback on every click. "move" for navigation, "hand" merges old hand+take, inventory items selected then clicked on world objects.
 - **All core conditions implemented**: `all_of`, `any_of`, `noise_above`, `noise_below`, `item_count` all working
 - **All core effects implemented**: `set_noise`, `transform_item`, `conditional_effect`, `delay_then` all working
-- **The Harvest Act 1** fully navigable — all 10 rooms tested with Playwright, object interactions working (look, hand, take, talk), painted backgrounds for all Act 1 views
+- **The Harvest Act 1** redesigned — navigation graph corrected to match actual background art. Pod Cluster converted to close-up view. Corridor is hub with 3 branches (left: lab→morgue, right: security→archive, far: feeding→vent→airlock). All object positions aligned to painted backgrounds.
+- **Ambient audio system**: Supports single or layered audio tracks per scenario. The Harvest has 2 ambient tracks (ship hum + lab ambience).
+- **Level design doc** at `scenarios/the-harvest/act1-level-design.md` with navigation map, room-by-room tables, puzzle flow, and Gemini background regeneration prompts.
+- **All 13 scenario JSONs updated** with new verb mappings (nav: hand→move, take→hand).
 - **Hotspot rendering** improved: nav objects get higher z-index and blue hover border, regular objects get gold hover border, all hotspots positioned within 960x720 bounds
 - **Lighthouse Keeper** is simplest (3 views) — first playtest target
 - **Branch**: `claude/dreamy-volta-ha3r6v`

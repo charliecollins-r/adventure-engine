@@ -7,6 +7,7 @@ interface GameViewProps {
   selectedItem: string | null;
   onObjectClick: (objectId: string) => void;
   onBackClick: () => void;
+  onEmptyClick?: () => void;
 }
 
 const VIEW_WIDTH = 960;
@@ -18,8 +19,7 @@ const SCALE_Y = VIEW_HEIGHT / COORD_SPACE_H;
 
 const VERB_CURSORS: Record<string, string> = {
   look: 'help',
-  take: 'grab',
-  use: 'cell',
+  move: 'crosshair',
   hand: 'pointer',
   talk: 'text',
 };
@@ -95,6 +95,7 @@ export function GameView({
   selectedItem,
   onObjectClick,
   onBackClick,
+  onEmptyClick,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
 
@@ -110,6 +111,15 @@ export function GameView({
     ? `Use ${engine.getInventory().find((it) => it.id === selectedItem)?.name ?? selectedItem} on...`
     : activeVerb.charAt(0).toUpperCase() + activeVerb.slice(1);
 
+  const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const isObject = target.closest('[data-object-hotspot]');
+    const isBackButton = target.closest('[data-back-button]');
+    if (!isObject && !isBackButton && onEmptyClick) {
+      onEmptyClick();
+    }
+  };
+
   return (
     <div
       style={{
@@ -117,6 +127,7 @@ export function GameView({
         backgroundColor: bgColor,
         cursor,
       }}
+      onClick={handleViewportClick}
     >
       {/* Background image */}
       {bgFile && (
@@ -159,6 +170,7 @@ export function GameView({
         return (
           <div
             key={obj.id}
+            data-object-hotspot
             style={{
               ...objectHotspotStyle(
                 obj.position.x,
@@ -188,6 +200,7 @@ export function GameView({
       {/* Back button */}
       {(view.back_label || viewStack.length > 0) && (
         <button
+          data-back-button
           style={styles.backButton}
           onClick={onBackClick}
           onMouseEnter={(e) => {

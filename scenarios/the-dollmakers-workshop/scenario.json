@@ -585,7 +585,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -893,7 +893,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -918,7 +918,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "has_item",
@@ -942,7 +942,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "has_item",
@@ -1745,7 +1745,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "flag_is",
@@ -1775,7 +1775,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2138,7 +2138,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "object_state",
@@ -2223,7 +2223,7 @@
           ]
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "view_is",
@@ -2270,7 +2270,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "view_is",
@@ -2317,7 +2317,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "view_is",
@@ -2364,7 +2364,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "view_is",
@@ -2565,7 +2565,7 @@
           "noise": 2
         },
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "not_has_item",
@@ -2649,7 +2649,7 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "take",
+          "verb": "hand",
           "when": [
             {
               "type": "view_is",

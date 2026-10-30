@@ -208,15 +208,21 @@ export class ScenarioEngine {
 
     const actualVerb = verb === 'use' && itemId ? 'use_item' : verb;
 
-    const matched = this.findMatchingInteraction(obj.interactions, actualVerb, itemId);
+    let matched = this.findMatchingInteraction(obj.interactions, actualVerb, itemId);
+
+    if (!matched && verb === 'hand') {
+      matched = this.findMatchingInteraction(obj.interactions, 'take', itemId);
+    }
 
     if (!matched) {
       if (verb === 'look') {
         return { success: true, messages: [obj.description], noiseGenerated: 0 };
       }
+      const msg = this.getDefaultFailMessage(verb, obj.name);
+      this._messages = [msg];
       return {
         success: false,
-        messages: [this.getDefaultFailMessage(verb, obj.name)],
+        messages: [msg],
         noiseGenerated: 0,
       };
     }
@@ -324,6 +330,10 @@ export class ScenarioEngine {
     this.checkGameEndConditions();
 
     return { success: true, messages, noiseGenerated: 0 };
+  }
+
+  showMessage(text: string): void {
+    this._messages = [text];
   }
 
   dismissMessages(): void {
@@ -566,14 +576,17 @@ export class ScenarioEngine {
 
   private getDefaultFailMessage(verb: string, objectName: string): string {
     switch (verb) {
+      case 'move':
+        return `You can't go that way.`;
       case 'hand':
-        return `You can't do anything with ${objectName} right now.`;
+        return `You can't do anything useful with ${objectName} right now.`;
       case 'take':
         return `You can't take ${objectName}.`;
       case 'talk':
-        return `${objectName} doesn't respond.`;
+        return `Talking to ${objectName} doesn't accomplish anything.`;
       case 'use':
-        return `That doesn't work.`;
+      case 'use_item':
+        return `That doesn't seem to work.`;
       default:
         return `Nothing happens.`;
     }
