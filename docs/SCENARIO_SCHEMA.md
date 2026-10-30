@@ -75,13 +75,13 @@ A scenario is packaged as a directory:
 my-scenario/
   scenario.json          # The scenario definition (this spec)
   backgrounds/
-    main_room.png        # Primary room background (1024x768)
+    main_room.png        # Primary room background (960x720 coordinate space)
     desk_closeup.png     # Optional closeup view
     safe_closeup.png     # Optional closeup view
   thumbnail.png          # 320x240 preview for scenario browser
 ```
 
-All background images are 1024x768 pixels. Closeup views are the same size (they replace the full canvas). Thumbnail is 320x240 for the scenario selection screen.
+Background images can be any resolution (1920x1080 recommended for HD art). The engine scales them to fill the view canvas. **Object positions use a 960x720 coordinate space** (origin at top-left). The engine maps this coordinate space to the rendered viewport. Closeup views use the same coordinate space. Thumbnail is 320x240 for the scenario selection screen.
 
 ---
 
@@ -108,7 +108,9 @@ All background images are 1024x768 pixels. Closeup views are the same size (they
 }
 ```
 
-Every section is required except `puzzle_widgets`, `views`, `combinations`, `events`, `hints`, and `solution_paths` which are optional.
+**Required**: `schema_version`, `metadata`, `setting`, `objects`, `items`, `flags`.
+
+**Optional**: `views` (defaults to one view containing all objects), `combinations`, `puzzle_widgets`, `phases`, `events`, `killer`, `win_conditions`, `lose_conditions`, `hints`, `solution_paths`.
 
 ---
 
@@ -390,7 +392,7 @@ World objects are everything the player can see and interact with in the game wo
 | `id` | string | yes | Unique object identifier. |
 | `name` | string | yes | Display name on hover/interaction. |
 | `description` | string | no | Brief description for accessibility/tooltips. |
-| `position` | `{x, y}` | yes | Center position on the 1024x768 canvas. |
+| `position` | `{x, y}` | yes | Top-left position in the 960x720 coordinate space. |
 | `size` | `{width, height}` | yes | Clickable region dimensions. |
 | `visual` | object | no | Fallback rendering when no background image. |
 | `visual.color` | string | no | Fill color (hex). |
@@ -782,7 +784,7 @@ Arrange tiles in correct order by sliding.
 |-------|------|----------|-------------|
 | `id` | string | yes | Unique identifier |
 | `widget_type` | string | yes | One of the types above |
-| `position` | `{x, y}` | yes | Position on canvas |
+| `position` | `{x, y}` | yes | Position in 960x720 coordinate space |
 | `size` | `{width, height}` | yes | Clickable/display region |
 | `view` | string | no | Which view this widget appears on. Default `"main"`. |
 | `initially_visible` | boolean | no | Default `true`. |

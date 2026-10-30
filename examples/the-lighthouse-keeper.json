@@ -35,7 +35,7 @@
   },
   "setting": {
     "initial_view": "main",
-    "ambient_text": "Salt air seeps through the walls. Far below, waves gnaw at the rocks. The foghorn groans every thirty seconds \u2014 a dying thing that won't stop breathing.",
+    "ambient_text": "Salt air seeps through the walls. Far below, waves gnaw at the rocks. The foghorn groans every thirty seconds — a dying thing that won't stop breathing.",
     "room_style": {
       "background_color": "#0a1520",
       "wall_color": "#1a2530",
@@ -132,7 +132,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Thick iron, corroded by decades of salt air. One edge is surprisingly sharp where it broke. The other end has a small notch \u2014 almost like a flathead screwdriver."
+              "text": "Thick iron, corroded by decades of salt air. One edge is surprisingly sharp where it broke. The other end has a small notch — almost like a flathead screwdriver."
             }
           ]
         }
@@ -150,7 +150,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Bone handle, single blade. 'P.D.' scratched into the handle. Pete's initials. The blade is thin but sharp \u2014 a fisherman's tool, made for precision, not force."
+              "text": "Bone handle, single blade. 'P.D.' scratched into the handle. Pete's initials. The blade is thin but sharp — a fisherman's tool, made for precision, not force."
             }
           ]
         },
@@ -178,7 +178,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Stamped 'USCG PROPERTY \u2014 CAPE MEARES STATION'. Government-issue, solid as the day it was made. The jaw adjusts smoothly despite the rust."
+              "text": "Stamped 'USCG PROPERTY — CAPE MEARES STATION'. Government-issue, solid as the day it was made. The jaw adjusts smoothly despite the rust."
             }
           ]
         }
@@ -202,7 +202,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Dog-eared and coffee-stained. Chapter 7: Emergency Frequencies. Underlined in red pencil: 'Channel 16 \u2014 156.800 MHz \u2014 International Distress.' Harold underlined it himself, years ago, when this station still mattered."
+              "text": "Dog-eared and coffee-stained. Chapter 7: Emergency Frequencies. Underlined in red pencil: 'Channel 16 — 156.800 MHz — International Distress.' Harold underlined it himself, years ago, when this station still mattered."
             },
             {
               "type": "set_flag",
@@ -223,7 +223,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Channel 16 \u2014 156.800 MHz. International Distress. You've memorized it."
+              "text": "Channel 16 — 156.800 MHz. International Distress. You've memorized it."
             }
           ]
         }
@@ -241,7 +241,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Hemp and nylon blend, braided thick. Coast Guard specification. Thirty feet \u2014 enough to reach the rocks below the porthole, or the room below the grate. Not both."
+              "text": "Hemp and nylon blend, braided thick. Coast Guard specification. Thirty feet — enough to reach the rocks below the porthole, or the room below the grate. Not both."
             }
           ]
         }
@@ -259,7 +259,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Petroleum-based lubricant. The label reads 'LIGHTHOUSE MECHANISM GREASE \u2014 DO NOT USE ON OPTICAL SURFACES'. Harold probably applied this to the lamp gears himself."
+              "text": "Petroleum-based lubricant. The label reads 'LIGHTHOUSE MECHANISM GREASE — DO NOT USE ON OPTICAL SURFACES'. Harold probably applied this to the lamp gears himself."
             }
           ]
         }
@@ -295,7 +295,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Two cans, forty feet of wire between them. One end goes down through the grate to Pete. It actually works \u2014 sound vibrates through the wire. You won't have to shout."
+              "text": "Two cans, forty feet of wire between them. One end goes down through the grate to Pete. It actually works — sound vibrates through the wire. You won't have to shout."
             }
           ]
         }
@@ -313,7 +313,7 @@
           "then": [
             {
               "type": "message",
-              "text": "30-amp ceramic fuse. The radio circuit is dead \u2014 this might bring it back to life."
+              "text": "30-amp ceramic fuse. The radio circuit is dead — this might bring it back to life."
             }
           ]
         }
@@ -337,7 +337,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Cape Meares, Oregon. The lighthouse is marked with Harold's handwriting: 'MY STATION'. Shipping lanes are drawn in pencil. A note in the margin: 'CG cutter patrols every 4 hours \u2014 listen on Ch.16.' Harold was tracking Coast Guard movements even after they took his post away."
+              "text": "Cape Meares, Oregon. The lighthouse is marked with Harold's handwriting: 'MY STATION'. Shipping lanes are drawn in pencil. A note in the margin: 'CG cutter patrols every 4 hours — listen on Ch.16.' Harold was tracking Coast Guard movements even after they took his post away."
             },
             {
               "type": "set_flag",
@@ -376,9 +376,11 @@
               "type": "message",
               "text": "The wire is thin but strong. There must be fifty feet of it wound tightly on the spool."
             }
-          ]
+          ],
+          "verb": "look"
         }
-      ]
+      ],
+      "icon": "?"
     },
     {
       "id": "tin_can",
@@ -392,9 +394,11 @@
               "type": "message",
               "text": "A standard tin can, cleaned out. The edges are smooth enough."
             }
-          ]
+          ],
+          "verb": "look"
         }
-      ]
+      ],
+      "icon": "?"
     }
   ],
   "combinations": [
@@ -486,7 +490,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pull with everything you have. The chain groans but holds. The rusty link flexes \u2014 it's close to breaking, but not yet. You need to weaken it somehow."
+              "text": "You pull with everything you have. The chain groans but holds. The rusty link flexes — it's close to breaking, but not yet. You need to weaken it somehow."
             }
           ],
           "noise": 20
@@ -531,7 +535,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You brace your foot and pull. The corroded link stretches, thins, and snaps with a dull clank. The chain falls away. You're free to move \u2014 but not free to leave. Not yet."
+              "text": "You brace your foot and pull. The corroded link stretches, thins, and snaps with a dull clank. The chain falls away. You're free to move — but not free to leave. Not yet."
             },
             {
               "type": "set_state",
@@ -566,7 +570,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The broken chain lies on the floor. You kept one link \u2014 the sharp one."
+              "text": "The broken chain lies on the floor. You kept one link — the sharp one."
             }
           ]
         }
@@ -753,7 +757,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Twelve-inch porthole, brass-rimmed, bolted shut with six hex bolts. Through the salt-crusted glass: sixty feet of empty air, jagged rocks, and the Pacific. The bolts look standard \u2014 a wrench could turn them."
+              "text": "Twelve-inch porthole, brass-rimmed, bolted shut with six hex bolts. Through the salt-crusted glass: sixty feet of empty air, jagged rocks, and the Pacific. The bolts look standard — a wrench could turn them."
             }
           ]
         },
@@ -867,7 +871,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tie the rope to the wall hook beside the porthole and feed the rest through the opening. It reaches the rocks below. This is it \u2014 your way out. Alone."
+              "text": "You tie the rope to the wall hook beside the porthole and feed the rest through the opening. It reaches the rocks below. This is it — your way out. Alone."
             },
             {
               "type": "set_flag",
@@ -924,7 +928,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You try to thread the rope through the jagged opening. Glass slices your hands. The bent frame is too narrow to squeeze through safely. Smashing it was a mistake \u2014 the quiet approach would have worked."
+              "text": "You try to thread the rope through the jagged opening. Glass slices your hands. The bent frame is too narrow to squeeze through safely. Smashing it was a mistake — the quiet approach would have worked."
             }
           ]
         }
@@ -994,7 +998,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A tall metal storage locker, government-green. The latch is a simple lift-handle \u2014 not locked, just closed. You could also hide inside if Harold comes."
+              "text": "A tall metal storage locker, government-green. The latch is a simple lift-handle — not locked, just closed. You could also hide inside if Harold comes."
             }
           ]
         },
@@ -1275,7 +1279,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You kneel at the grate and whisper down. 'Hey! Who's there?'\n\nA pause. Then a hoarse voice: 'Name's Pete Dalton. Fisherman. That crazy bastard grabbed me off my boat three days ago. You new?'\n\n'Yeah.'\n\n'Listen \u2014 I got a knife. Small one. I can pass it through the bars if you get close. And if you find rope... lower it down. I can climb out and raise hell while you run. Deal?'"
+              "text": "You kneel at the grate and whisper down. 'Hey! Who's there?'\n\nA pause. Then a hoarse voice: 'Name's Pete Dalton. Fisherman. That crazy bastard grabbed me off my boat three days ago. You new?'\n\n'Yeah.'\n\n'Listen — I got a knife. Small one. I can pass it through the bars if you get close. And if you find rope... lower it down. I can climb out and raise hell while you run. Deal?'"
             },
             {
               "type": "set_flag",
@@ -1307,7 +1311,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You call down through the grate. The chain stops you from reaching it, but sound carries. 'Hello?'\n\nA voice from below: 'Someone up there? I'm Pete! Get free and come talk to me \u2014 I can help you!'"
+              "text": "You call down through the grate. The chain stops you from reaching it, but sound carries. 'Hello?'\n\nA voice from below: 'Someone up there? I'm Pete! Get free and come talk to me — I can help you!'"
             }
           ],
           "noise": 15
@@ -1361,7 +1365,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You lower the rope through the grate. Pete grabs it, tests it, and begins to climb. He's strong \u2014 years of hauling nets. He reaches the grate, squeezes through, and stands beside you, breathing hard.\n\n'I'll make noise downstairs. Draw the old man out. You get to the porthole or the radio \u2014 whatever you've got. When you hear me banging, GO.'"
+              "text": "You lower the rope through the grate. Pete grabs it, tests it, and begins to climb. He's strong — years of hauling nets. He reaches the grate, squeezes through, and stands beside you, breathing hard.\n\n'I'll make noise downstairs. Draw the old man out. You get to the porthole or the radio — whatever you've got. When you hear me banging, GO.'"
             },
             {
               "type": "set_flag",
@@ -1415,7 +1419,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You speak into the tin can. Pete's voice comes back, tinny but clear: 'Still here. Find me a rope and I'll cause a scene that'll keep Harold busy for days. Or find your own way out \u2014 I won't blame you.'"
+              "text": "You speak into the tin can. Pete's voice comes back, tinny but clear: 'Still here. Find me a rope and I'll cause a scene that'll keep Harold busy for days. Or find your own way out — I won't blame you.'"
             }
           ],
           "noise": 1
@@ -1454,7 +1458,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A directional signal lamp on a swivel mount, aimed at the door. The bulb works \u2014 it's connected to the fuse box. With the right lens in front, this could produce a blinding flash."
+              "text": "A directional signal lamp on a swivel mount, aimed at the door. The bulb works — it's connected to the fuse box. With the right lens in front, this could produce a blinding flash."
             }
           ]
         },
@@ -1487,7 +1491,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You mount the Fresnel lens shard in front of the lamp's reflector and aim the assembly at the door. The concentric rings of the lens will focus the light into a concentrated beam \u2014 lighthouse technology turned weapon. Now you need to wire it to fire when the door opens."
+              "text": "You mount the Fresnel lens shard in front of the lamp's reflector and aim the assembly at the door. The concentric rings of the lens will focus the light into a concentrated beam — lighthouse technology turned weapon. Now you need to wire it to fire when the door opens."
             },
             {
               "type": "set_state",
@@ -1538,7 +1542,7 @@
             },
             {
               "type": "message",
-              "text": "You carefully pry a glass lens shard from the old signal lamp. It's curved and thick \u2014 could focus light into a beam."
+              "text": "You carefully pry a glass lens shard from the old signal lamp. It's curved and thick — could focus light into a beam."
             },
             {
               "type": "add_noise",
@@ -1596,7 +1600,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Three fuse slots labeled: MAIN LIGHT, SIGNAL LAMP, RADIO. The radio fuse is missing \u2014 burned out or removed. The signal lamp fuse is in but the circuit is switched off."
+              "text": "Three fuse slots labeled: MAIN LIGHT, SIGNAL LAMP, RADIO. The radio fuse is missing — burned out or removed. The signal lamp fuse is in but the circuit is switched off."
             }
           ]
         },
@@ -1613,7 +1617,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The notch on the chain link fits the screw perfectly. You turn it \u2014 the cover swings open, revealing three fuse slots."
+              "text": "The notch on the chain link fits the screw perfectly. You turn it — the cover swings open, revealing three fuse slots."
             },
             {
               "type": "set_state",
@@ -1718,7 +1722,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You slot the spare fuse into the RADIO socket. A faint hum \u2014 the radio circuit has power now."
+              "text": "You slot the spare fuse into the RADIO socket. A faint hum — the radio circuit has power now."
             }
           ],
           "noise": 2
@@ -1773,7 +1777,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A workbench against the far wall. You can make out shapes \u2014 a box, papers, something with knobs. Too far to reach while chained."
+              "text": "A workbench against the far wall. You can make out shapes — a box, papers, something with knobs. Too far to reach while chained."
             }
           ]
         },
@@ -1847,7 +1851,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A heavy-duty metal toolbox. The lid is rusted nearly shut. Opening it will take force \u2014 and force means noise."
+              "text": "A heavy-duty metal toolbox. The lid is rusted nearly shut. Opening it will take force — and force means noise."
             }
           ]
         },
@@ -1936,7 +1940,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An empty toolbox. You took the wrench. Some wire spools and loose bolts remain \u2014 nothing useful."
+              "text": "An empty toolbox. You took the wrench. Some wire spools and loose bolts remain — nothing useful."
             }
           ]
         }
@@ -1968,7 +1972,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A navigational chart of Cape Meares and surrounding waters. Harold has annotated it obsessively \u2014 shipping lanes, tide tables, weather patterns. In the margin: 'CG cutter patrols every 4 hours \u2014 listen on Ch.16.'"
+              "text": "A navigational chart of Cape Meares and surrounding waters. Harold has annotated it obsessively — shipping lanes, tide tables, weather patterns. In the margin: 'CG cutter patrols every 4 hours — listen on Ch.16.'"
             },
             {
               "type": "set_flag",
@@ -2119,7 +2123,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A marine VHF radio transceiver. Military-grade, built to last. The power light is dark \u2014 no fuse in the circuit. If you could restore power and tune to the right frequency, you could call for help."
+              "text": "A marine VHF radio transceiver. Military-grade, built to last. The power light is dark — no fuse in the circuit. If you could restore power and tune to the right frequency, you could call for help."
             }
           ]
         },
@@ -2135,7 +2139,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The radio hums with power. The frequency dial glows amber. You need to tune it to the right channel \u2014 but which one?"
+              "text": "The radio hums with power. The frequency dial glows amber. You need to tune it to the right channel — but which one?"
             }
           ]
         },
@@ -2203,7 +2207,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An empty tin can. The kind that held peaches or beans. With some wire, it could be a crude communication device \u2014 the old tin-can telephone trick."
+              "text": "An empty tin can. The kind that held peaches or beans. With some wire, it could be a crude communication device — the old tin-can telephone trick."
             }
           ]
         },
@@ -2301,7 +2305,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Machine grease for the lamp mechanism. Petroleum-based \u2014 it'll eat through rust."
+              "text": "Machine grease for the lamp mechanism. Petroleum-based — it'll eat through rust."
             }
           ]
         },
@@ -2319,7 +2323,7 @@
             },
             {
               "type": "message",
-              "text": "You take the jar of grease. Useful for lubrication \u2014 or corrosion."
+              "text": "You take the jar of grease. Useful for lubrication — or corrosion."
             }
           ],
           "noise": 1
@@ -2352,7 +2356,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A VHF marine transceiver. The frequency dial dominates the face \u2014 turn it to select a channel. The transmit button is on the handset. Tune to the right frequency, press transmit, and pray someone is listening."
+              "text": "A VHF marine transceiver. The frequency dial dominates the face — turn it to select a channel. The transmit button is on the handset. Tune to the right frequency, press transmit, and pray someone is listening."
             }
           ]
         },
@@ -2368,7 +2372,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You grab the handset and press transmit. 'MAYDAY, MAYDAY, MAYDAY. This is a civilian, held captive at Cape Meares lighthouse. Request immediate assistance. I repeat \u2014 MAYDAY.'\n\nStatic. Then: 'Copy your mayday, Cape Meares. Coast Guard cutter Steadfast is en route. ETA twenty minutes. Hold your position.'\n\nHelp is coming."
+              "text": "You grab the handset and press transmit. 'MAYDAY, MAYDAY, MAYDAY. This is a civilian, held captive at Cape Meares lighthouse. Request immediate assistance. I repeat — MAYDAY.'\n\nStatic. Then: 'Copy your mayday, Cape Meares. Coast Guard cutter Steadfast is en route. ETA twenty minutes. Hold your position.'\n\nHelp is coming."
             },
             {
               "type": "set_flag",
@@ -2460,7 +2464,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The antenna is fully extended and pointed at the window. Good positioning \u2014 it should get a signal out through the glass."
+              "text": "The antenna is fully extended and pointed at the window. Good positioning — it should get a signal out through the glass."
             }
           ]
         }
@@ -2505,7 +2509,7 @@
         },
         {
           "type": "message",
-          "text": "156.800 MHz. Channel 16. International Distress. The static clears \u2014 you hear the rhythmic ping of a Coast Guard transponder. Someone is out there."
+          "text": "156.800 MHz. Channel 16. International Distress. The static clears — you hear the rhythmic ping of a Coast Guard transponder. Someone is out there."
         },
         {
           "type": "play_sound",
@@ -2537,7 +2541,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Your head throbs. Salt air. The groan of a foghorn. You're lying on a cot in a circular room \u2014 stone walls, riveted steel door, one porthole window. A chain runs from your ankle to a bolt in the floor. This is a lighthouse. And someone has locked you inside it."
+          "text": "Your head throbs. Salt air. The groan of a foghorn. You're lying on a cot in a circular room — stone walls, riveted steel door, one porthole window. A chain runs from your ankle to a bolt in the floor. This is a lighthouse. And someone has locked you inside it."
         }
       ],
       "ambient_text": "The foghorn moans. Waves crash far below. A man's boots pace the floor downstairs.",
@@ -2559,7 +2563,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "The chain falls. You stand on unsteady legs, rubbing your ankle. The whole room is yours now \u2014 but Harold is still down there, and he checks on his 'guests' regularly. Move fast. Move quiet."
+          "text": "The chain falls. You stand on unsteady legs, rubbing your ankle. The whole room is yours now — but Harold is still down there, and he checks on his 'guests' regularly. Move fast. Move quiet."
         }
       ],
       "ambient_text": "Harold hums to himself below. The foghorn marks the time.",
@@ -2771,7 +2775,7 @@
       "effects": [
         {
           "type": "message",
-          "text": "The door swings open. The signal lamp FIRES \u2014 thirty thousand candlepower through the Fresnel lens, straight into Harold's eyes. He staggers backward, screaming, hands clawing at his face. He won't be searching for a while."
+          "text": "The door swings open. The signal lamp FIRES — thirty thousand candlepower through the Fresnel lens, straight into Harold's eyes. He staggers backward, screaming, hands clawing at his face. He won't be searching for a while."
         },
         {
           "type": "visual_cue",
@@ -2896,7 +2900,7 @@
           },
           {
             "type": "message",
-            "text": "Harold takes the signal manual off the workbench and tucks it under his arm. 'Don't need you reading this.' The frequency information is gone \u2014 unless you already memorized it."
+            "text": "Harold takes the signal manual off the workbench and tucks it under his arm. 'Don't need you reading this.' The frequency information is gone — unless you already memorized it."
           }
         ]
       }
@@ -2962,7 +2966,7 @@
       "id": "time_limit",
       "seconds": 600,
       "message": "The sun rises over the Pacific. Harold's brother arrives with the morning boat, armed. It's too late now. The lighthouse swallows another soul.",
-      "description": "Dawn arrives \u2014 Harold's brother makes escape impossible"
+      "description": "Dawn arrives — Harold's brother makes escape impossible"
     }
   ],
   "hints": [
@@ -3043,7 +3047,7 @@
           }
         ]
       },
-      "text": "The rope is long enough to reach the rocks below the porthole OR to reach Pete through the grate. Choose carefully \u2014 you can't do both."
+      "text": "The rope is long enough to reach the rocks below the porthole OR to reach Pete through the grate. Choose carefully — you can't do both."
     }
   ],
   "solution_paths": [
@@ -3052,21 +3056,21 @@
       "name": "The Quiet Way Out",
       "description": "Escape alone through the porthole. Minimal noise, maximum guilt.",
       "steps": [
-        "Look at chain \u2014 discover weak link",
+        "Look at chain — discover weak link",
         "Take grease from workbench",
-        "Use grease on chain \u2014 weaken link",
-        "Hand chain \u2014 break free, get chain link",
-        "Hand storage locker \u2014 open it",
-        "Hand storage locker again \u2014 close it (camouflage)",
+        "Use grease on chain — weaken link",
+        "Hand chain — break free, get chain link",
+        "Hand storage locker — open it",
+        "Hand storage locker again — close it (camouflage)",
         "Take rope from locker",
         "Take fuse from locker",
-        "Use chain link on fuse box \u2014 open it",
-        "Use fuse on fuse box \u2014 power radio",
-        "Take signal manual \u2014 learn frequency",
-        "Use grease on toolbox \u2014 open quietly",
-        "Use wrench on porthole \u2014 unbolt it",
-        "Use rope on porthole \u2014 tie for rappel",
-        "Hand porthole \u2014 escape"
+        "Use chain link on fuse box — open it",
+        "Use fuse on fuse box — power radio",
+        "Take signal manual — learn frequency",
+        "Use grease on toolbox — open quietly",
+        "Use wrench on porthole — unbolt it",
+        "Use rope on porthole — tie for rappel",
+        "Hand porthole — escape"
       ],
       "estimated_noise": "low",
       "patterns_demonstrated": [
@@ -3082,21 +3086,21 @@
       "name": "No One Left Behind",
       "description": "Free Pete, use his distraction, send mayday, get rescued together.",
       "steps": [
-        "Look at chain \u2014 discover weak link",
+        "Look at chain — discover weak link",
         "Take grease from workbench",
-        "Use grease on chain \u2014 break free",
-        "Talk to floor grate \u2014 meet Pete",
-        "Hand floor grate \u2014 receive pen knife from Pete",
-        "Hand storage locker \u2014 open it, close it after",
+        "Use grease on chain — break free",
+        "Talk to floor grate — meet Pete",
+        "Hand floor grate — receive pen knife from Pete",
+        "Hand storage locker — open it, close it after",
         "Take rope, fuse, signal manual",
-        "Use pen knife on fuse box \u2014 open it",
-        "Use fuse on fuse box \u2014 power radio",
-        "Examine signal manual \u2014 learn frequency 156.800",
-        "Hand radio \u2014 go to closeup",
+        "Use pen knife on fuse box — open it",
+        "Use fuse on fuse box — power radio",
+        "Examine signal manual — learn frequency 156.800",
+        "Hand radio — go to closeup",
         "Tune dial to 156.800",
-        "Talk to radio \u2014 send mayday",
-        "Use rope on floor grate \u2014 free Pete",
-        "Pete creates distraction \u2014 survive until Coast Guard arrives"
+        "Talk to radio — send mayday",
+        "Use rope on floor grate — free Pete",
+        "Pete creates distraction — survive until Coast Guard arrives"
       ],
       "estimated_noise": "medium",
       "patterns_demonstrated": [
@@ -3115,9 +3119,9 @@
         "Break free from chain",
         "Open storage locker, take supplies",
         "Find lens shard from broken signal lamp parts",
-        "Use lens shard on signal lamp \u2014 rig the trap",
+        "Use lens shard on signal lamp — rig the trap",
         "Open fuse box, insert fuse, power the lamp circuit",
-        "Wait for Harold's next visit \u2014 lamp blinds him",
+        "Wait for Harold's next visit — lamp blinds him",
         "Use the 45-second window to unbolt porthole and escape"
       ],
       "estimated_noise": "medium-high",
