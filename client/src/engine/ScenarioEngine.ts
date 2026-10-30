@@ -16,6 +16,7 @@ export class ScenarioEngine {
   private flags: Record<string, string>;
   private objectStates: Record<string, string>;
   private objectVisibility: Record<string, boolean>;
+  private objectAnimations: Record<string, string>;
   private inventory: string[];
   private _noiseLevel: number;
   private _messages: string[];
@@ -33,6 +34,7 @@ export class ScenarioEngine {
     this.flags = { ...scenario.flags };
     this.objectStates = {};
     this.objectVisibility = {};
+    this.objectAnimations = {};
     this.inventory = [];
     this._noiseLevel = 0;
     this._messages = [];
@@ -89,7 +91,15 @@ export class ScenarioEngine {
       if (this.objectVisibility[objId] !== false) {
         const obj = this.objectIndex.get(objId);
         if (obj) {
-          objects.push(obj);
+          const animOverride = this.objectAnimations[objId];
+          if (animOverride !== undefined) {
+            objects.push({
+              ...obj,
+              visual: { ...obj.visual, animation: animOverride || undefined },
+            });
+          } else {
+            objects.push(obj);
+          }
         }
       }
     }
@@ -482,6 +492,12 @@ export class ScenarioEngine {
         case 'hide_object':
           if (e.object) {
             this.objectVisibility[e.object] = false;
+          }
+          break;
+
+        case 'set_animation':
+          if (e.object) {
+            this.objectAnimations[e.object] = e.value ?? '';
           }
           break;
 

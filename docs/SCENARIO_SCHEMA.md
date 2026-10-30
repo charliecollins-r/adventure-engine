@@ -636,6 +636,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `set_state` | `object`, `state` | Change an object's state. |
 | `show_object` | `object` | Make a hidden object visible. |
 | `hide_object` | `object` | Make a visible object disappear. |
+| `set_animation` | `object`, `value` | Change or clear an object's `visual.animation`. Empty string `""` clears the animation (stops glimmer/pulse). |
 | `set_flag` | `flag`, `value` | Set a global flag. |
 | `add_noise` | `amount` | Add to noise level (clamped 0-100). |
 | `set_noise` | `level` | Set noise to exact value. |

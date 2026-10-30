@@ -2566,6 +2566,11 @@
               "type": "set_flag",
               "flag": "pod_glass_taken",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "broken_pod",
+              "value": ""
             }
           ]
         },
@@ -2648,6 +2653,11 @@
               "type": "set_flag",
               "flag": "stasis_fluid_collected",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "pod_drainage_channel",
+              "value": ""
             }
           ]
         },
@@ -3273,6 +3283,11 @@
               "type": "set_flag",
               "flag": "security_sequence_known",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "lab_startup_display",
+              "value": ""
             }
           ]
         },
@@ -3540,6 +3555,11 @@
               "type": "set_flag",
               "flag": "neural_tendril_taken",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "neural_tendril_sample",
+              "value": ""
             }
           ]
         },
@@ -4175,6 +4195,11 @@
               "type": "set_flag",
               "flag": "containment_key_obtained",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "key_card_drawer",
+              "value": ""
             }
           ]
         },
@@ -4454,6 +4479,11 @@
               "type": "set_flag",
               "flag": "convergence_history_known",
               "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "holographic_display",
+              "value": ""
             }
           ]
         },
