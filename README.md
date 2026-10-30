@@ -17,7 +17,8 @@ Define an entire adventure — puzzles, narrative, branching outcomes, and optio
 Adventure Engine is a browser-based point-and-click adventure game engine where:
 
 - **Every scenario is pure data** — one JSON file defines all game logic, interactions, puzzles, narrative, and (optionally) antagonist behavior
-- **Any genre works** — horror escape rooms with an AI killer, cozy wizard puzzles, sci-fi exploration, pure adventure with no antagonist at all
+- **Any genre works** — horror escape rooms with an AI antagonist, cozy wizard puzzles, sci-fi exploration, pure adventure with no threat at all
+- **Size as a mechanic** — you play as a small goblin-like creature in a world built for beings 3x your height. Crawl under furniture, squeeze through vents, hide in spaces captors can't reach — but can't access high shelves or move heavy objects without creative solutions
 - **Background art is human-created** — painted scenes in the style of Sierra's King's Quest V/VI, rendered at 1920x1080
 - **The engine is generic** — it reads any valid scenario JSON and runs it without scenario-specific code
 - **Scenarios can be AI-generated** — give an LLM the [schema spec](docs/SCENARIO_SCHEMA.md) and a theme, get a playable level
@@ -38,10 +39,37 @@ The interaction model draws from the best of classic adventure gaming:
 
 ---
 
+## A Small Creature in a Big World
+
+You play as a small goblin-like creature — roughly knee-height to the beings who built these environments. This isn't flavor text; **size is a core puzzle mechanic** that gives every scene two layers of interaction.
+
+### What Being Small Lets You Do
+
+| Advantage | Example |
+|-----------|---------|
+| **Crawl under furniture** | Check beneath examination tables, benches, consoles — hidden objects, passages, floor drains |
+| **Fit through small gaps** | Vents, cracked walls, gaps between bars, drain pipes — routes captors can't follow |
+| **Hide anywhere** | Inside cabinets, behind equipment, under consoles, in spaces captors wouldn't think to check |
+| **Access machinery internals** | Climb inside devices through maintenance panels, reach components from the inside |
+| **See what others miss** | Floor-level markings, objects kicked under furniture, scratches at ankle height |
+
+### What Being Small Prevents
+
+| Limitation | Puzzle It Creates |
+|------------|-------------------|
+| **Can't reach high surfaces** | Stack crates, climb shelves, use a tool with reach, or lure someone tall into helping |
+| **Can't move heavy objects** | Find a lever, redirect machinery, trick a larger creature into pushing it |
+| **Can't operate oversized controls** | Jam a tool into a giant lever, throw something at a distant button, rewire from inside the panel |
+| **Scale hazards** | Puddles are waist-deep, gaps that are steps to captors are chasms to you |
+
+Every background scene works on two levels: the **surface layer** (tabletops, shelves, consoles — built for large beings, requires creativity to reach) and the **floor layer** (under-table passages, floor drains, kicked-aside objects — your domain). A single room becomes twice as rich.
+
+---
+
 ## Project Structure
 
 ```
-captive/
+adventure-engine/
 ├── server/                          # Java 21 + Spring Boot 3.3.5 + Maven
 │   └── src/main/java/com/kq/
 │       ├── model/                   # Game state, scene objects, player state

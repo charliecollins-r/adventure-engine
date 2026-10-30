@@ -302,6 +302,43 @@ Noise isn't just risk — it's a tool:
 - Fine-tuning coordinates after art is created is a quick JSON edit
 - Future: visual scenario editor tool
 
+### Player Character: Small Creature Among Giants
+
+The player character is a small goblin-like creature — roughly knee-height to the captors who built and operate these environments. This isn't cosmetic; size is a **core gameplay mechanic** that creates two complementary puzzle dimensions from every scene.
+
+**Advantages of being small:**
+- **Crawl under furniture** — benches, tables, machinery become traversable spaces with their own hidden objects and passages
+- **Fit through small gaps** — vents, cracks, drain pipes, gaps between bars that larger beings can't use
+- **Hide easily** — inside cabinets, behind equipment, under consoles, in spaces captors would never check
+- **Go unnoticed** — below sightlines, behind obstacles that are waist-height to captors but full cover for you
+- **Access internal machinery** — climb inside devices, reach components through maintenance panels sized for small repair drones
+
+**Limitations of being small:**
+- **Can't reach high surfaces** — shelves, control panels, switches, viewports designed for beings 3x your height
+- **Can't move heavy objects** — doors, crates, machinery built for massive hands require workarounds
+- **Can't operate oversized controls** — levers and buttons designed for large hands need tools or creative solutions
+- **Vulnerable to scale hazards** — gaps that are steps to captors are chasms to you; fluid puddles are waist-deep
+
+**Puzzle patterns this enables:**
+- **Stacking/climbing** — pile objects to reach a high shelf (crates, books, chairs)
+- **Tool extension** — use a pole, probe, or thrown object to hit a distant switch
+- **Luring** — trick a larger creature into moving something heavy for you
+- **Perspective shifts** — the same room viewed from floor level reveals things invisible from captor eye-height (markings under tables, objects kicked beneath furniture, floor-level passages)
+- **Weight puzzles** — you're too light to trigger pressure plates, but heavy enough to ride small mechanisms
+- **Scale exploitation** — squeeze through a gap in broken bars; the captor can see you but can't follow
+
+**Art implications:**
+- Backgrounds are painted from approximately goblin eye-height (low angle, looking up at furniture/equipment)
+- Every scene has a "floor layer" of interactions (under-table, behind-equipment, floor-drain) alongside the "surface layer" (tabletop, shelf, console)
+- Captor-scale objects create natural visual framing — massive doorways, towering consoles, cathedral-scale corridors
+- The scale difference makes environments feel grand and oppressive without needing larger images
+
+**Schema support:**
+- Interactions can be gated by `height_reachable` conditions (requires climbing aid, tool, or stacked objects)
+- Objects can have `floor_level: true` to indicate they're only visible/interactable from small-creature perspective
+- `climb` verb or `hand` on stackable objects to build temporary platforms
+- Closeup views can represent "under the bench" or "inside the vent" as separate sub-scenes within the same room
+
 ## Open Decisions
 
 - [ ] Scenario packaging: flat directory? zip bundle? URL-referenced images?
