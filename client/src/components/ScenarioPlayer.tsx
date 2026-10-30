@@ -7,6 +7,7 @@ import { InventoryPanel } from './InventoryPanel';
 import { MessagePanel } from './MessagePanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
+import { EyeOpenTransition } from './EyeOpenTransition';
 
 interface ScenarioPlayerProps {
   scenario: Scenario;
@@ -105,7 +106,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const bump = useCallback(() => setVersion((v) => v + 1), []);
 
   const [showIntro, setShowIntro] = useState(() => !!scenario.setting.intro_text?.length);
-  const [fadeIn, setFadeIn] = useState(true);
+  const [eyeOpen, setEyeOpen] = useState(false);
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
@@ -115,11 +116,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const engine = engineRef.current;
 
   useEffect(() => {
-    if (!showIntro && fadeIn) {
-      const timer = setTimeout(() => setFadeIn(false), 50);
+    if (!showIntro && !eyeOpen) {
+      const timer = setTimeout(() => setEyeOpen(true), 50);
       return () => clearTimeout(timer);
     }
-  }, [showIntro, fadeIn]);
+  }, [showIntro, eyeOpen]);
 
   useEffect(() => {
     const raw = scenario.setting.ambient_audio;
@@ -297,21 +298,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   return (
     <div style={styles.container}>
-      {/* Fade-in from black */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          backgroundColor: '#000',
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 2s ease-in',
-          pointerEvents: 'none',
-          zIndex: 900,
-        }}
-      />
+      {/* Eye-opening transition from black */}
+      <EyeOpenTransition active={eyeOpen} />
 
       {/* Title bar */}
       <div style={styles.titleBar}>
