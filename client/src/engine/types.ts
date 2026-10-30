@@ -54,6 +54,8 @@ export interface Condition {
   item?: string;
   view?: string;
   phase?: string;
+  threshold?: number;
+  count?: number;
   conditions?: Condition[];
 }
 
@@ -65,6 +67,7 @@ export interface Effect {
   object?: string;
   state?: string;
   item?: string;
+  into?: string;
   view?: string;
   phase?: string;
   amount?: number;

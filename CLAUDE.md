@@ -51,7 +51,9 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   └── ... (15 scenarios total, 13 with JSONs, 2 design-only)
 ├── docs/
 │   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — read this first
-│   └── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
+│   ├── ARCHITECTURE.md               ← Engine internals deep dive (diagrams, data flow)
+│   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
+│   └── images/                       ← Screenshots for README
 └── .gitignore
 ```
 
@@ -155,16 +157,16 @@ No other verbs exist. `hand` covers all physical manipulation (push, pull, open,
 | `is_hiding` | Yes | 2/13 |
 | `not_hiding` | Yes | 5/13 |
 | `any_of` | Yes | 11/13 |
+| `all_of` | Yes | 13/13 |
+| `noise_above` | Yes | 1/13 |
+| `noise_below` | Yes | 1/13 |
+| `item_count` | Yes | 1/13 |
 | `killer_is` | Stub (returns false) | 8/13 |
-| **`all_of`** | **NO** | **13/13** |
 | **`time_after`** | **NO** | **13/13** (events) |
-| `noise_above` | NO | 1/13 |
 
 ### Effects — what's implemented vs. what scenarios use
 
-All 20+ effect types have at least stub implementations. Missing real implementations:
-- `set_noise` — used by 1 scenario (trivial to add)
-- `transform_item` — schema-defined but unused
+All 20+ effect types have real implementations. Remaining no-ops:
 - `trigger_event` — no-op (needs events system)
 - `visual_cue` — no-op (cosmetic, fine for MVP)
 - `play_sound` — no-op (cosmetic, fine for MVP)
@@ -173,7 +175,6 @@ All 20+ effect types have at least stub implementations. Missing real implementa
 
 | System | Used By | Priority |
 |--------|---------|----------|
-| `all_of` condition | 13/13 | CRITICAL |
 | Events system | 13/13 | HIGH |
 | Puzzle widgets | 13/13 | HIGH |
 | Killer AI | 13/13 | MEDIUM |
@@ -237,11 +238,13 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 
 - **15 scenarios designed**, 13 with complete JSONs, 2 design-only
 - **Engine POC** functional: ScenarioEngine + React components, scenario loader, background rendering
+- **All core conditions implemented**: `all_of`, `any_of`, `noise_above`, `noise_below`, `item_count` all working
+- **All core effects implemented**: `set_noise`, `transform_item`, `conditional_effect`, `delay_then` all working
+- **The Harvest Act 1** playable with painted backgrounds (11 views)
 - **Lighthouse Keeper** is simplest (3 views) — first playtest target
-- **The Harvest** is largest (50 views, 5 acts) — needs position re-transformation
 - **Branch**: `claude/dreamy-volta-ha3r6v`
-- **Schema-first alignment** completed — gaps identified, implementation plan ready
-- **Critical gap**: `all_of` condition not implemented but used by every scenario
+- **Architecture doc** with Mermaid diagrams at `docs/ARCHITECTURE.md`
+- **Gameplay screenshots** in `docs/images/` referenced by README
 
 ---
 
@@ -265,9 +268,9 @@ cd client && npx tsc --noEmit
 
 ## Implementation Priority
 
-1. Implement `all_of` condition (used by all 13 scenarios)
-2. Implement `set_noise` effect, `noise_above` condition
-3. Fix coordinate scaling (engine uses 960x720 coordinate space)
+1. ~~Implement `all_of` condition~~ DONE
+2. ~~Implement `set_noise` effect, `noise_above` condition~~ DONE
+3. ~~Fix coordinate scaling~~ DONE (960x720 space)
 4. Add game clock + events system
 5. Implement puzzle widget UI components
 6. Implement killer AI state machine

@@ -380,8 +380,16 @@ export class ScenarioEngine {
         return this._isHiding;
       case 'not_hiding':
         return !this._isHiding;
+      case 'all_of':
+        return (c.conditions ?? []).every(sub => this.evaluateCondition(sub));
       case 'any_of':
         return (c.conditions ?? []).some(sub => this.evaluateCondition(sub));
+      case 'noise_above':
+        return this._noiseLevel > (c.threshold ?? 0);
+      case 'noise_below':
+        return this._noiseLevel < (c.threshold ?? 0);
+      case 'item_count':
+        return this.inventory.length >= (c.count ?? 0);
       case 'killer_is':
         return false;
       default:
@@ -444,6 +452,10 @@ export class ScenarioEngine {
           this._noiseLevel = Math.min(100, this._noiseLevel + (e.amount ?? 0));
           break;
 
+        case 'set_noise':
+          this._noiseLevel = Math.max(0, Math.min(100, e.amount ?? 0));
+          break;
+
         case 'show_object':
           if (e.object) {
             this.objectVisibility[e.object] = true;
@@ -504,6 +516,15 @@ export class ScenarioEngine {
           } else if (e.else) {
             const elseMessages = this.applyEffects(e.else);
             messages.push(...elseMessages);
+          }
+          break;
+
+        case 'transform_item':
+          if (e.item && e.into) {
+            const idx = this.inventory.indexOf(e.item);
+            if (idx !== -1) {
+              this.inventory[idx] = e.into;
+            }
           }
           break;
 

@@ -21,61 +21,157 @@ Define an entire adventure — views, puzzles, items, narrative, and an optional
 
 The engine is completely generic — it has no scenario-specific code. All game logic lives in the JSON: conditions gate when interactions fire, effects change the world, and the player solves puzzles through a five-verb interface inherited from the classics.
 
+<p align="center">
+  <img src="docs/images/screenshot-scenario-select.png" width="800" alt="Scenario selection screen" />
+  <br />
+  <em>Choose from 13 playable scenarios across genres — or load your own JSON</em>
+</p>
+
 ---
 
-## Repository Structure
+## In Action
 
-```
-adventure-engine/
-|
-+-- client/                           React + TypeScript + Vite
-|   +-- src/
-|       +-- engine/                   ScenarioEngine — pure TypeScript state machine
-|       |   +-- types.ts              TypeScript types matching the schema
-|       |   +-- ScenarioEngine.ts     Core: load JSON, manage state, resolve interactions
-|       +-- components/               React UI components
-|           +-- ScenarioPlayer.tsx    Main game orchestrator
-|           +-- ScenarioLoader.tsx    Scenario selection screen
-|           +-- GameView.tsx          Background + object hotspot rendering
-|           +-- VerbBar.tsx           Verb selection (look, hand, take, talk, use)
-|           +-- InventoryPanel.tsx    Item display and selection
-|           +-- MessagePanel.tsx      Story text display
-|           +-- NoiseIndicator.tsx    Noise level meter
-|
-+-- server/                           Spring Boot 3 + Java 21 + Maven
-|   +-- src/main/java/com/kq/        WebSocket game server (future: tooling, validation)
-|
-+-- scenarios/                        ALL scenario content lives here
-|   +-- the-lighthouse-keeper/        Each scenario is a self-contained folder
-|   |   +-- scenario.json             The scenario definition
-|   |   +-- design.md                 Design document (story, prompts, patterns)
-|   |   +-- backgrounds/              Background images for this scenario
-|   +-- the-harvest/                  Flagship: 5 acts, 50 views, 7 endings
-|   |   +-- scenario.json
-|   |   +-- design.md
-|   |   +-- deep-design.md            Decision trees, level maps, puzzle evaluations
-|   |   +-- backgrounds/              11 painted backgrounds (Act 1)
-|   +-- ... (15 scenarios total)
-|
-+-- docs/                             Engine-level documentation
-|   +-- SCENARIO_SCHEMA.md            THE schema spec (1700+ lines, 30 design patterns)
-|   +-- SPATIAL_MOVEMENT_DESIGN.md    Future: click-to-move system (post-MVP)
-|
-+-- CLAUDE.md                         Project bible for AI agents
-+-- README.md                         You are here
+<p align="center">
+  <img src="docs/images/screenshot-harvest-gameplay.png" width="800" alt="The Harvest — Act 1 gameplay with painted background art" />
+  <br />
+  <em>The Harvest — painted gouache backgrounds with interactive object hotspots</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-interaction.png" width="800" alt="Object interaction with hover label" />
+  <br />
+  <em>Hovering an object reveals its label — click to interact with the active verb</em>
+</p>
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js 18+** (client)
+- **Java 21** + **Maven 3.9+** (server — not needed for the scenario engine)
+
+### Run the Client
+
+```bash
+cd client
+npm install
+npm run dev
 ```
 
-### Key principle: scenarios are self-contained
+Open `http://localhost:5173`, select a scenario, and play.
 
-Each scenario folder holds everything about that scenario — the JSON definition, the design document with story and image generation prompts, and the background images. A human browsing the repo can find everything about "The Lighthouse Keeper" in one place: `scenarios/the-lighthouse-keeper/`.
+### Type Check
 
-The client serves scenarios via a symlink (`client/public/scenarios -> ../../scenarios`), so Vite serves them directly during development.
+```bash
+cd client
+npx tsc --noEmit
+```
+
+---
+
+## Creating a Scenario
+
+Create an entire point-and-click adventure with nothing but JSON and images:
+
+1. **Create a folder** in `scenarios/` with your scenario ID (e.g., `scenarios/my-escape-room/`)
+2. **Write `scenario.json`** following the [schema spec](docs/SCENARIO_SCHEMA.md)
+3. **Add background images** in a `backgrounds/` subfolder — any resolution (1920x1080 recommended), the engine scales to fit
+4. **Write `design.md`** documenting the story, puzzle flow, and image generation prompts
+5. **Add your scenario ID** to the `SCENARIOS` array in `client/src/components/ScenarioLoader.tsx`
+
+Object positions use a **960x720 coordinate space** (origin at top-left). The engine maps this to the rendered viewport. For details on how the coordinate system works, see the [Architecture Deep Dive](docs/ARCHITECTURE.md#coordinate-system).
+
+### Minimal Scenario Example
+
+A complete (tiny) scenario has this structure:
+
+```json
+{
+  "metadata": {
+    "id": "my-escape-room",
+    "title": "My Escape Room",
+    "description": "You wake up in a locked room."
+  },
+  "setting": {
+    "initial_view": "room",
+    "ambient_text": "The room is cold and silent.",
+    "room_style": { "background_color": "#1a1a2e" }
+  },
+  "views": [
+    {
+      "id": "room",
+      "background": "A dimly lit stone room.",
+      "background_file": "backgrounds/room.webp",
+      "objects": ["door", "key"]
+    }
+  ],
+  "flags": {},
+  "items": [
+    { "id": "rusty_key", "name": "Rusty Key", "description": "An old iron key." }
+  ],
+  "objects": [
+    {
+      "id": "key",
+      "name": "Rusty Key",
+      "description": "A key lies on the floor.",
+      "position": { "x": 700, "y": 550 },
+      "size": { "width": 60, "height": 40 },
+      "visual": { "color": "#c0a030", "label": "Key" },
+      "initial_state": "on_floor",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "take",
+          "when": [{ "type": "object_state", "object": "key", "state": "on_floor" }],
+          "then": [
+            { "type": "message", "text": "You pick up the rusty key." },
+            { "type": "add_item", "item": "rusty_key" },
+            { "type": "hide_object", "object": "key" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "door",
+      "name": "Heavy Door",
+      "description": "A heavy iron door. Locked.",
+      "position": { "x": 200, "y": 200 },
+      "size": { "width": 120, "height": 250 },
+      "visual": { "color": "#4a3a2a", "label": "Door" },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "use_item",
+          "item": "rusty_key",
+          "when": [{ "type": "object_state", "object": "door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "The key turns. The door swings open." },
+            { "type": "game_over", "result": "win", "reason": "You escaped!" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "object_state", "object": "door", "state": "locked" }],
+          "then": [
+            { "type": "message", "text": "It won't budge. You need a key." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+That's a complete, playable adventure. The [schema spec](docs/SCENARIO_SCHEMA.md) documents every available condition type, effect type, and the 30 design patterns that make complex puzzles possible.
 
 ---
 
 ## The Five Verbs
 
-Every interaction uses one of five verbs — the same icons Sierra and LucasArts used:
+Every interaction uses one of five verbs — the same interface Sierra and LucasArts used:
 
 | Verb | What It Does |
 |------|-------------|
@@ -85,23 +181,26 @@ Every interaction uses one of five verbs — the same icons Sierra and LucasArts
 | **Talk** | Speak, listen, read aloud, whisper, shout. |
 | **Use** | Apply an inventory item to a world object. The puzzle verb. |
 
-Interactions are gated by **conditions** (what must be true) and produce **effects** (what changes):
+Interactions are gated by **conditions** (what must be true) and produce **effects** (what changes). The engine supports 14 condition types with composites (`any_of`, `all_of`) and 20+ effect types including conditional branching and timed delays. See the [schema spec](docs/SCENARIO_SCHEMA.md) for the full reference.
 
-```json
-{
-  "verb": "use_item",
-  "item": "wire_cutters",
-  "when": [
-    { "type": "object_state", "object": "window", "state": "mesh_intact" }
-  ],
-  "then": [
-    { "type": "message", "text": "You cut through the wire mesh. Cold air rushes in." },
-    { "type": "set_state", "object": "window", "state": "mesh_cut" },
-    { "type": "add_noise", "amount": 25 }
-  ],
-  "noise": 0
-}
-```
+---
+
+## What the Engine Can Do
+
+The JSON format is the product. Here's what it supports:
+
+| Capability | Details |
+|-----------|---------|
+| **14 condition types** | Flag checks, item checks, object state, noise levels, phase, killer state, composites |
+| **20+ effect types** | Messages, items, state changes, visibility, noise, phases, game over, hiding, timed delays, conditional branching |
+| **Puzzle widgets** | Combination locks, keypads, toggle panels, dials, sliders, sequence memory |
+| **AI antagonist** | Patrol timers, noise thresholds, search thoroughness, evidence awareness, personality dialogue |
+| **30 design patterns** | Proven puzzle structures from classic adventures, horror, immersive sims, stealth, escape rooms |
+| **Progressive hints** | Timer-based, condition-gated help system |
+| **Multiple endings** | Condition-driven win/lose states with custom text |
+| **Solution paths** | Documented paths for automated validation and playtesting |
+
+> **30 patterns, infinite possibilities.** The schema includes documented patterns like Environmental Gating, Stealth Thresholds, Timed Pressure, Multi-State Mechanisms, Evidence Assembly, Red Herring Placement, and 24 more. Each pattern is a reusable puzzle structure that authors can combine freely. See [`docs/SCENARIO_SCHEMA.md`](docs/SCENARIO_SCHEMA.md) for the complete catalog.
 
 ---
 
@@ -141,55 +240,31 @@ A full-length adventure spanning **5 acts, 50 views, and 7 possible endings** in
 
 ---
 
-## Schema Highlights
+## Repository Structure
 
-The full schema is in [`docs/SCENARIO_SCHEMA.md`](docs/SCENARIO_SCHEMA.md) — 1700+ lines covering every feature. Key capabilities:
-
-- **14 condition types** — flag checks, item checks, object state, noise levels, time, phase, killer state, composites (`any_of`, `all_of`)
-- **20+ effect types** — messages, items, state changes, visibility, noise, phases, game over, hiding, timed delays, conditional branching
-- **Puzzle widgets** — combination locks, keypads, toggle panels, dials, sliders, sequence memory — pre-built UI components parameterized by JSON
-- **AI antagonist** (optional) — patrol timers, noise thresholds, search thoroughness, evidence awareness, personality dialogue, phase-based escalation
-- **30 design patterns** — proven puzzle structures from classic adventures, horror, immersive sims, puzzle games, stealth, escape rooms, and narrative games
-- **Progressive hints** — timer-based, condition-gated help system
-- **Multiple solution paths** — documented paths for validation and playtesting
-
----
-
-## Quick Start
-
-### Prerequisites
-
-- **Node.js 18+** (client)
-- **Java 21** + **Maven 3.9+** (server — not needed for the scenario engine POC)
-
-### Run the Client
-
-```bash
-cd client
-npm install
-npm run dev
+```
+adventure-engine/
+|
++-- client/                           React + TypeScript + Vite
+|   +-- src/
+|       +-- engine/                   ScenarioEngine — pure TypeScript state machine
+|       +-- components/               React UI components (7 components)
+|
++-- server/                           Spring Boot 3 + Java 21 + Maven
+|   +-- src/main/java/com/kq/        Future: tooling, validation, save sync
+|
++-- scenarios/                        ALL scenario content (self-contained folders)
+|   +-- the-lighthouse-keeper/        scenario.json + design.md + backgrounds/
+|   +-- the-harvest/                  Flagship: 50 views, 11 painted backgrounds
+|   +-- ... (15 scenarios total)
+|
++-- docs/                             Engine documentation
+|   +-- SCENARIO_SCHEMA.md            THE schema spec (1700+ lines, 30 patterns)
+|   +-- ARCHITECTURE.md              Engine internals deep dive
+|   +-- SPATIAL_MOVEMENT_DESIGN.md    Future: click-to-move system
 ```
 
-Open `http://localhost:5173`, select a scenario, and play.
-
-### Type Check
-
-```bash
-cd client
-npx tsc --noEmit
-```
-
----
-
-## Creating a Scenario
-
-1. **Create a folder** in `scenarios/` with your scenario ID (e.g., `scenarios/my-escape-room/`)
-2. **Write `scenario.json`** following the [schema spec](docs/SCENARIO_SCHEMA.md)
-3. **Add background images** in a `backgrounds/` subfolder — any resolution (1920x1080 recommended), the engine scales to fit
-4. **Write `design.md`** documenting the story, puzzle flow, and image generation prompts
-5. **Add your scenario ID** to the `SCENARIOS` array in `client/src/components/ScenarioLoader.tsx`
-
-Object positions use a **960x720 coordinate space** (origin at top-left). The engine maps this to the rendered viewport.
+Each scenario folder is self-contained: JSON definition, design document, and background images all in one place. See the [Architecture Deep Dive](docs/ARCHITECTURE.md) for how the engine processes these files.
 
 ---
 
@@ -197,7 +272,7 @@ Object positions use a **960x720 coordinate space** (origin at top-left). The en
 
 All background art follows the **Sierra King's Quest V/VI aesthetic** — 2D gouache illustration with visible brushstrokes, soft color gradients, dramatic lighting. NOT photorealistic, NOT 3D rendered.
 
-The player character is a small goblin-sized creature at knee-height to environment inhabitants. Backgrounds are painted from this low camera angle, looking UP at furniture and architecture. Every scene has two layers: the surface layer (tabletops, shelves — requires creativity to reach) and the floor layer (under-table passages, kicked-aside objects — your domain).
+The player character is a small goblin-sized creature at knee-height to environment inhabitants. Backgrounds are painted from this low camera angle, looking UP at furniture and architecture.
 
 ---
 
@@ -216,9 +291,15 @@ The player character is a small goblin-sized creature at knee-height to environm
 
 ## Architecture
 
-**Current (POC)**: Thick client. The TypeScript `ScenarioEngine` runs entirely in the browser — loads the scenario JSON, manages all game state, evaluates conditions, applies effects. React renders the view. No server needed for gameplay.
+The engine is a **pure client-side state machine**. No server needed for gameplay.
 
-**Future**: Hybrid. Spring Boot becomes a tooling server for scenario validation, playtesting simulation, save sync, and analytics. The game engine stays client-side. Killer AI may move server-side for competitive multiplayer.
+```
+scenario.json → ScenarioEngine (TypeScript) → React components → playable game
+```
+
+The `ScenarioEngine` manages all game state — flags, object states, inventory, noise level, view navigation — and exposes it through getter methods. React components read this state and render the UI. User actions (click object, select verb) call engine methods, which evaluate conditions, apply effects, and update state. React re-renders.
+
+For the full technical deep dive — interaction resolution flow, condition/effect system details, data flow diagrams, coordinate scaling math, and rendering pipeline — see **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 ---
 
@@ -231,7 +312,7 @@ The player character is a small goblin-sized creature at knee-height to environm
 - [x] ScenarioEngine (TypeScript state machine)
 - [x] Scenario loader and player UI
 - [x] Background image rendering
-- [ ] `all_of` condition + missing condition/effect types
+- [x] `all_of` condition + missing condition/effect types
 - [ ] Events system (timed/conditional narrative beats)
 - [ ] Puzzle widget UI components
 - [ ] Killer AI state machine
