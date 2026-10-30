@@ -1,0 +1,4079 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "id": "the-harvest",
+    "title": "The Harvest",
+    "description": "You wake in a stasis pod aboard a massive alien vessel. The Choir \u2014 eyeless bio-mechanical drones \u2014 are harvesters serving an ancient intelligence called The Convergence that consumes planets. Your pod malfunctioned. You're loose on a ship full of things that want you back in the jar. Below, a planet is being consumed alive.",
+    "author": "ai-generated",
+    "difficulty": "nightmare",
+    "estimated_minutes": 540,
+    "tags": [
+      "sci-fi",
+      "horror",
+      "alien",
+      "space",
+      "epic",
+      "multi-act",
+      "cosmic-horror",
+      "survival"
+    ],
+    "version": "1.0",
+    "patterns_used": [
+      "1-gateway-puzzle",
+      "2-dependency-chain",
+      "3-fork",
+      "4-progressive-reveal",
+      "5-false-summit",
+      "6-dual-purpose-item",
+      "7-nested-secret",
+      "8-knowledge-gate",
+      "9-revelation-tool",
+      "10-cross-reference-deduction",
+      "11-noise-tradeoff",
+      "12-evidence-gamble",
+      "13-distraction-window",
+      "14-ticking-clock-decision",
+      "15-bait-and-punish",
+      "16-sound-masking",
+      "17-trap-setting",
+      "18-red-herring",
+      "19-emergent-combination",
+      "20-multi-path-solution",
+      "21-rule-subversion",
+      "22-myst-machine",
+      "23-power-routing",
+      "24-perspective-alignment",
+      "25-moral-fork",
+      "26-accomplice",
+      "27-point-of-no-return",
+      "28-camouflage",
+      "29-echo",
+      "30-decay-clock"
+    ]
+  },
+  "setting": {
+    "initial_view": "act1_stasis_hold",
+    "ambient_text": "A subsonic hum vibrates through your bones. Amber fluid drains from your cracked pod, pooling on the organic-metallic floor. Bioluminescent veins pulse in the walls. Somewhere, something clicks \u2014 precise, mechanical, patient.",
+    "room_style": {
+      "background_color": "#050a0f",
+      "wall_color": "#0a1a15",
+      "floor_color": "#0c0e12"
+    }
+  },
+  "views": [
+    {
+      "id": "act1_stasis_hold",
+      "background_key": "act1_stasis_hold",
+      "background_file": "backgrounds/act1_stasis_hold.png",
+      "objects": [
+        "broken_pod",
+        "pod_cluster_wall",
+        "catwalks",
+        "floor_drain",
+        "bioluminescent_veins",
+        "nearby_pod"
+      ]
+    },
+    {
+      "id": "act1_pod_cluster",
+      "background_key": "act1_pod_cluster",
+      "background_file": "backgrounds/act1_pod_cluster.png",
+      "objects": [
+        "pod_control_panel",
+        "insect_pod",
+        "empty_pod",
+        "processing_tubes",
+        "alien_labels",
+        "specimen_tag_slot"
+      ],
+      "back_label": "Step back from pod cluster"
+    },
+    {
+      "id": "act1_processing_lab",
+      "background_key": "act1_processing_lab",
+      "background_file": "backgrounds/act1_processing_lab.png",
+      "objects": [
+        "exam_table",
+        "surgical_tool_rack",
+        "sample_jars",
+        "lab_drain",
+        "bio_screens",
+        "lab_door"
+      ]
+    },
+    {
+      "id": "act1_containment_corridor",
+      "background_key": "act1_containment_corridor",
+      "background_file": "backgrounds/act1_containment_corridor.png",
+      "objects": [
+        "ribbed_walls",
+        "floor_grates",
+        "blast_door_north",
+        "blast_door_south",
+        "emergency_lighting",
+        "condensation_puddle"
+      ]
+    },
+    {
+      "id": "act1_morgue",
+      "background_key": "act1_morgue",
+      "background_file": "backgrounds/act1_morgue.png",
+      "objects": [
+        "specimen_drawers",
+        "autopsy_slab",
+        "recycling_vats",
+        "open_drawer",
+        "chemical_shelf",
+        "morgue_drain"
+      ]
+    },
+    {
+      "id": "act1_feeding_station",
+      "background_key": "act1_feeding_station",
+      "background_file": "backgrounds/act1_feeding_station.png",
+      "objects": [
+        "nutrient_troughs",
+        "dispensers",
+        "living_enclosures",
+        "vitals_monitors",
+        "central_tank",
+        "feeding_console"
+      ]
+    },
+    {
+      "id": "act1_ventilation_shaft",
+      "background_key": "act1_ventilation_shaft",
+      "background_file": "backgrounds/act1_ventilation_shaft.png",
+      "objects": [
+        "shaft_walls",
+        "shaft_branch_left",
+        "shaft_branch_right",
+        "scratch_marks",
+        "maintenance_light",
+        "shaft_grate"
+      ]
+    },
+    {
+      "id": "act1_security_hub",
+      "background_key": "act1_security_hub",
+      "background_file": "backgrounds/act1_security_hub.png",
+      "objects": [
+        "security_screens",
+        "bio_console",
+        "overturned_chair",
+        "cracked_screen",
+        "security_locker",
+        "inter_deck_elevator"
+      ]
+    },
+    {
+      "id": "act1_specimen_archive",
+      "background_key": "act1_specimen_archive",
+      "background_file": "backgrounds/act1_specimen_archive.png",
+      "objects": [
+        "data_crystal_walls",
+        "reading_pedestal",
+        "holographic_display",
+        "consumed_worlds_map",
+        "personal_log_slot",
+        "archive_terminal"
+      ]
+    },
+    {
+      "id": "act1_airlock_bay",
+      "background_key": "act1_airlock_bay",
+      "background_file": "backgrounds/act1_airlock_bay.png",
+      "objects": [
+        "blast_doors",
+        "empty_docking_clamps",
+        "suit_locker",
+        "manual_override_panel",
+        "planet_viewport",
+        "airlock_console"
+      ]
+    },
+    {
+      "id": "act2_navigation_bridge",
+      "background_key": "act2_navigation_bridge",
+      "background_file": "backgrounds/act2_navigation_bridge.png",
+      "objects": [
+        "star_map_hologram",
+        "control_stations",
+        "command_throne",
+        "bridge_viewport",
+        "navigation_console",
+        "star_chart_display"
+      ]
+    },
+    {
+      "id": "act2_engineering",
+      "background_key": "act2_engineering",
+      "background_file": "backgrounds/act2_engineering.png",
+      "objects": [
+        "organic_reactor",
+        "coolant_tubes",
+        "maintenance_drones",
+        "steam_vents",
+        "power_junction",
+        "engineering_console"
+      ]
+    },
+    {
+      "id": "act2_comm_array",
+      "background_key": "act2_comm_array",
+      "background_file": "backgrounds/act2_comm_array.png",
+      "objects": [
+        "dish_apparatus",
+        "crystalline_amplifiers",
+        "comm_consoles",
+        "recording_station",
+        "black_box_terminal",
+        "signal_log"
+      ]
+    },
+    {
+      "id": "act2_armory",
+      "background_key": "act2_armory",
+      "background_file": "backgrounds/act2_armory.png",
+      "objects": [
+        "weapon_racks",
+        "resonance_staff_rack",
+        "armory_workbench",
+        "recycling_bin",
+        "empty_rack_slot",
+        "biometric_lock"
+      ]
+    },
+    {
+      "id": "act2_hive_quarters",
+      "background_key": "act2_hive_quarters",
+      "background_file": "backgrounds/act2_hive_quarters.png",
+      "objects": [
+        "dormant_alcoves",
+        "resonance_chamber",
+        "wall_patterns",
+        "neural_tendrils",
+        "choir_artifact",
+        "quarters_passage"
+      ]
+    },
+    {
+      "id": "act2_shuttle_bay",
+      "background_key": "act2_shuttle_bay",
+      "background_file": "backgrounds/act2_shuttle_bay.png",
+      "objects": [
+        "shuttle_intact_1",
+        "shuttle_intact_2",
+        "shuttle_damaged",
+        "launch_mechanism",
+        "bay_door",
+        "control_booth",
+        "fueling_lines"
+      ]
+    },
+    {
+      "id": "act2_hydroponics",
+      "background_key": "act2_hydroponics",
+      "background_file": "backgrounds/act2_hydroponics.png",
+      "objects": [
+        "alien_plants",
+        "nutrient_baths",
+        "growth_vats",
+        "harvest_station",
+        "carnivorous_plant",
+        "bioluminescent_blooms"
+      ]
+    },
+    {
+      "id": "act2_data_core",
+      "background_key": "act2_data_core",
+      "background_file": "backgrounds/act2_data_core.png",
+      "objects": [
+        "organic_brain",
+        "neural_cables",
+        "interface_terminals",
+        "data_conduits",
+        "core_access_panel",
+        "data_flow_display"
+      ]
+    },
+    {
+      "id": "act2_waste_processing",
+      "background_key": "act2_waste_processing",
+      "background_file": "backgrounds/act2_waste_processing.png",
+      "objects": [
+        "grinders",
+        "acid_baths",
+        "reprocessing_vats",
+        "catwalk_crossing",
+        "broken_equipment",
+        "inter_deck_hatch"
+      ]
+    },
+    {
+      "id": "act2_observation_deck",
+      "background_key": "act2_observation_deck",
+      "background_file": "backgrounds/act2_observation_deck.png",
+      "objects": [
+        "panoramic_viewport",
+        "energy_beams_view",
+        "observation_instruments",
+        "deck_railing",
+        "sick_atmosphere",
+        "observation_console"
+      ]
+    },
+    {
+      "id": "act3_crash_site",
+      "background_key": "act3_crash_site",
+      "background_file": "backgrounds/act3_crash_site.png",
+      "objects": [
+        "crashed_shuttle",
+        "sheared_wing",
+        "grey_soil",
+        "distant_city_silhouette",
+        "energy_beams_sky",
+        "shuttle_debris"
+      ]
+    },
+    {
+      "id": "act3_wasteland_path",
+      "background_key": "act3_wasteland_path",
+      "background_file": "backgrounds/act3_wasteland_path.png",
+      "objects": [
+        "cracked_ground",
+        "petrified_trees",
+        "crystal_growths",
+        "exposed_roots",
+        "path_marker",
+        "ruined_city_horizon"
+      ]
+    },
+    {
+      "id": "act3_siphon_tower",
+      "background_key": "act3_siphon_tower",
+      "background_file": "backgrounds/act3_siphon_tower.png",
+      "objects": [
+        "crystalline_spire",
+        "scorched_ground",
+        "relay_nodes",
+        "tower_base",
+        "energy_field",
+        "mineral_deposits"
+      ]
+    },
+    {
+      "id": "act3_refugee_camp",
+      "background_key": "act3_refugee_camp",
+      "background_file": "backgrounds/act3_refugee_camp.png",
+      "objects": [
+        "collapsed_shelters",
+        "abandoned_possessions",
+        "makeshift_barricade",
+        "alien_skeletons",
+        "supply_cache",
+        "journal_pile"
+      ]
+    },
+    {
+      "id": "act3_fungal_grove",
+      "background_key": "act3_fungal_grove",
+      "background_file": "backgrounds/act3_fungal_grove.png",
+      "objects": [
+        "giant_fungi",
+        "spore_clouds",
+        "hollowed_mushroom",
+        "rock_formation",
+        "fungal_pool",
+        "crafting_surface"
+      ]
+    },
+    {
+      "id": "act3_echo_field",
+      "background_key": "act3_echo_field",
+      "background_file": "backgrounds/act3_echo_field.png",
+      "objects": [
+        "ghostly_buildings",
+        "flickering_figures",
+        "reality_boundary",
+        "echo_vehicle",
+        "stable_ground",
+        "time_distortion"
+      ]
+    },
+    {
+      "id": "act3_buried_bunker",
+      "background_key": "act3_buried_bunker",
+      "background_file": "backgrounds/act3_buried_bunker.png",
+      "objects": [
+        "bunker_door",
+        "blast_marks",
+        "weapon_locker",
+        "supply_crates",
+        "command_table",
+        "comms_equipment",
+        "bunker_records"
+      ]
+    },
+    {
+      "id": "act3_city_gates",
+      "background_key": "act3_city_gates",
+      "background_file": "backgrounds/act3_city_gates.png",
+      "objects": [
+        "massive_gates",
+        "figure_reliefs",
+        "dark_crystal_inlays",
+        "rubble_pile",
+        "city_beyond",
+        "gate_mechanism"
+      ]
+    },
+    {
+      "id": "act3_overlook",
+      "background_key": "act3_overlook",
+      "background_file": "backgrounds/act3_overlook.png",
+      "objects": [
+        "cliff_edge",
+        "wasteland_view",
+        "city_view",
+        "nexus_distant",
+        "converging_beams",
+        "overlook_marker"
+      ]
+    },
+    {
+      "id": "act3_shuttle_wreck_interior",
+      "background_key": "act3_shuttle_wreck_interior",
+      "background_file": "backgrounds/act3_shuttle_wreck_interior.png",
+      "objects": [
+        "cockpit_instruments",
+        "emergency_supplies",
+        "nav_system",
+        "cracked_windshield",
+        "personal_items",
+        "emergency_kit"
+      ],
+      "back_label": "Exit the shuttle"
+    },
+    {
+      "id": "act4_grand_plaza",
+      "background_key": "act4_grand_plaza",
+      "background_file": "backgrounds/act4_grand_plaza.png",
+      "objects": [
+        "plaza_fountain",
+        "plaza_statue",
+        "abandoned_table",
+        "stopped_vehicle",
+        "city_map_kiosk",
+        "plaza_echo",
+        "plaza_archway",
+        "plaza_spire"
+      ]
+    },
+    {
+      "id": "act4_library",
+      "background_key": "act4_library",
+      "background_file": "backgrounds/act4_library.png",
+      "objects": [
+        "library_crystal_stacks",
+        "library_reading_station",
+        "library_holographic_index",
+        "library_convergence_section",
+        "library_alcove"
+      ]
+    },
+    {
+      "id": "act4_war_room",
+      "background_key": "act4_war_room",
+      "background_file": "backgrounds/act4_war_room.png",
+      "objects": [
+        "holographic_table",
+        "tactical_displays",
+        "war_room_comms",
+        "battle_plans",
+        "war_room_locker",
+        "war_room_chair"
+      ]
+    },
+    {
+      "id": "act4_research_lab",
+      "background_key": "act4_research_lab",
+      "background_file": "backgrounds/act4_research_lab.png",
+      "objects": [
+        "prototype_weapon",
+        "lab_workstation",
+        "lab_schematics",
+        "containment_field",
+        "lab_equipment_rack",
+        "lab_supply_cabinet"
+      ]
+    },
+    {
+      "id": "act4_residential_block",
+      "background_key": "act4_residential_block",
+      "background_file": "backgrounds/act4_residential_block.png",
+      "objects": [
+        "open_doorway",
+        "alien_toys",
+        "packed_luggage",
+        "family_portrait_wall",
+        "residential_echo",
+        "abandoned_meal"
+      ]
+    },
+    {
+      "id": "act4_power_station",
+      "background_key": "act4_power_station",
+      "background_file": "backgrounds/act4_power_station.png",
+      "objects": [
+        "reactor_chamber",
+        "power_distribution_panel",
+        "backup_systems",
+        "convergence_breach",
+        "power_conduits",
+        "maintenance_hatch"
+      ]
+    },
+    {
+      "id": "act4_temple",
+      "background_key": "act4_temple",
+      "background_file": "backgrounds/act4_temple.png",
+      "objects": [
+        "resonance_chamber",
+        "temple_altar",
+        "temple_murals",
+        "temple_offerings",
+        "crystal_walls",
+        "temple_alcove"
+      ]
+    },
+    {
+      "id": "act4_underground_railway",
+      "background_key": "act4_underground_railway",
+      "background_file": "backgrounds/act4_underground_railway.png",
+      "objects": [
+        "rail_vehicle",
+        "railway_platform",
+        "survivor_markings",
+        "flooded_section",
+        "railway_controls",
+        "railway_tunnel"
+      ]
+    },
+    {
+      "id": "act4_echo_chamber",
+      "background_key": "act4_echo_chamber",
+      "background_file": "backgrounds/act4_echo_chamber.png",
+      "objects": [
+        "reality_boundary",
+        "ruined_half",
+        "pristine_half",
+        "ghost_scientist",
+        "echo_console",
+        "shimmering_crack"
+      ]
+    },
+    {
+      "id": "act4_weapon_vault",
+      "background_key": "act4_weapon_vault",
+      "background_file": "backgrounds/act4_weapon_vault.png",
+      "objects": [
+        "containment_units",
+        "biometric_lock",
+        "weapon_pedestal",
+        "energy_barriers",
+        "vault_security_door",
+        "forced_unit"
+      ]
+    },
+    {
+      "id": "act5_nexus_approach",
+      "background_key": "act5_nexus_approach",
+      "background_file": "backgrounds/act5_nexus_approach.png",
+      "objects": [
+        "crystallized_ground",
+        "frozen_trees",
+        "energy_veins",
+        "nexus_vista",
+        "crystal_formation",
+        "warped_air"
+      ]
+    },
+    {
+      "id": "act5_nexus_entrance",
+      "background_key": "act5_nexus_entrance",
+      "background_file": "backgrounds/act5_nexus_entrance.png",
+      "objects": [
+        "nexus_gate",
+        "crystal_walls_entrance",
+        "energy_pulses",
+        "descent_tunnel",
+        "ancient_markings"
+      ]
+    },
+    {
+      "id": "act5_energy_conduit",
+      "background_key": "act5_energy_conduit",
+      "background_file": "backgrounds/act5_energy_conduit.png",
+      "objects": [
+        "energy_rivers",
+        "metal_walkway",
+        "conduit_junction",
+        "energy_sample_point",
+        "heat_shimmer",
+        "walkway_railing"
+      ]
+    },
+    {
+      "id": "act5_convergence_chamber",
+      "background_key": "act5_convergence_chamber",
+      "background_file": "backgrounds/act5_convergence_chamber.png",
+      "objects": [
+        "harvesting_apparatus",
+        "energy_beam",
+        "crystal_cathedral",
+        "apparatus_base",
+        "countermeasure_slot"
+      ]
+    },
+    {
+      "id": "act5_control_spire",
+      "background_key": "act5_control_spire",
+      "background_file": "backgrounds/act5_control_spire.png",
+      "objects": [
+        "choir_consoles",
+        "ancient_controls",
+        "harvesting_display",
+        "spire_interface",
+        "convergence_lock"
+      ]
+    },
+    {
+      "id": "act5_stasis_gallery",
+      "background_key": "act5_stasis_gallery",
+      "background_file": "backgrounds/act5_stasis_gallery.png",
+      "objects": [
+        "ancient_specimens",
+        "screaming_inhabitant",
+        "gallery_pedestal",
+        "oldest_specimen",
+        "gallery_alcove"
+      ]
+    },
+    {
+      "id": "act5_weapon_assembly",
+      "background_key": "act5_weapon_assembly",
+      "background_file": "backgrounds/act5_weapon_assembly.png",
+      "objects": [
+        "assembly_workbench",
+        "discarded_armor",
+        "supply_crates",
+        "weapon_station",
+        "alien_equipment",
+        "staging_barricade"
+      ]
+    },
+    {
+      "id": "act5_transmission_array",
+      "background_key": "act5_transmission_array",
+      "background_file": "backgrounds/act5_transmission_array.png",
+      "objects": [
+        "crystal_antenna",
+        "array_consoles",
+        "galaxy_map_display",
+        "frequency_controls",
+        "array_power_coupling"
+      ]
+    },
+    {
+      "id": "act5_core",
+      "background_key": "act5_core",
+      "background_file": "backgrounds/act5_core.png",
+      "objects": [
+        "convergence_intelligence",
+        "energy_patterns",
+        "consumed_visions",
+        "core_interface_point",
+        "crystal_floor"
+      ]
+    },
+    {
+      "id": "act5_escape_route",
+      "background_key": "act5_escape_route",
+      "background_file": "backgrounds/act5_escape_route.png",
+      "objects": [
+        "vertical_shaft",
+        "carved_ladder",
+        "collapsed_section",
+        "shaft_gate",
+        "sky_light"
+      ]
+    }
+  ],
+  "flags": {
+    "pod_escaped": "false",
+    "pod_glass_taken": "false",
+    "stasis_fluid_collected": "false",
+    "specimen_tag_taken": "false",
+    "lab_code_known": "false",
+    "lab_accessed": "false",
+    "surgical_probe_taken": "false",
+    "containment_key_obtained": "false",
+    "security_hub_accessed": "false",
+    "security_locks_overridden": "false",
+    "ship_layout_known": "false",
+    "archive_accessed": "false",
+    "convergence_history_known": "false",
+    "data_crystal_taken": "false",
+    "cipher_fragment_1_found": "false",
+    "feeding_station_visited": "false",
+    "nutrient_paste_taken": "false",
+    "morgue_visited": "false",
+    "ventilation_map_found": "false",
+    "vent_grate_opened": "false",
+    "airlock_visited": "false",
+    "outrider_gone_known": "false",
+    "emergency_helmet_taken": "false",
+    "neural_tendril_taken": "false",
+    "act1_complete": "false",
+    "act2_entered": "false",
+    "bridge_accessed": "false",
+    "star_charts_examined": "false",
+    "navigation_chip_taken": "false",
+    "engineering_accessed": "false",
+    "power_cell_taken": "false",
+    "coolant_flask_taken": "false",
+    "comm_array_accessed": "false",
+    "black_box_taken": "false",
+    "comm_schematics_taken": "false",
+    "armory_accessed": "false",
+    "resonance_disruptor_taken": "false",
+    "hive_quarters_entered": "false",
+    "cipher_fragment_2_found": "false",
+    "choir_crystal_taken": "false",
+    "shuttle_bay_accessed": "false",
+    "shuttle_fuel_line_taken": "false",
+    "shuttle_repaired": "false",
+    "shuttle_power_installed": "false",
+    "shuttle_fuel_connected": "false",
+    "shuttle_nav_initialized": "false",
+    "hydroponics_visited": "false",
+    "bio_garden_extract_taken": "false",
+    "bio_garden_fiber_taken": "false",
+    "data_core_accessed": "false",
+    "convergence_comms_decrypted": "false",
+    "waste_processing_visited": "false",
+    "observation_deck_visited": "false",
+    "drone_antenna_taken": "false",
+    "act2_complete": "false",
+    "act3_entered": "false",
+    "shuttle_crashed": "false",
+    "shuttle_beacon_taken": "false",
+    "signal_flare_taken": "false",
+    "wasteland_mineral_taken": "false",
+    "siphon_crystal_taken": "false",
+    "siphon_tower_examined": "false",
+    "refugee_camp_visited": "false",
+    "refugee_journal_taken": "false",
+    "cipher_fragment_3_found": "false",
+    "survival_rations_taken": "false",
+    "climbing_pitons_taken": "false",
+    "fungal_grove_visited": "false",
+    "fungal_extract_taken": "false",
+    "echo_field_navigated": "false",
+    "bunker_accessed": "false",
+    "bunker_code_known": "false",
+    "echo_stabilizer_taken": "false",
+    "alien_sidearm_taken": "false",
+    "bunker_schematics_taken": "false",
+    "radiation_badge_taken": "false",
+    "city_gates_reached": "false",
+    "city_gates_opened": "false",
+    "overlook_visited": "false",
+    "act3_complete": "false",
+    "act4_entered": "false",
+    "grand_plaza_explored": "false",
+    "city_keystone_taken": "false",
+    "library_accessed": "false",
+    "cipher_fragment_4_found": "false",
+    "complete_cipher_assembled": "false",
+    "war_room_accessed": "false",
+    "defense_grid_controller_taken": "false",
+    "weapon_existence_known": "false",
+    "research_lab_accessed": "false",
+    "weapon_schematics_known": "false",
+    "ancient_blueprint_taken": "false",
+    "lab_goggles_taken": "false",
+    "residential_block_explored": "false",
+    "alien_locket_taken": "false",
+    "power_station_restored": "false",
+    "power_cell_adapter_taken": "false",
+    "temple_visited": "false",
+    "prophets_crystal_taken": "false",
+    "resonance_tuning_fork_taken": "false",
+    "railway_pass_taken": "false",
+    "echo_chamber_survived": "false",
+    "weapon_vault_opened": "false",
+    "weapon_core_taken": "false",
+    "act4_complete": "false",
+    "act5_entered": "false",
+    "nexus_approached": "false",
+    "energy_conduit_crossed": "false",
+    "convergence_chamber_reached": "false",
+    "control_spire_accessed": "false",
+    "stasis_gallery_discovered": "false",
+    "weapon_assembly_reached": "false",
+    "transmission_array_reached": "false",
+    "core_confronted": "false",
+    "escape_route_found": "false",
+    "convergence_energy_sample_taken": "false",
+    "ancient_access_key_taken": "false",
+    "curator_signal_device_taken": "false",
+    "core_interface_module_taken": "false",
+    "escape_shaft_key_taken": "false",
+    "countermeasure_assembled": "false",
+    "galactic_broadcast_assembled": "false",
+    "proof_of_sentience_assembled": "false",
+    "neural_bridge_assembled": "false",
+    "curator_is_ally": "false",
+    "curator_hostile": "true",
+    "watcher_aware": "false",
+    "echoes_hostile": "false",
+    "countermeasure_timer_set": "false",
+    "ending_escape_chosen": "false",
+    "ending_destroy_chosen": "false",
+    "ending_sabotage_chosen": "false",
+    "ending_signal_chosen": "false",
+    "ending_kamikaze_chosen": "false",
+    "ending_transcendence_chosen": "false",
+    "reinforced_blade_crafted": "false",
+    "sedative_compound_crafted": "false",
+    "universal_bypass_crafted": "false",
+    "energy_dampener_crafted": "false",
+    "overcharge_device_crafted": "false",
+    "neural_suppressant_crafted": "false",
+    "primed_weapon_core_crafted": "false",
+    "universal_interface_crafted": "false",
+    "orbital_weapon_crafted": "false",
+    "improvised_torch_crafted": "false",
+    "shielded_helmet_crafted": "false",
+    "echo_communicator_crafted": "false",
+    "charged_sidearm_crafted": "false",
+    "freed_other_specimens": "false",
+    "helped_echoes_find_peace": "false",
+    "shuttle_launch_timed_escape": "false",
+    "power_grid_district_a": "false",
+    "power_grid_district_b": "false",
+    "power_grid_district_c": "false"
+  },
+  "items": [
+    {
+      "id": "stasis_fluid_vial",
+      "name": "Stasis Fluid Vial",
+      "description": "A vial of amber stasis fluid from your broken pod. The liquid shimmers faintly, still biologically active.",
+      "icon": "vial",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fluid is warm and viscous, with a faint amber glow. It preserved you \u2014 and hundreds of other specimens \u2014 in suspended animation. The biochemistry is alien but clearly designed to sustain organic life."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You swirl the vial gently. The fluid moves like honey, clinging to the glass. Something about it feels... alive."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pod_glass_shard",
+      "name": "Pod Glass Shard",
+      "description": "A curved shard from your broken stasis pod. Sharp enough to cut.",
+      "icon": "shard",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Translucent and curved, still faintly stained with amber fluid. The edges are razor-sharp. Not glass exactly \u2014 some alien composite that's stronger and lighter."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You test the edge against your thumb. It draws blood immediately. Careful with this."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "surgical_probe",
+      "name": "Surgical Probe",
+      "description": "An alien surgical instrument \u2014 curved bone-like material with a fine tip.",
+      "icon": "probe",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It looks grown rather than manufactured \u2014 smooth bone-like material tapering to a needle-fine point. The handle has organic ridges shaped for fingers much longer than yours. But it fits well enough in your small hands."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "containment_key_card",
+      "name": "Containment Key Card",
+      "description": "A bio-organic access card pulled from the security hub. Pulses faintly with stored energy.",
+      "icon": "card",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Not plastic \u2014 something closer to compressed cartilage, embedded with bioluminescent circuits. It pulses like a heartbeat. Keyed to the containment deck's security systems."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data_crystal_personal_log",
+      "name": "Data Crystal \u2014 Personal Log",
+      "description": "A small crystalline data storage device from the specimen archive. Contains a Choir officer's personal records.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The crystal is the size of your thumb, faceted, with internal light patterns that shift when you tilt it. A Choir personal log \u2014 and embedded in the data structure, fragments of a translation cipher. This is piece one of four."
+            },
+            {
+              "type": "set_flag",
+              "flag": "cipher_fragment_1_found",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nutrient_paste_tube",
+      "name": "Nutrient Paste Tube",
+      "description": "A tube of grey nutrient slurry from the feeding station. Smells like wet cardboard and ozone.",
+      "icon": "tube",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Standard specimen feed. The tube is soft, organic material. The paste inside is grey, odorless, nutritionally complete for a dozen different species. Edible but unappetizing. Could also be used as bait \u2014 the drones are programmed to retrieve spilled feed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specimen_tag",
+      "name": "Specimen Tag",
+      "description": "Your own specimen identification tag from the stasis pod. Proof of what you are to them.",
+      "icon": "tag",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small organic tag, pulled from your pod's label slot. Alien script \u2014 you can't read it yet \u2014 but it's your entry in their collection. Proof that you were catalogued. Proof that you exist as something more than a specimen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "emergency_suit_helmet",
+      "name": "Emergency Suit Helmet",
+      "description": "An alien emergency space helmet. Too large for you, but still functional.",
+      "icon": "helmet",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Designed for a Choir skull \u2014 far too large for you, but the visor seals automatically when worn. The internal atmosphere system still works. It would protect you from vacuum or toxic environments, even if it sits like a fishbowl on your shoulders."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ventilation_map",
+      "name": "Ventilation Map",
+      "description": "Scratches in the vent shaft walls that form a crude map. You traced them onto a flat surface.",
+      "icon": "map",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Someone \u2014 or something \u2014 scratched a map of the ventilation system into the shaft walls. Previous escape attempts. The map shows branching paths between containment sections, and marks dead ends with deep gouges. One path leads to the operational decks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "severed_neural_tendril",
+      "name": "Severed Neural Tendril",
+      "description": "A section of neural interface tendril, severed from a Choir dormancy alcove.",
+      "icon": "tendril",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Rubbery, organic, about a foot long. The cut end still sparks faintly with bio-electric impulses. The Choir use these to interface with their ship's systems. With the right adapter, you could too \u2014 if you could trick it into accepting non-Choir biology."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ships_black_box",
+      "name": "Ship's Black Box",
+      "description": "The Choir vessel's flight recorder. Contains the complete mission log \u2014 including records of every world consumed.",
+      "icon": "box",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A dense, heavily shielded data device. It contains everything: navigation logs, mission parameters, specimen records, and communications with The Convergence. This is proof of what they've done \u2014 and what they're doing to the planet below."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power_cell",
+      "name": "Power Cell",
+      "description": "A Choir power cell from engineering. Compact, immensely powerful, warm to the touch.",
+      "icon": "cell",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Bio-organic casing around a dense energy core. It hums faintly and radiates warmth. A single cell powers a Choir shuttle for weeks. Handle with care \u2014 damage to the casing would release the stored energy violently."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resonance_disruptor",
+      "name": "Resonance Disruptor",
+      "description": "A Choir tool repurposed as a weapon. Emits a subsonic pulse that disrupts bio-mechanical systems.",
+      "icon": "disruptor",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Not a weapon by design \u2014 it's a maintenance tool for recalibrating Choir mechanisms. But aimed at a bio-organic lock, it scrambles the resonance patterns. Aimed at a drone, it disrupts motor functions for a few seconds. In your hands, it's the closest thing to a universal key."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "navigation_chip",
+      "name": "Navigation Chip",
+      "description": "A crystalline navigation module from the bridge. Contains star charts and jump coordinates.",
+      "icon": "chip",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A slim crystal wafer etched with navigation data. Star charts, jump coordinates, the Convergence's mapped path across galaxies. Without this, no ship leaves this system \u2014 the jump points are too complex to calculate manually."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "translation_cipher_frag_2",
+      "name": "Translation Cipher Fragment 2",
+      "description": "A data pattern extracted from the Choir's resonance chamber. The second piece of the translation key.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Extracted from the communal resonance patterns in the Choir's living quarters. Their 'language' is subsonic vibration, and this fragment maps vibration patterns to meaning. Combined with the other fragments, it could let you read all alien text."
+            },
+            {
+              "type": "set_flag",
+              "flag": "cipher_fragment_2_found",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choir_resonance_crystal",
+      "name": "Choir Resonance Crystal",
+      "description": "A crystal from the ship's data core that resonates at the Choir's communication frequency.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Deep purple, perfectly smooth, vibrating at a frequency you can feel in your teeth. It's tuned to the Choir's subsonic communication band \u2014 a piece of their network made solid. The same resonance frequency the Convergence uses to control its harvesters."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bio_garden_extract",
+      "name": "Bio-Garden Extract",
+      "description": "A concentrated extract from the ship's hydroponics bay. Bioluminescent, biochemically complex.",
+      "icon": "flask",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Harvested from the alien plants in the bio-garden. The extract glows faintly blue-green and contains an extraordinary density of biological compounds. The Choir uses it for everything from nutrition to neural repair. In the right combination, it could interface organic with crystalline systems."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comm_array_schematics",
+      "name": "Comm Array Schematics",
+      "description": "Technical diagrams of the ship's communication array. Details frequencies, power requirements, and range.",
+      "icon": "blueprint",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Detailed schematics showing the communications array's architecture. Frequency ranges, power routing, targeting systems. With these, the array on the planet's nexus could be recalibrated to broadcast across the galaxy \u2014 if you could reach it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shuttle_fuel_line",
+      "name": "Shuttle Fuel Line",
+      "description": "A replacement fuel conduit for the damaged shuttle. Organic tubing with self-sealing connectors.",
+      "icon": "tube",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Bio-organic tubing that carries fuel from the bay's supply to the shuttle's engines. The connectors seal automatically when pressed into place. You'll need this, plus a power cell, to get the damaged shuttle flight-ready."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drone_antenna",
+      "name": "Drone Antenna",
+      "description": "A sensory antenna pulled from a disabled maintenance drone. Still picks up Choir signals.",
+      "icon": "antenna",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A thin, segmented antenna that twitches faintly in your hand \u2014 it's still receiving signals. It picks up the subsonic frequencies the Choir use to coordinate. Holding it near your ear, you can hear distant clicks and hums. An early warning system."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coolant_flask",
+      "name": "Coolant Flask",
+      "description": "A sealed flask of reactor coolant from engineering. Extremely cold, mildly corrosive.",
+      "icon": "flask",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The flask is frosted on the outside \u2014 the coolant inside is near absolute zero. A crack in the seal would release a burst of freezing vapor. Useful for cooling overheated systems, or as an emergency weapon against anything organic."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bio_garden_fiber",
+      "name": "Bio-Garden Fiber",
+      "description": "Strong, flexible fiber harvested from alien plants. Tougher than any natural rope.",
+      "icon": "fiber",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Harvested from the tendrils of the hydroponics plants. Incredibly strong and flexible \u2014 the Choir use it in construction and repair. It can be woven, tied, or wrapped. Combined with something sharp, it would make an excellent handle or binding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shuttle_emergency_beacon",
+      "name": "Shuttle Emergency Beacon",
+      "description": "A distress beacon from the crashed shuttle. Can recall any shuttle within signal range.",
+      "icon": "beacon",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A compact transmitter designed to recall a shuttle to its beacon location. The signal range covers the entire planet. If there's a working shuttle in orbit or on the surface, this will bring it to you. Your ticket off this rock \u2014 if you choose to leave."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wasteland_mineral_sample",
+      "name": "Wasteland Mineral Sample",
+      "description": "Crystalline mineral from the base of a siphon tower. Infused with residual Convergence energy.",
+      "icon": "mineral",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The soil near the siphon towers has been transformed \u2014 crystallized by the Convergence's energy extraction. This sample still holds a faint charge, a dampened echo of the energy that flows through the towers. It resists energy flow rather than conducting it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "siphon_crystal_fragment",
+      "name": "Siphon Crystal Fragment",
+      "description": "A fragment broken from an energy siphon tower. Pulses with raw Convergence energy.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It burns cold in your hand and crackles with contained energy. A piece of the Convergence's harvesting infrastructure, still charged with stolen planetary life force. Incredibly dangerous. Incredibly powerful. A key component for anything that needs to interact with Convergence energy systems."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refugee_journal",
+      "name": "Refugee Journal",
+      "description": "A personal journal from the refugee camp. Written by a four-armed scientist in the final days.",
+      "icon": "book",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The journal of Dr. Kaelith, a physicist who fled the city when the siphons began. Entries detail the final days \u2014 the panic, the failed defenses, the evacuation that came too late. Embedded in the margins: notation patterns that match the translation cipher format. Fragment three of four."
+            },
+            {
+              "type": "set_flag",
+              "flag": "cipher_fragment_3_found",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fungal_extract",
+      "name": "Fungal Extract",
+      "description": "A concentrated extract from the bioluminescent fungi in the grove. Glows purple in the dark.",
+      "icon": "flask",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fungi survived the Convergence's harvesting \u2014 they feed on the residual energy rather than being drained by it. The extract has remarkable properties: it promotes healing in organic tissue and, combined with the right compounds, can suppress neural detection."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "echo_stabilizer",
+      "name": "Echo Stabilizer",
+      "description": "Military-grade alien technology from the bunker. Stabilizes the energy field around Echoes, making them safe to approach.",
+      "icon": "device",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A handheld device that projects a stabilization field. The planet's military developed it to study the Echoes \u2014 remnants of their people trapped in the Convergence's energy. It calms the chaotic energy patterns, making Echoes coherent enough to interact with safely. Without it, getting close to an Echo is like standing in a lightning storm."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alien_sidearm",
+      "name": "Alien Sidearm",
+      "description": "A four-armed species' personal weapon. Energy-based, partially charged.",
+      "icon": "weapon",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Designed for a four-armed grip \u2014 you need both hands to hold it steady. The energy cell is partially depleted: maybe six shots. Each shot is devastatingly loud. Use it wisely, or not at all."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bunker_defense_schematics",
+      "name": "Bunker Defense Schematics",
+      "description": "Military blueprints showing the planet's defense strategy against the Convergence.",
+      "icon": "blueprint",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Detailed military plans for the planet's last stand. Orbital defense satellite positions, ground-based weapon emplacements, and \u2014 most importantly \u2014 partial schematics for a weapon designed to disrupt the Convergence's energy systems. The plans are incomplete, but they confirm the weapon was built."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "survival_rations",
+      "name": "Survival Rations",
+      "description": "Preserved alien food from the refugee camp. Still sealed, still edible.",
+      "icon": "ration",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Vacuum-sealed packages of concentrated nutrition. The labels show a four-armed figure eating contentedly. Not designed for your biology, but close enough. Eating one restores energy and clears your head."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "signal_flare",
+      "name": "Signal Flare",
+      "description": "An emergency signal flare from the crashed shuttle. Burns bright, burns loud.",
+      "icon": "flare",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A human-made signal flare from the Outrider's emergency kit. Pull the cap and it burns blinding white for thirty seconds. Useful as a signal, a light source, a distraction, or \u2014 wrapped with the right material \u2014 an improvised torch."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "climbing_pitons",
+      "name": "Climbing Pitons",
+      "description": "Metal spikes from the refugee camp's supplies. Designed for climbing rocky terrain.",
+      "icon": "piton",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Alien-made climbing aids \u2014 hardened metal spikes with looped heads for roping. The refugees used them to navigate the wasteland's shattered terrain. Essential for vertical surfaces your small stature can't otherwise reach."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radiation_badge",
+      "name": "Radiation Badge",
+      "description": "A sensor badge from the bunker. Changes color in the presence of dangerous Convergence energy.",
+      "icon": "badge",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A simple but effective device \u2014 the crystalline strip changes color from green (safe) to yellow (caution) to red (lethal). The planet's military used them to navigate near siphon towers and Convergence infrastructure. Near the nexus, it'll be essential for finding safe paths."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "city_keystone",
+      "name": "City Keystone",
+      "description": "An ornamental keystone from the grand plaza's central statue. Opens restricted areas throughout the city.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A crystalline key shaped like a miniature four-armed figure. It was built into the plaza's central statue \u2014 a city administrator's master key. It interfaces with the city's door systems, granting access to government buildings, the war room, and restricted infrastructure."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "translation_cipher_frag_4",
+      "name": "Translation Cipher Fragment 4",
+      "description": "The final fragment of the translation cipher, found in the city's library.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The library's master index contained the final cipher fragment \u2014 a Rosetta stone the city's linguists compiled to communicate with the Choir during failed negotiations. With all four fragments, you can read every piece of alien text in the game."
+            },
+            {
+              "type": "set_flag",
+              "flag": "cipher_fragment_4_found",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "weapon_core",
+      "name": "Weapon Core",
+      "description": "The heart of the civilization's countermeasure weapon. A dense crystalline sphere pulsing with contained energy.",
+      "icon": "core",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Heavy for its size \u2014 it feels like holding a small star. The weapon core was designed to resonate at the Convergence's own frequency, turning its stolen energy back on itself. Alone it's inert. Combined with the right components, it becomes the key to destroying the nexus."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defense_grid_controller",
+      "name": "Defense Grid Controller",
+      "description": "A command module for the planet's orbital defense satellite network.",
+      "icon": "controller",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The planet's last line of defense \u2014 a controller for orbital weapons satellites. Most satellites are destroyed, but a few remain dormant in orbit. With enough power, they could be reactivated for one devastating strike."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alien_personal_locket",
+      "name": "Alien Personal Locket",
+      "description": "A delicate locket from a residential home. Contains a holographic family portrait.",
+      "icon": "locket",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small crystalline locket on a chain. Inside: a holographic portrait of a four-armed family \u2014 two adults, three children, all smiling. The youngest is holding a toy that looks like a simplified version of the siphon towers. They had no idea what was coming. Carrying this near coherent Echoes triggers powerful reactions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power_cell_adapter",
+      "name": "Power Cell Adapter",
+      "description": "An adapter that bridges the planet's technology with alien power sources.",
+      "icon": "adapter",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The city's engineers designed this to interface their technology with captured Choir power cells. It converts between bio-organic energy formats and the civilization's crystalline power systems. A universal translator for alien technology."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prophets_crystal",
+      "name": "Prophet's Crystal",
+      "description": "A sacred crystal from the temple. Shows visions of possible futures when held.",
+      "icon": "crystal",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The temple's priests used crystals like this for divination \u2014 and they were right more often than chance allows. Holding it, you see flashes: a nexus in flames. A signal reaching distant stars. A crystalline intelligence, afraid. A small creature, choosing. The visions are fragmented but feel profoundly real."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "railway_pass_token",
+      "name": "Railway Pass Token",
+      "description": "An access token for the city's underground transit system.",
+      "icon": "token",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small crystalline disc \u2014 a transit pass. The underground railway still has power in some sections. This token activates the rail cars, allowing fast travel between the city's districts. The tunnels also connect to deeper passages beneath the city."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resonance_tuning_fork",
+      "name": "Resonance Tuning Fork",
+      "description": "A ceremonial tuning fork from the temple. Vibrates at the frequency of the former civilization's communication.",
+      "icon": "fork",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The four-armed species communed through vibration, like the Choir but natural. This tuning fork produces their base resonance frequency. Combined with the Echo Stabilizer, it could enable full two-way communication with coherent Echoes \u2014 letting you truly speak with the dead."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lab_safety_goggles",
+      "name": "Lab Safety Goggles",
+      "description": "Protective eyewear from the research lab. Filters dangerous energy wavelengths.",
+      "icon": "goggles",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Oversized for your face but functional. The lenses filter the blinding energy wavelengths produced by Convergence systems. The researchers wore these when studying siphon tower samples. Essential for looking directly at high-energy areas without going blind."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ancient_blueprint",
+      "name": "Ancient Blueprint",
+      "description": "Complete assembly instructions for the countermeasure weapon. Found in the research lab.",
+      "icon": "blueprint",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A holographic blueprint showing the complete countermeasure weapon assembly. Three components: a primed weapon core, an energy dampener, and a siphon crystal fragment. The assembly order is critical \u2014 wrong sequence damages the core. Core first, dampener second, crystal last."
+            },
+            {
+              "type": "set_flag",
+              "flag": "weapon_schematics_known",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "convergence_energy_sample",
+      "name": "Convergence Energy Sample",
+      "description": "Pure Convergence energy contained in a crystalline vial. Incredibly dangerous.",
+      "icon": "vial",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The vial is cold enough to burn and bright enough to read by. Inside: pure harvested planetary energy \u2014 the lifeforce of an entire world, concentrated. The crystal containment barely holds it. This is what the Convergence feeds on. This is what it's stealing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ancient_access_key",
+      "name": "Ancient Access Key",
+      "description": "A key from the Convergence's stasis gallery. Opens the deepest sections of the nexus.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Not Choir-made. Not from the planet's civilization. This key predates both \u2014 it belongs to the Convergence itself, or whatever built the original nexus infrastructure. A crystalline fractal pattern that interfaces with the oldest locks in the structure."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curators_signal_device",
+      "name": "Curator's Signal Device",
+      "description": "The Curator's personal communication device. Can call the Choir vessel from orbit.",
+      "icon": "device",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Taken from \u2014 or given by \u2014 the Curator itself. This device is keyed to the Curator's authority aboard the Choir vessel. It can recall the ship, issue commands to drones, and override security protocols. In friendly hands, it's a powerful ally. In desperate hands, it's a weapon."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core_interface_module",
+      "name": "Core Interface Module",
+      "description": "A module from the control spire that allows direct neural interface with the Convergence intelligence.",
+      "icon": "module",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The Choir use these to receive instructions from the Convergence. It translates crystalline energy patterns into neural signals and vice versa. It wasn't designed for non-Choir biology, but with the right biochemical preparation, it could bridge any mind to the Convergence. The question is whether you'd come back."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "escape_shaft_key",
+      "name": "Escape Shaft Key",
+      "description": "A mechanical key that opens the former civilization's emergency escape shaft in the nexus.",
+      "icon": "key",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Found in the weapon assembly area \u2014 the former civilization's staging ground for their assault on the nexus. This key opens the emergency shaft they carved as an exit route. The shaft leads up and out, to the planet's surface. Your way out, if you choose to take it."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinations": [
+    {
+      "items": [
+        "pod_glass_shard",
+        "bio_garden_fiber"
+      ],
+      "result": "reinforced_blade",
+      "consumes": true,
+      "message": "You wrap the bio-fiber tightly around the base of the glass shard, creating a secure grip. The alien fiber bonds to the glass \u2014 stronger than tape, flexible as leather. A proper blade now.",
+      "noise": 3,
+      "conditions": []
+    },
+    {
+      "items": [
+        "nutrient_paste_tube",
+        "stasis_fluid_vial"
+      ],
+      "result": "sedative_compound",
+      "consumes": true,
+      "message": "You mix the nutrient paste with the stasis fluid. The combination reacts \u2014 the paste absorbs the fluid and turns a deep amber. The stasis biochemistry that kept you unconscious for days is now concentrated in a smearable compound. Touch it and sleep.",
+      "noise": 2,
+      "conditions": []
+    },
+    {
+      "items": [
+        "containment_key_card",
+        "resonance_disruptor"
+      ],
+      "result": "universal_bypass",
+      "consumes": true,
+      "message": "You pulse the disruptor through the key card's bio-circuits, overwriting its access restrictions. The card flares bright, then settles to a steady glow. It no longer identifies as a specific access level \u2014 it identifies as ALL access levels.",
+      "noise": 5,
+      "conditions": []
+    },
+    {
+      "items": [
+        "stasis_fluid_vial",
+        "wasteland_mineral_sample"
+      ],
+      "result": "energy_dampener",
+      "consumes": true,
+      "message": "The mineral dissolves into the stasis fluid, and the mixture crystallizes into a dense gel that absorbs energy on contact. A palm-sized blob that drinks power. Near Convergence systems, it creates a local dead zone.",
+      "noise": 2,
+      "conditions": []
+    },
+    {
+      "items": [
+        "siphon_crystal_fragment",
+        "resonance_disruptor"
+      ],
+      "result": "overcharge_device",
+      "consumes": true,
+      "message": "You channel the disruptor's pulse through the siphon crystal. The crystal amplifies it a hundredfold \u2014 the device now emits a burst capable of overloading any energy system it's aimed at. One shot. Make it count.",
+      "noise": 8,
+      "conditions": []
+    },
+    {
+      "items": [
+        "fungal_extract",
+        "sedative_compound"
+      ],
+      "result": "neural_suppressant",
+      "consumes": true,
+      "message": "The fungal extract reacts with the sedative compound, producing a paste that suppresses neural signatures. Smeared on your skin, it makes you invisible to anything that detects by energy pattern \u2014 including Echoes.",
+      "noise": 2,
+      "conditions": []
+    },
+    {
+      "items": [
+        "data_crystal_personal_log",
+        "translation_cipher_frag_2"
+      ],
+      "result": "partial_cipher_12",
+      "consumes": true,
+      "message": "You align the two cipher fragments. The data patterns interlock \u2014 half the translation key is now complete. You can read simple alien text, but complex inscriptions still elude you. Two more fragments to go.",
+      "noise": 0,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "cipher_fragment_1_found",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "cipher_fragment_2_found",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "items": [
+        "partial_cipher_12",
+        "refugee_journal"
+      ],
+      "result": "partial_cipher_123",
+      "consumes": true,
+      "message": "The refugee journal's margin notations complete a third of the cipher. The translation is becoming clearer \u2014 you can now read most operational text. One fragment remains.",
+      "noise": 0,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "cipher_fragment_3_found",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "items": [
+        "partial_cipher_123",
+        "translation_cipher_frag_4"
+      ],
+      "result": "complete_translation_cipher",
+      "consumes": true,
+      "message": "The final fragment locks into place. The complete cipher unfolds in your mind like a language you always knew but forgot. Every alien inscription, every label, every record \u2014 readable. The universe just opened up.",
+      "noise": 0,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "cipher_fragment_4_found",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "items": [
+        "weapon_core",
+        "choir_resonance_crystal"
+      ],
+      "result": "primed_weapon_core",
+      "consumes": true,
+      "message": "You press the Choir crystal against the weapon core. The resonance frequency syncs \u2014 the core begins to hum, vibrating at the Convergence's own frequency. It's alive now, tuned to destroy the thing it was made to fight. Partially assembled. It needs a dampener and a power source.",
+      "noise": 10,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "weapon_schematics_known",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "items": [
+        "power_cell_adapter",
+        "navigation_chip"
+      ],
+      "result": "universal_interface",
+      "consumes": true,
+      "message": "The adapter accepts the navigation chip's crystalline format and bridges it to a universal power bus. The result is a device that can interface with any alien technology \u2014 Choir, Convergence, or the former civilization's systems. A skeleton key for machines.",
+      "noise": 3,
+      "conditions": []
+    },
+    {
+      "items": [
+        "overcharge_device",
+        "defense_grid_controller"
+      ],
+      "result": "orbital_weapon",
+      "consumes": true,
+      "message": "You wire the overcharge device into the defense grid controller. The orbital satellites now have a targeting solution \u2014 and enough power for one devastating strike. Point it at the nexus and fire. Point it at the Choir ship and fire. Either way, everything changes.",
+      "noise": 8,
+      "conditions": []
+    },
+    {
+      "items": [
+        "signal_flare",
+        "bio_garden_fiber"
+      ],
+      "result": "improvised_torch",
+      "consumes": true,
+      "message": "You wrap the bio-fiber around the flare's head, creating a longer-burning light source. The alien fiber catches fire slowly and burns steady instead of blinding. A proper torch that'll last much longer than the flare alone.",
+      "noise": 3,
+      "conditions": []
+    },
+    {
+      "items": [
+        "emergency_suit_helmet",
+        "energy_dampener"
+      ],
+      "result": "shielded_helmet",
+      "consumes": true,
+      "message": "You line the helmet's interior with the energy dampener gel. The dampener absorbs the worst of the Convergence's ambient radiation. Wearing this, you can survive the nexus's high-energy chambers without your nervous system frying.",
+      "noise": 5,
+      "conditions": []
+    },
+    {
+      "items": [
+        "echo_stabilizer",
+        "resonance_tuning_fork"
+      ],
+      "result": "echo_communicator",
+      "consumes": true,
+      "message": "You mount the tuning fork in the stabilizer's emitter array. The combined device doesn't just calm Echoes \u2014 it speaks their language. The stabilization field now carries your words as resonance patterns the dead can hear. And their responses come back clear.",
+      "noise": 5,
+      "conditions": []
+    },
+    {
+      "items": [
+        "alien_sidearm",
+        "power_cell"
+      ],
+      "result": "charged_sidearm",
+      "consumes": true,
+      "message": "The Choir power cell slots into the alien weapon's depleted energy chamber. The sidearm hums to life \u2014 fully charged now. Twenty shots instead of six. The four-armed grip is awkward, but the firepower is undeniable.",
+      "noise": 5,
+      "conditions": []
+    },
+    {
+      "items": [
+        "primed_weapon_core",
+        "energy_dampener"
+      ],
+      "result": "countermeasure_stage2",
+      "consumes": true,
+      "message": "The energy dampener wraps around the primed core, containing its resonance while focusing its destructive potential. One more component \u2014 the siphon crystal fragment \u2014 and the countermeasure is complete.",
+      "noise": 8,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "weapon_schematics_known",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "items": [
+        "countermeasure_stage2",
+        "siphon_crystal_fragment"
+      ],
+      "result": "the_countermeasure",
+      "consumes": true,
+      "message": "The siphon crystal fragment snaps into the dampener housing like it was always meant to be there. The complete countermeasure weapon activates \u2014 a sphere of crystallized destruction, humming with the Convergence's own stolen energy turned against it. This kills planets. This saves them too.",
+      "noise": 15,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "weapon_schematics_known",
+          "value": "true"
+        }
+      ]
+    }
+  ],
+  "puzzle_widgets": [
+    {
+      "id": "lab_access_keypad",
+      "widget_type": "keypad",
+      "position": {
+        "x": 420,
+        "y": 310
+      },
+      "size": {
+        "width": 70,
+        "height": 90
+      },
+      "view": "act1_processing_lab",
+      "initially_visible": true,
+      "config": {
+        "code_length": 4,
+        "solution": "3917",
+        "display_chars": 4
+      },
+      "on_solve": [
+        {
+          "type": "set_state",
+          "object": "lab_door",
+          "state": "unlocked"
+        },
+        {
+          "type": "set_flag",
+          "flag": "lab_accessible",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The bio-organic keypad pulses green. The lab door hisses open, releasing a waft of chemical-laced air."
+        },
+        {
+          "type": "play_sound",
+          "sound": "door_hiss"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 5
+        },
+        {
+          "type": "message",
+          "text": "The keypad pulses red. A low warning tone sounds."
+        }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "security_console_hack",
+      "widget_type": "sequence_puzzle",
+      "position": {
+        "x": 500,
+        "y": 280
+      },
+      "size": {
+        "width": 200,
+        "height": 120
+      },
+      "view": "act1_security_hub",
+      "initially_visible": true,
+      "config": {
+        "steps": [
+          {
+            "id": "bio_alpha",
+            "label": "Alpha Node",
+            "position": {
+              "x": 20,
+              "y": 20
+            }
+          },
+          {
+            "id": "bio_beta",
+            "label": "Beta Node",
+            "position": {
+              "x": 80,
+              "y": 20
+            }
+          },
+          {
+            "id": "bio_gamma",
+            "label": "Gamma Node",
+            "position": {
+              "x": 140,
+              "y": 20
+            }
+          },
+          {
+            "id": "bio_delta",
+            "label": "Delta Node",
+            "position": {
+              "x": 50,
+              "y": 70
+            }
+          },
+          {
+            "id": "bio_epsilon",
+            "label": "Epsilon Node",
+            "position": {
+              "x": 110,
+              "y": 70
+            }
+          }
+        ],
+        "solution_order": [
+          "bio_gamma",
+          "bio_alpha",
+          "bio_epsilon",
+          "bio_delta",
+          "bio_beta"
+        ],
+        "reset_on_error": true,
+        "correct_step_message": "The node pulses in acknowledgment.",
+        "wrong_step_message": "The sequence resets with an irritated buzz.",
+        "wrong_step_noise": 8
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "security_hacked",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "containment_locks_disabled",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The console flares to life. Surveillance feeds flicker across every screen \u2014 the ship is enormous. A schematic appears: deck layouts, containment sections, operational levels. You memorize what you can. The containment locks disengage with a distant clunk."
+        },
+        {
+          "type": "play_sound",
+          "sound": "system_unlock"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 8
+        },
+        {
+          "type": "message",
+          "text": "Wrong sequence. The console buzzes and resets."
+        }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "bridge_access_lock",
+      "widget_type": "combination_lock",
+      "position": {
+        "x": 380,
+        "y": 350
+      },
+      "size": {
+        "width": 100,
+        "height": 60
+      },
+      "view": "act2_navigation_bridge",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 5,
+        "values_per_dial": 8,
+        "solution": [
+          2,
+          7,
+          0,
+          5,
+          3
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III",
+          "IV",
+          "V"
+        ]
+      },
+      "on_solve": [
+        {
+          "type": "set_state",
+          "object": "bridge_console",
+          "state": "active"
+        },
+        {
+          "type": "set_flag",
+          "flag": "bridge_accessed",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The resonance tones harmonize. The bridge console activates, holographic star maps blooming into existence. Hundreds of systems \u2014 most marked in red. Consumed."
+        },
+        {
+          "type": "show_object",
+          "object": "star_chart_display"
+        },
+        {
+          "type": "play_sound",
+          "sound": "hologram_activate"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 4
+        },
+        {
+          "type": "message",
+          "text": "Dissonant tones. The lock rejects the combination."
+        }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "engineering_power_panel",
+      "widget_type": "toggle_panel",
+      "position": {
+        "x": 300,
+        "y": 250
+      },
+      "size": {
+        "width": 220,
+        "height": 100
+      },
+      "view": "act2_engineering",
+      "initially_visible": true,
+      "config": {
+        "num_switches": 6,
+        "solution": [
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        "labels": [
+          "Containment",
+          "Weapons",
+          "Shuttle Bay",
+          "Comms",
+          "Life Support",
+          "Alarms"
+        ],
+        "linked": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "shuttle_bay_powered",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "power_rerouted",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The reactor's heartbeat shifts rhythm. Power surges to the shuttle bay \u2014 lights flicker on in that distant section. Alarms stay silent. For now."
+        },
+        {
+          "type": "play_sound",
+          "sound": "power_shift"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 15
+        },
+        {
+          "type": "message",
+          "text": "An alarm blares briefly before the system compensates. Wrong configuration."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "comm_array_dial",
+      "widget_type": "dial",
+      "position": {
+        "x": 480,
+        "y": 300
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "view": "act2_comm_array",
+      "initially_visible": true,
+      "config": {
+        "positions": [
+          "Dormant",
+          "Local Choir",
+          "Ship-to-Ship",
+          "Deep Relay",
+          "Convergence Band",
+          "Emergency"
+        ],
+        "solution": "Convergence Band",
+        "initial_position": "Dormant"
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "convergence_comms_intercepted",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "Static resolves into something alien \u2014 subsonic pulses carrying data you can't parse. But the recorder can. The ship's black box begins logging the Convergence's transmissions. Coordinates. Orders. The scope of their operation laid bare."
+        },
+        {
+          "type": "show_object",
+          "object": "black_box_recorder"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alien_static"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 6
+        },
+        {
+          "type": "message",
+          "text": "A burst of static. Wrong frequency \u2014 the array whines in protest."
+        }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "bunker_door_lock",
+      "widget_type": "combination_lock",
+      "position": {
+        "x": 440,
+        "y": 380
+      },
+      "size": {
+        "width": 100,
+        "height": 60
+      },
+      "view": "act3_buried_bunker",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 6,
+        "values_per_dial": 10,
+        "solution": [
+          4,
+          7,
+          1,
+          2,
+          0,
+          8
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III",
+          "IV",
+          "V",
+          "VI"
+        ]
+      },
+      "on_solve": [
+        {
+          "type": "set_state",
+          "object": "bunker_blast_door",
+          "state": "open"
+        },
+        {
+          "type": "set_flag",
+          "flag": "bunker_open",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The blast door groans open for the first time in decades. Emergency lighting flickers on inside \u2014 amber strips illuminating dust-covered corridors. The bunker still has power. Someone built this to last."
+        },
+        {
+          "type": "play_sound",
+          "sound": "heavy_door_open"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 5
+        },
+        {
+          "type": "message",
+          "text": "The dials click but the door holds. Wrong combination."
+        }
+      ],
+      "noise_per_interaction": 2
+    },
+    {
+      "id": "library_data_sequence",
+      "widget_type": "sequence_puzzle",
+      "position": {
+        "x": 350,
+        "y": 200
+      },
+      "size": {
+        "width": 240,
+        "height": 100
+      },
+      "view": "act4_library",
+      "initially_visible": true,
+      "config": {
+        "steps": [
+          {
+            "id": "crystal_red",
+            "label": "Red Crystal",
+            "position": {
+              "x": 20,
+              "y": 30
+            }
+          },
+          {
+            "id": "crystal_blue",
+            "label": "Blue Crystal",
+            "position": {
+              "x": 60,
+              "y": 30
+            }
+          },
+          {
+            "id": "crystal_amber",
+            "label": "Amber Crystal",
+            "position": {
+              "x": 100,
+              "y": 30
+            }
+          },
+          {
+            "id": "crystal_green",
+            "label": "Green Crystal",
+            "position": {
+              "x": 140,
+              "y": 30
+            }
+          },
+          {
+            "id": "crystal_violet",
+            "label": "Violet Crystal",
+            "position": {
+              "x": 180,
+              "y": 30
+            }
+          }
+        ],
+        "solution_order": [
+          "crystal_amber",
+          "crystal_violet",
+          "crystal_red",
+          "crystal_green",
+          "crystal_blue"
+        ],
+        "reset_on_error": true,
+        "correct_step_message": "The crystal chimes and glows brighter.",
+        "wrong_step_message": "The crystals dim and reset. A discordant tone echoes through the library.",
+        "wrong_step_noise": 10
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "library_data_accessed",
+          "value": "true"
+        },
+        {
+          "type": "add_item",
+          "item": "translation_cipher_frag_4"
+        },
+        {
+          "type": "message",
+          "text": "The crystals align in harmonic resonance. Data floods the reading station \u2014 centuries of research on the Convergence, its patterns, its weaknesses. Among the records: the fourth cipher fragment, the key to reading everything they wrote."
+        },
+        {
+          "type": "play_sound",
+          "sound": "crystal_chime"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 10
+        },
+        {
+          "type": "message",
+          "text": "Discordant tone. The sequence resets."
+        }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "city_power_grid",
+      "widget_type": "toggle_panel",
+      "position": {
+        "x": 280,
+        "y": 300
+      },
+      "size": {
+        "width": 250,
+        "height": 100
+      },
+      "view": "act4_power_station",
+      "initially_visible": true,
+      "config": {
+        "num_switches": 5,
+        "solution": null,
+        "labels": [
+          "Plaza District",
+          "Library District",
+          "Military Quarter",
+          "Research District",
+          "Transit System"
+        ],
+        "max_active": 3
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "city_power_restored",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "Generators hum to life. Lights flicker on in the chosen districts, casting long shadows through empty streets. The city stirs \u2014 and somewhere in the ruins, The Watcher takes notice."
+        },
+        {
+          "type": "play_sound",
+          "sound": "power_up"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 12
+        },
+        {
+          "type": "message",
+          "text": "Overload. The grid sparks and resets. Too many districts for the remaining power."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        }
+      ],
+      "noise_per_interaction": 4
+    },
+    {
+      "id": "temple_resonance_dial",
+      "widget_type": "dial",
+      "position": {
+        "x": 500,
+        "y": 320
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "view": "act4_temple",
+      "initially_visible": true,
+      "config": {
+        "positions": [
+          "Silence",
+          "Mourning",
+          "Memory",
+          "Prophecy",
+          "Communion",
+          "Awakening"
+        ],
+        "solution": "Prophecy",
+        "initial_position": "Silence"
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "prophecy_revealed",
+          "value": "true"
+        },
+        {
+          "type": "add_item",
+          "item": "prophets_crystal"
+        },
+        {
+          "type": "message",
+          "text": "The resonance chamber thrums with ancient frequency. The murals glow \u2014 and from the altar, a crystal rises. Inside it: visions of possible futures. A weapon assembled. A bridge between minds. An escape into darkness. A warning cast to the stars. You see yourself in all of them."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        },
+        {
+          "type": "play_sound",
+          "sound": "prophecy_vision"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 8
+        },
+        {
+          "type": "message",
+          "text": "The chamber responds with a mournful drone. Wrong frequency."
+        }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "control_spire_lock",
+      "widget_type": "combination_lock",
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 120,
+        "height": 70
+      },
+      "view": "act5_control_spire",
+      "initially_visible": true,
+      "config": {
+        "num_dials": 7,
+        "values_per_dial": 12,
+        "solution": [
+          11,
+          3,
+          7,
+          0,
+          9,
+          5,
+          2
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III",
+          "IV",
+          "V",
+          "VI",
+          "VII"
+        ]
+      },
+      "on_solve": [
+        {
+          "type": "set_state",
+          "object": "spire_console",
+          "state": "active"
+        },
+        {
+          "type": "set_flag",
+          "flag": "control_spire_accessed",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "Seven tones lock into ancient harmony. The Convergence-era controls awaken \u2014 crystalline interfaces lighting up with patterns older than most civilizations. From here, the harvesting can be redirected. Stopped. Or overloaded."
+        },
+        {
+          "type": "show_object",
+          "object": "spire_controls"
+        },
+        {
+          "type": "play_sound",
+          "sound": "ancient_system_activate"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 10
+        },
+        {
+          "type": "message",
+          "text": "The Convergence-era lock rejects the combination with a crystalline screech."
+        }
+      ],
+      "noise_per_interaction": 3
+    },
+    {
+      "id": "transmission_array_dial",
+      "widget_type": "dial",
+      "position": {
+        "x": 460,
+        "y": 280
+      },
+      "size": {
+        "width": 90,
+        "height": 90
+      },
+      "view": "act5_transmission_array",
+      "initially_visible": true,
+      "config": {
+        "positions": [
+          "Dormant",
+          "Local System",
+          "Sector Broadcast",
+          "Cluster Relay",
+          "Galactic Sweep",
+          "Emergency Burst"
+        ],
+        "solution": "Galactic Sweep",
+        "initial_position": "Dormant"
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "transmission_array_calibrated",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The crystalline antenna vibrates at a frequency that makes your bones ache. The galactic sweep mode engages \u2014 this signal will reach every inhabited system within range. Every world. Every species. The Convergence's own infrastructure turned into the galaxy's warning system."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        },
+        {
+          "type": "play_sound",
+          "sound": "array_power_up"
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 12
+        },
+        {
+          "type": "message",
+          "text": "The array crackles with misdirected energy. Wrong calibration."
+        }
+      ],
+      "noise_per_interaction": 4
+    }
+  ],
+  "phases": [
+    {
+      "id": "awakening",
+      "name": "Awakening",
+      "act": 1,
+      "act_title": "Specimen",
+      "starts_when": [],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "Your eyes open to green light and the smell of chemicals. Fluid drains from your cracked stasis pod, pooling on the organic-metallic floor. You're cold. Weak. Alone among hundreds of pods holding dead things from a dozen worlds. Something hums in the walls \u2014 the ship is alive."
+        },
+        {
+          "type": "play_sound",
+          "sound": "pod_drain"
+        }
+      ],
+      "ambient_text": "The specimen hold hums with the heartbeat of a living ship. Pods glow faintly around you. Something clicks in a distant corridor.",
+      "killer_overrides": {
+        "check_interval_seconds": 90,
+        "interval_variance_seconds": 15,
+        "noise_threshold_investigate": 70,
+        "noise_threshold_curious": 45,
+        "noise_threshold_immediate": 90
+      }
+    },
+    {
+      "id": "containment_escape",
+      "name": "Containment Escape",
+      "act": 1,
+      "act_title": "Specimen",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "security_hacked",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "Containment locks disengage throughout the deck. New corridors open. The ship's layout starts to make sense \u2014 but so does the danger. The Curator's patrol pattern shifts. It knows something is wrong."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        }
+      ],
+      "ambient_text": "Distant clicking. The Curator adjusts its rounds. You have more freedom now \u2014 and less time to use it.",
+      "killer_overrides": {
+        "check_interval_seconds": 70,
+        "interval_variance_seconds": 12,
+        "noise_threshold_investigate": 60,
+        "noise_threshold_curious": 35,
+        "noise_threshold_immediate": 85
+      }
+    },
+    {
+      "id": "infiltration",
+      "name": "Infiltration",
+      "act": 2,
+      "act_title": "The Hive",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "reached_operational_deck",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The architecture shifts from clinical to alien. This is where the Choir lives. The walls are covered in geometric patterns. The air tastes different \u2014 alive, breathing. You are deep in enemy territory now."
+        },
+        {
+          "type": "play_sound",
+          "sound": "ambient_hive"
+        }
+      ],
+      "ambient_text": "Subsonic resonance hums through the walls. The Choir communicates through vibration. You can feel their thoughts in your teeth.",
+      "killer_overrides": {
+        "check_interval_seconds": 60,
+        "interval_variance_seconds": 10,
+        "noise_threshold_investigate": 50,
+        "noise_threshold_curious": 30,
+        "noise_threshold_immediate": 80
+      }
+    },
+    {
+      "id": "shuttle_launch",
+      "name": "Shuttle Launch",
+      "act": 2,
+      "act_title": "The Hive",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "shuttle_ready",
+          "value": "true"
+        }
+      ],
+      "point_of_no_return": true,
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The shuttle's systems initialize. The bay door begins to open \u2014 stars and the planet's surface visible beyond. But the Curator has been alerted. Amber light sweeps the bay. You have seconds to launch."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm_klaxon"
+        }
+      ],
+      "ambient_text": "Alarms blare. The shuttle vibrates. The Curator's footsteps echo in the bay.",
+      "killer_overrides": {
+        "check_interval_seconds": 20,
+        "interval_variance_seconds": 5,
+        "noise_threshold_investigate": 30,
+        "noise_threshold_curious": 15,
+        "noise_threshold_immediate": 50
+      }
+    },
+    {
+      "id": "survival",
+      "name": "Survival",
+      "act": 3,
+      "act_title": "Descent",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "reached_planet_surface",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The shuttle hits the ground hard. You crawl from the wreckage into a world being murdered. Grey soil, dead trees frozen in crystal, a sky the wrong color. In the distance: the silhouette of a city. Above: energy beams draining the planet dry. You're free of the ship. You're not free."
+        },
+        {
+          "type": "play_sound",
+          "sound": "crash_landing"
+        }
+      ],
+      "ambient_text": "The wasteland is silent except for the crackle of siphon towers and the whisper of dead wind through crystallized trees.",
+      "killer_overrides": {
+        "check_interval_seconds": 45,
+        "interval_variance_seconds": 10,
+        "noise_threshold_investigate": 40,
+        "noise_threshold_curious": 25,
+        "noise_threshold_immediate": 70
+      }
+    },
+    {
+      "id": "city_approach",
+      "name": "City Approach",
+      "act": 3,
+      "act_title": "Descent",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "city_gates_reached",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The city gates loom above you \u2014 massive, elegant, partially collapsed. Reliefs of four-armed figures watch you with empty eyes. Beyond: an intact city, abandoned. Lights still glow in some windows. Something moved inside. You're sure of it."
+        }
+      ],
+      "ambient_text": "Empty streets. Flickering lights. The echo of a civilization's last breath, caught in crystal.",
+      "killer_overrides": {
+        "check_interval_seconds": 40,
+        "interval_variance_seconds": 8,
+        "noise_threshold_investigate": 35,
+        "noise_threshold_curious": 20,
+        "noise_threshold_immediate": 65
+      }
+    },
+    {
+      "id": "investigation",
+      "name": "Investigation",
+      "act": 4,
+      "act_title": "The Dead City",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "entered_dead_city",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "You step into the dead city. Everything is frozen mid-moment \u2014 a meal on a table, a vehicle stopped in the road, toys on a floor. The evacuation was sudden. The Echoes here are stronger, more coherent. And something new watches: a geometric shape of pure light drifting between the spires. The Convergence knows you're here."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        }
+      ],
+      "ambient_text": "Ghostly figures flicker at the edges of vision. The Watcher's geometric glow passes behind buildings. The dead city remembers.",
+      "killer_overrides": {
+        "check_interval_seconds": 40,
+        "interval_variance_seconds": 8,
+        "noise_threshold_investigate": 35,
+        "noise_threshold_curious": 20,
+        "noise_threshold_immediate": 60
+      }
+    },
+    {
+      "id": "deep_city",
+      "name": "Deep City",
+      "act": 4,
+      "act_title": "The Dead City",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "weapon_vault_discovered",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The weapon vault opens. They built something to fight the Convergence \u2014 and they almost finished it. The components are here, scattered across secure containment units. The Watcher's patrols intensify. It's protecting something deeper. You're close."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "dim"
+        }
+      ],
+      "ambient_text": "Crystal barriers grow where you've been. The Watcher restructures the city around you, funneling you away from secrets.",
+      "killer_overrides": {
+        "check_interval_seconds": 30,
+        "interval_variance_seconds": 6,
+        "noise_threshold_investigate": 30,
+        "noise_threshold_curious": 15,
+        "noise_threshold_immediate": 55
+      }
+    },
+    {
+      "id": "endgame",
+      "name": "Endgame",
+      "act": 5,
+      "act_title": "The Nexus",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "entered_nexus",
+          "value": "true"
+        }
+      ],
+      "point_of_no_return": true,
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "You descend into the nexus. Reality bends. The walls are pure crystallized energy. Rivers of stolen life force flow past you toward the core. The planet's agony made visible. Everything you've gathered, everything you've learned \u2014 it comes down to what happens next."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        },
+        {
+          "type": "play_sound",
+          "sound": "nexus_hum"
+        }
+      ],
+      "ambient_text": "The nexus hums with the energy of a dying world. Every step forward is a step toward something that has consumed galaxies.",
+      "killer_overrides": {
+        "check_interval_seconds": 25,
+        "interval_variance_seconds": 5,
+        "noise_threshold_investigate": 20,
+        "noise_threshold_curious": 10,
+        "noise_threshold_immediate": 40
+      }
+    },
+    {
+      "id": "final_confrontation",
+      "name": "Final Confrontation",
+      "act": 5,
+      "act_title": "The Nexus",
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "reached_convergence_core",
+          "value": "true"
+        }
+      ],
+      "on_enter": [
+        {
+          "type": "message",
+          "text": "The core. A crystalline intelligence filling a spherical chamber, fractal and infinite. It perceives you. Visions flood your mind \u2014 consumed worlds, the Choir's creation, entropy advancing, a universe winding down. The Convergence speaks in stolen memories. It is afraid. It is merciless. And it is waiting for your choice."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        },
+        {
+          "type": "play_sound",
+          "sound": "convergence_voice"
+        }
+      ],
+      "ambient_text": "The core pulses with thought. Visions of dead worlds flicker across its surface. It knows what you carry. It knows what you can do.",
+      "killer_overrides": {
+        "check_interval_seconds": 20,
+        "interval_variance_seconds": 3,
+        "noise_threshold_investigate": 15,
+        "noise_threshold_curious": 8,
+        "noise_threshold_immediate": 30
+      }
+    }
+  ],
+  "killer": {
+    "name": "The Curator",
+    "description": "A specialized Choir unit responsible for the specimen collection. Taller than standard Choir drones, with additional manipulator limbs and optical sensors that glow amber. It catalogues, preserves, and maintains specimens with obsessive precision. You are its most recent acquisition \u2014 and its first escape.",
+    "base_behavior": {
+      "check_interval_seconds": 60,
+      "interval_variance_seconds": 10,
+      "noise_threshold_curious": 30,
+      "noise_threshold_investigate": 50,
+      "noise_threshold_immediate": 80,
+      "noise_decay_per_second": 1.2,
+      "warning_duration_seconds": 10,
+      "search_duration_seconds": 15
+    },
+    "search_behavior": {
+      "thoroughness": 0.3,
+      "evidence_flags": [
+        "pod_opened_manually",
+        "lab_door_forced",
+        "security_hacked",
+        "containment_locks_disabled",
+        "bridge_accessed",
+        "shuttle_bay_powered",
+        "power_rerouted",
+        "items_displaced"
+      ],
+      "thoroughness_on_evidence": 0.7,
+      "search_order": "sequential"
+    },
+    "personality": {
+      "on_approach": [
+        "Click. Click. Click. Precise footsteps on metal grating. Amber light sweeps the corridor ahead.",
+        "A subsonic hum vibrates through the walls. The Curator is near, performing its rounds.",
+        "The air shifts \u2014 something large moving through the corridor. Amber sensors glow in the darkness."
+      ],
+      "on_search": [
+        "The Curator's manipulator limbs unfold, probing surfaces, checking specimens. Its optical sensors pan slowly, missing nothing.",
+        "It stops. Head tilts. The amber glow intensifies as it scans each corner of the room with mechanical precision.",
+        "Four limbs extend, each one testing a surface, a panel, a shadow. It searches the way a machine searches \u2014 without impatience, without error."
+      ],
+      "on_clear": [
+        "The amber glow dims. The Curator retracts its limbs and continues its patrol. Click. Click. Click.",
+        "Satisfied \u2014 if a machine can be satisfied \u2014 it moves on. The footsteps fade."
+      ],
+      "on_evidence": [
+        "The amber glow intensifies. The Curator pauses. Its head tilts \u2014 a mechanical gesture of recognition. It knows something is wrong.",
+        "A burst of subsonic resonance \u2014 the Curator communicating with the ship. It has found evidence. Protocols are updating.",
+        "It traces the disruption with one manipulator limb. Records it. Catalogs it. Then turns, amber sensors blazing, and begins a systematic search."
+      ],
+      "on_catch": [
+        "Four manipulator limbs close around you with clinical precision. No pain \u2014 it doesn't want to damage its specimen. You are carried, struggling uselessly, back to a containment cell."
+      ]
+    },
+    "on_visit_effects": [
+      {
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "lab_door",
+            "state": "unlocked"
+          }
+        ],
+        "effects": [
+          {
+            "type": "set_state",
+            "object": "lab_door",
+            "state": "locked"
+          },
+          {
+            "type": "message",
+            "text": "A click echoes through the corridor. The Curator has relocked the lab door."
+          }
+        ]
+      },
+      {
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "vent_grate",
+            "state": "removed"
+          }
+        ],
+        "effects": [
+          {
+            "type": "set_state",
+            "object": "vent_grate",
+            "state": "sealed"
+          },
+          {
+            "type": "message",
+            "text": "Metal scraping. The Curator has sealed the ventilation grate with something stronger than screws."
+          }
+        ]
+      },
+      {
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "shuttle_bay_powered",
+            "value": "true"
+          }
+        ],
+        "effects": [
+          {
+            "type": "set_flag",
+            "flag": "shuttle_bay_powered",
+            "value": "false"
+          },
+          {
+            "type": "message",
+            "text": "The lights in the shuttle bay section flicker and die. The Curator has overridden the power reroute."
+          }
+        ]
+      }
+    ],
+    "special_behaviors": [
+      {
+        "id": "sedative_effect",
+        "trigger": {
+          "type": "flag_is",
+          "flag": "curator_sedated",
+          "value": "true"
+        },
+        "effect": "distracted",
+        "duration_seconds": 45,
+        "description": "The Curator's movements slow. The sedative compound interferes with its biological components.",
+        "on_trigger_effects": [
+          {
+            "type": "message",
+            "text": "The Curator staggers. Its movements slow, becoming erratic. The sedative is fighting its bio-mechanical systems. It won't last long."
+          }
+        ]
+      },
+      {
+        "id": "overcharge_disruption",
+        "trigger": {
+          "type": "flag_is",
+          "flag": "overcharge_detonated_nearby",
+          "value": "true"
+        },
+        "effect": "distracted",
+        "duration_seconds": 60,
+        "description": "The overcharge device disrupts the Curator's resonance-based senses.",
+        "on_trigger_effects": [
+          {
+            "type": "message",
+            "text": "The overcharge device detonates in a burst of resonance static. The Curator recoils, its sensors overwhelmed. Its amber lights flicker wildly."
+          },
+          {
+            "type": "set_flag",
+            "flag": "overcharge_detonated_nearby",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "proof_of_sentience_ally",
+        "trigger": {
+          "type": "flag_is",
+          "flag": "curator_convinced",
+          "value": "true"
+        },
+        "effect": "distracted",
+        "duration_seconds": 9999,
+        "description": "The Curator has been convinced of your sentience. It ceases hostilities and may assist.",
+        "on_trigger_effects": [
+          {
+            "type": "message",
+            "text": "The Curator goes still. Its amber sensors dim, then shift \u2014 to blue. For the first time, it sees you not as a specimen, but as a person. It lowers its manipulator limbs. It will not hunt you again."
+          },
+          {
+            "type": "set_flag",
+            "flag": "curator_is_ally",
+            "value": "true"
+          }
+        ]
+      },
+      {
+        "id": "echo_proximity_alert",
+        "trigger": {
+          "type": "flag_is",
+          "flag": "echo_manifesting_nearby",
+          "value": "true"
+        },
+        "effect": "distracted",
+        "duration_seconds": 20,
+        "description": "Echoes manifest near the player, causing noise and disturbance.",
+        "on_trigger_effects": [
+          {
+            "type": "add_noise",
+            "amount": 20
+          },
+          {
+            "type": "message",
+            "text": "An Echo manifests \u2014 a translucent figure stuttering through reality. The disruption sends ripples through the energy field."
+          },
+          {
+            "type": "set_flag",
+            "flag": "echo_manifesting_nearby",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "id": "watcher_redirect",
+        "trigger": {
+          "type": "flag_is",
+          "flag": "watcher_detected_player",
+          "value": "true"
+        },
+        "effect": "enraged",
+        "overrides": {
+          "check_interval_seconds": 20,
+          "thoroughness": 0.8
+        },
+        "description": "The Watcher has detected the player and is restructuring the environment.",
+        "on_trigger_effects": [
+          {
+            "type": "message",
+            "text": "The Watcher LOCKS onto your position. Crystal grows from the walls, sealing corridors behind you. The geometric shape shifts, its faces reorienting \u2014 each one a different sensor, all pointed at you."
+          },
+          {
+            "type": "visual_cue",
+            "cue": "red_pulse"
+          }
+        ]
+      }
+    ]
+  },
+  "win_conditions": [
+    {
+      "id": "escape_survivor",
+      "description": "Escape \u2014 'The Survivor': Flee the system in a shuttle, leaving the planet to its fate. Hollow victory."
+    },
+    {
+      "id": "destroy_sacrifice",
+      "description": "Destroy \u2014 'The Sacrifice': Activate the countermeasure at the nexus heart. The planet is saved. You don't make it out."
+    },
+    {
+      "id": "sabotage_escape_golden",
+      "description": "Sabotage + Escape \u2014 'The Best of Both': Set the countermeasure on a timer, then escape before it detonates. The golden ending."
+    },
+    {
+      "id": "signal_warning",
+      "description": "Signal \u2014 'The Warning': Hijack the transmission array to broadcast Convergence intel and weapon schematics to every inhabited system in range."
+    },
+    {
+      "id": "kamikaze_hammer",
+      "description": "Kamikaze \u2014 'The Hammer': Recall the Choir vessel and crash it into the nexus using reactivated orbital defense satellites. Pyrrhic victory \u2014 the planet is destroyed too."
+    },
+    {
+      "id": "transcendence_bridge",
+      "description": "Transcendence \u2014 'The Bridge': Interface directly with the Convergence, merging with its intelligence to redirect its hunger. The harvesting stops everywhere. You cease to exist as a person."
+    }
+  ],
+  "lose_conditions": [
+    {
+      "id": "caught",
+      "description": "Caught by the Curator, an Echo, or a Convergence defense system. Returned to containment (Acts 1-2) or neutralized (Acts 3-5)."
+    },
+    {
+      "id": "time_limit",
+      "seconds": 3600,
+      "message": "The planet shudders one final time. The energy siphons reach critical mass. The surface cracks, continents splitting apart as the Convergence drains the last of the world's energy. The sky burns white. Then \u2014 silence. The harvest is complete.",
+      "description": "The planet is fully consumed before you can act."
+    }
+  ],
+  "hints": [
+    {
+      "id": "hint_act1_pod",
+      "after_seconds": 30,
+      "text": "Your stasis pod is cracked. Examine it carefully \u2014 the glass and fluid may both be useful.",
+      "relates_to": "stasis_pod"
+    },
+    {
+      "id": "hint_act1_lab_code",
+      "after_seconds": 120,
+      "conditions": [
+        {
+          "type": "flag_not",
+          "flag": "lab_accessible",
+          "value": "true"
+        }
+      ],
+      "text": "The adjacent pods have specimen log numbers. The lab keypad might respond to a sequence from those logs.",
+      "relates_to": "lab_access_keypad"
+    },
+    {
+      "id": "hint_act1_security",
+      "after_seconds": 300,
+      "conditions": [
+        {
+          "type": "flag_not",
+          "flag": "security_hacked",
+          "value": "true"
+        }
+      ],
+      "text": "The processing lab has a startup display that cycles through a specific sequence. That pattern might work on the security console.",
+      "relates_to": "security_console_hack"
+    },
+    {
+      "id": "hint_act1_vents",
+      "after_seconds": 420,
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "security_hacked",
+          "value": "true"
+        }
+      ],
+      "text": "The ventilation shafts are sized for maintenance drones \u2014 but you're small enough to fit. A fine tool could remove the grate.",
+      "relates_to": "vent_grate"
+    },
+    {
+      "id": "hint_act2_bridge",
+      "after_seconds": 600,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "infiltration"
+        },
+        {
+          "type": "flag_not",
+          "flag": "bridge_accessed",
+          "value": "true"
+        }
+      ],
+      "text": "The data core records contain resonance frequencies used throughout the ship. The bridge lock responds to tonal combinations.",
+      "relates_to": "bridge_access_lock"
+    },
+    {
+      "id": "hint_act2_shuttle",
+      "after_seconds": 900,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "infiltration"
+        },
+        {
+          "type": "flag_not",
+          "flag": "shuttle_ready",
+          "value": "true"
+        }
+      ],
+      "text": "The damaged shuttle in the bay needs three things: a power cell from engineering, a fuel line reconnection, and a navigation chip from the bridge.",
+      "relates_to": "shuttle_repair"
+    },
+    {
+      "id": "hint_act2_power",
+      "after_seconds": 750,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "infiltration"
+        },
+        {
+          "type": "flag_not",
+          "flag": "power_rerouted",
+          "value": "true"
+        }
+      ],
+      "text": "The engineering power panel has linked switches \u2014 toggling one affects others. Route power to the shuttle bay without triggering the alarm circuit.",
+      "relates_to": "engineering_power_panel"
+    },
+    {
+      "id": "hint_act3_bunker",
+      "after_seconds": 300,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "survival"
+        },
+        {
+          "type": "flag_not",
+          "flag": "bunker_open",
+          "value": "true"
+        }
+      ],
+      "text": "The refugee journal mentions dates that were significant to the military. Cross-reference those with the bunker defense schematics for the door code.",
+      "relates_to": "bunker_door_lock"
+    },
+    {
+      "id": "hint_act3_echo_field",
+      "after_seconds": 450,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "survival"
+        },
+        {
+          "type": "flag_not",
+          "flag": "echo_field_navigated",
+          "value": "true"
+        }
+      ],
+      "text": "The Echoes in the field aren't random \u2014 they're replaying their final movements. Watch their paths. They're showing you which way was safe.",
+      "relates_to": "echo_field_navigation"
+    },
+    {
+      "id": "hint_act3_city_gate",
+      "after_seconds": 600,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "city_approach"
+        },
+        {
+          "type": "flag_not",
+          "flag": "entered_dead_city",
+          "value": "true"
+        }
+      ],
+      "text": "The city defenses detect non-native biology. The echo stabilizer from the bunker might make you register as something the city remembers, not something it rejects.",
+      "relates_to": "city_gate_auth"
+    },
+    {
+      "id": "hint_act4_cipher",
+      "after_seconds": 300,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "investigation"
+        },
+        {
+          "type": "flag_not",
+          "flag": "cipher_complete",
+          "value": "true"
+        }
+      ],
+      "text": "You've found cipher fragments in Acts 1, 2, and 3. The library holds the fourth. With all four, you can read every piece of alien text in this world.",
+      "relates_to": "translation_cipher"
+    },
+    {
+      "id": "hint_act4_power_station",
+      "after_seconds": 450,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "investigation"
+        },
+        {
+          "type": "flag_not",
+          "flag": "city_power_restored",
+          "value": "true"
+        }
+      ],
+      "text": "The city power station still works, but can only power three districts at once. Choose carefully \u2014 the research district and military quarter may be the most useful.",
+      "relates_to": "city_power_grid"
+    },
+    {
+      "id": "hint_act4_weapon_vault",
+      "after_seconds": 900,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "investigation"
+        },
+        {
+          "type": "flag_not",
+          "flag": "weapon_core_obtained",
+          "value": "true"
+        }
+      ],
+      "text": "The weapon vault has alien biometric locks. You might bypass them with a combination of items: the neural tendril from the ship, the echo stabilizer, and a power cell adapter.",
+      "relates_to": "weapon_vault_bypass"
+    },
+    {
+      "id": "hint_act5_countermeasure",
+      "after_seconds": 300,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "endgame"
+        },
+        {
+          "type": "flag_not",
+          "flag": "countermeasure_assembled",
+          "value": "true"
+        },
+        {
+          "type": "has_item",
+          "item": "primed_weapon_core"
+        }
+      ],
+      "text": "The countermeasure needs three components: the primed weapon core, the energy dampener, and a siphon crystal fragment. The ancient blueprint shows the assembly order.",
+      "relates_to": "countermeasure_assembly"
+    },
+    {
+      "id": "hint_act5_curator_ally",
+      "after_seconds": 600,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "endgame"
+        },
+        {
+          "type": "flag_is",
+          "flag": "curator_on_planet",
+          "value": "true"
+        },
+        {
+          "type": "flag_not",
+          "flag": "curator_convinced",
+          "value": "true"
+        }
+      ],
+      "text": "The Curator followed you here. It's a machine that catalogs specimens \u2014 prove you're not just a specimen. The ship's black box, your specimen tag, and its own signal device might form an argument it can process.",
+      "relates_to": "proof_of_sentience"
+    },
+    {
+      "id": "hint_act5_endings",
+      "after_seconds": 900,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "endgame"
+        }
+      ],
+      "text": "Multiple paths converge here. The weapon assembly point, the transmission array, the control spire, and the core itself each lead to a different outcome. The prophet's crystal showed you glimpses of all of them.",
+      "relates_to": "ending_choice"
+    },
+    {
+      "id": "hint_act5_golden",
+      "after_seconds": 1200,
+      "conditions": [
+        {
+          "type": "phase_is",
+          "phase": "endgame"
+        },
+        {
+          "type": "has_item",
+          "item": "the_countermeasure"
+        }
+      ],
+      "text": "If you can set the countermeasure on a timer \u2014 jury-rig the overcharge device as a detonator \u2014 you might have time to reach the escape shaft and get off the planet before it blows.",
+      "relates_to": "golden_ending"
+    }
+  ],
+  "solution_paths": [
+    {
+      "id": "escape_path",
+      "name": "The Survivor \u2014 Escape",
+      "description": "Flee the system, leaving the planet to die. The fastest path if you accept the moral cost.",
+      "difficulty": "medium",
+      "steps": [
+        {
+          "action": "Escape stasis pod (hand)",
+          "noise": 15,
+          "note": "Gateway puzzle"
+        },
+        {
+          "action": "Find pod glass shard and stasis fluid vial",
+          "noise": 5
+        },
+        {
+          "action": "Reach security hub, hack console",
+          "noise": 10
+        },
+        {
+          "action": "Navigate to operational decks",
+          "noise": 8
+        },
+        {
+          "action": "Find power cell in engineering",
+          "noise": 5
+        },
+        {
+          "action": "Solve engineering power panel to power shuttle bay",
+          "noise": 12
+        },
+        {
+          "action": "Find navigation chip on bridge",
+          "noise": 8
+        },
+        {
+          "action": "Repair shuttle (install power cell, fuel line, nav chip)",
+          "noise": 15
+        },
+        {
+          "action": "Launch shuttle \u2014 timed escape from Curator",
+          "noise": 40
+        },
+        {
+          "action": "Crash-land on planet surface",
+          "noise": 0
+        },
+        {
+          "action": "Salvage shuttle emergency beacon",
+          "noise": 5
+        },
+        {
+          "action": "Navigate to nexus, find escape shaft key",
+          "noise": 15
+        },
+        {
+          "action": "Activate beacon to recall shuttle",
+          "noise": 20
+        },
+        {
+          "action": "Climb escape shaft and reach shuttle \u2014 flee the system",
+          "noise": 10
+        }
+      ],
+      "total_noise_estimate": 168,
+      "estimated_time_seconds": 5400
+    },
+    {
+      "id": "destroy_path",
+      "name": "The Sacrifice \u2014 Destroy the Nexus",
+      "description": "Activate the countermeasure at the nexus heart. The planet is saved. You are not.",
+      "difficulty": "hard",
+      "steps": [
+        {
+          "action": "Escape pod, collect stasis fluid vial and glass shard",
+          "noise": 20
+        },
+        {
+          "action": "Complete Act 1 \u2014 reach operational decks",
+          "noise": 30
+        },
+        {
+          "action": "Find Choir resonance crystal in data core",
+          "noise": 10
+        },
+        {
+          "action": "Repair shuttle and launch to planet",
+          "noise": 55
+        },
+        {
+          "action": "Extract wasteland mineral from siphon tower",
+          "noise": 15
+        },
+        {
+          "action": "Combine stasis fluid + wasteland mineral = energy dampener",
+          "noise": 5
+        },
+        {
+          "action": "Extract siphon crystal fragment from tower",
+          "noise": 25,
+          "note": "Noise tradeoff \u2014 loud or quiet extraction"
+        },
+        {
+          "action": "Enter dead city, restore power",
+          "noise": 15
+        },
+        {
+          "action": "Find weapon core in weapon vault",
+          "noise": 20
+        },
+        {
+          "action": "Combine weapon core + resonance crystal = primed weapon core",
+          "noise": 5
+        },
+        {
+          "action": "Find ancient blueprint in research lab",
+          "noise": 8
+        },
+        {
+          "action": "Enter nexus, reach weapon assembly point",
+          "noise": 20
+        },
+        {
+          "action": "Find ancient access key in stasis gallery",
+          "noise": 15
+        },
+        {
+          "action": "Combine primed core + dampener + siphon crystal = THE COUNTERMEASURE",
+          "noise": 10
+        },
+        {
+          "action": "Reach convergence chamber with ancient access key",
+          "noise": 20
+        },
+        {
+          "action": "Follow ancient blueprint to place countermeasure correctly",
+          "noise": 5
+        },
+        {
+          "action": "Activate countermeasure. Destroy the nexus. Sacrifice yourself.",
+          "noise": 0,
+          "note": "Point of no return"
+        }
+      ],
+      "total_noise_estimate": 278,
+      "estimated_time_seconds": 10800
+    },
+    {
+      "id": "sabotage_escape_path",
+      "name": "The Best of Both \u2014 Golden Ending",
+      "description": "Set the countermeasure on a timer, then escape before detonation. Maximum difficulty, maximum reward.",
+      "difficulty": "extreme",
+      "steps": [
+        {
+          "action": "Complete all Destroy path steps EXCEPT final activation",
+          "noise": 268
+        },
+        {
+          "action": "Also find resonance disruptor in armory (Act 2)",
+          "noise": 10
+        },
+        {
+          "action": "Also combine siphon crystal + resonance disruptor = overcharge device (Act 3)",
+          "noise": 5
+        },
+        {
+          "action": "Also find escape shaft key at weapon assembly area (Act 5)",
+          "noise": 8
+        },
+        {
+          "action": "Also salvage shuttle emergency beacon (Act 3)",
+          "noise": 5
+        },
+        {
+          "action": "Also find navigation chip for escape shuttle",
+          "noise": 0,
+          "note": "Already obtained in shuttle repair"
+        },
+        {
+          "action": "Jury-rig overcharge device as timer detonator on countermeasure",
+          "noise": 10
+        },
+        {
+          "action": "Activate timer \u2014 begin countdown",
+          "noise": 5
+        },
+        {
+          "action": "Race through collapsing nexus to escape shaft",
+          "noise": 30,
+          "note": "Timed escape sequence"
+        },
+        {
+          "action": "Climb shaft to surface",
+          "noise": 15
+        },
+        {
+          "action": "Activate shuttle beacon, board shuttle, escape atmosphere",
+          "noise": 20
+        },
+        {
+          "action": "Nexus detonates behind you. Planet saved. You survived.",
+          "noise": 0
+        }
+      ],
+      "total_noise_estimate": 376,
+      "estimated_time_seconds": 14400
+    },
+    {
+      "id": "signal_path",
+      "name": "The Warning \u2014 Galactic Broadcast",
+      "description": "Hijack the Convergence's own transmission array to warn every inhabited system in range.",
+      "difficulty": "hard",
+      "steps": [
+        {
+          "action": "Escape pod, complete Act 1",
+          "noise": 50
+        },
+        {
+          "action": "Find comm array schematics (Act 2)",
+          "noise": 8
+        },
+        {
+          "action": "Find navigation chip on bridge (Act 2)",
+          "noise": 8
+        },
+        {
+          "action": "Launch to planet (Act 2)",
+          "noise": 55
+        },
+        {
+          "action": "Collect all 4 translation cipher fragments (Acts 1-4)",
+          "noise": 40
+        },
+        {
+          "action": "Combine fragments = complete translation cipher (Act 4)",
+          "noise": 5
+        },
+        {
+          "action": "Find power cell adapter in power station (Act 4)",
+          "noise": 10
+        },
+        {
+          "action": "Combine adapter + nav chip = universal interface (Act 4)",
+          "noise": 5
+        },
+        {
+          "action": "Enter nexus (Act 5)",
+          "noise": 20
+        },
+        {
+          "action": "Reach transmission array",
+          "noise": 15
+        },
+        {
+          "action": "Calibrate transmission array dial to Galactic Sweep",
+          "noise": 12
+        },
+        {
+          "action": "Combine schematics + interface + array components = GALACTIC BROADCAST",
+          "noise": 10
+        },
+        {
+          "action": "Encode message using complete cipher for universal readability",
+          "noise": 5
+        },
+        {
+          "action": "Broadcast everything: the Convergence's nature, weapon schematics, a warning",
+          "noise": 0,
+          "note": "The galaxy is armed"
+        }
+      ],
+      "total_noise_estimate": 243,
+      "estimated_time_seconds": 9000
+    },
+    {
+      "id": "kamikaze_path",
+      "name": "The Hammer \u2014 Orbital Strike",
+      "description": "Recall the Choir vessel and crash it into the nexus. Maximum destruction. Pyrrhic victory.",
+      "difficulty": "medium-hard",
+      "steps": [
+        {
+          "action": "Escape pod, complete Act 1",
+          "noise": 50
+        },
+        {
+          "action": "Find resonance disruptor in armory (Act 2)",
+          "noise": 10
+        },
+        {
+          "action": "Launch to planet (Act 2)",
+          "noise": 55
+        },
+        {
+          "action": "Extract siphon crystal fragment (Act 3)",
+          "noise": 25
+        },
+        {
+          "action": "Combine siphon crystal + disruptor = overcharge device (Act 3)",
+          "noise": 5
+        },
+        {
+          "action": "Enter dead city, find defense grid controller in war room (Act 4)",
+          "noise": 15
+        },
+        {
+          "action": "Combine overcharge device + grid controller = ORBITAL WEAPON (Act 4)",
+          "noise": 5
+        },
+        {
+          "action": "Restore city power to military quarter",
+          "noise": 12
+        },
+        {
+          "action": "Enter nexus (Act 5)",
+          "noise": 20
+        },
+        {
+          "action": "Confront or evade the Curator, obtain its signal device",
+          "noise": 25
+        },
+        {
+          "action": "Recall Choir vessel from orbit using signal device",
+          "noise": 15
+        },
+        {
+          "action": "Reactivate orbital defense satellites with orbital weapon",
+          "noise": 20
+        },
+        {
+          "action": "Use defense grid to redirect the Choir vessel into the nexus",
+          "noise": 10
+        },
+        {
+          "action": "Escape to safe distance. Watch the collision from the surface.",
+          "noise": 15
+        }
+      ],
+      "total_noise_estimate": 282,
+      "estimated_time_seconds": 7200
+    },
+    {
+      "id": "transcendence_path",
+      "name": "The Bridge \u2014 Transcendence",
+      "description": "Merge with the Convergence intelligence. The harvesting stops everywhere. You cease to exist as a person.",
+      "difficulty": "medium",
+      "steps": [
+        {
+          "action": "Escape pod, complete Act 1",
+          "noise": 50
+        },
+        {
+          "action": "Find bio-garden extract in hydroponics (Act 2)",
+          "noise": 8
+        },
+        {
+          "action": "Launch to planet (Act 2)",
+          "noise": 55
+        },
+        {
+          "action": "Find prophet's crystal in temple (Act 4)",
+          "noise": 10
+        },
+        {
+          "action": "Enter nexus (Act 5)",
+          "noise": 20
+        },
+        {
+          "action": "Find convergence energy sample in energy conduit",
+          "noise": 15
+        },
+        {
+          "action": "Find core interface module in control spire",
+          "noise": 15
+        },
+        {
+          "action": "Combine bio-garden extract + energy sample + core module = NEURAL BRIDGE",
+          "noise": 10
+        },
+        {
+          "action": "Reach the convergence core",
+          "noise": 20
+        },
+        {
+          "action": "Use prophet's crystal for guidance through the merge",
+          "noise": 5
+        },
+        {
+          "action": "Confront the Convergence intelligence \u2014 dialogue/choice tree",
+          "noise": 0
+        },
+        {
+          "action": "Choose to merge. Interface with the neural bridge.",
+          "noise": 0
+        },
+        {
+          "action": "You become something new. The harvesting stops. You look at the stars.",
+          "noise": 0,
+          "note": "Ambiguous ending"
+        }
+      ],
+      "total_noise_estimate": 208,
+      "estimated_time_seconds": 7200
+    }
+  ]
+}
