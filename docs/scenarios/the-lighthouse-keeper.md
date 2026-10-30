@@ -4,15 +4,19 @@
 
 You awaken in the service room of a decommissioned lighthouse, chained to the wall by your ankle. Far below, a retired Coast Guard officer named Harold Marsh patrols his domain, convinced you're a trespasser threatening his beloved lighthouse — the one thing that gave his life meaning for forty years.
 
+You're small — a goblin-sized creature barely a third of Harold's height. The lighthouse was built for full-grown humans, and everything towers over you: the workbench is chest-high, the porthole window is a climb, and the steel door's handle is above your head. Your size is both a curse and a gift — you can squeeze through gaps Harold never could, reach into machinery from angles no human hand would fit, and hide in spaces he'd never think to check.
+
 Harold isn't evil — he's a lonely, paranoid old man who's lived alone too long. He maintains the lighthouse as if it's still operational, performing nightly rounds with military precision. The foghorn still sounds. The lamp still turns. And now he has a "prisoner" to guard.
 
 Below you, accessible through a floor grate, is Pete — a fisherman Harold caught weeks ago. Pete is weak but helpful, sliding items through the grate and offering advice. Whether you save Pete or leave him behind is the scenario's central moral choice.
 
 **Difficulty**: Medium | **Estimated Time**: 10 minutes | **Patterns Used**: 15
 
+> **Note**: The antagonist mechanic is optional. This scenario works as a pure point-and-click adventure if the antagonist AI is disabled in the scenario configuration.
+
 ---
 
-## Image Descriptions
+## Image Descriptions & Generation Prompts
 
 ### Background Images (3 total)
 
@@ -181,7 +185,7 @@ Copy-paste these prompts into **Google Gemini (free tier)** to generate backgrou
 **Style consistency keywords** (include in every prompt for this scenario): `maritime horror, isolated lighthouse, cold moonlight, institutional decay, salt-stained stone, 1970s Coast Guard aesthetic`
 
 ### `backgrounds/service_room.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Circular lighthouse service room roughly 15 feet across. Curved stone walls with salt stains and condensation. A steel door with industrial lock on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A metal floor grate showing darkness below. Rusted hooks on walls, an old naval signal lamp, a closed gray metal fuse box. A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Dim cold lighting from a single bare bulb overhead and moonlight through the porthole. Maritime horror atmosphere, isolated lighthouse, institutional decay, 1970s Coast Guard aesthetic. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Circular lighthouse service room roughly 15 feet across. Curved stone walls with salt stains and condensation. A steel door with industrial lock on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A metal floor grate showing darkness below. Rusted hooks on walls, an old naval signal lamp, a closed gray metal fuse box. A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Dim cold lighting from a single bare bulb overhead and moonlight through the porthole. Maritime horror atmosphere, isolated lighthouse, institutional decay, 1970s Coast Guard aesthetic. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
 
 ### `backgrounds/workbench_closeup.png`
 > **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of a heavy wooden workbench built against a curved stone wall. On the surface: a closed padlocked metal toolbox, a rolled maritime chart, a worn Coast Guard signal manual booklet, a dead old tube-style radio transceiver, a tin can, a spool of wire, and a pot of black machine grease. Tool outlines on the wall behind where tools once hung but are now missing. A small porthole window lets in moonlight. The bench is oil-stained and well-used, organized with military precision. Maritime horror, cold moonlight, 1970s Coast Guard aesthetic. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`

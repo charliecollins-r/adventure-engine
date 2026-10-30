@@ -4,15 +4,17 @@
 
 You wake strapped to a gurney in a condemned psychiatric ward. The fluorescent lights buzz and flicker. The smell of bleach and rot fills the air. Somewhere down the corridor, a woman in a stained nurse's uniform hums softly — Nurse Ratchford, a former psychiatric nurse who never accepted the ward's closure.
 
-When the state shut down this wing of the asylum, Ratchford simply... stayed. She maintained one wing herself, convinced the patients still needed her. Now she has a new patient: you. She's methodical, institutional, terrifying in her commitment to "proper care." Morning rounds are at six. The orderlies — two men she hired from a halfway house — arrive at dawn. You must escape before then.
+When the state shut down this wing of the asylum, Ratchford simply... stayed. She maintained one wing herself, convinced the patients still needed her. Now she has a new patient: you — a small, goblin-like creature barely a third the height of the humans who built this place. The gurneys tower above you like steel cliffs. Door handles require a running jump to reach. Every corridor stretches into a canyon of cracked tile and buzzing fluorescent tubes, and every shadow feels deeper when the world is built three times your scale. She's methodical, institutional, terrifying in her commitment to "proper care." Morning rounds are at six. The orderlies — two men she hired from a halfway house — arrive at dawn. You must escape before then.
 
 The ward corridor connects to a nurse's station (behind barred glass), a utility room (pipes and cleaning supplies), a treatment room (with a functioning ECT machine), and a vent system that runs through the walls. Another patient, Marcus Davis, is locked in the treatment room — he's been here for weeks. Whether you free him or leave him changes your escape options.
 
 **Difficulty**: Hard | **Estimated Time**: 15 minutes | **Patterns Used**: 30 (all)
 
+> **Note**: The antagonist mechanic is optional. This scenario works as a pure point-and-click adventure if the antagonist AI is disabled in the scenario configuration.
+
 ---
 
-## Image Descriptions
+## Image Descriptions & Generation Prompts
 
 ### Background Images (5 total)
 
