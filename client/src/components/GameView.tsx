@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties } from 'react';
+import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
 
 interface GameViewProps {
@@ -153,6 +153,12 @@ const ANIMATION_KEYFRAMES = `
   0%, 100% { opacity: 0.1; }
   50% { opacity: 0.25; }
 }
+@keyframes room-transition {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { opacity: 0; }
+}
 `;
 
 let stylesInjected = false;
@@ -226,8 +232,21 @@ export function GameView({
   onCycleVerb,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
+  const prevViewRef = useRef<string | null>(null);
 
   useEffect(() => { injectAnimationStyles(); }, []);
+
+  const currentViewId = engine.getCurrentView().id;
+  useEffect(() => {
+    if (prevViewRef.current !== null && prevViewRef.current !== currentViewId) {
+      setTransitioning(true);
+      const timer = setTimeout(() => setTransitioning(false), 500);
+      prevViewRef.current = currentViewId;
+      return () => clearTimeout(timer);
+    }
+    prevViewRef.current = currentViewId;
+  }, [currentViewId]);
 
   const view = engine.getCurrentView();
   const objects = engine.getVisibleObjects();
@@ -397,6 +416,23 @@ export function GameView({
         >
           {view.back_label ?? '< Back'}
         </button>
+      )}
+
+      {/* Room transition overlay */}
+      {transitioning && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#000',
+            animation: 'room-transition 500ms ease-in-out forwards',
+            pointerEvents: 'none',
+            zIndex: 20,
+          }}
+        />
       )}
     </div>
   );
