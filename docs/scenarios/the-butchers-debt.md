@@ -276,6 +276,27 @@ Use Sal's own secrets against the mob. The morally gray path — make a deal wit
 
 ---
 
+## Image Generation Prompts
+
+Ready-to-paste prompts for **Google Gemini (free tier, Imagen 3)**. Generate at 1920x1080 or the closest available resolution.
+
+### Style Consistency Keywords
+Use in every prompt for visual cohesion: `"1970s Chicago, gritty crime noir, warm tungsten lighting, wood paneling, linoleum floors, period-authentic vintage Americana, dark atmospheric"`
+
+### `backgrounds/walk_in_freezer.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Interior of a commercial walk-in freezer, roughly 10x12 feet. Stainless steel walls coated in frost. A heavy insulated steel door with visible interior hinges. Hanging from ceiling rails: several beef carcasses on steel hooks with space between them. A metal shelving unit against one wall with frozen goods. A floor drain with a grate. A ventilation grate near the ceiling. A fuse panel on the wall by the door. A mop bucket frozen to the floor. Stacked cardboard boxes in a corner. An apron hook with a bloodstained butcher's apron. A wall-mounted thermometer. Everything is frosted. Fluorescent light buzzing overhead. Oppressive cold atmosphere, industrial meat processing. 1970s era. No text, no UI, no characters.`
+
+### `backgrounds/butcher_counter.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Behind the counter of a 1970s Chicago butcher shop at night. A massive wooden cutting board, scarred and stained dark. A magnetic knife rack on the wall with professional butcher knives. An industrial meat grinder bolted to the counter. An old-fashioned cash register with push buttons. A wall-mounted rotary telephone with coiled cord. A glass display case with cuts of meat. Sawdust covers the floor. A folded newspaper on the counter. The shop has linoleum, wood paneling, tin ceiling. Period-authentic 1970s decor. Through a window the front of the shop is dark. Warm tungsten lighting, gritty crime noir atmosphere. No text, no UI, no characters.`
+
+### `backgrounds/back_office.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A cramped 1970s back office behind a butcher shop. A battered metal desk with a locked center drawer. An olive green 4-drawer filing cabinet, government-surplus style. A black rotary desk phone. A leather briefcase under the desk with combination dials. A painting on the wall that could hide a safe. A coat rack with an overcoat and fedora. An overflowing waste basket with receipts. An open ledger book on the desk. A framed family photo on the desk. A small barred window, painted shut. Cigar ash in an ashtray. A half-empty bottle of Chianti. Messy, lived-in, 1970s crime noir. Warm dim lighting. No text, no UI, no characters.`
+
+### `backgrounds/loading_dock.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A 1970s butcher shop loading dock and receiving area at night. A large roll-up door with a heavy padlock and chain. A chain hoist mounted on a ceiling beam. A stack of wooden pallets. A delivery clipboard hanging from a nail. A circuit breaker box on the wall. A red CO2 fire extinguisher on the wall. A side door to a dark alley. A commercial dumpster against one wall. Concrete floor with drain channels. A bare bulb overhead. Cold air seeps in around the roll-up door edges. A NO PARKING DELIVERIES ONLY sign, a hand truck leaning against the wall. Industrial, gritty, 1970s period. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-butchers-debt.json`](../../examples/the-butchers-debt.json)

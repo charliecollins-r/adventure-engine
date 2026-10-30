@@ -260,6 +260,26 @@ Break out through window or wall. Loud, fast, desperate.
 
 ---
 
+## Image Generation Prompts
+
+Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one.
+
+**Style consistency keywords** (include in every prompt for this scenario): `Cold War espionage, 1963 East Berlin, Stasi interrogation, stark concrete and steel, oppressive institutional, bare bulb lighting, grey and austere`
+
+### `backgrounds/interrogation_room.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Stark concrete interrogation room in a 1963 East Berlin Stasi safe house. Bare bulb hanging from the ceiling swinging slightly. A heavy metal table bolted to the floor in the center with two chairs, one plain and one cushioned. On the table: an overflowing ashtray and a black rotary Bakelite telephone. Against one wall: a cast iron radiator with handcuffs attached. A locked steel door with a small window. A barred window on the opposite wall with iron bars, dirty glass, and a glimpse of a grey Berlin street. A large German propaganda poster on one wall. A steel 3-drawer filing cabinet with a padlock. A coat rack near the door with a heavy grey overcoat. A floor vent with screws. A large institutional wall mirror. A leather briefcase on the floor. Papers and files scattered. Oppressive Cold War atmosphere, concrete and steel, bare fluorescent fallback lighting. Cold War espionage, Stasi aesthetic, grey and austere. No text, no UI, no characters.`
+
+### `backgrounds/filing_cabinet_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a steel filing cabinet area in a 1963 Stasi interrogation room. Three drawers labeled in German: AKTIV (top), ARCHIV (middle), OPERATIV (bottom). A padlock on the cabinet. On top: a paper tray with blank forms, a heavy desk lamp with a thick convex lens, and an East German Olympia typewriter. Behind and beside the cabinet, partially hidden: a radio alcove visible in the shadows. The drawers contain manila folders with case numbers. The desk lamp casts a warm circle on the papers. Cold War-era office equipment, functional, heavy, no-nonsense. Stasi bureaucratic aesthetic, warm lamp light contrasting cold room. No text, no UI, no characters.`
+
+### `backgrounds/radio_equipment_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A concealed radio alcove behind filing cabinets in a Stasi safe house. A military Soviet-made radio transceiver, chunky with a large frequency dial showing MHz markings. A brass Morse telegraph key on a wooden base. A shelf with a leather-bound codebook, logbooks, and loose papers with frequency tables. An antenna cable running up the wall. A radio logbook open to a page of frequency assignments. Vacuum tube era equipment with dials, switches, and an amber power indicator light. The alcove feels secret, tight, and operational. Cold War espionage, covert communications, amber glow. No text, no UI, no characters.`
+
+### `backgrounds/window_wall_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a barred window wall in a 1963 East Berlin Stasi interrogation room. Heavy iron bars set into concrete, old but solid. Dirty window glass behind them showing a grey Berlin street. Scratched graffiti from previous detainees on the window ledge including a date. Below the window: a section of wall with a hairline crack running through the plaster. A heating pipe from a radiator runs along the wall, bolted at intervals with one section looking looser than the rest. Crumbling plaster suggesting structural weakness. Cold War despair, grey concrete, iron bars, small glimpses of freedom outside. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-defectors-gambit.json`](../../examples/the-defectors-gambit.json)

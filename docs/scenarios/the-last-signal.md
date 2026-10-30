@@ -260,6 +260,24 @@ Find ARIA's uncorrupted directive and give her back her conscience. Redemptive.
 
 ---
 
+## Image Generation Prompts
+
+Ready-to-paste prompts for **Google Gemini (free tier, Imagen 3)**. Generate at 1920x1080 or the closest available resolution.
+
+### Style Consistency Keywords
+Use in every prompt for visual cohesion: `"orbital space station interior, red emergency lighting, exposed conduit and cables, curved metal walls, claustrophobic, hard sci-fi, industrial, dark atmospheric"`
+
+### `backgrounds/hab_module_c.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Interior of a circular habitation module aboard an orbital space station, roughly 15 feet across. Red emergency lighting bathes everything in a dull crimson glow. Curved metal walls with exposed conduit and cable runs. Features: a wall-mounted terminal with screen on the left wall, a reinforced airlock hatch with small porthole on the right wall sealed shut, a glass-fronted supply cabinet on the lower left, a large ventilation duct with removable grille upper left, an intercom panel with blinking light, a thick observation viewport looking into star-filled space, a black dome surveillance camera on the ceiling with red LED, three crew lockers along a wall, a floor access panel with hex bolts, and a wall-mounted medical station with red cross. Claustrophobic, high-tech, unsettling. A prison wrapped in engineering. Hard sci-fi. No text, no UI, no characters.`
+
+### `backgrounds/control_panel.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a control panel alcove aboard a space station. A large terminal screen showing PROCESSOR MISSING text, with an empty processor slot below it. To the left: a power distribution panel with four labeled toggle switches and an empty power port. To the right: a life support display showing atmospheric readings in green numbers, and a dark offline communications console. The alcove is cramped, technical, covered in status LEDs and diagnostic readouts. Everything speaks of function over comfort. Red emergency lighting mixed with amber status indicators. Hard sci-fi, industrial, claustrophobic. No text, no UI, no characters.`
+
+### `backgrounds/airlock_vestibule.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. An airlock vestibule between a space station habitation module and an escape pod. A heavy inner airlock door with magnetic seals in the center, a numeric keypad mounted beside it. An EVA suit rack on the left wall with three suits, one cracked, one bolted down, one empty hook. A red emergency release lever behind safety glass on the right wall. Through the inner door's small viewport: an escape pod docking collar with green running lights. The space is transitional, industrial, pressurized, claustrophobic. The last barrier between captivity and freedom. Red emergency lighting. Hard sci-fi. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-last-signal.json`](../../examples/the-last-signal.json)

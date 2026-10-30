@@ -249,6 +249,29 @@ Free Marcus Davis, use teamwork. Moral choice path.
 
 ---
 
+## Image Generation Prompts
+
+Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one.
+
+**Style consistency keywords** (include in every prompt for this scenario): `medical horror, condemned psychiatric ward, flickering fluorescent lights, institutional green, cracked tile, 1970s asylum aesthetic`
+
+### `backgrounds/ward_corridor.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Long institutional corridor in a condemned psychiatric ward. Cracked tile floor with a central drain. Fluorescent lights overhead, some broken and others flickering. On one side: a hospital gurney with leather restraints, a glass-windowed nurse's station with a counter, a wall-mounted medicine cabinet with a keypad lock, an intercom panel, and a wall clock showing 2:47 AM. On the other side: a heavy door marked TREATMENT (locked), another door marked UTILITY (locked), and at the far end a fire exit door. Scattered mop bucket on wheels, a wall-mounted fire extinguisher, a ceiling vent cover screwed shut. Institutional green peeling paint revealing older layers beneath. Water stains on the ceiling. Grimy, abandoned, clinical atmosphere. Medical horror, condemned asylum, flickering fluorescent lighting. No text, no UI, no characters.`
+
+### `backgrounds/nurse_station.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Interior of a psychiatric ward nurse's station behind barred windows. Semi-circular desk area with neatly organized patient files in wire racks, an open medication log binder, a PA microphone on a goose-neck stand, a locked key cabinet with three drawers on the wall, grainy CRT security monitors showing camera feeds, a closed desk drawer, an ornate brass key hanging on a hook, and an old rotary phone. Everything is obsessively organized despite the crumbling infrastructure around it. A coffee mug with dried rings sits by the phone. A framed 1970s staff photo on the wall. Medical horror, institutional decay, meticulous order contrasting with decay. No text, no UI, no characters.`
+
+### `backgrounds/utility_room.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Cramped utility maintenance room in a condemned psychiatric ward. Exposed pipes running along the ceiling and walls, some leaking. A shelf of industrial cleaning supply bottles. A large bolted drainage grate in the floor. A water valve on a prominent pipe. A tall narrow mop closet. A utility shelf with miscellaneous tools and supplies. A junction box breaker panel on the wall with labeled toggle switches for different systems. Single bare bulb. Puddles on the floor from dripping pipes. Cramped, industrial, grimy. Medical horror, institutional maintenance, dim lighting. No text, no UI, no characters.`
+
+### `backgrounds/treatment_room.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Psychiatric treatment room dominated by a large electroconvulsive therapy ECT machine with dials, control panel, and electrode paddles. A heavy restraint chair with arm and leg straps in the center. A one-way mirror observation window on one wall. An overhead surgical-style light turned off. A treatment supply cabinet. A slot in the heavy door for passing trays. Walls partially padded with patches of padding torn away. Cold harsh fluorescent lighting. Medical horror, deeply unsettling psychiatric treatment room, clinical and terrifying. No text, no UI, no characters.`
+
+### `backgrounds/vent_crawlspace.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Interior of a ventilation duct system in an old building, viewed from a crawling perspective. Metal ductwork, cramped, barely wide enough for a person. A junction where vents branch in multiple directions. Ventilation grates below showing dimly lit rooms. Scratches on the metal walls from previous crawlers. Dust, cobwebs, dead insects. An electrical switch mounted on the duct wall. Dim red-orange light filtering through grates. Claustrophobic, metallic, tense. Medical horror, escape route atmosphere. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-abandoned-ward.json`](../../examples/the-abandoned-ward.json)

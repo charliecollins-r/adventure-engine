@@ -232,6 +232,57 @@ Enter the combination code from the clay shard on the exit door's hidden lock. R
 
 ---
 
+## Image Generation Prompts
+
+Ready-to-paste prompts for **Google Gemini (free tier, Imagen 3)**. Generate at 1920x1080 or the closest available resolution.
+
+### Style Consistency Keywords
+Use in every prompt for visual cohesion: `"ancient Egyptian tomb interior, warm torchlight and golden hues, carved stone walls with hieroglyphs, sand and dust, archaeological adventure, dark atmospheric"`
+
+### General Tips
+- For 24 views, maintain consistent stone texture and lighting across all chambers
+- Closeup views: take the main room prompt and add `"Extreme closeup detail view of [specific element], filling the frame, highly detailed texture"`
+- If results look too modern, add `"ancient, weathered, millennia-old, dusty"`
+
+### `backgrounds/antechamber.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. The entry chamber of an ancient Egyptian tomb. Cracked stone walls covered in faded hieroglyphs. A sealed stone door to the north with a compass and square symbol carved above it. Unlit torch sconces on the walls. Scattered clay shards on the floor. A collapsed entrance behind the viewer. Faint light filtering from ceiling cracks illuminating dust motes. A stone pedestal with a scarab beetle motif. Ancient, weathered, millennia-old. Warm golden and amber tones from the faint light. Archaeological adventure atmosphere. No text, no UI, no characters.`
+
+### `backgrounds/hall_of_pillars.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A grand hall inside an Egyptian tomb with massive stone columns covered in carved inscriptions. Sand drifts across the floor between the pillars. Passages visible leading to other chambers. Unlit oil lamps on the walls. A stone door with cartouche-shaped slots carved into it. The columns are monumental, each telling part of a story through their carvings. Warm amber light filtering from above. Ancient, grand, mysterious. Archaeological adventure. No text, no UI, no characters.`
+
+### `backgrounds/scarab_chamber.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A circular room in an Egyptian tomb dominated by an elaborate mosaic floor depicting a giant scarab beetle in colorful tiles of blue, gold, and green. The mosaic tiles are slightly raised, looking interactive. A floor mechanism with visible bronze gears is partially exposed. Alcoves in the curved walls hold ancient offerings: small statues, dried flowers, ceramic jars. Stone walls with carved beetle motifs. Warm torchlight ambiance. Ancient Egyptian, mysterious, intricate. No text, no UI, no characters.`
+
+### `backgrounds/weighing_room.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. The Hall of Judgment recreation inside an Egyptian tomb. A large ornate balance scale dominates the center, with a white feather on one side. Wall paintings depict the ancient Egyptian weighing of hearts ceremony with Anubis and other deities. A stone bench with ritual items. Passages lead to other chambers. The scale is made of bronze and wood, ancient but functional. Gold and lapis lazuli accents. Warm torchlight. Solemn, sacred, archaeological. No text, no UI, no characters.`
+
+### `backgrounds/burial_chamber.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. An Egyptian architect's burial chamber. A stone sarcophagus in the center with a golden death mask on its lid. Treasure alcoves along the walls containing golden objects and lapis lazuli items. Hieroglyphic prayers cover every surface of the walls and ceiling. Gold and blue inlays catch warm torchlight. The chamber is intimate and sacred, richly decorated. Ancient Egyptian burial art style. Warm golden lighting. Archaeological adventure. No text, no UI, no characters.`
+
+### `backgrounds/workshop.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. An ancient Egyptian architect's secret workshop inside a tomb. Drafting tools on a stone workbench: a compass, chisel, and measuring instruments. Papyrus blueprints pinned to the walls showing tomb cross-sections and mechanical designs. Copper wire spools on shelves. A small forge for metalwork in the corner. The room reveals the architect's genius through his tools and plans. Functional, cluttered with purposeful work. Warm amber lighting. Ancient Egyptian craftsmanship. No text, no UI, no characters.`
+
+### `backgrounds/water_channel.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. An underground irrigation system inside an Egyptian tomb. Stone channels carved into the floor, some with traces of ancient water staining. A brass valve mechanism with a wheel handle. Sluice gates made of bronze. An irrigation mechanism with interlocking gears visible in the wall. The channels connect to passages leading to other chambers. Damp stone surfaces. Cool blue-green tones mixed with warm amber from distant torchlight. Ancient engineering, functional, mysterious. No text, no UI, no characters.`
+
+### `backgrounds/observatory.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A chamber inside an Egyptian tomb with a ceiling shaft open to the night sky showing stars. Star charts painted on the domed ceiling with constellations mapped in gold paint on dark blue. A crystal lens apparatus on a stone pedestal that can focus light. Ancient astronomical instruments on a table. The ceiling shaft provides dramatic natural starlight that creates a beam through the room. Ancient Egyptian astronomy meets architectural genius. Blue and gold tones. Mystical, scientific, beautiful. No text, no UI, no characters.`
+
+### `backgrounds/treasury.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A treasure vault inside an Egyptian tomb. A locked ornate treasure chest in the center. Piles of gold coins and golden objects. Ivory wands and ushabti figurines on shelves. Jeweled ceremonial objects. The wealth is staggering and glitters in warm torchlight. Gold, lapis lazuli, turquoise, and ivory everywhere. A sense of overwhelming richness. Some items are clearly more functional than decorative if you look closely. Warm golden lighting reflecting off treasure. Ancient Egyptian grandeur. No text, no UI, no characters.`
+
+### `backgrounds/exit_corridor.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. A long narrow corridor inside an Egyptian tomb leading to a massive final door. Five cartouche-shaped slots are carved into the door face, each empty and waiting for a seal. The corridor narrows as it approaches the exit, creating claustrophobia. Stone walls with hieroglyphic warnings. Dim torchlight from behind the viewer, the door barely illuminated. The door is massive, ancient, sealed for millennia. Ominous, climactic, ancient Egyptian. No text, no UI, no characters.`
+
+### Closeup Views
+For the 14 additional closeup views (hieroglyphs, pillar inscriptions, scarab mosaic, floor mechanism, scales, sarcophagus, treasure alcove, workbench, blueprint wall, irrigation mechanism, star chart, lens apparatus, treasure chest, final door), use this template:
+
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Extreme closeup detail view of [ELEMENT NAME] inside an ancient Egyptian tomb. [SPECIFIC DETAILS FROM THE MAIN VIEW DESCRIPTION]. Filling the frame, highly detailed texture and surface. Warm torchlight ambiance matching the wider chamber. Ancient, weathered, millennia-old stone and metal. No text, no UI, no characters.`
+
+Replace `[ELEMENT NAME]` and `[SPECIFIC DETAILS]` with the relevant content from the main view descriptions above.
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-pharaohs-architect.json`](../../examples/the-pharaohs-architect.json)

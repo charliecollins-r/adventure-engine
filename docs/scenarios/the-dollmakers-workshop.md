@@ -213,6 +213,29 @@ Triggered by bell trap, chemical reaction, or evidence. Voss becomes frantic, ch
 
 ---
 
+## Image Generation Prompts
+
+Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one.
+
+**Style consistency keywords** (include in every prompt for this scenario): `gothic horror, Victorian dollmaker basement, warm dim lighting, porcelain dolls, creepy workshop, oil-stained wood and stone`
+
+### `backgrounds/workshop_main.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Dimly lit basement workshop roughly 20x30 feet. Stone walls, low ceiling with exposed wooden beams. Shelves of eerily realistic porcelain dolls along one wall, dozens of them in all sizes with painted-on stares. A heavy wooden workbench in the center. A Victorian cast iron coal furnace in one corner with visible controls. A glass-fronted locked chemical cabinet with colored liquid bottles. A chained cellar door and a locked inner door behind it. A boarded-up window high on the wall. A wooden pulley-operated dumbwaiter shaft in the far wall. Scattered glass eyes in jars, armature wire, paint pots, fabric scraps. A sewing machine on a side table. A pipe with valve near the ceiling. A fuse box on the wall. A chair with torn binding ropes on the floor. Single swinging warm bulb overhead. Gothic horror, Victorian dollmaker basement, creepy atmosphere. No text, no UI, no characters.`
+
+### `backgrounds/workbench_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a heavy wooden workbench in a Victorian dollmaker's workshop. Surface covered with: a thick leather-bound journal with dog-eared pages, a small handheld mirror with cracked glass, coils of armature wire, a stained cloth rag, a half-full bucket of white primer paint, scattered porcelain fragments, tiny paintbrushes, and sculpting tools. Behind the bench: doll parts, glass eyes, yellowed family photographs. The bench is oil-stained and well-used. Warm dim lighting from a single overhead bulb. Gothic horror, Victorian craftsman aesthetic, creepy. No text, no UI, no characters.`
+
+### `backgrounds/furnace_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a Victorian cast iron coal furnace in a basement workshop. The furnace has a loading door, ash grate, and a sequence of control levers. Next to it: a coal bin full of black chunks. In the floor near the furnace base, a metal grate leading to darkness below. Pipes lead from the furnace up through the ceiling. The stone floor around the furnace is warm, stained with ash and something darker. Orange glow from furnace embers, otherwise dim. Gothic horror, industrial Victorian, ominous. No text, no UI, no characters.`
+
+### `backgrounds/doll_shelf_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of shelves of porcelain dolls in a Victorian workshop. Rows of eerily realistic dolls in different poses and outfits. Most are standard but creepy with painted-on stares. One doll in the center is slightly larger and more prominent with a small keyhole visible in its back. An ornate brass music box with colored buttons sits next to it. Old dusty wooden shelves. Some dolls have cracked faces, one has its eyes scratched out. Warm dim lighting from below casting unsettling shadows on the doll faces. Gothic horror, deeply unsettling, Victorian. No text, no UI, no characters.`
+
+### `backgrounds/dumbwaiter_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of an old wooden dumbwaiter shaft inside a Victorian basement. A rickety wooden platform on ropes and pulleys. The shaft goes up into darkness toward the kitchen above. Scratch marks on the wooden shaft walls from previous escape attempts. A rope pulley mechanism. The thin wooden walls of the shaft. Dim lighting from below, darkness above. Gothic horror, claustrophobic, Victorian domestic architecture. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-dollmakers-workshop.json`](../../examples/the-dollmakers-workshop.json)

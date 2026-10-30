@@ -174,6 +174,23 @@ Triggered if Harold finds evidence (open locker, missing items, broken porthole 
 
 ---
 
+## Image Generation Prompts
+
+Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one.
+
+**Style consistency keywords** (include in every prompt for this scenario): `maritime horror, isolated lighthouse, cold moonlight, institutional decay, salt-stained stone, 1970s Coast Guard aesthetic`
+
+### `backgrounds/service_room.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Circular lighthouse service room roughly 15 feet across. Curved stone walls with salt stains and condensation. A steel door with industrial lock on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A metal floor grate showing darkness below. Rusted hooks on walls, an old naval signal lamp, a closed gray metal fuse box. A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Dim cold lighting from a single bare bulb overhead and moonlight through the porthole. Maritime horror atmosphere, isolated lighthouse, institutional decay, 1970s Coast Guard aesthetic. No text, no UI, no characters.`
+
+### `backgrounds/workbench_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of a heavy wooden workbench built against a curved stone wall. On the surface: a closed padlocked metal toolbox, a rolled maritime chart, a worn Coast Guard signal manual booklet, a dead old tube-style radio transceiver, a tin can, a spool of wire, and a pot of black machine grease. Tool outlines on the wall behind where tools once hung but are now missing. A small porthole window lets in moonlight. The bench is oil-stained and well-used, organized with military precision. Maritime horror, cold moonlight, 1970s Coast Guard aesthetic. No text, no UI, no characters.`
+
+### `backgrounds/radio_closeup.png`
+> **Gemini Prompt**: `Game background art, 16:9 aspect ratio, 1920x1080. Close-up of an old marine radio transceiver from the 1970s. Bakelite body, dented metal chassis. A tuning dial with VHF marine band frequency markings. A speaker grille with torn fabric. A bent telescoping antenna. Patch cables and vacuum tubes visible through an open access panel. The radio is dead and dark. Period-appropriate 1970s Coast Guard communications equipment. Warm moonlight from one side, cold shadows. Maritime, vintage, isolated. No text, no UI, no characters.`
+
+---
+
 ## JSON Scenario
 
 See: [`examples/the-lighthouse-keeper.json`](../../examples/the-lighthouse-keeper.json)
