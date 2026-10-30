@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect, type CSSProperties } from 're
 import type { Scenario } from '../engine/types';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { GameView } from './GameView';
-// VerbBar removed — right-click cycles verbs KQ5-style
+import { IntroSequence } from './IntroSequence';
 import { InventoryPanel } from './InventoryPanel';
 import { MessagePanel } from './MessagePanel';
 import { NoiseIndicator } from './NoiseIndicator';
@@ -103,6 +103,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [, setVersion] = useState(0);
   const bump = useCallback(() => setVersion((v) => v + 1), []);
 
+  const [showIntro, setShowIntro] = useState(() => !!scenario.setting.intro_text?.length);
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
@@ -268,6 +269,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const noiseLevel = engine.getNoiseLevel();
   const gameOverResult = engine.getGameOverResult();
   const ambientText = scenario.setting.ambient_text;
+
+  if (showIntro && scenario.setting.intro_text?.length) {
+    return (
+      <IntroSequence
+        pages={scenario.setting.intro_text}
+        title={scenario.metadata.title}
+        onComplete={() => setShowIntro(false)}
+      />
+    );
+  }
 
   return (
     <div style={styles.container}>

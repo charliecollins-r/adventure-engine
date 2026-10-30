@@ -21,6 +21,7 @@ export interface Setting {
   ambient_text: string;
   room_style: RoomStyle;
   ambient_audio?: string | string[];
+  intro_text?: string[];
 }
 
 export interface View {

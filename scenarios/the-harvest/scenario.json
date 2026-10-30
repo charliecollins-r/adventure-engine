@@ -62,6 +62,14 @@
     "ambient_audio": [
       "audio/ambient_ship.mp3",
       "audio/ambient_lab.mp3"
+    ],
+    "intro_text": [
+      "You remember fragments.\nA world with two suns. Fields of amber grain.\nFaces you can no longer name.",
+      "Then the sky split open.\nSomething vast descended \u2014 a living ship,\nall tendrils and bioluminescent veins.\nIt took everything.",
+      "You were catalogued.\nWeighed. Measured. Filed away in a pod\nof warm amber fluid alongside\nhundreds of other specimens.",
+      "You don't know how long you slept.\nDays. Months. Years.\nThe ship hums around you \u2014\na heartbeat that is not your own.",
+      "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\nAlarms pulse in colors you have no name for.\nThe ship's crew is nowhere to be seen.",
+      "You are cold. You are weak.\nYou are alone on a vessel\nbuilt to harvest worlds.\n\nFind a way out."
     ]
   },
   "views": [
