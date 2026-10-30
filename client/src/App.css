@@ -1,3 +1,14 @@
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-panel: #12121a;
+  --text-gold: #c0a030;
+  --text-cream: #e0d0a0;
+  --text-dim: #6a5a4a;
+  --border-dark: #2a2020;
+  --border-gold: #c0a030;
+  --accent-brown: #3a2020;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +18,31 @@
 html, body, #root {
   width: 100%;
   height: 100%;
-  background-color: #0d0d0d;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-cream);
+  font-family: 'Georgia', 'Times New Roman', serif;
 }
 
 body {
-  font-family: "Georgia", "Times New Roman", serif;
-  color: #a09040;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgba(192, 160, 48, 0.3);
+  color: var(--text-gold);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-dark);
+  border-radius: 3px;
 }
