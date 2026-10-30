@@ -102,7 +102,8 @@ export function GameView({
   const view = engine.getCurrentView();
   const objects = engine.getVisibleObjects();
   const viewStack = engine.getViewStack();
-  const bgColor = engine.scenario.setting.room_style?.background_color ?? '#0a1520';
+  const bgColor = engine.getBackgroundColor();
+  const bgFile = engine.getBackgroundFile();
   const cursor = VERB_CURSORS[activeVerb] ?? 'default';
 
   const cursorLabel = selectedItem
@@ -117,6 +118,23 @@ export function GameView({
         cursor,
       }}
     >
+      {/* Background image */}
+      {bgFile && (
+        <img
+          src={`/scenarios/${bgFile}`}
+          alt=""
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        />
+      )}
+
       {/* Cursor action label */}
       <div
         style={{
@@ -150,6 +168,7 @@ export function GameView({
                 cursor,
               ),
               position: 'absolute',
+              zIndex: 1,
             }}
             onClick={() => onObjectClick(obj.id)}
             onMouseEnter={() => setHoveredObject(obj.id)}

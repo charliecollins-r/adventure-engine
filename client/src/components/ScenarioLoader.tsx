@@ -16,6 +16,7 @@ interface ScenarioMeta {
 }
 
 const SCENARIOS = [
+  'the-harvest',
   'the-lighthouse-keeper',
   'the-butchers-debt',
   'the-seance-room',

@@ -62,6 +62,18 @@ export class ScenarioEngine {
     return this._currentViewId;
   }
 
+  getScenario(): Scenario {
+    return this.scenario;
+  }
+
+  getBackgroundFile(): string | undefined {
+    return this.getCurrentView().background_file;
+  }
+
+  getBackgroundColor(): string {
+    return this.scenario.setting.room_style?.background_color ?? '#0a1520';
+  }
+
   getCurrentView(): View {
     const view = this.scenario.views.find(v => v.id === this._currentViewId);
     if (!view) {
