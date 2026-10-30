@@ -105,6 +105,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const bump = useCallback(() => setVersion((v) => v + 1), []);
 
   const [showIntro, setShowIntro] = useState(() => !!scenario.setting.intro_text?.length);
+  const [fadeIn, setFadeIn] = useState(true);
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
@@ -112,6 +113,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
+
+  useEffect(() => {
+    if (!showIntro && fadeIn) {
+      const timer = setTimeout(() => setFadeIn(false), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [showIntro, fadeIn]);
 
   useEffect(() => {
     const raw = scenario.setting.ambient_audio;
@@ -289,6 +297,22 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   return (
     <div style={styles.container}>
+      {/* Fade-in from black */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: '#000',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 2s ease-in',
+          pointerEvents: 'none',
+          zIndex: 900,
+        }}
+      />
+
       {/* Title bar */}
       <div style={styles.titleBar}>
         <div style={styles.titleLeft}>
