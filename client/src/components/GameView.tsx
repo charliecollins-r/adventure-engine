@@ -9,6 +9,7 @@ interface GameViewProps {
   onObjectClick: (objectId: string) => void;
   onBackClick: () => void;
   onEmptyClick?: () => void;
+  onCycleVerb?: () => void;
 }
 
 const VIEW_WIDTH = 960;
@@ -222,6 +223,7 @@ export function GameView({
   onObjectClick,
   onBackClick,
   onEmptyClick,
+  onCycleVerb,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
 
@@ -250,6 +252,11 @@ export function GameView({
     }
   };
 
+  const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (onCycleVerb) onCycleVerb();
+  };
+
   return (
     <div
       style={{
@@ -258,6 +265,7 @@ export function GameView({
         cursor,
       }}
       onClick={handleViewportClick}
+      onContextMenu={handleContextMenu}
     >
       {/* Background image */}
       {bgFile && (
@@ -272,6 +280,7 @@ export function GameView({
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            pointerEvents: 'none',
             zIndex: 0,
           }}
         />

@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect, type CSSProperties } from 're
 import type { Scenario } from '../engine/types';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { GameView } from './GameView';
-import { VerbBar } from './VerbBar';
+// VerbBar removed — right-click cycles verbs KQ5-style
 import { InventoryPanel } from './InventoryPanel';
 import { MessagePanel } from './MessagePanel';
 import { NoiseIndicator } from './NoiseIndicator';
@@ -205,6 +205,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     }
   }, [engine, activeVerb, selectedItem, bump]);
 
+  const VERB_ORDER = ['look', 'move', 'hand', 'talk'];
+
   const handleVerbSelect = useCallback(
     (verb: string) => {
       setActiveVerb(verb);
@@ -212,6 +214,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     },
     [],
   );
+
+  const handleCycleVerb = useCallback(() => {
+    setActiveVerb((prev) => {
+      const idx = VERB_ORDER.indexOf(prev);
+      return VERB_ORDER[(idx + 1) % VERB_ORDER.length];
+    });
+    setSelectedItem(null);
+  }, []);
 
   const handleItemSelect = useCallback(
     (itemId: string) => {
@@ -318,6 +328,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onObjectClick={handleObjectClick}
           onBackClick={handleBackClick}
           onEmptyClick={handleEmptyClick}
+          onCycleVerb={handleCycleVerb}
         />
         <MessagePanel messages={messages} ambientText={ambientText} onDismiss={handleDismiss} />
         <InventoryPanel
@@ -327,7 +338,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onItemSelect={handleItemSelect}
           onItemExamine={handleItemExamine}
         />
-        <VerbBar activeVerb={activeVerb} onVerbSelect={handleVerbSelect} />
+        {/* Right-click cycles verbs KQ5-style — no verb bar needed */}
       </div>
 
       {/* Game over overlay */}

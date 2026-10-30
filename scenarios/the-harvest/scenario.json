@@ -2449,8 +2449,8 @@
         "y": 500
       },
       "size": {
-        "width": 120,
-        "height": 100
+        "width": 35,
+        "height": 35
       },
       "visual": {
         "color": "#2a4a3a",
@@ -2563,8 +2563,8 @@
         "y": 640
       },
       "size": {
-        "width": 100,
-        "height": 50
+        "width": 40,
+        "height": 25
       },
       "visual": {
         "color": "#1a2a1a",
@@ -2625,8 +2625,8 @@
         "y": 260
       },
       "size": {
-        "width": 250,
-        "height": 150
+        "width": 40,
+        "height": 35
       },
       "visual": {
         "color": "#1a3a2a",
@@ -2665,8 +2665,8 @@
         "y": 570
       },
       "size": {
-        "width": 50,
-        "height": 35
+        "width": 25,
+        "height": 20
       },
       "visual": {
         "color": "#8a6a2a",
@@ -2721,8 +2721,8 @@
         "y": 120
       },
       "size": {
-        "width": 300,
-        "height": 50
+        "width": 40,
+        "height": 25
       },
       "visual": {
         "color": "#3a5a4a",
@@ -2794,8 +2794,8 @@
         "y": 620
       },
       "size": {
-        "width": 130,
-        "height": 60
+        "width": 35,
+        "height": 25
       },
       "visual": {
         "color": "#2a3a2a",
@@ -2840,8 +2840,8 @@
         "y": 280
       },
       "size": {
-        "width": 80,
-        "height": 80
+        "width": 25,
+        "height": 25
       },
       "visual": {
         "color": "#4a3a1a",
@@ -2872,8 +2872,8 @@
         "y": 470
       },
       "size": {
-        "width": 200,
-        "height": 100
+        "width": 45,
+        "height": 30
       },
       "visual": {
         "color": "#2a2a3a",
@@ -2914,8 +2914,8 @@
         "y": 630
       },
       "size": {
-        "width": 120,
-        "height": 50
+        "width": 35,
+        "height": 25
       },
       "visual": {
         "color": "#3a3a4a",
@@ -2970,8 +2970,8 @@
         "y": 310
       },
       "size": {
-        "width": 80,
-        "height": 140
+        "width": 30,
+        "height": 35
       },
       "visual": {
         "color": "#3a4a3a",
@@ -3002,8 +3002,8 @@
         "y": 170
       },
       "size": {
-        "width": 120,
-        "height": 90
+        "width": 35,
+        "height": 30
       },
       "visual": {
         "color": "#1a3a4a",
@@ -3050,8 +3050,8 @@
         "y": 300
       },
       "size": {
-        "width": 120,
-        "height": 180
+        "width": 35,
+        "height": 40
       },
       "visual": {
         "color": "#2a2a2a",
@@ -3096,8 +3096,8 @@
         "y": 400
       },
       "size": {
-        "width": 120,
-        "height": 80
+        "width": 40,
+        "height": 30
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3128,8 +3128,8 @@
         "y": 170
       },
       "size": {
-        "width": 100,
-        "height": 140
+        "width": 30,
+        "height": 35
       },
       "visual": {
         "color": "#2a3a1a",
@@ -3160,8 +3160,8 @@
         "y": 500
       },
       "size": {
-        "width": 50,
-        "height": 50
+        "width": 25,
+        "height": 25
       },
       "visual": {
         "color": "#4a5a4a",
@@ -3217,8 +3217,8 @@
         "y": 350
       },
       "size": {
-        "width": 100,
-        "height": 130
+        "width": 35,
+        "height": 35
       },
       "visual": {
         "color": "#4a4a3a",
@@ -3273,8 +3273,8 @@
         "y": 540
       },
       "size": {
-        "width": 130,
-        "height": 70
+        "width": 40,
+        "height": 25
       },
       "visual": {
         "color": "#3a3a2a",
@@ -3305,8 +3305,8 @@
         "y": 310
       },
       "size": {
-        "width": 120,
-        "height": 130
+        "width": 35,
+        "height": 35
       },
       "visual": {
         "color": "#2a3a4a",
@@ -3347,8 +3347,8 @@
         "y": 350
       },
       "size": {
-        "width": 80,
-        "height": 80
+        "width": 30,
+        "height": 30
       },
       "visual": {
         "color": "#4a3a2a",
@@ -3403,8 +3403,8 @@
         "y": 350
       },
       "size": {
-        "width": 100,
-        "height": 100
+        "width": 35,
+        "height": 30
       },
       "visual": {
         "color": "#3a1a1a",
@@ -3456,8 +3456,8 @@
         "y": 480
       },
       "size": {
-        "width": 180,
-        "height": 80
+        "width": 45,
+        "height": 30
       },
       "visual": {
         "color": "#2a2a4a",
@@ -3573,8 +3573,8 @@
         "y": 200
       },
       "size": {
-        "width": 70,
-        "height": 55
+        "width": 30,
+        "height": 25
       },
       "visual": {
         "color": "#2a2a3a",
@@ -3605,8 +3605,8 @@
         "y": 560
       },
       "size": {
-        "width": 80,
-        "height": 40
+        "width": 30,
+        "height": 20
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3662,8 +3662,8 @@
         "y": 300
       },
       "size": {
-        "width": 100,
-        "height": 200
+        "width": 30,
+        "height": 40
       },
       "visual": {
         "color": "#3a4a5a",
@@ -3704,8 +3704,8 @@
         "y": 480
       },
       "size": {
-        "width": 50,
-        "height": 40
+        "width": 25,
+        "height": 20
       },
       "visual": {
         "color": "#5a6a7a",
@@ -3765,8 +3765,8 @@
         "y": 510
       },
       "size": {
-        "width": 100,
-        "height": 80
+        "width": 30,
+        "height": 25
       },
       "visual": {
         "color": "#4a5a6a",
@@ -3813,8 +3813,8 @@
         "y": 200
       },
       "size": {
-        "width": 180,
-        "height": 140
+        "width": 40,
+        "height": 35
       },
       "visual": {
         "color": "#2a1a3a",
@@ -3851,8 +3851,8 @@
         "y": 300
       },
       "size": {
-        "width": 150,
-        "height": 170
+        "width": 40,
+        "height": 40
       },
       "visual": {
         "color": "#1a2a4a",
@@ -3888,8 +3888,8 @@
         "y": 590
       },
       "size": {
-        "width": 120,
-        "height": 40
+        "width": 35,
+        "height": 20
       },
       "visual": {
         "color": "#3a3a3a",
@@ -3925,8 +3925,8 @@
         "y": 330
       },
       "size": {
-        "width": 80,
-        "height": 170
+        "width": 30,
+        "height": 40
       },
       "visual": {
         "color": "#3a4a3a",
@@ -4007,8 +4007,8 @@
         "y": 460
       },
       "size": {
-        "width": 55,
-        "height": 70
+        "width": 25,
+        "height": 30
       },
       "visual": {
         "color": "#4a2a2a",
@@ -4077,8 +4077,8 @@
         "y": 320
       },
       "size": {
-        "width": 150,
-        "height": 200
+        "width": 40,
+        "height": 45
       },
       "visual": {
         "color": "#2a2a2a",
@@ -12345,8 +12345,8 @@
         "y": 80
       },
       "size": {
-        "width": 130,
-        "height": 50
+        "width": 40,
+        "height": 25
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -12373,8 +12373,8 @@
         "y": 580
       },
       "size": {
-        "width": 180,
-        "height": 50
+        "width": 45,
+        "height": 25
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -12438,12 +12438,12 @@
       "name": "Rear Passage",
       "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 400,
+        "x": 370,
         "y": 0
       },
       "size": {
-        "width": 260,
-        "height": 213
+        "width": 200,
+        "height": 200
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12558,12 +12558,12 @@
       "name": "Left Door",
       "description": "A passage leading to Processing Lab.",
       "position": {
-        "x": 110,
-        "y": 100
+        "x": 130,
+        "y": 80
       },
       "size": {
-        "width": 420,
-        "height": 573
+        "width": 180,
+        "height": 480
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12598,12 +12598,12 @@
       "name": "Far End",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 570,
-        "y": 160
+        "x": 380,
+        "y": 120
       },
       "size": {
-        "width": 300,
-        "height": 393
+        "width": 200,
+        "height": 320
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -12638,12 +12638,12 @@
       "name": "Right Door",
       "description": "A passage leading to Security Hub.",
       "position": {
-        "x": 830,
-        "y": 100
+        "x": 720,
+        "y": 80
       },
       "size": {
-        "width": 160,
-        "height": 547
+        "width": 180,
+        "height": 480
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",

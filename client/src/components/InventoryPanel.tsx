@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import type { Item } from '../engine/types';
+import { ItemIcon } from './ItemIcon';
 
 interface InventoryPanelProps {
   items: Item[];
@@ -66,11 +67,7 @@ export function InventoryPanel({
     <div style={styles.panel}>
       <span style={styles.label}>Items</span>
       {items.length === 0 && <span style={styles.empty}>Empty</span>}
-      {items.map((item) => {
-        const iconSrc = item.icon && !item.icon.startsWith('#')
-          ? `/scenarios/${scenarioId}/${item.icon}`
-          : null;
-        return (
+      {items.map((item) => (
           <button
             key={item.id}
             style={itemStyle(selectedItem === item.id, hovered === item.id)}
@@ -84,24 +81,10 @@ export function InventoryPanel({
             onMouseLeave={() => setHovered(null)}
             title={`${item.name} — right-click to examine`}
           >
-            {iconSrc ? (
-              <img
-                src={iconSrc}
-                alt={item.name}
-                style={{ width: '28px', height: '28px', objectFit: 'contain', verticalAlign: 'middle' }}
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                  const span = document.createElement('span');
-                  span.textContent = item.name;
-                  (e.target as HTMLElement).parentElement?.appendChild(span);
-                }}
-              />
-            ) : (
-              item.name
-            )}
+            <ItemIcon icon={item.icon} size={22} style={{ marginRight: '4px' }} />
+            {item.name}
           </button>
-        );
-      })}
+        ))}
     </div>
   );
 }
