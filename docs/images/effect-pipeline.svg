@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
+  <rect width="900" height="620" fill="#0d0d0a"/>
+  <text x="450" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#c0a030" letter-spacing="3">EFFECT PIPELINE</text>
+  <text x="450" y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">then[] executes sequentially — later effects see earlier changes</text>
+
+  <!-- Pipeline arrow across top -->
+  <defs>
+    <marker id="ePipe" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#c0a030"/></marker>
+  </defs>
+  <line x1="60" y1="76" x2="840" y2="76" stroke="#c0a030" stroke-width="2" marker-end="url(#ePipe)"/>
+  <text x="60" y="72" font-family="monospace" font-size="9" fill="#8a7a5a">then[0]</text>
+  <text x="300" y="72" font-family="monospace" font-size="9" fill="#8a7a5a">then[1]</text>
+  <text x="540" y="72" font-family="monospace" font-size="9" fill="#8a7a5a">then[2]</text>
+  <text x="780" y="72" font-family="monospace" font-size="9" fill="#8a7a5a">then[n]</text>
+
+  <!-- Narrative -->
+  <rect x="20" y="95" width="260" height="130" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="150" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Narrative</text>
+  <line x1="40" y1="128" x2="260" y2="128" stroke="#2a2018" stroke-width="1"/>
+  <rect x="40" y="140" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="156" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">message</text><text x="140" y="156" font-family="monospace" font-size="9" fill="#5a4a30">show text</text>
+  <rect x="40" y="172" width="140" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="110" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">random_message</text><text x="190" y="188" font-family="monospace" font-size="9" fill="#5a4a30">pick 1</text>
+
+  <!-- State Changes -->
+  <rect x="310" y="95" width="260" height="165" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="440" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">State Changes</text>
+  <line x1="330" y1="128" x2="550" y2="128" stroke="#2a2018" stroke-width="1"/>
+  <rect x="330" y="140" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="375" y="156" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">set_flag</text><text x="430" y="156" font-family="monospace" font-size="9" fill="#5a4a30">flags[k]=v</text>
+  <rect x="330" y="172" width="100" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="380" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">set_state</text><text x="440" y="188" font-family="monospace" font-size="9" fill="#5a4a30">obj state</text>
+  <rect x="330" y="204" width="130" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="395" y="220" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">advance_phase</text><text x="470" y="220" font-family="monospace" font-size="9" fill="#5a4a30">next phase</text>
+
+  <!-- Inventory -->
+  <rect x="600" y="95" width="280" height="165" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="740" y="119" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Inventory</text>
+  <line x1="620" y1="128" x2="860" y2="128" stroke="#2a2018" stroke-width="1"/>
+  <rect x="620" y="140" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="665" y="156" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">add_item</text><text x="720" y="156" font-family="monospace" font-size="9" fill="#5a4a30">to inventory</text>
+  <rect x="620" y="172" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="680" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">remove_item</text><text x="750" y="188" font-family="monospace" font-size="9" fill="#5a4a30">from inventory</text>
+  <rect x="620" y="204" width="140" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="690" y="220" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">transform_item</text><text x="770" y="220" font-family="monospace" font-size="9" fill="#5a4a30">swap A→B</text>
+
+  <!-- World -->
+  <rect x="20" y="280" width="260" height="165" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="150" y="304" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">World</text>
+  <line x1="40" y1="313" x2="260" y2="313" stroke="#2a2018" stroke-width="1"/>
+  <rect x="40" y="325" width="90" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="85" y="341" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">set_view</text><text x="140" y="341" font-family="monospace" font-size="9" fill="#5a4a30">navigate</text>
+  <rect x="40" y="357" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="100" y="373" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">show_object</text><text x="170" y="373" font-family="monospace" font-size="9" fill="#5a4a30">reveal</text>
+  <rect x="40" y="389" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="100" y="405" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">hide_object</text><text x="170" y="405" font-family="monospace" font-size="9" fill="#5a4a30">conceal</text>
+
+  <!-- Noise -->
+  <rect x="310" y="280" width="260" height="130" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="440" y="304" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Noise &amp; Stealth</text>
+  <line x1="330" y1="313" x2="550" y2="313" stroke="#2a2018" stroke-width="1"/>
+  <rect x="330" y="325" width="100" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="380" y="341" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">add_noise</text><text x="440" y="341" font-family="monospace" font-size="9" fill="#5a4a30">+N noise</text>
+  <rect x="330" y="357" width="100" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="380" y="373" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">set_noise</text><text x="440" y="373" font-family="monospace" font-size="9" fill="#5a4a30">noise = N</text>
+  <rect x="330" y="389" width="120" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="390" y="405" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0d0a0">start/stop_hiding</text>
+
+  <!-- Control Flow -->
+  <rect x="600" y="280" width="280" height="130" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="740" y="304" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Control Flow</text>
+  <line x1="620" y1="313" x2="860" y2="313" stroke="#2a2018" stroke-width="1"/>
+  <rect x="620" y="325" width="100" height="24" rx="12" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="670" y="341" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0d0a0">game_over</text><text x="730" y="341" font-family="monospace" font-size="9" fill="#5a4a30">win or lose</text>
+  <rect x="620" y="357" width="150" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="695" y="373" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">conditional_effect</text>
+  <rect x="620" y="389" width="120" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="680" y="405" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">trigger_event</text>
+
+  <!-- Cosmetic no-ops -->
+  <rect x="20" y="465" width="260" height="130" rx="4" fill="#0d0d0a" stroke="#5a4a30" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="150" y="489" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#5a4a30">Cosmetic (no-op)</text>
+  <line x1="40" y1="498" x2="260" y2="498" stroke="#3a2a18" stroke-width="1"/>
+  <rect x="40" y="510" width="100" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="90" y="526" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">visual_cue</text><text x="150" y="526" font-family="monospace" font-size="9" fill="#3a2a18">flash/glow</text>
+  <rect x="40" y="542" width="100" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="90" y="558" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">play_sound</text><text x="150" y="558" font-family="monospace" font-size="9" fill="#3a2a18">audio SFX</text>
+  <rect x="40" y="574" width="100" height="24" rx="12" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="90" y="590" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">delay_then</text><text x="150" y="590" font-family="monospace" font-size="9" fill="#3a2a18">timed effect</text>
+
+  <!-- Pipeline Detail -->
+  <rect x="310" y="430" width="570" height="170" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1.5"/>
+  <text x="595" y="454" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">Pipeline Guarantees</text>
+  <line x1="330" y1="463" x2="860" y2="463" stroke="#2a2018" stroke-width="1"/>
+  <text x="340" y="484" font-family="monospace" font-size="10" fill="#8a7a5a">1. Effects run in array order (then[0], then[1], ...)</text>
+  <text x="340" y="504" font-family="monospace" font-size="10" fill="#8a7a5a">2. Each effect sees the state left by the previous one</text>
+  <text x="340" y="524" font-family="monospace" font-size="10" fill="#8a7a5a">3. Messages accumulate — all shown to the player</text>
+  <text x="340" y="544" font-family="monospace" font-size="10" fill="#8a7a5a">4. Noise from interaction added AFTER all effects</text>
+  <text x="340" y="564" font-family="monospace" font-size="10" fill="#8a7a5a">5. Win/lose checked AFTER all effects complete</text>
+  <text x="340" y="584" font-family="monospace" font-size="10" fill="#8a7a5a">6. game_over halts further effect processing</text>
+
+  <!-- Legend -->
+  <rect x="700" y="560" width="170" height="50" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1"/>
+  <rect x="714" y="570" width="30" height="12" rx="6" fill="#1a1510" stroke="#44cc44" stroke-width="1"/><text x="750" y="580" font-family="monospace" font-size="9" fill="#8a7a5a">Implemented</text>
+  <rect x="714" y="590" width="30" height="12" rx="6" fill="#0d0d0a" stroke="#3a2a18" stroke-width="1" stroke-dasharray="4,2"/><text x="750" y="600" font-family="monospace" font-size="9" fill="#5a4a30">Stub / no-op</text>
+</svg>

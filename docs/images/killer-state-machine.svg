@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580">
+  <defs>
+    <marker id="kGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#c0a030"/></marker>
+    <marker id="kRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#cc6644"/></marker>
+  </defs>
+  <rect width="900" height="580" fill="#0d0d0a"/>
+  <text x="450" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#c0a030" letter-spacing="3">KILLER AI STATE MACHINE</text>
+  <text x="450" y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">Optional AI antagonist — patrol, detect, pursue, catch</text>
+
+  <!-- DESIGNED NOT IMPLEMENTED watermark -->
+  <text x="450" y="310" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#1a1510" letter-spacing="4" opacity="0.4" transform="rotate(-20,450,310)">DESIGNED — NOT YET IMPLEMENTED</text>
+
+  <!-- States as circles/rounded rects -->
+  <!-- Idle -->
+  <rect x="60" y="90" width="120" height="50" rx="25" fill="#1a1510" stroke="#5a4a30" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="120" y="118" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">idle</text>
+  <text x="120" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">default / patrolling</text>
+
+  <!-- Curious -->
+  <rect x="280" y="90" width="120" height="50" rx="25" fill="#1a1510" stroke="#5a4a30" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="340" y="118" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">curious</text>
+  <text x="340" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">heard something</text>
+
+  <!-- Investigating -->
+  <rect x="510" y="90" width="140" height="50" rx="25" fill="#1a1510" stroke="#5a4a30" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="580" y="118" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">investigating</text>
+  <text x="580" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">checking noise source</text>
+
+  <!-- Searching -->
+  <rect x="720" y="90" width="120" height="50" rx="25" fill="#1a1510" stroke="#5a4a30" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="780" y="118" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">searching</text>
+  <text x="780" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">looking room by room</text>
+
+  <!-- Warning -->
+  <rect x="160" y="260" width="120" height="50" rx="25" fill="#1a1510" stroke="#cc6644" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="220" y="288" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#cc6644">warning</text>
+  <text x="220" y="325" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">found player — last chance</text>
+
+  <!-- Pursuing -->
+  <rect x="400" y="260" width="120" height="50" rx="25" fill="#1a1510" stroke="#cc6644" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="460" y="288" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#cc6644">pursuing</text>
+  <text x="460" y="325" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">active chase</text>
+
+  <!-- Returning -->
+  <rect x="620" y="260" width="120" height="50" rx="25" fill="#1a1510" stroke="#5a4a30" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="680" y="288" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#c0a030">returning</text>
+  <text x="680" y="325" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">back to patrol route</text>
+
+  <!-- Game Over -->
+  <rect x="340" y="400" width="160" height="55" rx="27" fill="#1a1510" stroke="#cc4444" stroke-width="3" stroke-dasharray="6,3"/>
+  <text x="420" y="432" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#cc4444">game_over</text>
+  <text x="420" y="468" text-anchor="middle" font-family="monospace" font-size="9" fill="#cc4444">caught — you lose</text>
+
+  <!-- Transitions: idle → curious -->
+  <line x1="180" y1="115" x2="275" y2="115" stroke="#c0a030" stroke-width="1.5" marker-end="url(#kGold)"/>
+  <text x="228" y="108" text-anchor="middle" font-family="monospace" font-size="8" fill="#8a7a5a">noise</text>
+
+  <!-- curious → investigating -->
+  <line x1="400" y1="115" x2="505" y2="115" stroke="#c0a030" stroke-width="1.5" marker-end="url(#kGold)"/>
+  <text x="452" y="108" text-anchor="middle" font-family="monospace" font-size="8" fill="#8a7a5a">more noise</text>
+
+  <!-- investigating → searching -->
+  <line x1="650" y1="115" x2="715" y2="115" stroke="#c0a030" stroke-width="1.5" marker-end="url(#kGold)"/>
+  <text x="682" y="108" text-anchor="middle" font-family="monospace" font-size="8" fill="#8a7a5a">evidence</text>
+
+  <!-- curious → idle (timer) -->
+  <path d="M 300 140 Q 200 180 180 140" fill="none" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#kGold)"/>
+  <text x="225" y="178" text-anchor="middle" font-family="monospace" font-size="8" fill="#5a4a30">timer expires</text>
+
+  <!-- investigating → idle -->
+  <path d="M 520 140 Q 350 210 180 135" fill="none" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#kGold)"/>
+  <text x="330" y="200" text-anchor="middle" font-family="monospace" font-size="8" fill="#5a4a30">nothing found</text>
+
+  <!-- searching → warning (found player) -->
+  <path d="M 740 140 Q 500 220 280 265" fill="none" stroke="#cc6644" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#kRed)"/>
+  <text x="520" y="210" text-anchor="middle" font-family="monospace" font-size="8" fill="#cc6644">found player</text>
+
+  <!-- investigating → warning -->
+  <path d="M 540 140 Q 400 210 270 265" fill="none" stroke="#cc6644" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#kRed)"/>
+  <text x="380" y="218" text-anchor="middle" font-family="monospace" font-size="8" fill="#cc6644">spotted</text>
+
+  <!-- warning → pursuing -->
+  <line x1="280" y1="285" x2="395" y2="285" stroke="#cc6644" stroke-width="1.5" marker-end="url(#kRed)"/>
+  <text x="338" y="278" text-anchor="middle" font-family="monospace" font-size="8" fill="#cc6644">didn't hide</text>
+
+  <!-- warning → returning (player hid) -->
+  <path d="M 240 310 Q 440 370 640 310" fill="none" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#kGold)"/>
+  <text x="440" y="362" text-anchor="middle" font-family="monospace" font-size="8" fill="#5a4a30">player hid in time</text>
+
+  <!-- pursuing → game_over -->
+  <line x1="460" y1="310" x2="430" y2="395" stroke="#cc4444" stroke-width="2" marker-end="url(#kRed)"/>
+  <text x="470" y="360" font-family="monospace" font-size="8" fill="#cc4444">caught</text>
+
+  <!-- pursuing → returning (escaped) -->
+  <line x1="520" y1="285" x2="615" y2="285" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#kGold)"/>
+  <text x="568" y="278" text-anchor="middle" font-family="monospace" font-size="8" fill="#5a4a30">lost trail</text>
+
+  <!-- returning → idle -->
+  <path d="M 680 260 Q 700 190 180 110 " fill="none" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#kGold)"/>
+  <text x="720" y="200" font-family="monospace" font-size="8" fill="#5a4a30">patrol</text>
+
+  <!-- Config box -->
+  <rect x="30" y="400" width="280" height="160" rx="4" fill="#151210" stroke="#5a4a30" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="170" y="424" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#5a4a30">Killer Config (per scenario)</text>
+  <line x1="50" y1="433" x2="290" y2="433" stroke="#3a2a18" stroke-width="1"/>
+  <text x="50" y="452" font-family="monospace" font-size="9" fill="#5a4a30">patrol_timer: seconds between moves</text>
+  <text x="50" y="468" font-family="monospace" font-size="9" fill="#5a4a30">noise_threshold: detection trigger</text>
+  <text x="50" y="484" font-family="monospace" font-size="9" fill="#5a4a30">search_thoroughness: 0.0-1.0</text>
+  <text x="50" y="500" font-family="monospace" font-size="9" fill="#5a4a30">evidence_awareness: 0.0-1.0</text>
+  <text x="50" y="516" font-family="monospace" font-size="9" fill="#5a4a30">personality_dialogue: per-state text</text>
+  <text x="50" y="532" font-family="monospace" font-size="9" fill="#5a4a30">phase_escalation: behavior per phase</text>
+  <text x="50" y="548" font-family="monospace" font-size="9" fill="#3a2a18" font-style="italic">8/13 scenarios define a killer</text>
+
+  <!-- Legend -->
+  <rect x="570" y="475" width="300" height="85" rx="4" fill="#151210" stroke="#2a2018" stroke-width="1"/>
+  <text x="720" y="497" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#8a7a5a">Legend</text>
+  <line x1="620" y1="504" x2="660" y2="504" stroke="#c0a030" stroke-width="1.5" marker-end="url(#kGold)"/><text x="670" y="508" font-family="monospace" font-size="9" fill="#8a7a5a">Standard transition</text>
+  <line x1="620" y1="524" x2="660" y2="524" stroke="#cc6644" stroke-width="1.5" marker-end="url(#kRed)"/><text x="670" y="528" font-family="monospace" font-size="9" fill="#cc6644">Danger transition</text>
+  <line x1="620" y1="544" x2="660" y2="544" stroke="#5a4a30" stroke-width="1" stroke-dasharray="4,3"/><text x="670" y="548" font-family="monospace" font-size="9" fill="#5a4a30">De-escalation / timer</text>
+</svg>
