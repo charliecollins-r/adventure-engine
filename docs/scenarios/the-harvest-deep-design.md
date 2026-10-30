@@ -482,6 +482,142 @@ The predecessor locker is a reward for thorough exploration across multiple view
 
 ---
 
+### Act 1 Level Map
+
+#### Spatial Layout
+
+The containment deck is a self-contained section of the Choir vessel. The Containment Corridor is the central hub, with specimen-related rooms branching south and operational rooms branching to the sides and north. The Airlock Bay sits at the deck's outer hull. Three exits lead to Act 2.
+
+```
+                              ┌─────────────────┐
+                              │   AIRLOCK BAY    │
+                              │    (View 10)     │   N
+                              │   4.webp         │   ↑
+                              └────────┬─────────┘
+                                       │
+          ┌────────────────────────────┼──────────────────────────┐
+          │                            │                          │
+┌─────────┴───────────┐    ┌───────────┴───────────┐    ┌────────┴────────────┐
+│   SPECIMEN ARCHIVE  │    │   CONTAINMENT         │    │   SECURITY HUB      │
+│      (View 9)       │────│     CORRIDOR           │────│     (View 8)        │
+│      13.webp        │    │      (View 4)          │    │     12.webp         │
+└─────────────────────┘    │      8.webp            │    └─────────────────────┘
+                           └──┬────────┬─────────┬──┘
+                              │        │         │
+          ┌───────────────────┘        │         └───────────────────┐
+          │                            │                             │
+┌─────────┴───────────┐    ┌───────────┴───────────┐    ┌───────────┴─────────┐
+│   FEEDING STATION   │    │     STASIS HOLD       │    │       MORGUE        │
+│      (View 6)       │    │      (View 1)         │    │      (View 5)       │
+│      9.webp         │    │      14.webp          │    │      10.webp        │
+└─────────────────────┘    └──┬────────────────┬───┘    └─────────────────────┘
+                              │                │
+                       ┌──────┴──────┐  ┌──────┴──────────┐
+                       │ POD CLUSTER │  │  PROCESSING LAB │
+                       │  (View 2)   │  │    (View 3)     │
+                       │  6.webp     │  │    11.webp      │
+                       └─────────────┘  └────────┬────────┘
+                                                 │ ceiling vent
+                                                 │
+                           ┌────────────┐  ┌─────┴────────┐
+                           │  (to Act 2 │  │ VENTILATION  │
+               ┌───────────│ engineering)│←─│    SHAFT     │
+               │           └────────────┘  │   (View 7)   │
+               │                           │   15.webp    │
+               │  floor    ┌────────────┐  └──────────────┘
+               │  grate    │  (to Act 2 │
+               └──────────→│ hydroponics)│
+             from View 4   └────────────┘
+```
+
+#### Image-to-View Mapping
+
+| View | ID | Image | Visual Description |
+|------|----|-------|--------------------|
+| 1. Stasis Hold | `act1_stasis_hold` | `14.webp` | Amber pods covering walls, broken pod with spilled fluid, glowing green neural pattern |
+| 2. Pod Cluster Detail | `act1_pod_cluster` | `6.webp` | 7 amber pods in flower arrangement, green glow center hub, alien script labels |
+| 3. Processing Lab | `act1_processing_lab` | `11.webp` | Surgery tables with restraints, specimen jars on shelves, green diagnostic screens |
+| 4. Containment Corridor | `act1_containment_corridor` | `8.webp` | Organic pipes, orange ceiling lights, teal/green floor tubes, corridor junctions |
+| 5. Morgue | `act1_morgue` | `10.webp` | Body drawers with specimens, cyan fluorescent lighting, autopsy table |
+| 6. Feeding Station | `act1_feeding_station` | `9.webp` | Examination area, purple energy barriers, hanging organic mass, holographic screens |
+| 7. Ventilation Shaft | `act1_ventilation_shaft` | `15.webp` | Circular red-lit tunnel, claw marks on walls, green light at far end |
+| 8. Security Hub | `act1_security_hub` | `12.webp` | Multiple monitors showing other rooms, broken screen, control console |
+| 9. Specimen Archive | `act1_specimen_archive` | `13.webp` | Walls of purple/blue crystals, holographic planetary system displays, central pedestal |
+| 10. Airlock Bay | `act1_airlock_bay` | `4.webp` | Observation viewport to space, empty docking clamps, space suit, orange door |
+
+Alternate image `7.webp` is a second angle of the Airlock Bay corridor approach.
+
+#### Connection Table
+
+Each row defines a navigable boundary. `Direction` is the screen edge or hotspot the player clicks.
+
+| From View | Direction | To View | Unlock Condition | Notes |
+|-----------|-----------|---------|------------------|-------|
+| Stasis Hold | North | Containment Corridor | None (open passage) | Main exit from the hold |
+| Stasis Hold | West | Pod Cluster Detail | None (same area) | Walk deeper into the hold |
+| Stasis Hold | East | Processing Lab | None (adjacent) | Through specimen processing archway |
+| Pod Cluster Detail | East | Stasis Hold | None | Return to main hold area |
+| Processing Lab | West | Stasis Hold | None | Back to the hold |
+| Processing Lab | Up (ceiling vent) | Ventilation Shaft | Glass shard or surgical probe (pry grate) | Alternate route, noise +5 |
+| Containment Corridor | South | Stasis Hold | None (open passage) | Back to where you woke up |
+| Containment Corridor | West (Blast Door 2) | Feeding Station | None (unlocked) | Specimens need feeding |
+| Containment Corridor | East (Blast Door 1) | Security Hub | Containment key card OR chemical reagent | Key card = quiet; reagent = permanent + loud |
+| Containment Corridor | Southeast (Blast Door 3) | Morgue | Severed neural tendril OR chemical reagent | Bio-locked; tendril consumed on use |
+| Containment Corridor | North (passage) | Specimen Archive | None | Leads toward outer hull |
+| Containment Corridor | Down (floor grate) | **ACT 2** (Hydroponics) | None (hidden, hand to remove, noise +5) | Maintenance crawl — medium exit |
+| Containment Corridor | Up (high vent grate) | Ventilation Shaft | Glass shard + climb | Arrow on wall hints at this |
+| Feeding Station | East | Containment Corridor | None | Return through Blast Door 2 |
+| Security Hub | West | Containment Corridor | None (from inside) | Return through Blast Door 1 |
+| Security Hub | — (elevator) | **ACT 2** (Bridge) | Containment key card + console hack | Elevator hack — loud exit |
+| Morgue | Northwest | Containment Corridor | None (from inside) | Return through Blast Door 3 |
+| Specimen Archive | South | Containment Corridor | None | Back to hub |
+| Specimen Archive | North | Airlock Bay | None | Continues toward hull |
+| Airlock Bay | South | Specimen Archive | None | Back toward interior |
+| Airlock Bay | — (airlock override) | Ship exterior (Act 2) | Manual override | Vents the bay — dangerous |
+| Ventilation Shaft | Branch A | **ACT 2** (Engineering) | Ventilation map + tool | Quiet exit — predecessor's route |
+| Ventilation Shaft | Branch B | Stasis Hold | None | Loops back (dead end awareness) |
+| Ventilation Shaft | Branch C | Dead end | — | Predecessor's scratched map found here |
+
+#### Act 1 Exits to Act 2
+
+Three possible exits, each landing the player in a different Act 2 starting location:
+
+```
+EXIT 1: VENTILATION SHAFT ──→ Engineering (quiet, needs map + tool)
+EXIT 2: ELEVATOR HACK     ──→ Bridge (loud, Curator knows where you went)
+EXIT 3: MAINTENANCE CRAWL  ──→ Hydroponics (medium, always available if found)
+```
+
+#### Navigation Hotspot Design
+
+Click targets for scene transitions follow classic point-and-click conventions:
+
+- **Doorways and corridors**: Visible openings in the background image. The cursor changes to a directional arrow when hovering over a travelable boundary.
+- **Blast doors**: Distinct door sprites with card readers / bio-scanners visible. Locked doors show a "locked" cursor until the unlock condition is met.
+- **Vertical transitions** (vents, floor grates): Highlighted with subtle animation (e.g., air currents for vents, glow under grates). Cursor changes to up-arrow or down-arrow.
+- **Hidden exits**: Not visible until discovered. The maintenance crawlspace appears only after removing the floor grate. The ceiling vent becomes clickable after loosening bolts.
+
+Each view defines its hotspots in the scenario JSON as boundary objects with `travel_to` targets:
+
+```json
+{
+  "id": "exit_north_corridor",
+  "name": "Corridor entrance",
+  "position": { "x": 0.45, "y": 0.05, "width": 0.10, "height": 0.15 },
+  "verbs": {
+    "hand": {
+      "travel_to": "act1_containment_corridor",
+      "message": "You step into the dimly lit corridor. Orange emergency strips pulse overhead."
+    },
+    "look": {
+      "message": "A corridor stretches ahead, lined with pulsing organic conduits. Emergency lighting casts everything in amber."
+    }
+  }
+}
+```
+
+---
+
 ## Act 2: The Hive — Detailed Breakdown
 
 ### Pacing Shift
