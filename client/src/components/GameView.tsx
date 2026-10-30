@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
+import { AmbientCanvas } from './AmbientCanvas';
 
 interface GameViewProps {
   engine: ScenarioEngine;
@@ -113,46 +114,6 @@ const ANIMATION_KEYFRAMES = `
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.7; }
 }
-@keyframes ambient-flicker {
-  0%, 100% { opacity: 0.05; }
-  10% { opacity: 0.15; }
-  20% { opacity: 0.03; }
-  35% { opacity: 0.18; }
-  50% { opacity: 0.06; }
-  65% { opacity: 0.12; }
-  80% { opacity: 0.04; }
-  90% { opacity: 0.14; }
-}
-@keyframes ambient-breathe-primary {
-  0%, 100% { opacity: 0.08; }
-  40% { opacity: 0.2; }
-  60% { opacity: 0.15; }
-}
-@keyframes ambient-breathe-secondary {
-  0%, 100% { opacity: 0.04; }
-  30% { opacity: 0.1; }
-  70% { opacity: 0.12; }
-}
-@keyframes ambient-breathe-atmo {
-  0%, 100% { opacity: 0.02; }
-  50% { opacity: 0.06; }
-}
-@keyframes ambient-scan {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-@keyframes ambient-flicker-secondary {
-  0%, 100% { opacity: 0.03; }
-  15% { opacity: 0.1; }
-  30% { opacity: 0.02; }
-  45% { opacity: 0.08; }
-  70% { opacity: 0.12; }
-  85% { opacity: 0.04; }
-}
-@keyframes ambient-scan-glow {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.25; }
-}
 @keyframes room-transition {
   0% { opacity: 0; }
   40% { opacity: 1; }
@@ -170,56 +131,6 @@ function injectAnimationStyles() {
   document.head.appendChild(el);
 }
 
-const AMBIENT_LAYERS: Record<string, CSSProperties[]> = {
-  breathe: [
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 70% 40%, rgba(80, 220, 140, 0.25), transparent 55%)',
-      animation: 'ambient-breathe-primary 7s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 20% 40%, rgba(200, 160, 60, 0.15), transparent 50%)',
-      animation: 'ambient-breathe-secondary 9s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 50% 50%, rgba(60, 140, 120, 0.08), transparent 80%)',
-      animation: 'ambient-breathe-atmo 12s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-  ],
-  flicker: [
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 40% 25%, rgba(220, 180, 80, 0.2), transparent 50%)',
-      animation: 'ambient-flicker 6s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 65% 60%, rgba(100, 200, 150, 0.15), transparent 45%)',
-      animation: 'ambient-flicker-secondary 8s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-  ],
-  scan: [
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-      background: 'radial-gradient(ellipse at 50% 45%, rgba(60, 180, 160, 0.15), transparent 55%)',
-      animation: 'ambient-scan-glow 5s ease-in-out infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-    {
-      position: 'absolute', top: 0, left: 0, width: '100%', height: '200%',
-      background: 'linear-gradient(180deg, transparent 40%, rgba(100, 220, 160, 0.08) 50%, transparent 60%)',
-      animation: 'ambient-scan 10s linear infinite',
-      pointerEvents: 'none', zIndex: 1,
-    },
-  ],
-};
 
 export function GameView({
   engine,
@@ -255,8 +166,6 @@ export function GameView({
   const bgFile = engine.getBackgroundFile();
   const scenarioId = engine.getScenario().metadata.id;
   const cursor = VERB_CURSORS[activeVerb] ?? 'default';
-
-  const roomAnimation = view.room_animation;
 
   const cursorLabel = selectedItem
     ? `Use ${engine.getInventory().find((it) => it.id === selectedItem)?.name ?? selectedItem} on...`
@@ -305,10 +214,8 @@ export function GameView({
         />
       )}
 
-      {/* Ambient room animation overlays */}
-      {roomAnimation && AMBIENT_LAYERS[roomAnimation]?.map((layerStyle, i) => (
-        <div key={`ambient-${i}`} style={layerStyle} />
-      ))}
+      {/* Canvas-based ambient lighting */}
+      <AmbientCanvas viewId={view.id} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
 
       {/* Cursor action label */}
       <div
