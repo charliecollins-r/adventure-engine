@@ -3810,6 +3810,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Something clawed at this wall... desperately,\" you whisper. The scratches are too deep to have been made by human fingernails."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The scratches are gouged into the wall itself. Whatever made them is long gone."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3861,6 +3881,36 @@
             {
               "type": "message",
               "text": "With the scratch-map to guide you, the branches make sense. Left leads back to the stasis hold. Center leads to the feeding station. Right \u2014 marked with the eye symbol \u2014 leads to the security hub. The ship's ventilation connects everything on this deck."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You run your fingers along the junction where the shafts split. The metal is warm and slightly damp with condensation."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You call softly into the branching tunnels. Your voice echoes back distorted, as if the shaft itself is breathing."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The shaft branches are too narrow to squeeze through from here. You'd need to find where they open up."
             }
           ]
         }
@@ -4465,6 +4515,36 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The viewport glass is ice-cold to the touch. Your fingerprints fog and fade in the chill radiating from the void beyond."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"That's the way out,\" you murmur, staring into the star-flecked darkness. If only it were that simple."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The viewport is a thick slab of transparent alloy set flush into the hull. It isn't going anywhere."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4500,6 +4580,36 @@
               "type": "set_flag",
               "flag": "outrider_gone_known",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The docking clamps are massive hydraulic mechanisms. Your hands can barely wrap around one of the smaller guide rails."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Whatever was docked here left in a hurry,\" you observe. The clamps are still in their release position."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Each clamp is anchored to the deck with bolts thicker than your wrist. They're not moving."
             }
           ]
         }
@@ -4584,6 +4694,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Emergency EVA equipment,\" you read from the faded label. The alien script beneath it probably says the same thing."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The suit locker is welded to the bulkhead. Standard safety protocol \u2014 even on alien ships, apparently."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4654,6 +4784,26 @@
               "state": "open"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Emergency override... if I can figure out the sequence.\" The panel's symbols glow faintly, waiting for input."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The override panel is integrated into the airlock frame itself. It can't be removed."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4684,6 +4834,36 @@
             {
               "type": "message",
               "text": "Massive blast doors designed to contain decompression. These lead to the outer airlock \u2014 and beyond that, vacuum. They're sealed for a reason. Even if you could open them, there's nothing on the other side but death."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your palms against the blast doors. They're sealed tight \u2014 several inches of reinforced alloy standing between you and the airlock chamber."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"These doors are the last barrier,\" you say quietly. Beyond them lies the airlock, and beyond that \u2014 freedom or the void."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The blast doors weigh several tons. No amount of pushing will budge them without the override."
             }
           ]
         }
@@ -13660,6 +13840,26 @@
               "text": "You climb back up through the vent into the feeding station."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace yourself against the shaft walls and pull yourself back toward the feeding station."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The faint hum of the nutrient dispensers echoes from that direction."
+            }
+          ]
         }
       ]
     },
@@ -15426,6 +15626,26 @@
             }
           ],
           "noise": 0
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You grip the edges of the shaft opening and pull yourself forward. Cold air rushes past your face."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A faint hiss of pressurized atmosphere leaks from ahead. The airlock bay must be close."
+            }
+          ]
         }
       ]
     },
@@ -15464,6 +15684,26 @@
             }
           ],
           "noise": 0
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You duck down and squeeze back into the ventilation shaft opening. The metal groans under your weight."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The shaft behind you exhales stale, warm air. At least it's warmer than this bay."
+            }
+          ]
         }
       ]
     }
