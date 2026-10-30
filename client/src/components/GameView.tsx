@@ -21,10 +21,10 @@ const SCALE_X = VIEW_WIDTH / COORD_SPACE_W;
 const SCALE_Y = VIEW_HEIGHT / COORD_SPACE_H;
 
 const VERB_CURSORS: Record<string, string> = {
-  look: 'help',
-  move: 'crosshair',
-  hand: 'pointer',
-  talk: 'text',
+  look: "url('/cursors/look.png') 14 16, help",
+  move: "url('/cursors/move.png') 10 24, crosshair",
+  hand: "url('/cursors/hand.png') 10 4, pointer",
+  talk: "url('/cursors/talk.png') 8 20, text",
 };
 
 const styles: Record<string, CSSProperties> = {
@@ -165,7 +165,9 @@ export function GameView({
   const bgColor = engine.getBackgroundColor();
   const bgFile = engine.getBackgroundFile();
   const scenarioId = engine.getScenario().metadata.id;
-  const cursor = VERB_CURSORS[activeVerb] ?? 'default';
+  const cursor = selectedItem
+    ? "url('/cursors/use_item.png') 15 15, crosshair"
+    : VERB_CURSORS[activeVerb] ?? 'default';
 
   const cursorLabel = selectedItem
     ? `Use ${engine.getInventory().find((it) => it.id === selectedItem)?.name ?? selectedItem} on...`
