@@ -21,103 +21,83 @@ const PRESETS: Record<string, AmbientPreset> = {
   stasis_hold: {
     lights: [
       // Main tendril core — bright green pulse
-      { x: 0.72, y: 0.42, baseRadius: 0.45, color: [40, 200, 120], pulseSpeed: 0.4, pulseAmount: 0.35, baseAlpha: 0.12, phase: 0 },
+      { x: 0.72, y: 0.42, baseRadius: 0.45, color: [40, 200, 120], pulseSpeed: 0.4, pulseAmount: 0.35, baseAlpha: 0.45, phase: 0 },
       // Tendril upper branch
-      { x: 0.68, y: 0.2, baseRadius: 0.25, color: [60, 220, 140], pulseSpeed: 0.55, pulseAmount: 0.3, baseAlpha: 0.08, phase: 1.2 },
+      { x: 0.68, y: 0.2, baseRadius: 0.25, color: [60, 220, 140], pulseSpeed: 0.55, pulseAmount: 0.3, baseAlpha: 0.30, phase: 1.2 },
       // Tendril lower branch
-      { x: 0.75, y: 0.65, baseRadius: 0.2, color: [50, 180, 100], pulseSpeed: 0.5, pulseAmount: 0.25, baseAlpha: 0.07, phase: 2.4 },
+      { x: 0.75, y: 0.65, baseRadius: 0.2, color: [50, 180, 100], pulseSpeed: 0.5, pulseAmount: 0.25, baseAlpha: 0.25, phase: 2.4 },
       // Tendril far branch left
-      { x: 0.58, y: 0.35, baseRadius: 0.18, color: [30, 160, 90], pulseSpeed: 0.65, pulseAmount: 0.4, baseAlpha: 0.06, phase: 0.8 },
+      { x: 0.58, y: 0.35, baseRadius: 0.18, color: [30, 160, 90], pulseSpeed: 0.65, pulseAmount: 0.4, baseAlpha: 0.22, phase: 0.8 },
       // Amber pod glow left
-      { x: 0.12, y: 0.35, baseRadius: 0.2, color: [200, 150, 50], pulseSpeed: 0.25, pulseAmount: 0.15, baseAlpha: 0.05, phase: 3.0 },
+      { x: 0.12, y: 0.35, baseRadius: 0.2, color: [200, 150, 50], pulseSpeed: 0.25, pulseAmount: 0.15, baseAlpha: 0.18, phase: 3.0 },
       // Amber pod glow right
-      { x: 0.88, y: 0.35, baseRadius: 0.18, color: [180, 140, 40], pulseSpeed: 0.3, pulseAmount: 0.12, baseAlpha: 0.04, phase: 1.5 },
+      { x: 0.88, y: 0.35, baseRadius: 0.18, color: [180, 140, 40], pulseSpeed: 0.3, pulseAmount: 0.12, baseAlpha: 0.15, phase: 1.5 },
       // Floor spill glow from broken pod
-      { x: 0.22, y: 0.8, baseRadius: 0.15, color: [200, 160, 60], pulseSpeed: 0.15, pulseAmount: 0.1, baseAlpha: 0.04, phase: 0.5 },
+      { x: 0.22, y: 0.8, baseRadius: 0.15, color: [200, 160, 60], pulseSpeed: 0.15, pulseAmount: 0.1, baseAlpha: 0.15, phase: 0.5 },
     ],
     flicker: true,
   },
   corridor: {
     lights: [
-      // Amber ceiling lights
-      { x: 0.25, y: 0.08, baseRadius: 0.3, color: [220, 170, 60], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.08, phase: 0 },
-      { x: 0.55, y: 0.06, baseRadius: 0.25, color: [200, 150, 50], pulseSpeed: 0.35, pulseAmount: 0.25, baseAlpha: 0.07, phase: 1.0 },
-      { x: 0.85, y: 0.08, baseRadius: 0.25, color: [210, 160, 55], pulseSpeed: 0.28, pulseAmount: 0.2, baseAlpha: 0.06, phase: 2.0 },
-      // Green underfloor glow
-      { x: 0.5, y: 0.85, baseRadius: 0.35, color: [60, 180, 120], pulseSpeed: 0.4, pulseAmount: 0.3, baseAlpha: 0.06, phase: 0.5 },
+      { x: 0.25, y: 0.08, baseRadius: 0.3, color: [220, 170, 60], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.30, phase: 0 },
+      { x: 0.55, y: 0.06, baseRadius: 0.25, color: [200, 150, 50], pulseSpeed: 0.35, pulseAmount: 0.25, baseAlpha: 0.25, phase: 1.0 },
+      { x: 0.85, y: 0.08, baseRadius: 0.25, color: [210, 160, 55], pulseSpeed: 0.28, pulseAmount: 0.2, baseAlpha: 0.22, phase: 2.0 },
+      { x: 0.5, y: 0.85, baseRadius: 0.35, color: [60, 180, 120], pulseSpeed: 0.4, pulseAmount: 0.3, baseAlpha: 0.22, phase: 0.5 },
     ],
     flicker: true,
   },
   processing_lab: {
     lights: [
-      // Green holographic displays
-      { x: 0.3, y: 0.25, baseRadius: 0.25, color: [60, 200, 140], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.08, phase: 0 },
-      { x: 0.7, y: 0.3, baseRadius: 0.2, color: [50, 180, 120], pulseSpeed: 0.6, pulseAmount: 0.25, baseAlpha: 0.06, phase: 1.5 },
-      // Amber overhead
-      { x: 0.5, y: 0.1, baseRadius: 0.3, color: [200, 150, 50], pulseSpeed: 0.2, pulseAmount: 0.15, baseAlpha: 0.05, phase: 0.8 },
+      { x: 0.3, y: 0.25, baseRadius: 0.25, color: [60, 200, 140], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.30, phase: 0 },
+      { x: 0.7, y: 0.3, baseRadius: 0.2, color: [50, 180, 120], pulseSpeed: 0.6, pulseAmount: 0.25, baseAlpha: 0.22, phase: 1.5 },
+      { x: 0.5, y: 0.1, baseRadius: 0.3, color: [200, 150, 50], pulseSpeed: 0.2, pulseAmount: 0.15, baseAlpha: 0.18, phase: 0.8 },
     ],
     flicker: true,
   },
   security_hub: {
     lights: [
-      // Multiple screen glows
-      { x: 0.35, y: 0.3, baseRadius: 0.2, color: [60, 180, 200], pulseSpeed: 0.7, pulseAmount: 0.35, baseAlpha: 0.07, phase: 0 },
-      { x: 0.65, y: 0.25, baseRadius: 0.18, color: [50, 160, 180], pulseSpeed: 0.8, pulseAmount: 0.3, baseAlpha: 0.06, phase: 1.0 },
-      { x: 0.5, y: 0.4, baseRadius: 0.25, color: [40, 200, 160], pulseSpeed: 0.5, pulseAmount: 0.25, baseAlpha: 0.06, phase: 2.0 },
-      // Red alarm glow
-      { x: 0.2, y: 0.35, baseRadius: 0.15, color: [200, 50, 40], pulseSpeed: 1.2, pulseAmount: 0.5, baseAlpha: 0.05, phase: 0 },
+      { x: 0.35, y: 0.3, baseRadius: 0.2, color: [60, 180, 200], pulseSpeed: 0.7, pulseAmount: 0.35, baseAlpha: 0.28, phase: 0 },
+      { x: 0.65, y: 0.25, baseRadius: 0.18, color: [50, 160, 180], pulseSpeed: 0.8, pulseAmount: 0.3, baseAlpha: 0.22, phase: 1.0 },
+      { x: 0.5, y: 0.4, baseRadius: 0.25, color: [40, 200, 160], pulseSpeed: 0.5, pulseAmount: 0.25, baseAlpha: 0.22, phase: 2.0 },
+      { x: 0.2, y: 0.35, baseRadius: 0.15, color: [200, 50, 40], pulseSpeed: 1.2, pulseAmount: 0.5, baseAlpha: 0.20, phase: 0 },
     ],
   },
   feeding_station: {
     lights: [
-      // Purple energy barriers
-      { x: 0.18, y: 0.4, baseRadius: 0.2, color: [140, 60, 200], pulseSpeed: 0.6, pulseAmount: 0.35, baseAlpha: 0.08, phase: 0 },
-      { x: 0.15, y: 0.55, baseRadius: 0.15, color: [160, 70, 220], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.06, phase: 1.2 },
-      // Nutrient dispenser glow
-      { x: 0.6, y: 0.35, baseRadius: 0.2, color: [60, 200, 140], pulseSpeed: 0.4, pulseAmount: 0.25, baseAlpha: 0.06, phase: 0.5 },
-      // Green screens right
-      { x: 0.85, y: 0.4, baseRadius: 0.2, color: [50, 180, 120], pulseSpeed: 0.55, pulseAmount: 0.3, baseAlpha: 0.05, phase: 2.0 },
+      { x: 0.18, y: 0.4, baseRadius: 0.2, color: [140, 60, 200], pulseSpeed: 0.6, pulseAmount: 0.35, baseAlpha: 0.30, phase: 0 },
+      { x: 0.15, y: 0.55, baseRadius: 0.15, color: [160, 70, 220], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.22, phase: 1.2 },
+      { x: 0.6, y: 0.35, baseRadius: 0.2, color: [60, 200, 140], pulseSpeed: 0.4, pulseAmount: 0.25, baseAlpha: 0.22, phase: 0.5 },
+      { x: 0.85, y: 0.4, baseRadius: 0.2, color: [50, 180, 120], pulseSpeed: 0.55, pulseAmount: 0.3, baseAlpha: 0.18, phase: 2.0 },
     ],
     flicker: true,
   },
   morgue: {
     lights: [
-      // Cold blue overhead
-      { x: 0.5, y: 0.1, baseRadius: 0.35, color: [80, 120, 180], pulseSpeed: 0.2, pulseAmount: 0.15, baseAlpha: 0.06, phase: 0 },
-      // Green recycling vats
-      { x: 0.55, y: 0.25, baseRadius: 0.2, color: [50, 180, 100], pulseSpeed: 0.45, pulseAmount: 0.3, baseAlpha: 0.07, phase: 1.0 },
-      // Faint amber drawer lights
-      { x: 0.15, y: 0.4, baseRadius: 0.18, color: [180, 140, 50], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.04, phase: 2.0 },
+      { x: 0.5, y: 0.1, baseRadius: 0.35, color: [80, 120, 180], pulseSpeed: 0.2, pulseAmount: 0.15, baseAlpha: 0.22, phase: 0 },
+      { x: 0.55, y: 0.25, baseRadius: 0.2, color: [50, 180, 100], pulseSpeed: 0.45, pulseAmount: 0.3, baseAlpha: 0.25, phase: 1.0 },
+      { x: 0.15, y: 0.4, baseRadius: 0.18, color: [180, 140, 50], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.15, phase: 2.0 },
     ],
   },
   specimen_archive: {
     lights: [
-      // Purple crystal specimens left
-      { x: 0.12, y: 0.4, baseRadius: 0.25, color: [140, 80, 200], pulseSpeed: 0.35, pulseAmount: 0.25, baseAlpha: 0.08, phase: 0 },
-      // Purple crystal specimens right
-      { x: 0.88, y: 0.4, baseRadius: 0.25, color: [120, 60, 180], pulseSpeed: 0.4, pulseAmount: 0.2, baseAlpha: 0.07, phase: 1.5 },
-      // Holographic displays center
-      { x: 0.5, y: 0.3, baseRadius: 0.25, color: [60, 200, 180], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.06, phase: 0.8 },
+      { x: 0.12, y: 0.4, baseRadius: 0.25, color: [140, 80, 200], pulseSpeed: 0.35, pulseAmount: 0.25, baseAlpha: 0.30, phase: 0 },
+      { x: 0.88, y: 0.4, baseRadius: 0.25, color: [120, 60, 180], pulseSpeed: 0.4, pulseAmount: 0.2, baseAlpha: 0.25, phase: 1.5 },
+      { x: 0.5, y: 0.3, baseRadius: 0.25, color: [60, 200, 180], pulseSpeed: 0.5, pulseAmount: 0.3, baseAlpha: 0.22, phase: 0.8 },
     ],
   },
   ventilation_shaft: {
     lights: [
-      // Red emergency lights
-      { x: 0.3, y: 0.3, baseRadius: 0.2, color: [200, 60, 40], pulseSpeed: 0.8, pulseAmount: 0.4, baseAlpha: 0.06, phase: 0 },
-      { x: 0.7, y: 0.35, baseRadius: 0.18, color: [180, 50, 30], pulseSpeed: 0.9, pulseAmount: 0.35, baseAlpha: 0.05, phase: 1.5 },
-      // Teal light from far end
-      { x: 0.5, y: 0.4, baseRadius: 0.3, color: [60, 180, 140], pulseSpeed: 0.4, pulseAmount: 0.25, baseAlpha: 0.07, phase: 0.5 },
+      { x: 0.3, y: 0.3, baseRadius: 0.2, color: [200, 60, 40], pulseSpeed: 0.8, pulseAmount: 0.4, baseAlpha: 0.25, phase: 0 },
+      { x: 0.7, y: 0.35, baseRadius: 0.18, color: [180, 50, 30], pulseSpeed: 0.9, pulseAmount: 0.35, baseAlpha: 0.20, phase: 1.5 },
+      { x: 0.5, y: 0.4, baseRadius: 0.3, color: [60, 180, 140], pulseSpeed: 0.4, pulseAmount: 0.25, baseAlpha: 0.25, phase: 0.5 },
     ],
     flicker: true,
   },
   airlock_bay: {
     lights: [
-      // Viewport starlight (bluish white)
-      { x: 0.18, y: 0.4, baseRadius: 0.25, color: [150, 180, 220], pulseSpeed: 0.15, pulseAmount: 0.1, baseAlpha: 0.06, phase: 0 },
-      // Blast door amber edge lighting
-      { x: 0.52, y: 0.45, baseRadius: 0.2, color: [220, 160, 50], pulseSpeed: 0.6, pulseAmount: 0.3, baseAlpha: 0.06, phase: 1.0 },
-      // Suit locker internal light
-      { x: 0.85, y: 0.45, baseRadius: 0.15, color: [180, 200, 220], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.04, phase: 2.0 },
+      { x: 0.18, y: 0.4, baseRadius: 0.25, color: [150, 180, 220], pulseSpeed: 0.15, pulseAmount: 0.1, baseAlpha: 0.22, phase: 0 },
+      { x: 0.52, y: 0.45, baseRadius: 0.2, color: [220, 160, 50], pulseSpeed: 0.6, pulseAmount: 0.3, baseAlpha: 0.22, phase: 1.0 },
+      { x: 0.85, y: 0.45, baseRadius: 0.15, color: [180, 200, 220], pulseSpeed: 0.3, pulseAmount: 0.2, baseAlpha: 0.15, phase: 2.0 },
     ],
   },
 };
@@ -218,7 +198,7 @@ export function AmbientCanvas({ viewId, width, height }: AmbientCanvasProps) {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 1,
-        mixBlendMode: 'screen',
+        mixBlendMode: 'lighter',
       }}
     />
   );
