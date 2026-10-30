@@ -240,7 +240,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Engine POC** functional: ScenarioEngine + React components, scenario loader, background rendering
 - **All core conditions implemented**: `all_of`, `any_of`, `noise_above`, `noise_below`, `item_count` all working
 - **All core effects implemented**: `set_noise`, `transform_item`, `conditional_effect`, `delay_then` all working
-- **The Harvest Act 1** playable with painted backgrounds (11 views)
+- **The Harvest Act 1** fully navigable — all 10 rooms tested with Playwright, object interactions working (look, hand, take, talk), painted backgrounds for all Act 1 views
+- **Hotspot rendering** improved: nav objects get higher z-index and blue hover border, regular objects get gold hover border, all hotspots positioned within 960x720 bounds
 - **Lighthouse Keeper** is simplest (3 views) — first playtest target
 - **Branch**: `claude/dreamy-volta-ha3r6v`
 - **Architecture doc** at `docs/ARCHITECTURE.md` with SVG diagrams in `docs/images/`
@@ -255,7 +256,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 cd client && npm run dev    # http://localhost:5173
 
 # Scenario JSONs served at
-# /scenarios/the-lighthouse-keeper/scenario.json  (via public/scenarios symlink)
+# /scenarios/the-lighthouse-keeper/scenario.json  (via Vite plugin in vite.config.ts)
 
 # Backend (not needed for POC)
 cd server && mvn spring-boot:run
@@ -274,5 +275,5 @@ cd client && npx tsc --noEmit
 4. Add game clock + events system
 5. Implement puzzle widget UI components
 6. Implement killer AI state machine
-7. Fix The Harvest position data
+7. ~~Fix The Harvest position data~~ DONE (all Act 1 objects within 960x720 bounds, nav z-index fix)
 8. Get Lighthouse Keeper fully playable end-to-end
