@@ -92,7 +92,7 @@ function objectHotspotStyle(
     base.border = `2px solid ${isNav ? 'rgba(220,50,50,0.7)' : 'rgba(192,160,48,0.4)'}`;
     base.backgroundColor = isNav ? 'rgba(220,50,50,0.06)' : 'rgba(192,160,48,0.06)';
   }
-  if (hovered) {
+  if (hovered && debugMode) {
     base.border = `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`;
   }
   return base;
