@@ -71,6 +71,7 @@ function objectHotspotStyle(
   color: string,
   hovered: boolean,
   cursor: string,
+  hasBackground: boolean,
 ): CSSProperties {
   return {
     position: 'absolute',
@@ -78,8 +79,8 @@ function objectHotspotStyle(
     top: `${y * SCALE_Y}px`,
     width: `${w * SCALE_X}px`,
     height: `${h * SCALE_Y}px`,
-    backgroundColor: color,
-    opacity: hovered ? 0.6 : 0.35,
+    backgroundColor: hasBackground ? 'transparent' : color,
+    opacity: hasBackground ? (hovered ? 0.3 : 0) : (hovered ? 0.6 : 0.35),
     border: hovered ? '2px solid #c0a030' : '2px solid transparent',
     borderRadius: '2px',
     cursor,
@@ -122,6 +123,7 @@ export function GameView({
         <img
           src={`/scenarios/${scenarioId}/${bgFile}`}
           alt=""
+          onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
           style={{
             position: 'absolute',
             top: 0,
@@ -165,6 +167,7 @@ export function GameView({
                 obj.visual.color,
                 isHovered,
                 cursor,
+                !!bgFile,
               ),
               position: 'absolute',
               zIndex: 1,
