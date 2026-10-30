@@ -2,7 +2,7 @@
 
 ## Story Synopsis
 
-You wake on the concrete floor of a walk-in freezer, breath crystallizing in front of you. Beyond the heavy steel door, a butcher whistles while he works. Sal Morano — barrel-chested, fifties, slicked-back hair going gray — thinks you saw something you shouldn't have. In this part of 1970s Chicago, witnesses don't make it to morning. Find a way out before you become tomorrow's special.
+You wake on the concrete floor of a walk-in freezer, breath crystallizing in front of you. You're small — barely a third the height of a grown human — and in Sal's butcher shop, everything is terrifyingly oversized. Meat hooks hang at your eye level, steel counters loom above like canyon walls, and the walk-in freezer might as well be a warehouse. Beyond the heavy steel door, a butcher whistles while he works. Sal Morano — barrel-chested, fifties, slicked-back hair going gray — thinks you saw something you shouldn't have. In this part of 1970s Chicago, witnesses don't make it to morning. Find a way out before you become tomorrow's special.
 
 Sal's been a butcher for thirty years and a killer for nearly as long. He works for the Ricci crime family, using his shop as a front for disposing of problems. His freezer has held more than cattle. He's methodical, whistles Sinatra, talks to his meat as if it were old friends, and has a twisted sense of humor about "fresh cuts." But he's not invulnerable — he's paranoid about his boss Tony Ricci, sloppy about where he keeps his secrets, and the shop is full of evidence that could put him away forever.
 
@@ -10,9 +10,11 @@ The scenario is a race against two clocks: hypothermia in the freezer (you have 
 
 **Difficulty**: Hard | **Estimated Time**: 15 minutes | **Patterns Used**: 26
 
+> **Note**: The antagonist mechanic (Sal Morano) is optional. This scenario works as a pure point-and-click adventure if the antagonist AI is disabled in the scenario configuration.
+
 ---
 
-## Image Descriptions
+## Image Descriptions & Generation Prompts
 
 ### Background Images (4 total)
 

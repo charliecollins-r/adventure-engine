@@ -6,11 +6,13 @@
 
 **Difficulty**: Expert | **Estimated Time**: 8-12 hours | **Patterns Used**: 30 (all, many used multiple times)
 
+> **Note**: The antagonist mechanic (Mrs. Whitmore) is optional. This scenario works as a pure point-and-click adventure if the antagonist AI is disabled in the scenario configuration — the puzzle box of Blackwood Manor stands on its own.
+
 ---
 
 ## Story Synopsis
 
-**England, 1893.** You are Evelyn Cross, an investigative journalist. Three weeks ago, you received a letter — unsigned, on heavy cream stock with a black wax seal — inviting you to Blackwood Manor to "uncover the truth about Lord Edmund Blackwood's disappearance."
+**England, 1893.** You are Evelyn Cross — an investigative journalist of unusual cunning but diminutive stature. Standing barely a third the height of a grown human, you navigate a world built for beings three times your size. Doorknobs are at shoulder height, bookshelves tower like cliff faces, and a dining table might as well be a stage. Three weeks ago, you received a letter — unsigned, on heavy cream stock with a black wax seal — inviting you to Blackwood Manor to "uncover the truth about Lord Edmund Blackwood's disappearance."
 
 Lord Blackwood was a Victorian polymath: industrialist, inventor, occultist, collector. Twenty years ago, he vanished from his estate during a storm. No body was found. His fortune was never claimed. The estate has been maintained since by a skeleton staff led by **Mrs. Agnes Whitmore**, the head housekeeper — a woman of terrifying competence who has kept the house in pristine condition for two decades, "awaiting the master's return."
 
