@@ -120,7 +120,7 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
 
   useEffect(() => {
     SCENARIOS.forEach((id) => {
-      fetch(`/examples/${id}.json`)
+      fetch(`/scenarios/${id}.json`)
         .then((r) => r.json())
         .then((data) => {
           setMetas((prev) =>
@@ -152,7 +152,7 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
     if (loadingId) return;
     setLoadingId(id);
     try {
-      const r = await fetch(`/examples/${id}.json`);
+      const r = await fetch(`/scenarios/${id}.json`);
       const scenario = (await r.json()) as Scenario;
       onLoad(scenario);
     } catch {
