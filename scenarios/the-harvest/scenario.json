@@ -3333,6 +3333,26 @@
               "amount": 8
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"How many of us have they processed?\" you whisper. The drawers offer no answer, but the sheer number speaks volumes."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The drawers are built into the wall itself \u2014 organic metal fused seamlessly into the ship's structure."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3365,6 +3385,36 @@
               "text": "A slab designed for dissection. Drainage channels lead to the recycling vats. Overhead, articulated lighting rigs are frozen mid-position, aimed at where a specimen's torso would be. The slab is clean \u2014 recently used and cleaned. The Choir is thorough."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The slab's surface is slick with a thin biological film. Your fingers leave trails in it. You wipe your hand on your clothes, suppressing a gag."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"I don't want to think about what happened here,\" you murmur. The drainage grooves in the slab tell you anyway."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The slab is anchored to the floor by thick organic cables. It's not going anywhere \u2014 and neither were its occupants."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -3395,6 +3445,36 @@
             {
               "type": "message",
               "text": "Three vats of viscous green liquid, bubbling slowly. The ship recycles everything \u2014 failed specimens become raw material for the bio-gardens, the hull, the instruments. Nothing is wasted. Nothing leaves."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach toward the vat's rim but pull back. The liquid inside bubbles faintly, and the heat radiating from it warns you away."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The vats gurgle softly, almost digestive. \"They don't waste anything,\" you realize with growing horror."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Each vat is a deep organic basin grown directly from the floor. You couldn't move one any more than you could move a tree stump."
             }
           ]
         }
@@ -3452,6 +3532,26 @@
               "type": "set_flag",
               "flag": "neural_tendril_taken",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"A piece of the ship's nervous system,\" you think aloud. It twitches faintly, as if it heard you."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The sample is pinned to the examination surface with thin metallic spines. It squirms weakly against them."
             }
           ]
         }
@@ -4081,6 +4181,26 @@
               "text": "You pull a crystal at random and slot it into the reading device. An alien species fills the holographic display \u2014 six-legged, fur-covered, intelligent eyes. Below it: a world, lush and green. And the red symbol. Consumed. You replace the crystal, feeling sick."
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"A library of the dead,\" you whisper. Each crystal holds someone's memories, someone's life \u2014 catalogued and shelved like specimens."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The rack is a lattice of hardened organic resin, fused to the wall. The crystals sit in purpose-grown slots."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4142,6 +4262,26 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Someone recorded this. Someone who was here before me.\" The crystal pulses faintly, as if eager to share its secrets."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The crystal is small enough to carry. You could take it \u2014 if you can get it free from its slot."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4190,6 +4330,36 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You run your fingers over the device's surface. It hums to life briefly, projecting a flicker of alien text before going dark again. It needs a crystal inserted to function."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"If I can find a crystal that fits, I might learn something useful.\" The device's empty slot seems to confirm your theory."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The reading device is a console grown from the archive wall. Thick neural cables feed into its base."
+            }
+          ]
         }
       ],
       "hiding_spot": false
@@ -4226,6 +4396,36 @@
               "type": "set_flag",
               "flag": "convergence_history_known",
               "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your hand passes through the holographic projection. The display flickers and reconfigures around your fingers, unbothered."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Some kind of catalog system,\" you say, watching alien glyphs scroll past. The display shifts in response to your voice, but you can't read any of it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The display is a projection \u2014 there's nothing physical to move. The emitter is embedded somewhere in the ceiling."
             }
           ]
         }
@@ -13280,6 +13480,26 @@
               "text": "You retrace your steps back to the feeding station."
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push against the passage opening. The organic membrane gives slightly, then retracts to let you through."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A faint mechanical hum drifts from the passage ahead. Something is running in the next chamber."
+            }
+          ]
         }
       ]
     },
@@ -13598,6 +13818,26 @@
             {
               "type": "message",
               "text": "You push back through the door into the warm, humid feeding station."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You feel along the passage walls. They're smoother here \u2014 polished by countless things passing through."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You hear a low rhythmic pulsing from beyond the passage, like the ship's heartbeat growing louder."
             }
           ]
         }
