@@ -918,7 +918,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/stasis_fluid_vial.png"
     },
     {
       "id": "pod_glass_shard",
@@ -946,7 +947,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/pod_glass_shard.png"
     },
     {
       "id": "surgical_probe",
@@ -964,7 +966,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/surgical_probe.png"
     },
     {
       "id": "containment_key_card",
@@ -982,7 +985,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/containment_key_card.png"
     },
     {
       "id": "data_crystal_personal_log",
@@ -1005,7 +1009,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/data_crystal_personal_log.png"
     },
     {
       "id": "nutrient_paste_tube",
@@ -1023,7 +1028,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/nutrient_paste_tube.png"
     },
     {
       "id": "specimen_tag",
@@ -1041,7 +1047,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/specimen_tag.png"
     },
     {
       "id": "emergency_suit_helmet",
@@ -1059,7 +1066,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/emergency_suit_helmet.png"
     },
     {
       "id": "ventilation_map",
@@ -1077,7 +1085,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/ventilation_map.png"
     },
     {
       "id": "severed_neural_tendril",
@@ -1095,7 +1104,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon_file": "items/severed_neural_tendril.png"
     },
     {
       "id": "ships_black_box",

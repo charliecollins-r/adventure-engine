@@ -19,7 +19,7 @@ const styles: Record<string, CSSProperties> = {
     backgroundColor: '#151510',
     borderTop: '1px solid #2a2018',
     overflowX: 'auto',
-    minHeight: '44px',
+    minHeight: '48px',
   },
   label: {
     fontSize: '11px',
@@ -81,7 +81,22 @@ export function InventoryPanel({
             onMouseLeave={() => setHovered(null)}
             title={`${item.name} — right-click to examine`}
           >
-            <ItemIcon icon={item.icon} size={22} style={{ marginRight: '4px' }} />
+            {item.icon_file ? (
+              <img
+                src={`/scenarios/${scenarioId}/${item.icon_file}`}
+                alt={item.name}
+                style={{
+                  height: '28px',
+                  width: 'auto',
+                  marginRight: '6px',
+                  verticalAlign: 'middle',
+                  imageRendering: 'auto',
+                  filter: selectedItem === item.id ? 'brightness(1.3)' : 'none',
+                }}
+              />
+            ) : (
+              <ItemIcon icon={item.icon} size={22} style={{ marginRight: '4px' }} />
+            )}
             {item.name}
           </button>
         ))}

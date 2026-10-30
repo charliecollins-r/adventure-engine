@@ -119,6 +119,7 @@ export interface Item {
   name: string;
   description: string;
   icon: string;
+  icon_file?: string;
   examine: ItemExamine[];
 }
 
