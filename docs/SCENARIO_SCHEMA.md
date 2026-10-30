@@ -81,7 +81,7 @@ my-scenario/
   thumbnail.png          # 320x240 preview for scenario browser
 ```
 
-Background images can be any resolution (1376x768 and 1920x1080 are common). The engine renders them with `object-fit: cover` inside a 960x540 pixel viewport. **Object positions use a 960x720 coordinate space** (origin at top-left). Position is the **top-left corner** of the hotspot box, not the center. The engine maps to the viewport with `SCALE_X = 1.0` (no horizontal change) and `SCALE_Y = 0.75` (vertical compression). To convert image pixel coordinates to JSON: `json_x = img_x × (960 / IMG_W)`, `json_y = img_y × (720 / IMG_H)`. Bounds: `x + width ≤ 960`, `y + height ≤ 720`. See ADVENTURE_BUILDER.md for detailed positioning workflow. Closeup views use the same coordinate space. Thumbnail is 320x240 for the scenario selection screen.
+Background images can be any resolution (1376x768 and 1920x1080 are common). The engine renders them with `object-fit: cover` inside a 960x540 pixel viewport. **Object positions use a 960x720 coordinate space** (origin at top-left). Position is the **top-left corner** of the hotspot box, not the center. The engine maps to the viewport with `SCALE_X = 1.0` (no horizontal change) and `SCALE_Y = 0.75` (vertical compression). To convert image pixel coordinates to JSON: `json_x = img_x × (960 / IMG_W)`, `json_y = img_y × (720 / IMG_H)`. Bounds: `x + width ≤ 960`, `y + height ≤ 720`. See `docs/HOTSPOT_POSITIONING_GUIDE.md` for the full conversion workflow and `ADVENTURE_BUILDER.md` for the builder guide. Closeup views use the same coordinate space. Thumbnail is 320x240 for the scenario selection screen.
 
 ---
 
