@@ -71,7 +71,9 @@
         "catwalks",
         "floor_drain",
         "bioluminescent_veins",
-        "nearby_pod"
+        "nearby_pod",
+        "exit_act1_stasis_hold_to_act1_pod_cluster",
+        "maintenance_shaft_access"
       ]
     },
     {
@@ -84,7 +86,10 @@
         "empty_pod",
         "processing_tubes",
         "alien_labels",
-        "specimen_tag_slot"
+        "specimen_tag_slot",
+        "exit_act1_pod_cluster_to_act1_stasis_hold",
+        "exit_act1_pod_cluster_to_act1_processing_lab",
+        "exit_act1_pod_cluster_to_act1_containment_corridor"
       ],
       "back_label": "Step back from pod cluster"
     },
@@ -98,7 +103,9 @@
         "sample_jars",
         "lab_drain",
         "bio_screens",
-        "lab_door"
+        "lab_door",
+        "exit_act1_processing_lab_to_act1_pod_cluster",
+        "exit_act1_processing_lab_to_act1_feeding_station"
       ]
     },
     {
@@ -111,7 +118,10 @@
         "blast_door_north",
         "blast_door_south",
         "emergency_lighting",
-        "condensation_puddle"
+        "condensation_puddle",
+        "exit_act1_containment_corridor_to_act1_pod_cluster",
+        "exit_act1_containment_corridor_to_act1_morgue",
+        "exit_act1_containment_corridor_to_act1_security_hub"
       ]
     },
     {
@@ -124,7 +134,8 @@
         "recycling_vats",
         "open_drawer",
         "chemical_shelf",
-        "morgue_drain"
+        "morgue_drain",
+        "exit_act1_morgue_to_act1_containment_corridor"
       ]
     },
     {
@@ -137,7 +148,9 @@
         "living_enclosures",
         "vitals_monitors",
         "central_tank",
-        "feeding_console"
+        "feeding_console",
+        "exit_act1_feeding_station_to_act1_processing_lab",
+        "exit_act1_feeding_station_to_act1_ventilation_shaft"
       ]
     },
     {
@@ -150,7 +163,9 @@
         "shaft_branch_right",
         "scratch_marks",
         "maintenance_light",
-        "shaft_grate"
+        "shaft_grate",
+        "exit_act1_ventilation_shaft_to_act1_feeding_station",
+        "vent_grate"
       ]
     },
     {
@@ -163,7 +178,9 @@
         "overturned_chair",
         "cracked_screen",
         "security_locker",
-        "inter_deck_elevator"
+        "inter_deck_elevator",
+        "exit_act1_security_hub_to_act1_containment_corridor",
+        "exit_act1_security_hub_to_act1_specimen_archive"
       ]
     },
     {
@@ -176,7 +193,9 @@
         "holographic_display",
         "consumed_worlds_map",
         "personal_log_slot",
-        "archive_terminal"
+        "archive_terminal",
+        "exit_act1_specimen_archive_to_act1_security_hub",
+        "exit_act1_specimen_archive_to_act1_airlock_bay"
       ]
     },
     {
@@ -189,7 +208,9 @@
         "suit_locker",
         "manual_override_panel",
         "planet_viewport",
-        "airlock_console"
+        "airlock_console",
+        "exit_act1_airlock_bay_to_act1_specimen_archive",
+        "exit_act1_airlock_bay_to_act2_navigation_bridge"
       ]
     },
     {
@@ -202,7 +223,11 @@
         "command_throne",
         "bridge_viewport",
         "navigation_console",
-        "star_chart_display"
+        "star_chart_display",
+        "exit_act2_navigation_bridge_to_act1_airlock_bay",
+        "exit_act2_navigation_bridge_to_act2_engineering",
+        "exit_act2_navigation_bridge_to_act2_comm_array",
+        "bridge_console"
       ]
     },
     {
@@ -215,7 +240,10 @@
         "maintenance_drones",
         "steam_vents",
         "power_junction",
-        "engineering_console"
+        "engineering_console",
+        "exit_act2_engineering_to_act2_navigation_bridge",
+        "exit_act2_engineering_to_act2_armory",
+        "exit_act2_engineering_to_act2_waste_processing"
       ]
     },
     {
@@ -228,7 +256,10 @@
         "comm_consoles",
         "recording_station",
         "black_box_terminal",
-        "signal_log"
+        "signal_log",
+        "exit_act2_comm_array_to_act2_navigation_bridge",
+        "exit_act2_comm_array_to_act2_hive_quarters",
+        "black_box_recorder"
       ]
     },
     {
@@ -241,7 +272,8 @@
         "armory_workbench",
         "recycling_bin",
         "empty_rack_slot",
-        "act2_biometric_lock"
+        "biometric_lock",
+        "exit_act2_armory_to_act2_engineering"
       ]
     },
     {
@@ -250,11 +282,13 @@
       "background_file": "backgrounds/act2_hive_quarters.png",
       "objects": [
         "dormant_alcoves",
-        "act2_resonance_chamber",
+        "resonance_chamber",
         "wall_patterns",
         "neural_tendrils",
         "choir_artifact",
-        "quarters_passage"
+        "quarters_passage",
+        "exit_act2_hive_quarters_to_act2_comm_array",
+        "exit_act2_hive_quarters_to_act2_shuttle_bay"
       ]
     },
     {
@@ -268,7 +302,10 @@
         "launch_mechanism",
         "bay_door",
         "control_booth",
-        "fueling_lines"
+        "fueling_lines",
+        "exit_act2_shuttle_bay_to_act2_hive_quarters",
+        "exit_act2_shuttle_bay_to_act2_hydroponics",
+        "exit_act2_shuttle_bay_to_act3_crash_site"
       ]
     },
     {
@@ -281,7 +318,9 @@
         "growth_vats",
         "harvest_station",
         "carnivorous_plant",
-        "bioluminescent_blooms"
+        "bioluminescent_blooms",
+        "exit_act2_hydroponics_to_act2_shuttle_bay",
+        "exit_act2_hydroponics_to_act2_data_core"
       ]
     },
     {
@@ -294,7 +333,9 @@
         "interface_terminals",
         "data_conduits",
         "core_access_panel",
-        "data_flow_display"
+        "data_flow_display",
+        "exit_act2_data_core_to_act2_hydroponics",
+        "exit_act2_data_core_to_act2_observation_deck"
       ]
     },
     {
@@ -307,7 +348,8 @@
         "reprocessing_vats",
         "catwalk_crossing",
         "broken_equipment",
-        "inter_deck_hatch"
+        "inter_deck_hatch",
+        "exit_act2_waste_processing_to_act2_engineering"
       ]
     },
     {
@@ -320,7 +362,8 @@
         "observation_instruments",
         "deck_railing",
         "sick_atmosphere",
-        "observation_console"
+        "observation_console",
+        "exit_act2_observation_deck_to_act2_data_core"
       ]
     },
     {
@@ -333,7 +376,10 @@
         "grey_soil",
         "distant_city_silhouette",
         "energy_beams_sky",
-        "shuttle_debris"
+        "shuttle_debris",
+        "exit_act3_crash_site_to_act2_shuttle_bay",
+        "exit_act3_crash_site_to_act3_wasteland_path",
+        "exit_act3_crash_site_to_act3_shuttle_wreck_interior"
       ]
     },
     {
@@ -346,7 +392,10 @@
         "crystal_growths",
         "exposed_roots",
         "path_marker",
-        "ruined_city_horizon"
+        "ruined_city_horizon",
+        "exit_act3_wasteland_path_to_act3_crash_site",
+        "exit_act3_wasteland_path_to_act3_siphon_tower",
+        "exit_act3_wasteland_path_to_act3_refugee_camp"
       ]
     },
     {
@@ -359,7 +408,8 @@
         "relay_nodes",
         "tower_base",
         "energy_field",
-        "mineral_deposits"
+        "mineral_deposits",
+        "exit_act3_siphon_tower_to_act3_wasteland_path"
       ]
     },
     {
@@ -372,7 +422,9 @@
         "makeshift_barricade",
         "alien_skeletons",
         "supply_cache",
-        "journal_pile"
+        "journal_pile",
+        "exit_act3_refugee_camp_to_act3_wasteland_path",
+        "exit_act3_refugee_camp_to_act3_fungal_grove"
       ]
     },
     {
@@ -385,7 +437,9 @@
         "hollowed_mushroom",
         "rock_formation",
         "fungal_pool",
-        "crafting_surface"
+        "crafting_surface",
+        "exit_act3_fungal_grove_to_act3_refugee_camp",
+        "exit_act3_fungal_grove_to_act3_echo_field"
       ]
     },
     {
@@ -395,10 +449,12 @@
       "objects": [
         "ghostly_buildings",
         "flickering_figures",
-        "act3_reality_boundary",
+        "reality_boundary",
         "echo_vehicle",
         "stable_ground",
-        "time_distortion"
+        "time_distortion",
+        "exit_act3_echo_field_to_act3_fungal_grove",
+        "exit_act3_echo_field_to_act3_buried_bunker"
       ]
     },
     {
@@ -409,10 +465,13 @@
         "bunker_door",
         "blast_marks",
         "weapon_locker",
-        "act3_supply_crates",
+        "supply_crates",
         "command_table",
         "comms_equipment",
-        "bunker_records"
+        "bunker_records",
+        "exit_act3_buried_bunker_to_act3_echo_field",
+        "exit_act3_buried_bunker_to_act3_overlook",
+        "bunker_blast_door"
       ]
     },
     {
@@ -425,7 +484,9 @@
         "dark_crystal_inlays",
         "rubble_pile",
         "city_beyond",
-        "gate_mechanism"
+        "gate_mechanism",
+        "exit_act3_city_gates_to_act3_overlook",
+        "exit_act3_city_gates_to_act4_grand_plaza"
       ]
     },
     {
@@ -438,7 +499,9 @@
         "city_view",
         "nexus_distant",
         "converging_beams",
-        "overlook_marker"
+        "overlook_marker",
+        "exit_act3_overlook_to_act3_buried_bunker",
+        "exit_act3_overlook_to_act3_city_gates"
       ]
     },
     {
@@ -451,7 +514,8 @@
         "nav_system",
         "cracked_windshield",
         "personal_items",
-        "emergency_kit"
+        "emergency_kit",
+        "exit_act3_shuttle_wreck_interior_to_act3_crash_site"
       ],
       "back_label": "Exit the shuttle"
     },
@@ -467,7 +531,10 @@
         "city_map_kiosk",
         "plaza_echo",
         "plaza_archway",
-        "plaza_spire"
+        "plaza_spire",
+        "exit_act4_grand_plaza_to_act3_city_gates",
+        "exit_act4_grand_plaza_to_act4_library",
+        "exit_act4_grand_plaza_to_act4_war_room"
       ]
     },
     {
@@ -479,7 +546,9 @@
         "library_reading_station",
         "library_holographic_index",
         "library_convergence_section",
-        "library_alcove"
+        "library_alcove",
+        "exit_act4_library_to_act4_grand_plaza",
+        "exit_act4_library_to_act4_research_lab"
       ]
     },
     {
@@ -492,7 +561,9 @@
         "war_room_comms",
         "battle_plans",
         "war_room_locker",
-        "war_room_chair"
+        "war_room_chair",
+        "exit_act4_war_room_to_act4_grand_plaza",
+        "exit_act4_war_room_to_act4_residential_block"
       ]
     },
     {
@@ -505,7 +576,8 @@
         "lab_schematics",
         "containment_field",
         "lab_equipment_rack",
-        "lab_supply_cabinet"
+        "lab_supply_cabinet",
+        "exit_act4_research_lab_to_act4_library"
       ]
     },
     {
@@ -518,7 +590,9 @@
         "packed_luggage",
         "family_portrait_wall",
         "residential_echo",
-        "abandoned_meal"
+        "abandoned_meal",
+        "exit_act4_residential_block_to_act4_war_room",
+        "exit_act4_residential_block_to_act4_power_station"
       ]
     },
     {
@@ -531,7 +605,9 @@
         "backup_systems",
         "convergence_breach",
         "power_conduits",
-        "maintenance_hatch"
+        "maintenance_hatch",
+        "exit_act4_power_station_to_act4_residential_block",
+        "exit_act4_power_station_to_act4_temple"
       ]
     },
     {
@@ -539,12 +615,14 @@
       "background_key": "act4_temple",
       "background_file": "backgrounds/act4_temple.png",
       "objects": [
-        "resonance_chamber",
+        "act2hive_resonance_chamber",
         "temple_altar",
         "temple_murals",
         "temple_offerings",
         "crystal_walls",
-        "temple_alcove"
+        "temple_alcove",
+        "exit_act4_temple_to_act4_power_station",
+        "exit_act4_temple_to_act4_underground_railway"
       ]
     },
     {
@@ -557,7 +635,10 @@
         "survivor_markings",
         "flooded_section",
         "railway_controls",
-        "railway_tunnel"
+        "railway_tunnel",
+        "exit_act4_underground_railway_to_act4_temple",
+        "exit_act4_underground_railway_to_act4_echo_chamber",
+        "exit_act4_underground_railway_to_act5_nexus_approach"
       ]
     },
     {
@@ -565,12 +646,14 @@
       "background_key": "act4_echo_chamber",
       "background_file": "backgrounds/act4_echo_chamber.png",
       "objects": [
-        "reality_boundary",
+        "act3echo_reality_boundary",
         "ruined_half",
         "pristine_half",
         "ghost_scientist",
         "echo_console",
-        "shimmering_crack"
+        "shimmering_crack",
+        "exit_act4_echo_chamber_to_act4_underground_railway",
+        "exit_act4_echo_chamber_to_act4_weapon_vault"
       ]
     },
     {
@@ -579,11 +662,12 @@
       "background_file": "backgrounds/act4_weapon_vault.png",
       "objects": [
         "containment_units",
-        "biometric_lock",
+        "act2armory_biometric_lock",
         "weapon_pedestal",
         "energy_barriers",
         "vault_security_door",
-        "forced_unit"
+        "forced_unit",
+        "exit_act4_weapon_vault_to_act4_echo_chamber"
       ]
     },
     {
@@ -596,7 +680,9 @@
         "energy_veins",
         "nexus_vista",
         "crystal_formation",
-        "warped_air"
+        "warped_air",
+        "exit_act5_nexus_approach_to_act4_underground_railway",
+        "exit_act5_nexus_approach_to_act5_nexus_entrance"
       ]
     },
     {
@@ -608,7 +694,10 @@
         "crystal_walls_entrance",
         "energy_pulses",
         "descent_tunnel",
-        "ancient_markings"
+        "ancient_markings",
+        "exit_act5_nexus_entrance_to_act5_nexus_approach",
+        "exit_act5_nexus_entrance_to_act5_energy_conduit",
+        "exit_act5_nexus_entrance_to_act5_control_spire"
       ]
     },
     {
@@ -621,7 +710,9 @@
         "conduit_junction",
         "energy_sample_point",
         "heat_shimmer",
-        "walkway_railing"
+        "walkway_railing",
+        "exit_act5_energy_conduit_to_act5_nexus_entrance",
+        "exit_act5_energy_conduit_to_act5_convergence_chamber"
       ]
     },
     {
@@ -633,7 +724,9 @@
         "energy_beam",
         "crystal_cathedral",
         "apparatus_base",
-        "countermeasure_slot"
+        "countermeasure_slot",
+        "exit_act5_convergence_chamber_to_act5_energy_conduit",
+        "exit_act5_convergence_chamber_to_act5_core"
       ]
     },
     {
@@ -645,7 +738,11 @@
         "ancient_controls",
         "harvesting_display",
         "spire_interface",
-        "convergence_lock"
+        "convergence_lock",
+        "exit_act5_control_spire_to_act5_nexus_entrance",
+        "exit_act5_control_spire_to_act5_stasis_gallery",
+        "spire_console",
+        "spire_controls"
       ]
     },
     {
@@ -657,7 +754,9 @@
         "screaming_inhabitant",
         "gallery_pedestal",
         "oldest_specimen",
-        "gallery_alcove"
+        "gallery_alcove",
+        "exit_act5_stasis_gallery_to_act5_control_spire",
+        "exit_act5_stasis_gallery_to_act5_weapon_assembly"
       ]
     },
     {
@@ -667,10 +766,12 @@
       "objects": [
         "assembly_workbench",
         "discarded_armor",
-        "supply_crates",
+        "act3buried_supply_crates",
         "weapon_station",
         "alien_equipment",
-        "staging_barricade"
+        "staging_barricade",
+        "exit_act5_weapon_assembly_to_act5_stasis_gallery",
+        "exit_act5_weapon_assembly_to_act5_transmission_array"
       ]
     },
     {
@@ -682,7 +783,8 @@
         "array_consoles",
         "galaxy_map_display",
         "frequency_controls",
-        "array_power_coupling"
+        "array_power_coupling",
+        "exit_act5_transmission_array_to_act5_weapon_assembly"
       ]
     },
     {
@@ -694,7 +796,9 @@
         "energy_patterns",
         "consumed_visions",
         "core_interface_point",
-        "crystal_floor"
+        "crystal_floor",
+        "exit_act5_core_to_act5_convergence_chamber",
+        "exit_act5_core_to_act5_escape_route"
       ]
     },
     {
@@ -706,7 +810,8 @@
         "carved_ladder",
         "collapsed_section",
         "shaft_gate",
-        "sky_light"
+        "sky_light",
+        "exit_act5_escape_route_to_act5_core"
       ]
     }
   ],
@@ -864,7 +969,94 @@
     "shuttle_launch_timed_escape": "false",
     "power_grid_district_a": "false",
     "power_grid_district_b": "false",
-    "power_grid_district_c": "false"
+    "power_grid_district_c": "false",
+    "ancient_access_granted": false,
+    "broadcast_sent": false,
+    "bunker_open": false,
+    "can_read_alien": false,
+    "can_track_curator": false,
+    "cipher_complete": false,
+    "city_mapped": false,
+    "city_power_restored": false,
+    "containment_locks_disabled": false,
+    "convergence_comms_intercepted": false,
+    "convergence_dialogue": false,
+    "convergence_research_accessed": false,
+    "countermeasure_active": false,
+    "crossed_boundary": false,
+    "crossed_conduit": false,
+    "crystal_path_cleared": false,
+    "curator_convinced": false,
+    "curator_found_evidence": false,
+    "curator_on_planet": false,
+    "curator_sedated": false,
+    "deep_nexus_open": false,
+    "deep_transit_ready": false,
+    "drones_active": false,
+    "echo_chamber_revelation": false,
+    "echo_chamber_vision_seen": false,
+    "echo_directed_library": false,
+    "echo_guided": false,
+    "echo_manifesting_nearby": false,
+    "echo_stabilizer_active": false,
+    "echo_unlocked_temple": false,
+    "entered_dead_city": false,
+    "entered_nexus": false,
+    "feeding_alarm_triggered": false,
+    "first_echo_seen": false,
+    "found_cipher_frag_2": false,
+    "glimpsed_ship_data": false,
+    "has_assembly_data": false,
+    "has_cipher_frag_1": false,
+    "has_cipher_frag_3": false,
+    "has_nutrient_paste": false,
+    "has_probe": false,
+    "has_specimen_tag": false,
+    "has_vent_map": false,
+    "keystone_revealed": false,
+    "knows_choir_frequencies": false,
+    "knows_corridor_masking": false,
+    "knows_countermeasure_theory": false,
+    "knows_engine_masking": false,
+    "knows_nexus_location": false,
+    "knows_nexus_route": false,
+    "knows_prophecy": false,
+    "knows_vault_bypass": false,
+    "knows_weapon_assembly": false,
+    "lab_accessible": false,
+    "library_data_accessed": false,
+    "library_fully_active": false,
+    "nexus_control_available": false,
+    "overcharge_detonated_nearby": false,
+    "power_cell_missing": false,
+    "power_rerouted": false,
+    "power_station_online": false,
+    "prophecy_revealed": false,
+    "railway_active": false,
+    "reached_convergence_core": false,
+    "reached_operational_deck": false,
+    "reached_planet_surface": false,
+    "reactor_restarted": false,
+    "refugee_camp_explored": false,
+    "registered_as_specimen": false,
+    "residential_echo_helped": false,
+    "resonance_activated": false,
+    "security_hacked": false,
+    "seen_lab_startup": false,
+    "seen_pod_number": false,
+    "shaft_open": false,
+    "shuttle_bay_powered": false,
+    "shuttle_ready": false,
+    "spire_accessed": false,
+    "spire_opened": false,
+    "spotted_vent_grate": false,
+    "studied_prototype": false,
+    "transmission_array_calibrated": false,
+    "vault_opened": false,
+    "watcher_active": false,
+    "watcher_detected_player": false,
+    "weapon_core_obtained": false,
+    "weapon_vault_discovered": false
   },
   "items": [
     {
@@ -1811,6 +2003,326 @@
           ]
         }
       ]
+    },
+    {
+      "id": "charged_sidearm",
+      "name": "Charged Sidearm",
+      "description": "An alien sidearm loaded with a compatible power cell.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "An alien sidearm loaded with a compatible power cell."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "complete_translation_cipher",
+      "name": "Complete Translation Cipher",
+      "description": "The complete alien translation cipher. Allows full reading of the ancient language.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The complete alien translation cipher. Allows full reading of the ancient language."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "countermeasure_stage2",
+      "name": "Countermeasure Stage2",
+      "description": "A partially assembled countermeasure. Needs additional components.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A partially assembled countermeasure. Needs additional components."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "echo_communicator",
+      "name": "Echo Communicator",
+      "description": "A device tuned to echo frequencies for communicating with remnant echoes.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A device tuned to echo frequencies for communicating with remnant echoes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy_dampener",
+      "name": "Energy Dampener",
+      "description": "A device that neutralizes convergence energy fields.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A device that neutralizes convergence energy fields."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "galactic_broadcast",
+      "name": "Galactic Broadcast",
+      "description": "A transmission module configured to broadcast across all frequencies.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A transmission module configured to broadcast across all frequencies."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "improvised_torch",
+      "name": "Improvised Torch",
+      "description": "A makeshift torch providing steady bio-luminescent light.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A makeshift torch providing steady bio-luminescent light."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neural_bridge",
+      "name": "Neural Bridge",
+      "description": "A device creating a direct neural link with the Convergence intelligence.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A device creating a direct neural link with the Convergence intelligence."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neural_suppressant",
+      "name": "Neural Suppressant",
+      "description": "A compound that blocks neural control signals from the Convergence.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A compound that blocks neural control signals from the Convergence."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orbital_weapon",
+      "name": "Orbital Weapon",
+      "description": "A fully assembled orbital weapon capable of disrupting convergence energy.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A fully assembled orbital weapon capable of disrupting convergence energy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "overcharge_device",
+      "name": "Overcharge Device",
+      "description": "A dangerously overloaded power cell that delivers a devastating energy burst.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A dangerously overloaded power cell that delivers a devastating energy burst."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "partial_cipher_12",
+      "name": "Partial Cipher 12",
+      "description": "Two fragments of the alien translation cipher combined. Still incomplete.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "Two fragments of the alien translation cipher combined. Still incomplete."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "partial_cipher_123",
+      "name": "Partial Cipher 123",
+      "description": "Three fragments of the alien translation cipher. Nearly complete.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "Three fragments of the alien translation cipher. Nearly complete."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "primed_weapon_core",
+      "name": "Primed Weapon Core",
+      "description": "A weapon core charged with convergence energy, ready for assembly.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A weapon core charged with convergence energy, ready for assembly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reinforced_blade",
+      "name": "Reinforced Blade",
+      "description": "A glass shard wrapped with neural tendrils for grip. Sharp enough to cut through organic barriers.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A glass shard wrapped with neural tendrils for grip. Sharp enough to cut through organic barriers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sedative_compound",
+      "name": "Sedative Compound",
+      "description": "A potent sedative mixed from nutrient paste and bio-garden extract.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A potent sedative mixed from nutrient paste and bio-garden extract."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shielded_helmet",
+      "name": "Shielded Helmet",
+      "description": "An emergency helmet reinforced with radiation shielding.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "An emergency helmet reinforced with radiation shielding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the_countermeasure",
+      "name": "The Countermeasure",
+      "description": "The fully assembled Countermeasure capable of disrupting the Convergence at its core.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The fully assembled Countermeasure capable of disrupting the Convergence at its core."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "universal_bypass",
+      "name": "Universal Bypass",
+      "description": "An improvised hacking tool combining the navigation chip with a power cell.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "An improvised hacking tool combining the navigation chip with a power cell."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "universal_interface",
+      "name": "Universal Interface",
+      "description": "A device that interfaces with both alien and convergence technology.",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A device that interfaces with both alien and convergence technology."
+            }
+          ]
+        }
+      ]
     }
   ],
   "combinations": [
@@ -2052,6 +2564,22 @@
           "value": "true"
         }
       ]
+    },
+    {
+      "ingredients": [
+        "comm_array_schematics",
+        "ships_black_box"
+      ],
+      "result": "galactic_broadcast",
+      "message": "You combine the comm array schematics with the black box data to configure a galactic broadcast module."
+    },
+    {
+      "ingredients": [
+        "echo_stabilizer",
+        "navigation_chip"
+      ],
+      "result": "neural_bridge",
+      "message": "You combine the echo stabilizer with the navigation chip to create a neural bridge capable of interfacing directly with the Convergence."
     }
   ],
   "objects": [
@@ -11279,7 +11807,7 @@
       ]
     },
     {
-      "id": "act2_resonance_chamber",
+      "id": "act2hive_resonance_chamber",
       "name": "Resonance Chamber",
       "description": "A circular depression in the temple floor that glows with energy.",
       "position": {
@@ -11908,7 +12436,7 @@
       ]
     },
     {
-      "id": "act3_reality_boundary",
+      "id": "act3echo_reality_boundary",
       "name": "Reality Boundary",
       "description": "The shimmering barrier between past and present.",
       "position": {
@@ -12269,7 +12797,7 @@
       ]
     },
     {
-      "id": "act2_biometric_lock",
+      "id": "act2armory_biometric_lock",
       "name": "Biometric Lock",
       "description": "An alien biometric scanner keyed to four-armed physiology.",
       "position": {
@@ -13978,7 +14506,7 @@
       ]
     },
     {
-      "id": "act3_supply_crates",
+      "id": "act3buried_supply_crates",
       "name": "Supply Crates",
       "description": "Military supply crates, some still sealed.",
       "position": {
@@ -14414,6 +14942,36 @@
             }
           ],
           "noise": 0
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "curator_on_planet",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "curator_convinced",
+              "value": "false"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You present evidence of the Convergence's betrayal to the Curator. After a long silence, it hands you a crystalline signal device. \"Use this at the core. My kind and yours need not be enemies.\""
+            },
+            {
+              "type": "add_item",
+              "item": "curators_signal_device"
+            },
+            {
+              "type": "set_flag",
+              "flag": "curator_convinced",
+              "value": true
+            }
+          ]
         }
       ]
     },
@@ -14785,491 +15343,4195 @@
       ]
     },
     {
-      "id": "acid_baths",
-      "name": "Acid Processing Baths",
-      "description": "Industrial vats filled with dissolving solution. Organic matter breaks down here for nutrient reprocessing.",
-      "position": {
-        "x": 400,
-        "y": 450
-      },
-      "size": {
-        "width": 200,
-        "height": 120
-      },
-      "visual": {
-        "color": "#4a6a2a",
-        "label": "Acid Baths"
-      },
-      "initial_state": "active",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Bubbling vats of acid process organic matter into base nutrients. The fumes sting your eyes. Several vats have overflow channels leading deeper into the processing system."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "The acid would dissolve your hand. You need something to interact with these safely."
-              },
-              {
-                "type": "add_noise",
-                "amount": 5
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "broken_equipment",
-      "name": "Broken Equipment",
-      "description": "Damaged monitoring equipment, screens cracked and sparking intermittently.",
-      "position": {
-        "x": 600,
-        "y": 300
-      },
-      "size": {
-        "width": 100,
-        "height": 80
-      },
-      "visual": {
-        "color": "#3a3a4a",
-        "label": "Broken Equipment"
-      },
-      "initial_state": "damaged",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Monitoring equipment that was smashed deliberately. Someone \u2014 or something \u2014 didn't want this data accessible. A few screens still flicker with corrupted readouts."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "You sift through the wreckage but find nothing salvageable."
-              },
-              {
-                "type": "add_noise",
-                "amount": 8
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "catwalk_crossing",
-      "name": "Catwalk Crossing",
-      "description": "A narrow metal catwalk spanning the gap between processing sectors.",
-      "position": {
-        "x": 500,
-        "y": 250
-      },
-      "size": {
-        "width": 180,
-        "height": 40
-      },
-      "visual": {
-        "color": "#5a5a5a",
-        "label": "Catwalk"
-      },
-      "initial_state": "intact",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "A metal catwalk stretching across the processing pit below. It sways slightly, but looks structurally sound. The far side connects to the next sector."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "deck_railing",
-      "name": "Deck Railing",
-      "description": "Safety railing along the observation deck's edge, overlooking the vast alien landscape.",
-      "position": {
-        "x": 500,
-        "y": 600
-      },
-      "size": {
-        "width": 300,
-        "height": 30
-      },
-      "visual": {
-        "color": "#6a6a6a",
-        "label": "Railing"
-      },
-      "initial_state": "intact",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "A metal railing overlooking the landscape far below. The drop is dizzying. Through the haze you can see the alien city stretching toward the horizon."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "energy_beams_view",
-      "name": "Energy Beam Conduits",
-      "description": "Visible energy beams pulsing through transparent conduits, feeding the station's core systems.",
-      "position": {
-        "x": 700,
-        "y": 350
-      },
-      "size": {
-        "width": 80,
-        "height": 200
-      },
-      "visual": {
-        "color": "#4a2a6a",
-        "label": "Energy Beams"
-      },
-      "initial_state": "active",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Streams of purple-white energy pulse through crystalline conduits. They converge somewhere deep below, feeding the station's core. The light they throw casts strange shadows."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "grinders",
-      "name": "Industrial Grinders",
-      "description": "Massive grinding machinery that reduces harvested biomass to paste.",
+      "name": "Grinders",
+      "description": "Grinders.",
       "position": {
-        "x": 300,
-        "y": 500
-      },
-      "size": {
-        "width": 160,
-        "height": 100
-      },
-      "visual": {
-        "color": "#4a3a2a",
-        "label": "Grinders"
-      },
-      "initial_state": "active",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Massive industrial grinders churn endlessly, reducing organic matter to a fine paste. The noise is a constant low rumble that masks other sounds. You don't want to think about what's being processed."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Getting your hands near those blades would be suicide."
-              },
-              {
-                "type": "add_noise",
-                "amount": 3
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "inter_deck_hatch",
-      "name": "Inter-Deck Hatch",
-      "description": "A heavy hatch connecting this level to the decks above and below.",
-      "position": {
-        "x": 150,
+        "x": 512,
         "y": 400
       },
       "size": {
-        "width": 80,
+        "width": 120,
         "height": 80
       },
       "visual": {
-        "color": "#3a4a5a",
-        "label": "Hatch"
+        "color": "#4a6b5a",
+        "label": "Grinders"
       },
-      "initial_state": "sealed",
+      "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "A heavy circular hatch set into the floor. It connects to the maintenance decks below. The locking mechanism requires authorization."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "The hatch is sealed tight. You'd need authorization or a bypass tool to open it."
-              },
-              {
-                "type": "add_noise",
-                "amount": 10
-              }
-            ]
-          }
-        ]
-      }
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the grinders."
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": "observation_console",
-      "name": "Observation Console",
-      "description": "A multi-screen console displaying atmospheric data and surface scans.",
+      "id": "acid_baths",
+      "name": "Acid Baths",
+      "description": "Acid Baths.",
       "position": {
-        "x": 400,
-        "y": 300
+        "x": 512,
+        "y": 400
       },
       "size": {
-        "width": 140,
+        "width": 120,
         "height": 80
       },
       "visual": {
-        "color": "#2a3a4a",
-        "label": "Console"
+        "color": "#4a6b5a",
+        "label": "Acid Baths"
       },
-      "initial_state": "active",
+      "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Screens display atmospheric readings, surface topography, and what appear to be population density maps. The data suggests this planet was chosen for a reason \u2014 its inhabitants."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "You cycle through the data feeds. Most are encrypted, but the atmospheric readings are clear \u2014 the air outside is breathable, if barely."
-              },
-              {
-                "type": "set_flag",
-                "flag": "learned_atmosphere_breathable",
-                "value": true
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "observation_instruments",
-      "name": "Observation Instruments",
-      "description": "Precision optical and sensor instruments aimed at the planet's surface.",
-      "position": {
-        "x": 650,
-        "y": 250
-      },
-      "size": {
-        "width": 100,
-        "height": 100
-      },
-      "visual": {
-        "color": "#3a3a5a",
-        "label": "Instruments"
-      },
-      "initial_state": "calibrated",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "High-precision instruments focused on the surface below. Through the viewfinder you can see settlements \u2014 structures built by intelligent beings. They have no idea what orbits above them."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "panoramic_viewport",
-      "name": "Panoramic Viewport",
-      "description": "A massive curved window offering a sweeping view of the planet below.",
-      "position": {
-        "x": 500,
-        "y": 200
-      },
-      "size": {
-        "width": 300,
-        "height": 150
-      },
-      "visual": {
-        "color": "#1a2a4a",
-        "label": "Viewport"
-      },
-      "initial_state": "clear",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "The viewport reveals a breathtaking and terrible view. A blue-green planet fills the frame \u2014 beautiful, inhabited, and being systematically harvested. You can see collection beams touching down in patterns across the continents."
-              }
-            ]
-          }
-        ]
-      }
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the acid baths."
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "reprocessing_vats",
       "name": "Reprocessing Vats",
-      "description": "Enormous vats where biological material is broken down and reconstituted.",
+      "description": "Reprocessing Vats.",
       "position": {
-        "x": 550,
-        "y": 450
+        "x": 512,
+        "y": 400
       },
       "size": {
-        "width": 160,
-        "height": 120
+        "width": 120,
+        "height": 80
       },
       "visual": {
-        "color": "#3a5a3a",
-        "label": "Vats"
+        "color": "#4a6b5a",
+        "label": "Reprocessing Vats"
       },
-      "initial_state": "active",
+      "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "Biological material is broken down in these vats and reconstituted into nutrient compounds. The process is horrifyingly efficient. Labels indicate different output grades \u2014 some marked for stasis pod systems."
-              }
-            ]
-          }
-        ],
-        "hand": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "The vats are sealed and the contents are toxic. You pull your hand back quickly."
-              },
-              {
-                "type": "add_noise",
-                "amount": 5
-              }
-            ]
-          }
-        ]
-      }
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the reprocessing vats."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "catwalk_crossing",
+      "name": "Catwalk Crossing",
+      "description": "Catwalk Crossing.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Catwalk Crossing"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the catwalk crossing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "broken_equipment",
+      "name": "Broken Equipment",
+      "description": "Broken Equipment.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Broken Equipment"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the broken equipment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inter_deck_hatch",
+      "name": "Inter Deck Hatch",
+      "description": "Inter Deck Hatch.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Inter Deck Hatch"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the inter deck hatch."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panoramic_viewport",
+      "name": "Panoramic Viewport",
+      "description": "Panoramic Viewport.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Panoramic Viewport"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the panoramic viewport."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy_beams_view",
+      "name": "Energy Beams View",
+      "description": "Energy Beams View.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Energy Beams View"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the energy beams view."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "observation_instruments",
+      "name": "Observation Instruments",
+      "description": "Observation Instruments.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Observation Instruments"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the observation instruments."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck_railing",
+      "name": "Deck Railing",
+      "description": "Deck Railing.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Deck Railing"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the deck railing."
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "sick_atmosphere",
-      "name": "Toxic Atmosphere",
-      "description": "The air here is thick with chemical fumes and a sickly bio-luminescent haze.",
+      "name": "Sick Atmosphere",
+      "description": "Sick Atmosphere.",
       "position": {
-        "x": 500,
-        "y": 100
+        "x": 512,
+        "y": 400
       },
       "size": {
-        "width": 400,
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Sick Atmosphere"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the sick atmosphere."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "observation_console",
+      "name": "Observation Console",
+      "description": "Observation Console.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a6b5a",
+        "label": "Observation Console"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "You examine the observation console."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_stasis_hold_to_act1_pod_cluster",
+      "name": "To Pod Cluster",
+      "description": "A passage leading to the pod cluster.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Pod Cluster"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the pod cluster."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_pod_cluster"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_pod_cluster_to_act1_stasis_hold",
+      "name": "To Stasis Hold",
+      "description": "A passage leading to the stasis hold.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Stasis Hold"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the stasis hold."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_stasis_hold"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_pod_cluster_to_act1_processing_lab",
+      "name": "To Processing Lab",
+      "description": "A passage leading to the processing lab.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Processing Lab"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the processing lab."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_processing_lab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_processing_lab_to_act1_pod_cluster",
+      "name": "To Pod Cluster",
+      "description": "A passage leading to the pod cluster.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Pod Cluster"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the pod cluster."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_pod_cluster"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_pod_cluster_to_act1_containment_corridor",
+      "name": "To Containment Corridor",
+      "description": "A passage leading to the containment corridor.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Containment Corridor"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the containment corridor."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_containment_corridor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_containment_corridor_to_act1_pod_cluster",
+      "name": "To Pod Cluster",
+      "description": "A passage leading to the pod cluster.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Pod Cluster"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the pod cluster."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_pod_cluster"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_containment_corridor_to_act1_morgue",
+      "name": "To Morgue",
+      "description": "A passage leading to the morgue.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Morgue"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the morgue."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_morgue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_morgue_to_act1_containment_corridor",
+      "name": "To Containment Corridor",
+      "description": "A passage leading to the containment corridor.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Containment Corridor"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the containment corridor."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_containment_corridor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_containment_corridor_to_act1_security_hub",
+      "name": "To Security Hub",
+      "description": "A passage leading to the security hub.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Security Hub"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the security hub."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_security_hub"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_security_hub_to_act1_containment_corridor",
+      "name": "To Containment Corridor",
+      "description": "A passage leading to the containment corridor.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Containment Corridor"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the containment corridor."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_containment_corridor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_processing_lab_to_act1_feeding_station",
+      "name": "To Feeding Station",
+      "description": "A passage leading to the feeding station.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Feeding Station"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the feeding station."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_feeding_station_to_act1_processing_lab",
+      "name": "To Processing Lab",
+      "description": "A passage leading to the processing lab.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Processing Lab"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the processing lab."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_processing_lab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_feeding_station_to_act1_ventilation_shaft",
+      "name": "To Ventilation Shaft",
+      "description": "A passage leading to the ventilation shaft.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Ventilation Shaft"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the ventilation shaft."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_ventilation_shaft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_ventilation_shaft_to_act1_feeding_station",
+      "name": "To Feeding Station",
+      "description": "A passage leading to the feeding station.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Feeding Station"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the feeding station."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_security_hub_to_act1_specimen_archive",
+      "name": "To Specimen Archive",
+      "description": "A passage leading to the specimen archive.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Specimen Archive"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the specimen archive."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_specimen_archive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_specimen_archive_to_act1_security_hub",
+      "name": "To Security Hub",
+      "description": "A passage leading to the security hub.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Security Hub"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the security hub."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_security_hub"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_specimen_archive_to_act1_airlock_bay",
+      "name": "To Airlock Bay",
+      "description": "A passage leading to the airlock bay.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Airlock Bay"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the airlock bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_airlock_bay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_airlock_bay_to_act1_specimen_archive",
+      "name": "To Specimen Archive",
+      "description": "A passage leading to the specimen archive.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Specimen Archive"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the specimen archive."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_specimen_archive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act1_airlock_bay_to_act2_navigation_bridge",
+      "name": "To Navigation Bridge",
+      "description": "A passage leading to the navigation bridge.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Navigation Bridge"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the navigation bridge."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_navigation_bridge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_navigation_bridge_to_act1_airlock_bay",
+      "name": "To Airlock Bay",
+      "description": "A passage leading to the airlock bay.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Airlock Bay"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the airlock bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_airlock_bay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_navigation_bridge_to_act2_engineering",
+      "name": "To Engineering",
+      "description": "A passage leading to the engineering.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Engineering"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the engineering."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_engineering"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_engineering_to_act2_navigation_bridge",
+      "name": "To Navigation Bridge",
+      "description": "A passage leading to the navigation bridge.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Navigation Bridge"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the navigation bridge."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_navigation_bridge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_navigation_bridge_to_act2_comm_array",
+      "name": "To Comm Array",
+      "description": "A passage leading to the comm array.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Comm Array"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the comm array."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_comm_array"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_comm_array_to_act2_navigation_bridge",
+      "name": "To Navigation Bridge",
+      "description": "A passage leading to the navigation bridge.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Navigation Bridge"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the navigation bridge."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_navigation_bridge"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_engineering_to_act2_armory",
+      "name": "To Armory",
+      "description": "A passage leading to the armory.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Armory"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the armory."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_armory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_armory_to_act2_engineering",
+      "name": "To Engineering",
+      "description": "A passage leading to the engineering.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Engineering"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the engineering."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_engineering"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_engineering_to_act2_waste_processing",
+      "name": "To Waste Processing",
+      "description": "A passage leading to the waste processing.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Waste Processing"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the waste processing."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_waste_processing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_waste_processing_to_act2_engineering",
+      "name": "To Engineering",
+      "description": "A passage leading to the engineering.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Engineering"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the engineering."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_engineering"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_comm_array_to_act2_hive_quarters",
+      "name": "To Hive Quarters",
+      "description": "A passage leading to the hive quarters.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Hive Quarters"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the hive quarters."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_hive_quarters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_hive_quarters_to_act2_comm_array",
+      "name": "To Comm Array",
+      "description": "A passage leading to the comm array.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Comm Array"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the comm array."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_comm_array"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_hive_quarters_to_act2_shuttle_bay",
+      "name": "To Shuttle Bay",
+      "description": "A passage leading to the shuttle bay.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Shuttle Bay"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the shuttle bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_shuttle_bay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_shuttle_bay_to_act2_hive_quarters",
+      "name": "To Hive Quarters",
+      "description": "A passage leading to the hive quarters.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Hive Quarters"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the hive quarters."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_hive_quarters"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_shuttle_bay_to_act2_hydroponics",
+      "name": "To Hydroponics",
+      "description": "A passage leading to the hydroponics.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Hydroponics"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the hydroponics."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_hydroponics"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_hydroponics_to_act2_shuttle_bay",
+      "name": "To Shuttle Bay",
+      "description": "A passage leading to the shuttle bay.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Shuttle Bay"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the shuttle bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_shuttle_bay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_hydroponics_to_act2_data_core",
+      "name": "To Data Core",
+      "description": "A passage leading to the data core.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Data Core"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the data core."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_data_core"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_data_core_to_act2_hydroponics",
+      "name": "To Hydroponics",
+      "description": "A passage leading to the hydroponics.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Hydroponics"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the hydroponics."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_hydroponics"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_data_core_to_act2_observation_deck",
+      "name": "To Observation Deck",
+      "description": "A passage leading to the observation deck.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Observation Deck"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the observation deck."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_observation_deck"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_observation_deck_to_act2_data_core",
+      "name": "To Data Core",
+      "description": "A passage leading to the data core.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Data Core"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the data core."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_data_core"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act2_shuttle_bay_to_act3_crash_site",
+      "name": "To Crash Site",
+      "description": "A passage leading to the crash site.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Crash Site"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the crash site."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_crash_site"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_crash_site_to_act2_shuttle_bay",
+      "name": "To Shuttle Bay",
+      "description": "A passage leading to the shuttle bay.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Shuttle Bay"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the shuttle bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_shuttle_bay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_crash_site_to_act3_wasteland_path",
+      "name": "To Wasteland Path",
+      "description": "A passage leading to the wasteland path.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Wasteland Path"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the wasteland path."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_wasteland_path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_wasteland_path_to_act3_crash_site",
+      "name": "To Crash Site",
+      "description": "A passage leading to the crash site.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Crash Site"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the crash site."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_crash_site"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_crash_site_to_act3_shuttle_wreck_interior",
+      "name": "To Shuttle Wreck Interior",
+      "description": "A passage leading to the shuttle wreck interior.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Shuttle Wreck Interior"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the shuttle wreck interior."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_shuttle_wreck_interior"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_shuttle_wreck_interior_to_act3_crash_site",
+      "name": "To Crash Site",
+      "description": "A passage leading to the crash site.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Crash Site"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the crash site."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_crash_site"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_wasteland_path_to_act3_siphon_tower",
+      "name": "To Siphon Tower",
+      "description": "A passage leading to the siphon tower.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Siphon Tower"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the siphon tower."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_siphon_tower"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_siphon_tower_to_act3_wasteland_path",
+      "name": "To Wasteland Path",
+      "description": "A passage leading to the wasteland path.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Wasteland Path"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the wasteland path."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_wasteland_path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_wasteland_path_to_act3_refugee_camp",
+      "name": "To Refugee Camp",
+      "description": "A passage leading to the refugee camp.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Refugee Camp"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the refugee camp."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_refugee_camp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_refugee_camp_to_act3_wasteland_path",
+      "name": "To Wasteland Path",
+      "description": "A passage leading to the wasteland path.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Wasteland Path"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the wasteland path."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_wasteland_path"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_refugee_camp_to_act3_fungal_grove",
+      "name": "To Fungal Grove",
+      "description": "A passage leading to the fungal grove.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Fungal Grove"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the fungal grove."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_fungal_grove"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_fungal_grove_to_act3_refugee_camp",
+      "name": "To Refugee Camp",
+      "description": "A passage leading to the refugee camp.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Refugee Camp"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the refugee camp."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_refugee_camp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_fungal_grove_to_act3_echo_field",
+      "name": "To Echo Field",
+      "description": "A passage leading to the echo field.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Echo Field"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the echo field."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_echo_field"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_echo_field_to_act3_fungal_grove",
+      "name": "To Fungal Grove",
+      "description": "A passage leading to the fungal grove.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Fungal Grove"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the fungal grove."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_fungal_grove"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_echo_field_to_act3_buried_bunker",
+      "name": "To Buried Bunker",
+      "description": "A passage leading to the buried bunker.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Buried Bunker"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the buried bunker."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_buried_bunker"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_buried_bunker_to_act3_echo_field",
+      "name": "To Echo Field",
+      "description": "A passage leading to the echo field.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Echo Field"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the echo field."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_echo_field"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_buried_bunker_to_act3_overlook",
+      "name": "To Overlook",
+      "description": "A passage leading to the overlook.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Overlook"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the overlook."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_overlook"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_overlook_to_act3_buried_bunker",
+      "name": "To Buried Bunker",
+      "description": "A passage leading to the buried bunker.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Buried Bunker"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the buried bunker."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_buried_bunker"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_overlook_to_act3_city_gates",
+      "name": "To City Gates",
+      "description": "A passage leading to the city gates.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To City Gates"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the city gates."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_city_gates"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_city_gates_to_act3_overlook",
+      "name": "To Overlook",
+      "description": "A passage leading to the overlook.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Overlook"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the overlook."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_overlook"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act3_city_gates_to_act4_grand_plaza",
+      "name": "To Grand Plaza",
+      "description": "A passage leading to the grand plaza.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Grand Plaza"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the grand plaza."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_grand_plaza"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_grand_plaza_to_act3_city_gates",
+      "name": "To City Gates",
+      "description": "A passage leading to the city gates.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To City Gates"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the city gates."
+            },
+            {
+              "type": "set_view",
+              "view": "act3_city_gates"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_grand_plaza_to_act4_library",
+      "name": "To Library",
+      "description": "A passage leading to the library.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Library"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the library."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_library"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_library_to_act4_grand_plaza",
+      "name": "To Grand Plaza",
+      "description": "A passage leading to the grand plaza.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Grand Plaza"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the grand plaza."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_grand_plaza"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_grand_plaza_to_act4_war_room",
+      "name": "To War Room",
+      "description": "A passage leading to the war room.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To War Room"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the war room."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_war_room"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_war_room_to_act4_grand_plaza",
+      "name": "To Grand Plaza",
+      "description": "A passage leading to the grand plaza.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Grand Plaza"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the grand plaza."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_grand_plaza"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_library_to_act4_research_lab",
+      "name": "To Research Lab",
+      "description": "A passage leading to the research lab.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Research Lab"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the research lab."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_research_lab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_research_lab_to_act4_library",
+      "name": "To Library",
+      "description": "A passage leading to the library.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Library"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the library."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_library"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_war_room_to_act4_residential_block",
+      "name": "To Residential Block",
+      "description": "A passage leading to the residential block.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Residential Block"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the residential block."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_residential_block"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_residential_block_to_act4_war_room",
+      "name": "To War Room",
+      "description": "A passage leading to the war room.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To War Room"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the war room."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_war_room"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_residential_block_to_act4_power_station",
+      "name": "To Power Station",
+      "description": "A passage leading to the power station.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Power Station"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the power station."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_power_station"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_power_station_to_act4_residential_block",
+      "name": "To Residential Block",
+      "description": "A passage leading to the residential block.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Residential Block"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the residential block."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_residential_block"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_power_station_to_act4_temple",
+      "name": "To Temple",
+      "description": "A passage leading to the temple.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Temple"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the temple."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_temple"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_temple_to_act4_power_station",
+      "name": "To Power Station",
+      "description": "A passage leading to the power station.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Power Station"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the power station."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_power_station"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_temple_to_act4_underground_railway",
+      "name": "To Underground Railway",
+      "description": "A passage leading to the underground railway.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Underground Railway"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the underground railway."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_underground_railway"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_underground_railway_to_act4_temple",
+      "name": "To Temple",
+      "description": "A passage leading to the temple.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Temple"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the temple."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_temple"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_underground_railway_to_act4_echo_chamber",
+      "name": "To Echo Chamber",
+      "description": "A passage leading to the echo chamber.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Echo Chamber"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the echo chamber."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_echo_chamber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_echo_chamber_to_act4_underground_railway",
+      "name": "To Underground Railway",
+      "description": "A passage leading to the underground railway.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Underground Railway"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the underground railway."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_underground_railway"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_echo_chamber_to_act4_weapon_vault",
+      "name": "To Weapon Vault",
+      "description": "A passage leading to the weapon vault.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Weapon Vault"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the weapon vault."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_weapon_vault"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_weapon_vault_to_act4_echo_chamber",
+      "name": "To Echo Chamber",
+      "description": "A passage leading to the echo chamber.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Echo Chamber"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the echo chamber."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_echo_chamber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act4_underground_railway_to_act5_nexus_approach",
+      "name": "To Nexus Approach",
+      "description": "A passage leading to the nexus approach.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Nexus Approach"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the nexus approach."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_nexus_approach"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_nexus_approach_to_act4_underground_railway",
+      "name": "To Underground Railway",
+      "description": "A passage leading to the underground railway.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Underground Railway"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the underground railway."
+            },
+            {
+              "type": "set_view",
+              "view": "act4_underground_railway"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_nexus_approach_to_act5_nexus_entrance",
+      "name": "To Nexus Entrance",
+      "description": "A passage leading to the nexus entrance.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Nexus Entrance"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the nexus entrance."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_nexus_entrance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_nexus_entrance_to_act5_nexus_approach",
+      "name": "To Nexus Approach",
+      "description": "A passage leading to the nexus approach.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Nexus Approach"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the nexus approach."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_nexus_approach"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_nexus_entrance_to_act5_energy_conduit",
+      "name": "To Energy Conduit",
+      "description": "A passage leading to the energy conduit.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Energy Conduit"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the energy conduit."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_energy_conduit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_energy_conduit_to_act5_nexus_entrance",
+      "name": "To Nexus Entrance",
+      "description": "A passage leading to the nexus entrance.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Nexus Entrance"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the nexus entrance."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_nexus_entrance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_energy_conduit_to_act5_convergence_chamber",
+      "name": "To Convergence Chamber",
+      "description": "A passage leading to the convergence chamber.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Convergence Chamber"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the convergence chamber."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_convergence_chamber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_convergence_chamber_to_act5_energy_conduit",
+      "name": "To Energy Conduit",
+      "description": "A passage leading to the energy conduit.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Energy Conduit"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the energy conduit."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_energy_conduit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_nexus_entrance_to_act5_control_spire",
+      "name": "To Control Spire",
+      "description": "A passage leading to the control spire.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Control Spire"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the control spire."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_control_spire"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_control_spire_to_act5_nexus_entrance",
+      "name": "To Nexus Entrance",
+      "description": "A passage leading to the nexus entrance.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Nexus Entrance"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the nexus entrance."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_nexus_entrance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_control_spire_to_act5_stasis_gallery",
+      "name": "To Stasis Gallery",
+      "description": "A passage leading to the stasis gallery.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Stasis Gallery"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the stasis gallery."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_stasis_gallery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_stasis_gallery_to_act5_control_spire",
+      "name": "To Control Spire",
+      "description": "A passage leading to the control spire.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Control Spire"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the control spire."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_control_spire"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_stasis_gallery_to_act5_weapon_assembly",
+      "name": "To Weapon Assembly",
+      "description": "A passage leading to the weapon assembly.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Weapon Assembly"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the weapon assembly."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_weapon_assembly"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_weapon_assembly_to_act5_stasis_gallery",
+      "name": "To Stasis Gallery",
+      "description": "A passage leading to the stasis gallery.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Stasis Gallery"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the stasis gallery."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_stasis_gallery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_weapon_assembly_to_act5_transmission_array",
+      "name": "To Transmission Array",
+      "description": "A passage leading to the transmission array.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Transmission Array"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the transmission array."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_transmission_array"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_transmission_array_to_act5_weapon_assembly",
+      "name": "To Weapon Assembly",
+      "description": "A passage leading to the weapon assembly.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Weapon Assembly"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the weapon assembly."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_weapon_assembly"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_convergence_chamber_to_act5_core",
+      "name": "To Core",
+      "description": "A passage leading to the core.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Core"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the core."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_core"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_core_to_act5_convergence_chamber",
+      "name": "To Convergence Chamber",
+      "description": "A passage leading to the convergence chamber.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Convergence Chamber"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the convergence chamber."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_convergence_chamber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_core_to_act5_escape_route",
+      "name": "To Escape Route",
+      "description": "A passage leading to the escape route.",
+      "position": {
+        "x": 950,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Escape Route"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the escape route."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_escape_route"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_act5_escape_route_to_act5_core",
+      "name": "To Core",
+      "description": "A passage leading to the core.",
+      "position": {
+        "x": 74,
+        "y": 384
+      },
+      "size": {
+        "width": 74,
+        "height": 768
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "To Core"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You move toward the core."
+            },
+            {
+              "type": "set_view",
+              "view": "act5_core"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maintenance_shaft_access",
+      "name": "Maintenance Shaft Access",
+      "description": "A hidden maintenance shaft access panel, now revealed.",
+      "position": {
+        "x": 380,
+        "y": 650
+      },
+      "size": {
+        "width": 80,
         "height": 60
       },
       "visual": {
-        "color": "#4a5a2a",
-        "label": "Toxic Air"
+        "color": "#2a3a4a",
+        "label": "Shaft Access"
       },
-      "initial_state": "active",
+      "initial_state": "hidden",
+      "initially_visible": false,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A narrow maintenance shaft leading down into the ship's infrastructure. You could squeeze through."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You climb down into the maintenance shaft."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_ventilation_shaft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bridge_console",
+      "name": "Bridge Console",
+      "description": "The main bridge control console. Its holographic displays flicker with alien navigation data.",
+      "position": {
+        "x": 512,
+        "y": 450
+      },
+      "size": {
+        "width": 200,
+        "height": 100
+      },
+      "visual": {
+        "color": "#3a5a6a",
+        "label": "Bridge Console"
+      },
+      "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
-      "interactions": {
-        "look": [
-          {
-            "conditions": [],
-            "effects": [
-              {
-                "type": "message",
-                "text": "The air shimmers with chemical vapors and bioluminescent particles. Breathing is difficult \u2014 your lungs burn with each inhale. You won't last long in this section without protection."
-              }
-            ]
-          }
-        ]
-      }
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The bridge console controls the entire ship. Most systems are locked behind biometric security."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "bridge_console",
+              "state": "locked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The console is locked. You need to bypass the access lock first."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "bridge_console",
+              "state": "unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You access the bridge console and begin reviewing navigation data. The ship was heading for a convergence point..."
+            },
+            {
+              "type": "set_flag",
+              "flag": "glimpsed_ship_data",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "black_box_recorder",
+      "name": "Black Box Recorder",
+      "description": "The ship's flight recorder, hidden behind a panel in the comm array.",
+      "position": {
+        "x": 700,
+        "y": 300
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#1a1a2a",
+        "label": "Black Box Recorder"
+      },
+      "initial_state": "hidden",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The ship's black box recorder. It contains the final logs before the crew was taken."
+            }
+          ]
+        },
+        {
+          "verb": "take",
+          "then": [
+            {
+              "type": "message",
+              "text": "You carefully extract the black box recorder. Its data could reveal what happened to the crew."
+            },
+            {
+              "type": "add_item",
+              "item": "ships_black_box"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bunker_blast_door",
+      "name": "Bunker Blast Door",
+      "description": "A massive reinforced blast door blocking entry to the underground bunker.",
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 200,
+        "height": 300
+      },
+      "visual": {
+        "color": "#4a4a5a",
+        "label": "Bunker Blast Door"
+      },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A blast door of alien manufacture, built to withstand orbital bombardment. A keypad lock controls access."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "bunker_blast_door",
+              "state": "locked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The blast door is securely locked. You'll need the access code."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "bunker_blast_door",
+              "state": "unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The blast door grinds open, revealing the bunker interior."
+            },
+            {
+              "type": "set_flag",
+              "flag": "bunker_open",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spire_console",
+      "name": "Spire Console",
+      "description": "The control spire's main interface, a towering column of crystalline technology.",
+      "position": {
+        "x": 512,
+        "y": 350
+      },
+      "size": {
+        "width": 150,
+        "height": 200
+      },
+      "visual": {
+        "color": "#6a3a8a",
+        "label": "Spire Console"
+      },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The spire console pulses with convergence energy. It controls the nexus's defensive systems."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "spire_console",
+              "state": "locked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The console is locked behind a complex security protocol."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "spire_console",
+              "state": "unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You access the spire console. From here you can control the nexus's systems."
+            },
+            {
+              "type": "set_flag",
+              "flag": "spire_accessed",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spire_controls",
+      "name": "Spire Controls",
+      "description": "Advanced controls revealed after bypassing the spire lock.",
+      "position": {
+        "x": 512,
+        "y": 500
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#7a4a9a",
+        "label": "Spire Controls"
+      },
+      "initial_state": "hidden",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The spire's inner controls. With these, you could redirect the nexus's energy output."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You interface with the spire controls, gaining access to the nexus's core systems."
+            },
+            {
+              "type": "set_flag",
+              "flag": "nexus_control_available",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_grate",
+      "name": "Ventilation Grate",
+      "description": "A ventilation grate in the floor. Something could crawl through here.",
+      "position": {
+        "x": 200,
+        "y": 650
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "visual": {
+        "color": "#3a3a4a",
+        "label": "Vent Grate"
+      },
+      "initial_state": "closed",
+      "initially_visible": true,
+      "hiding_spot": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A standard ventilation grate. You can hear air moving through the duct system below."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_grate",
+              "state": "closed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You pry open the vent grate. The shaft below looks just big enough to squeeze through."
+            },
+            {
+              "type": "set_state",
+              "object": "vent_grate",
+              "state": "open"
+            }
+          ]
+        }
+      ]
     }
   ],
   "puzzle_widgets": [
@@ -17040,8 +21302,7 @@
           }
         ]
       }
-    ],
-    "enabled": true
+    ]
   },
   "win_conditions": [
     {
