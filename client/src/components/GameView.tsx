@@ -155,6 +155,7 @@ export function GameView({
       {/* Object hotspots */}
       {objects.map((obj) => {
         const isHovered = hoveredObject === obj.id;
+        const isNav = obj.id.startsWith('nav_');
         return (
           <div
             key={obj.id}
@@ -170,7 +171,10 @@ export function GameView({
                 !!bgFile,
               ),
               position: 'absolute',
-              zIndex: 1,
+              zIndex: isNav ? 2 : 1,
+              border: isHovered
+                ? `2px solid ${isNav ? '#4a90d9' : '#c0a030'}`
+                : '2px solid transparent',
             }}
             onClick={() => onObjectClick(obj.id)}
             onMouseEnter={() => setHoveredObject(obj.id)}
