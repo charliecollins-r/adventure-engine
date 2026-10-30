@@ -1,17 +1,20 @@
 {
   "schema_version": "1.0",
-
   "metadata": {
     "id": "the-dollmakers-workshop",
     "title": "The Dollmaker's Workshop",
-    "description": "You wake on the cold stone floor of a basement workshop. Porcelain faces stare from every shelf. Upstairs, an elderly woman hums a lullaby — and she's making a mold. Of you.",
+    "description": "You wake on the cold stone floor of a basement workshop. Porcelain faces stare from every shelf. Upstairs, an elderly woman hums a lullaby \u2014 and she's making a mold. Of you.",
     "author": "captive-examples",
     "difficulty": "hard",
     "estimated_minutes": 15,
-    "tags": ["horror", "dolls", "all-30-patterns", "showcase"],
+    "tags": [
+      "horror",
+      "dolls",
+      "all-30-patterns",
+      "showcase"
+    ],
     "version": "1.0"
   },
-
   "setting": {
     "initial_view": "main",
     "ambient_text": "The smell of lacquer and old fabric. Porcelain eyes glint in dim light. Above you, floorboards creak and a woman hums.",
@@ -21,7 +24,6 @@
       "floor_color": "#12100c"
     }
   },
-
   "flags": {
     "bound": "true",
     "freed_self": "false",
@@ -69,7 +71,6 @@
     "cellar_lock_count": "0",
     "chemical_reaction_active": "false"
   },
-
   "items": [
     {
       "id": "glass_eyes",
@@ -81,7 +82,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Each iris is hand-painted with tiny veins. They feel heavier than they should." }
+            {
+              "type": "message",
+              "text": "Each iris is hand-painted with tiny veins. They feel heavier than they should."
+            }
           ]
         }
       ]
@@ -96,7 +100,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Copper wire, about six inches. One end is bent into a small hook." }
+            {
+              "type": "message",
+              "text": "Copper wire, about six inches. One end is bent into a small hook."
+            }
           ]
         }
       ]
@@ -109,19 +116,49 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "has_uv_light", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "has_uv_light",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "'Process batch 14. Cabinet combination: 3-8-1. The new subject arrives Thursday.' The handwriting is precise, almost mechanical." },
-            { "type": "set_flag", "flag": "found_journal_code", "value": "true" }
+            {
+              "type": "message",
+              "text": "'Process batch 14. Cabinet combination: 3-8-1. The new subject arrives Thursday.' The handwriting is precise, almost mechanical."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_journal_code",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "has_uv_light", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "has_uv_light",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "'Process batch 14. Cabinet combination: 3-8-1.' In the margin, glowing under UV: 'They never stop screaming. I just learned to stop hearing.' And a date: 'Oct 3, 1987'." },
-            { "type": "set_flag", "flag": "found_journal_code", "value": "true" },
-            { "type": "set_flag", "flag": "seen_journal_uv", "value": "true" }
+            {
+              "type": "message",
+              "text": "'Process batch 14. Cabinet combination: 3-8-1.' In the margin, glowing under UV: 'They never stop screaming. I just learned to stop hearing.' And a date: 'Oct 3, 1987'."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_journal_code",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "seen_journal_uv",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -134,17 +171,39 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "mirror_number_known", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "mirror_number_known",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip it over. Scratched into the metal backing: the number '42'. Whose hand etched this?" },
-            { "type": "set_flag", "flag": "mirror_number_known", "value": "true" }
+            {
+              "type": "message",
+              "text": "You flip it over. Scratched into the metal backing: the number '42'. Whose hand etched this?"
+            },
+            {
+              "type": "set_flag",
+              "flag": "mirror_number_known",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "mirror_number_known", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "mirror_number_known",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A cracked vanity mirror. '42' scratched on the back." }
+            {
+              "type": "message",
+              "text": "A cracked vanity mirror. '42' scratched on the back."
+            }
           ]
         }
       ]
@@ -159,7 +218,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Industrial grade. Used for checking paint curing. The battery indicator shows half charge." }
+            {
+              "type": "message",
+              "text": "Industrial grade. Used for checking paint curing. The battery indicator shows half charge."
+            }
           ]
         }
       ]
@@ -167,14 +229,17 @@
     {
       "id": "acid_bottle",
       "name": "Hydrochloric Acid",
-      "description": "A brown glass bottle. The label reads 'HCl — DANGER'.",
+      "description": "A brown glass bottle. The label reads 'HCl \u2014 DANGER'.",
       "icon": "bottle",
       "examine": [
         {
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Concentrated hydrochloric acid. Used for etching porcelain. Would dissolve metal given enough time." }
+            {
+              "type": "message",
+              "text": "Concentrated hydrochloric acid. Used for etching porcelain. Would dissolve metal given enough time."
+            }
           ]
         }
       ]
@@ -189,7 +254,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Methyl ethyl ketone. Extremely flammable. Fumes can cause unconsciousness in enclosed spaces." }
+            {
+              "type": "message",
+              "text": "Methyl ethyl ketone. Extremely flammable. Fumes can cause unconsciousness in enclosed spaces."
+            }
           ]
         }
       ]
@@ -204,7 +272,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Heavy cotton. Stained with paint and something darker." }
+            {
+              "type": "message",
+              "text": "Heavy cotton. Stained with paint and something darker."
+            }
           ]
         }
       ]
@@ -219,7 +290,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The fumes are overpowering. Don't breathe too deeply. Could incapacitate someone briefly." }
+            {
+              "type": "message",
+              "text": "The fumes are overpowering. Don't breathe too deeply. Could incapacitate someone briefly."
+            }
           ]
         }
       ]
@@ -234,7 +308,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Delicate and ornate. Too small for a door lock. The bow is shaped like a rose — a winding key?" }
+            {
+              "type": "message",
+              "text": "Delicate and ornate. Too small for a door lock. The bow is shaped like a rose \u2014 a winding key?"
+            }
           ]
         }
       ]
@@ -249,8 +326,15 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A hand-drawn diagram of the workshop's pipe system. An arrow points to a valve in the main room labeled 'RELEASE'. Below it: 'The water loosens everything.'" },
-            { "type": "set_flag", "flag": "doll_paper_found", "value": "true" }
+            {
+              "type": "message",
+              "text": "A hand-drawn diagram of the workshop's pipe system. An arrow points to a valve in the main room labeled 'RELEASE'. Below it: 'The water loosens everything.'"
+            },
+            {
+              "type": "set_flag",
+              "flag": "doll_paper_found",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -265,7 +349,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Strong hemp rope. Enough to climb down from a height, or to lower through a grate to someone below." }
+            {
+              "type": "message",
+              "text": "Strong hemp rope. Enough to climb down from a height, or to lower through a grate to someone below."
+            }
           ]
         }
       ]
@@ -280,7 +367,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Professional grade. The ally in the sub-basement must have had these. One pick is bent but two are still good." }
+            {
+              "type": "message",
+              "text": "Professional grade. The ally in the sub-basement must have had these. One pick is bent but two are still good."
+            }
           ]
         }
       ]
@@ -295,7 +385,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Dense and heavy. Could fuel the furnace — or be thrown as a distraction." }
+            {
+              "type": "message",
+              "text": "Dense and heavy. Could fuel the furnace \u2014 or be thrown as a distraction."
+            }
           ]
         }
       ]
@@ -310,7 +403,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The pin pattern matches the lullaby Voss hums. Engraved on the base: 'For my little ones — M.V.'" }
+            {
+              "type": "message",
+              "text": "The pin pattern matches the lullaby Voss hums. Engraved on the base: 'For my little ones \u2014 M.V.'"
+            }
           ]
         }
       ]
@@ -325,7 +421,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "15 amp ceramic fuse. Every other fuse in the box is blown. This is the only working one." }
+            {
+              "type": "message",
+              "text": "15 amp ceramic fuse. Every other fuse in the box is blown. This is the only working one."
+            }
           ]
         }
       ]
@@ -340,16 +439,21 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Heavy. The primer is thick as paste. Would make a terrible mess if it fell on someone." }
+            {
+              "type": "message",
+              "text": "Heavy. The primer is thick as paste. Would make a terrible mess if it fell on someone."
+            }
           ]
         }
       ]
     }
   ],
-
   "combinations": [
     {
-      "items": ["lacquer_thinner", "cloth_rag"],
+      "items": [
+        "lacquer_thinner",
+        "cloth_rag"
+      ],
       "result": "chloroform_rag",
       "consumes": true,
       "message": "You soak the rag with lacquer thinner. The fumes are immediate and potent. Keep this away from your own face.",
@@ -357,43 +461,94 @@
       "conditions": []
     }
   ],
-
   "objects": [
     {
       "id": "binding_ropes",
       "name": "Binding Ropes",
       "description": "Rough hemp rope tied around your wrists and ankles.",
-      "position": { "x": 512, "y": 500 },
-      "size": { "width": 100, "height": 60 },
-      "visual": { "color": "#4a3a2a", "label": "Ropes", "shape": "rect" },
+      "position": {
+        "x": 512,
+        "y": 500
+      },
+      "size": {
+        "width": 100,
+        "height": 60
+      },
+      "visual": {
+        "color": "#4a3a2a",
+        "label": "Ropes",
+        "shape": "rect"
+      },
       "initial_state": "tied",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "bound", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "bound",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You strain against the ropes, twisting your wrists. The hemp is old — it frays. With one final wrench, your hands pull free." },
-            { "type": "set_flag", "flag": "bound", "value": "false" },
-            { "type": "set_flag", "flag": "freed_self", "value": "true" },
-            { "type": "set_state", "object": "binding_ropes", "state": "broken" },
-            { "type": "add_noise", "amount": 15 }
+            {
+              "type": "message",
+              "text": "You strain against the ropes, twisting your wrists. The hemp is old \u2014 it frays. With one final wrench, your hands pull free."
+            },
+            {
+              "type": "set_flag",
+              "flag": "bound",
+              "value": "false"
+            },
+            {
+              "type": "set_flag",
+              "flag": "freed_self",
+              "value": "true"
+            },
+            {
+              "type": "set_state",
+              "object": "binding_ropes",
+              "state": "broken"
+            },
+            {
+              "type": "add_noise",
+              "amount": 15
+            }
           ],
           "noise": 0
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "bound", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "bound",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Rough hemp rope. Old and fraying at the edges. You could work your way free with enough effort." }
+            {
+              "type": "message",
+              "text": "Rough hemp rope. Old and fraying at the edges. You could work your way free with enough effort."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "bound", "value": "false" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "bound",
+              "value": "false"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A pile of frayed rope on the floor. You're free." }
+            {
+              "type": "message",
+              "text": "A pile of frayed rope on the floor. You're free."
+            }
           ]
         }
       ]
@@ -402,9 +557,19 @@
       "id": "glass_eyes_jar",
       "name": "Jar of Glass Eyes",
       "description": "A large mason jar filled with glass eyes in various colors.",
-      "position": { "x": 200, "y": 350 },
-      "size": { "width": 50, "height": 60 },
-      "visual": { "color": "#3a4a5a", "label": "Eyes Jar", "shape": "rect" },
+      "position": {
+        "x": 200,
+        "y": 350
+      },
+      "size": {
+        "width": 50,
+        "height": 60
+      },
+      "visual": {
+        "color": "#3a4a5a",
+        "label": "Eyes Jar",
+        "shape": "rect"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
@@ -413,16 +578,35 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Dozens of glass eyes float in clear preservative. Blue, brown, green — all staring at nothing. They're disturbingly well-crafted." }
+            {
+              "type": "message",
+              "text": "Dozens of glass eyes float in clear preservative. Blue, brown, green \u2014 all staring at nothing. They're disturbingly well-crafted."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "glass_eyes_jar", "state": "full" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "glass_eyes_jar",
+              "state": "full"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "glass_eyes" },
-            { "type": "set_state", "object": "glass_eyes_jar", "state": "fewer" },
-            { "type": "message", "text": "You reach in and grab a handful of glass eyes. They click together in your palm like marbles." }
+            {
+              "type": "add_item",
+              "item": "glass_eyes"
+            },
+            {
+              "type": "set_state",
+              "object": "glass_eyes_jar",
+              "state": "fewer"
+            },
+            {
+              "type": "message",
+              "text": "You reach in and grab a handful of glass eyes. They click together in your palm like marbles."
+            }
           ],
           "noise": 3
         }
@@ -432,9 +616,19 @@
       "id": "workbench_area",
       "name": "Workbench",
       "description": "A long wooden workbench covered in tools and doll parts.",
-      "position": { "x": 400, "y": 280 },
-      "size": { "width": 160, "height": 80 },
-      "visual": { "color": "#2a2218", "label": "Workbench", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 280
+      },
+      "size": {
+        "width": 160,
+        "height": 80
+      },
+      "visual": {
+        "color": "#2a2218",
+        "label": "Workbench",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -443,8 +637,14 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A wide workbench cluttered with sculpting tools, paint pots, and porcelain pieces. A magnifying lamp hangs over it. There's more to see up close." },
-            { "type": "set_view", "view": "workbench_closeup" }
+            {
+              "type": "message",
+              "text": "A wide workbench cluttered with sculpting tools, paint pots, and porcelain pieces. A magnifying lamp hangs over it. There's more to see up close."
+            },
+            {
+              "type": "set_view",
+              "view": "workbench_closeup"
+            }
           ]
         }
       ]
@@ -453,74 +653,221 @@
       "id": "chemical_cabinet",
       "name": "Chemical Cabinet",
       "description": "A glass-fronted cabinet with various bottles and solutions.",
-      "position": { "x": 150, "y": 200 },
-      "size": { "width": 80, "height": 120 },
-      "visual": { "color": "#2a2a30", "label": "Cabinet", "shape": "rect" },
+      "position": {
+        "x": 150,
+        "y": 200
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "#2a2a30",
+        "label": "Cabinet",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A glass-fronted cabinet. Through the glass you can see bottles of chemicals, a small UV flashlight, and what looks like acid. A combination dial lock secures the door." }
+            {
+              "type": "message",
+              "text": "A glass-fronted cabinet. Through the glass you can see bottles of chemicals, a small UV flashlight, and what looks like acid. A combination dial lock secures the door."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "open" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The cabinet stands open. Some bottles remain — solvents, fixatives, things you don't want to touch." }
+            {
+              "type": "message",
+              "text": "The cabinet stands open. Some bottles remain \u2014 solvents, fixatives, things you don't want to touch."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" },
-                   { "type": "flag_not", "flag": "sewing_machine_running", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "locked"
+            },
+            {
+              "type": "flag_not",
+              "flag": "sewing_machine_running",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You smash the glass with your elbow. Shards scatter across the floor. The crash echoes through the basement." },
-            { "type": "set_state", "object": "chemical_cabinet", "state": "open" },
-            { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
-            { "type": "show_object", "object": "cabinet_contents" },
-            { "type": "add_noise", "amount": 45 }
+            {
+              "type": "message",
+              "text": "You smash the glass with your elbow. Shards scatter across the floor. The crash echoes through the basement."
+            },
+            {
+              "type": "set_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "cabinet_opened",
+              "value": "true"
+            },
+            {
+              "type": "show_object",
+              "object": "cabinet_contents"
+            },
+            {
+              "type": "add_noise",
+              "amount": 45
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" },
-                   { "type": "flag_is", "flag": "sewing_machine_running", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "sewing_machine_running",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You smash the glass. The sewing machine's clatter swallows most of the sound." },
-            { "type": "set_state", "object": "chemical_cabinet", "state": "open" },
-            { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
-            { "type": "show_object", "object": "cabinet_contents" },
-            { "type": "add_noise", "amount": 15 }
+            {
+              "type": "message",
+              "text": "You smash the glass. The sewing machine's clatter swallows most of the sound."
+            },
+            {
+              "type": "set_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "cabinet_opened",
+              "value": "true"
+            },
+            {
+              "type": "show_object",
+              "object": "cabinet_contents"
+            },
+            {
+              "type": "add_noise",
+              "amount": 15
+            }
           ],
           "noise": 0
         },
         {
           "verb": "use_item",
           "item": "bent_wire",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You work the wire into the simple lock. Click. The cabinet door swings open silently." },
-            { "type": "set_state", "object": "chemical_cabinet", "state": "open" },
-            { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
-            { "type": "show_object", "object": "cabinet_contents" }
+            {
+              "type": "message",
+              "text": "You work the wire into the simple lock. Click. The cabinet door swings open silently."
+            },
+            {
+              "type": "set_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "cabinet_opened",
+              "value": "true"
+            },
+            {
+              "type": "show_object",
+              "object": "cabinet_contents"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chemical_cabinet", "state": "open" },
-                   { "type": "flag_is", "flag": "cabinet_evidence_hidden", "value": "false" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "flag_is",
+              "flag": "cabinet_evidence_hidden",
+              "value": "false"
+            }
+          ],
           "then": [
-            { "type": "set_flag", "flag": "cabinet_evidence_hidden", "value": "true" },
-            { "type": "message", "text": "You push the cabinet door closed and rearrange the remaining bottles to fill the gaps. At a glance, nothing looks disturbed." }
+            {
+              "type": "set_flag",
+              "flag": "cabinet_evidence_hidden",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You push the cabinet door closed and rearrange the remaining bottles to fill the gaps. At a glance, nothing looks disturbed."
+            }
           ],
           "noise": 2
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chemical_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "not_has_item",
+              "item": "lockpick_set"
+            }
+          ],
+          "then": [
+            {
+              "type": "add_item",
+              "item": "lockpick_set"
+            },
+            {
+              "type": "message",
+              "text": "Reaching behind the chemical bottles, your fingers close around something metallic. A set of lock picks, hidden behind the back row \u2014 perhaps left by a previous captive."
+            },
+            {
+              "type": "add_noise",
+              "amount": 5
+            }
+          ]
         }
       ]
     },
@@ -528,38 +875,97 @@
       "id": "cabinet_contents",
       "name": "Cabinet Chemicals",
       "description": "Bottles and tools inside the chemical cabinet.",
-      "position": { "x": 150, "y": 200 },
-      "size": { "width": 70, "height": 80 },
-      "visual": { "color": "#3a3a40", "label": "Chemicals", "shape": "rect" },
+      "position": {
+        "x": 150,
+        "y": 200
+      },
+      "size": {
+        "width": 70,
+        "height": 80
+      },
+      "visual": {
+        "color": "#3a3a40",
+        "label": "Chemicals",
+        "shape": "rect"
+      },
       "initial_state": "available",
       "initially_visible": false,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "uv_flashlight" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "uv_flashlight"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "uv_flashlight" },
-            { "type": "set_flag", "flag": "has_uv_light", "value": "true" },
-            { "type": "message", "text": "You take the UV flashlight. It hums faintly when you click it on." }
+            {
+              "type": "add_item",
+              "item": "uv_flashlight"
+            },
+            {
+              "type": "set_flag",
+              "flag": "has_uv_light",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You take the UV flashlight. It hums faintly when you click it on."
+            }
           ],
           "noise": 2
         },
         {
           "verb": "take",
-          "when": [{ "type": "has_item", "item": "uv_flashlight" }, { "type": "not_has_item", "item": "acid_bottle" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "uv_flashlight"
+            },
+            {
+              "type": "not_has_item",
+              "item": "acid_bottle"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "acid_bottle" },
-            { "type": "message", "text": "You carefully lift the acid bottle. The liquid sloshes ominously." }
+            {
+              "type": "add_item",
+              "item": "acid_bottle"
+            },
+            {
+              "type": "message",
+              "text": "You carefully lift the acid bottle. The liquid sloshes ominously."
+            }
           ],
           "noise": 2
         },
         {
           "verb": "take",
-          "when": [{ "type": "has_item", "item": "uv_flashlight" }, { "type": "has_item", "item": "acid_bottle" }, { "type": "not_has_item", "item": "lacquer_thinner" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "uv_flashlight"
+            },
+            {
+              "type": "has_item",
+              "item": "acid_bottle"
+            },
+            {
+              "type": "not_has_item",
+              "item": "lacquer_thinner"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "lacquer_thinner" },
-            { "type": "message", "text": "You take the tin of lacquer thinner. Flammable warnings cover every surface." }
+            {
+              "type": "add_item",
+              "item": "lacquer_thinner"
+            },
+            {
+              "type": "message",
+              "text": "You take the tin of lacquer thinner. Flammable warnings cover every surface."
+            }
           ],
           "noise": 2
         }
@@ -569,87 +975,214 @@
       "id": "cellar_door",
       "name": "Cellar Door",
       "description": "A heavy wooden door with a thick chain and padlock.",
-      "position": { "x": 50, "y": 350 },
-      "size": { "width": 70, "height": 140 },
-      "visual": { "color": "#1a1812", "label": "Cellar Door", "shape": "rect" },
+      "position": {
+        "x": 50,
+        "y": 350
+      },
+      "size": {
+        "width": 70,
+        "height": 140
+      },
+      "visual": {
+        "color": "#1a1812",
+        "label": "Cellar Door",
+        "shape": "rect"
+      },
       "initial_state": "chained",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "chained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "chained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A thick oak door. A heavy chain loops through the handle and a padlock holds it fast. Above the handle, someone painted the word 'PUSH' in red." }
+            {
+              "type": "message",
+              "text": "A thick oak door. A heavy chain loops through the handle and a padlock holds it fast. Above the handle, someone painted the word 'PUSH' in red."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "unchained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "unchained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The chain hangs loose. The word 'PUSH' is painted above the handle. But wait — the hinges are on this side. That means it opens inward. It pulls, not pushes." }
+            {
+              "type": "message",
+              "text": "The chain hangs loose. The word 'PUSH' is painted above the handle. But wait \u2014 the hinges are on this side. That means it opens inward. It pulls, not pushes."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "chained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "chained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pull at the chain. It's solid steel — not breaking this by hand." }
+            {
+              "type": "message",
+              "text": "You pull at the chain. It's solid steel \u2014 not breaking this by hand."
+            }
           ],
           "noise": 10
         },
         {
           "verb": "use_item",
           "item": "acid_bottle",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "chained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "chained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pour the acid over the chain links. It hisses and smokes. After a minute, the weakened link snaps. The chain falls away." },
-            { "type": "remove_item", "item": "acid_bottle" },
-            { "type": "set_state", "object": "cellar_door", "state": "unchained" },
-            { "type": "set_flag", "flag": "chain_dissolved", "value": "true" }
+            {
+              "type": "message",
+              "text": "You pour the acid over the chain links. It hisses and smokes. After a minute, the weakened link snaps. The chain falls away."
+            },
+            {
+              "type": "remove_item",
+              "item": "acid_bottle"
+            },
+            {
+              "type": "set_state",
+              "object": "cellar_door",
+              "state": "unchained"
+            },
+            {
+              "type": "set_flag",
+              "flag": "chain_dissolved",
+              "value": "true"
+            }
           ],
           "noise": 15
         },
         {
           "verb": "use_item",
           "item": "lockpick_set",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "chained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "chained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You work the picks into the padlock. It's a heavy-duty lock but the mechanism is old. Click. The padlock drops and the chain slides free." },
-            { "type": "set_state", "object": "cellar_door", "state": "unchained" },
-            { "type": "set_flag", "flag": "chain_dissolved", "value": "true" }
+            {
+              "type": "message",
+              "text": "You work the picks into the padlock. It's a heavy-duty lock but the mechanism is old. Click. The padlock drops and the chain slides free."
+            },
+            {
+              "type": "set_state",
+              "object": "cellar_door",
+              "state": "unchained"
+            },
+            {
+              "type": "set_flag",
+              "flag": "chain_dissolved",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "unchained" },
-                   { "type": "flag_not", "flag": "ally_info_hinge", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "unchained"
+            },
+            {
+              "type": "flag_not",
+              "flag": "ally_info_hinge",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You push the door. It doesn't budge. It must be barred from the other side too. There has to be another way." },
-            { "type": "set_flag", "flag": "cellar_door_open", "value": "false" }
+            {
+              "type": "message",
+              "text": "You push the door. It doesn't budge. It must be barred from the other side too. There has to be another way."
+            },
+            {
+              "type": "set_flag",
+              "flag": "cellar_door_open",
+              "value": "false"
+            }
           ],
           "noise": 8
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "unchained" },
-                   { "type": "flag_is", "flag": "ally_info_hinge", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "unchained"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_info_hinge",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The hinges are on YOUR side. Ignore 'PUSH' — you PULL. The heavy door groans open. Stone steps lead up into darkness. Freedom! But wait—" },
-            { "type": "set_flag", "flag": "cellar_door_open", "value": "true" },
-            { "type": "set_flag", "flag": "second_door_found", "value": "true" },
-            { "type": "show_object", "object": "second_door" },
-            { "type": "add_noise", "amount": 20 }
+            {
+              "type": "message",
+              "text": "The hinges are on YOUR side. Ignore 'PUSH' \u2014 you PULL. The heavy door groans open. Stone steps lead up into darkness. Freedom! But wait\u2014"
+            },
+            {
+              "type": "set_flag",
+              "flag": "cellar_door_open",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "second_door_found",
+              "value": "true"
+            },
+            {
+              "type": "show_object",
+              "object": "second_door"
+            },
+            {
+              "type": "add_noise",
+              "amount": 20
+            }
           ],
           "noise": 0
         },
         {
           "verb": "use_item",
           "item": "doll_key",
-          "when": [{ "type": "object_state", "object": "cellar_door", "state": "chained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cellar_door",
+              "state": "chained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The ornate key is far too small for this padlock. It's meant for something delicate — a jewelry box? A music box?" }
+            {
+              "type": "message",
+              "text": "The ornate key is far too small for this padlock. It's meant for something delicate \u2014 a jewelry box? A music box?"
+            }
           ],
           "noise": 0
         }
@@ -659,9 +1192,19 @@
       "id": "second_door",
       "name": "Inner Door",
       "description": "A second door at the top of the short stairway.",
-      "position": { "x": 50, "y": 250 },
-      "size": { "width": 70, "height": 100 },
-      "visual": { "color": "#1a1812", "label": "Inner Door", "shape": "rect" },
+      "position": {
+        "x": 50,
+        "y": 250
+      },
+      "size": {
+        "width": 70,
+        "height": 100
+      },
+      "visual": {
+        "color": "#1a1812",
+        "label": "Inner Door",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": false,
       "hiding_spot": false,
@@ -670,14 +1213,27 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A newer door. A digital keypad lock glows red beside the handle. Four digits." }
+            {
+              "type": "message",
+              "text": "A newer door. A digital keypad lock glows red beside the handle. Four digits."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "second_door", "state": "unlocked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "second_door",
+              "state": "unlocked"
+            }
+          ],
           "then": [
-            { "type": "game_over", "result": "win", "reason": "You push through the door and stumble up into the moonlit yard. The cold night air fills your lungs. You run and you don't stop. You're free." }
+            {
+              "type": "game_over",
+              "result": "win",
+              "reason": "You push through the door and stumble up into the moonlit yard. The cold night air fills your lungs. You run and you don't stop. You're free."
+            }
           ],
           "noise": 5
         }
@@ -687,9 +1243,19 @@
       "id": "coal_furnace",
       "name": "Coal Furnace",
       "description": "A squat cast-iron furnace with a thick chimney pipe.",
-      "position": { "x": 750, "y": 400 },
-      "size": { "width": 100, "height": 100 },
-      "visual": { "color": "#2a1a1a", "label": "Furnace", "shape": "rect" },
+      "position": {
+        "x": 750,
+        "y": 400
+      },
+      "size": {
+        "width": 100,
+        "height": 100
+      },
+      "visual": {
+        "color": "#2a1a1a",
+        "label": "Furnace",
+        "shape": "rect"
+      },
       "initial_state": "cold",
       "initially_visible": true,
       "hiding_spot": false,
@@ -698,8 +1264,14 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A heavy cast-iron furnace. Cold now, but there are embers in the grate. A control panel is mounted on the side. Worth a closer look." },
-            { "type": "set_view", "view": "furnace_closeup" }
+            {
+              "type": "message",
+              "text": "A heavy cast-iron furnace. Cold now, but there are embers in the grate. A control panel is mounted on the side. Worth a closer look."
+            },
+            {
+              "type": "set_view",
+              "view": "furnace_closeup"
+            }
           ]
         }
       ]
@@ -708,83 +1280,204 @@
       "id": "boarded_window",
       "name": "Boarded Window",
       "description": "A small window boarded up from the inside.",
-      "position": { "x": 900, "y": 220 },
-      "size": { "width": 70, "height": 80 },
-      "visual": { "color": "#1a2a1a", "label": "Window", "shape": "rect" },
+      "position": {
+        "x": 900,
+        "y": 220
+      },
+      "size": {
+        "width": 70,
+        "height": 80
+      },
+      "visual": {
+        "color": "#1a2a1a",
+        "label": "Window",
+        "shape": "rect"
+      },
       "initial_state": "boarded_1",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_1" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_1"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A narrow basement window. One plank is nailed across it. Moonlight seeps around the edges." }
+            {
+              "type": "message",
+              "text": "A narrow basement window. One plank is nailed across it. Moonlight seeps around the edges."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_2" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_2"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Two planks now. Voss added another board after her last visit. Less moonlight gets through." }
+            {
+              "type": "message",
+              "text": "Two planks now. Voss added another board after her last visit. Less moonlight gets through."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_3" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_3"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Three thick planks. The window is almost completely sealed. Getting through this would take serious effort now." }
+            {
+              "type": "message",
+              "text": "Three thick planks. The window is almost completely sealed. Getting through this would take serious effort now."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_1" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_1"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pry at the board. The nails are stubborn but the wood is soft. It comes free with a crack." },
-            { "type": "set_state", "object": "boarded_window", "state": "clear" },
-            { "type": "add_noise", "amount": 25 }
+            {
+              "type": "message",
+              "text": "You pry at the board. The nails are stubborn but the wood is soft. It comes free with a crack."
+            },
+            {
+              "type": "set_state",
+              "object": "boarded_window",
+              "state": "clear"
+            },
+            {
+              "type": "add_noise",
+              "amount": 25
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_2" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_2"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Two boards now. You wrench them free one at a time, nails screaming against wood." },
-            { "type": "set_state", "object": "boarded_window", "state": "clear" },
-            { "type": "add_noise", "amount": 40 }
+            {
+              "type": "message",
+              "text": "Two boards now. You wrench them free one at a time, nails screaming against wood."
+            },
+            {
+              "type": "set_state",
+              "object": "boarded_window",
+              "state": "clear"
+            },
+            {
+              "type": "add_noise",
+              "amount": 40
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_3" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "boarded_3"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Three boards. This takes real effort. You wrench and pull, sweat stinging your eyes, wood splintering." },
-            { "type": "set_state", "object": "boarded_window", "state": "clear" },
-            { "type": "add_noise", "amount": 55 }
+            {
+              "type": "message",
+              "text": "Three boards. This takes real effort. You wrench and pull, sweat stinging your eyes, wood splintering."
+            },
+            {
+              "type": "set_state",
+              "object": "boarded_window",
+              "state": "clear"
+            },
+            {
+              "type": "add_noise",
+              "amount": 55
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "boarded_window", "state": "clear" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "boarded_window",
+              "state": "clear"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The window is too small to climb through. But the cold air feels like hope." }
+            {
+              "type": "message",
+              "text": "The window is too small to climb through. But the cold air feels like hope."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "lacquer_thinner",
-          "when": [{ "type": "any_of", "conditions": [
-            { "type": "object_state", "object": "boarded_window", "state": "boarded_1" },
-            { "type": "object_state", "object": "boarded_window", "state": "boarded_2" },
-            { "type": "object_state", "object": "boarded_window", "state": "boarded_3" }
-          ]}],
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "object_state",
+                  "object": "boarded_window",
+                  "state": "boarded_1"
+                },
+                {
+                  "type": "object_state",
+                  "object": "boarded_window",
+                  "state": "boarded_2"
+                },
+                {
+                  "type": "object_state",
+                  "object": "boarded_window",
+                  "state": "boarded_3"
+                }
+              ]
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You douse the boards with thinner. The wood drinks it up. One match and these boards would be gone — but then, so might you. The furnace could provide a flame." },
-            { "type": "set_state", "object": "boarded_window", "state": "soaked" },
-            { "type": "remove_item", "item": "lacquer_thinner" }
+            {
+              "type": "message",
+              "text": "You douse the boards with thinner. The wood drinks it up. One match and these boards would be gone \u2014 but then, so might you. The furnace could provide a flame."
+            },
+            {
+              "type": "set_state",
+              "object": "boarded_window",
+              "state": "soaked"
+            },
+            {
+              "type": "remove_item",
+              "item": "lacquer_thinner"
+            }
           ],
           "noise": 3
         }
@@ -794,9 +1487,19 @@
       "id": "dumbwaiter_shaft",
       "name": "Dumbwaiter",
       "description": "A narrow shaft with a rope-and-pulley mechanism.",
-      "position": { "x": 600, "y": 180 },
-      "size": { "width": 60, "height": 90 },
-      "visual": { "color": "#1a1a1a", "label": "Dumbwaiter", "shape": "rect" },
+      "position": {
+        "x": 600,
+        "y": 180
+      },
+      "size": {
+        "width": 60,
+        "height": 90
+      },
+      "visual": {
+        "color": "#1a1a1a",
+        "label": "Dumbwaiter",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -805,8 +1508,14 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A dumbwaiter — a small platform on ropes, used to send things between floors. The shaft goes straight up. Worth investigating." },
-            { "type": "set_view", "view": "dumbwaiter_closeup" }
+            {
+              "type": "message",
+              "text": "A dumbwaiter \u2014 a small platform on ropes, used to send things between floors. The shaft goes straight up. Worth investigating."
+            },
+            {
+              "type": "set_view",
+              "view": "dumbwaiter_closeup"
+            }
           ]
         }
       ]
@@ -815,9 +1524,19 @@
       "id": "doll_shelves",
       "name": "Doll Shelves",
       "description": "Floor-to-ceiling shelves lined with finished dolls.",
-      "position": { "x": 350, "y": 150 },
-      "size": { "width": 140, "height": 100 },
-      "visual": { "color": "#2a2020", "label": "Doll Shelves", "shape": "rect" },
+      "position": {
+        "x": 350,
+        "y": 150
+      },
+      "size": {
+        "width": 140,
+        "height": 100
+      },
+      "visual": {
+        "color": "#2a2020",
+        "label": "Doll Shelves",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -826,8 +1545,14 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Rows of porcelain dolls, each one unique. Their faces are... too real. Each one looks like a different person. You need a closer look." },
-            { "type": "set_view", "view": "doll_shelf_closeup" }
+            {
+              "type": "message",
+              "text": "Rows of porcelain dolls, each one unique. Their faces are... too real. Each one looks like a different person. You need a closer look."
+            },
+            {
+              "type": "set_view",
+              "view": "doll_shelf_closeup"
+            }
           ]
         }
       ]
@@ -836,9 +1561,19 @@
       "id": "sewing_machine",
       "name": "Sewing Machine",
       "description": "An industrial sewing machine on a heavy metal table.",
-      "position": { "x": 280, "y": 450 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#2a2a2a", "label": "Sewing Machine", "shape": "rect" },
+      "position": {
+        "x": 280,
+        "y": 450
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2a2a2a",
+        "label": "Sewing Machine",
+        "shape": "rect"
+      },
       "initial_state": "off",
       "initially_visible": true,
       "hiding_spot": false,
@@ -847,27 +1582,67 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "An industrial Singer. Threaded and ready. A foot pedal underneath. Loud when running — could cover other sounds." }
+            {
+              "type": "message",
+              "text": "An industrial Singer. Threaded and ready. A foot pedal underneath. Loud when running \u2014 could cover other sounds."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "sewing_machine", "state": "off" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sewing_machine",
+              "state": "off"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "sewing_machine", "state": "running" },
-            { "type": "set_flag", "flag": "sewing_machine_running", "value": "true" },
-            { "type": "message", "text": "You jam the foot pedal down with a scrap of wood. The machine roars to life, needle hammering up and down. Loud, but it'll cover your noise." },
-            { "type": "add_noise", "amount": 20 }
+            {
+              "type": "set_state",
+              "object": "sewing_machine",
+              "state": "running"
+            },
+            {
+              "type": "set_flag",
+              "flag": "sewing_machine_running",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You jam the foot pedal down with a scrap of wood. The machine roars to life, needle hammering up and down. Loud, but it'll cover your noise."
+            },
+            {
+              "type": "add_noise",
+              "amount": 20
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "sewing_machine", "state": "running" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sewing_machine",
+              "state": "running"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "sewing_machine", "state": "off" },
-            { "type": "set_flag", "flag": "sewing_machine_running", "value": "false" },
-            { "type": "message", "text": "You kick the pedal loose. The machine winds down to silence." }
+            {
+              "type": "set_state",
+              "object": "sewing_machine",
+              "state": "off"
+            },
+            {
+              "type": "set_flag",
+              "flag": "sewing_machine_running",
+              "value": "false"
+            },
+            {
+              "type": "message",
+              "text": "You kick the pedal loose. The machine winds down to silence."
+            }
           ],
           "noise": 0
         }
@@ -877,9 +1652,19 @@
       "id": "pipe_valve",
       "name": "Pipe Valve",
       "description": "A rusted water valve on an exposed pipe along the wall.",
-      "position": { "x": 820, "y": 280 },
-      "size": { "width": 40, "height": 40 },
-      "visual": { "color": "#4a3a2a", "label": "Valve", "shape": "circle" },
+      "position": {
+        "x": 820,
+        "y": 280
+      },
+      "size": {
+        "width": 40,
+        "height": 40
+      },
+      "visual": {
+        "color": "#4a3a2a",
+        "label": "Valve",
+        "shape": "circle"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -888,17 +1673,41 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A water shutoff valve. The pipe runs down through the floor toward the furnace area." }
+            {
+              "type": "message",
+              "text": "A water shutoff valve. The pipe runs down through the floor toward the furnace area."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "pipe_valve", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "pipe_valve",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "pipe_valve", "state": "open" },
-            { "type": "set_flag", "flag": "pipe_valve_open", "value": "true" },
-            { "type": "set_flag", "flag": "water_flowing", "value": "true" },
-            { "type": "message", "text": "You wrench the valve open. Water gurgles through the pipes in the wall. You hear it flowing down toward the furnace area." }
+            {
+              "type": "set_state",
+              "object": "pipe_valve",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "pipe_valve_open",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "water_flowing",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You wrench the valve open. Water gurgles through the pipes in the wall. You hear it flowing down toward the furnace area."
+            }
           ],
           "noise": 12
         }
@@ -908,9 +1717,19 @@
       "id": "shelf_key",
       "name": "Shiny Key on Shelf",
       "description": "A brass key sitting prominently on a high shelf, attached to a thin wire.",
-      "position": { "x": 480, "y": 130 },
-      "size": { "width": 30, "height": 20 },
-      "visual": { "color": "#c0a030", "label": "Key", "shape": "rect" },
+      "position": {
+        "x": 480,
+        "y": 130
+      },
+      "size": {
+        "width": 30,
+        "height": 20
+      },
+      "visual": {
+        "color": "#c0a030",
+        "label": "Key",
+        "shape": "rect"
+      },
       "initial_state": "rigged",
       "initially_visible": true,
       "hiding_spot": false,
@@ -919,39 +1738,96 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A shiny brass key on a high shelf. Conspicuously placed. A thin wire runs from it to... something behind the shelf. This might be a trap." }
+            {
+              "type": "message",
+              "text": "A shiny brass key on a high shelf. Conspicuously placed. A thin wire runs from it to... something behind the shelf. This might be a trap."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "flag_is", "flag": "bell_alarm_triggered", "value": "false" },
-                   { "type": "object_state", "object": "shelf_key", "state": "disarmed" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "bell_alarm_triggered",
+              "value": "false"
+            },
+            {
+              "type": "object_state",
+              "object": "shelf_key",
+              "state": "disarmed"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "doll_key" },
-            { "type": "hide_object", "object": "shelf_key" },
-            { "type": "message", "text": "With the wire cut, you take the key safely. It's ornate — a rose pattern on the bow. Too small for a door." }
+            {
+              "type": "add_item",
+              "item": "doll_key"
+            },
+            {
+              "type": "hide_object",
+              "object": "shelf_key"
+            },
+            {
+              "type": "message",
+              "text": "With the wire cut, you take the key safely. It's ornate \u2014 a rose pattern on the bow. Too small for a door."
+            }
           ],
           "noise": 2
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "shelf_key", "state": "rigged" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "shelf_key",
+              "state": "rigged"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "doll_key" },
-            { "type": "hide_object", "object": "shelf_key" },
-            { "type": "set_flag", "flag": "bell_alarm_triggered", "value": "true" },
-            { "type": "message", "text": "You grab the key. The wire goes taut — CLANG! A small bell behind the shelf rings sharply. A trap!" },
-            { "type": "add_noise", "amount": 50 }
+            {
+              "type": "add_item",
+              "item": "doll_key"
+            },
+            {
+              "type": "hide_object",
+              "object": "shelf_key"
+            },
+            {
+              "type": "set_flag",
+              "flag": "bell_alarm_triggered",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You grab the key. The wire goes taut \u2014 CLANG! A small bell behind the shelf rings sharply. A trap!"
+            },
+            {
+              "type": "add_noise",
+              "amount": 50
+            }
           ],
           "noise": 0
         },
         {
           "verb": "use_item",
           "item": "bent_wire",
-          "when": [{ "type": "object_state", "object": "shelf_key", "state": "rigged" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "shelf_key",
+              "state": "rigged"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "shelf_key", "state": "disarmed" },
-            { "type": "message", "text": "You trace the wire to a small bell mechanism and carefully unhook it. The trap is disarmed." }
+            {
+              "type": "set_state",
+              "object": "shelf_key",
+              "state": "disarmed"
+            },
+            {
+              "type": "message",
+              "text": "You trace the wire to a small bell mechanism and carefully unhook it. The trap is disarmed."
+            }
           ],
           "noise": 2
         }
@@ -961,9 +1837,19 @@
       "id": "crate_stack",
       "name": "Stacked Crates",
       "description": "Wooden shipping crates stacked against the wall.",
-      "position": { "x": 700, "y": 550 },
-      "size": { "width": 100, "height": 80 },
-      "visual": { "color": "#2a2018", "label": "Crates", "shape": "rect" },
+      "position": {
+        "x": 700,
+        "y": 550
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#2a2018",
+        "label": "Crates",
+        "shape": "rect"
+      },
       "initial_state": "stacked",
       "initially_visible": true,
       "hiding_spot": true,
@@ -972,15 +1858,23 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Wooden crates stamped 'FRAGILE — PORCELAIN'. The gap behind them is just big enough to squeeze into." }
+            {
+              "type": "message",
+              "text": "Wooden crates stamped 'FRAGILE \u2014 PORCELAIN'. The gap behind them is just big enough to squeeze into."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "start_hiding" },
-            { "type": "message", "text": "You squeeze behind the crates, pulling loose fabric over yourself. In the darkness, you barely breathe." }
+            {
+              "type": "start_hiding"
+            },
+            {
+              "type": "message",
+              "text": "You squeeze behind the crates, pulling loose fabric over yourself. In the darkness, you barely breathe."
+            }
           ],
           "noise": 5
         }
@@ -990,9 +1884,19 @@
       "id": "bolt_hole",
       "name": "Bolt Hole",
       "description": "A narrow space beneath the lowest shelf.",
-      "position": { "x": 350, "y": 600 },
-      "size": { "width": 80, "height": 40 },
-      "visual": { "color": "#0a0a0a", "label": "Under Shelf", "shape": "rect" },
+      "position": {
+        "x": 350,
+        "y": 600
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "visual": {
+        "color": "#0a0a0a",
+        "label": "Under Shelf",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": true,
@@ -1001,15 +1905,23 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A narrow space beneath the heavy shelf. Dark. Just big enough if you curl up tight." }
+            {
+              "type": "message",
+              "text": "A narrow space beneath the heavy shelf. Dark. Just big enough if you curl up tight."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "start_hiding" },
-            { "type": "message", "text": "You slide beneath the shelf, pressing against the cold stone floor. Dust fills your nostrils. Don't sneeze." }
+            {
+              "type": "start_hiding"
+            },
+            {
+              "type": "message",
+              "text": "You slide beneath the shelf, pressing against the cold stone floor. Dust fills your nostrils. Don't sneeze."
+            }
           ],
           "noise": 3
         }
@@ -1019,9 +1931,19 @@
       "id": "uv_wall_writing",
       "name": "Basement Wall",
       "description": "A stretch of bare stone wall with faint stains.",
-      "position": { "x": 550, "y": 300 },
-      "size": { "width": 120, "height": 80 },
-      "visual": { "color": "#1a1814", "label": "Wall", "shape": "rect" },
+      "position": {
+        "x": 550,
+        "y": 300
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#1a1814",
+        "label": "Wall",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1030,7 +1952,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Bare stone. Water stains run down from above. Some scratches, but nothing legible." }
+            {
+              "type": "message",
+              "text": "Bare stone. Water stains run down from above. Some scratches, but nothing legible."
+            }
           ]
         },
         {
@@ -1038,8 +1963,15 @@
           "item": "uv_flashlight",
           "when": [],
           "then": [
-            { "type": "message", "text": "Under the UV light, the wall comes alive. Someone wrote numbers in biological fluid — desperate last messages: '19' and 'HELP US'. Nineteen. Another number." },
-            { "type": "set_flag", "flag": "seen_uv_wall_numbers", "value": "true" }
+            {
+              "type": "message",
+              "text": "Under the UV light, the wall comes alive. Someone wrote numbers in biological fluid \u2014 desperate last messages: '19' and 'HELP US'. Nineteen. Another number."
+            },
+            {
+              "type": "set_flag",
+              "flag": "seen_uv_wall_numbers",
+              "value": "true"
+            }
           ],
           "noise": 0
         }
@@ -1049,9 +1981,19 @@
       "id": "stairway_entrance",
       "name": "Stairway",
       "description": "The narrow stairs leading down from above. Where Voss enters.",
-      "position": { "x": 920, "y": 500 },
-      "size": { "width": 80, "height": 120 },
-      "visual": { "color": "#1a1210", "label": "Stairs", "shape": "rect" },
+      "position": {
+        "x": 920,
+        "y": 500
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "#1a1210",
+        "label": "Stairs",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1060,37 +2002,79 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Narrow wooden stairs going up. This is where she comes down. You can hear the floorboards creak above." }
+            {
+              "type": "message",
+              "text": "Narrow wooden stairs going up. This is where she comes down. You can hear the floorboards creak above."
+            }
           ]
         },
         {
           "verb": "talk",
           "when": [],
           "then": [
-            { "type": "message", "text": "You press your ear to the stairwell. Humming. A lullaby. She's up there, working. The melody has a pattern — three notes high, two low, three high..." },
-            { "type": "set_flag", "flag": "lullaby_pattern_known", "value": "true" }
+            {
+              "type": "message",
+              "text": "You press your ear to the stairwell. Humming. A lullaby. She's up there, working. The melody has a pattern \u2014 three notes high, two low, three high..."
+            },
+            {
+              "type": "set_flag",
+              "flag": "lullaby_pattern_known",
+              "value": "true"
+            }
           ],
           "noise": 0
         },
         {
           "verb": "use_item",
           "item": "glass_eyes",
-          "when": [{ "type": "flag_not", "flag": "trap_eyes_set", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "trap_eyes_set",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "remove_item", "item": "glass_eyes" },
-            { "type": "set_flag", "flag": "trap_eyes_set", "value": "true" },
-            { "type": "message", "text": "You scatter the glass eyes across the bottom steps. They roll into every crack and crevice. Anyone coming down will slip." }
+            {
+              "type": "remove_item",
+              "item": "glass_eyes"
+            },
+            {
+              "type": "set_flag",
+              "flag": "trap_eyes_set",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You scatter the glass eyes across the bottom steps. They roll into every crack and crevice. Anyone coming down will slip."
+            }
           ],
           "noise": 5
         },
         {
           "verb": "use_item",
           "item": "paint_bucket",
-          "when": [{ "type": "flag_not", "flag": "trap_paint_set", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "trap_paint_set",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "remove_item", "item": "paint_bucket" },
-            { "type": "set_flag", "flag": "trap_paint_set", "value": "true" },
-            { "type": "message", "text": "You balance the paint bucket on the edge of the top step, propped against the wall. When the door opens, it'll fall." }
+            {
+              "type": "remove_item",
+              "item": "paint_bucket"
+            },
+            {
+              "type": "set_flag",
+              "flag": "trap_paint_set",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You balance the paint bucket on the edge of the top step, propped against the wall. When the door opens, it'll fall."
+            }
           ],
           "noise": 8
         }
@@ -1100,46 +2084,103 @@
       "id": "workbench_journal",
       "name": "Voss's Journal",
       "description": "A leather-bound journal filled with meticulous handwriting.",
-      "position": { "x": 300, "y": 350 },
-      "size": { "width": 60, "height": 40 },
-      "visual": { "color": "#3a2a1a", "label": "Journal", "shape": "rect" },
+      "position": {
+        "x": 300,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "visual": {
+        "color": "#3a2a1a",
+        "label": "Journal",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Madame Voss's journal. Dated entries going back decades. One page is loose." }
+            {
+              "type": "message",
+              "text": "Madame Voss's journal. Dated entries going back decades. One page is loose."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip through. Names. Dates. Measurements — of people. 'Subject 41: Female, 5'4\", auburn hair. Completed Oct 1987.' 'Subject 42: Male, 5'11\", dark hair. In progress.' That's you." },
-            { "type": "set_state", "object": "workbench_journal", "state": "open" }
+            {
+              "type": "message",
+              "text": "You flip through. Names. Dates. Measurements \u2014 of people. 'Subject 41: Female, 5'4\", auburn hair. Completed Oct 1987.' 'Subject 42: Male, 5'11\", dark hair. In progress.' That's you."
+            },
+            {
+              "type": "set_state",
+              "object": "workbench_journal",
+              "state": "open"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "workbench_journal", "state": "open" },
-                   { "type": "not_has_item", "item": "journal_page" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "workbench_journal",
+              "state": "open"
+            },
+            {
+              "type": "not_has_item",
+              "item": "journal_page"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "journal_page" },
-            { "type": "message", "text": "You tear out the loose page. It has the chemical cabinet combination on it." }
+            {
+              "type": "add_item",
+              "item": "journal_page"
+            },
+            {
+              "type": "message",
+              "text": "You tear out the loose page. It has the chemical cabinet combination on it."
+            }
           ],
           "noise": 3
         },
         {
           "verb": "use_item",
           "item": "uv_flashlight",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Under UV, hidden notes appear between the lines. 'They never stop screaming. I just learned to stop hearing.' And dates circled in invisible ink — Oct 3, 1987 appears again and again." },
-            { "type": "set_flag", "flag": "seen_journal_uv", "value": "true" }
+            {
+              "type": "message",
+              "text": "Under UV, hidden notes appear between the lines. 'They never stop screaming. I just learned to stop hearing.' And dates circled in invisible ink \u2014 Oct 3, 1987 appears again and again."
+            },
+            {
+              "type": "set_flag",
+              "flag": "seen_journal_uv",
+              "value": "true"
+            }
           ],
           "noise": 0
         }
@@ -1149,27 +2190,59 @@
       "id": "workbench_mirror",
       "name": "Small Mirror",
       "description": "A handheld mirror lying among the tools.",
-      "position": { "x": 500, "y": 380 },
-      "size": { "width": 30, "height": 30 },
-      "visual": { "color": "#5a5a6a", "label": "Mirror", "shape": "circle" },
+      "position": {
+        "x": 500,
+        "y": 380
+      },
+      "size": {
+        "width": 30,
+        "height": 30
+      },
+      "visual": {
+        "color": "#5a5a6a",
+        "label": "Mirror",
+        "shape": "circle"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A small vanity mirror, cracked but functional. Something is scratched on the metal backing." }
+            {
+              "type": "message",
+              "text": "A small vanity mirror, cracked but functional. Something is scratched on the metal backing."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "small_mirror" },
-            { "type": "hide_object", "object": "workbench_mirror" },
-            { "type": "message", "text": "You pocket the mirror. It's dual-purpose — a mirror for seeing around corners, and whatever that number on the back means." }
+            {
+              "type": "add_item",
+              "item": "small_mirror"
+            },
+            {
+              "type": "hide_object",
+              "object": "workbench_mirror"
+            },
+            {
+              "type": "message",
+              "text": "You pocket the mirror. It's dual-purpose \u2014 a mirror for seeing around corners, and whatever that number on the back means."
+            }
           ],
           "noise": 1
         }
@@ -1179,20 +2252,44 @@
       "id": "workbench_wire",
       "name": "Armature Wire",
       "description": "A piece of stiff copper wire used for doll armatures.",
-      "position": { "x": 420, "y": 400 },
-      "size": { "width": 40, "height": 20 },
-      "visual": { "color": "#8a6a3a", "label": "Wire", "shape": "rect" },
+      "position": {
+        "x": 420,
+        "y": 400
+      },
+      "size": {
+        "width": 40,
+        "height": 20
+      },
+      "visual": {
+        "color": "#8a6a3a",
+        "label": "Wire",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "take",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "bent_wire" },
-            { "type": "hide_object", "object": "workbench_wire" },
-            { "type": "message", "text": "You bend the wire into a rough lockpick shape. Not elegant, but functional." }
+            {
+              "type": "add_item",
+              "item": "bent_wire"
+            },
+            {
+              "type": "hide_object",
+              "object": "workbench_wire"
+            },
+            {
+              "type": "message",
+              "text": "You bend the wire into a rough lockpick shape. Not elegant, but functional."
+            }
           ],
           "noise": 2
         }
@@ -1202,20 +2299,44 @@
       "id": "workbench_rag",
       "name": "Cloth Rag",
       "description": "A stained work cloth draped over the edge.",
-      "position": { "x": 550, "y": 350 },
-      "size": { "width": 40, "height": 30 },
-      "visual": { "color": "#4a4030", "label": "Rag", "shape": "rect" },
+      "position": {
+        "x": 550,
+        "y": 350
+      },
+      "size": {
+        "width": 40,
+        "height": 30
+      },
+      "visual": {
+        "color": "#4a4030",
+        "label": "Rag",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "take",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "cloth_rag" },
-            { "type": "hide_object", "object": "workbench_rag" },
-            { "type": "message", "text": "You grab the rag. Heavy cotton, stained with paint." }
+            {
+              "type": "add_item",
+              "item": "cloth_rag"
+            },
+            {
+              "type": "hide_object",
+              "object": "workbench_rag"
+            },
+            {
+              "type": "message",
+              "text": "You grab the rag. Heavy cotton, stained with paint."
+            }
           ],
           "noise": 1
         }
@@ -1225,20 +2346,44 @@
       "id": "workbench_paint_bucket",
       "name": "Paint Bucket",
       "description": "A half-full bucket of white primer under the bench.",
-      "position": { "x": 350, "y": 420 },
-      "size": { "width": 40, "height": 40 },
-      "visual": { "color": "#e0e0e0", "label": "Bucket", "shape": "rect" },
+      "position": {
+        "x": 350,
+        "y": 420
+      },
+      "size": {
+        "width": 40,
+        "height": 40
+      },
+      "visual": {
+        "color": "#e0e0e0",
+        "label": "Bucket",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "take",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "paint_bucket" },
-            { "type": "hide_object", "object": "workbench_paint_bucket" },
-            { "type": "message", "text": "You carefully lift the paint bucket. Heavy. This could make a real mess." }
+            {
+              "type": "add_item",
+              "item": "paint_bucket"
+            },
+            {
+              "type": "hide_object",
+              "object": "workbench_paint_bucket"
+            },
+            {
+              "type": "message",
+              "text": "You carefully lift the paint bucket. Heavy. This could make a real mess."
+            }
           ],
           "noise": 3
         }
@@ -1248,66 +2393,199 @@
       "id": "fuse_box",
       "name": "Fuse Box",
       "description": "An old fuse box on the wall with three sockets.",
-      "position": { "x": 600, "y": 350 },
-      "size": { "width": 40, "height": 50 },
-      "visual": { "color": "#3a3a3a", "label": "Fuses", "shape": "rect" },
+      "position": {
+        "x": 600,
+        "y": 350
+      },
+      "size": {
+        "width": 40,
+        "height": 50
+      },
+      "visual": {
+        "color": "#3a3a3a",
+        "label": "Fuses",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Three fuse sockets labeled 'MAGNIFYING LAMP', 'UV STATION', 'DESK LAMP'. Only one working fuse — you'll have to choose which device gets power." }
+            {
+              "type": "message",
+              "text": "Three fuse sockets labeled 'MAGNIFYING LAMP', 'UV STATION', 'DESK LAMP'. Only one working fuse \u2014 you'll have to choose which device gets power."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" },
-                   { "type": "flag_is", "flag": "power_active_slot", "value": "none" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "power_active_slot",
+              "value": "none"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You screw the fuse into the magnifying lamp socket. The lamp hums to life, casting bright white light over the workbench." },
-            { "type": "set_flag", "flag": "power_active_slot", "value": "magnifying" },
-            { "type": "set_flag", "flag": "fuse_in_magnifying", "value": "true" }
+            {
+              "type": "message",
+              "text": "You screw the fuse into the magnifying lamp socket. The lamp hums to life, casting bright white light over the workbench."
+            },
+            {
+              "type": "set_flag",
+              "flag": "power_active_slot",
+              "value": "magnifying"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_magnifying",
+              "value": "true"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" },
-                   { "type": "flag_is", "flag": "power_active_slot", "value": "magnifying" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "power_active_slot",
+              "value": "magnifying"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You unscrew the fuse from the lamp socket and move it to UV STATION. The lamp dies; a faint purple glow fills the corner." },
-            { "type": "set_flag", "flag": "power_active_slot", "value": "uv" },
-            { "type": "set_flag", "flag": "fuse_in_magnifying", "value": "false" },
-            { "type": "set_flag", "flag": "fuse_in_uv", "value": "true" }
+            {
+              "type": "message",
+              "text": "You unscrew the fuse from the lamp socket and move it to UV STATION. The lamp dies; a faint purple glow fills the corner."
+            },
+            {
+              "type": "set_flag",
+              "flag": "power_active_slot",
+              "value": "uv"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_magnifying",
+              "value": "false"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_uv",
+              "value": "true"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" },
-                   { "type": "flag_is", "flag": "power_active_slot", "value": "uv" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "power_active_slot",
+              "value": "uv"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You move the fuse to DESK LAMP. The UV station goes dark; warm yellow light fills the workbench area." },
-            { "type": "set_flag", "flag": "power_active_slot", "value": "desk" },
-            { "type": "set_flag", "flag": "fuse_in_uv", "value": "false" },
-            { "type": "set_flag", "flag": "fuse_in_desk", "value": "true" }
+            {
+              "type": "message",
+              "text": "You move the fuse to DESK LAMP. The UV station goes dark; warm yellow light fills the workbench area."
+            },
+            {
+              "type": "set_flag",
+              "flag": "power_active_slot",
+              "value": "desk"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_uv",
+              "value": "false"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_desk",
+              "value": "true"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "workbench_closeup" },
-                   { "type": "flag_is", "flag": "power_active_slot", "value": "desk" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "workbench_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "power_active_slot",
+              "value": "desk"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You move the fuse back to MAGNIFYING LAMP. The desk lamp dies; the magnifier's bright ring lights up." },
-            { "type": "set_flag", "flag": "power_active_slot", "value": "magnifying" },
-            { "type": "set_flag", "flag": "fuse_in_desk", "value": "false" },
-            { "type": "set_flag", "flag": "fuse_in_magnifying", "value": "true" }
+            {
+              "type": "message",
+              "text": "You move the fuse back to MAGNIFYING LAMP. The desk lamp dies; the magnifier's bright ring lights up."
+            },
+            {
+              "type": "set_flag",
+              "flag": "power_active_slot",
+              "value": "magnifying"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_desk",
+              "value": "false"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_in_magnifying",
+              "value": "true"
+            }
           ],
           "noise": 2
+        },
+        {
+          "verb": "take",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "fuse"
+            }
+          ],
+          "then": [
+            {
+              "type": "add_item",
+              "item": "fuse"
+            },
+            {
+              "type": "message",
+              "text": "You pull a working fuse from the box. One of the spare slots had an extra."
+            },
+            {
+              "type": "add_noise",
+              "amount": 5
+            }
+          ]
         }
       ]
     },
@@ -1315,18 +2593,36 @@
       "id": "furnace_controls",
       "name": "Furnace Controls",
       "description": "A panel of dials and levers on the side of the furnace.",
-      "position": { "x": 400, "y": 300 },
-      "size": { "width": 100, "height": 80 },
-      "visual": { "color": "#2a2020", "label": "Controls", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#2a2020",
+        "label": "Controls",
+        "shape": "rect"
+      },
       "initial_state": "off",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Three controls: a TEMPERATURE dial (Low/Medium/High/Max), an AIRFLOW lever (Closed/Half/Full), and a FUEL VALVE (Off/On/Boost). There are embers in the grate — it could be restarted." }
+            {
+              "type": "message",
+              "text": "Three controls: a TEMPERATURE dial (Low/Medium/High/Max), an AIRFLOW lever (Closed/Half/Full), and a FUEL VALVE (Off/On/Boost). There are embers in the grate \u2014 it could be restarted."
+            }
           ]
         }
       ]
@@ -1335,20 +2631,44 @@
       "id": "coal_bin",
       "name": "Coal Bin",
       "description": "A metal bin half-full of coal chunks.",
-      "position": { "x": 250, "y": 400 },
-      "size": { "width": 60, "height": 50 },
-      "visual": { "color": "#1a1a1a", "label": "Coal", "shape": "rect" },
+      "position": {
+        "x": 250,
+        "y": 400
+      },
+      "size": {
+        "width": 60,
+        "height": 50
+      },
+      "visual": {
+        "color": "#1a1a1a",
+        "label": "Coal",
+        "shape": "rect"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "take",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "not_has_item", "item": "coal_chunk" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "not_has_item",
+              "item": "coal_chunk"
+            }
+          ],
           "then": [
-            { "type": "add_item", "item": "coal_chunk" },
-            { "type": "message", "text": "You grab a fist-sized lump of coal." }
+            {
+              "type": "add_item",
+              "item": "coal_chunk"
+            },
+            {
+              "type": "message",
+              "text": "You grab a fist-sized lump of coal."
+            }
           ],
           "noise": 2
         }
@@ -1358,94 +2678,246 @@
       "id": "furnace_grate",
       "name": "Floor Grate",
       "description": "A heavy iron grate in the floor near the furnace.",
-      "position": { "x": 500, "y": 500 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#2a2a2a", "label": "Grate", "shape": "rect" },
+      "position": {
+        "x": 500,
+        "y": 500
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2a2a2a",
+        "label": "Grate",
+        "shape": "rect"
+      },
       "initial_state": "sealed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A heavy iron grate bolted into the stone floor. Through the gaps, darkness — and faint tapping from below." }
+            {
+              "type": "message",
+              "text": "A heavy iron grate bolted into the stone floor. Through the gaps, darkness \u2014 and faint tapping from below."
+            }
           ]
         },
         {
           "verb": "talk",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "none" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "none"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You whisper into the grate. \"Hello? Is someone down there?\" A pause. Then a weak voice: \"...who's there? Another one of her... projects?\" The tapping stops." },
-            { "type": "set_flag", "flag": "ally_trust", "value": "low" }
+            {
+              "type": "message",
+              "text": "You whisper into the grate. \"Hello? Is someone down there?\" A pause. Then a weak voice: \"...who's there? Another one of her... projects?\" The tapping stops."
+            },
+            {
+              "type": "set_flag",
+              "flag": "ally_trust",
+              "value": "low"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "talk",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "low" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "low"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "\"I've been here... weeks? Months? She takes pieces. Molds of my hands. My face. I can't feel my fingers anymore.\" The voice cracks. \"Please. I need water. Something. Anything.\"" },
-            { "type": "set_flag", "flag": "ally_trust", "value": "medium" }
+            {
+              "type": "message",
+              "text": "\"I've been here... weeks? Months? She takes pieces. Molds of my hands. My face. I can't feel my fingers anymore.\" The voice cracks. \"Please. I need water. Something. Anything.\""
+            },
+            {
+              "type": "set_flag",
+              "flag": "ally_trust",
+              "value": "medium"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "talk",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "high" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "high"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "\"Listen — the cellar door. She painted PUSH on it but the hinges are on your side. It PULLS open. And there's a second door with a keypad behind it.\"" },
-            { "type": "set_flag", "flag": "ally_info_hinge", "value": "true" }
+            {
+              "type": "message",
+              "text": "\"Listen \u2014 the cellar door. She painted PUSH on it but the hinges are on your side. It PULLS open. And there's a second door with a keypad behind it.\""
+            },
+            {
+              "type": "set_flag",
+              "flag": "ally_info_hinge",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "use_item",
           "item": "cloth_rag",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "medium" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "medium"
+            }
+          ],
           "then": [
-            { "type": "remove_item", "item": "cloth_rag" },
-            { "type": "set_flag", "flag": "ally_trust", "value": "high" },
-            { "type": "message", "text": "You push the damp rag through the grate. Hands reach up to take it. \"Thank you... thank you. I'll tell you everything I know. She has lockpicks in a case. I dropped them through the grate weeks ago — they should still be down here.\"" }
+            {
+              "type": "remove_item",
+              "item": "cloth_rag"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ally_trust",
+              "value": "high"
+            },
+            {
+              "type": "message",
+              "text": "You push the damp rag through the grate. Hands reach up to take it. \"Thank you... thank you. I'll tell you everything I know. She has lockpicks in a case. I dropped them through the grate weeks ago \u2014 they should still be down here.\""
+            }
           ],
           "noise": 3
         },
         {
           "verb": "use_item",
           "item": "rope_coil",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "high" },
-                   { "type": "flag_is", "flag": "grate_loosened", "value": "true" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "high"
+            },
+            {
+              "type": "flag_is",
+              "flag": "grate_loosened",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "remove_item", "item": "rope_coil" },
-            { "type": "set_flag", "flag": "rope_given_to_ally", "value": "true" },
-            { "type": "set_flag", "flag": "ally_freed", "value": "true" },
-            { "type": "message", "text": "You lower the rope through the loosened grate. Frantic pulling. \"I'm climbing! I'm — I see a ladder on the other side. I can reach the outside from here. Thank you. THANK YOU.\" Scrambling sounds fade. They're free. But the rope — they took the rope with them." }
+            {
+              "type": "remove_item",
+              "item": "rope_coil"
+            },
+            {
+              "type": "set_flag",
+              "flag": "rope_given_to_ally",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ally_freed",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "You lower the rope through the loosened grate. Frantic pulling. \"I'm climbing! I'm \u2014 I see a ladder on the other side. I can reach the outside from here. Thank you. THANK YOU.\" Scrambling sounds fade. They're free. But the rope \u2014 they took the rope with them."
+            }
           ],
           "noise": 10
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "grate_loosened", "value": "true" },
-                   { "type": "flag_is", "flag": "ally_trust", "value": "high" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "grate_loosened",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "ally_trust",
+              "value": "high"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The grate is loose enough to lift. Below, you can see the sub-basement — and a rusty ladder on the far wall leading to a hatch. But it's a 12-foot drop. You'd need the rope to get down safely." }
+            {
+              "type": "message",
+              "text": "The grate is loose enough to lift. Below, you can see the sub-basement \u2014 and a rusty ladder on the far wall leading to a hatch. But it's a 12-foot drop. You'd need the rope to get down safely."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "furnace_closeup" },
-                   { "type": "flag_is", "flag": "water_flowing", "value": "true" },
-                   { "type": "object_state", "object": "furnace_grate", "state": "sealed" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "furnace_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "water_flowing",
+              "value": "true"
+            },
+            {
+              "type": "object_state",
+              "object": "furnace_grate",
+              "state": "sealed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Water seeps around the grate bolts, loosening decades of rust. You pull — the grate shifts. One more pull and it lifts free." },
-            { "type": "set_state", "object": "furnace_grate", "state": "loose" },
-            { "type": "set_flag", "flag": "grate_loosened", "value": "true" }
+            {
+              "type": "message",
+              "text": "Water seeps around the grate bolts, loosening decades of rust. You pull \u2014 the grate shifts. One more pull and it lifts free."
+            },
+            {
+              "type": "set_state",
+              "object": "furnace_grate",
+              "state": "loose"
+            },
+            {
+              "type": "set_flag",
+              "flag": "grate_loosened",
+              "value": "true"
+            }
           ],
           "noise": 15
         }
@@ -1455,64 +2927,175 @@
       "id": "special_doll",
       "name": "The Different Doll",
       "description": "One doll stands out from the rest. Newer. More lifelike.",
-      "position": { "x": 400, "y": 300 },
-      "size": { "width": 40, "height": 70 },
-      "visual": { "color": "#d0c0b0", "label": "Doll #41", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 40,
+        "height": 70
+      },
+      "visual": {
+        "color": "#d0c0b0",
+        "label": "Doll #41",
+        "shape": "rect"
+      },
       "initial_state": "displayed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "flag_not", "flag": "has_uv_light", "value": "true" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "flag_not",
+              "flag": "has_uv_light",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "This doll is different. The face is eerily realistic — like a photograph rendered in porcelain. The eyes seem slightly loose in their sockets. A small '41' is painted on the base." }
+            {
+              "type": "message",
+              "text": "This doll is different. The face is eerily realistic \u2014 like a photograph rendered in porcelain. The eyes seem slightly loose in their sockets. A small '41' is painted on the base."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "flag_is", "flag": "has_uv_light", "value": "true" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "flag_is",
+              "flag": "has_uv_light",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Under UV light, numbers glow on several dolls' bases. This one reads '41'. Each doll has a unique number. They're all... subjects." },
-            { "type": "set_flag", "flag": "seen_uv_doll_marks", "value": "true" }
+            {
+              "type": "message",
+              "text": "Under UV light, numbers glow on several dolls' bases. This one reads '41'. Each doll has a unique number. They're all... subjects."
+            },
+            {
+              "type": "set_flag",
+              "flag": "seen_uv_doll_marks",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "object_state", "object": "special_doll", "state": "displayed" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "object_state",
+              "object": "special_doll",
+              "state": "displayed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lift the doll from the shelf. The head wobbles. The glass eyes are loose — they rattle when you tilt it." },
-            { "type": "set_state", "object": "special_doll", "state": "held" },
-            { "type": "set_flag", "flag": "doll_rehung", "value": "false" }
+            {
+              "type": "message",
+              "text": "You lift the doll from the shelf. The head wobbles. The glass eyes are loose \u2014 they rattle when you tilt it."
+            },
+            {
+              "type": "set_state",
+              "object": "special_doll",
+              "state": "held"
+            },
+            {
+              "type": "set_flag",
+              "flag": "doll_rehung",
+              "value": "false"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "object_state", "object": "special_doll", "state": "held" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "object_state",
+              "object": "special_doll",
+              "state": "held"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You work the loose glass eyes out of the sockets. Behind them — a tiny rolled paper stuffed into the hollow head." },
-            { "type": "set_state", "object": "special_doll", "state": "opened" },
-            { "type": "add_item", "item": "doll_paper" },
-            { "type": "set_flag", "flag": "doll_eyes_replaced", "value": "false" }
+            {
+              "type": "message",
+              "text": "You work the loose glass eyes out of the sockets. Behind them \u2014 a tiny rolled paper stuffed into the hollow head."
+            },
+            {
+              "type": "set_state",
+              "object": "special_doll",
+              "state": "opened"
+            },
+            {
+              "type": "add_item",
+              "item": "doll_paper"
+            },
+            {
+              "type": "set_flag",
+              "flag": "doll_eyes_replaced",
+              "value": "false"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "object_state", "object": "special_doll", "state": "opened" },
-                   { "type": "has_item", "item": "glass_eyes" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "object_state",
+              "object": "special_doll",
+              "state": "opened"
+            },
+            {
+              "type": "has_item",
+              "item": "glass_eyes"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You push replacement glass eyes into the doll's sockets and set it back on the shelf. It looks undisturbed." },
-            { "type": "set_state", "object": "special_doll", "state": "restored" },
-            { "type": "set_flag", "flag": "doll_rehung", "value": "true" },
-            { "type": "set_flag", "flag": "doll_eyes_replaced", "value": "true" },
-            { "type": "remove_item", "item": "glass_eyes" }
+            {
+              "type": "message",
+              "text": "You push replacement glass eyes into the doll's sockets and set it back on the shelf. It looks undisturbed."
+            },
+            {
+              "type": "set_state",
+              "object": "special_doll",
+              "state": "restored"
+            },
+            {
+              "type": "set_flag",
+              "flag": "doll_rehung",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "doll_eyes_replaced",
+              "value": "true"
+            },
+            {
+              "type": "remove_item",
+              "item": "glass_eyes"
+            }
           ],
           "noise": 2
         }
@@ -1522,32 +3105,80 @@
       "id": "music_box",
       "name": "Music Box",
       "description": "An ornate wooden music box among the dolls.",
-      "position": { "x": 300, "y": 250 },
-      "size": { "width": 50, "height": 40 },
-      "visual": { "color": "#4a3020", "label": "Music Box", "shape": "rect" },
+      "position": {
+        "x": 300,
+        "y": 250
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
+      "visual": {
+        "color": "#4a3020",
+        "label": "Music Box",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A beautiful music box with a rose inlay on the lid. There's a keyhole shaped like a rose. The same lullaby melody Voss hums is engraved on a brass plate." }
+            {
+              "type": "message",
+              "text": "A beautiful music box with a rose inlay on the lid. There's a keyhole shaped like a rose. The same lullaby melody Voss hums is engraved on a brass plate."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "doll_key",
-          "when": [{ "type": "view_is", "view": "doll_shelf_closeup" },
-                   { "type": "object_state", "object": "music_box", "state": "locked" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "doll_shelf_closeup"
+            },
+            {
+              "type": "object_state",
+              "object": "music_box",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "music_box", "state": "open" },
-            { "type": "set_flag", "flag": "music_box_opened", "value": "true" },
-            { "type": "add_item", "item": "music_box_cylinder" },
-            { "type": "add_item", "item": "rope_coil" },
-            { "type": "set_flag", "flag": "rope_obtained", "value": "true" },
-            { "type": "message", "text": "The rose key turns perfectly. The lid opens and the lullaby plays — tinkling and delicate. Inside: a brass cylinder with the melody's pin pattern, and coiled beneath it, a length of rope. She hid it here. Why?" }
+            {
+              "type": "set_state",
+              "object": "music_box",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "music_box_opened",
+              "value": "true"
+            },
+            {
+              "type": "add_item",
+              "item": "music_box_cylinder"
+            },
+            {
+              "type": "add_item",
+              "item": "rope_coil"
+            },
+            {
+              "type": "set_flag",
+              "flag": "rope_obtained",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "The rose key turns perfectly. The lid opens and the lullaby plays \u2014 tinkling and delicate. Inside: a brass cylinder with the melody's pin pattern, and coiled beneath it, a length of rope. She hid it here. Why?"
+            }
           ],
           "noise": 8
         }
@@ -1557,37 +3188,86 @@
       "id": "dumbwaiter_platform",
       "name": "Dumbwaiter Platform",
       "description": "A small wooden platform on fraying ropes.",
-      "position": { "x": 400, "y": 350 },
-      "size": { "width": 60, "height": 50 },
-      "visual": { "color": "#2a2218", "label": "Platform", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 50
+      },
+      "visual": {
+        "color": "#2a2218",
+        "label": "Platform",
+        "shape": "rect"
+      },
       "initial_state": "lowered",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "dumbwaiter_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "dumbwaiter_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The platform can carry about 50 pounds. The ropes run through pulleys to the kitchen above. If you could fit in... but you'd need to be sure the ropes hold." }
+            {
+              "type": "message",
+              "text": "The platform can carry about 50 pounds. The ropes run through pulleys to the kitchen above. If you could fit in... but you'd need to be sure the ropes hold."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "dumbwaiter_closeup" },
-                   { "type": "has_item", "item": "rope_coil" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "dumbwaiter_closeup"
+            },
+            {
+              "type": "has_item",
+              "item": "rope_coil"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You reinforce the fraying ropes with your own rope, knotting them securely. The platform feels solid now. You could ride this up." },
-            { "type": "set_state", "object": "dumbwaiter_platform", "state": "reinforced" },
-            { "type": "remove_item", "item": "rope_coil" }
+            {
+              "type": "message",
+              "text": "You reinforce the fraying ropes with your own rope, knotting them securely. The platform feels solid now. You could ride this up."
+            },
+            {
+              "type": "set_state",
+              "object": "dumbwaiter_platform",
+              "state": "reinforced"
+            },
+            {
+              "type": "remove_item",
+              "item": "rope_coil"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "dumbwaiter_closeup" },
-                   { "type": "object_state", "object": "dumbwaiter_platform", "state": "reinforced" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "dumbwaiter_closeup"
+            },
+            {
+              "type": "object_state",
+              "object": "dumbwaiter_platform",
+              "state": "reinforced"
+            }
+          ],
           "then": [
-            { "type": "game_over", "result": "win", "reason": "You squeeze onto the platform and pull yourself up, hand over hand. The ropes creak but hold. You emerge in a dark kitchen. The front door is unlocked. You slip out into the night, leaving the house of dolls behind forever." }
+            {
+              "type": "game_over",
+              "result": "win",
+              "reason": "You squeeze onto the platform and pull yourself up, hand over hand. The ropes creak but hold. You emerge in a dark kitchen. The front door is unlocked. You slip out into the night, leaving the house of dolls behind forever."
+            }
           ],
           "noise": 15
         }
@@ -1597,65 +3277,134 @@
       "id": "dumbwaiter_scratches",
       "name": "Scratched Wall",
       "description": "Deep scratches in the wooden shaft wall.",
-      "position": { "x": 300, "y": 200 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#1a1814", "label": "Scratches", "shape": "rect" },
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#1a1814",
+        "label": "Scratches",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "view_is", "view": "dumbwaiter_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "dumbwaiter_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Deep gouges in the wood. Someone clawed at this wall. Random scratches — unless you're looking from the right angle." }
+            {
+              "type": "message",
+              "text": "Deep gouges in the wood. Someone clawed at this wall. Random scratches \u2014 unless you're looking from the right angle."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "small_mirror",
-          "when": [{ "type": "view_is", "view": "dumbwaiter_closeup" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "dumbwaiter_closeup"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You angle the mirror to see the scratches from above. They're not random — they form a rough map of the basement. An 'X' marks the pipe valve in the main room, with an arrow pointing down to the grate." },
-            { "type": "set_flag", "flag": "dumbwaiter_map_seen", "value": "true" }
+            {
+              "type": "message",
+              "text": "You angle the mirror to see the scratches from above. They're not random \u2014 they form a rough map of the basement. An 'X' marks the pipe valve in the main room, with an arrow pointing down to the grate."
+            },
+            {
+              "type": "set_flag",
+              "flag": "dumbwaiter_map_seen",
+              "value": "true"
+            }
           ],
           "noise": 0
         }
       ]
     }
   ],
-
   "puzzle_widgets": [
     {
       "id": "cabinet_lock",
       "widget_type": "combination_lock",
-      "position": { "x": 150, "y": 250 },
-      "size": { "width": 60, "height": 40 },
+      "position": {
+        "x": 150,
+        "y": 250
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
       "view": "main",
       "initially_visible": true,
       "config": {
         "num_dials": 3,
         "values_per_dial": 10,
-        "solution": [3, 8, 1],
-        "dial_labels": ["I", "II", "III"]
+        "solution": [
+          3,
+          8,
+          1
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III"
+        ]
       },
       "on_solve": [
-        { "type": "set_state", "object": "chemical_cabinet", "state": "open" },
-        { "type": "set_flag", "flag": "cabinet_opened", "value": "true" },
-        { "type": "show_object", "object": "cabinet_contents" },
-        { "type": "message", "text": "Click. Click. Click. The lock releases and the cabinet door swings open." }
+        {
+          "type": "set_state",
+          "object": "chemical_cabinet",
+          "state": "open"
+        },
+        {
+          "type": "set_flag",
+          "flag": "cabinet_opened",
+          "value": "true"
+        },
+        {
+          "type": "show_object",
+          "object": "cabinet_contents"
+        },
+        {
+          "type": "message",
+          "text": "Click. Click. Click. The lock releases and the cabinet door swings open."
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 2 },
-        { "type": "message", "text": "The dial clicks but nothing happens. Wrong combination." }
+        {
+          "type": "add_noise",
+          "amount": 2
+        },
+        {
+          "type": "message",
+          "text": "The dial clicks but nothing happens. Wrong combination."
+        }
       ],
       "noise_per_interaction": 1
     },
     {
       "id": "keypad_lock",
       "widget_type": "keypad",
-      "position": { "x": 50, "y": 270 },
-      "size": { "width": 50, "height": 50 },
+      "position": {
+        "x": 50,
+        "y": 270
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
       "view": "main",
       "initially_visible": false,
       "config": {
@@ -1664,124 +3413,288 @@
         "display_chars": 4
       },
       "on_solve": [
-        { "type": "set_state", "object": "second_door", "state": "unlocked" },
-        { "type": "set_flag", "flag": "second_door_open", "value": "true" },
-        { "type": "message", "text": "The keypad flashes green. The lock clicks open. Beyond: stone steps and cold air." },
-        { "type": "play_sound", "sound": "lock_open" }
+        {
+          "type": "set_state",
+          "object": "second_door",
+          "state": "unlocked"
+        },
+        {
+          "type": "set_flag",
+          "flag": "second_door_open",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The keypad flashes green. The lock clicks open. Beyond: stone steps and cold air."
+        },
+        {
+          "type": "play_sound",
+          "sound": "lock_open"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 3 },
-        { "type": "message", "text": "The keypad flashes red. Wrong code." }
+        {
+          "type": "add_noise",
+          "amount": 3
+        },
+        {
+          "type": "message",
+          "text": "The keypad flashes red. Wrong code."
+        }
       ],
       "noise_per_interaction": 1
     },
     {
       "id": "furnace_panel",
       "widget_type": "sequence_puzzle",
-      "position": { "x": 400, "y": 300 },
-      "size": { "width": 100, "height": 80 },
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
       "view": "furnace_closeup",
       "initially_visible": true,
       "config": {
         "steps": [
-          { "id": "fuel_on", "label": "Fuel Valve → ON", "position": { "x": 460, "y": 360 } },
-          { "id": "air_full", "label": "Airflow → FULL", "position": { "x": 420, "y": 320 } },
-          { "id": "temp_max", "label": "Temperature → MAX", "position": { "x": 380, "y": 280 } }
+          {
+            "id": "fuel_on",
+            "label": "Fuel Valve \u2192 ON",
+            "position": {
+              "x": 460,
+              "y": 360
+            }
+          },
+          {
+            "id": "air_full",
+            "label": "Airflow \u2192 FULL",
+            "position": {
+              "x": 420,
+              "y": 320
+            }
+          },
+          {
+            "id": "temp_max",
+            "label": "Temperature \u2192 MAX",
+            "position": {
+              "x": 380,
+              "y": 280
+            }
+          }
         ],
-        "solution_order": ["fuel_on", "air_full", "temp_max"],
+        "solution_order": [
+          "fuel_on",
+          "air_full",
+          "temp_max"
+        ],
         "reset_on_error": true,
         "correct_step_message": "The furnace rumbles louder...",
-        "wrong_step_message": "The furnace sputters. Wrong order — it resets.",
+        "wrong_step_message": "The furnace sputters. Wrong order \u2014 it resets.",
         "wrong_step_noise": 8
       },
       "on_solve": [
-        { "type": "set_flag", "flag": "furnace_overloaded", "value": "true" },
-        { "type": "message", "text": "The furnace roars to life. The iron glows red. The chimney shakes. The rumbling is LOUD — audible throughout the entire house." },
-        { "type": "add_noise", "amount": 60 },
-        { "type": "visual_cue", "cue": "shake" },
-        { "type": "trigger_event", "event": "furnace_distraction" }
+        {
+          "type": "set_flag",
+          "flag": "furnace_overloaded",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The furnace roars to life. The iron glows red. The chimney shakes. The rumbling is LOUD \u2014 audible throughout the entire house."
+        },
+        {
+          "type": "add_noise",
+          "amount": 60
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        },
+        {
+          "type": "trigger_event",
+          "event": "furnace_distraction"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 8 }
+        {
+          "type": "add_noise",
+          "amount": 8
+        }
       ],
       "noise_per_interaction": 3
     },
     {
       "id": "music_box_sequence",
       "widget_type": "sequence_puzzle",
-      "position": { "x": 300, "y": 250 },
-      "size": { "width": 50, "height": 40 },
+      "position": {
+        "x": 300,
+        "y": 250
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
       "view": "doll_shelf_closeup",
       "initially_visible": false,
       "config": {
         "steps": [
-          { "id": "high1", "label": "High Note", "position": { "x": 290, "y": 240 } },
-          { "id": "high2", "label": "High Note", "position": { "x": 310, "y": 240 } },
-          { "id": "high3", "label": "High Note", "position": { "x": 330, "y": 240 } },
-          { "id": "low1", "label": "Low Note", "position": { "x": 300, "y": 260 } },
-          { "id": "low2", "label": "Low Note", "position": { "x": 320, "y": 260 } }
+          {
+            "id": "high1",
+            "label": "High Note",
+            "position": {
+              "x": 290,
+              "y": 240
+            }
+          },
+          {
+            "id": "high2",
+            "label": "High Note",
+            "position": {
+              "x": 310,
+              "y": 240
+            }
+          },
+          {
+            "id": "high3",
+            "label": "High Note",
+            "position": {
+              "x": 330,
+              "y": 240
+            }
+          },
+          {
+            "id": "low1",
+            "label": "Low Note",
+            "position": {
+              "x": 300,
+              "y": 260
+            }
+          },
+          {
+            "id": "low2",
+            "label": "Low Note",
+            "position": {
+              "x": 320,
+              "y": 260
+            }
+          }
         ],
-        "solution_order": ["high1", "high2", "high3", "low1", "low2"],
+        "solution_order": [
+          "high1",
+          "high2",
+          "high3",
+          "low1",
+          "low2"
+        ],
         "reset_on_error": true,
         "correct_step_message": "A note chimes...",
         "wrong_step_message": "A discordant clang. The box resets.",
         "wrong_step_noise": 5
       },
       "on_solve": [
-        { "type": "message", "text": "The lullaby plays perfectly. A hidden compartment in the music box slides open, revealing a folded note with the number '19' circled." },
-        { "type": "set_flag", "flag": "music_box_opened", "value": "true" }
+        {
+          "type": "message",
+          "text": "The lullaby plays perfectly. A hidden compartment in the music box slides open, revealing a folded note with the number '19' circled."
+        },
+        {
+          "type": "set_flag",
+          "flag": "music_box_opened",
+          "value": "true"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 5 }
+        {
+          "type": "add_noise",
+          "amount": 5
+        }
       ],
       "noise_per_interaction": 2
     }
   ],
-
   "views": [
     {
       "id": "main",
       "background_key": "main_workshop",
       "background_file": "backgrounds/main_workshop.png",
-      "objects": ["binding_ropes", "glass_eyes_jar", "workbench_area", "chemical_cabinet", "cabinet_contents", "cellar_door", "second_door", "coal_furnace", "boarded_window", "dumbwaiter_shaft", "doll_shelves", "sewing_machine", "pipe_valve", "shelf_key", "crate_stack", "bolt_hole", "uv_wall_writing", "stairway_entrance"]
+      "objects": [
+        "binding_ropes",
+        "glass_eyes_jar",
+        "workbench_area",
+        "chemical_cabinet",
+        "cabinet_contents",
+        "cellar_door",
+        "second_door",
+        "coal_furnace",
+        "boarded_window",
+        "dumbwaiter_shaft",
+        "doll_shelves",
+        "sewing_machine",
+        "pipe_valve",
+        "shelf_key",
+        "crate_stack",
+        "bolt_hole",
+        "uv_wall_writing",
+        "stairway_entrance"
+      ]
     },
     {
       "id": "workbench_closeup",
       "background_key": "workbench_closeup",
       "background_file": "backgrounds/workbench_closeup.png",
-      "objects": ["workbench_journal", "workbench_mirror", "workbench_wire", "workbench_rag", "workbench_paint_bucket", "fuse_box"],
+      "objects": [
+        "workbench_journal",
+        "workbench_mirror",
+        "workbench_wire",
+        "workbench_rag",
+        "workbench_paint_bucket",
+        "fuse_box"
+      ],
       "back_label": "Step back from workbench"
     },
     {
       "id": "furnace_closeup",
       "background_key": "furnace_closeup",
       "background_file": "backgrounds/furnace_closeup.png",
-      "objects": ["furnace_controls", "coal_bin", "furnace_grate"],
+      "objects": [
+        "furnace_controls",
+        "coal_bin",
+        "furnace_grate"
+      ],
       "back_label": "Step away from furnace"
     },
     {
       "id": "doll_shelf_closeup",
       "background_key": "doll_shelf_closeup",
       "background_file": "backgrounds/doll_shelf_closeup.png",
-      "objects": ["special_doll", "music_box"],
+      "objects": [
+        "special_doll",
+        "music_box"
+      ],
       "back_label": "Step back from shelves"
     },
     {
       "id": "dumbwaiter_closeup",
       "background_key": "dumbwaiter_closeup",
       "background_file": "backgrounds/dumbwaiter_closeup.png",
-      "objects": ["dumbwaiter_platform", "dumbwaiter_scratches"],
+      "objects": [
+        "dumbwaiter_platform",
+        "dumbwaiter_scratches"
+      ],
       "back_label": "Step away from dumbwaiter"
     }
   ],
-
   "phases": [
     {
       "id": "trapped",
       "name": "Trapped",
       "starts_when": [],
       "on_enter": [
-        { "type": "message", "text": "Cold stone against your cheek. The smell of lacquer and old fabric. Your wrists burn — rough rope. As your eyes adjust, porcelain faces emerge from the gloom. Dozens of them. Staring." }
+        {
+          "type": "message",
+          "text": "Cold stone against your cheek. The smell of lacquer and old fabric. Your wrists burn \u2014 rough rope. As your eyes adjust, porcelain faces emerge from the gloom. Dozens of them. Staring."
+        }
       ],
       "ambient_text": "A lullaby drifts from above. Gentle. Patient. Wrong.",
       "killer_overrides": {
@@ -1792,9 +3705,18 @@
     {
       "id": "free",
       "name": "Free",
-      "starts_when": [{ "type": "flag_is", "flag": "freed_self", "value": "true" }],
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "freed_self",
+          "value": "true"
+        }
+      ],
       "on_enter": [
-        { "type": "message", "text": "You stand on shaking legs. The workshop stretches around you — workbenches, shelves of dolls, a furnace, a heavy door. Above, the humming continues. She doesn't know you're loose. Yet." }
+        {
+          "type": "message",
+          "text": "You stand on shaking legs. The workshop stretches around you \u2014 workbenches, shelves of dolls, a furnace, a heavy door. Above, the humming continues. She doesn't know you're loose. Yet."
+        }
       ],
       "ambient_text": "The lullaby continues above. Each note a countdown.",
       "killer_overrides": {
@@ -1805,10 +3727,22 @@
     {
       "id": "hunted",
       "name": "Hunted",
-      "starts_when": [{ "type": "flag_is", "flag": "voss_alerted", "value": "true" }],
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "voss_alerted",
+          "value": "true"
+        }
+      ],
       "on_enter": [
-        { "type": "message", "text": "The humming stops. A long silence. Then, quietly: \"Oh, my little one... you've been naughty.\" Footsteps cross the floor above. Slow. Deliberate." },
-        { "type": "visual_cue", "cue": "red_pulse" }
+        {
+          "type": "message",
+          "text": "The humming stops. A long silence. Then, quietly: \"Oh, my little one... you've been naughty.\" Footsteps cross the floor above. Slow. Deliberate."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        }
       ],
       "ambient_text": "Silence above. She's listening.",
       "killer_overrides": {
@@ -1818,39 +3752,87 @@
       }
     }
   ],
-
   "events": [
     {
       "id": "furnace_distraction",
-      "trigger": { "type": "flag_is", "flag": "furnace_overloaded", "value": "true" },
+      "trigger": {
+        "type": "flag_is",
+        "flag": "furnace_overloaded",
+        "value": "true"
+      },
       "one_shot": true,
       "effects": [
-        { "type": "set_flag", "flag": "furnace_distraction_active", "value": "true" },
-        { "type": "message", "text": "The furnace roars. Upstairs, frantic footsteps — Voss rushes toward the source of the noise." },
-        { "type": "delay_then", "seconds": 30, "effects": [
-          { "type": "set_flag", "flag": "furnace_distraction_active", "value": "false" },
-          { "type": "set_flag", "flag": "furnace_overloaded", "value": "false" },
-          { "type": "message", "text": "The furnace rumble dies down. You hear Voss muttering about the 'wretched boiler' as she returns upstairs." }
-        ]}
+        {
+          "type": "set_flag",
+          "flag": "furnace_distraction_active",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The furnace roars. Upstairs, frantic footsteps \u2014 Voss rushes toward the source of the noise."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 30,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "furnace_distraction_active",
+              "value": "false"
+            },
+            {
+              "type": "set_flag",
+              "flag": "furnace_overloaded",
+              "value": "false"
+            },
+            {
+              "type": "message",
+              "text": "The furnace rumble dies down. You hear Voss muttering about the 'wretched boiler' as she returns upstairs."
+            }
+          ]
+        }
       ]
     },
     {
       "id": "voss_checks_early",
-      "trigger": { "type": "time_after", "seconds": 120 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 120
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "Above you, the humming stops. A door opens. Footsteps on the stairs. \"Time to check on my newest creation...\" Voss is coming for her first visit." },
-        { "type": "visual_cue", "cue": "dim" }
+        {
+          "type": "message",
+          "text": "Above you, the humming stops. A door opens. Footsteps on the stairs. \"Time to check on my newest creation...\" Voss is coming for her first visit."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "dim"
+        }
       ]
     },
     {
       "id": "bell_alarm_alert",
-      "trigger": { "type": "flag_is", "flag": "bell_alarm_triggered", "value": "true" },
+      "trigger": {
+        "type": "flag_is",
+        "flag": "bell_alarm_triggered",
+        "value": "true"
+      },
       "one_shot": true,
       "effects": [
-        { "type": "set_flag", "flag": "voss_alerted", "value": "true" },
-        { "type": "message", "text": "The bell's echo reaches upstairs. The humming stops cold. \"What was that?\"" },
-        { "type": "visual_cue", "cue": "red_pulse" }
+        {
+          "type": "set_flag",
+          "flag": "voss_alerted",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The bell's echo reaches upstairs. The humming stops cold. \"What was that?\""
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        }
       ]
     },
     {
@@ -1858,36 +3840,72 @@
       "trigger": {
         "type": "all_of",
         "conditions": [
-          { "type": "flag_is", "flag": "furnace_overloaded", "value": "true" },
-          { "type": "flag_is", "flag": "smoke_screen_active", "value": "true" }
+          {
+            "type": "flag_is",
+            "flag": "furnace_overloaded",
+            "value": "true"
+          },
+          {
+            "type": "flag_is",
+            "flag": "smoke_screen_active",
+            "value": "true"
+          }
         ]
       },
       "one_shot": true,
       "effects": [
-        { "type": "set_flag", "flag": "chemical_reaction_active", "value": "true" },
-        { "type": "message", "text": "The lacquer thinner fumes hit the furnace heat. Thick white smoke billows through the workshop. Voss won't be able to see when she comes down." },
-        { "type": "visual_cue", "cue": "flicker" },
-        { "type": "delay_then", "seconds": 45, "effects": [
-          { "type": "set_flag", "flag": "chemical_reaction_active", "value": "false" },
-          { "type": "message", "text": "The smoke begins to clear." }
-        ]}
+        {
+          "type": "set_flag",
+          "flag": "chemical_reaction_active",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "The lacquer thinner fumes hit the furnace heat. Thick white smoke billows through the workshop. Voss won't be able to see when she comes down."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        },
+        {
+          "type": "delay_then",
+          "seconds": 45,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "chemical_reaction_active",
+              "value": "false"
+            },
+            {
+              "type": "message",
+              "text": "The smoke begins to clear."
+            }
+          ]
+        }
       ]
     },
     {
       "id": "lullaby_shifts",
-      "trigger": { "type": "time_after", "seconds": 400 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 400
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "The lullaby above changes tempo. Faster. More urgent. She's almost done preparing the mold. Time is running out." },
-        { "type": "visual_cue", "cue": "flicker" }
+        {
+          "type": "message",
+          "text": "The lullaby above changes tempo. Faster. More urgent. She's almost done preparing the mold. Time is running out."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        }
       ]
     }
   ],
-
   "killer": {
     "name": "Madame Voss",
     "description": "An elderly dollmaker. Soft-spoken. Patient. She hums lullabies while she works and calls her victims 'little ones'. Her cruelty is gentle, methodical, and absolute.",
-
     "base_behavior": {
       "check_interval_seconds": 55,
       "interval_variance_seconds": 15,
@@ -1898,14 +3916,18 @@
       "warning_duration_seconds": 10,
       "search_duration_seconds": 15
     },
-
     "search_behavior": {
       "thoroughness": 0.35,
-      "evidence_flags": ["cabinet_opened", "doll_rehung", "doll_eyes_replaced", "chain_dissolved", "grate_loosened"],
+      "evidence_flags": [
+        "cabinet_opened",
+        "doll_rehung",
+        "doll_eyes_replaced",
+        "chain_dissolved",
+        "grate_loosened"
+      ],
       "thoroughness_on_evidence": 0.7,
       "search_order": "sequential"
     },
-
     "personality": {
       "on_approach": [
         "Time to check on my little one...",
@@ -1931,77 +3953,169 @@
         "There you are, my darling. The mold is ready. Hold very, very still."
       ]
     },
-
     "on_visit_effects": [
       {
-        "conditions": [{ "type": "flag_is", "flag": "cabinet_opened", "value": "true" },
-                       { "type": "flag_is", "flag": "cabinet_evidence_hidden", "value": "false" }],
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "cabinet_opened",
+            "value": "true"
+          },
+          {
+            "type": "flag_is",
+            "flag": "cabinet_evidence_hidden",
+            "value": "false"
+          }
+        ],
         "effects": [
-          { "type": "set_flag", "flag": "voss_alerted", "value": "true" },
-          { "type": "message", "text": "Voss sees the open cabinet. Her eyes narrow. \"You've been in my chemicals.\" Her voice is ice." }
+          {
+            "type": "set_flag",
+            "flag": "voss_alerted",
+            "value": "true"
+          },
+          {
+            "type": "message",
+            "text": "Voss sees the open cabinet. Her eyes narrow. \"You've been in my chemicals.\" Her voice is ice."
+          }
         ]
       },
       {
-        "conditions": [{ "type": "flag_is", "flag": "doll_rehung", "value": "false" }],
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "doll_rehung",
+            "value": "false"
+          }
+        ],
         "effects": [
-          { "type": "message", "text": "Voss notices the disturbed doll. \"Who's been touching my children?\" She straightens it carefully, then looks around with cold suspicion." }
+          {
+            "type": "message",
+            "text": "Voss notices the disturbed doll. \"Who's been touching my children?\" She straightens it carefully, then looks around with cold suspicion."
+          }
         ]
       },
       {
-        "conditions": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_1" }],
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "boarded_window",
+            "state": "boarded_1"
+          }
+        ],
         "effects": [
-          { "type": "set_state", "object": "boarded_window", "state": "boarded_2" },
-          { "type": "message", "text": "You hear hammering. Voss is adding another board to the window." }
+          {
+            "type": "set_state",
+            "object": "boarded_window",
+            "state": "boarded_2"
+          },
+          {
+            "type": "message",
+            "text": "You hear hammering. Voss is adding another board to the window."
+          }
         ]
       },
       {
-        "conditions": [{ "type": "object_state", "object": "boarded_window", "state": "boarded_2" }],
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "boarded_window",
+            "state": "boarded_2"
+          }
+        ],
         "effects": [
-          { "type": "set_state", "object": "boarded_window", "state": "boarded_3" },
-          { "type": "message", "text": "More hammering. A third board across the window. She's sealing you in." }
+          {
+            "type": "set_state",
+            "object": "boarded_window",
+            "state": "boarded_3"
+          },
+          {
+            "type": "message",
+            "text": "More hammering. A third board across the window. She's sealing you in."
+          }
         ]
       },
       {
-        "conditions": [{ "type": "flag_is", "flag": "trap_eyes_set", "value": "true" }],
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "trap_eyes_set",
+            "value": "true"
+          }
+        ],
         "effects": [
-          { "type": "set_flag", "flag": "trap_eyes_set", "value": "false" },
-          { "type": "message", "text": "A crash and a shriek from the stairway. \"MY EYES! My beautiful eyes — all over the —\" Stumbling. Cursing. Voss retreats upstairs, limping. That bought you time." }
+          {
+            "type": "set_flag",
+            "flag": "trap_eyes_set",
+            "value": "false"
+          },
+          {
+            "type": "message",
+            "text": "A crash and a shriek from the stairway. \"MY EYES! My beautiful eyes \u2014 all over the \u2014\" Stumbling. Cursing. Voss retreats upstairs, limping. That bought you time."
+          }
         ]
       },
       {
-        "conditions": [{ "type": "flag_is", "flag": "trap_paint_set", "value": "true" }],
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "trap_paint_set",
+            "value": "true"
+          }
+        ],
         "effects": [
-          { "type": "set_flag", "flag": "trap_paint_set", "value": "false" },
-          { "type": "message", "text": "SPLAT. The paint bucket crashes down. White primer coats Voss from head to shoulders. She screams — a sound you'd never expect from that gentle voice. She retreats upstairs to clean up." }
+          {
+            "type": "set_flag",
+            "flag": "trap_paint_set",
+            "value": "false"
+          },
+          {
+            "type": "message",
+            "text": "SPLAT. The paint bucket crashes down. White primer coats Voss from head to shoulders. She screams \u2014 a sound you'd never expect from that gentle voice. She retreats upstairs to clean up."
+          }
         ]
       }
     ],
-
     "special_behaviors": [
       {
         "id": "furnace_check",
-        "trigger": { "type": "flag_is", "flag": "furnace_distraction_active", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "furnace_distraction_active",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 30,
         "description": "Voss rushes to check the furnace rumbling."
       },
       {
         "id": "eyes_trap",
-        "trigger": { "type": "flag_is", "flag": "trap_eyes_set", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "trap_eyes_set",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 20,
         "description": "Voss slips on glass eyes and retreats."
       },
       {
         "id": "paint_trap",
-        "trigger": { "type": "flag_is", "flag": "trap_paint_set", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "trap_paint_set",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 25,
         "description": "Paint bucket douses Voss."
       },
       {
         "id": "enraged",
-        "trigger": { "type": "flag_is", "flag": "voss_alerted", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "voss_alerted",
+          "value": "true"
+        },
         "effect": "enraged",
         "overrides": {
           "check_interval_seconds": 20,
@@ -2010,7 +4124,6 @@
       }
     ]
   },
-
   "win_conditions": [
     {
       "id": "cellar_door_escape",
@@ -2025,7 +4138,6 @@
       "description": "Free the sub-basement captive (they escape; you must find another way)"
     }
   ],
-
   "lose_conditions": [
     {
       "id": "caught",
@@ -2035,10 +4147,9 @@
       "id": "time_limit",
       "seconds": 900,
       "message": "The lullaby ends. Footsteps descend. \"The mold is ready, little one. Time for your fitting.\" The door opens. Madame Voss stands there with plaster-coated hands and a smile that never reaches her eyes. It's too late.",
-      "description": "Ran out of time — Voss completes the mold"
+      "description": "Ran out of time \u2014 Voss completes the mold"
     }
   ],
-
   "hints": [
     {
       "id": "hint_1",
@@ -2049,42 +4160,78 @@
     {
       "id": "hint_2",
       "after_seconds": 90,
-      "conditions": [{ "type": "flag_is", "flag": "freed_self", "value": "true" }],
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "freed_self",
+          "value": "true"
+        }
+      ],
       "text": "The glass eyes could be taken. They might be useful beyond this jar.",
       "relates_to": "glass_eyes_jar"
     },
     {
       "id": "hint_3",
       "after_seconds": 150,
-      "conditions": [{ "type": "flag_not", "flag": "found_journal_code", "value": "true" }],
+      "conditions": [
+        {
+          "type": "flag_not",
+          "flag": "found_journal_code",
+          "value": "true"
+        }
+      ],
       "text": "The journal on the workbench might have useful information.",
       "relates_to": "workbench_journal"
     },
     {
       "id": "hint_4",
       "after_seconds": 240,
-      "conditions": [{ "type": "flag_not", "flag": "cabinet_opened", "value": "true" }],
+      "conditions": [
+        {
+          "type": "flag_not",
+          "flag": "cabinet_opened",
+          "value": "true"
+        }
+      ],
       "text": "The chemical cabinet has a combination lock. The code might be in the journal.",
       "relates_to": "chemical_cabinet"
     },
     {
       "id": "hint_5",
       "after_seconds": 300,
-      "conditions": [{ "type": "flag_is", "flag": "has_uv_light", "value": "true" }],
-      "text": "Try the UV flashlight on different surfaces — walls, dolls, the journal.",
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "has_uv_light",
+          "value": "true"
+        }
+      ],
+      "text": "Try the UV flashlight on different surfaces \u2014 walls, dolls, the journal.",
       "relates_to": "uv_flashlight"
     },
     {
       "id": "hint_6",
       "after_seconds": 400,
-      "conditions": [{ "type": "flag_not", "flag": "ally_info_hinge", "value": "true" }],
+      "conditions": [
+        {
+          "type": "flag_not",
+          "flag": "ally_info_hinge",
+          "value": "true"
+        }
+      ],
       "text": "The voice through the furnace grate knows things about this place. Build trust.",
       "relates_to": "furnace_grate"
     },
     {
       "id": "hint_7",
       "after_seconds": 500,
-      "conditions": [{ "type": "flag_is", "flag": "second_door_found", "value": "true" }],
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "second_door_found",
+          "value": "true"
+        }
+      ],
       "text": "The keypad needs four digits. The doll numbers, the UV wall, and the mirror back all have numbers...",
       "relates_to": "keypad_lock"
     },
@@ -2095,7 +4242,6 @@
       "relates_to": "stairway_entrance"
     }
   ],
-
   "solution_paths": [
     {
       "id": "cellar_door_path",
@@ -2103,28 +4249,105 @@
       "description": "Escape through the cellar door using acid or lockpicks, discover the pull trick, and solve the keypad.",
       "difficulty": "medium",
       "steps": [
-        { "action": "hand binding_ropes (free self)", "noise": 15, "note": "Gateway puzzle — no prerequisites" },
-        { "action": "take glass_eyes_jar (get glass eyes)", "noise": 3, "note": "Gateway puzzle item" },
-        { "action": "look workbench_area (go to closeup)", "noise": 0 },
-        { "action": "hand workbench_journal (read entries)", "noise": 2 },
-        { "action": "take journal page (get cabinet code)", "noise": 3 },
-        { "action": "take workbench_wire (get bent wire)", "noise": 2 },
-        { "action": "take workbench_rag (get cloth rag)", "noise": 1 },
-        { "action": "use bent_wire on cabinet_lock (solve combination 3-8-1)", "noise": 3, "note": "Quiet path via wire — Noise Tradeoff" },
-        { "action": "take cabinet_contents (get UV flashlight)", "noise": 2 },
-        { "action": "take cabinet_contents (get acid)", "noise": 2 },
-        { "action": "hand chemical_cabinet (close cabinet — Camouflage)", "noise": 2, "note": "Hide evidence" },
-        { "action": "use uv_flashlight on uv_wall_writing (find number 19)", "noise": 0, "note": "Revelation Tool" },
-        { "action": "look doll_shelves → closeup → use uv_flashlight on special_doll (find doll 41)", "noise": 0, "note": "UV on dolls" },
-        { "action": "look workbench_mirror → take mirror (find number 42)", "noise": 1, "note": "Dual-Purpose Item" },
-        { "action": "go furnace_closeup → talk furnace_grate (build ally trust)", "noise": 5, "note": "Accomplice" },
-        { "action": "use cloth_rag on furnace_grate (gain ally trust high)", "noise": 3 },
-        { "action": "talk furnace_grate (learn door pulls, not pushes)", "noise": 5, "note": "Rule Subversion info + Accomplice intel" },
-        { "action": "use acid_bottle on cellar_door (dissolve chain)", "noise": 15, "note": "Point of No Return — acid consumed" },
-        { "action": "hand cellar_door (PULL — door opens! False Summit: second door found)", "noise": 20 },
-        { "action": "Cross-reference: doll 42, UV wall 19, mirror 42, journal Oct 3 1987 → code 4219", "noise": 0, "note": "Cross-Reference Deduction" },
-        { "action": "solve keypad_lock (4219)", "noise": 4 },
-        { "action": "hand second_door (escape!)", "noise": 5 }
+        {
+          "action": "hand binding_ropes (free self)",
+          "noise": 15,
+          "note": "Gateway puzzle \u2014 no prerequisites"
+        },
+        {
+          "action": "take glass_eyes_jar (get glass eyes)",
+          "noise": 3,
+          "note": "Gateway puzzle item"
+        },
+        {
+          "action": "look workbench_area (go to closeup)",
+          "noise": 0
+        },
+        {
+          "action": "hand workbench_journal (read entries)",
+          "noise": 2
+        },
+        {
+          "action": "take journal page (get cabinet code)",
+          "noise": 3
+        },
+        {
+          "action": "take workbench_wire (get bent wire)",
+          "noise": 2
+        },
+        {
+          "action": "take workbench_rag (get cloth rag)",
+          "noise": 1
+        },
+        {
+          "action": "use bent_wire on cabinet_lock (solve combination 3-8-1)",
+          "noise": 3,
+          "note": "Quiet path via wire \u2014 Noise Tradeoff"
+        },
+        {
+          "action": "take cabinet_contents (get UV flashlight)",
+          "noise": 2
+        },
+        {
+          "action": "take cabinet_contents (get acid)",
+          "noise": 2
+        },
+        {
+          "action": "hand chemical_cabinet (close cabinet \u2014 Camouflage)",
+          "noise": 2,
+          "note": "Hide evidence"
+        },
+        {
+          "action": "use uv_flashlight on uv_wall_writing (find number 19)",
+          "noise": 0,
+          "note": "Revelation Tool"
+        },
+        {
+          "action": "look doll_shelves \u2192 closeup \u2192 use uv_flashlight on special_doll (find doll 41)",
+          "noise": 0,
+          "note": "UV on dolls"
+        },
+        {
+          "action": "look workbench_mirror \u2192 take mirror (find number 42)",
+          "noise": 1,
+          "note": "Dual-Purpose Item"
+        },
+        {
+          "action": "go furnace_closeup \u2192 talk furnace_grate (build ally trust)",
+          "noise": 5,
+          "note": "Accomplice"
+        },
+        {
+          "action": "use cloth_rag on furnace_grate (gain ally trust high)",
+          "noise": 3
+        },
+        {
+          "action": "talk furnace_grate (learn door pulls, not pushes)",
+          "noise": 5,
+          "note": "Rule Subversion info + Accomplice intel"
+        },
+        {
+          "action": "use acid_bottle on cellar_door (dissolve chain)",
+          "noise": 15,
+          "note": "Point of No Return \u2014 acid consumed"
+        },
+        {
+          "action": "hand cellar_door (PULL \u2014 door opens! False Summit: second door found)",
+          "noise": 20
+        },
+        {
+          "action": "Cross-reference: doll 42, UV wall 19, mirror 42, journal Oct 3 1987 \u2192 code 4219",
+          "noise": 0,
+          "note": "Cross-Reference Deduction"
+        },
+        {
+          "action": "solve keypad_lock (4219)",
+          "noise": 4
+        },
+        {
+          "action": "hand second_door (escape!)",
+          "noise": 5
+        }
       ],
       "total_noise_estimate": 88,
       "estimated_time_seconds": 540
@@ -2135,15 +4358,45 @@
       "description": "Escape via the dumbwaiter shaft after finding the rope in the music box and reinforcing the platform.",
       "difficulty": "hard",
       "steps": [
-        { "action": "hand binding_ropes (free self)", "noise": 15 },
-        { "action": "take glass_eyes_jar", "noise": 3 },
-        { "action": "talk stairway_entrance (learn lullaby pattern)", "noise": 0, "note": "Knowledge Gate" },
-        { "action": "use bent_wire on shelf_key (disarm bell trap)", "noise": 2, "note": "Bait and Punish avoidance" },
-        { "action": "take shelf_key (get doll key safely)", "noise": 2 },
-        { "action": "look doll_shelves → use doll_key on music_box (get rope + cylinder)", "noise": 8, "note": "Red Herring resolved — key fits music box, not cellar door" },
-        { "action": "look dumbwaiter_shaft → use small_mirror on dumbwaiter_scratches (Perspective Alignment)", "noise": 0 },
-        { "action": "hand dumbwaiter_platform with rope_coil (reinforce platform)", "noise": 5 },
-        { "action": "hand dumbwaiter_platform (ride up — escape!)", "noise": 15 }
+        {
+          "action": "hand binding_ropes (free self)",
+          "noise": 15
+        },
+        {
+          "action": "take glass_eyes_jar",
+          "noise": 3
+        },
+        {
+          "action": "talk stairway_entrance (learn lullaby pattern)",
+          "noise": 0,
+          "note": "Knowledge Gate"
+        },
+        {
+          "action": "use bent_wire on shelf_key (disarm bell trap)",
+          "noise": 2,
+          "note": "Bait and Punish avoidance"
+        },
+        {
+          "action": "take shelf_key (get doll key safely)",
+          "noise": 2
+        },
+        {
+          "action": "look doll_shelves \u2192 use doll_key on music_box (get rope + cylinder)",
+          "noise": 8,
+          "note": "Red Herring resolved \u2014 key fits music box, not cellar door"
+        },
+        {
+          "action": "look dumbwaiter_shaft \u2192 use small_mirror on dumbwaiter_scratches (Perspective Alignment)",
+          "noise": 0
+        },
+        {
+          "action": "hand dumbwaiter_platform with rope_coil (reinforce platform)",
+          "noise": 5
+        },
+        {
+          "action": "hand dumbwaiter_platform (ride up \u2014 escape!)",
+          "noise": 15
+        }
       ],
       "total_noise_estimate": 50,
       "estimated_time_seconds": 420
@@ -2154,11 +4407,30 @@
       "description": "Free the sub-basement captive via the loosened grate, then escape via dumbwaiter or door.",
       "difficulty": "hard",
       "steps": [
-        { "action": "hand binding_ropes (free self)", "noise": 15 },
-        { "action": "hand pipe_valve (open — Echo pattern: water flows to furnace area)", "noise": 12, "note": "Echo" },
-        { "action": "go furnace_closeup → hand furnace_grate (water loosened it)", "noise": 15, "note": "Echo result" },
-        { "action": "talk furnace_grate → build trust → use rope on grate (free ally)", "noise": 18, "note": "Moral Fork — ally takes rope" },
-        { "action": "Must now use cellar door path (no rope for dumbwaiter)", "noise": 0, "note": "Moral Fork consequence" }
+        {
+          "action": "hand binding_ropes (free self)",
+          "noise": 15
+        },
+        {
+          "action": "hand pipe_valve (open \u2014 Echo pattern: water flows to furnace area)",
+          "noise": 12,
+          "note": "Echo"
+        },
+        {
+          "action": "go furnace_closeup \u2192 hand furnace_grate (water loosened it)",
+          "noise": 15,
+          "note": "Echo result"
+        },
+        {
+          "action": "talk furnace_grate \u2192 build trust \u2192 use rope on grate (free ally)",
+          "noise": 18,
+          "note": "Moral Fork \u2014 ally takes rope"
+        },
+        {
+          "action": "Must now use cellar door path (no rope for dumbwaiter)",
+          "noise": 0,
+          "note": "Moral Fork consequence"
+        }
       ],
       "total_noise_estimate": 60,
       "estimated_time_seconds": 600

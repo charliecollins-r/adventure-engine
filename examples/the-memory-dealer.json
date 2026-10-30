@@ -1,14 +1,20 @@
 {
   "schema_version": "1.0",
-
   "metadata": {
     "id": "the-memory-dealer",
     "title": "The Memory Dealer",
-    "description": "You awaken in a neon-lit back-room clinic in Neo-Shanghai, 2087. A black-market memory dealer botched an extraction and left you with fragments of stolen memories — including evidence of his operation. He needs to finish the job before you can tell anyone. Escape before Lao Chen erases you completely.",
+    "description": "You awaken in a neon-lit back-room clinic in Neo-Shanghai, 2087. A black-market memory dealer botched an extraction and left you with fragments of stolen memories \u2014 including evidence of his operation. He needs to finish the job before you can tell anyone. Escape before Lao Chen erases you completely.",
     "author": "ai-generated",
     "difficulty": "hard",
     "estimated_minutes": 15,
-    "tags": ["cyberpunk", "sci-fi", "noir", "memory", "neural", "neo-shanghai"],
+    "tags": [
+      "cyberpunk",
+      "sci-fi",
+      "noir",
+      "memory",
+      "neural",
+      "neo-shanghai"
+    ],
     "version": "1.0",
     "patterns_used": [
       "1-gateway-puzzle",
@@ -42,7 +48,6 @@
       "30-decay-clock"
     ]
   },
-
   "setting": {
     "initial_view": "main",
     "ambient_text": "Neon bleeds through fogged plexi-glass. A neural rig hums beside the gurney you woke on. Your skull throbs where electrodes were attached. Somewhere beyond the partition, someone is humming a Cantonese lullaby.",
@@ -52,17 +57,28 @@
       "floor_color": "#0d0d1a"
     }
   },
-
   "views": [
     {
       "id": "main",
       "background_key": "clinic_main",
       "background_file": "backgrounds/clinic_main.png",
       "objects": [
-        "gurney", "instrument_tray", "neural_rig", "partition_curtain", "medicine_cabinet",
-        "floor_drain", "ventilation_grate", "neon_sign", "security_camera",
-        "exit_door", "biometric_panel", "supply_shelf", "waste_bin",
-        "power_junction", "intercom_speaker", "ceiling_pipes"
+        "gurney",
+        "instrument_tray",
+        "neural_rig",
+        "partition_curtain",
+        "medicine_cabinet",
+        "floor_drain",
+        "ventilation_grate",
+        "neon_sign",
+        "security_camera",
+        "exit_door",
+        "biometric_panel",
+        "supply_shelf",
+        "waste_bin",
+        "power_junction",
+        "intercom_speaker",
+        "ceiling_pipes"
       ]
     },
     {
@@ -70,8 +86,12 @@
       "background_key": "neural_interface_closeup",
       "background_file": "backgrounds/neural_interface_closeup.png",
       "objects": [
-        "extraction_chair", "headset_cradle", "neural_display",
-        "memory_cartridge_slot", "calibration_dials", "data_cable",
+        "extraction_chair",
+        "headset_cradle",
+        "neural_display",
+        "memory_cartridge_slot",
+        "calibration_dials",
+        "data_cable",
         "patient_records_terminal"
       ],
       "back_label": "Step back from the neural interface"
@@ -81,14 +101,17 @@
       "background_key": "storage_rack_closeup",
       "background_file": "backgrounds/storage_rack_closeup.png",
       "objects": [
-        "memory_rack", "labeled_cartridges", "cooling_unit",
-        "inventory_ledger", "encryption_terminal", "backup_drive",
+        "memory_rack",
+        "labeled_cartridges",
+        "cooling_unit",
+        "inventory_ledger",
+        "encryption_terminal",
+        "backup_drive_obj",
         "chen_personal_safe"
       ],
       "back_label": "Step back from the storage rack"
     }
   ],
-
   "flags": {
     "restrained": "true",
     "freed_from_gurney": "false",
@@ -136,7 +159,6 @@
     "tea_kettle_found": "false",
     "pipe_loosened": "false"
   },
-
   "items": [
     {
       "id": "scalpel",
@@ -148,7 +170,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Mono-molecular edge. Could cut through surgical-grade restraints — or just about anything thinner than steel." }
+            {
+              "type": "message",
+              "text": "Mono-molecular edge. Could cut through surgical-grade restraints \u2014 or just about anything thinner than steel."
+            }
           ]
         }
       ]
@@ -163,15 +188,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Model NX-7 transcranial patch. The serial number is scratched off — black market hardware. A small QR code remains readable: 'Lot 4471-C'." },
-            { "type": "set_flag", "flag": "memory_fragment_1", "value": "true" }
+            {
+              "type": "message",
+              "text": "Model NX-7 transcranial patch. The serial number is scratched off \u2014 black market hardware. A small QR code remains readable: 'Lot 4471-C'."
+            },
+            {
+              "type": "set_flag",
+              "flag": "memory_fragment_1",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "The adhesive is still tacky. Could stick to another surface — or another person's temple." }
+            {
+              "type": "message",
+              "text": "The adhesive is still tacky. Could stick to another surface \u2014 or another person's temple."
+            }
           ]
         }
       ]
@@ -184,18 +219,44 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "memory_fragment_2", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "memory_fragment_2",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Light refracts through the crack, projecting faint holographic numbers on your palm: 7-2-0-4. A memory address? A code? The fragment of someone else's knowledge burns in your mind." },
-            { "type": "set_flag", "flag": "memory_fragment_2", "value": "true" },
-            { "type": "set_flag", "flag": "knows_door_code", "value": "true" }
+            {
+              "type": "message",
+              "text": "Light refracts through the crack, projecting faint holographic numbers on your palm: 7-2-0-4. A memory address? A code? The fragment of someone else's knowledge burns in your mind."
+            },
+            {
+              "type": "set_flag",
+              "flag": "memory_fragment_2",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_door_code",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "memory_fragment_2", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "memory_fragment_2",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The holographic projection still reads 7-2-0-4." }
+            {
+              "type": "message",
+              "text": "The holographic projection still reads 7-2-0-4."
+            }
           ]
         }
       ]
@@ -203,14 +264,17 @@
     {
       "id": "sedative_vial",
       "name": "Sedative Vial",
-      "description": "A small glass vial of clear liquid. Label reads 'Somnol-X — Neural Suppressant'.",
+      "description": "A small glass vial of clear liquid. Label reads 'Somnol-X \u2014 Neural Suppressant'.",
       "icon": "vial",
       "examine": [
         {
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Fast-acting neural suppressant. Used to keep extraction subjects docile. 10cc would put someone out for hours." }
+            {
+              "type": "message",
+              "text": "Fast-acting neural suppressant. Used to keep extraction subjects docile. 10cc would put someone out for hours."
+            }
           ]
         }
       ]
@@ -225,8 +289,15 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Registered to 'Chen Memory Services — Est. 2081'. The holographic strip still functions. Below, in tiny print: 'Safe override: employee birthday'." },
-            { "type": "set_flag", "flag": "knows_chen_name", "value": "true" }
+            {
+              "type": "message",
+              "text": "Registered to 'Chen Memory Services \u2014 Est. 2081'. The holographic strip still functions. Below, in tiny print: 'Safe override: employee birthday'."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_chen_name",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -241,7 +312,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "About two meters of thin-gauge copper. Good conductor. Could bridge a circuit or short something out." }
+            {
+              "type": "message",
+              "text": "About two meters of thin-gauge copper. Good conductor. Could bridge a circuit or short something out."
+            }
           ]
         }
       ]
@@ -256,15 +330,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Label reads 'SUBJ-4471-C — PARTIAL EXTRACTION — DO NOT SELL'. The glow is your neural pattern. Your identity, bottled." },
-            { "type": "set_flag", "flag": "memory_fragment_3", "value": "true" }
+            {
+              "type": "message",
+              "text": "Label reads 'SUBJ-4471-C \u2014 PARTIAL EXTRACTION \u2014 DO NOT SELL'. The glow is your neural pattern. Your identity, bottled."
+            },
+            {
+              "type": "set_flag",
+              "flag": "memory_fragment_3",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "It's warm to the touch. You feel a strange vertigo holding your own memories in your hand." }
+            {
+              "type": "message",
+              "text": "It's warm to the touch. You feel a strange vertigo holding your own memories in your hand."
+            }
           ]
         }
       ]
@@ -279,9 +363,20 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Dozens of names. Extraction dates. Buyer names. Prices in crypto-yuan. This is irrefutable evidence of Chen's operation. A stolen memory surfaces: a birthday party, August 8, 2039. Chen blowing out candles. The number 0808." },
-            { "type": "set_flag", "flag": "knows_safe_code", "value": "true" },
-            { "type": "set_flag", "flag": "memory_fragment_4", "value": "true" }
+            {
+              "type": "message",
+              "text": "Dozens of names. Extraction dates. Buyer names. Prices in crypto-yuan. This is irrefutable evidence of Chen's operation. A stolen memory surfaces: a birthday party, August 8, 2039. Chen blowing out candles. The number 0808."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_safe_code",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "memory_fragment_4",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -296,7 +391,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Contains Chen's complete client database. Encrypted, but the encryption terminal on the rack could crack it with the right key." }
+            {
+              "type": "message",
+              "text": "Contains Chen's complete client database. Encrypted, but the encryption terminal on the rack could crack it with the right key."
+            }
           ]
         }
       ]
@@ -311,8 +409,15 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "You reversed the polarity on the neural transceiver. Instead of extracting memories, it will overwrite them. One use — the coils will burn out." },
-            { "type": "set_flag", "flag": "headset_modified", "value": "true" }
+            {
+              "type": "message",
+              "text": "You reversed the polarity on the neural transceiver. Instead of extracting memories, it will overwrite them. One use \u2014 the coils will burn out."
+            },
+            {
+              "type": "set_flag",
+              "flag": "headset_modified",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -327,7 +432,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Standard pipe wrench. Could loosen bolts, pipes, or grates." }
+            {
+              "type": "message",
+              "text": "Standard pipe wrench. Could loosen bolts, pipes, or grates."
+            }
           ]
         }
       ]
@@ -342,8 +450,15 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Half-full of jasmine tea. Steam curls from the spout. Chen drinks constantly — you can hear him sipping between hums." },
-            { "type": "set_flag", "flag": "tea_kettle_found", "value": "true" }
+            {
+              "type": "message",
+              "text": "Half-full of jasmine tea. Steam curls from the spout. Chen drinks constantly \u2014 you can hear him sipping between hums."
+            },
+            {
+              "type": "set_flag",
+              "flag": "tea_kettle_found",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -358,7 +473,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The sedative dissolved cleanly. No discoloration, no odor over the jasmine. Next time Chen takes a sip..." }
+            {
+              "type": "message",
+              "text": "The sedative dissolved cleanly. No discoloration, no odor over the jasmine. Next time Chen takes a sip..."
+            }
           ]
         }
       ]
@@ -373,7 +491,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Gas-discharge tube. Still has enough charge to arc if shorted. Could overload a small electronic device — or create a convincing distraction." }
+            {
+              "type": "message",
+              "text": "Gas-discharge tube. Still has enough charge to arc if shorted. Could overload a small electronic device \u2014 or create a convincing distraction."
+            }
           ]
         }
       ]
@@ -388,7 +509,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Shielded NX-series data cable. Standard connector for neural extraction hardware. Could be spliced with the electrode patch to reverse the signal flow." }
+            {
+              "type": "message",
+              "text": "Shielded NX-series data cable. Standard connector for neural extraction hardware. Could be spliced with the electrode patch to reverse the signal flow."
+            }
           ]
         }
       ]
@@ -403,16 +527,21 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Everything needed to put Chen away for decades. Client names, extraction logs, financial records. Enough to dismantle the entire black-market memory trade in Neo-Shanghai's District 7." }
+            {
+              "type": "message",
+              "text": "Everything needed to put Chen away for decades. Client names, extraction logs, financial records. Enough to dismantle the entire black-market memory trade in Neo-Shanghai's District 7."
+            }
           ]
         }
       ]
     }
   ],
-
   "combinations": [
     {
-      "items": ["sedative_vial", "tea_kettle"],
+      "items": [
+        "sedative_vial",
+        "tea_kettle"
+      ],
       "result": "poisoned_tea",
       "consumes": true,
       "message": "You pour the sedative into the jasmine tea. It dissolves instantly. A trap fit for a dealer.",
@@ -420,7 +549,10 @@
       "conditions": []
     },
     {
-      "items": ["copper_wire", "neon_tube"],
+      "items": [
+        "copper_wire",
+        "neon_tube"
+      ],
       "result": "neon_tube",
       "consumes": true,
       "message": "You wind copper wire around the neon tube's contacts, creating a crude short-circuit device. Touch it to any electronic panel and watch the sparks fly.",
@@ -428,92 +560,185 @@
       "conditions": []
     },
     {
-      "items": ["electrode_patch", "data_cable"],
+      "items": [
+        "electrode_patch",
+        "data_cable"
+      ],
       "result": "modified_headset",
       "consumes": true,
       "message": "You splice the electrode's transceiver into the data cable and reverse the signal flow. Instead of reading neural patterns, it will write them. A memory overwriter.",
       "noise": 8,
       "conditions": [
-        { "type": "flag_is", "flag": "neural_display_active", "value": "true" },
-        { "type": "view_is", "view": "neural_closeup" }
+        {
+          "type": "flag_is",
+          "flag": "neural_display_active",
+          "value": "true"
+        },
+        {
+          "type": "view_is",
+          "view": "neural_closeup"
+        }
       ]
     },
     {
-      "items": ["chen_ledger_photo", "backup_drive"],
+      "items": [
+        "chen_ledger_photo",
+        "backup_drive"
+      ],
       "result": "evidence_package",
       "consumes": true,
       "message": "You compile the photographic evidence with the decrypted database into a single broadcastable data package. This is enough to bring down Chen's entire network.",
       "noise": 0,
       "conditions": [
-        { "type": "flag_is", "flag": "encryption_cracked", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "encryption_cracked",
+          "value": "true"
+        }
       ]
     }
   ],
-
   "objects": [
     {
       "id": "gurney",
       "name": "Medical Gurney",
       "description": "A stained surgical gurney with leather restraint straps.",
-      "position": { "x": 300, "y": 450 },
-      "size": { "width": 200, "height": 80 },
-      "visual": { "color": "#2a2a3a", "label": "Gurney" },
+      "position": {
+        "x": 300,
+        "y": 450
+      },
+      "size": {
+        "width": 200,
+        "height": 80
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "Gurney"
+      },
       "initial_state": "restrained",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You're strapped to a medical gurney. Leather restraints on both wrists, buckled tight. The leather is old, cracked at the edges. A tray beside you holds surgical instruments — just out of reach." }
+            {
+              "type": "message",
+              "text": "You're strapped to a medical gurney. Leather restraints on both wrists, buckled tight. The leather is old, cracked at the edges. A tray beside you holds surgical instruments \u2014 just out of reach."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
-          "then": [
-            { "type": "message", "text": "The gurney where you woke. Cut restraints dangle from the rails. The instrument tray is empty now." }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
-          "then": [
-            { "type": "message", "text": "You twist against the straps. The leather creaks but holds. You need something to cut them — and the instrument tray is inches beyond your fingertips." }
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            }
           ],
-          "noise": 8
-        },
-        {
-          "verb": "talk",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
           "then": [
-            { "type": "random_message", "messages": [
-              "You whisper to yourself: 'Think. Think. How did I get here?'",
-              "Fragments surface: a bar, a drink, waking here. Someone drugged you.",
-              "You mutter: 'The tray. If I could just reach the tray...'"
-            ]}
+            {
+              "type": "message",
+              "text": "The gurney where you woke. Cut restraints dangle from the rails. The instrument tray is empty now."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [
-            { "type": "flag_is", "flag": "restrained", "value": "true" },
-            { "type": "flag_is", "flag": "found_scalpel", "value": "true" }
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You saw through the leather restraints with the scalpel. They part with a whisper. You sit up, head swimming, and swing your legs off the gurney. Free." },
-            { "type": "set_flag", "flag": "freed_from_gurney", "value": "true" },
-            { "type": "set_flag", "flag": "restrained", "value": "false" },
-            { "type": "set_state", "object": "gurney", "state": "freed" }
+            {
+              "type": "message",
+              "text": "You twist against the straps. The leather creaks but holds. You need something to cut them \u2014 and the instrument tray is inches beyond your fingertips."
+            }
+          ],
+          "noise": 8
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "random_message",
+              "messages": [
+                "You whisper to yourself: 'Think. Think. How did I get here?'",
+                "Fragments surface: a bar, a drink, waking here. Someone drugged you.",
+                "You mutter: 'The tray. If I could just reach the tray...'"
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You saw through the leather restraints with the scalpel. They part with a whisper. You sit up, head swimming, and swing your legs off the gurney. Free."
+            },
+            {
+              "type": "set_flag",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "restrained",
+              "value": "false"
+            },
+            {
+              "type": "set_state",
+              "object": "gurney",
+              "state": "freed"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "take",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You can't take a gurney you're strapped to." }
+            {
+              "type": "message",
+              "text": "You can't take a gurney you're strapped to."
+            }
           ]
         }
       ]
@@ -522,66 +747,146 @@
       "id": "instrument_tray",
       "name": "Instrument Tray",
       "description": "A steel surgical tray on a wheeled stand, just out of arm's reach from the gurney.",
-      "position": { "x": 380, "y": 480 },
-      "size": { "width": 80, "height": 40 },
-      "visual": { "color": "#3a3a4a", "label": "Tray" },
+      "position": {
+        "x": 380,
+        "y": 480
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "visual": {
+        "color": "#3a3a4a",
+        "label": "Tray"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A steel tray on a wheeled stand, just inches beyond your fingertips. Scalpels, hemostats, retractors — and one nano-edged surgical scalpel that could slice through these restraints. If only you could reach it." }
+            {
+              "type": "message",
+              "text": "A steel tray on a wheeled stand, just inches beyond your fingertips. Scalpels, hemostats, retractors \u2014 and one nano-edged surgical scalpel that could slice through these restraints. If only you could reach it."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "found_scalpel", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The instrument tray, now in reach after your desperate rocking. Most of the tools are useless to you, but the scalpel was all you needed." }
+            {
+              "type": "message",
+              "text": "The instrument tray, now in reach after your desperate rocking. Most of the tools are useless to you, but the scalpel was all you needed."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [
-            { "type": "flag_is", "flag": "restrained", "value": "true" },
-            { "type": "flag_not", "flag": "found_scalpel", "value": "true" }
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You strain against the restraints, fingers stretching toward the tray. So close. If you rocked the gurney sideways, the wheels might roll you close enough..." }
+            {
+              "type": "message",
+              "text": "You strain against the restraints, fingers stretching toward the tray. So close. If you rocked the gurney sideways, the wheels might roll you close enough..."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [
-            { "type": "flag_is", "flag": "restrained", "value": "true" },
-            { "type": "flag_is", "flag": "found_scalpel", "value": "true" }
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You already grabbed the scalpel. Time to cut yourself free." }
+            {
+              "type": "message",
+              "text": "You already grabbed the scalpel. Time to cut yourself free."
+            }
           ]
         },
         {
           "verb": "take",
           "when": [
-            { "type": "flag_is", "flag": "restrained", "value": "true" },
-            { "type": "flag_not", "flag": "found_scalpel", "value": "true" }
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You throw your weight sideways. The gurney rocks on its wheels, rolling an inch closer. Again. The leather restraints bite into your wrists. One more heave — the gurney lurches and your fingertips brush the tray's edge. You hook the scalpel's handle and drag it toward you." },
-            { "type": "add_item", "item": "scalpel" },
-            { "type": "set_flag", "flag": "found_scalpel", "value": "true" },
-            { "type": "set_state", "object": "instrument_tray", "state": "reached" }
+            {
+              "type": "message",
+              "text": "You throw your weight sideways. The gurney rocks on its wheels, rolling an inch closer. Again. The leather restraints bite into your wrists. One more heave \u2014 the gurney lurches and your fingertips brush the tray's edge. You hook the scalpel's handle and drag it toward you."
+            },
+            {
+              "type": "add_item",
+              "item": "scalpel"
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_scalpel",
+              "value": "true"
+            },
+            {
+              "type": "set_state",
+              "object": "instrument_tray",
+              "state": "reached"
+            }
           ],
           "noise": 15
         },
         {
           "verb": "take",
-          "when": [{ "type": "flag_is", "flag": "found_scalpel", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "found_scalpel",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Nothing else on the tray is useful enough to pocket." }
+            {
+              "type": "message",
+              "text": "Nothing else on the tray is useful enough to pocket."
+            }
           ]
         }
       ]
@@ -590,43 +895,100 @@
       "id": "neural_rig",
       "name": "Neural Extraction Rig",
       "description": "A hulking machine beside the gurney. Screens dark, fans still spinning.",
-      "position": { "x": 500, "y": 350 },
-      "size": { "width": 120, "height": 180 },
-      "visual": { "color": "#1a1a2e", "stroke_color": "#4a00e0", "label": "Neural Rig" },
+      "position": {
+        "x": 500,
+        "y": 350
+      },
+      "size": {
+        "width": 120,
+        "height": 180
+      },
+      "visual": {
+        "color": "#1a1a2e",
+        "stroke_color": "#4a00e0",
+        "label": "Neural Rig"
+      },
       "initial_state": "powered_down",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A Koryo-Tek MR-9 Neural Extraction Rig. Military surplus, heavily modified. The display shows 'EXTRACTION INTERRUPTED — SUBJECT NEURAL PATTERN: 47% CAPTURED'. You can't reach the controls from the gurney." }
+            {
+              "type": "message",
+              "text": "A Koryo-Tek MR-9 Neural Extraction Rig. Military surplus, heavily modified. The display shows 'EXTRACTION INTERRUPTED \u2014 SUBJECT NEURAL PATTERN: 47% CAPTURED'. You can't reach the controls from the gurney."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The rig's status screen blinks: '47% CAPTURED — RESUME EXTRACTION Y/N?' A closeup view of the neural interface might reveal more." },
-            { "type": "set_flag", "flag": "neural_display_active", "value": "true" }
+            {
+              "type": "message",
+              "text": "The rig's status screen blinks: '47% CAPTURED \u2014 RESUME EXTRACTION Y/N?' A closeup view of the neural interface might reveal more."
+            },
+            {
+              "type": "set_flag",
+              "flag": "neural_display_active",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lean in to examine the neural interface controls more closely." },
-            { "type": "set_view", "view": "neural_closeup" },
-            { "type": "set_flag", "flag": "neural_display_active", "value": "true" }
+            {
+              "type": "message",
+              "text": "You lean in to examine the neural interface controls more closely."
+            },
+            {
+              "type": "set_view",
+              "view": "neural_closeup"
+            },
+            {
+              "type": "set_flag",
+              "flag": "neural_display_active",
+              "value": "true"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You strain toward the rig but the restraints hold you back. Too far." }
+            {
+              "type": "message",
+              "text": "You strain toward the rig but the restraints hold you back. Too far."
+            }
           ]
         }
       ]
@@ -635,46 +997,105 @@
       "id": "partition_curtain",
       "name": "Plastic Partition Curtain",
       "description": "A translucent plastic curtain dividing the clinic. Shadows move behind it.",
-      "position": { "x": 100, "y": 300 },
-      "size": { "width": 30, "height": 350 },
-      "visual": { "color": "#303050", "label": "Curtain" },
+      "position": {
+        "x": 100,
+        "y": 300
+      },
+      "size": {
+        "width": 30,
+        "height": 350
+      },
+      "visual": {
+        "color": "#303050",
+        "label": "Curtain"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "partition_curtain", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "partition_curtain",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Thick translucent plastic, the kind used in industrial clean rooms. Through it you can see the blue-white glow of Chen's workstation. His silhouette moves occasionally." }
+            {
+              "type": "message",
+              "text": "Thick translucent plastic, the kind used in industrial clean rooms. Through it you can see the blue-white glow of Chen's workstation. His silhouette moves occasionally."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [
-            { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" },
-            { "type": "object_state", "object": "partition_curtain", "state": "closed" }
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            },
+            {
+              "type": "object_state",
+              "object": "partition_curtain",
+              "state": "closed"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You part the curtain an inch and peer through. Chen's workspace: monitors showing neural patterns, a tea kettle, and a security panel by the exit door. You let the curtain fall back." },
-            { "type": "set_flag", "flag": "partition_opened", "value": "true" },
-            { "type": "set_state", "object": "partition_curtain", "state": "peeked" }
+            {
+              "type": "message",
+              "text": "You part the curtain an inch and peer through. Chen's workspace: monitors showing neural patterns, a tea kettle, and a security panel by the exit door. You let the curtain fall back."
+            },
+            {
+              "type": "set_flag",
+              "flag": "partition_opened",
+              "value": "true"
+            },
+            {
+              "type": "set_state",
+              "object": "partition_curtain",
+              "state": "peeked"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "restrained",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You can't reach the curtain from the gurney." }
+            {
+              "type": "message",
+              "text": "You can't reach the curtain from the gurney."
+            }
           ]
         },
         {
           "verb": "talk",
-          "when": [{ "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You press your ear to the plastic. Chen is muttering: '...forty-seven percent. Enough to sell the motor skills, maybe the language centers. The episodic? Damaged. Huílái zài shuō...' He trails off, humming." },
-            { "type": "set_flag", "flag": "knows_chen_name", "value": "true" }
+            {
+              "type": "message",
+              "text": "You press your ear to the plastic. Chen is muttering: '...forty-seven percent. Enough to sell the motor skills, maybe the language centers. The episodic? Damaged. Hu\u00edl\u00e1i z\u00e0i shu\u014d...' He trails off, humming."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_chen_name",
+              "value": "true"
+            }
           ],
           "noise": 0
         }
@@ -684,9 +1105,18 @@
       "id": "medicine_cabinet",
       "name": "Medicine Cabinet",
       "description": "A wall-mounted steel cabinet with a digital lock.",
-      "position": { "x": 700, "y": 200 },
-      "size": { "width": 80, "height": 100 },
-      "visual": { "color": "#3a3a4a", "label": "Cabinet" },
+      "position": {
+        "x": 700,
+        "y": 200
+      },
+      "size": {
+        "width": 80,
+        "height": 100
+      },
+      "visual": {
+        "color": "#3a3a4a",
+        "label": "Cabinet"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -695,30 +1125,60 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Steel cabinet, bolted to the wall. Through the glass front you can see vials, syringes, and a small wrench. The digital lock shows 4 zeros." }
+            {
+              "type": "message",
+              "text": "Steel cabinet, bolted to the wall. Through the glass front you can see vials, syringes, and a small wrench. The digital lock shows 4 zeros."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "medicine_cabinet",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Locked tight. The digital lock needs a 4-digit code." }
+            {
+              "type": "message",
+              "text": "Locked tight. The digital lock needs a 4-digit code."
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "open" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "medicine_cabinet",
+              "state": "open"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Already open. The remaining vials rattle on the shelf." }
+            {
+              "type": "message",
+              "text": "Already open. The remaining vials rattle on the shelf."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "scalpel",
-          "when": [{ "type": "object_state", "object": "medicine_cabinet", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "medicine_cabinet",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The scalpel is sharp but the cabinet is steel. You'd need the code or brute force." }
+            {
+              "type": "message",
+              "text": "The scalpel is sharp but the cabinet is steel. You'd need the code or brute force."
+            }
           ]
         }
       ]
@@ -727,45 +1187,103 @@
       "id": "floor_drain",
       "name": "Floor Drain",
       "description": "A steel drain grate set into the tiled floor. Dark stains around the edges.",
-      "position": { "x": 400, "y": 650 },
-      "size": { "width": 60, "height": 60 },
-      "visual": { "color": "#1a1a1a", "shape": "circle", "label": "Drain" },
+      "position": {
+        "x": 400,
+        "y": 650
+      },
+      "size": {
+        "width": 60,
+        "height": 60
+      },
+      "visual": {
+        "color": "#1a1a1a",
+        "shape": "circle",
+        "label": "Drain"
+      },
       "initial_state": "covered",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "floor_drain", "state": "covered" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "floor_drain",
+              "state": "covered"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A heavy drain grate. Through the gaps you can see a pipe wide enough to crawl through — it slopes downward into darkness. The bolts holding the grate are corroded." }
+            {
+              "type": "message",
+              "text": "A heavy drain grate. Through the gaps you can see a pipe wide enough to crawl through \u2014 it slopes downward into darkness. The bolts holding the grate are corroded."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "floor_drain", "state": "covered" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "floor_drain",
+              "state": "covered"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pull at the grate. The bolts are rusted but still solid. You'd need a wrench." }
+            {
+              "type": "message",
+              "text": "You pull at the grate. The bolts are rusted but still solid. You'd need a wrench."
+            }
           ],
           "noise": 12
         },
         {
           "verb": "use_item",
           "item": "wrench",
-          "when": [{ "type": "object_state", "object": "floor_drain", "state": "covered" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "floor_drain",
+              "state": "covered"
+            }
+          ],
           "then": [
-            { "type": "set_state", "object": "floor_drain", "state": "open" },
-            { "type": "set_flag", "flag": "drain_cover_removed", "value": "true" },
-            { "type": "set_flag", "flag": "found_hidden_exit", "value": "true" },
-            { "type": "message", "text": "The bolts scream as they turn. The grate lifts away revealing a drainage pipe — wide enough to crawl through. It slopes down toward the building's sewage system. A way out, if you don't mind the dark." }
+            {
+              "type": "set_state",
+              "object": "floor_drain",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "drain_cover_removed",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_hidden_exit",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "The bolts scream as they turn. The grate lifts away revealing a drainage pipe \u2014 wide enough to crawl through. It slopes down toward the building's sewage system. A way out, if you don't mind the dark."
+            }
           ],
           "noise": 30
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "floor_drain", "state": "open" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "floor_drain",
+              "state": "open"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The pipe descends into blackness. Stale water echoes below. This is a one-way trip — once you drop in, there's no climbing back." }
+            {
+              "type": "message",
+              "text": "The pipe descends into blackness. Stale water echoes below. This is a one-way trip \u2014 once you drop in, there's no climbing back."
+            }
           ]
         }
       ]
@@ -774,9 +1292,18 @@
       "id": "ventilation_grate",
       "name": "Ventilation Grate",
       "description": "A ceiling-mounted ventilation grate. Cool air whispers through the slats.",
-      "position": { "x": 600, "y": 50 },
-      "size": { "width": 100, "height": 40 },
-      "visual": { "color": "#2a2a3a", "label": "Vent" },
+      "position": {
+        "x": 600,
+        "y": 50
+      },
+      "size": {
+        "width": 100,
+        "height": 40
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "Vent"
+      },
       "initial_state": "sealed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -785,24 +1312,53 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Industrial ventilation. The duct behind it looks wide enough to crawl through — these old buildings were built for heavy air circulation. Four screws hold it in place." }
+            {
+              "type": "message",
+              "text": "Industrial ventilation. The duct behind it looks wide enough to crawl through \u2014 these old buildings were built for heavy air circulation. Four screws hold it in place."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "ventilation_grate", "state": "sealed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ventilation_grate",
+              "state": "sealed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Too high to reach from the floor, and the screws need a tool anyway." }
+            {
+              "type": "message",
+              "text": "Too high to reach from the floor, and the screws need a tool anyway."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "scalpel",
-          "when": [{ "type": "object_state", "object": "ventilation_grate", "state": "sealed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ventilation_grate",
+              "state": "sealed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You climb on the gurney and use the scalpel tip to turn the screws. They come loose one by one. The grate swings open." },
-            { "type": "set_state", "object": "ventilation_grate", "state": "open" },
-            { "type": "set_flag", "flag": "vent_grate_removed", "value": "true" }
+            {
+              "type": "message",
+              "text": "You climb on the gurney and use the scalpel tip to turn the screws. They come loose one by one. The grate swings open."
+            },
+            {
+              "type": "set_state",
+              "object": "ventilation_grate",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "vent_grate_removed",
+              "value": "true"
+            }
           ],
           "noise": 15
         }
@@ -811,44 +1367,100 @@
     {
       "id": "neon_sign",
       "name": "Neon Sign",
-      "description": "A wall-mounted neon sign reading '記憶' (Memory) in flickering magenta.",
-      "position": { "x": 850, "y": 100 },
-      "size": { "width": 120, "height": 50 },
-      "visual": { "color": "#e000a0", "label": "Neon Sign" },
+      "description": "A wall-mounted neon sign reading '\u8a18\u61b6' (Memory) in flickering magenta.",
+      "position": {
+        "x": 850,
+        "y": 100
+      },
+      "size": {
+        "width": 120,
+        "height": 50
+      },
+      "visual": {
+        "color": "#e000a0",
+        "label": "Neon Sign"
+      },
       "initial_state": "glowing",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "neon_sign", "state": "glowing" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neon_sign",
+              "state": "glowing"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "'記憶' — Memory. The neon tubes pulse with a low electrical hum. The wiring runs exposed along the wall to a junction box." }
+            {
+              "type": "message",
+              "text": "'\u8a18\u61b6' \u2014 Memory. The neon tubes pulse with a low electrical hum. The wiring runs exposed along the wall to a junction box."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "neon_sign", "state": "glowing" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neon_sign",
+              "state": "glowing"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The tube is hot to the touch and buzzing with voltage. You could remove it, but it would be loud and dark afterward." }
+            {
+              "type": "message",
+              "text": "The tube is hot to the touch and buzzing with voltage. You could remove it, but it would be loud and dark afterward."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "neon_sign", "state": "glowing" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neon_sign",
+              "state": "glowing"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You wrench the neon tube free from its mount. The sign goes dark. A faint crackle of residual charge runs along the tube." },
-            { "type": "add_item", "item": "neon_tube" },
-            { "type": "set_state", "object": "neon_sign", "state": "dark" },
-            { "type": "set_flag", "flag": "neon_sign_shorted", "value": "true" }
+            {
+              "type": "message",
+              "text": "You wrench the neon tube free from its mount. The sign goes dark. A faint crackle of residual charge runs along the tube."
+            },
+            {
+              "type": "add_item",
+              "item": "neon_tube"
+            },
+            {
+              "type": "set_state",
+              "object": "neon_sign",
+              "state": "dark"
+            },
+            {
+              "type": "set_flag",
+              "flag": "neon_sign_shorted",
+              "value": "true"
+            }
           ],
           "noise": 20
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "neon_sign", "state": "dark" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neon_sign",
+              "state": "dark"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Empty mounting brackets where the neon tube was. The corner of the room is noticeably darker now." }
+            {
+              "type": "message",
+              "text": "Empty mounting brackets where the neon tube was. The corner of the room is noticeably darker now."
+            }
           ]
         }
       ]
@@ -857,46 +1469,99 @@
       "id": "security_camera",
       "name": "Security Camera",
       "description": "A dome camera mounted in the ceiling corner, red LED blinking.",
-      "position": { "x": 950, "y": 80 },
-      "size": { "width": 40, "height": 40 },
-      "visual": { "color": "#2a0a0a", "shape": "circle", "label": "Camera" },
+      "position": {
+        "x": 950,
+        "y": 80
+      },
+      "size": {
+        "width": 40,
+        "height": 40
+      },
+      "visual": {
+        "color": "#2a0a0a",
+        "shape": "circle",
+        "label": "Camera"
+      },
       "initial_state": "active",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "security_camera", "state": "active" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "security_camera",
+              "state": "active"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A dome camera. The red LED blinks steadily — it's recording. Chen is watching from the other side of the partition. Every move you make, he sees." }
+            {
+              "type": "message",
+              "text": "A dome camera. The red LED blinks steadily \u2014 it's recording. Chen is watching from the other side of the partition. Every move you make, he sees."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "security_camera", "state": "looping" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "security_camera",
+              "state": "looping"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The camera's LED blinks green now — it's playing a looped feed of you lying on the gurney. Chen sees nothing." }
+            {
+              "type": "message",
+              "text": "The camera's LED blinks green now \u2014 it's playing a looped feed of you lying on the gurney. Chen sees nothing."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "Mounted too high on the ceiling. You can't reach it, and smashing it would just alert Chen." }
+            {
+              "type": "message",
+              "text": "Mounted too high on the ceiling. You can't reach it, and smashing it would just alert Chen."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "neon_tube",
           "when": [
-            { "type": "object_state", "object": "security_camera", "state": "active" },
-            { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }
+            {
+              "type": "object_state",
+              "object": "security_camera",
+              "state": "active"
+            },
+            {
+              "type": "flag_is",
+              "flag": "freed_from_gurney",
+              "value": "true"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You touch the charged neon tube to the camera's power cable. Sparks fly. The camera fries — but now Chen knows something is wrong. A direct approach, not a subtle one." },
-            { "type": "set_state", "object": "security_camera", "state": "destroyed" },
-            { "type": "set_flag", "flag": "chen_suspicious", "value": "true" },
-            { "type": "add_noise", "amount": 25 }
+            {
+              "type": "message",
+              "text": "You touch the charged neon tube to the camera's power cable. Sparks fly. The camera fries \u2014 but now Chen knows something is wrong. A direct approach, not a subtle one."
+            },
+            {
+              "type": "set_state",
+              "object": "security_camera",
+              "state": "destroyed"
+            },
+            {
+              "type": "set_flag",
+              "flag": "chen_suspicious",
+              "value": "true"
+            },
+            {
+              "type": "add_noise",
+              "amount": 25
+            }
           ],
           "noise": 15
         }
@@ -906,9 +1571,19 @@
       "id": "exit_door",
       "name": "Clinic Exit Door",
       "description": "A reinforced steel door with a biometric scanner and keypad.",
-      "position": { "x": 50, "y": 350 },
-      "size": { "width": 60, "height": 200 },
-      "visual": { "color": "#1a1a2a", "stroke_color": "#4a4a6a", "label": "Exit" },
+      "position": {
+        "x": 50,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 200
+      },
+      "visual": {
+        "color": "#1a1a2a",
+        "stroke_color": "#4a4a6a",
+        "label": "Exit"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -917,37 +1592,78 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Heavy steel door. The only way out of the clinic proper. A biometric scanner glows red beside it, and a keypad beneath that. Through the narrow window you can see a hallway — and beyond that, the street." }
+            {
+              "type": "message",
+              "text": "Heavy steel door. The only way out of the clinic proper. A biometric scanner glows red beside it, and a keypad beneath that. Through the narrow window you can see a hallway \u2014 and beyond that, the street."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "exit_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "exit_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Locked. The biometric scanner rejects your palm print. You'd need Chen's access card or the keypad code." }
+            {
+              "type": "message",
+              "text": "Locked. The biometric scanner rejects your palm print. You'd need Chen's access card or the keypad code."
+            }
           ],
           "noise": 5
         },
         {
           "verb": "use_item",
           "item": "access_card",
-          "when": [{ "type": "object_state", "object": "exit_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "exit_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You swipe the card. The scanner turns green — but the keypad flashes, demanding a code too. Dual authentication." }
+            {
+              "type": "message",
+              "text": "You swipe the card. The scanner turns green \u2014 but the keypad flashes, demanding a code too. Dual authentication."
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "exit_door", "state": "unlocked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "exit_door",
+              "state": "unlocked"
+            }
+          ],
           "then": [
-            { "type": "conditional_effect",
-              "when": [{ "type": "has_item", "item": "evidence_package" }],
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "has_item",
+                  "item": "evidence_package"
+                }
+              ],
               "then": [
-                { "type": "game_over", "result": "win", "reason": "You push through the exit door into the neon-soaked alley. The evidence package in your pocket contains everything needed to dismantle Chen's operation. You disappear into the rain-slicked streets of Neo-Shanghai, already composing the encrypted message to the Cyber Crimes Division. Chen won't be selling anyone else's memories." }
+                {
+                  "type": "game_over",
+                  "result": "win",
+                  "reason": "You push through the exit door into the neon-soaked alley. The evidence package in your pocket contains everything needed to dismantle Chen's operation. You disappear into the rain-slicked streets of Neo-Shanghai, already composing the encrypted message to the Cyber Crimes Division. Chen won't be selling anyone else's memories."
+                }
               ],
               "else": [
-                { "type": "game_over", "result": "win", "reason": "You push through the exit door and stumble into the neon-soaked alley. Free. Alive. But without evidence, Chen will just relocate and start again. You escaped — but the memory trade continues." }
+                {
+                  "type": "game_over",
+                  "result": "win",
+                  "reason": "You push through the exit door and stumble into the neon-soaked alley. Free. Alive. But without evidence, Chen will just relocate and start again. You escaped \u2014 but the memory trade continues."
+                }
               ]
             }
           ]
@@ -958,9 +1674,19 @@
       "id": "biometric_panel",
       "name": "Biometric Security Panel",
       "description": "The dual-authentication panel beside the exit door.",
-      "position": { "x": 120, "y": 350 },
-      "size": { "width": 50, "height": 80 },
-      "visual": { "color": "#0a0a1a", "stroke_color": "#ff0040", "label": "Panel" },
+      "position": {
+        "x": 120,
+        "y": 350
+      },
+      "size": {
+        "width": 50,
+        "height": 80
+      },
+      "visual": {
+        "color": "#0a0a1a",
+        "stroke_color": "#ff0040",
+        "label": "Panel"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -969,14 +1695,26 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Dual-auth security panel. Slot for access card on top, 4-digit keypad below. Both must be satisfied to unlock the exit." }
+            {
+              "type": "message",
+              "text": "Dual-auth security panel. Slot for access card on top, 4-digit keypad below. Both must be satisfied to unlock the exit."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "biometric_panel", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "biometric_panel",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The panel buzzes angrily. Access denied." }
+            {
+              "type": "message",
+              "text": "The panel buzzes angrily. Access denied."
+            }
           ],
           "noise": 5
         }
@@ -986,9 +1724,18 @@
       "id": "supply_shelf",
       "name": "Supply Shelf",
       "description": "Metal shelving unit stacked with medical supplies and electronic components.",
-      "position": { "x": 800, "y": 450 },
-      "size": { "width": 100, "height": 150 },
-      "visual": { "color": "#2a2a3a", "label": "Shelf" },
+      "position": {
+        "x": 800,
+        "y": 450
+      },
+      "size": {
+        "width": 100,
+        "height": 150
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "Shelf"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": true,
@@ -997,26 +1744,55 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Cluttered shelves of medical supplies: gauze, syringes, antiseptic. Between the shelves, bundles of copper wire stripped for recycling. The shelf is large enough to hide behind in a pinch." }
+            {
+              "type": "message",
+              "text": "Cluttered shelves of medical supplies: gauze, syringes, antiseptic. Between the shelves, bundles of copper wire stripped for recycling. The shelf is large enough to hide behind in a pinch."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "You rummage through the supplies. Mostly standard clinic stock. You pocket a bundle of copper wire — could be useful." },
-            { "type": "add_item", "item": "copper_wire" },
-            { "type": "set_state", "object": "supply_shelf", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You rummage through the supplies. Mostly standard clinic stock. You pocket a bundle of copper wire \u2014 could be useful."
+            },
+            {
+              "type": "add_item",
+              "item": "copper_wire"
+            },
+            {
+              "type": "set_state",
+              "object": "supply_shelf",
+              "state": "searched"
+            }
           ],
           "noise": 8
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "supply_shelf", "state": "default" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "supply_shelf",
+              "state": "default"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The shelf is bolted to the wall. You grab the copper wire instead." },
-            { "type": "add_item", "item": "copper_wire" },
-            { "type": "set_state", "object": "supply_shelf", "state": "searched" }
+            {
+              "type": "message",
+              "text": "The shelf is bolted to the wall. You grab the copper wire instead."
+            },
+            {
+              "type": "add_item",
+              "item": "copper_wire"
+            },
+            {
+              "type": "set_state",
+              "object": "supply_shelf",
+              "state": "searched"
+            }
           ],
           "noise": 5
         }
@@ -1026,35 +1802,78 @@
       "id": "waste_bin",
       "name": "Medical Waste Bin",
       "description": "A dented metal waste bin marked with a biohazard symbol.",
-      "position": { "x": 650, "y": 600 },
-      "size": { "width": 50, "height": 60 },
-      "visual": { "color": "#3a2a0a", "label": "Waste" },
+      "position": {
+        "x": 650,
+        "y": 600
+      },
+      "size": {
+        "width": 50,
+        "height": 60
+      },
+      "visual": {
+        "color": "#3a2a0a",
+        "label": "Waste"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "waste_bin", "state": "default" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "waste_bin",
+              "state": "default"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Biohazard waste bin. Through the opening you can see discarded electrode patches, used syringes, and... a cracked data shard, glinting under the neon light." }
+            {
+              "type": "message",
+              "text": "Biohazard waste bin. Through the opening you can see discarded electrode patches, used syringes, and... a cracked data shard, glinting under the neon light."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "waste_bin", "state": "default" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "waste_bin",
+              "state": "default"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You reach into the waste. Past the used patches and broken syringes, your fingers close around a cracked data shard. Someone's discarded memories — or part of yours?" },
-            { "type": "add_item", "item": "data_shard" },
-            { "type": "set_state", "object": "waste_bin", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You reach into the waste. Past the used patches and broken syringes, your fingers close around a cracked data shard. Someone's discarded memories \u2014 or part of yours?"
+            },
+            {
+              "type": "add_item",
+              "item": "data_shard"
+            },
+            {
+              "type": "set_state",
+              "object": "waste_bin",
+              "state": "searched"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "waste_bin", "state": "searched" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "waste_bin",
+              "state": "searched"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Nothing else worth salvaging. Just medical waste." }
+            {
+              "type": "message",
+              "text": "Nothing else worth salvaging. Just medical waste."
+            }
           ]
         }
       ]
@@ -1063,9 +1882,19 @@
       "id": "power_junction",
       "name": "Power Junction Box",
       "description": "An exposed junction box where the clinic's power lines converge.",
-      "position": { "x": 900, "y": 350 },
-      "size": { "width": 60, "height": 80 },
-      "visual": { "color": "#1a1a2a", "stroke_color": "#ffaa00", "label": "Power" },
+      "position": {
+        "x": 900,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 80
+      },
+      "visual": {
+        "color": "#1a1a2a",
+        "stroke_color": "#ffaa00",
+        "label": "Power"
+      },
       "initial_state": "normal",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1074,27 +1903,66 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A rats-nest of power cables. Three main circuits are labeled: 'EXTRACTION RIG', 'SECURITY/CAMERAS', and 'COOLING SYSTEM'. A toggle panel controls which circuits receive power." }
+            {
+              "type": "message",
+              "text": "A rats-nest of power cables. Three main circuits are labeled: 'EXTRACTION RIG', 'SECURITY/CAMERAS', and 'COOLING SYSTEM'. A toggle panel controls which circuits receive power."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "power_junction", "state": "normal" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "power_junction",
+              "state": "normal"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The circuits are controlled by the toggle panel. Flipping them by hand would risk electrocution." }
+            {
+              "type": "message",
+              "text": "The circuits are controlled by the toggle panel. Flipping them by hand would risk electrocution."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "neon_tube",
-          "when": [{ "type": "object_state", "object": "power_junction", "state": "normal" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "power_junction",
+              "state": "normal"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You jam the charged neon tube into the junction box. A cascade of sparks erupts and the lights flicker violently. The power grid destabilizes — the entire building goes dark for a moment before emergency lighting kicks in. On the other side of the curtain, Chen curses." },
-            { "type": "set_flag", "flag": "power_grid_flickering", "value": "true" },
-            { "type": "set_flag", "flag": "chen_distracted", "value": "true" },
-            { "type": "visual_cue", "cue": "flicker" },
-            { "type": "remove_item", "item": "neon_tube" },
-            { "type": "set_state", "object": "power_junction", "state": "damaged" }
+            {
+              "type": "message",
+              "text": "You jam the charged neon tube into the junction box. A cascade of sparks erupts and the lights flicker violently. The power grid destabilizes \u2014 the entire building goes dark for a moment before emergency lighting kicks in. On the other side of the curtain, Chen curses."
+            },
+            {
+              "type": "set_flag",
+              "flag": "power_grid_flickering",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "chen_distracted",
+              "value": "true"
+            },
+            {
+              "type": "visual_cue",
+              "cue": "flicker"
+            },
+            {
+              "type": "remove_item",
+              "item": "neon_tube"
+            },
+            {
+              "type": "set_state",
+              "object": "power_junction",
+              "state": "damaged"
+            }
           ],
           "noise": 35
         }
@@ -1104,9 +1972,18 @@
       "id": "intercom_speaker",
       "name": "Intercom Speaker",
       "description": "A wall-mounted intercom unit. Chen uses it to talk to clients in the waiting room.",
-      "position": { "x": 150, "y": 200 },
-      "size": { "width": 50, "height": 40 },
-      "visual": { "color": "#2a2a3a", "label": "Intercom" },
+      "position": {
+        "x": 150,
+        "y": 200
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
+      "visual": {
+        "color": "#2a2a3a",
+        "label": "Intercom"
+      },
       "initial_state": "off",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1115,16 +1992,36 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A two-way intercom. The 'BROADCAST' toggle is off. If turned on, it transmits to the building's public address system — every unit in this floor of the building would hear." }
+            {
+              "type": "message",
+              "text": "A two-way intercom. The 'BROADCAST' toggle is off. If turned on, it transmits to the building's public address system \u2014 every unit in this floor of the building would hear."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "intercom_speaker", "state": "off" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "intercom_speaker",
+              "state": "off"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip the broadcast toggle. The intercom crackles to life. A faint hum indicates it's now transmitting to the building PA." },
-            { "type": "set_state", "object": "intercom_speaker", "state": "broadcasting" },
-            { "type": "set_flag", "flag": "intercom_active", "value": "true" }
+            {
+              "type": "message",
+              "text": "You flip the broadcast toggle. The intercom crackles to life. A faint hum indicates it's now transmitting to the building PA."
+            },
+            {
+              "type": "set_state",
+              "object": "intercom_speaker",
+              "state": "broadcasting"
+            },
+            {
+              "type": "set_flag",
+              "flag": "intercom_active",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
@@ -1132,22 +2029,53 @@
           "verb": "use_item",
           "item": "evidence_package",
           "when": [
-            { "type": "object_state", "object": "intercom_speaker", "state": "broadcasting" },
-            { "type": "has_item", "item": "evidence_package" }
+            {
+              "type": "object_state",
+              "object": "intercom_speaker",
+              "state": "broadcasting"
+            },
+            {
+              "type": "has_item",
+              "item": "evidence_package"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You hold the evidence package's data output to the intercom microphone. The building PA crackles as names, dates, and transaction records broadcast to every unit on this floor. Chen's neighbors — many of them his clients — hear everything. You hear Chen scream from the other side of the curtain. It's over for him." },
-            { "type": "set_flag", "flag": "evidence_broadcasting", "value": "true" },
-            { "type": "set_flag", "flag": "broadcast_ready", "value": "true" }
+            {
+              "type": "message",
+              "text": "You hold the evidence package's data output to the intercom microphone. The building PA crackles as names, dates, and transaction records broadcast to every unit on this floor. Chen's neighbors \u2014 many of them his clients \u2014 hear everything. You hear Chen scream from the other side of the curtain. It's over for him."
+            },
+            {
+              "type": "set_flag",
+              "flag": "evidence_broadcasting",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "broadcast_ready",
+              "value": "true"
+            }
           ],
           "noise": 50
         },
         {
           "verb": "talk",
-          "when": [{ "type": "object_state", "object": "intercom_speaker", "state": "broadcasting" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "intercom_speaker",
+              "state": "broadcasting"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "\"If anyone can hear me — I'm being held captive in unit 7B! Lao Chen is running an illegal memory extraction operation! Someone call the PSB!\" Your voice echoes through the building." },
-            { "type": "set_flag", "flag": "chen_suspicious", "value": "true" }
+            {
+              "type": "message",
+              "text": "\"If anyone can hear me \u2014 I'm being held captive in unit 7B! Lao Chen is running an illegal memory extraction operation! Someone call the PSB!\" Your voice echoes through the building."
+            },
+            {
+              "type": "set_flag",
+              "flag": "chen_suspicious",
+              "value": "true"
+            }
           ],
           "noise": 45
         }
@@ -1157,9 +2085,18 @@
       "id": "ceiling_pipes",
       "name": "Ceiling Pipes",
       "description": "Exposed industrial pipes running across the ceiling. One is dripping.",
-      "position": { "x": 500, "y": 30 },
-      "size": { "width": 300, "height": 25 },
-      "visual": { "color": "#3a3a4a", "label": "Pipes" },
+      "position": {
+        "x": 500,
+        "y": 30
+      },
+      "size": {
+        "width": 300,
+        "height": 25
+      },
+      "visual": {
+        "color": "#3a3a4a",
+        "label": "Pipes"
+      },
       "initial_state": "intact",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1168,25 +2105,54 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Exposed water and coolant pipes. One has a slow drip. The pipe nearest the ventilation grate has a loose coupling — a wrench could loosen it further." }
+            {
+              "type": "message",
+              "text": "Exposed water and coolant pipes. One has a slow drip. The pipe nearest the ventilation grate has a loose coupling \u2014 a wrench could loosen it further."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "wrench",
-          "when": [{ "type": "object_state", "object": "ceiling_pipes", "state": "intact" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ceiling_pipes",
+              "state": "intact"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You loosen the coupling on the water pipe. Water begins to spray in a steady stream, pooling on the floor. The sound of running water fills the room — perfect cover for other noises." },
-            { "type": "set_state", "object": "ceiling_pipes", "state": "leaking" },
-            { "type": "set_flag", "flag": "pipe_loosened", "value": "true" }
+            {
+              "type": "message",
+              "text": "You loosen the coupling on the water pipe. Water begins to spray in a steady stream, pooling on the floor. The sound of running water fills the room \u2014 perfect cover for other noises."
+            },
+            {
+              "type": "set_state",
+              "object": "ceiling_pipes",
+              "state": "leaking"
+            },
+            {
+              "type": "set_flag",
+              "flag": "pipe_loosened",
+              "value": "true"
+            }
           ],
           "noise": 18
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "ceiling_pipes", "state": "leaking" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ceiling_pipes",
+              "state": "leaking"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Water sprays from the loosened coupling, filling the room with the sound of rushing water. Good cover noise — your movements will be harder to hear." }
+            {
+              "type": "message",
+              "text": "Water sprays from the loosened coupling, filling the room with the sound of rushing water. Good cover noise \u2014 your movements will be harder to hear."
+            }
           ]
         }
       ]
@@ -1195,9 +2161,18 @@
       "id": "extraction_chair",
       "name": "Extraction Chair",
       "description": "A reclining chair surrounded by neural interface equipment. The headset sits in a cradle.",
-      "position": { "x": 400, "y": 400 },
-      "size": { "width": 150, "height": 120 },
-      "visual": { "color": "#1a1a2e", "label": "Chair" },
+      "position": {
+        "x": 400,
+        "y": 400
+      },
+      "size": {
+        "width": 150,
+        "height": 120
+      },
+      "visual": {
+        "color": "#1a1a2e",
+        "label": "Chair"
+      },
       "initial_state": "empty",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1206,14 +2181,20 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The extraction chair. This is where Chen sits his subjects. The neural headset rests in a cradle beside it, trailing cables to the main rig. A calibration panel with dials controls the extraction parameters." }
+            {
+              "type": "message",
+              "text": "The extraction chair. This is where Chen sits his subjects. The neural headset rests in a cradle beside it, trailing cables to the main rig. A calibration panel with dials controls the extraction parameters."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "You sit in the chair experimentally. The neural headset cradle is within reach, and the calibration dials are right beside you." }
+            {
+              "type": "message",
+              "text": "You sit in the chair experimentally. The neural headset cradle is within reach, and the calibration dials are right beside you."
+            }
           ]
         }
       ]
@@ -1222,35 +2203,78 @@
       "id": "headset_cradle",
       "name": "Neural Headset Cradle",
       "description": "A padded cradle holding Chen's neural extraction headset.",
-      "position": { "x": 550, "y": 380 },
-      "size": { "width": 80, "height": 50 },
-      "visual": { "color": "#2a1a3e", "label": "Headset" },
+      "position": {
+        "x": 550,
+        "y": 380
+      },
+      "size": {
+        "width": 80,
+        "height": 50
+      },
+      "visual": {
+        "color": "#2a1a3e",
+        "label": "Headset"
+      },
       "initial_state": "holding_headset",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "headset_cradle", "state": "holding_headset" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "headset_cradle",
+              "state": "holding_headset"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Chen's neural extraction headset. A crown of electrodes and transceivers designed to read and copy neural patterns. With the right modifications, the signal flow could be reversed — instead of extracting memories, it would overwrite them." }
+            {
+              "type": "message",
+              "text": "Chen's neural extraction headset. A crown of electrodes and transceivers designed to read and copy neural patterns. With the right modifications, the signal flow could be reversed \u2014 instead of extracting memories, it would overwrite them."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "headset_cradle", "state": "holding_headset" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "headset_cradle",
+              "state": "holding_headset"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lift the headset from the cradle. It's lighter than expected — mostly circuitry. You'll need to combine it with the right components to reverse its function." },
-            { "type": "add_item", "item": "electrode_patch" },
-            { "type": "set_state", "object": "headset_cradle", "state": "empty" }
+            {
+              "type": "message",
+              "text": "You lift the headset from the cradle. It's lighter than expected \u2014 mostly circuitry. You'll need to combine it with the right components to reverse its function."
+            },
+            {
+              "type": "add_item",
+              "item": "electrode_patch"
+            },
+            {
+              "type": "set_state",
+              "object": "headset_cradle",
+              "state": "empty"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "headset_cradle", "state": "empty" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "headset_cradle",
+              "state": "empty"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Empty cradle. You took the headset." }
+            {
+              "type": "message",
+              "text": "Empty cradle. You took the headset."
+            }
           ]
         }
       ]
@@ -1259,37 +2283,90 @@
       "id": "neural_display",
       "name": "Neural Activity Display",
       "description": "A holographic display showing real-time neural pattern analysis.",
-      "position": { "x": 300, "y": 200 },
-      "size": { "width": 150, "height": 100 },
-      "visual": { "color": "#0a0a2e", "stroke_color": "#00ffaa", "label": "Display" },
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "size": {
+        "width": 150,
+        "height": 100
+      },
+      "visual": {
+        "color": "#0a0a2e",
+        "stroke_color": "#00ffaa",
+        "label": "Display"
+      },
       "initial_state": "standby",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "neural_display", "state": "standby" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neural_display",
+              "state": "standby"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The display shows your neural pattern — fragmented, gaps where memories were extracted. The interface reads: 'SUBJECT 4471-C — 47% EXTRACTED — PATTERN UNSTABLE'. A data cable port glows on the side of the display unit." }
+            {
+              "type": "message",
+              "text": "The display shows your neural pattern \u2014 fragmented, gaps where memories were extracted. The interface reads: 'SUBJECT 4471-C \u2014 47% EXTRACTED \u2014 PATTERN UNSTABLE'. A data cable port glows on the side of the display unit."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "neural_display", "state": "standby" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neural_display",
+              "state": "standby"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You tap through the menus. Patient history, extraction logs, calibration settings. One menu reads 'SECURITY FEED OVERRIDE' — but it's password protected." }
+            {
+              "type": "message",
+              "text": "You tap through the menus. Patient history, extraction logs, calibration settings. One menu reads 'SECURITY FEED OVERRIDE' \u2014 but it's password protected."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "access_card",
-          "when": [{ "type": "object_state", "object": "neural_display", "state": "standby" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "neural_display",
+              "state": "standby"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You swipe Chen's access card through the display's reader. The security menu unlocks. You navigate to 'CAMERA FEED OVERRIDE' and set the security camera to loop its last 60 seconds of footage. The camera LED shifts from red to green — Chen now sees an empty gurney on his monitors." },
-            { "type": "set_state", "object": "neural_display", "state": "unlocked" },
-            { "type": "set_state", "object": "security_camera", "state": "looping" },
-            { "type": "set_flag", "flag": "hacked_camera", "value": "true" },
-            { "type": "set_flag", "flag": "camera_looping", "value": "true" }
+            {
+              "type": "message",
+              "text": "You swipe Chen's access card through the display's reader. The security menu unlocks. You navigate to 'CAMERA FEED OVERRIDE' and set the security camera to loop its last 60 seconds of footage. The camera LED shifts from red to green \u2014 Chen now sees an empty gurney on his monitors."
+            },
+            {
+              "type": "set_state",
+              "object": "neural_display",
+              "state": "unlocked"
+            },
+            {
+              "type": "set_state",
+              "object": "security_camera",
+              "state": "looping"
+            },
+            {
+              "type": "set_flag",
+              "flag": "hacked_camera",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "camera_looping",
+              "value": "true"
+            }
           ],
           "noise": 5
         }
@@ -1299,28 +2376,64 @@
       "id": "memory_cartridge_slot",
       "name": "Memory Cartridge Slot",
       "description": "A slot in the extraction rig where memory cartridges are loaded for reading or writing.",
-      "position": { "x": 250, "y": 350 },
-      "size": { "width": 60, "height": 40 },
-      "visual": { "color": "#1a1a2e", "stroke_color": "#0088ff", "label": "Cart Slot" },
+      "position": {
+        "x": 250,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "visual": {
+        "color": "#1a1a2e",
+        "stroke_color": "#0088ff",
+        "label": "Cart Slot"
+      },
       "initial_state": "empty",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "memory_cartridge_slot", "state": "empty" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "memory_cartridge_slot",
+              "state": "empty"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "An empty cartridge slot. Memory cartridges from the storage rack would fit here. Loading one would let you access its contents on the neural display." }
+            {
+              "type": "message",
+              "text": "An empty cartridge slot. Memory cartridges from the storage rack would fit here. Loading one would let you access its contents on the neural display."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "memory_cartridge",
-          "when": [{ "type": "object_state", "object": "memory_cartridge_slot", "state": "empty" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "memory_cartridge_slot",
+              "state": "empty"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You slide your memory cartridge into the slot. The display flares to life with your own neural pattern — fragmented, incomplete, but recognizable. Your memories. Partially restored, the gaps become clearer. One fragment surfaces: a view of Chen's safe, the combination being entered: 0-8-0-8." },
-            { "type": "set_state", "object": "memory_cartridge_slot", "state": "loaded" },
-            { "type": "set_flag", "flag": "knows_safe_code", "value": "true" }
+            {
+              "type": "message",
+              "text": "You slide your memory cartridge into the slot. The display flares to life with your own neural pattern \u2014 fragmented, incomplete, but recognizable. Your memories. Partially restored, the gaps become clearer. One fragment surfaces: a view of Chen's safe, the combination being entered: 0-8-0-8."
+            },
+            {
+              "type": "set_state",
+              "object": "memory_cartridge_slot",
+              "state": "loaded"
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_safe_code",
+              "value": "true"
+            }
           ],
           "noise": 5
         }
@@ -1330,9 +2443,18 @@
       "id": "calibration_dials",
       "name": "Calibration Dials",
       "description": "A panel of precision dials controlling the neural extraction parameters.",
-      "position": { "x": 450, "y": 300 },
-      "size": { "width": 100, "height": 60 },
-      "visual": { "color": "#2a2a3e", "label": "Dials" },
+      "position": {
+        "x": 450,
+        "y": 300
+      },
+      "size": {
+        "width": 100,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2a2a3e",
+        "label": "Dials"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1341,22 +2463,47 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Three precision dials: FREQUENCY (MHz), AMPLITUDE (mV), and PHASE OFFSET (degrees). Currently set to extraction parameters. A frequency tuning dial could be recalibrated to broadcast on the district emergency channel." }
+            {
+              "type": "message",
+              "text": "Three precision dials: FREQUENCY (MHz), AMPLITUDE (mV), and PHASE OFFSET (degrees). Currently set to extraction parameters. A frequency tuning dial could be recalibrated to broadcast on the district emergency channel."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_not", "flag": "knows_frequency", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "knows_frequency",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You could adjust the dials, but without knowing the correct emergency broadcast frequency, you'd just be sending noise." }
+            {
+              "type": "message",
+              "text": "You could adjust the dials, but without knowing the correct emergency broadcast frequency, you'd just be sending noise."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "knows_frequency", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "knows_frequency",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You set the frequency dial to 108.7 MHz — the district emergency channel. The rig's neural transmitter is now repurposed as a broadcast antenna. If you had compiled evidence, you could broadcast it to every receiver in the district." },
-            { "type": "set_flag", "flag": "broadcast_ready", "value": "true" }
+            {
+              "type": "message",
+              "text": "You set the frequency dial to 108.7 MHz \u2014 the district emergency channel. The rig's neural transmitter is now repurposed as a broadcast antenna. If you had compiled evidence, you could broadcast it to every receiver in the district."
+            },
+            {
+              "type": "set_flag",
+              "flag": "broadcast_ready",
+              "value": "true"
+            }
           ],
           "noise": 8
         }
@@ -1366,9 +2513,18 @@
       "id": "data_cable",
       "name": "Data Cable",
       "description": "A thick data cable trailing from the extraction rig to the headset cradle.",
-      "position": { "x": 500, "y": 450 },
-      "size": { "width": 120, "height": 20 },
-      "visual": { "color": "#0a2a0a", "label": "Cable" },
+      "position": {
+        "x": 500,
+        "y": 450
+      },
+      "size": {
+        "width": 120,
+        "height": 20
+      },
+      "visual": {
+        "color": "#0a2a0a",
+        "label": "Cable"
+      },
       "initial_state": "connected",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1377,16 +2533,35 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A shielded neural data cable. Carries signals between the headset and the extraction rig. The connector is standard NX-series — it could interface with the electrode patch." }
+            {
+              "type": "message",
+              "text": "A shielded neural data cable. Carries signals between the headset and the extraction rig. The connector is standard NX-series \u2014 it could interface with the electrode patch."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "data_cable", "state": "connected" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "data_cable",
+              "state": "connected"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You disconnect the data cable from the rig and coil it up. Could be spliced with other neural components." },
-            { "type": "add_item", "item": "data_cable" },
-            { "type": "set_state", "object": "data_cable", "state": "taken" }
+            {
+              "type": "message",
+              "text": "You disconnect the data cable from the rig and coil it up. Could be spliced with other neural components."
+            },
+            {
+              "type": "add_item",
+              "item": "data_cable"
+            },
+            {
+              "type": "set_state",
+              "object": "data_cable",
+              "state": "taken"
+            }
           ],
           "noise": 5
         }
@@ -1396,29 +2571,69 @@
       "id": "patient_records_terminal",
       "name": "Patient Records Terminal",
       "description": "A terminal showing Chen's patient database.",
-      "position": { "x": 150, "y": 300 },
-      "size": { "width": 100, "height": 80 },
-      "visual": { "color": "#0a0a1a", "stroke_color": "#00ff88", "label": "Records" },
+      "position": {
+        "x": 150,
+        "y": 300
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#0a0a1a",
+        "stroke_color": "#00ff88",
+        "label": "Records"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "patient_records_terminal", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "patient_records_terminal",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Login screen. 'CHEN MEMORY SERVICES — PATIENT DATABASE'. Requires access card authentication." }
+            {
+              "type": "message",
+              "text": "Login screen. 'CHEN MEMORY SERVICES \u2014 PATIENT DATABASE'. Requires access card authentication."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "access_card",
-          "when": [{ "type": "object_state", "object": "patient_records_terminal", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "patient_records_terminal",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The card reader accepts Chen's credentials. The database opens: hundreds of patient records. Extraction dates, buyer information, payment records. You scroll to your own file: 'SUBJ-4471-C — STATUS: IN PROGRESS'. Under notes: 'Emergency broadcast frequency for district: 108.7 MHz. Disable before extraction to prevent subject distress calls.' Chen wrote down the very thing you need." },
-            { "type": "set_state", "object": "patient_records_terminal", "state": "unlocked" },
-            { "type": "set_flag", "flag": "records_accessed", "value": "true" },
-            { "type": "set_flag", "flag": "knows_frequency", "value": "true" }
+            {
+              "type": "message",
+              "text": "The card reader accepts Chen's credentials. The database opens: hundreds of patient records. Extraction dates, buyer information, payment records. You scroll to your own file: 'SUBJ-4471-C \u2014 STATUS: IN PROGRESS'. Under notes: 'Emergency broadcast frequency for district: 108.7 MHz. Disable before extraction to prevent subject distress calls.' Chen wrote down the very thing you need."
+            },
+            {
+              "type": "set_state",
+              "object": "patient_records_terminal",
+              "state": "unlocked"
+            },
+            {
+              "type": "set_flag",
+              "flag": "records_accessed",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_frequency",
+              "value": "true"
+            }
           ],
           "noise": 3
         }
@@ -1428,9 +2643,19 @@
       "id": "memory_rack",
       "name": "Memory Storage Rack",
       "description": "A floor-to-ceiling rack of glowing memory cartridges. Hundreds of stolen lives.",
-      "position": { "x": 400, "y": 300 },
-      "size": { "width": 200, "height": 300 },
-      "visual": { "color": "#1a1a2e", "stroke_color": "#0066ff", "label": "Memory Rack" },
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 200,
+        "height": 300
+      },
+      "visual": {
+        "color": "#1a1a2e",
+        "stroke_color": "#0066ff",
+        "label": "Memory Rack"
+      },
       "initial_state": "organized",
       "initially_visible": true,
       "hiding_spot": true,
@@ -1439,16 +2664,35 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Hundreds of memory cartridges glow in neat rows, each labeled with a subject number. Blues, greens, amber — different memory types. Yours would be here somewhere. The cooling unit hums beside the rack, keeping the cartridges stable." }
+            {
+              "type": "message",
+              "text": "Hundreds of memory cartridges glow in neat rows, each labeled with a subject number. Blues, greens, amber \u2014 different memory types. Yours would be here somewhere. The cooling unit hums beside the rack, keeping the cartridges stable."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "memory_rack", "state": "organized" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "memory_rack",
+              "state": "organized"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You scan the labels... 4471-A, 4471-B... there. 4471-C. Your cartridge. You pull it from the rack." },
-            { "type": "add_item", "item": "memory_cartridge" },
-            { "type": "set_state", "object": "memory_rack", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You scan the labels... 4471-A, 4471-B... there. 4471-C. Your cartridge. You pull it from the rack."
+            },
+            {
+              "type": "add_item",
+              "item": "memory_cartridge"
+            },
+            {
+              "type": "set_state",
+              "object": "memory_rack",
+              "state": "searched"
+            }
           ],
           "noise": 5
         }
@@ -1458,9 +2702,18 @@
       "id": "labeled_cartridges",
       "name": "Labeled Cartridges",
       "description": "Rows of memory cartridges with subject numbers and dates.",
-      "position": { "x": 350, "y": 200 },
-      "size": { "width": 100, "height": 60 },
-      "visual": { "color": "#1a2a3a", "label": "Cartridges" },
+      "position": {
+        "x": 350,
+        "y": 200
+      },
+      "size": {
+        "width": 100,
+        "height": 60
+      },
+      "visual": {
+        "color": "#1a2a3a",
+        "label": "Cartridges"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1469,14 +2722,20 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Each cartridge has a subject number, extraction date, and buyer code. Some are marked 'SOLD'. Others: 'PENDING'. A few are red-tagged: 'CORRUPTED — DO NOT SELL'. The dates go back six years." }
+            {
+              "type": "message",
+              "text": "Each cartridge has a subject number, extraction date, and buyer code. Some are marked 'SOLD'. Others: 'PENDING'. A few are red-tagged: 'CORRUPTED \u2014 DO NOT SELL'. The dates go back six years."
+            }
           ]
         },
         {
           "verb": "talk",
           "when": [],
           "then": [
-            { "type": "message", "text": "You read the labels aloud, barely whispering. 'Subject 3102... extracted 2084-03-15... sold to buyer KZ-7 for 45,000 crypto-yuan.' Six years of stolen lives, organized like inventory. Hundreds of people who woke up not knowing who they were." }
+            {
+              "type": "message",
+              "text": "You read the labels aloud, barely whispering. 'Subject 3102... extracted 2084-03-15... sold to buyer KZ-7 for 45,000 crypto-yuan.' Six years of stolen lives, organized like inventory. Hundreds of people who woke up not knowing who they were."
+            }
           ]
         }
       ]
@@ -1485,25 +2744,52 @@
       "id": "cooling_unit",
       "name": "Cooling Unit",
       "description": "An industrial cooling unit keeping the memory cartridges at optimal temperature.",
-      "position": { "x": 600, "y": 400 },
-      "size": { "width": 80, "height": 100 },
-      "visual": { "color": "#2a3a4a", "label": "Cooler" },
+      "position": {
+        "x": 600,
+        "y": 400
+      },
+      "size": {
+        "width": 80,
+        "height": 100
+      },
+      "visual": {
+        "color": "#2a3a4a",
+        "label": "Cooler"
+      },
       "initial_state": "running",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "cooling_unit", "state": "running" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cooling_unit",
+              "state": "running"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Industrial coolant system keeping the memory cartridges at -12°C. If it stopped, the cartridges would begin degrading within minutes. Chen's entire inventory — years of work — would be destroyed." }
+            {
+              "type": "message",
+              "text": "Industrial coolant system keeping the memory cartridges at -12\u00b0C. If it stopped, the cartridges would begin degrading within minutes. Chen's entire inventory \u2014 years of work \u2014 would be destroyed."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cooling_unit", "state": "running" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cooling_unit",
+              "state": "running"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The power cable is thick and reinforced. You'd need to cut the power at the junction box to disable it." }
+            {
+              "type": "message",
+              "text": "The power cable is thick and reinforced. You'd need to cut the power at the junction box to disable it."
+            }
           ]
         }
       ]
@@ -1511,30 +2797,72 @@
     {
       "id": "inventory_ledger",
       "name": "Inventory Ledger",
-      "description": "A physical notebook — old-school record-keeping in a digital age.",
-      "position": { "x": 250, "y": 500 },
-      "size": { "width": 70, "height": 50 },
-      "visual": { "color": "#3a2a1a", "label": "Ledger" },
+      "description": "A physical notebook \u2014 old-school record-keeping in a digital age.",
+      "position": {
+        "x": 250,
+        "y": 500
+      },
+      "size": {
+        "width": 70,
+        "height": 50
+      },
+      "visual": {
+        "color": "#3a2a1a",
+        "label": "Ledger"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "inventory_ledger", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "inventory_ledger",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A worn leather notebook. Chen keeps paper records as backup — smart, in an age where digital evidence can be wiped remotely." }
+            {
+              "type": "message",
+              "text": "A worn leather notebook. Chen keeps paper records as backup \u2014 smart, in an age where digital evidence can be wiped remotely."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "inventory_ledger", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "inventory_ledger",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip through pages of meticulous handwriting. Names, dates, amounts. Every extraction Chen has ever performed. You photograph a key page with the data shard's holographic function — this is hard evidence." },
-            { "type": "add_item", "item": "chen_ledger_photo" },
-            { "type": "set_state", "object": "inventory_ledger", "state": "photographed" },
-            { "type": "set_flag", "flag": "ledger_examined", "value": "true" },
-            { "type": "set_flag", "flag": "evidence_compiled", "value": "true" }
+            {
+              "type": "message",
+              "text": "You flip through pages of meticulous handwriting. Names, dates, amounts. Every extraction Chen has ever performed. You photograph a key page with the data shard's holographic function \u2014 this is hard evidence."
+            },
+            {
+              "type": "add_item",
+              "item": "chen_ledger_photo"
+            },
+            {
+              "type": "set_state",
+              "object": "inventory_ledger",
+              "state": "photographed"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ledger_examined",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "evidence_compiled",
+              "value": "true"
+            }
           ],
           "noise": 3
         }
@@ -1544,9 +2872,19 @@
       "id": "encryption_terminal",
       "name": "Encryption Terminal",
       "description": "A standalone terminal used to encrypt and decrypt memory data.",
-      "position": { "x": 500, "y": 200 },
-      "size": { "width": 100, "height": 80 },
-      "visual": { "color": "#0a0a1a", "stroke_color": "#ff4400", "label": "Encrypt" },
+      "position": {
+        "x": 500,
+        "y": 200
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#0a0a1a",
+        "stroke_color": "#ff4400",
+        "label": "Encrypt"
+      },
       "initial_state": "idle",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1555,17 +2893,37 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Chen's encryption workstation. Used to encrypt memory cartridges before sale. The decrypt function requires a physical drive to be inserted." }
+            {
+              "type": "message",
+              "text": "Chen's encryption workstation. Used to encrypt memory cartridges before sale. The decrypt function requires a physical drive to be inserted."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "backup_drive",
-          "when": [{ "type": "object_state", "object": "encryption_terminal", "state": "idle" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "encryption_terminal",
+              "state": "idle"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You insert the backup drive. The terminal whirs to life: 'DECRYPTING... KEY FOUND IN LOCAL KEYSTORE... COMPLETE.' The drive's contents are now readable. Client names, transaction records, extraction schedules — Chen's entire black market operation, decrypted." },
-            { "type": "set_state", "object": "encryption_terminal", "state": "decrypted" },
-            { "type": "set_flag", "flag": "encryption_cracked", "value": "true" }
+            {
+              "type": "message",
+              "text": "You insert the backup drive. The terminal whirs to life: 'DECRYPTING... KEY FOUND IN LOCAL KEYSTORE... COMPLETE.' The drive's contents are now readable. Client names, transaction records, extraction schedules \u2014 Chen's entire black market operation, decrypted."
+            },
+            {
+              "type": "set_state",
+              "object": "encryption_terminal",
+              "state": "decrypted"
+            },
+            {
+              "type": "set_flag",
+              "flag": "encryption_cracked",
+              "value": "true"
+            }
           ],
           "noise": 8
         }
@@ -1575,27 +2933,61 @@
       "id": "backup_drive_obj",
       "name": "Backup Drive Slot",
       "description": "A small drive bay with a blinking status LED.",
-      "position": { "x": 650, "y": 250 },
-      "size": { "width": 40, "height": 30 },
-      "visual": { "color": "#1a1a2a", "label": "Drive" },
+      "position": {
+        "x": 650,
+        "y": 250
+      },
+      "size": {
+        "width": 40,
+        "height": 30
+      },
+      "visual": {
+        "color": "#1a1a2a",
+        "label": "Drive"
+      },
       "initial_state": "occupied",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "backup_drive_obj", "state": "occupied" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "backup_drive_obj",
+              "state": "occupied"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A thumb-sized solid-state drive sits in the bay, its LED blinking amber. Chen's encrypted backup of his entire client database." }
+            {
+              "type": "message",
+              "text": "A thumb-sized solid-state drive sits in the bay, its LED blinking amber. Chen's encrypted backup of his entire client database."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "backup_drive_obj", "state": "occupied" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "backup_drive_obj",
+              "state": "occupied"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pop the drive from its bay. Encrypted, but the encryption terminal nearby could crack it." },
-            { "type": "add_item", "item": "backup_drive" },
-            { "type": "set_state", "object": "backup_drive_obj", "state": "empty" }
+            {
+              "type": "message",
+              "text": "You pop the drive from its bay. Encrypted, but the encryption terminal nearby could crack it."
+            },
+            {
+              "type": "add_item",
+              "item": "backup_drive"
+            },
+            {
+              "type": "set_state",
+              "object": "backup_drive_obj",
+              "state": "empty"
+            }
           ],
           "noise": 2
         }
@@ -1605,44 +2997,86 @@
       "id": "chen_personal_safe",
       "name": "Chen's Personal Safe",
       "description": "A small wall-mounted safe with a 4-digit combination lock.",
-      "position": { "x": 700, "y": 350 },
-      "size": { "width": 60, "height": 60 },
-      "visual": { "color": "#2a2a2a", "stroke_color": "#666666", "label": "Safe" },
+      "position": {
+        "x": 700,
+        "y": 350
+      },
+      "size": {
+        "width": 60,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2a2a2a",
+        "stroke_color": "#666666",
+        "label": "Safe"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "chen_personal_safe", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chen_personal_safe",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A compact wall safe with a 4-digit combination lock. Chen's personal valuables. The access card mentioned 'employee birthday' as the safe override." }
+            {
+              "type": "message",
+              "text": "A compact wall safe with a 4-digit combination lock. Chen's personal valuables. The access card mentioned 'employee birthday' as the safe override."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chen_personal_safe", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chen_personal_safe",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The combination lock resists. You need a 4-digit code." }
+            {
+              "type": "message",
+              "text": "The combination lock resists. You need a 4-digit code."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chen_personal_safe", "state": "open" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chen_personal_safe",
+              "state": "open"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The safe is empty now — you took the access card and tea kettle." }
+            {
+              "type": "message",
+              "text": "The safe is empty now \u2014 you took the access card and tea kettle."
+            }
           ]
         }
       ]
     }
   ],
-
   "puzzle_widgets": [
     {
       "id": "exit_keypad",
       "widget_type": "keypad",
-      "position": { "x": 120, "y": 380 },
-      "size": { "width": 50, "height": 60 },
+      "position": {
+        "x": 120,
+        "y": 380
+      },
+      "size": {
+        "width": 50,
+        "height": 60
+      },
       "view": "main",
       "initially_visible": true,
       "config": {
@@ -1651,73 +3085,178 @@
         "display_chars": 4
       },
       "on_solve": [
-        { "type": "message", "text": "The keypad beeps. 7-2-0-4. The code from the cracked data shard — a memory that isn't yours, but saved your life. The exit door's magnetic lock disengages with a heavy thunk." },
-        { "type": "set_state", "object": "exit_door", "state": "unlocked" },
-        { "type": "set_flag", "flag": "exit_door_unlocked", "value": "true" }
+        {
+          "type": "message",
+          "text": "The keypad beeps. 7-2-0-4. The code from the cracked data shard \u2014 a memory that isn't yours, but saved your life. The exit door's magnetic lock disengages with a heavy thunk."
+        },
+        {
+          "type": "set_state",
+          "object": "exit_door",
+          "state": "unlocked"
+        },
+        {
+          "type": "set_flag",
+          "flag": "exit_door_unlocked",
+          "value": "true"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 5 },
-        { "type": "message", "text": "Wrong code. The panel flashes red." }
+        {
+          "type": "add_noise",
+          "amount": 5
+        },
+        {
+          "type": "message",
+          "text": "Wrong code. The panel flashes red."
+        }
       ],
       "noise_per_interaction": 2
     },
     {
       "id": "safe_combination",
       "widget_type": "combination_lock",
-      "position": { "x": 700, "y": 370 },
-      "size": { "width": 50, "height": 40 },
+      "position": {
+        "x": 700,
+        "y": 370
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
       "view": "storage_closeup",
       "initially_visible": true,
       "config": {
         "num_dials": 4,
         "values_per_dial": 10,
-        "solution": [0, 8, 0, 8],
-        "dial_labels": ["I", "II", "III", "IV"]
+        "solution": [
+          0,
+          8,
+          0,
+          8
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III",
+          "IV"
+        ]
       },
       "on_solve": [
-        { "type": "message", "text": "0-8-0-8. August 8th. Chen's birthday — the stolen memory gave you that. The safe clicks open. Inside: Chen's personal access card and his battered tea kettle, still warm." },
-        { "type": "set_state", "object": "chen_personal_safe", "state": "open" },
-        { "type": "set_flag", "flag": "safe_opened", "value": "true" },
-        { "type": "add_item", "item": "access_card" },
-        { "type": "add_item", "item": "tea_kettle" }
+        {
+          "type": "message",
+          "text": "0-8-0-8. August 8th. Chen's birthday \u2014 the stolen memory gave you that. The safe clicks open. Inside: Chen's personal access card and his battered tea kettle, still warm."
+        },
+        {
+          "type": "set_state",
+          "object": "chen_personal_safe",
+          "state": "open"
+        },
+        {
+          "type": "set_flag",
+          "flag": "safe_opened",
+          "value": "true"
+        },
+        {
+          "type": "add_item",
+          "item": "access_card"
+        },
+        {
+          "type": "add_item",
+          "item": "tea_kettle"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 3 },
-        { "type": "message", "text": "Wrong combination. The dials click uselessly." }
+        {
+          "type": "add_noise",
+          "amount": 3
+        },
+        {
+          "type": "message",
+          "text": "Wrong combination. The dials click uselessly."
+        }
       ],
       "noise_per_interaction": 1
     },
     {
       "id": "power_toggles",
       "widget_type": "toggle_panel",
-      "position": { "x": 900, "y": 370 },
-      "size": { "width": 60, "height": 60 },
+      "position": {
+        "x": 900,
+        "y": 370
+      },
+      "size": {
+        "width": 60,
+        "height": 60
+      },
       "view": "main",
       "initially_visible": true,
       "config": {
         "num_switches": 3,
-        "solution": [true, false, false],
-        "labels": ["EXTRACTION RIG", "SECURITY/CAMS", "COOLING SYS"]
+        "solution": [
+          true,
+          false,
+          false
+        ],
+        "labels": [
+          "EXTRACTION RIG",
+          "SECURITY/CAMS",
+          "COOLING SYS"
+        ]
       },
       "on_solve": [
-        { "type": "message", "text": "You reroute all power to the extraction rig, cutting security cameras and the cooling system. The camera LED goes dark. The cooling unit whines down to silence. Without cooling, the memory cartridges will begin to degrade — Chen's entire inventory is at risk. But the neural rig now has full power for a broadcast." },
-        { "type": "set_flag", "flag": "power_rerouted", "value": "true" },
-        { "type": "set_flag", "flag": "cooling_disabled", "value": "true" },
-        { "type": "set_flag", "flag": "camera_looping", "value": "true" },
-        { "type": "set_state", "object": "security_camera", "state": "looping" },
-        { "type": "set_state", "object": "cooling_unit", "state": "off" }
+        {
+          "type": "message",
+          "text": "You reroute all power to the extraction rig, cutting security cameras and the cooling system. The camera LED goes dark. The cooling unit whines down to silence. Without cooling, the memory cartridges will begin to degrade \u2014 Chen's entire inventory is at risk. But the neural rig now has full power for a broadcast."
+        },
+        {
+          "type": "set_flag",
+          "flag": "power_rerouted",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "cooling_disabled",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "camera_looping",
+          "value": "true"
+        },
+        {
+          "type": "set_state",
+          "object": "security_camera",
+          "state": "looping"
+        },
+        {
+          "type": "set_state",
+          "object": "cooling_unit",
+          "state": "off"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 2 },
-        { "type": "message", "text": "The toggles click but nothing useful happens. The current configuration doesn't help." }
+        {
+          "type": "add_noise",
+          "amount": 2
+        },
+        {
+          "type": "message",
+          "text": "The toggles click but nothing useful happens. The current configuration doesn't help."
+        }
       ],
       "noise_per_interaction": 3
     },
     {
       "id": "cabinet_keypad",
       "widget_type": "keypad",
-      "position": { "x": 720, "y": 220 },
-      "size": { "width": 40, "height": 50 },
+      "position": {
+        "x": 720,
+        "y": 220
+      },
+      "size": {
+        "width": 40,
+        "height": 50
+      },
       "view": "main",
       "initially_visible": true,
       "config": {
@@ -1726,28 +3265,57 @@
         "display_chars": 4
       },
       "on_solve": [
-        { "type": "message", "text": "The cabinet clicks open. Inside: vials of sedative, a pipe wrench, and surgical supplies. You grab the sedative and the wrench." },
-        { "type": "set_state", "object": "medicine_cabinet", "state": "open" },
-        { "type": "set_flag", "flag": "cabinet_unlocked", "value": "true" },
-        { "type": "add_item", "item": "sedative_vial" },
-        { "type": "add_item", "item": "wrench" },
-        { "type": "set_flag", "flag": "sedative_obtained", "value": "true" }
+        {
+          "type": "message",
+          "text": "The cabinet clicks open. Inside: vials of sedative, a pipe wrench, and surgical supplies. You grab the sedative and the wrench."
+        },
+        {
+          "type": "set_state",
+          "object": "medicine_cabinet",
+          "state": "open"
+        },
+        {
+          "type": "set_flag",
+          "flag": "cabinet_unlocked",
+          "value": "true"
+        },
+        {
+          "type": "add_item",
+          "item": "sedative_vial"
+        },
+        {
+          "type": "add_item",
+          "item": "wrench"
+        },
+        {
+          "type": "set_flag",
+          "flag": "sedative_obtained",
+          "value": "true"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 3 },
-        { "type": "message", "text": "Access denied. Wrong code." }
+        {
+          "type": "add_noise",
+          "amount": 3
+        },
+        {
+          "type": "message",
+          "text": "Access denied. Wrong code."
+        }
       ],
       "noise_per_interaction": 1
     }
   ],
-
   "phases": [
     {
       "id": "disoriented",
       "name": "Disoriented",
       "starts_when": [],
       "on_enter": [
-        { "type": "message", "text": "Your skull throbs. Electrodes dangle from your temples. You're strapped to a gurney in a neon-lit room that smells of antiseptic and ozone. Someone is humming behind a plastic curtain." }
+        {
+          "type": "message",
+          "text": "Your skull throbs. Electrodes dangle from your temples. You're strapped to a gurney in a neon-lit room that smells of antiseptic and ozone. Someone is humming behind a plastic curtain."
+        }
       ],
       "ambient_text": "Neon hum. Distant humming. The drip of coolant.",
       "killer_overrides": {
@@ -1759,11 +3327,21 @@
       "id": "recovering",
       "name": "Recovering",
       "starts_when": [
-        { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "freed_from_gurney",
+          "value": "true"
+        }
       ],
       "on_enter": [
-        { "type": "message", "text": "Free from the gurney. Your legs shake. Fragments of stolen memories flash behind your eyes — faces you don't recognize, places you've never been. You need to focus. Find a way out." },
-        { "type": "visual_cue", "cue": "flash" }
+        {
+          "type": "message",
+          "text": "Free from the gurney. Your legs shake. Fragments of stolen memories flash behind your eyes \u2014 faces you don't recognize, places you've never been. You need to focus. Find a way out."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        }
       ],
       "ambient_text": "The hum of machinery. Chen's occasional muttering beyond the curtain.",
       "killer_overrides": {
@@ -1776,15 +3354,36 @@
       "id": "lucid",
       "name": "Lucid",
       "starts_when": [
-        { "type": "any_of", "conditions": [
-          { "type": "flag_is", "flag": "memory_fragment_3", "value": "true" },
-          { "type": "flag_is", "flag": "evidence_compiled", "value": "true" },
-          { "type": "flag_is", "flag": "chen_suspicious", "value": "true" }
-        ]}
+        {
+          "type": "any_of",
+          "conditions": [
+            {
+              "type": "flag_is",
+              "flag": "memory_fragment_3",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "evidence_compiled",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "chen_suspicious",
+              "value": "true"
+            }
+          ]
+        }
       ],
       "on_enter": [
-        { "type": "message", "text": "The stolen memories are crystallizing. You can feel them integrating — someone else's knowledge becoming yours. Chen's operation, his clients, his methods. You know enough now. The question is what to do with it." },
-        { "type": "visual_cue", "cue": "flash" }
+        {
+          "type": "message",
+          "text": "The stolen memories are crystallizing. You can feel them integrating \u2014 someone else's knowledge becoming yours. Chen's operation, his clients, his methods. You know enough now. The question is what to do with it."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        }
       ],
       "ambient_text": "Tension thick as smoke. Every sound from beyond the curtain is a threat.",
       "killer_overrides": {
@@ -1795,47 +3394,99 @@
       }
     }
   ],
-
   "events": [
     {
       "id": "first_memory_flash",
-      "trigger": { "type": "time_after", "seconds": 30 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 30
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "A memory that isn't yours surfaces: a woman's face, terrified, begging. 'Please, I have children—' Then static. Someone else's nightmare, lodged in your brain." },
-        { "type": "visual_cue", "cue": "flash" }
+        {
+          "type": "message",
+          "text": "A memory that isn't yours surfaces: a woman's face, terrified, begging. 'Please, I have children\u2014' Then static. Someone else's nightmare, lodged in your brain."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        }
       ]
     },
     {
       "id": "chen_phone_call",
-      "trigger": { "type": "time_after", "seconds": 120 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 120
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "Chen's phone rings beyond the curtain. You hear his side: 'Wèi? ...Yes, the new subject. Partial extraction. Forty-seven percent... No, still viable. Motor skills, some language centers... Thirty thousand? For partial? Nǐ zài shuō xiào ba... Fifty, minimum. I'll have it ready by morning.' He hangs up." },
-        { "type": "set_flag", "flag": "chen_distracted", "value": "true" },
-        { "type": "delay_then", "seconds": 30, "effects": [
-          { "type": "set_flag", "flag": "chen_distracted", "value": "false" }
-        ]}
+        {
+          "type": "message",
+          "text": "Chen's phone rings beyond the curtain. You hear his side: 'W\u00e8i? ...Yes, the new subject. Partial extraction. Forty-seven percent... No, still viable. Motor skills, some language centers... Thirty thousand? For partial? N\u01d0 z\u00e0i shu\u014d xi\u00e0o ba... Fifty, minimum. I'll have it ready by morning.' He hangs up."
+        },
+        {
+          "type": "set_flag",
+          "flag": "chen_distracted",
+          "value": "true"
+        },
+        {
+          "type": "delay_then",
+          "seconds": 30,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "chen_distracted",
+              "value": "false"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "power_grid_fluctuation",
-      "trigger": { "type": "time_after", "seconds": 240 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 240
+      },
       "one_shot": true,
       "effects": [
-        { "type": "visual_cue", "cue": "flicker" },
-        { "type": "message", "text": "The lights flicker. The whole district's power grid is unstable tonight — Neo-Shanghai's infrastructure crumbling under the weight of illegal power taps. Chen curses from the other room: 'Gāisǐ de power grid... if I lose another cartridge batch...'" },
-        { "type": "set_flag", "flag": "power_grid_flickering", "value": "true" }
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        },
+        {
+          "type": "message",
+          "text": "The lights flicker. The whole district's power grid is unstable tonight \u2014 Neo-Shanghai's infrastructure crumbling under the weight of illegal power taps. Chen curses from the other room: 'G\u0101is\u01d0 de power grid... if I lose another cartridge batch...'"
+        },
+        {
+          "type": "set_flag",
+          "flag": "power_grid_flickering",
+          "value": "true"
+        }
       ]
     },
     {
       "id": "client_arrival",
-      "trigger": { "type": "time_after", "seconds": 360 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 360
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "A buzzer sounds. Chen's voice, muffled: 'You're early. Wait in the hall.' The building's front door opens and closes. A client — here to buy your memories. The clock just got shorter." },
-        { "type": "set_flag", "flag": "client_arriving", "value": "true" },
-        { "type": "visual_cue", "cue": "red_pulse" }
+        {
+          "type": "message",
+          "text": "A buzzer sounds. Chen's voice, muffled: 'You're early. Wait in the hall.' The building's front door opens and closes. A client \u2014 here to buy your memories. The clock just got shorter."
+        },
+        {
+          "type": "set_flag",
+          "flag": "client_arriving",
+          "value": "true"
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        }
       ]
     },
     {
@@ -1843,23 +3494,39 @@
       "trigger": {
         "type": "all_of",
         "conditions": [
-          { "type": "flag_is", "flag": "cooling_disabled", "value": "true" },
-          { "type": "time_after", "seconds": 60 }
+          {
+            "type": "flag_is",
+            "flag": "cooling_disabled",
+            "value": "true"
+          },
+          {
+            "type": "time_after",
+            "seconds": 60
+          }
         ]
       },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "An alarm blares from the storage rack. 'THERMAL WARNING — CARTRIDGE DEGRADATION IN PROGRESS.' Chen screams from beyond the curtain: 'THE COOLING! WHAT HAPPENED TO THE COOLING?!' You hear frantic footsteps — he's panicking about his inventory." },
-        { "type": "set_flag", "flag": "cartridges_overheating", "value": "true" },
-        { "type": "set_flag", "flag": "chen_distracted", "value": "true" }
+        {
+          "type": "message",
+          "text": "An alarm blares from the storage rack. 'THERMAL WARNING \u2014 CARTRIDGE DEGRADATION IN PROGRESS.' Chen screams from beyond the curtain: 'THE COOLING! WHAT HAPPENED TO THE COOLING?!' You hear frantic footsteps \u2014 he's panicking about his inventory."
+        },
+        {
+          "type": "set_flag",
+          "flag": "cartridges_overheating",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "chen_distracted",
+          "value": "true"
+        }
       ]
     }
   ],
-
   "killer": {
     "name": "Lao Chen",
-    "description": "A black-market memory dealer in his sixties. Precise, businesslike, philosophical. He sees memories as commodities — nothing personal. He hums Cantonese lullabies while he works and drinks jasmine tea constantly. He is genuinely curious about the nature of identity and consciousness, which makes his crimes all the more chilling.",
-
+    "description": "A black-market memory dealer in his sixties. Precise, businesslike, philosophical. He sees memories as commodities \u2014 nothing personal. He hums Cantonese lullabies while he works and drinks jasmine tea constantly. He is genuinely curious about the nature of identity and consciousness, which makes his crimes all the more chilling.",
     "base_behavior": {
       "check_interval_seconds": 55,
       "interval_variance_seconds": 15,
@@ -1870,14 +3537,18 @@
       "warning_duration_seconds": 8,
       "search_duration_seconds": 15
     },
-
     "search_behavior": {
       "thoroughness": 0.35,
-      "evidence_flags": ["freed_from_gurney", "neon_sign_shorted", "drain_cover_removed", "safe_opened", "power_rerouted"],
+      "evidence_flags": [
+        "freed_from_gurney",
+        "neon_sign_shorted",
+        "drain_cover_removed",
+        "safe_opened",
+        "power_rerouted"
+      ],
       "thoroughness_on_evidence": 0.7,
       "search_order": "nearest"
     },
-
     "personality": {
       "on_approach": [
         "Time to check on our guest... the neural patterns should be stabilizing.",
@@ -1887,57 +3558,97 @@
       ],
       "on_search": [
         "Interesting. The gurney is empty. Where did you go, 4471-C?",
-        "Don't make this difficult. A struggling subject damages the neural pattern — lowers the resale value.",
+        "Don't make this difficult. A struggling subject damages the neural pattern \u2014 lowers the resale value.",
         "I can hear you breathing, you know. These walls are thin.",
-        "Zhǎo dào nǐ le... I always find them."
+        "Zh\u01ceo d\u00e0o n\u01d0 le... I always find them."
       ],
       "on_clear": [
         "Hm. Everything in order. Good.",
         "Still resting. Good. The extraction will resume shortly.",
-        "Neural patterns stable. Excellent quality — the buyer will be pleased."
+        "Neural patterns stable. Excellent quality \u2014 the buyer will be pleased."
       ],
       "on_evidence": [
         "The restraints are cut? Clever. But this clinic has no exits you can reach.",
-        "You've been busy. That's a shame — struggling degrades the memory quality. Ruins the product.",
+        "You've been busy. That's a shame \u2014 struggling degrades the memory quality. Ruins the product.",
         "My safe? You found my safe. How very... resourceful. Pity it won't help you.",
-        "The cooling system? Do you have any idea what those cartridges are worth? Bèn dàn!"
+        "The cooling system? Do you have any idea what those cartridges are worth? B\u00e8n d\u00e0n!"
       ],
       "on_catch": [
-        "There you are. Don't worry — the second extraction is always smoother. You won't remember any of this.",
-        "Caught. Sit down, 4471-C. We have a buyer waiting, and I don't like to keep clients waiting. Bù hǎo yìsi — nothing personal."
+        "There you are. Don't worry \u2014 the second extraction is always smoother. You won't remember any of this.",
+        "Caught. Sit down, 4471-C. We have a buyer waiting, and I don't like to keep clients waiting. B\u00f9 h\u01ceo y\u00ecsi \u2014 nothing personal."
       ]
     },
-
     "on_visit_effects": [
       {
-        "conditions": [{ "type": "object_state", "object": "ventilation_grate", "state": "open" }],
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "ventilation_grate",
+            "state": "open"
+          }
+        ],
         "effects": [
-          { "type": "message", "text": "Chen notices the open ventilation grate. He drags a heavy equipment cart under it, blocking the duct. 'Nice try. But I've had runners before.'" },
-          { "type": "set_state", "object": "ventilation_grate", "state": "blocked" },
-          { "type": "set_flag", "flag": "vent_grate_removed", "value": "false" }
+          {
+            "type": "message",
+            "text": "Chen notices the open ventilation grate. He drags a heavy equipment cart under it, blocking the duct. 'Nice try. But I've had runners before.'"
+          },
+          {
+            "type": "set_state",
+            "object": "ventilation_grate",
+            "state": "blocked"
+          },
+          {
+            "type": "set_flag",
+            "flag": "vent_grate_removed",
+            "value": "false"
+          }
         ]
       },
       {
-        "conditions": [{ "type": "object_state", "object": "intercom_speaker", "state": "broadcasting" }],
+        "conditions": [
+          {
+            "type": "object_state",
+            "object": "intercom_speaker",
+            "state": "broadcasting"
+          }
+        ],
         "effects": [
-          { "type": "message", "text": "Chen spots the active intercom and yanks the broadcast toggle off. 'Broadcasting? In MY clinic? You're more trouble than you're worth, 4471-C.'" },
-          { "type": "set_state", "object": "intercom_speaker", "state": "disabled" },
-          { "type": "set_flag", "flag": "intercom_active", "value": "false" }
+          {
+            "type": "message",
+            "text": "Chen spots the active intercom and yanks the broadcast toggle off. 'Broadcasting? In MY clinic? You're more trouble than you're worth, 4471-C.'"
+          },
+          {
+            "type": "set_state",
+            "object": "intercom_speaker",
+            "state": "disabled"
+          },
+          {
+            "type": "set_flag",
+            "flag": "intercom_active",
+            "value": "false"
+          }
         ]
       }
     ],
-
     "special_behaviors": [
       {
         "id": "phone_distraction",
-        "trigger": { "type": "flag_is", "flag": "chen_distracted", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "chen_distracted",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 30,
-        "description": "Chen is occupied — phone call, panicking about cooling, or dealing with a client."
+        "description": "Chen is occupied \u2014 phone call, panicking about cooling, or dealing with a client."
       },
       {
         "id": "suspicious_mode",
-        "trigger": { "type": "flag_is", "flag": "chen_suspicious", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "chen_suspicious",
+          "value": "true"
+        },
         "effect": "enraged",
         "overrides": {
           "check_interval_seconds": 25,
@@ -1946,72 +3657,117 @@
       }
     ]
   },
-
   "win_conditions": [
     {
       "id": "evidence_escape",
       "description": "Escape through the front door with compiled evidence",
       "conditions": [
-        { "type": "flag_is", "flag": "exit_door_unlocked", "value": "true" },
-        { "type": "has_item", "item": "evidence_package" }
+        {
+          "type": "flag_is",
+          "flag": "exit_door_unlocked",
+          "value": "true"
+        },
+        {
+          "type": "has_item",
+          "item": "evidence_package"
+        }
       ]
     },
     {
       "id": "drain_escape",
       "description": "Escape through the floor drain",
       "conditions": [
-        { "type": "flag_is", "flag": "drain_cover_removed", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "drain_cover_removed",
+          "value": "true"
+        }
       ]
     },
     {
       "id": "broadcast_evidence",
       "description": "Broadcast evidence on the emergency frequency",
       "conditions": [
-        { "type": "flag_is", "flag": "broadcast_ready", "value": "true" },
-        { "type": "flag_is", "flag": "evidence_compiled", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "broadcast_ready",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "evidence_compiled",
+          "value": "true"
+        }
       ]
     },
     {
       "id": "memory_overwrite",
       "description": "Use the modified headset to overwrite Chen's memories",
       "conditions": [
-        { "type": "has_item", "item": "modified_headset" },
-        { "type": "flag_is", "flag": "chen_distracted", "value": "true" }
+        {
+          "type": "has_item",
+          "item": "modified_headset"
+        },
+        {
+          "type": "flag_is",
+          "flag": "chen_distracted",
+          "value": "true"
+        }
       ]
     }
   ],
-
   "lose_conditions": [
     {
       "id": "caught_by_chen",
       "description": "Chen finds you during a search",
       "conditions": [
-        { "type": "killer_is", "state": "checking" },
-        { "type": "not_hiding" }
+        {
+          "type": "killer_is",
+          "state": "checking"
+        },
+        {
+          "type": "not_hiding"
+        }
       ]
     },
     {
       "id": "time_limit",
       "description": "Chen's client arrives and the extraction resumes",
       "conditions": [
-        { "type": "time_after", "seconds": 600 }
+        {
+          "type": "time_after",
+          "seconds": 600
+        }
       ]
     }
   ],
-
   "hints": [
     {
       "id": "hint_start",
-      "text": "You're strapped to the gurney. Look around — there might be something within reach to cut yourself free.",
-      "conditions": [{ "type": "flag_is", "flag": "restrained", "value": "true" }],
+      "text": "You're strapped to the gurney. Look around \u2014 there might be something within reach to cut yourself free.",
+      "conditions": [
+        {
+          "type": "flag_is",
+          "flag": "restrained",
+          "value": "true"
+        }
+      ],
       "priority": 1
     },
     {
       "id": "hint_scalpel",
       "text": "The instrument tray beside the gurney has surgical tools. Try to reach it by rocking the gurney.",
       "conditions": [
-        { "type": "flag_is", "flag": "restrained", "value": "true" },
-        { "type": "flag_not", "flag": "found_scalpel", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "restrained",
+          "value": "true"
+        },
+        {
+          "type": "flag_not",
+          "flag": "found_scalpel",
+          "value": "true"
+        }
       ],
       "priority": 2
     },
@@ -2019,8 +3775,16 @@
       "id": "hint_camera",
       "text": "That security camera is watching everything you do. Find a way to disable or loop its feed before moving freely.",
       "conditions": [
-        { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" },
-        { "type": "flag_not", "flag": "camera_looping", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "freed_from_gurney",
+          "value": "true"
+        },
+        {
+          "type": "flag_not",
+          "flag": "camera_looping",
+          "value": "true"
+        }
       ],
       "priority": 3
     },
@@ -2028,8 +3792,15 @@
       "id": "hint_safe_code",
       "text": "The access card mentioned Chen's birthday as the safe override. A stolen memory might surface with that information...",
       "conditions": [
-        { "type": "flag_not", "flag": "knows_safe_code", "value": "true" },
-        { "type": "has_item", "item": "chen_ledger_photo" }
+        {
+          "type": "flag_not",
+          "flag": "knows_safe_code",
+          "value": "true"
+        },
+        {
+          "type": "has_item",
+          "item": "chen_ledger_photo"
+        }
       ],
       "priority": 4
     },
@@ -2037,8 +3808,16 @@
       "id": "hint_evidence",
       "text": "The ledger in the storage area and the encrypted backup drive together would make a powerful evidence package.",
       "conditions": [
-        { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" },
-        { "type": "flag_not", "flag": "evidence_compiled", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "freed_from_gurney",
+          "value": "true"
+        },
+        {
+          "type": "flag_not",
+          "flag": "evidence_compiled",
+          "value": "true"
+        }
       ],
       "priority": 5
     },
@@ -2046,8 +3825,16 @@
       "id": "hint_door_code",
       "text": "The cracked data shard in the waste bin might hold useful information. Examine it closely.",
       "conditions": [
-        { "type": "flag_not", "flag": "knows_door_code", "value": "true" },
-        { "type": "flag_is", "flag": "freed_from_gurney", "value": "true" }
+        {
+          "type": "flag_not",
+          "flag": "knows_door_code",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "freed_from_gurney",
+          "value": "true"
+        }
       ],
       "priority": 6
     },
@@ -2055,8 +3842,16 @@
       "id": "hint_drain",
       "text": "The floor drain is wide enough to crawl through, but the bolts need a wrench. Check the medicine cabinet.",
       "conditions": [
-        { "type": "flag_not", "flag": "drain_cover_removed", "value": "true" },
-        { "type": "flag_is", "flag": "cabinet_unlocked", "value": "true" }
+        {
+          "type": "flag_not",
+          "flag": "drain_cover_removed",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "cabinet_unlocked",
+          "value": "true"
+        }
       ],
       "priority": 7
     },
@@ -2064,8 +3859,16 @@
       "id": "hint_sedative",
       "text": "Chen drinks tea constantly. If you had a sedative and his tea kettle...",
       "conditions": [
-        { "type": "flag_is", "flag": "sedative_obtained", "value": "true" },
-        { "type": "flag_is", "flag": "tea_kettle_found", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "sedative_obtained",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "tea_kettle_found",
+          "value": "true"
+        }
       ],
       "priority": 8
     },
@@ -2073,8 +3876,16 @@
       "id": "hint_broadcast",
       "text": "The neural rig could be repurposed as a broadcast antenna if you knew the emergency frequency. Check patient records.",
       "conditions": [
-        { "type": "flag_not", "flag": "knows_frequency", "value": "true" },
-        { "type": "flag_is", "flag": "records_accessed", "value": "false" }
+        {
+          "type": "flag_not",
+          "flag": "knows_frequency",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "records_accessed",
+          "value": "false"
+        }
       ],
       "priority": 9
     },
@@ -2082,13 +3893,19 @@
       "id": "hint_headset",
       "text": "The neural headset extracts memories. With the right components, you could reverse it to write memories instead. The electrode patch and data cable might work...",
       "conditions": [
-        { "type": "has_item", "item": "electrode_patch" },
-        { "type": "flag_not", "flag": "headset_modified", "value": "true" }
+        {
+          "type": "has_item",
+          "item": "electrode_patch"
+        },
+        {
+          "type": "flag_not",
+          "flag": "headset_modified",
+          "value": "true"
+        }
       ],
       "priority": 10
     }
   ],
-
   "solution_paths": [
     {
       "id": "evidence_path",
@@ -2097,11 +3914,11 @@
       "difficulty": "medium",
       "noise_profile": "moderate",
       "steps": [
-        "Free yourself from the gurney using the scalpel (rock gurney → look at tray → take scalpel → hand on gurney)",
-        "Loop the security camera feed (find access card → use on neural display in neural_closeup)",
-        "Obtain access card from Chen's safe (examine ledger → get birthday memory → crack safe combination 0808)",
-        "Get the exit door keypad code (find data shard in waste bin → examine it → learn code 7204)",
-        "Compile evidence (photograph ledger + decrypt backup drive → combine into evidence package)",
+        "Free yourself from the gurney using the scalpel (rock gurney \u2192 look at tray \u2192 take scalpel \u2192 hand on gurney)",
+        "Loop the security camera feed (find access card \u2192 use on neural display in neural_closeup)",
+        "Obtain access card from Chen's safe (examine ledger \u2192 get birthday memory \u2192 crack safe combination 0808)",
+        "Get the exit door keypad code (find data shard in waste bin \u2192 examine it \u2192 learn code 7204)",
+        "Compile evidence (photograph ledger + decrypt backup drive \u2192 combine into evidence package)",
         "Unlock exit door (swipe access card + enter keypad code 7204)",
         "Walk out with evidence package"
       ]
@@ -2115,7 +3932,7 @@
       "steps": [
         "Free yourself from the gurney",
         "Get wrench from medicine cabinet (need safe code 0808 for cabinet keypad)",
-        "Use wrench on floor drain to remove grate (very loud — 30 noise)",
+        "Use wrench on floor drain to remove grate (very loud \u2014 30 noise)",
         "Drop into the drain pipe and crawl to freedom"
       ]
     },
@@ -2127,18 +3944,18 @@
       "noise_profile": "mixed",
       "steps": [
         "Free yourself from the gurney",
-        "Access patient records terminal (get access card → use on terminal → learn frequency 108.7 MHz)",
+        "Access patient records terminal (get access card \u2192 use on terminal \u2192 learn frequency 108.7 MHz)",
         "Reroute power to extraction rig (toggle panel: rig ON, security OFF, cooling OFF)",
         "Set calibration dials to emergency frequency",
         "Compile evidence package (ledger photo + decrypted backup drive)",
-        "Broadcast evidence through the rig (evidence package becomes broadcast — Chen's operation exposed)",
+        "Broadcast evidence through the rig (evidence package becomes broadcast \u2014 Chen's operation exposed)",
         "Optional: escape through now-unmonitored exit or drain while Chen panics"
       ]
     },
     {
       "id": "overwrite_path",
       "name": "The Eraser",
-      "description": "Modify the neural headset to overwrite memories instead of extracting them. Use it on Chen — make him forget you exist.",
+      "description": "Modify the neural headset to overwrite memories instead of extracting them. Use it on Chen \u2014 make him forget you exist.",
       "difficulty": "nightmare",
       "noise_profile": "quiet",
       "steps": [
@@ -2148,7 +3965,7 @@
         "Combine electrode patch + data cable at the neural interface (creates modified_headset)",
         "Create a distraction (poison tea with sedative, OR short the power grid with neon tube, OR trigger cartridge overheat)",
         "When Chen is distracted/sedated, use the modified headset on him",
-        "Walk out through the exit — Chen won't remember you were ever here"
+        "Walk out through the exit \u2014 Chen won't remember you were ever here"
       ]
     }
   ]

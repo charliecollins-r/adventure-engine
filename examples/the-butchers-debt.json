@@ -1,14 +1,21 @@
 {
   "schema_version": "1.0",
-
   "metadata": {
     "id": "the-butchers-debt",
     "title": "The Butcher's Debt",
-    "description": "You wake on the concrete floor of a walk-in freezer, breath crystallizing in front of you. Beyond the heavy steel door, a butcher whistles while he works. Sal Morano thinks you saw something you shouldn't have — and in this part of Chicago, witnesses don't make it to morning. Find a way out before you become tomorrow's special.",
+    "description": "You wake on the concrete floor of a walk-in freezer, breath crystallizing in front of you. Beyond the heavy steel door, a butcher whistles while he works. Sal Morano thinks you saw something you shouldn't have \u2014 and in this part of Chicago, witnesses don't make it to morning. Find a way out before you become tomorrow's special.",
     "author": "ai-generated",
     "difficulty": "hard",
     "estimated_minutes": 15,
-    "tags": ["crime-noir", "1970s", "chicago", "mob", "butcher-shop", "freezer", "gritty"],
+    "tags": [
+      "crime-noir",
+      "1970s",
+      "chicago",
+      "mob",
+      "butcher-shop",
+      "freezer",
+      "gritty"
+    ],
     "version": "1.0",
     "patterns_used": [
       "1-gateway-puzzle",
@@ -39,26 +46,33 @@
       "30-decay-clock"
     ]
   },
-
   "setting": {
     "initial_view": "main",
-    "ambient_text": "The freezer hums. Your breath hangs in the air like ghosts. Through the insulated walls, you hear whistling — something cheerful, obscene against the cold. A cleaver hits a cutting board. Again. Again.",
+    "ambient_text": "The freezer hums. Your breath hangs in the air like ghosts. Through the insulated walls, you hear whistling \u2014 something cheerful, obscene against the cold. A cleaver hits a cutting board. Again. Again.",
     "room_style": {
       "background_color": "#0d1117",
       "wall_color": "#1a1f2e",
       "floor_color": "#111622"
     }
   },
-
   "views": [
     {
       "id": "main",
       "background_key": "walk_in_freezer",
       "background_file": "backgrounds/walk_in_freezer.png",
       "objects": [
-        "freezer_door", "meat_hooks", "shelving_unit", "frozen_carcasses",
-        "floor_drain", "ventilation_grate", "fuse_panel", "mop_bucket",
-        "cardboard_boxes", "apron_hook", "thermometer", "hiding_carcasses"
+        "freezer_door",
+        "meat_hooks",
+        "shelving_unit",
+        "frozen_carcasses",
+        "floor_drain",
+        "ventilation_grate",
+        "fuse_panel",
+        "mop_bucket",
+        "cardboard_boxes",
+        "apron_hook",
+        "thermometer",
+        "hiding_carcasses"
       ]
     },
     {
@@ -66,9 +80,16 @@
       "background_key": "butcher_counter",
       "background_file": "backgrounds/butcher_counter.png",
       "objects": [
-        "cutting_board", "knife_rack", "meat_grinder", "cash_register",
-        "order_pad", "wall_calendar", "telephone_counter", "display_case",
-        "sawdust_floor", "newspaper"
+        "cutting_board",
+        "knife_rack",
+        "meat_grinder",
+        "cash_register",
+        "order_pad",
+        "wall_calendar",
+        "telephone_counter",
+        "display_case",
+        "sawdust_floor",
+        "newspaper"
       ],
       "back_label": "Back to the freezer"
     },
@@ -77,9 +98,17 @@
       "background_key": "back_office",
       "background_file": "backgrounds/back_office.png",
       "objects": [
-        "office_desk", "filing_cabinet", "desk_phone", "briefcase",
-        "wall_safe_painting", "coat_rack", "waste_basket", "ledger_book",
-        "family_photo", "window_office"
+        "office_desk",
+        "filing_cabinet",
+        "desk_phone",
+        "briefcase",
+        "wall_safe_painting",
+        "coat_rack",
+        "waste_basket",
+        "ledger_book",
+        "family_photo",
+        "window_office",
+        "wall_safe"
       ],
       "back_label": "Back to the shop floor"
     },
@@ -88,13 +117,18 @@
       "background_key": "loading_dock",
       "background_file": "backgrounds/loading_dock.png",
       "objects": [
-        "roll_up_door", "chain_hoist", "pallet_stack", "delivery_clipboard",
-        "circuit_breaker", "fire_extinguisher", "alley_door", "dumpster"
+        "roll_up_door",
+        "chain_hoist",
+        "pallet_stack",
+        "delivery_clipboard",
+        "circuit_breaker",
+        "fire_extinguisher",
+        "alley_door",
+        "dumpster"
       ],
       "back_label": "Back to the shop floor"
     }
   ],
-
   "flags": {
     "conscious": "true",
     "hypothermia_warning": "false",
@@ -137,9 +171,9 @@
     "receipt_examined": "false",
     "ledger_examined": "false",
     "knows_delivery_time": "false",
-    "register_opened": "false"
+    "register_opened": "false",
+    "harold_suspicious": "false"
   },
-
   "items": [
     {
       "id": "meat_hook",
@@ -151,15 +185,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Solid steel, maybe eight inches. The curve is sharp enough to gouge. The base has a flat end — could pry things." },
-            { "type": "set_flag", "flag": "found_meat_hook", "value": "true" }
+            {
+              "type": "message",
+              "text": "Solid steel, maybe eight inches. The curve is sharp enough to gouge. The base has a flat end \u2014 could pry things."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_meat_hook",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "Heavy. Cold. You grip it like a weapon. The curved end could hook onto things or pry them apart." }
+            {
+              "type": "message",
+              "text": "Heavy. Cold. You grip it like a weapon. The curved end could hook onto things or pry them apart."
+            }
           ]
         }
       ]
@@ -172,33 +216,83 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "apron_searched", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "apron_searched",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "White cotton, brown with old blood. A pocket on the front. Something stiff inside it." },
-            { "type": "set_flag", "flag": "apron_searched", "value": "true" }
+            {
+              "type": "message",
+              "text": "White cotton, brown with old blood. A pocket on the front. Something stiff inside it."
+            },
+            {
+              "type": "set_flag",
+              "flag": "apron_searched",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "apron_searched", "value": "true" }, { "type": "not_has_item", "item": "crumpled_receipt" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "apron_searched",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "crumpled_receipt"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You fish in the pocket. A crumpled receipt — Moretti's Hardware, dated last Tuesday. Someone bought 200 lbs of quickite. The four-digit order number is circled: 1-9-5-3." },
-            { "type": "add_item", "item": "crumpled_receipt" },
-            { "type": "set_flag", "flag": "found_receipt", "value": "true" }
+            {
+              "type": "message",
+              "text": "You fish in the pocket. A crumpled receipt \u2014 Moretti's Hardware, dated last Tuesday. Someone bought 200 lbs of quickite. The four-digit order number is circled: 1-9-5-3."
+            },
+            {
+              "type": "add_item",
+              "item": "crumpled_receipt"
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_receipt",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "has_item", "item": "crumpled_receipt" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "crumpled_receipt"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Nothing else in the pockets. Just the stink of old blood." }
+            {
+              "type": "message",
+              "text": "Nothing else in the pockets. Just the stink of old blood."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "apron_searched", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "apron_searched",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A filthy work apron. You already found the receipt in its pocket." }
+            {
+              "type": "message",
+              "text": "A filthy work apron. You already found the receipt in its pocket."
+            }
           ]
         }
       ]
@@ -211,18 +305,44 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "receipt_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "receipt_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Moretti's Hardware & Supply. 200 lbs quickite (calcium oxide powder). Order #1953. Paid cash. A handwritten note in the margin: 'Back office — Tony says use the order number.' The order number IS the office door code." },
-            { "type": "set_flag", "flag": "knows_office_code", "value": "true" },
-            { "type": "set_flag", "flag": "receipt_examined", "value": "true" }
+            {
+              "type": "message",
+              "text": "Moretti's Hardware & Supply. 200 lbs quickite (calcium oxide powder). Order #1953. Paid cash. A handwritten note in the margin: 'Back office \u2014 Tony says use the order number.' The order number IS the office door code."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_office_code",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "receipt_examined",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "receipt_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "receipt_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Order #1953 from Moretti's Hardware. Quickite — that's quickite, lye-grade calcium oxide. For dissolving things. The order number is the office door code." }
+            {
+              "type": "message",
+              "text": "Order #1953 from Moretti's Hardware. Quickite \u2014 that's quickite, lye-grade calcium oxide. For dissolving things. The order number is the office door code."
+            }
           ]
         }
       ]
@@ -237,7 +357,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Honed to a razor edge. The handle is worn smooth from years of use. There are notches cut into the base of the blade — seven of them." }
+            {
+              "type": "message",
+              "text": "Honed to a razor edge. The handle is worn smooth from years of use. There are notches cut into the base of the blade \u2014 seven of them."
+            }
           ]
         }
       ]
@@ -252,7 +375,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Tiny brass key. A strip of masking tape on it reads 'DESK' in block letters." }
+            {
+              "type": "message",
+              "text": "Tiny brass key. A strip of masking tape on it reads 'DESK' in block letters."
+            }
           ]
         }
       ]
@@ -265,17 +391,39 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "found_black_book", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "found_black_book",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Pages of entries. Dates, dollar amounts, names — some you recognize from the news. Capo Vincenzo Deluca. Tony 'Two-Tone' Ricci. The last entry: your name, tonight's date, a dollar amount, and the word 'HANDLED.' This is enough to put Sal away. Or enough to make him very cooperative." },
-            { "type": "set_flag", "flag": "found_black_book", "value": "true" }
+            {
+              "type": "message",
+              "text": "Pages of entries. Dates, dollar amounts, names \u2014 some you recognize from the news. Capo Vincenzo Deluca. Tony 'Two-Tone' Ricci. The last entry: your name, tonight's date, a dollar amount, and the word 'HANDLED.' This is enough to put Sal away. Or enough to make him very cooperative."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_black_book",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "found_black_book", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "found_black_book",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Sal's book of sins. Every dirty dollar, every dirty deed. Your ticket out — or a death sentence if he catches you with it." }
+            {
+              "type": "message",
+              "text": "Sal's book of sins. Every dirty dollar, every dirty deed. Your ticket out \u2014 or a death sentence if he catches you with it."
+            }
           ]
         }
       ]
@@ -288,17 +436,39 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "found_photos", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "found_photos",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Six Polaroids. Men in suits shaking hands with Sal. Money changing hands. One photo shows a city councilman. Another shows the back of this shop — and a body being loaded into a trunk. Dates on the backs. This is evidence of murder, bribery, and racketeering." },
-            { "type": "set_flag", "flag": "found_photos", "value": "true" }
+            {
+              "type": "message",
+              "text": "Six Polaroids. Men in suits shaking hands with Sal. Money changing hands. One photo shows a city councilman. Another shows the back of this shop \u2014 and a body being loaded into a trunk. Dates on the backs. This is evidence of murder, bribery, and racketeering."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_photos",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "found_photos", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "found_photos",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Sal's insurance policy. If these photos got to the right people, a lot of powerful men would fall." }
+            {
+              "type": "message",
+              "text": "Sal's insurance policy. If these photos got to the right people, a lot of powerful men would fall."
+            }
           ]
         }
       ]
@@ -313,7 +483,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "About two feet of heavy chain. Could wrap around something, or wedge into a mechanism." }
+            {
+              "type": "message",
+              "text": "About two feet of heavy chain. Could wrap around something, or wedge into a mechanism."
+            }
           ]
         }
       ]
@@ -328,7 +501,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Old-style ceramic fuse cylinder. Labeled 'MAIN FLOOR - 30A'. Without this, the shop floor goes dark." }
+            {
+              "type": "message",
+              "text": "Old-style ceramic fuse cylinder. Labeled 'MAIN FLOOR - 30A'. Without this, the shop floor goes dark."
+            }
           ]
         }
       ]
@@ -341,18 +517,44 @@
       "examine": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "newspaper_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "newspaper_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "'MISSING PERSONS CASES MOUNT IN SOUTH SIDE' — Three disappearances in six months, all last seen near Morano's Meats. Below the fold: an ad for Morano's. 'Fresh cuts daily. Family owned since 1952.' A phone number for orders is listed. Scrawled in pen next to the ad: 'Tony — call after 11pm. 555-0134.'" },
-            { "type": "set_flag", "flag": "newspaper_examined", "value": "true" },
-            { "type": "set_flag", "flag": "knows_tony_number", "value": "true" }
+            {
+              "type": "message",
+              "text": "'MISSING PERSONS CASES MOUNT IN SOUTH SIDE' \u2014 Three disappearances in six months, all last seen near Morano's Meats. Below the fold: an ad for Morano's. 'Fresh cuts daily. Family owned since 1952.' A phone number for orders is listed. Scrawled in pen next to the ad: 'Tony \u2014 call after 11pm. 555-0134.'"
+            },
+            {
+              "type": "set_flag",
+              "flag": "newspaper_examined",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_tony_number",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "newspaper_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "newspaper_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The Tribune. Three missing persons. Tony's number: 555-0134." }
+            {
+              "type": "message",
+              "text": "The Tribune. Three missing persons. Tony's number: 555-0134."
+            }
           ]
         }
       ]
@@ -360,15 +562,22 @@
     {
       "id": "fire_ext",
       "name": "Fire Extinguisher",
-      "description": "A heavy red cylinder. Could put out fires — or create a distraction.",
+      "description": "A heavy red cylinder. Could put out fires \u2014 or create a distraction.",
       "icon": "cylinder",
       "examine": [
         {
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Heavy-duty dry chemical extinguisher. The pin is still in. Pull it and squeeze — you'd fill a room with white powder. Instant smoke screen." },
-            { "type": "set_flag", "flag": "fire_extinguisher_ready", "value": "true" }
+            {
+              "type": "message",
+              "text": "Heavy-duty dry chemical extinguisher. The pin is still in. Pull it and squeeze \u2014 you'd fill a room with white powder. Instant smoke screen."
+            },
+            {
+              "type": "set_flag",
+              "flag": "fire_extinguisher_ready",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -383,8 +592,15 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Chicago Wholesale Meats — delivery schedule. Tonight: 'PICKUP 11:45 PM — Loading Dock B.' That's this dock. If a truck comes, the roll-up door has to open." },
-            { "type": "set_flag", "flag": "knows_delivery_time", "value": "true" }
+            {
+              "type": "message",
+              "text": "Chicago Wholesale Meats \u2014 delivery schedule. Tonight: 'PICKUP 11:45 PM \u2014 Loading Dock B.' That's this dock. If a truck comes, the roll-up door has to open."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_delivery_time",
+              "value": "true"
+            }
           ]
         }
       ]
@@ -399,7 +615,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "About 18 inches. Solid iron. Good for prying, breaking, and leverage." }
+            {
+              "type": "message",
+              "text": "About 18 inches. Solid iron. Good for prying, breaking, and leverage."
+            }
           ]
         }
       ]
@@ -414,15 +633,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Driver's license — Salvatore Morano, 2847 S. Halsted. A thick roll of twenties. A photo of a woman and two kids. Behind it, a slip of paper: 'Wall safe — Angela's birthday. 10-17.' The combination to his wall safe." },
-            { "type": "set_flag", "flag": "knows_safe_combo", "value": "true" }
+            {
+              "type": "message",
+              "text": "Driver's license \u2014 Salvatore Morano, 2847 S. Halsted. A thick roll of twenties. A photo of a woman and two kids. Behind it, a slip of paper: 'Wall safe \u2014 Angela's birthday. 10-17.' The combination to his wall safe."
+            },
+            {
+              "type": "set_flag",
+              "flag": "knows_safe_combo",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "You pocket the cash. Might need it. The photo of his family stares up at you." }
+            {
+              "type": "message",
+              "text": "You pocket the cash. Might need it. The photo of his family stares up at you."
+            }
           ]
         }
       ]
@@ -437,7 +666,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Dates, names, dollar amounts — each photo matched to a ledger entry. Payoffs to judges, cops, union bosses. This could put Sal and half the Outfit away." }
+            {
+              "type": "message",
+              "text": "Dates, names, dollar amounts \u2014 each photo matched to a ledger entry. Payoffs to judges, cops, union bosses. This could put Sal and half the Outfit away."
+            }
           ]
         }
       ]
@@ -445,14 +677,17 @@
     {
       "id": "hook_and_chain",
       "name": "Hook and Chain",
-      "description": "A meat hook threaded with chain. A crude grapple — or a vicious weapon.",
+      "description": "A meat hook threaded with chain. A crude grapple \u2014 or a vicious weapon.",
       "icon": "hook",
       "examine": [
         {
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The chain loops through the hook's eye, knotted tight. You could swing this, throw it, or hook it onto something overhead." }
+            {
+              "type": "message",
+              "text": "The chain loops through the hook's eye, knotted tight. You could swing this, throw it, or hook it onto something overhead."
+            }
           ]
         }
       ]
@@ -467,7 +702,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The chain is wound tight around the crowbar's shaft. The extra weight and grip give it serious prying power. A padlock wouldn't stand a chance." }
+            {
+              "type": "message",
+              "text": "The chain is wound tight around the crowbar's shaft. The extra weight and grip give it serious prying power. A padlock wouldn't stand a chance."
+            }
           ]
         }
       ]
@@ -482,32 +720,43 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "The apron fabric dampens any clatter when you set it down. The blade is still razor sharp — Sal keeps his tools in order." }
+            {
+              "type": "message",
+              "text": "The apron fabric dampens any clatter when you set it down. The blade is still razor sharp \u2014 Sal keeps his tools in order."
+            }
           ]
         }
       ]
     }
   ],
-
   "combinations": [
     {
-      "items": ["black_book", "incriminating_photos"],
+      "items": [
+        "black_book",
+        "incriminating_photos"
+      ],
       "result": "evidence_package",
       "consumes": false,
-      "message": "You organize the photos alongside the ledger entries they match. Dates, names, amounts — it all lines up. This is an airtight case.",
+      "message": "You organize the photos alongside the ledger entries they match. Dates, names, amounts \u2014 it all lines up. This is an airtight case.",
       "noise": 0,
       "conditions": []
     },
     {
-      "items": ["meat_hook", "chain_link_piece"],
+      "items": [
+        "meat_hook",
+        "chain_link_piece"
+      ],
       "result": "hook_and_chain",
       "consumes": true,
-      "message": "You thread the chain through the hook's eye and loop it tight. A crude grapple — or a nasty trap.",
+      "message": "You thread the chain through the hook's eye and loop it tight. A crude grapple \u2014 or a nasty trap.",
       "noise": 8,
       "conditions": []
     },
     {
-      "items": ["crowbar", "chain_link_piece"],
+      "items": [
+        "crowbar",
+        "chain_link_piece"
+      ],
       "result": "reinforced_pry_bar",
       "consumes": true,
       "message": "You wrap the chain around the crowbar for extra leverage. This could break a lock.",
@@ -515,7 +764,10 @@
       "conditions": []
     },
     {
-      "items": ["butcher_knife", "bloody_apron"],
+      "items": [
+        "butcher_knife",
+        "bloody_apron"
+      ],
       "result": "wrapped_blade",
       "consumes": true,
       "message": "You wrap the apron around the blade handle for a better grip, and muffle the sound when you set it down.",
@@ -523,80 +775,175 @@
       "conditions": []
     }
   ],
-
   "objects": [
     {
       "id": "freezer_door",
       "name": "Freezer Door",
       "description": "Heavy insulated steel. The handle is on the outside.",
-      "position": { "x": 512, "y": 400 },
-      "size": { "width": 120, "height": 250 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Freezer Door", "shape": "rect" },
+      "position": {
+        "x": 512,
+        "y": 400
+      },
+      "size": {
+        "width": 120,
+        "height": 250
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Freezer Door",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A walk-in freezer door, thick as a bank vault's. The latch is on the outside. No handle on this side — just smooth steel and frost. But the hinges... the hinges are on the inside. Three of them, held by bolts thick with ice." }
+            {
+              "type": "message",
+              "text": "A walk-in freezer door, thick as a bank vault's. The latch is on the outside. No handle on this side \u2014 just smooth steel and frost. But the hinges... the hinges are on the inside. Three of them, held by bolts thick with ice."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pound on the door. It doesn't budge. The cold burns your fists." }
+            {
+              "type": "message",
+              "text": "You pound on the door. It doesn't budge. The cold burns your fists."
+            }
           ],
           "noise": 35
         },
         {
           "verb": "talk",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "\"Hey! HEY! Let me out!\" The whistling stops. Then, muffled through the steel: \"Shut up in there. I'm working.\" The whistling resumes." }
+            {
+              "type": "message",
+              "text": "\"Hey! HEY! Let me out!\" The whistling stops. Then, muffled through the steel: \"Shut up in there. I'm working.\" The whistling resumes."
+            }
           ],
           "noise": 45
         },
         {
           "verb": "use_item",
           "item": "meat_hook",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You work the hook's point into the icy hinge bolts. They're frozen solid but the hook finds purchase. Cracking, scraping — the top bolt breaks free. The middle one. The bottom. The door sags on its latch, and you shoulder it open into the shop. Warm air hits you like a wall." },
-            { "type": "set_state", "object": "freezer_door", "state": "open" },
-            { "type": "set_flag", "flag": "escaped_freezer", "value": "true" },
-            { "type": "advance_phase", "phase": "the_shop_floor" }
+            {
+              "type": "message",
+              "text": "You work the hook's point into the icy hinge bolts. They're frozen solid but the hook finds purchase. Cracking, scraping \u2014 the top bolt breaks free. The middle one. The bottom. The door sags on its latch, and you shoulder it open into the shop. Warm air hits you like a wall."
+            },
+            {
+              "type": "set_state",
+              "object": "freezer_door",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "escaped_freezer",
+              "value": "true"
+            },
+            {
+              "type": "advance_phase",
+              "phase": "the_shop_floor"
+            }
           ],
           "noise": 30
         },
         {
           "verb": "use_item",
           "item": "crowbar",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You jam the crowbar under the hinge plate and heave. The ice cracks, the bolts shear. One hinge, two, three — the door groans open. Stale warmth floods in." },
-            { "type": "set_state", "object": "freezer_door", "state": "open" },
-            { "type": "set_flag", "flag": "escaped_freezer", "value": "true" },
-            { "type": "advance_phase", "phase": "the_shop_floor" }
+            {
+              "type": "message",
+              "text": "You jam the crowbar under the hinge plate and heave. The ice cracks, the bolts shear. One hinge, two, three \u2014 the door groans open. Stale warmth floods in."
+            },
+            {
+              "type": "set_state",
+              "object": "freezer_door",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "escaped_freezer",
+              "value": "true"
+            },
+            {
+              "type": "advance_phase",
+              "phase": "the_shop_floor"
+            }
           ],
           "noise": 40
         },
         {
           "verb": "use_item",
           "item": "butcher_knife",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You try to work the blade into the hinge gap. The steel is too thick — the knife just scrapes uselessly. You'd need something with more leverage." }
+            {
+              "type": "message",
+              "text": "You try to work the blade into the hinge gap. The steel is too thick \u2014 the knife just scrapes uselessly. You'd need something with more leverage."
+            }
           ],
           "noise": 15
         },
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "freezer_door", "state": "open" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "freezer_door",
+              "state": "open"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The freezer door hangs open on its broken hinges. Cold air leaks out. Beyond it — the shop." }
+            {
+              "type": "message",
+              "text": "The freezer door hangs open on its broken hinges. Cold air leaks out. Beyond it \u2014 the shop."
+            }
           ]
         }
       ]
@@ -605,9 +952,20 @@
       "id": "meat_hooks",
       "name": "Meat Hooks",
       "description": "A row of steel hooks on an overhead rail.",
-      "position": { "x": 300, "y": 150 },
-      "size": { "width": 200, "height": 60 },
-      "visual": { "color": "#718096", "stroke_color": "#a0aec0", "label": "Meat Hooks", "shape": "rect" },
+      "position": {
+        "x": 300,
+        "y": 150
+      },
+      "size": {
+        "width": 200,
+        "height": 60
+      },
+      "visual": {
+        "color": "#718096",
+        "stroke_color": "#a0aec0",
+        "label": "Meat Hooks",
+        "shape": "rect"
+      },
       "initial_state": "hanging",
       "initially_visible": true,
       "hiding_spot": false,
@@ -616,24 +974,50 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Eight steel hooks on a rail that runs the length of the ceiling. Most hold frozen carcasses. One at the end is empty, low enough to reach." }
+            {
+              "type": "message",
+              "text": "Eight steel hooks on a rail that runs the length of the ceiling. Most hold frozen carcasses. One at the end is empty, low enough to reach."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "meat_hook" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "meat_hook"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You wrench the empty hook off its rail. It comes free with a screech of metal. Heavy, sharp, and cold as death." },
-            { "type": "add_item", "item": "meat_hook" },
-            { "type": "set_state", "object": "meat_hooks", "state": "one_missing" }
+            {
+              "type": "message",
+              "text": "You wrench the empty hook off its rail. It comes free with a screech of metal. Heavy, sharp, and cold as death."
+            },
+            {
+              "type": "add_item",
+              "item": "meat_hook"
+            },
+            {
+              "type": "set_state",
+              "object": "meat_hooks",
+              "state": "one_missing"
+            }
           ],
           "noise": 20
         },
         {
           "verb": "take",
-          "when": [{ "type": "has_item", "item": "meat_hook" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "meat_hook"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You already have one. The rest are holding up two hundred pounds of beef each." }
+            {
+              "type": "message",
+              "text": "You already have one. The rest are holding up two hundred pounds of beef each."
+            }
           ]
         }
       ]
@@ -642,9 +1026,20 @@
       "id": "shelving_unit",
       "name": "Metal Shelving",
       "description": "Industrial shelving lined with wrapped cuts and labeled boxes.",
-      "position": { "x": 150, "y": 350 },
-      "size": { "width": 140, "height": 200 },
-      "visual": { "color": "#2d3748", "stroke_color": "#4a5568", "label": "Shelving", "shape": "rect" },
+      "position": {
+        "x": 150,
+        "y": 350
+      },
+      "size": {
+        "width": 140,
+        "height": 200
+      },
+      "visual": {
+        "color": "#2d3748",
+        "stroke_color": "#4a5568",
+        "label": "Shelving",
+        "shape": "rect"
+      },
       "initial_state": "stocked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -653,24 +1048,56 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Steel shelving crammed with labeled parcels. Pork shoulders, chuck rolls, briskets. On the bottom shelf, shoved behind a tray of ribs — a brown paper bag that doesn't match the others." }
+            {
+              "type": "message",
+              "text": "Steel shelving crammed with labeled parcels. Pork shoulders, chuck rolls, briskets. On the bottom shelf, shoved behind a tray of ribs \u2014 a brown paper bag that doesn't match the others."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "shelving_unit", "state": "stocked" }, { "type": "not_has_item", "item": "sal_wallet" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "shelving_unit",
+              "state": "stocked"
+            },
+            {
+              "type": "not_has_item",
+              "item": "sal_wallet"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pull out the brown bag. Inside: a wallet. Sal must have stashed it here by habit — butchers don't carry wallets on the floor." },
-            { "type": "add_item", "item": "sal_wallet" },
-            { "type": "set_state", "object": "shelving_unit", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You pull out the brown bag. Inside: a wallet. Sal must have stashed it here by habit \u2014 butchers don't carry wallets on the floor."
+            },
+            {
+              "type": "add_item",
+              "item": "sal_wallet"
+            },
+            {
+              "type": "set_state",
+              "object": "shelving_unit",
+              "state": "searched"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "shelving_unit", "state": "searched" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "shelving_unit",
+              "state": "searched"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Just meat and packaging. Nothing else hidden here." }
+            {
+              "type": "message",
+              "text": "Just meat and packaging. Nothing else hidden here."
+            }
           ]
         }
       ]
@@ -679,9 +1106,20 @@
       "id": "frozen_carcasses",
       "name": "Hanging Carcasses",
       "description": "Frozen sides of beef sway gently on their hooks.",
-      "position": { "x": 700, "y": 300 },
-      "size": { "width": 160, "height": 250 },
-      "visual": { "color": "#742a2a", "stroke_color": "#9b2c2c", "label": "Carcasses", "shape": "rect" },
+      "position": {
+        "x": 700,
+        "y": 300
+      },
+      "size": {
+        "width": 160,
+        "height": 250
+      },
+      "visual": {
+        "color": "#742a2a",
+        "stroke_color": "#9b2c2c",
+        "label": "Carcasses",
+        "shape": "rect"
+      },
       "initial_state": "hanging",
       "initially_visible": true,
       "hiding_spot": false,
@@ -690,18 +1128,24 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "random_message", "messages": [
-              "Four half-carcasses hang from hooks, frost-rimed and still. They sway slightly in the freezer's circulation. You try not to think about who was here before you.",
-              "Sides of beef. Some pork. All frozen solid, white with frost. The hooks creak overhead.",
-              "Frozen meat hangs from the rail. The gaps between the carcasses are just wide enough for a person to stand in."
-            ]}
+            {
+              "type": "random_message",
+              "messages": [
+                "Four half-carcasses hang from hooks, frost-rimed and still. They sway slightly in the freezer's circulation. You try not to think about who was here before you.",
+                "Sides of beef. Some pork. All frozen solid, white with frost. The hooks creak overhead.",
+                "Frozen meat hangs from the rail. The gaps between the carcasses are just wide enough for a person to stand in."
+              ]
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "You push a carcass aside. It swings heavily, chain clinking. Behind it — nothing but more cold wall." }
+            {
+              "type": "message",
+              "text": "You push a carcass aside. It swings heavily, chain clinking. Behind it \u2014 nothing but more cold wall."
+            }
           ],
           "noise": 10
         }
@@ -711,9 +1155,20 @@
       "id": "hiding_carcasses",
       "name": "Gap Between Carcasses",
       "description": "A narrow space between the frozen beef. You could squeeze in.",
-      "position": { "x": 750, "y": 400 },
-      "size": { "width": 60, "height": 150 },
-      "visual": { "color": "#1a202c", "stroke_color": "#2d3748", "label": "Dark Gap", "shape": "rect" },
+      "position": {
+        "x": 750,
+        "y": 400
+      },
+      "size": {
+        "width": 60,
+        "height": 150
+      },
+      "visual": {
+        "color": "#1a202c",
+        "stroke_color": "#2d3748",
+        "label": "Dark Gap",
+        "shape": "rect"
+      },
       "initial_state": "empty",
       "initially_visible": true,
       "hiding_spot": true,
@@ -722,24 +1177,45 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A narrow gap between two frozen carcasses. Dark, cold, and tight — but a person could fit. The frost would hide your breath." }
+            {
+              "type": "message",
+              "text": "A narrow gap between two frozen carcasses. Dark, cold, and tight \u2014 but a person could fit. The frost would hide your breath."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "not_hiding" }],
+          "when": [
+            {
+              "type": "not_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You squeeze between the frozen carcasses. The cold is brutal, pressing through your clothes. But you're invisible — just another shape in the dark." },
-            { "type": "start_hiding" }
+            {
+              "type": "message",
+              "text": "You squeeze between the frozen carcasses. The cold is brutal, pressing through your clothes. But you're invisible \u2014 just another shape in the dark."
+            },
+            {
+              "type": "start_hiding"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "is_hiding" }],
+          "when": [
+            {
+              "type": "is_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You squeeze out from between the carcasses, gasping. Your body aches from the cold." },
-            { "type": "stop_hiding" }
+            {
+              "type": "message",
+              "text": "You squeeze out from between the carcasses, gasping. Your body aches from the cold."
+            },
+            {
+              "type": "stop_hiding"
+            }
           ],
           "noise": 5
         }
@@ -749,9 +1225,20 @@
       "id": "floor_drain",
       "name": "Floor Drain",
       "description": "A large circular drain in the concrete floor.",
-      "position": { "x": 400, "y": 650 },
-      "size": { "width": 60, "height": 60 },
-      "visual": { "color": "#1a202c", "stroke_color": "#2d3748", "label": "Drain", "shape": "circle" },
+      "position": {
+        "x": 400,
+        "y": 650
+      },
+      "size": {
+        "width": 60,
+        "height": 60
+      },
+      "visual": {
+        "color": "#1a202c",
+        "stroke_color": "#2d3748",
+        "label": "Drain",
+        "shape": "circle"
+      },
       "initial_state": "covered",
       "initially_visible": true,
       "hiding_spot": false,
@@ -760,15 +1247,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A heavy iron drain grate set into the concrete. Stained dark. You don't want to think about what's gone down there. The grate is bolted down." },
-            { "type": "set_flag", "flag": "drain_examined", "value": "true" }
+            {
+              "type": "message",
+              "text": "A heavy iron drain grate set into the concrete. Stained dark. You don't want to think about what's gone down there. The grate is bolted down."
+            },
+            {
+              "type": "set_flag",
+              "flag": "drain_examined",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "The grate won't budge. Bolted tight. Even if you could open it, the pipe looks too narrow for a person." }
+            {
+              "type": "message",
+              "text": "The grate won't budge. Bolted tight. Even if you could open it, the pipe looks too narrow for a person."
+            }
           ],
           "noise": 8
         },
@@ -777,9 +1274,19 @@
           "item": "crowbar",
           "when": [],
           "then": [
-            { "type": "message", "text": "You pry at the grate. It lifts an inch — the pipe below is maybe six inches wide. No way out, but you can see a glint of metal caught on the grate's underside. A brass key, snagged on the ironwork." },
-            { "type": "add_item", "item": "office_key" },
-            { "type": "set_state", "object": "floor_drain", "state": "pried" }
+            {
+              "type": "message",
+              "text": "You pry at the grate. It lifts an inch \u2014 the pipe below is maybe six inches wide. No way out, but you can see a glint of metal caught on the grate's underside. A brass key, snagged on the ironwork."
+            },
+            {
+              "type": "add_item",
+              "item": "office_key"
+            },
+            {
+              "type": "set_state",
+              "object": "floor_drain",
+              "state": "pried"
+            }
           ],
           "noise": 18
         }
@@ -789,9 +1296,20 @@
       "id": "ventilation_grate",
       "name": "Ventilation Grate",
       "description": "An air vent high on the wall, frosted over.",
-      "position": { "x": 850, "y": 120 },
-      "size": { "width": 80, "height": 50 },
-      "visual": { "color": "#2d3748", "stroke_color": "#4a5568", "label": "Vent", "shape": "rect" },
+      "position": {
+        "x": 850,
+        "y": 120
+      },
+      "size": {
+        "width": 80,
+        "height": 50
+      },
+      "visual": {
+        "color": "#2d3748",
+        "stroke_color": "#4a5568",
+        "label": "Vent",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -800,33 +1318,65 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A ventilation duct opening, about 10 inches square. Too small to crawl through. Cold air blows in from the refrigeration unit. You can hear the shop through it — Sal's whistling, the radio playing Sinatra." }
+            {
+              "type": "message",
+              "text": "A ventilation duct opening, about 10 inches square. Too small to crawl through. Cold air blows in from the refrigeration unit. You can hear the shop through it \u2014 Sal's whistling, the radio playing Sinatra."
+            }
           ]
         },
         {
           "verb": "talk",
           "when": [],
           "then": [
-            { "type": "message", "text": "You press your ear to the vent. Sal is talking to himself: '...one more hour, then I clean up. Nobody's gonna miss this one...' The radio switches to a news report about the missing persons." }
+            {
+              "type": "message",
+              "text": "You press your ear to the vent. Sal is talking to himself: '...one more hour, then I clean up. Nobody's gonna miss this one...' The radio switches to a news report about the missing persons."
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "ventilation_grate", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ventilation_grate",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pry at the grate with your fingers. It rattles but holds. The screws are rusted but could be forced with a tool." }
+            {
+              "type": "message",
+              "text": "You pry at the grate with your fingers. It rattles but holds. The screws are rusted but could be forced with a tool."
+            }
           ],
           "noise": 12
         },
         {
           "verb": "use_item",
           "item": "meat_hook",
-          "when": [{ "type": "object_state", "object": "ventilation_grate", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "ventilation_grate",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You use the hook to pry the screws. They pop out one by one. The grate comes free. The duct is too small to enter, but now you can hear everything Sal does — and the sound carries both ways." },
-            { "type": "set_state", "object": "ventilation_grate", "state": "open" },
-            { "type": "set_flag", "flag": "vent_opened", "value": "true" }
+            {
+              "type": "message",
+              "text": "You use the hook to pry the screws. They pop out one by one. The grate comes free. The duct is too small to enter, but now you can hear everything Sal does \u2014 and the sound carries both ways."
+            },
+            {
+              "type": "set_state",
+              "object": "ventilation_grate",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "vent_opened",
+              "value": "true"
+            }
           ],
           "noise": 15
         }
@@ -836,46 +1386,117 @@
       "id": "fuse_panel",
       "name": "Fuse Panel",
       "description": "An old electrical panel mounted on the wall.",
-      "position": { "x": 100, "y": 200 },
-      "size": { "width": 60, "height": 80 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Fuse Box", "shape": "rect" },
+      "position": {
+        "x": 100,
+        "y": 200
+      },
+      "size": {
+        "width": 60,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Fuse Box",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "fuse_panel", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "fuse_panel",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "An old fuse panel, the kind with screw-in ceramic cylinders. The door is latched shut with a simple hook." }
+            {
+              "type": "message",
+              "text": "An old fuse panel, the kind with screw-in ceramic cylinders. The door is latched shut with a simple hook."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "fuse_panel", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "fuse_panel",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You unhook the latch and swing the panel open. Inside: rows of ceramic fuses. One is labeled 'MAIN FLOOR' in faded marker. Pull it and the shop goes dark." },
-            { "type": "set_state", "object": "fuse_panel", "state": "open" }
+            {
+              "type": "message",
+              "text": "You unhook the latch and swing the panel open. Inside: rows of ceramic fuses. One is labeled 'MAIN FLOOR' in faded marker. Pull it and the shop goes dark."
+            },
+            {
+              "type": "set_state",
+              "object": "fuse_panel",
+              "state": "open"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "fuse_panel", "state": "open" }, { "type": "flag_not", "flag": "fuse_pulled", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "fuse_panel",
+              "state": "open"
+            },
+            {
+              "type": "flag_not",
+              "flag": "fuse_pulled",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You unscrew the MAIN FLOOR fuse. It comes free in your hand. Instantly, you hear the shop lights die through the vent — and Sal cursing in the dark. 'What the — fuses again? This goddamn building...' He stumbles toward the breaker box." },
-            { "type": "add_item", "item": "fuse_cylinder" },
-            { "type": "set_flag", "flag": "fuse_pulled", "value": "true" },
-            { "type": "set_flag", "flag": "lights_out", "value": "true" },
-            { "type": "set_flag", "flag": "sal_distracted_phone", "value": "true" }
+            {
+              "type": "message",
+              "text": "You unscrew the MAIN FLOOR fuse. It comes free in your hand. Instantly, you hear the shop lights die through the vent \u2014 and Sal cursing in the dark. 'What the \u2014 fuses again? This goddamn building...' He stumbles toward the breaker box."
+            },
+            {
+              "type": "add_item",
+              "item": "fuse_cylinder"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fuse_pulled",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "lights_out",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "sal_distracted_phone",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_is", "flag": "fuse_pulled", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "fuse_pulled",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The fuse socket is empty. The shop is running on whatever circuits are left." }
+            {
+              "type": "message",
+              "text": "The fuse socket is empty. The shop is running on whatever circuits are left."
+            }
           ]
         }
       ]
@@ -884,9 +1505,20 @@
       "id": "mop_bucket",
       "name": "Mop Bucket",
       "description": "A wheeled mop bucket with murky water.",
-      "position": { "x": 200, "y": 550 },
-      "size": { "width": 60, "height": 70 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Mop Bucket", "shape": "rect" },
+      "position": {
+        "x": 200,
+        "y": 550
+      },
+      "size": {
+        "width": 60,
+        "height": 70
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Mop Bucket",
+        "shape": "rect"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
@@ -895,14 +1527,25 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Industrial mop bucket on wheels. The water is pink. A mop handle sticks up from the wringer. The bucket itself is heavy steel — wheel it into a doorway and it'd slow someone down." }
+            {
+              "type": "message",
+              "text": "Industrial mop bucket on wheels. The water is pink. A mop handle sticks up from the wringer. The bucket itself is heavy steel \u2014 wheel it into a doorway and it'd slow someone down."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "view_is", "view": "main" }],
+          "when": [
+            {
+              "type": "view_is",
+              "view": "main"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You wheel the bucket. It squeaks across the floor. This could block a path — or make a hell of a noise if someone trips on it." }
+            {
+              "type": "message",
+              "text": "You wheel the bucket. It squeaks across the floor. This could block a path \u2014 or make a hell of a noise if someone trips on it."
+            }
           ],
           "noise": 8
         }
@@ -912,35 +1555,84 @@
       "id": "cardboard_boxes",
       "name": "Cardboard Boxes",
       "description": "A stack of supply boxes in the corner.",
-      "position": { "x": 900, "y": 550 },
-      "size": { "width": 100, "height": 100 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Boxes", "shape": "rect" },
+      "position": {
+        "x": 900,
+        "y": 550
+      },
+      "size": {
+        "width": 100,
+        "height": 100
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Boxes",
+        "shape": "rect"
+      },
       "initial_state": "stacked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "cardboard_boxes", "state": "stacked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cardboard_boxes",
+              "state": "stacked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Cardboard supply boxes stacked high. 'Chicago Wholesale Meats' stamped on the side. Something heavy is propped behind them, leaning against the wall." }
+            {
+              "type": "message",
+              "text": "Cardboard supply boxes stacked high. 'Chicago Wholesale Meats' stamped on the side. Something heavy is propped behind them, leaning against the wall."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cardboard_boxes", "state": "stacked" }, { "type": "not_has_item", "item": "crowbar" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cardboard_boxes",
+              "state": "stacked"
+            },
+            {
+              "type": "not_has_item",
+              "item": "crowbar"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You shift the boxes aside. Behind them — a short iron crowbar, forgotten or stashed." },
-            { "type": "add_item", "item": "crowbar" },
-            { "type": "set_state", "object": "cardboard_boxes", "state": "moved" }
+            {
+              "type": "message",
+              "text": "You shift the boxes aside. Behind them \u2014 a short iron crowbar, forgotten or stashed."
+            },
+            {
+              "type": "add_item",
+              "item": "crowbar"
+            },
+            {
+              "type": "set_state",
+              "object": "cardboard_boxes",
+              "state": "moved"
+            }
           ],
           "noise": 12
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cardboard_boxes", "state": "moved" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cardboard_boxes",
+              "state": "moved"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Just empty boxes and dust." }
+            {
+              "type": "message",
+              "text": "Just empty boxes and dust."
+            }
           ]
         }
       ]
@@ -949,27 +1641,63 @@
       "id": "apron_hook",
       "name": "Apron Hook",
       "description": "A hook by the door with a hanging apron.",
-      "position": { "x": 460, "y": 250 },
-      "size": { "width": 50, "height": 80 },
-      "visual": { "color": "#e2e8f0", "stroke_color": "#cbd5e0", "label": "Apron", "shape": "rect" },
+      "position": {
+        "x": 460,
+        "y": 250
+      },
+      "size": {
+        "width": 50,
+        "height": 80
+      },
+      "visual": {
+        "color": "#e2e8f0",
+        "stroke_color": "#cbd5e0",
+        "label": "Apron",
+        "shape": "rect"
+      },
       "initial_state": "hanging",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "apron_hook", "state": "hanging" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "apron_hook",
+              "state": "hanging"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A butcher's apron hanging on a steel hook. Stiff with dried blood. There's a breast pocket with something in it." }
+            {
+              "type": "message",
+              "text": "A butcher's apron hanging on a steel hook. Stiff with dried blood. There's a breast pocket with something in it."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "object_state", "object": "apron_hook", "state": "hanging" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "apron_hook",
+              "state": "hanging"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pull the apron off the hook. It's stiff and stinking, but there's definitely something in the pocket." },
-            { "type": "add_item", "item": "bloody_apron" },
-            { "type": "set_state", "object": "apron_hook", "state": "empty" }
+            {
+              "type": "message",
+              "text": "You pull the apron off the hook. It's stiff and stinking, but there's definitely something in the pocket."
+            },
+            {
+              "type": "add_item",
+              "item": "bloody_apron"
+            },
+            {
+              "type": "set_state",
+              "object": "apron_hook",
+              "state": "empty"
+            }
           ],
           "noise": 3
         }
@@ -979,25 +1707,54 @@
       "id": "thermometer",
       "name": "Wall Thermometer",
       "description": "An industrial thermometer mounted by the door.",
-      "position": { "x": 480, "y": 150 },
-      "size": { "width": 30, "height": 60 },
-      "visual": { "color": "#e53e3e", "stroke_color": "#c53030", "label": "Temp", "shape": "rect" },
+      "position": {
+        "x": 480,
+        "y": 150
+      },
+      "size": {
+        "width": 30,
+        "height": 60
+      },
+      "visual": {
+        "color": "#e53e3e",
+        "stroke_color": "#c53030",
+        "label": "Temp",
+        "shape": "rect"
+      },
       "initial_state": "normal",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "hypothermia_warning", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "hypothermia_warning",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The thermometer reads -5°F. Your breath crystallizes instantly. You can't stay in here much longer." }
+            {
+              "type": "message",
+              "text": "The thermometer reads -5\u00b0F. Your breath crystallizes instantly. You can't stay in here much longer."
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "hypothermia_warning", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "hypothermia_warning",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The thermometer reads -5°F. Your fingers are going numb. Your thoughts are getting sluggish. You NEED to get out of this freezer." }
+            {
+              "type": "message",
+              "text": "The thermometer reads -5\u00b0F. Your fingers are going numb. Your thoughts are getting sluggish. You NEED to get out of this freezer."
+            }
           ]
         }
       ]
@@ -1006,9 +1763,20 @@
       "id": "cutting_board",
       "name": "Cutting Board",
       "description": "A massive butcher block, scarred from years of use.",
-      "position": { "x": 400, "y": 400 },
-      "size": { "width": 160, "height": 80 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Cutting Board", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 400
+      },
+      "size": {
+        "width": 160,
+        "height": 80
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Cutting Board",
+        "shape": "rect"
+      },
       "initial_state": "bloody",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1017,14 +1785,20 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "An enormous butcher block, three inches thick. Deep cuts groove its surface. Fresh blood in the grain. A half-wrapped brisket sits to one side. Under the block, a shelf holds cutting tools." }
+            {
+              "type": "message",
+              "text": "An enormous butcher block, three inches thick. Deep cuts groove its surface. Fresh blood in the grain. A half-wrapped brisket sits to one side. Under the block, a shelf holds cutting tools."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "You feel under the block's shelf. Your fingers find the smooth handle of a wrapped blade." }
+            {
+              "type": "message",
+              "text": "You feel under the block's shelf. Your fingers find the smooth handle of a wrapped blade."
+            }
           ]
         }
       ]
@@ -1033,9 +1807,20 @@
       "id": "knife_rack",
       "name": "Knife Rack",
       "description": "A magnetic strip on the wall holding an array of knives.",
-      "position": { "x": 300, "y": 200 },
-      "size": { "width": 120, "height": 40 },
-      "visual": { "color": "#718096", "stroke_color": "#a0aec0", "label": "Knife Rack", "shape": "rect" },
+      "position": {
+        "x": 300,
+        "y": 200
+      },
+      "size": {
+        "width": 120,
+        "height": 40
+      },
+      "visual": {
+        "color": "#718096",
+        "stroke_color": "#a0aec0",
+        "label": "Knife Rack",
+        "shape": "rect"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1044,24 +1829,50 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Six knives on a magnetic strip: boning knife, cleaver, fillet knife, chef's knife, butcher knife, and a small paring knife. All impeccably maintained. The butcher knife is the biggest — ten inches of carbon steel." }
+            {
+              "type": "message",
+              "text": "Six knives on a magnetic strip: boning knife, cleaver, fillet knife, chef's knife, butcher knife, and a small paring knife. All impeccably maintained. The butcher knife is the biggest \u2014 ten inches of carbon steel."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "butcher_knife" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "butcher_knife"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You ease the butcher knife off the magnetic strip. It comes free with a quiet snap. Ten inches of razor-sharp steel. Sal will notice it's gone." },
-            { "type": "add_item", "item": "butcher_knife" },
-            { "type": "set_state", "object": "knife_rack", "state": "one_missing" }
+            {
+              "type": "message",
+              "text": "You ease the butcher knife off the magnetic strip. It comes free with a quiet snap. Ten inches of razor-sharp steel. Sal will notice it's gone."
+            },
+            {
+              "type": "add_item",
+              "item": "butcher_knife"
+            },
+            {
+              "type": "set_state",
+              "object": "knife_rack",
+              "state": "one_missing"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "take",
-          "when": [{ "type": "has_item", "item": "butcher_knife" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "butcher_knife"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You already have the best knife. The rest are too specialized to be useful." }
+            {
+              "type": "message",
+              "text": "You already have the best knife. The rest are too specialized to be useful."
+            }
           ]
         }
       ]
@@ -1070,9 +1881,20 @@
       "id": "meat_grinder",
       "name": "Meat Grinder",
       "description": "An industrial meat grinder bolted to the counter.",
-      "position": { "x": 600, "y": 380 },
-      "size": { "width": 100, "height": 80 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Grinder", "shape": "rect" },
+      "position": {
+        "x": 600,
+        "y": 380
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Grinder",
+        "shape": "rect"
+      },
       "initial_state": "off",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1081,31 +1903,88 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A commercial Hobart grinder. Heavy, steel, bolted to the counter. The power switch is on the side. When running, this thing would be LOUD — drowning out any other sound in the shop." }
+            {
+              "type": "message",
+              "text": "A commercial Hobart grinder. Heavy, steel, bolted to the counter. The power switch is on the side. When running, this thing would be LOUD \u2014 drowning out any other sound in the shop."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "meat_grinder", "state": "off" }, { "type": "flag_is", "flag": "escaped_freezer", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "meat_grinder",
+              "state": "off"
+            },
+            {
+              "type": "flag_is",
+              "flag": "escaped_freezer",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip the switch. The grinder roars to life — a deafening industrial grinding that fills the shop. Sal shouts from the back: 'What the hell?!' and comes running. You've got maybe thirty seconds while he's dealing with it." },
-            { "type": "set_state", "object": "meat_grinder", "state": "running" },
-            { "type": "set_flag", "flag": "grinder_running", "value": "true" },
-            { "type": "set_flag", "flag": "sal_distracted_grinder", "value": "true" },
-            { "type": "delay_then", "seconds": 30, "effects": [
-              { "type": "set_state", "object": "meat_grinder", "state": "off" },
-              { "type": "set_flag", "flag": "grinder_running", "value": "false" },
-              { "type": "set_flag", "flag": "sal_distracted_grinder", "value": "false" },
-              { "type": "message", "text": "The grinder shuts off. Sal's voice: 'Damn thing's got a mind of its own.' Silence returns to the shop." }
-            ]}
+            {
+              "type": "message",
+              "text": "You flip the switch. The grinder roars to life \u2014 a deafening industrial grinding that fills the shop. Sal shouts from the back: 'What the hell?!' and comes running. You've got maybe thirty seconds while he's dealing with it."
+            },
+            {
+              "type": "set_state",
+              "object": "meat_grinder",
+              "state": "running"
+            },
+            {
+              "type": "set_flag",
+              "flag": "grinder_running",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "sal_distracted_grinder",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 30,
+              "effects": [
+                {
+                  "type": "set_state",
+                  "object": "meat_grinder",
+                  "state": "off"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "grinder_running",
+                  "value": "false"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "sal_distracted_grinder",
+                  "value": "false"
+                },
+                {
+                  "type": "message",
+                  "text": "The grinder shuts off. Sal's voice: 'Damn thing's got a mind of its own.' Silence returns to the shop."
+                }
+              ]
+            }
           ],
           "noise": 0
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "meat_grinder", "state": "running" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "meat_grinder",
+              "state": "running"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The grinder is running full tilt. The noise is tremendous. Whatever you do right now, Sal won't hear it." }
+            {
+              "type": "message",
+              "text": "The grinder is running full tilt. The noise is tremendous. Whatever you do right now, Sal won't hear it."
+            }
           ]
         }
       ]
@@ -1114,9 +1993,20 @@
       "id": "cash_register",
       "name": "Cash Register",
       "description": "An old brass National register.",
-      "position": { "x": 800, "y": 300 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#975a16", "stroke_color": "#744210", "label": "Register", "shape": "rect" },
+      "position": {
+        "x": 800,
+        "y": 300
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#975a16",
+        "stroke_color": "#744210",
+        "label": "Register",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1125,24 +2015,55 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A brass National cash register, the old kind with the ornate scrollwork. The drawer is closed. Something is taped underneath it — you'd have to reach under to check." }
+            {
+              "type": "message",
+              "text": "A brass National cash register, the old kind with the ornate scrollwork. The drawer is closed. Something is taped underneath it \u2014 you'd have to reach under to check."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "cash_register", "state": "closed" }, { "type": "not_has_item", "item": "office_key" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "cash_register",
+              "state": "closed"
+            },
+            {
+              "type": "not_has_item",
+              "item": "office_key"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You reach under the register. Your fingers find a small key taped to the bottom. You peel it free." },
-            { "type": "add_item", "item": "office_key" },
-            { "type": "set_flag", "flag": "register_opened", "value": "true" }
+            {
+              "type": "message",
+              "text": "You reach under the register. Your fingers find a small key taped to the bottom. You peel it free."
+            },
+            {
+              "type": "add_item",
+              "item": "office_key"
+            },
+            {
+              "type": "set_flag",
+              "flag": "register_opened",
+              "value": "true"
+            }
           ],
           "noise": 3
         },
         {
           "verb": "hand",
-          "when": [{ "type": "has_item", "item": "office_key" }],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "office_key"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Nothing else under the register. The drawer is locked anyway." }
+            {
+              "type": "message",
+              "text": "Nothing else under the register. The drawer is locked anyway."
+            }
           ]
         }
       ]
@@ -1151,9 +2072,20 @@
       "id": "order_pad",
       "name": "Order Pad",
       "description": "A carbon-copy order pad by the register.",
-      "position": { "x": 750, "y": 250 },
-      "size": { "width": 50, "height": 40 },
-      "visual": { "color": "#e2e8f0", "stroke_color": "#cbd5e0", "label": "Orders", "shape": "rect" },
+      "position": {
+        "x": 750,
+        "y": 250
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
+      "visual": {
+        "color": "#e2e8f0",
+        "stroke_color": "#cbd5e0",
+        "label": "Orders",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1162,7 +2094,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Carbon-copy order forms. The top sheet has today's date. A list of cuts with customer names. The last entry is different — no name, just 'SPECIAL ORDER — 180 lbs — PICKUP MIDNIGHT — CASH ONLY.' Somebody's buying a body's worth of meat at midnight." }
+            {
+              "type": "message",
+              "text": "Carbon-copy order forms. The top sheet has today's date. A list of cuts with customer names. The last entry is different \u2014 no name, just 'SPECIAL ORDER \u2014 180 lbs \u2014 PICKUP MIDNIGHT \u2014 CASH ONLY.' Somebody's buying a body's worth of meat at midnight."
+            }
           ]
         }
       ]
@@ -1171,26 +2106,59 @@
       "id": "wall_calendar",
       "name": "Wall Calendar",
       "description": "A 1974 calendar with a pin-up girl for October.",
-      "position": { "x": 200, "y": 150 },
-      "size": { "width": 50, "height": 70 },
-      "visual": { "color": "#e2e8f0", "stroke_color": "#cbd5e0", "label": "Calendar", "shape": "rect" },
+      "position": {
+        "x": 200,
+        "y": 150
+      },
+      "size": {
+        "width": 50,
+        "height": 70
+      },
+      "visual": {
+        "color": "#e2e8f0",
+        "stroke_color": "#cbd5e0",
+        "label": "Calendar",
+        "shape": "rect"
+      },
       "initial_state": "default",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "found_calendar_note", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "found_calendar_note",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "October 1974. A Marilyn Monroe knock-off in a butcher's apron. Today's date is circled in red. Written in the margin: 'Angela's birthday — 10/17. Don't forget flowers. Hide briefcase before party.' Angela's birthday is October 17th — 10-17." },
-            { "type": "set_flag", "flag": "found_calendar_note", "value": "true" }
+            {
+              "type": "message",
+              "text": "October 1974. A Marilyn Monroe knock-off in a butcher's apron. Today's date is circled in red. Written in the margin: 'Angela's birthday \u2014 10/17. Don't forget flowers. Hide briefcase before party.' Angela's birthday is October 17th \u2014 10-17."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_calendar_note",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "found_calendar_note", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "found_calendar_note",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "October 1974. Angela's birthday is the 17th — 10/17. The briefcase note is suggestive." }
+            {
+              "type": "message",
+              "text": "October 1974. Angela's birthday is the 17th \u2014 10/17. The briefcase note is suggestive."
+            }
           ]
         }
       ]
@@ -1199,9 +2167,20 @@
       "id": "telephone_counter",
       "name": "Wall Phone",
       "description": "A rotary wall phone by the counter.",
-      "position": { "x": 150, "y": 300 },
-      "size": { "width": 40, "height": 60 },
-      "visual": { "color": "#2d3748", "stroke_color": "#4a5568", "label": "Phone", "shape": "rect" },
+      "position": {
+        "x": 150,
+        "y": 300
+      },
+      "size": {
+        "width": 40,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2d3748",
+        "stroke_color": "#4a5568",
+        "label": "Phone",
+        "shape": "rect"
+      },
       "initial_state": "on_hook",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1210,77 +2189,186 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A rotary wall phone, avocado green. The cord reaches about six feet. This is the public shop phone — Sal might hear you if you pick it up." }
+            {
+              "type": "message",
+              "text": "A rotary wall phone, avocado green. The cord reaches about six feet. This is the public shop phone \u2014 Sal might hear you if you pick it up."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_not", "flag": "sal_distracted_grinder", "value": "true" }, { "type": "flag_not", "flag": "sal_distracted_phone", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "sal_distracted_grinder",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "sal_distracted_phone",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lift the receiver. Dial tone. But Sal is too close — he'd hear you talking. You need a distraction first." }
+            {
+              "type": "message",
+              "text": "You lift the receiver. Dial tone. But Sal is too close \u2014 he'd hear you talking. You need a distraction first."
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
           "when": [
-            { "type": "any_of", "conditions": [
-              { "type": "flag_is", "flag": "sal_distracted_grinder", "value": "true" },
-              { "type": "flag_is", "flag": "sal_distracted_phone", "value": "true" }
-            ]}
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_grinder",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_phone",
+                  "value": "true"
+                }
+              ]
+            }
           ],
           "then": [
-            { "type": "message", "text": "Sal is distracted. You pick up the receiver. Dial tone. Who do you call?" }
+            {
+              "type": "message",
+              "text": "Sal is distracted. You pick up the receiver. Dial tone. Who do you call?"
+            }
           ],
           "noise": 0
         },
         {
           "verb": "talk",
           "when": [
-            { "type": "any_of", "conditions": [
-              { "type": "flag_is", "flag": "sal_distracted_grinder", "value": "true" },
-              { "type": "flag_is", "flag": "sal_distracted_phone", "value": "true" }
-            ]},
-            { "type": "has_item", "item": "evidence_package" }
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_grinder",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_phone",
+                  "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "has_item",
+              "item": "evidence_package"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You dial 911. 'Chicago Police, what's your emergency?' You whisper the address, Sal's name, the murders — everything. 'Stay on the line, units are en route.' Sirens in the distance. Growing louder." },
-            { "type": "set_flag", "flag": "called_cops", "value": "true" },
-            { "type": "delay_then", "seconds": 45, "effects": [
-              { "type": "message", "text": "Red and blue lights flood through the windows. Sal screams. Doors crash. 'CHICAGO PD! ON THE GROUND!' It's over. You're safe. The evidence in your hands will put Sal Morano away for life." },
-              { "type": "game_over", "result": "win", "reason": "You called the police with ironclad evidence. Sal Morano is arrested for murder, racketeering, and conspiracy. The black book names names — half the South Side mob goes down with him. You walk out of that shop alive, and a dozen cold cases finally get answers." }
-            ]}
+            {
+              "type": "message",
+              "text": "You dial 911. 'Chicago Police, what's your emergency?' You whisper the address, Sal's name, the murders \u2014 everything. 'Stay on the line, units are en route.' Sirens in the distance. Growing louder."
+            },
+            {
+              "type": "set_flag",
+              "flag": "called_cops",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 45,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "Red and blue lights flood through the windows. Sal screams. Doors crash. 'CHICAGO PD! ON THE GROUND!' It's over. You're safe. The evidence in your hands will put Sal Morano away for life."
+                },
+                {
+                  "type": "game_over",
+                  "result": "win",
+                  "reason": "You called the police with ironclad evidence. Sal Morano is arrested for murder, racketeering, and conspiracy. The black book names names \u2014 half the South Side mob goes down with him. You walk out of that shop alive, and a dozen cold cases finally get answers."
+                }
+              ]
+            }
           ],
           "noise": 10
         },
         {
           "verb": "talk",
           "when": [
-            { "type": "any_of", "conditions": [
-              { "type": "flag_is", "flag": "sal_distracted_grinder", "value": "true" },
-              { "type": "flag_is", "flag": "sal_distracted_phone", "value": "true" }
-            ]},
-            { "type": "flag_is", "flag": "knows_tony_number", "value": "true" },
-            { "type": "has_item", "item": "black_book" }
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_grinder",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_phone",
+                  "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "flag_is",
+              "flag": "knows_tony_number",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "black_book"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You dial 555-0134. Two rings. A gravel voice: 'Yeah?' You talk fast — Sal's got you locked up, you've got his book, every name and number. Long silence. 'Stay put. I'm sending someone.' The line goes dead." },
-            { "type": "set_flag", "flag": "called_tony", "value": "true" }
+            {
+              "type": "message",
+              "text": "You dial 555-0134. Two rings. A gravel voice: 'Yeah?' You talk fast \u2014 Sal's got you locked up, you've got his book, every name and number. Long silence. 'Stay put. I'm sending someone.' The line goes dead."
+            },
+            {
+              "type": "set_flag",
+              "flag": "called_tony",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "talk",
           "when": [
-            { "type": "any_of", "conditions": [
-              { "type": "flag_is", "flag": "sal_distracted_grinder", "value": "true" },
-              { "type": "flag_is", "flag": "sal_distracted_phone", "value": "true" }
-            ]},
-            { "type": "flag_not", "flag": "knows_tony_number", "value": "true" },
-            { "type": "not_has_item", "item": "evidence_package" }
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_grinder",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "sal_distracted_phone",
+                  "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "flag_not",
+              "flag": "knows_tony_number",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "evidence_package"
+            }
           ],
           "then": [
-            { "type": "message", "text": "You dial 911. 'Chicago Police, what's your emergency?' You whisper the address and that you're being held. 'We'll send a unit, stay calm.' But without evidence, it'll be your word against his — and Sal has friends on the force." }
+            {
+              "type": "message",
+              "text": "You dial 911. 'Chicago Police, what's your emergency?' You whisper the address and that you're being held. 'We'll send a unit, stay calm.' But without evidence, it'll be your word against his \u2014 and Sal has friends on the force."
+            }
           ],
           "noise": 5
         }
@@ -1290,9 +2378,20 @@
       "id": "display_case",
       "name": "Display Case",
       "description": "A glass-front refrigerated display case for the shop front.",
-      "position": { "x": 500, "y": 500 },
-      "size": { "width": 180, "height": 70 },
-      "visual": { "color": "#2d3748", "stroke_color": "#4a5568", "label": "Display Case", "shape": "rect" },
+      "position": {
+        "x": 500,
+        "y": 500
+      },
+      "size": {
+        "width": 180,
+        "height": 70
+      },
+      "visual": {
+        "color": "#2d3748",
+        "stroke_color": "#4a5568",
+        "label": "Display Case",
+        "shape": "rect"
+      },
       "initial_state": "stocked",
       "initially_visible": true,
       "hiding_spot": true,
@@ -1301,24 +2400,45 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A glass-fronted refrigerated case. Steaks, chops, and sausages on white trays. The back panel slides open — the case is deep enough to curl up inside." }
+            {
+              "type": "message",
+              "text": "A glass-fronted refrigerated case. Steaks, chops, and sausages on white trays. The back panel slides open \u2014 the case is deep enough to curl up inside."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "not_hiding" }],
+          "when": [
+            {
+              "type": "not_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You slide the back panel open and squeeze in among the cold cuts. Through the glass, you can see the whole shop floor. Humiliating, but effective." },
-            { "type": "start_hiding" }
+            {
+              "type": "message",
+              "text": "You slide the back panel open and squeeze in among the cold cuts. Through the glass, you can see the whole shop floor. Humiliating, but effective."
+            },
+            {
+              "type": "start_hiding"
+            }
           ],
           "noise": 8
         },
         {
           "verb": "hand",
-          "when": [{ "type": "is_hiding" }],
+          "when": [
+            {
+              "type": "is_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You slide out from the display case, bits of butcher paper stuck to your clothes." },
-            { "type": "stop_hiding" }
+            {
+              "type": "message",
+              "text": "You slide out from the display case, bits of butcher paper stuck to your clothes."
+            },
+            {
+              "type": "stop_hiding"
+            }
           ],
           "noise": 8
         }
@@ -1328,9 +2448,20 @@
       "id": "sawdust_floor",
       "name": "Sawdust Floor",
       "description": "The shop floor is covered in sawdust.",
-      "position": { "x": 500, "y": 700 },
-      "size": { "width": 300, "height": 50 },
-      "visual": { "color": "#d69e2e", "stroke_color": "#b7791f", "label": "Sawdust", "shape": "rect" },
+      "position": {
+        "x": 500,
+        "y": 700
+      },
+      "size": {
+        "width": 300,
+        "height": 50
+      },
+      "visual": {
+        "color": "#d69e2e",
+        "stroke_color": "#b7791f",
+        "label": "Sawdust",
+        "shape": "rect"
+      },
       "initial_state": "scattered",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1339,15 +2470,31 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Fresh sawdust on the concrete floor. Traditional butcher shop practice — absorbs blood and fluids. Your footprints are visible in it. Sal will see them." }
+            {
+              "type": "message",
+              "text": "Fresh sawdust on the concrete floor. Traditional butcher shop practice \u2014 absorbs blood and fluids. Your footprints are visible in it. Sal will see them."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "flag_not", "flag": "carcass_camouflage", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "carcass_camouflage",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You scuff the sawdust to obscure your footprints. It helps, but the trail from the freezer door is obvious." },
-            { "type": "set_flag", "flag": "carcass_camouflage", "value": "true" }
+            {
+              "type": "message",
+              "text": "You scuff the sawdust to obscure your footprints. It helps, but the trail from the freezer door is obvious."
+            },
+            {
+              "type": "set_flag",
+              "flag": "carcass_camouflage",
+              "value": "true"
+            }
           ],
           "noise": 3
         }
@@ -1357,27 +2504,62 @@
       "id": "newspaper",
       "name": "Newspaper",
       "description": "Today's Chicago Tribune on the counter.",
-      "position": { "x": 650, "y": 250 },
-      "size": { "width": 60, "height": 40 },
-      "visual": { "color": "#e2e8f0", "stroke_color": "#cbd5e0", "label": "Tribune", "shape": "rect" },
+      "position": {
+        "x": 650,
+        "y": 250
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "visual": {
+        "color": "#e2e8f0",
+        "stroke_color": "#cbd5e0",
+        "label": "Tribune",
+        "shape": "rect"
+      },
       "initial_state": "folded",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "read_newspaper", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "read_newspaper",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The Chicago Tribune, today's date. Folded to an article: 'MISSING PERSONS CASES MOUNT IN SOUTH SIDE — Third disappearance in six months.' Below: an ad for Morano's Meats with a phone number." }
+            {
+              "type": "message",
+              "text": "The Chicago Tribune, today's date. Folded to an article: 'MISSING PERSONS CASES MOUNT IN SOUTH SIDE \u2014 Third disappearance in six months.' Below: an ad for Morano's Meats with a phone number."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "newspaper_clipping" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "newspaper_clipping"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You grab the newspaper. The missing persons article and the scrawled phone number could both be useful." },
-            { "type": "add_item", "item": "newspaper_clipping" },
-            { "type": "set_flag", "flag": "read_newspaper", "value": "true" }
+            {
+              "type": "message",
+              "text": "You grab the newspaper. The missing persons article and the scrawled phone number could both be useful."
+            },
+            {
+              "type": "add_item",
+              "item": "newspaper_clipping"
+            },
+            {
+              "type": "set_flag",
+              "flag": "read_newspaper",
+              "value": "true"
+            }
           ],
           "noise": 2
         }
@@ -1387,9 +2569,20 @@
       "id": "office_desk",
       "name": "Office Desk",
       "description": "A heavy oak desk covered in paperwork.",
-      "position": { "x": 400, "y": 400 },
-      "size": { "width": 160, "height": 80 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Desk", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 400
+      },
+      "size": {
+        "width": 160,
+        "height": 80
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Desk",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1398,35 +2591,79 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "An oak desk piled with invoices, tax forms, and food safety certificates. The center drawer has a small brass lock. Under the glass desktop protector, a family photo and a business card for 'Anthony Ricci — Import/Export.'" }
+            {
+              "type": "message",
+              "text": "An oak desk piled with invoices, tax forms, and food safety certificates. The center drawer has a small brass lock. Under the glass desktop protector, a family photo and a business card for 'Anthony Ricci \u2014 Import/Export.'"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "office_desk", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "office_desk",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The drawer is locked. A small brass keyhole." }
+            {
+              "type": "message",
+              "text": "The drawer is locked. A small brass keyhole."
+            }
           ]
         },
         {
           "verb": "use_item",
           "item": "office_key",
-          "when": [{ "type": "object_state", "object": "office_desk", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "office_desk",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The key turns smoothly. Inside the drawer: a .38 revolver (no bullets), a stack of twenties, and a black leather book." },
-            { "type": "set_state", "object": "office_desk", "state": "open" },
-            { "type": "add_item", "item": "black_book" }
+            {
+              "type": "message",
+              "text": "The key turns smoothly. Inside the drawer: a .38 revolver (no bullets), a stack of twenties, and a black leather book."
+            },
+            {
+              "type": "set_state",
+              "object": "office_desk",
+              "state": "open"
+            },
+            {
+              "type": "add_item",
+              "item": "black_book"
+            }
           ],
           "noise": 2
         },
         {
           "verb": "use_item",
           "item": "meat_hook",
-          "when": [{ "type": "object_state", "object": "office_desk", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "office_desk",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You jam the hook into the keyhole and twist. The cheap lock gives way with a crack. Inside: a revolver, cash, and a black leather book." },
-            { "type": "set_state", "object": "office_desk", "state": "forced" },
-            { "type": "add_item", "item": "black_book" }
+            {
+              "type": "message",
+              "text": "You jam the hook into the keyhole and twist. The cheap lock gives way with a crack. Inside: a revolver, cash, and a black leather book."
+            },
+            {
+              "type": "set_state",
+              "object": "office_desk",
+              "state": "forced"
+            },
+            {
+              "type": "add_item",
+              "item": "black_book"
+            }
           ],
           "noise": 20
         }
@@ -1436,9 +2673,20 @@
       "id": "filing_cabinet",
       "name": "Filing Cabinet",
       "description": "A green metal filing cabinet.",
-      "position": { "x": 150, "y": 400 },
-      "size": { "width": 60, "height": 120 },
-      "visual": { "color": "#276749", "stroke_color": "#38a169", "label": "Cabinet", "shape": "rect" },
+      "position": {
+        "x": 150,
+        "y": 400
+      },
+      "size": {
+        "width": 60,
+        "height": 120
+      },
+      "visual": {
+        "color": "#276749",
+        "stroke_color": "#38a169",
+        "label": "Cabinet",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1447,24 +2695,52 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A four-drawer filing cabinet. Unlocked. The labels read: INVOICES, SUPPLIERS, EMPLOYEES, PERSONAL." }
+            {
+              "type": "message",
+              "text": "A four-drawer filing cabinet. Unlocked. The labels read: INVOICES, SUPPLIERS, EMPLOYEES, PERSONAL."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "filing_cabinet", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "filing_cabinet",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You open the PERSONAL drawer. Manila folders stuffed with documents. One labeled 'INSURANCE' holds an envelope marked 'DO NOT OPEN.' Inside: six Polaroid photographs." },
-            { "type": "add_item", "item": "incriminating_photos" },
-            { "type": "set_state", "object": "filing_cabinet", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You open the PERSONAL drawer. Manila folders stuffed with documents. One labeled 'INSURANCE' holds an envelope marked 'DO NOT OPEN.' Inside: six Polaroid photographs."
+            },
+            {
+              "type": "add_item",
+              "item": "incriminating_photos"
+            },
+            {
+              "type": "set_state",
+              "object": "filing_cabinet",
+              "state": "searched"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "filing_cabinet", "state": "searched" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "filing_cabinet",
+              "state": "searched"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The rest is boring — tax returns, supplier agreements, employee records. Nothing useful." }
+            {
+              "type": "message",
+              "text": "The rest is boring \u2014 tax returns, supplier agreements, employee records. Nothing useful."
+            }
           ]
         }
       ]
@@ -1473,9 +2749,20 @@
       "id": "desk_phone",
       "name": "Desk Phone",
       "description": "A rotary phone on the desk.",
-      "position": { "x": 550, "y": 350 },
-      "size": { "width": 50, "height": 40 },
-      "visual": { "color": "#1a202c", "stroke_color": "#2d3748", "label": "Phone", "shape": "rect" },
+      "position": {
+        "x": 550,
+        "y": 350
+      },
+      "size": {
+        "width": 50,
+        "height": 40
+      },
+      "visual": {
+        "color": "#1a202c",
+        "stroke_color": "#2d3748",
+        "label": "Phone",
+        "shape": "rect"
+      },
       "initial_state": "on_hook",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1484,37 +2771,103 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A black rotary phone on the desk. The office door is thick — if it's closed, Sal might not hear a conversation." }
+            {
+              "type": "message",
+              "text": "A black rotary phone on the desk. The office door is thick \u2014 if it's closed, Sal might not hear a conversation."
+            }
           ]
         },
         {
           "verb": "talk",
-          "when": [{ "type": "flag_is", "flag": "office_unlocked", "value": "true" }, { "type": "has_item", "item": "evidence_package" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "office_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "evidence_package"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You pick up the receiver and dial 911. The operator patches you through. You give them everything — the address, Sal's name, the murders, the mob connections. You describe the evidence you're holding. 'Stay where you are. Units en route.' The office door muffles your voice. Sal doesn't hear a thing." },
-            { "type": "set_flag", "flag": "called_cops", "value": "true" },
-            { "type": "delay_then", "seconds": 60, "effects": [
-              { "type": "message", "text": "Sirens wail outside. Car doors. Pounding. 'POLICE! OPEN UP!' Sal's panicked footsteps. 'No — no no NO—' The front door splinters. You step out of the office, evidence in hand, into a wall of badges and flashlights. It's over." },
-              { "type": "game_over", "result": "win", "reason": "You called the police from the back office with a mountain of evidence. Sal Morano is arrested. The black book and photographs trigger a RICO investigation that dismantles half the South Side organization. You're the star witness — and you walk out alive." }
-            ]}
+            {
+              "type": "message",
+              "text": "You pick up the receiver and dial 911. The operator patches you through. You give them everything \u2014 the address, Sal's name, the murders, the mob connections. You describe the evidence you're holding. 'Stay where you are. Units en route.' The office door muffles your voice. Sal doesn't hear a thing."
+            },
+            {
+              "type": "set_flag",
+              "flag": "called_cops",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 60,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "Sirens wail outside. Car doors. Pounding. 'POLICE! OPEN UP!' Sal's panicked footsteps. 'No \u2014 no no NO\u2014' The front door splinters. You step out of the office, evidence in hand, into a wall of badges and flashlights. It's over."
+                },
+                {
+                  "type": "game_over",
+                  "result": "win",
+                  "reason": "You called the police from the back office with a mountain of evidence. Sal Morano is arrested. The black book and photographs trigger a RICO investigation that dismantles half the South Side organization. You're the star witness \u2014 and you walk out alive."
+                }
+              ]
+            }
           ],
           "noise": 5
         },
         {
           "verb": "talk",
-          "when": [{ "type": "flag_is", "flag": "office_unlocked", "value": "true" }, { "type": "flag_is", "flag": "knows_tony_number", "value": "true" }, { "type": "has_item", "item": "black_book" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "office_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "knows_tony_number",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "black_book"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You dial 555-0134. One ring. 'Who is this?' You explain: you're in Sal's shop, you have his book, and if Tony doesn't send a car in fifteen minutes, the book goes to the Tribune. Dead silence. Then: 'Don't move.' Click." },
-            { "type": "set_flag", "flag": "called_tony", "value": "true" },
-            { "type": "set_flag", "flag": "blackmail_delivered", "value": "true" }
+            {
+              "type": "message",
+              "text": "You dial 555-0134. One ring. 'Who is this?' You explain: you're in Sal's shop, you have his book, and if Tony doesn't send a car in fifteen minutes, the book goes to the Tribune. Dead silence. Then: 'Don't move.' Click."
+            },
+            {
+              "type": "set_flag",
+              "flag": "called_tony",
+              "value": "true"
+            },
+            {
+              "type": "set_flag",
+              "flag": "blackmail_delivered",
+              "value": "true"
+            }
           ],
           "noise": 5
         },
         {
           "verb": "talk",
-          "when": [{ "type": "flag_not", "flag": "office_unlocked", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "office_unlocked",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The office door is locked. You can't get to the phone." }
+            {
+              "type": "message",
+              "text": "The office door is locked. You can't get to the phone."
+            }
           ]
         }
       ]
@@ -1523,9 +2876,20 @@
       "id": "briefcase",
       "name": "Leather Briefcase",
       "description": "A fine leather briefcase under the desk.",
-      "position": { "x": 350, "y": 500 },
-      "size": { "width": 70, "height": 40 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Briefcase", "shape": "rect" },
+      "position": {
+        "x": 350,
+        "y": 500
+      },
+      "size": {
+        "width": 70,
+        "height": 40
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Briefcase",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1534,21 +2898,42 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A high-quality leather briefcase tucked under the desk. It has a four-dial combination lock. The dials show 0-0-0-0." }
+            {
+              "type": "message",
+              "text": "A high-quality leather briefcase tucked under the desk. It has a four-dial combination lock. The dials show 0-0-0-0."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "briefcase", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "briefcase",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Locked. Four-dial combination. You'd need the code." }
+            {
+              "type": "message",
+              "text": "Locked. Four-dial combination. You'd need the code."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "briefcase", "state": "unlocked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "briefcase",
+              "state": "unlocked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The briefcase is open. Empty now — you already took what was inside." }
+            {
+              "type": "message",
+              "text": "The briefcase is open. Empty now \u2014 you already took what was inside."
+            }
           ]
         }
       ]
@@ -1557,27 +2942,63 @@
       "id": "wall_safe_painting",
       "name": "Painting",
       "description": "A cheap landscape painting on the wall.",
-      "position": { "x": 700, "y": 200 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#2d3748", "stroke_color": "#4a5568", "label": "Painting", "shape": "rect" },
+      "position": {
+        "x": 700,
+        "y": 200
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#2d3748",
+        "stroke_color": "#4a5568",
+        "label": "Painting",
+        "shape": "rect"
+      },
       "initial_state": "hanging",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "wall_safe_painting", "state": "hanging" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "wall_safe_painting",
+              "state": "hanging"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A cheap landscape — rolling hills, a sunset. The frame is slightly crooked, like it's been moved recently. Classic hiding spot." }
+            {
+              "type": "message",
+              "text": "A cheap landscape \u2014 rolling hills, a sunset. The frame is slightly crooked, like it's been moved recently. Classic hiding spot."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "wall_safe_painting", "state": "hanging" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "wall_safe_painting",
+              "state": "hanging"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You swing the painting aside. Behind it — a wall safe with a combination dial. Two numbers, separated by a dash." },
-            { "type": "set_state", "object": "wall_safe_painting", "state": "moved" },
-            { "type": "show_object", "object": "wall_safe" }
+            {
+              "type": "message",
+              "text": "You swing the painting aside. Behind it \u2014 a wall safe with a combination dial. Two numbers, separated by a dash."
+            },
+            {
+              "type": "set_state",
+              "object": "wall_safe_painting",
+              "state": "moved"
+            },
+            {
+              "type": "show_object",
+              "object": "wall_safe"
+            }
           ],
           "noise": 3
         }
@@ -1587,9 +3008,20 @@
       "id": "wall_safe",
       "name": "Wall Safe",
       "description": "A steel wall safe behind the painting.",
-      "position": { "x": 700, "y": 200 },
-      "size": { "width": 60, "height": 50 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Safe", "shape": "rect" },
+      "position": {
+        "x": 700,
+        "y": 200
+      },
+      "size": {
+        "width": 60,
+        "height": 50
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Safe",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": false,
       "hiding_spot": false,
@@ -1598,25 +3030,67 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A Sargent & Greenleaf wall safe. Combination dial — two-number combination, it looks like. Turn right to the first number, left to the second." }
+            {
+              "type": "message",
+              "text": "A Sargent & Greenleaf wall safe. Combination dial \u2014 two-number combination, it looks like. Turn right to the first number, left to the second."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "wall_safe", "state": "locked" }, { "type": "flag_is", "flag": "knows_safe_combo", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "wall_safe",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "knows_safe_combo",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Angela's birthday — 10-17. You spin the dial. Right to 10. Left to 17. Click. The door swings open. Inside: a thick manila envelope and $5,000 in cash." },
-            { "type": "set_state", "object": "wall_safe", "state": "open" },
-            { "type": "set_flag", "flag": "safe_opened", "value": "true" },
-            { "type": "message", "text": "The envelope contains duplicate records — carbon copies of every page in the black book, plus negatives of the Polaroids. Sal's backup insurance." }
+            {
+              "type": "message",
+              "text": "Angela's birthday \u2014 10-17. You spin the dial. Right to 10. Left to 17. Click. The door swings open. Inside: a thick manila envelope and $5,000 in cash."
+            },
+            {
+              "type": "set_state",
+              "object": "wall_safe",
+              "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "safe_opened",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "The envelope contains duplicate records \u2014 carbon copies of every page in the black book, plus negatives of the Polaroids. Sal's backup insurance."
+            }
           ],
           "noise": 2
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "wall_safe", "state": "locked" }, { "type": "flag_not", "flag": "knows_safe_combo", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "wall_safe",
+              "state": "locked"
+            },
+            {
+              "type": "flag_not",
+              "flag": "knows_safe_combo",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You try random numbers. Nothing. You'd need to know the combination." }
+            {
+              "type": "message",
+              "text": "You try random numbers. Nothing. You'd need to know the combination."
+            }
           ],
           "noise": 3
         }
@@ -1626,9 +3100,20 @@
       "id": "coat_rack",
       "name": "Coat Rack",
       "description": "A wooden coat rack with Sal's overcoat.",
-      "position": { "x": 100, "y": 300 },
-      "size": { "width": 40, "height": 120 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Coats", "shape": "rect" },
+      "position": {
+        "x": 100,
+        "y": 300
+      },
+      "size": {
+        "width": 40,
+        "height": 120
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Coats",
+        "shape": "rect"
+      },
       "initial_state": "occupied",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1637,15 +3122,31 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Sal's heavy wool overcoat hangs here. A hat on the top hook." }
+            {
+              "type": "message",
+              "text": "Sal's heavy wool overcoat hangs here. A hat on the top hook."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "coat_rack", "state": "occupied" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "coat_rack",
+              "state": "occupied"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You search the coat pockets. A pack of Luckys, a lighter, some change. Nothing useful — but the coat itself is heavy. If you threw it over someone's head..." },
-            { "type": "set_state", "object": "coat_rack", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You search the coat pockets. A pack of Luckys, a lighter, some change. Nothing useful \u2014 but the coat itself is heavy. If you threw it over someone's head..."
+            },
+            {
+              "type": "set_state",
+              "object": "coat_rack",
+              "state": "searched"
+            }
           ]
         }
       ]
@@ -1654,9 +3155,20 @@
       "id": "waste_basket",
       "name": "Waste Basket",
       "description": "A metal waste basket under the desk.",
-      "position": { "x": 450, "y": 500 },
-      "size": { "width": 40, "height": 40 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Trash", "shape": "circle" },
+      "position": {
+        "x": 450,
+        "y": 500
+      },
+      "size": {
+        "width": 40,
+        "height": 40
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Trash",
+        "shape": "circle"
+      },
       "initial_state": "full",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1665,23 +3177,57 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Crumpled papers, a coffee cup, cigar butts. One crumpled paper catches your eye — it has numbers on it." }
+            {
+              "type": "message",
+              "text": "Crumpled papers, a coffee cup, cigar butts. One crumpled paper catches your eye \u2014 it has numbers on it."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "waste_basket", "state": "full" }, { "type": "flag_not", "flag": "found_ledger_clue", "value": "true" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "waste_basket",
+              "state": "full"
+            },
+            {
+              "type": "flag_not",
+              "flag": "found_ledger_clue",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You smooth out the crumpled paper. It's a draft page from the black book with corrections. One entry is circled: 'Briefcase combo — use the hardware order #.' If you have the receipt, you have the combo." },
-            { "type": "set_flag", "flag": "found_ledger_clue", "value": "true" },
-            { "type": "set_state", "object": "waste_basket", "state": "searched" }
+            {
+              "type": "message",
+              "text": "You smooth out the crumpled paper. It's a draft page from the black book with corrections. One entry is circled: 'Briefcase combo \u2014 use the hardware order #.' If you have the receipt, you have the combo."
+            },
+            {
+              "type": "set_flag",
+              "flag": "found_ledger_clue",
+              "value": "true"
+            },
+            {
+              "type": "set_state",
+              "object": "waste_basket",
+              "state": "searched"
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "waste_basket", "state": "searched" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "waste_basket",
+              "state": "searched"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "Nothing else in the trash." }
+            {
+              "type": "message",
+              "text": "Nothing else in the trash."
+            }
           ]
         }
       ]
@@ -1690,26 +3236,59 @@
       "id": "ledger_book",
       "name": "Open Ledger",
       "description": "A large accounting ledger open on the desk.",
-      "position": { "x": 500, "y": 380 },
-      "size": { "width": 80, "height": 50 },
-      "visual": { "color": "#276749", "stroke_color": "#38a169", "label": "Ledger", "shape": "rect" },
+      "position": {
+        "x": 500,
+        "y": 380
+      },
+      "size": {
+        "width": 80,
+        "height": 50
+      },
+      "visual": {
+        "color": "#276749",
+        "stroke_color": "#38a169",
+        "label": "Ledger",
+        "shape": "rect"
+      },
       "initial_state": "open",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "flag_not", "flag": "ledger_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "ledger_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The legitimate business ledger — meat sales, expenses, payroll. But some line items are suspicious: 'Special handling fee — $2000.' 'Disposal service — $1500.' 'Consultation — $5000.' All cash. None of these are normal butcher expenses." },
-            { "type": "set_flag", "flag": "ledger_examined", "value": "true" }
+            {
+              "type": "message",
+              "text": "The legitimate business ledger \u2014 meat sales, expenses, payroll. But some line items are suspicious: 'Special handling fee \u2014 $2000.' 'Disposal service \u2014 $1500.' 'Consultation \u2014 $5000.' All cash. None of these are normal butcher expenses."
+            },
+            {
+              "type": "set_flag",
+              "flag": "ledger_examined",
+              "value": "true"
+            }
           ]
         },
         {
           "verb": "look",
-          "when": [{ "type": "flag_is", "flag": "ledger_examined", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "ledger_examined",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The shop ledger. Suspicious entries, but nothing as damning as the black book." }
+            {
+              "type": "message",
+              "text": "The shop ledger. Suspicious entries, but nothing as damning as the black book."
+            }
           ]
         }
       ]
@@ -1718,9 +3297,20 @@
       "id": "family_photo",
       "name": "Family Photo",
       "description": "A framed photograph on the desk.",
-      "position": { "x": 600, "y": 300 },
-      "size": { "width": 30, "height": 40 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Photo", "shape": "rect" },
+      "position": {
+        "x": 600,
+        "y": 300
+      },
+      "size": {
+        "width": 30,
+        "height": 40
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Photo",
+        "shape": "rect"
+      },
       "initial_state": "standing",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1729,7 +3319,10 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Sal with a woman and two kids. The woman's smile is forced. The kids look scared. On the frame's base, engraved: 'Angela, Maria, Little Sal — 1972.' A normal family. One with a monster in it." }
+            {
+              "type": "message",
+              "text": "Sal with a woman and two kids. The woman's smile is forced. The kids look scared. On the frame's base, engraved: 'Angela, Maria, Little Sal \u2014 1972.' A normal family. One with a monster in it."
+            }
           ]
         }
       ]
@@ -1738,9 +3331,20 @@
       "id": "window_office",
       "name": "Office Window",
       "description": "A frosted glass window looking onto the alley.",
-      "position": { "x": 850, "y": 250 },
-      "size": { "width": 60, "height": 80 },
-      "visual": { "color": "#1a202c", "stroke_color": "#2d3748", "label": "Window", "shape": "rect" },
+      "position": {
+        "x": 850,
+        "y": 250
+      },
+      "size": {
+        "width": 60,
+        "height": 80
+      },
+      "visual": {
+        "color": "#1a202c",
+        "stroke_color": "#2d3748",
+        "label": "Window",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1749,14 +3353,20 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Frosted glass, iron-framed. Through it, the blurred shapes of the alley — dumpster, fire escape across the way. The window is painted shut and barred on the outside." }
+            {
+              "type": "message",
+              "text": "Frosted glass, iron-framed. Through it, the blurred shapes of the alley \u2014 dumpster, fire escape across the way. The window is painted shut and barred on the outside."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "Painted shut. Even if you could open it, the bars outside would stop you." }
+            {
+              "type": "message",
+              "text": "Painted shut. Even if you could open it, the bars outside would stop you."
+            }
           ],
           "noise": 5
         }
@@ -1766,63 +3376,140 @@
       "id": "roll_up_door",
       "name": "Roll-Up Door",
       "description": "A metal roll-up door for deliveries.",
-      "position": { "x": 400, "y": 350 },
-      "size": { "width": 200, "height": 250 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Roll-Up Door", "shape": "rect" },
+      "position": {
+        "x": 400,
+        "y": 350
+      },
+      "size": {
+        "width": 200,
+        "height": 250
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Roll-Up Door",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A heavy steel roll-up door. Padlocked at the bottom with a chain running through the handle and a floor anchor. The chain is thick but the padlock looks old." }
+            {
+              "type": "message",
+              "text": "A heavy steel roll-up door. Padlocked at the bottom with a chain running through the handle and a floor anchor. The chain is thick but the padlock looks old."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "The chain rattles when you pull. Solid. The padlock won't budge with bare hands." }
+            {
+              "type": "message",
+              "text": "The chain rattles when you pull. Solid. The padlock won't budge with bare hands."
+            }
           ],
           "noise": 15
         },
         {
           "verb": "use_item",
           "item": "reinforced_pry_bar",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You jam the reinforced crowbar into the padlock and heave with everything you have. The chain-wrapped leverage does it — the shackle snaps. The chain falls away." },
-            { "type": "set_state", "object": "roll_up_door", "state": "unchained" },
-            { "type": "set_flag", "flag": "door_chain_loosened", "value": "true" }
+            {
+              "type": "message",
+              "text": "You jam the reinforced crowbar into the padlock and heave with everything you have. The chain-wrapped leverage does it \u2014 the shackle snaps. The chain falls away."
+            },
+            {
+              "type": "set_state",
+              "object": "roll_up_door",
+              "state": "unchained"
+            },
+            {
+              "type": "set_flag",
+              "flag": "door_chain_loosened",
+              "value": "true"
+            }
           ],
           "noise": 35
         },
         {
           "verb": "use_item",
           "item": "crowbar",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You try to pry the padlock. The crowbar slips — not enough leverage on its own. You'd need something to wrap around it for a better grip." }
+            {
+              "type": "message",
+              "text": "You try to pry the padlock. The crowbar slips \u2014 not enough leverage on its own. You'd need something to wrap around it for a better grip."
+            }
           ],
           "noise": 20
         },
         {
           "verb": "use_item",
           "item": "butcher_knife",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "locked" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "locked"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A knife won't cut chain. You need leverage, not an edge." }
+            {
+              "type": "message",
+              "text": "A knife won't cut chain. You need leverage, not an edge."
+            }
           ],
           "noise": 5
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "roll_up_door", "state": "unchained" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "roll_up_door",
+              "state": "unchained"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You grab the handle and heave the door up. It screeches on its tracks, rolling upward. Cold night air rushes in. The alley is right there — freedom. You duck under and run." },
-            { "type": "game_over", "result": "win", "reason": "You break the chain and haul up the loading dock door. The alley is dark and empty. You run — past the dumpsters, past the parked trucks, out onto Halsted Street and into the night. Sal Morano will know you escaped, but by then you'll be long gone. Whether you took his secrets with you or left them behind — that's between you and your conscience." }
+            {
+              "type": "message",
+              "text": "You grab the handle and heave the door up. It screeches on its tracks, rolling upward. Cold night air rushes in. The alley is right there \u2014 freedom. You duck under and run."
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "reason": "You break the chain and haul up the loading dock door. The alley is dark and empty. You run \u2014 past the dumpsters, past the parked trucks, out onto Halsted Street and into the night. Sal Morano will know you escaped, but by then you'll be long gone. Whether you took his secrets with you or left them behind \u2014 that's between you and your conscience."
+            }
           ],
           "noise": 50
         }
@@ -1832,9 +3519,20 @@
       "id": "chain_hoist",
       "name": "Chain Hoist",
       "description": "An overhead chain hoist for moving heavy deliveries.",
-      "position": { "x": 600, "y": 150 },
-      "size": { "width": 80, "height": 60 },
-      "visual": { "color": "#718096", "stroke_color": "#a0aec0", "label": "Hoist", "shape": "rect" },
+      "position": {
+        "x": 600,
+        "y": 150
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "visual": {
+        "color": "#718096",
+        "stroke_color": "#a0aec0",
+        "label": "Hoist",
+        "shape": "rect"
+      },
       "initial_state": "idle",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1843,36 +3541,82 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "An industrial chain hoist on a ceiling rail. Heavy-duty, meant for swinging carcass-sized loads around the dock. The chain hangs loose. You could rig this as a trap — or cut a piece of chain from it." }
+            {
+              "type": "message",
+              "text": "An industrial chain hoist on a ceiling rail. Heavy-duty, meant for swinging carcass-sized loads around the dock. The chain hangs loose. You could rig this as a trap \u2014 or cut a piece of chain from it."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "chain_hoist", "state": "idle" }, { "type": "has_item", "item": "hook_and_chain" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "chain_hoist",
+              "state": "idle"
+            },
+            {
+              "type": "has_item",
+              "item": "hook_and_chain"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You hook the chain-and-hook onto the hoist's release mechanism and position it over the doorway. When Sal walks through, you pull the release — 30 pounds of steel drops on him. A dirty trick, but you're fighting dirty." },
-            { "type": "set_state", "object": "chain_hoist", "state": "rigged" },
-            { "type": "set_flag", "flag": "meat_hook_trap_set", "value": "true" }
+            {
+              "type": "message",
+              "text": "You hook the chain-and-hook onto the hoist's release mechanism and position it over the doorway. When Sal walks through, you pull the release \u2014 30 pounds of steel drops on him. A dirty trick, but you're fighting dirty."
+            },
+            {
+              "type": "set_state",
+              "object": "chain_hoist",
+              "state": "rigged"
+            },
+            {
+              "type": "set_flag",
+              "flag": "meat_hook_trap_set",
+              "value": "true"
+            }
           ],
           "noise": 15
         },
         {
           "verb": "use_item",
           "item": "butcher_knife",
-          "when": [{ "type": "not_has_item", "item": "chain_link_piece" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "chain_link_piece"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You saw at a weak link in the hanging chain. The knife isn't ideal but the link was already corroded. It parts with a snap. You now have a length of chain." },
-            { "type": "add_item", "item": "chain_link_piece" }
+            {
+              "type": "message",
+              "text": "You saw at a weak link in the hanging chain. The knife isn't ideal but the link was already corroded. It parts with a snap. You now have a length of chain."
+            },
+            {
+              "type": "add_item",
+              "item": "chain_link_piece"
+            }
           ],
           "noise": 18
         },
         {
           "verb": "use_item",
           "item": "meat_hook",
-          "when": [{ "type": "not_has_item", "item": "chain_link_piece" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "chain_link_piece"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You use the hook to pry apart a corroded link. The chain separates and you grab a section." },
-            { "type": "add_item", "item": "chain_link_piece" }
+            {
+              "type": "message",
+              "text": "You use the hook to pry apart a corroded link. The chain separates and you grab a section."
+            },
+            {
+              "type": "add_item",
+              "item": "chain_link_piece"
+            }
           ],
           "noise": 15
         }
@@ -1882,9 +3626,20 @@
       "id": "pallet_stack",
       "name": "Pallet Stack",
       "description": "Wooden shipping pallets stacked against the wall.",
-      "position": { "x": 200, "y": 450 },
-      "size": { "width": 120, "height": 100 },
-      "visual": { "color": "#744210", "stroke_color": "#975a16", "label": "Pallets", "shape": "rect" },
+      "position": {
+        "x": 200,
+        "y": 450
+      },
+      "size": {
+        "width": 120,
+        "height": 100
+      },
+      "visual": {
+        "color": "#744210",
+        "stroke_color": "#975a16",
+        "label": "Pallets",
+        "shape": "rect"
+      },
       "initial_state": "stacked",
       "initially_visible": true,
       "hiding_spot": true,
@@ -1893,24 +3648,45 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Wooden pallets stacked five high. There's a gap behind them — not comfortable, but you could squeeze in and pull a pallet across." }
+            {
+              "type": "message",
+              "text": "Wooden pallets stacked five high. There's a gap behind them \u2014 not comfortable, but you could squeeze in and pull a pallet across."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "not_hiding" }],
+          "when": [
+            {
+              "type": "not_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You squeeze behind the pallets and pull one across the gap. Splinters dig into your back, but you're hidden." },
-            { "type": "start_hiding" }
+            {
+              "type": "message",
+              "text": "You squeeze behind the pallets and pull one across the gap. Splinters dig into your back, but you're hidden."
+            },
+            {
+              "type": "start_hiding"
+            }
           ],
           "noise": 10
         },
         {
           "verb": "hand",
-          "when": [{ "type": "is_hiding" }],
+          "when": [
+            {
+              "type": "is_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You push the pallet aside and climb out, pulling splinters from your shirt." },
-            { "type": "stop_hiding" }
+            {
+              "type": "message",
+              "text": "You push the pallet aside and climb out, pulling splinters from your shirt."
+            },
+            {
+              "type": "stop_hiding"
+            }
           ],
           "noise": 10
         }
@@ -1920,9 +3696,20 @@
       "id": "delivery_clipboard",
       "name": "Delivery Clipboard",
       "description": "A clipboard hanging by the roll-up door.",
-      "position": { "x": 250, "y": 300 },
-      "size": { "width": 40, "height": 50 },
-      "visual": { "color": "#e2e8f0", "stroke_color": "#cbd5e0", "label": "Clipboard", "shape": "rect" },
+      "position": {
+        "x": 250,
+        "y": 300
+      },
+      "size": {
+        "width": 40,
+        "height": 50
+      },
+      "visual": {
+        "color": "#e2e8f0",
+        "stroke_color": "#cbd5e0",
+        "label": "Clipboard",
+        "shape": "rect"
+      },
       "initial_state": "hanging",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1931,15 +3718,29 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "Delivery schedules for the week. Tonight has a late pickup marked: '11:45 PM — Chicago Wholesale.' The truck will need the roll-up door opened." }
+            {
+              "type": "message",
+              "text": "Delivery schedules for the week. Tonight has a late pickup marked: '11:45 PM \u2014 Chicago Wholesale.' The truck will need the roll-up door opened."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "delivery_schedule" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "delivery_schedule"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You tear off the schedule page. The delivery time could be useful." },
-            { "type": "add_item", "item": "delivery_schedule" }
+            {
+              "type": "message",
+              "text": "You tear off the schedule page. The delivery time could be useful."
+            },
+            {
+              "type": "add_item",
+              "item": "delivery_schedule"
+            }
           ],
           "noise": 2
         }
@@ -1949,9 +3750,20 @@
       "id": "circuit_breaker",
       "name": "Circuit Breaker Box",
       "description": "A more modern breaker box on the dock wall.",
-      "position": { "x": 800, "y": 300 },
-      "size": { "width": 50, "height": 70 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Breakers", "shape": "rect" },
+      "position": {
+        "x": 800,
+        "y": 300
+      },
+      "size": {
+        "width": 50,
+        "height": 70
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Breakers",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1960,15 +3772,31 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A secondary breaker panel for the loading dock. Labeled switches: DOCK LIGHTS, HOIST POWER, ROLL-UP MOTOR, ALARM. The ALARM breaker has a red tag." }
+            {
+              "type": "message",
+              "text": "A secondary breaker panel for the loading dock. Labeled switches: DOCK LIGHTS, HOIST POWER, ROLL-UP MOTOR, ALARM. The ALARM breaker has a red tag."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "object_state", "object": "circuit_breaker", "state": "closed" }],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "circuit_breaker",
+              "state": "closed"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You flip open the panel. The breakers are all in the ON position. Flipping ROLL-UP MOTOR would disable the electric door opener — Sal couldn't close it remotely." },
-            { "type": "set_state", "object": "circuit_breaker", "state": "open" }
+            {
+              "type": "message",
+              "text": "You flip open the panel. The breakers are all in the ON position. Flipping ROLL-UP MOTOR would disable the electric door opener \u2014 Sal couldn't close it remotely."
+            },
+            {
+              "type": "set_state",
+              "object": "circuit_breaker",
+              "state": "open"
+            }
           ],
           "noise": 3
         }
@@ -1978,9 +3806,20 @@
       "id": "fire_extinguisher",
       "name": "Fire Extinguisher",
       "description": "A red fire extinguisher mounted on the wall.",
-      "position": { "x": 700, "y": 450 },
-      "size": { "width": 30, "height": 60 },
-      "visual": { "color": "#e53e3e", "stroke_color": "#c53030", "label": "Extinguisher", "shape": "rect" },
+      "position": {
+        "x": 700,
+        "y": 450
+      },
+      "size": {
+        "width": 30,
+        "height": 60
+      },
+      "visual": {
+        "color": "#e53e3e",
+        "stroke_color": "#c53030",
+        "label": "Extinguisher",
+        "shape": "rect"
+      },
       "initial_state": "mounted",
       "initially_visible": true,
       "hiding_spot": false,
@@ -1989,16 +3828,34 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A heavy dry-chemical fire extinguisher. Could fill a room with white powder in seconds — instant visual cover." }
+            {
+              "type": "message",
+              "text": "A heavy dry-chemical fire extinguisher. Could fill a room with white powder in seconds \u2014 instant visual cover."
+            }
           ]
         },
         {
           "verb": "take",
-          "when": [{ "type": "not_has_item", "item": "fire_ext" }],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "fire_ext"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lift the extinguisher off its mount. Heavy — maybe fifteen pounds. Pull the pin and squeeze." },
-            { "type": "add_item", "item": "fire_ext" },
-            { "type": "set_state", "object": "fire_extinguisher", "state": "taken" }
+            {
+              "type": "message",
+              "text": "You lift the extinguisher off its mount. Heavy \u2014 maybe fifteen pounds. Pull the pin and squeeze."
+            },
+            {
+              "type": "add_item",
+              "item": "fire_ext"
+            },
+            {
+              "type": "set_state",
+              "object": "fire_extinguisher",
+              "state": "taken"
+            }
           ],
           "noise": 5
         }
@@ -2008,9 +3865,20 @@
       "id": "alley_door",
       "name": "Side Door",
       "description": "A steel door leading to the alley.",
-      "position": { "x": 900, "y": 400 },
-      "size": { "width": 60, "height": 160 },
-      "visual": { "color": "#4a5568", "stroke_color": "#718096", "label": "Alley Door", "shape": "rect" },
+      "position": {
+        "x": 900,
+        "y": 400
+      },
+      "size": {
+        "width": 60,
+        "height": 160
+      },
+      "visual": {
+        "color": "#4a5568",
+        "stroke_color": "#718096",
+        "label": "Alley Door",
+        "shape": "rect"
+      },
       "initial_state": "locked",
       "initially_visible": true,
       "hiding_spot": false,
@@ -2019,24 +3887,43 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A steel fire door. A deadbolt lock — needs a key from either side. Sal has the only key. No picking this one." }
+            {
+              "type": "message",
+              "text": "A steel fire door. A deadbolt lock \u2014 needs a key from either side. Sal has the only key. No picking this one."
+            }
           ]
         },
         {
           "verb": "hand",
           "when": [],
           "then": [
-            { "type": "message", "text": "Deadbolted. Without Sal's key, this door isn't opening." }
+            {
+              "type": "message",
+              "text": "Deadbolted. Without Sal's key, this door isn't opening."
+            }
           ],
           "noise": 5
         },
         {
           "verb": "use_item",
           "item": "fire_ext",
-          "when": [{ "type": "flag_is", "flag": "blackmail_delivered", "value": "true" }],
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "blackmail_delivered",
+              "value": "true"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "A car horn blares outside. Headlights flash through the frosted glass. Tony sent his people. You spray the extinguisher at the door hinges — the rapid cooling on heated metal weakens them. One kick, two — the door bursts outward. A black Lincoln idles in the alley. The passenger door opens. 'Get in. Now.' You clutch the black book to your chest and climb in." },
-            { "type": "game_over", "result": "win", "reason": "You blackmailed Tony Ricci with Sal's own evidence, and Tony sent a car. The Lincoln takes you downtown, where a nervous lawyer offers you a deal: your silence about what you know, a new identity, and a one-way ticket out of Chicago. You take it. Sal Morano is found floating in the river two weeks later. You never find out if that was justice or just the mob cleaning up. Either way, you're alive." }
+            {
+              "type": "message",
+              "text": "A car horn blares outside. Headlights flash through the frosted glass. Tony sent his people. You spray the extinguisher at the door hinges \u2014 the rapid cooling on heated metal weakens them. One kick, two \u2014 the door bursts outward. A black Lincoln idles in the alley. The passenger door opens. 'Get in. Now.' You clutch the black book to your chest and climb in."
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "reason": "You blackmailed Tony Ricci with Sal's own evidence, and Tony sent a car. The Lincoln takes you downtown, where a nervous lawyer offers you a deal: your silence about what you know, a new identity, and a one-way ticket out of Chicago. You take it. Sal Morano is found floating in the river two weeks later. You never find out if that was justice or just the mob cleaning up. Either way, you're alive."
+            }
           ],
           "noise": 40
         }
@@ -2046,9 +3933,20 @@
       "id": "dumpster",
       "name": "Dumpster",
       "description": "A large commercial dumpster by the loading dock.",
-      "position": { "x": 100, "y": 500 },
-      "size": { "width": 120, "height": 80 },
-      "visual": { "color": "#276749", "stroke_color": "#38a169", "label": "Dumpster", "shape": "rect" },
+      "position": {
+        "x": 100,
+        "y": 500
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#276749",
+        "stroke_color": "#38a169",
+        "label": "Dumpster",
+        "shape": "rect"
+      },
       "initial_state": "closed",
       "initially_visible": true,
       "hiding_spot": true,
@@ -2057,37 +3955,63 @@
           "verb": "look",
           "when": [],
           "then": [
-            { "type": "message", "text": "A six-yard commercial dumpster. The lid is heavy but not locked. The smell is... educational. But it's big enough to hide in." }
+            {
+              "type": "message",
+              "text": "A six-yard commercial dumpster. The lid is heavy but not locked. The smell is... educational. But it's big enough to hide in."
+            }
           ]
         },
         {
           "verb": "hand",
-          "when": [{ "type": "not_hiding" }],
+          "when": [
+            {
+              "type": "not_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You lift the lid and climb in among the refuse. Rotting meat trimmings, fat, and bone. The smell is beyond description. But you're invisible." },
-            { "type": "start_hiding" }
+            {
+              "type": "message",
+              "text": "You lift the lid and climb in among the refuse. Rotting meat trimmings, fat, and bone. The smell is beyond description. But you're invisible."
+            },
+            {
+              "type": "start_hiding"
+            }
           ],
           "noise": 12
         },
         {
           "verb": "hand",
-          "when": [{ "type": "is_hiding" }],
+          "when": [
+            {
+              "type": "is_hiding"
+            }
+          ],
           "then": [
-            { "type": "message", "text": "You haul yourself out of the dumpster, gagging. You'll never eat a hamburger again." },
-            { "type": "stop_hiding" }
+            {
+              "type": "message",
+              "text": "You haul yourself out of the dumpster, gagging. You'll never eat a hamburger again."
+            },
+            {
+              "type": "stop_hiding"
+            }
           ],
           "noise": 12
         }
       ]
     }
   ],
-
   "puzzle_widgets": [
     {
       "id": "office_keypad",
       "widget_type": "keypad",
-      "position": { "x": 400, "y": 300 },
-      "size": { "width": 50, "height": 60 },
+      "position": {
+        "x": 400,
+        "y": 300
+      },
+      "size": {
+        "width": 50,
+        "height": 60
+      },
       "view": "butcher_counter",
       "initially_visible": true,
       "config": {
@@ -2096,81 +4020,185 @@
         "display_chars": 4
       },
       "on_solve": [
-        { "type": "message", "text": "The keypad beeps. The office door lock clicks open. You're in." },
-        { "type": "set_flag", "flag": "office_unlocked", "value": "true" },
-        { "type": "set_view", "view": "back_office" }
+        {
+          "type": "message",
+          "text": "The keypad beeps. The office door lock clicks open. You're in."
+        },
+        {
+          "type": "set_flag",
+          "flag": "office_unlocked",
+          "value": "true"
+        },
+        {
+          "type": "set_view",
+          "view": "back_office"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 5 },
-        { "type": "message", "text": "Wrong code. The keypad buzzes angrily." }
+        {
+          "type": "add_noise",
+          "amount": 5
+        },
+        {
+          "type": "message",
+          "text": "Wrong code. The keypad buzzes angrily."
+        }
       ],
       "noise_per_interaction": 1,
       "max_attempts": 5,
       "on_max_fail": [
-        { "type": "add_noise", "amount": 20 },
-        { "type": "message", "text": "The keypad locks out and emits a sustained alarm tone. Sal's voice from the back: 'What the hell is going on out there?!'" }
+        {
+          "type": "add_noise",
+          "amount": 20
+        },
+        {
+          "type": "message",
+          "text": "The keypad locks out and emits a sustained alarm tone. Sal's voice from the back: 'What the hell is going on out there?!'"
+        }
       ]
     },
     {
       "id": "briefcase_lock",
       "widget_type": "combination_lock",
-      "position": { "x": 350, "y": 500 },
-      "size": { "width": 70, "height": 30 },
+      "position": {
+        "x": 350,
+        "y": 500
+      },
+      "size": {
+        "width": 70,
+        "height": 30
+      },
       "view": "back_office",
       "initially_visible": true,
       "config": {
         "num_dials": 4,
         "values_per_dial": 10,
-        "solution": [1, 9, 5, 3],
-        "dial_labels": ["I", "II", "III", "IV"]
+        "solution": [
+          1,
+          9,
+          5,
+          3
+        ],
+        "dial_labels": [
+          "I",
+          "II",
+          "III",
+          "IV"
+        ]
       },
       "on_solve": [
-        { "type": "message", "text": "Click. The latches spring open. Inside the briefcase: a bundle of $100 bills and a sealed envelope marked 'LEVERAGE — OPEN ONLY IF NEEDED.' The envelope contains more Polaroids — worse than the others." },
-        { "type": "set_state", "object": "briefcase", "state": "unlocked" },
-        { "type": "set_flag", "flag": "briefcase_opened", "value": "true" },
-        { "type": "set_flag", "flag": "found_photos", "value": "true" },
-        { "type": "add_item", "item": "incriminating_photos" }
+        {
+          "type": "message",
+          "text": "Click. The latches spring open. Inside the briefcase: a bundle of $100 bills and a sealed envelope marked 'LEVERAGE \u2014 OPEN ONLY IF NEEDED.' The envelope contains more Polaroids \u2014 worse than the others."
+        },
+        {
+          "type": "set_state",
+          "object": "briefcase",
+          "state": "unlocked"
+        },
+        {
+          "type": "set_flag",
+          "flag": "briefcase_opened",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "found_photos",
+          "value": "true"
+        },
+        {
+          "type": "add_item",
+          "item": "incriminating_photos"
+        }
       ],
       "on_fail": [
-        { "type": "add_noise", "amount": 2 },
-        { "type": "message", "text": "The latches don't budge." }
+        {
+          "type": "add_noise",
+          "amount": 2
+        },
+        {
+          "type": "message",
+          "text": "The latches don't budge."
+        }
       ],
       "noise_per_interaction": 1
     },
     {
       "id": "dock_breaker_panel",
       "widget_type": "toggle_panel",
-      "position": { "x": 800, "y": 300 },
-      "size": { "width": 60, "height": 70 },
+      "position": {
+        "x": 800,
+        "y": 300
+      },
+      "size": {
+        "width": 60,
+        "height": 70
+      },
       "view": "loading_dock",
       "initially_visible": false,
       "config": {
         "num_switches": 4,
-        "solution": [false, true, false, true],
-        "labels": ["DOCK LIGHTS", "HOIST POWER", "ROLL-UP MOTOR", "ALARM"]
+        "solution": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "labels": [
+          "DOCK LIGHTS",
+          "HOIST POWER",
+          "ROLL-UP MOTOR",
+          "ALARM"
+        ]
       },
       "on_solve": [
-        { "type": "message", "text": "The right combination: hoist power ON to use the chain trap, roll-up motor OFF so Sal can't close it remotely, dock lights OFF for darkness, alarm OFF so you don't trip it. Smart." },
-        { "type": "set_flag", "flag": "roll_up_unlocked", "value": "true" }
+        {
+          "type": "message",
+          "text": "The right combination: hoist power ON to use the chain trap, roll-up motor OFF so Sal can't close it remotely, dock lights OFF for darkness, alarm OFF so you don't trip it. Smart."
+        },
+        {
+          "type": "set_flag",
+          "flag": "roll_up_unlocked",
+          "value": "true"
+        }
       ],
       "on_fail": [
-        { "type": "conditional_effect",
-          "when": [{ "type": "flag_not", "flag": "roll_up_unlocked", "value": "true" }],
-          "then": [{ "type": "message", "text": "The breakers click but nothing helpful happens." }],
-          "else": [{ "type": "message", "text": "You already set the breakers correctly." }]
+        {
+          "type": "conditional_effect",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "roll_up_unlocked",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The breakers click but nothing helpful happens."
+            }
+          ],
+          "else": [
+            {
+              "type": "message",
+              "text": "You already set the breakers correctly."
+            }
+          ]
         }
       ],
       "noise_per_interaction": 2
     }
   ],
-
   "phases": [
     {
       "id": "hypothermia_setting_in",
       "name": "Hypothermia Setting In",
       "starts_when": [],
       "on_enter": [
-        { "type": "message", "text": "Cold. You're so cold. Your fingers are stiff, your breath is a white cloud. How long have you been in here? The freezer hums. Through the walls, Sal whistles. Think. Focus. Get out of this freezer before the cold takes you." }
+        {
+          "type": "message",
+          "text": "Cold. You're so cold. Your fingers are stiff, your breath is a white cloud. How long have you been in here? The freezer hums. Through the walls, Sal whistles. Think. Focus. Get out of this freezer before the cold takes you."
+        }
       ],
       "ambient_text": "The freezer thrums. Your teeth chatter. Sal's whistling filters through the walls.",
       "killer_overrides": {
@@ -2183,10 +4211,22 @@
     {
       "id": "the_shop_floor",
       "name": "The Shop Floor",
-      "starts_when": [{ "type": "flag_is", "flag": "escaped_freezer", "value": "true" }],
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "escaped_freezer",
+          "value": "true"
+        }
+      ],
       "on_enter": [
-        { "type": "message", "text": "You're out of the freezer. The shop stretches before you — butcher counter, display cases, the smell of raw meat and sawdust. A radio plays Sinatra. Somewhere deeper in the building, Sal works. An office door at the back has a keypad lock. The loading dock is through a wide archway. Move quietly." },
-        { "type": "set_view", "view": "butcher_counter" }
+        {
+          "type": "message",
+          "text": "You're out of the freezer. The shop stretches before you \u2014 butcher counter, display cases, the smell of raw meat and sawdust. A radio plays Sinatra. Somewhere deeper in the building, Sal works. An office door at the back has a keypad lock. The loading dock is through a wide archway. Move quietly."
+        },
+        {
+          "type": "set_view",
+          "view": "butcher_counter"
+        }
       ],
       "ambient_text": "Sinatra croons on the radio. Sal's cleaver hits the block. The clock ticks toward midnight.",
       "killer_overrides": {
@@ -2200,10 +4240,22 @@
     {
       "id": "closing_time",
       "name": "Closing Time",
-      "starts_when": [{ "type": "flag_is", "flag": "sal_saw_evidence_missing", "value": "true" }],
+      "starts_when": [
+        {
+          "type": "flag_is",
+          "flag": "sal_saw_evidence_missing",
+          "value": "true"
+        }
+      ],
       "on_enter": [
-        { "type": "message", "text": "Sal's scream cuts through the shop: 'WHERE IS IT?! WHERE'S MY BOOK?! I'LL GUT YOU LIKE A PIG!' Heavy footsteps. He knows. He knows everything. The hunt is on." },
-        { "type": "visual_cue", "cue": "red_pulse" }
+        {
+          "type": "message",
+          "text": "Sal's scream cuts through the shop: 'WHERE IS IT?! WHERE'S MY BOOK?! I'LL GUT YOU LIKE A PIG!' Heavy footsteps. He knows. He knows everything. The hunt is on."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        }
       ],
       "ambient_text": "Sal is tearing the shop apart. Crashes. Screaming. He's lost all composure.",
       "killer_overrides": {
@@ -2216,109 +4268,245 @@
       }
     }
   ],
-
   "events": [
     {
       "id": "hypothermia_warning",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "time_after", "seconds": 120 },
-        { "type": "flag_not", "flag": "escaped_freezer", "value": "true" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "time_after",
+            "seconds": 120
+          },
+          {
+            "type": "flag_not",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "Your fingers are going numb. Your thinking is getting foggy. Hypothermia is setting in. You need to get out of this freezer NOW." },
-        { "type": "set_flag", "flag": "hypothermia_warning", "value": "true" },
-        { "type": "visual_cue", "cue": "dim" }
+        {
+          "type": "message",
+          "text": "Your fingers are going numb. Your thinking is getting foggy. Hypothermia is setting in. You need to get out of this freezer NOW."
+        },
+        {
+          "type": "set_flag",
+          "flag": "hypothermia_warning",
+          "value": "true"
+        },
+        {
+          "type": "visual_cue",
+          "cue": "dim"
+        }
       ]
     },
     {
       "id": "hypothermia_critical",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "time_after", "seconds": 240 },
-        { "type": "flag_not", "flag": "escaped_freezer", "value": "true" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "time_after",
+            "seconds": 240
+          },
+          {
+            "type": "flag_not",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "You can barely feel your hands. Your vision is tunneling. The cold is killing you — slowly, quietly. If you don't get out in the next minute, you won't get out at all." },
-        { "type": "visual_cue", "cue": "flicker" }
+        {
+          "type": "message",
+          "text": "You can barely feel your hands. Your vision is tunneling. The cold is killing you \u2014 slowly, quietly. If you don't get out in the next minute, you won't get out at all."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        }
       ]
     },
     {
       "id": "hypothermia_death",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "time_after", "seconds": 330 },
-        { "type": "flag_not", "flag": "escaped_freezer", "value": "true" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "time_after",
+            "seconds": 330
+          },
+          {
+            "type": "flag_not",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "The cold stops hurting. That's the worst sign. You slide down the wall, too tired to shiver. Your last thought is that the freezer hum sounds almost peaceful..." },
-        { "type": "game_over", "result": "lose", "reason": "Hypothermia. You spent too long in the walk-in freezer and succumbed to the cold. Sal found you the next morning, stiff and blue. Another disappearance on the South Side." }
+        {
+          "type": "message",
+          "text": "The cold stops hurting. That's the worst sign. You slide down the wall, too tired to shiver. Your last thought is that the freezer hum sounds almost peaceful..."
+        },
+        {
+          "type": "game_over",
+          "result": "lose",
+          "reason": "Hypothermia. You spent too long in the walk-in freezer and succumbed to the cold. Sal found you the next morning, stiff and blue. Another disappearance on the South Side."
+        }
       ]
     },
     {
       "id": "sal_phone_call",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "time_after", "seconds": 180 },
-        { "type": "flag_is", "flag": "escaped_freezer", "value": "true" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "time_after",
+            "seconds": 180
+          },
+          {
+            "type": "flag_is",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "The shop phone rings. Sal answers: 'Yeah... No, it's handled... Midnight pickup like always... Look, Tony, I said it's HANDLED. Don't worry about it.' He hangs up hard." },
-        { "type": "set_flag", "flag": "sal_distracted_phone", "value": "true" },
-        { "type": "delay_then", "seconds": 20, "effects": [
-          { "type": "set_flag", "flag": "sal_distracted_phone", "value": "false" },
-          { "type": "message", "text": "Sal mutters to himself and goes back to work. The distraction is over." }
-        ]}
+        {
+          "type": "message",
+          "text": "The shop phone rings. Sal answers: 'Yeah... No, it's handled... Midnight pickup like always... Look, Tony, I said it's HANDLED. Don't worry about it.' He hangs up hard."
+        },
+        {
+          "type": "set_flag",
+          "flag": "sal_distracted_phone",
+          "value": "true"
+        },
+        {
+          "type": "delay_then",
+          "seconds": 20,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "sal_distracted_phone",
+              "value": "false"
+            },
+            {
+              "type": "message",
+              "text": "Sal mutters to himself and goes back to work. The distraction is over."
+            }
+          ]
+        }
       ]
     },
     {
       "id": "sal_discovers_missing_evidence",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "flag_is", "flag": "found_black_book", "value": "true" },
-        { "type": "killer_is", "state": "checking" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "found_black_book",
+            "value": "true"
+          },
+          {
+            "type": "killer_is",
+            "state": "checking"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "set_flag", "flag": "sal_saw_evidence_missing", "value": "true" },
-        { "type": "message", "text": "Sal's routine check turns into a frenzy. He sees the desk drawer open, the book gone. The calm facade shatters." },
-        { "type": "visual_cue", "cue": "shake" }
+        {
+          "type": "set_flag",
+          "flag": "sal_saw_evidence_missing",
+          "value": "true"
+        },
+        {
+          "type": "message",
+          "text": "Sal's routine check turns into a frenzy. He sees the desk drawer open, the book gone. The calm facade shatters."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        }
       ]
     },
     {
       "id": "delivery_truck_arrives",
-      "trigger": { "type": "time_after", "seconds": 540 },
+      "trigger": {
+        "type": "time_after",
+        "seconds": 540
+      },
       "one_shot": true,
       "effects": [
-        { "type": "message", "text": "Engine rumble outside. Headlights sweep across the loading dock windows. A truck horn blares twice. The midnight delivery has arrived — Sal will have to open the loading dock door." },
-        { "type": "set_flag", "flag": "truck_arrived", "value": "true" },
-        { "type": "set_flag", "flag": "sal_distracted_phone", "value": "true" },
-        { "type": "delay_then", "seconds": 45, "effects": [
-          { "type": "set_flag", "flag": "sal_distracted_phone", "value": "false" },
-          { "type": "message", "text": "The truck pulls away. Sal closes the loading dock. The window is gone." }
-        ]}
+        {
+          "type": "message",
+          "text": "Engine rumble outside. Headlights sweep across the loading dock windows. A truck horn blares twice. The midnight delivery has arrived \u2014 Sal will have to open the loading dock door."
+        },
+        {
+          "type": "set_flag",
+          "flag": "truck_arrived",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "sal_distracted_phone",
+          "value": "true"
+        },
+        {
+          "type": "delay_then",
+          "seconds": 45,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "sal_distracted_phone",
+              "value": "false"
+            },
+            {
+              "type": "message",
+              "text": "The truck pulls away. Sal closes the loading dock. The window is gone."
+            }
+          ]
+        }
       ]
     },
     {
       "id": "sal_talks_to_meat",
-      "trigger": { "type": "all_of", "conditions": [
-        { "type": "time_after", "seconds": 90 },
-        { "type": "flag_is", "flag": "escaped_freezer", "value": "true" }
-      ]},
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "time_after",
+            "seconds": 90
+          },
+          {
+            "type": "flag_is",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
+        ]
+      },
       "one_shot": true,
       "effects": [
-        { "type": "random_message", "messages": [
-          "Through the wall you hear Sal: 'Now, Mrs. Henderson, you wanted the crown roast, didn't you? Let's get you looking pretty...' He's talking to a cut of meat. Like it's a customer.",
-          "Sal's voice drifts through the shop: 'Beautiful. Just beautiful. Look at those marbling lines. You're gonna make someone very happy tomorrow, sweetheart.' He's talking to a steak.",
-          "You hear Sal humming, then: 'Don't worry, I'll take good care of you. Just like all the others.' A cleaver comes down. Hard."
-        ]}
+        {
+          "type": "random_message",
+          "messages": [
+            "Through the wall you hear Sal: 'Now, Mrs. Henderson, you wanted the crown roast, didn't you? Let's get you looking pretty...' He's talking to a cut of meat. Like it's a customer.",
+            "Sal's voice drifts through the shop: 'Beautiful. Just beautiful. Look at those marbling lines. You're gonna make someone very happy tomorrow, sweetheart.' He's talking to a steak.",
+            "You hear Sal humming, then: 'Don't worry, I'll take good care of you. Just like all the others.' A cleaver comes down. Hard."
+          ]
+        }
       ]
     }
   ],
-
   "killer": {
     "name": "Sal Morano",
     "description": "A barrel-chested man in his fifties, thick arms, slicked-back hair going gray. He's been a butcher for thirty years and a killer for nearly as long. He talks to the meat, whistles while he works, and approaches violence with the same methodical calm he brings to breaking down a side of beef.",
-
     "base_behavior": {
       "check_interval_seconds": 55,
       "interval_variance_seconds": 15,
@@ -2329,14 +4517,17 @@
       "warning_duration_seconds": 10,
       "search_duration_seconds": 15
     },
-
     "search_behavior": {
       "thoroughness": 0.45,
-      "evidence_flags": ["escaped_freezer", "office_unlocked", "found_black_book", "door_chain_loosened"],
+      "evidence_flags": [
+        "escaped_freezer",
+        "office_unlocked",
+        "found_black_book",
+        "door_chain_loosened"
+      ],
       "thoroughness_on_evidence": 0.75,
       "search_order": "nearest"
     },
-
     "personality": {
       "on_approach": [
         "Time to check on my guest...",
@@ -2357,66 +4548,109 @@
         "Back to work then."
       ],
       "on_evidence": [
-        "What the — who's been in my office?!",
+        "What the \u2014 who's been in my office?!",
         "Somebody's been busy. Real busy.",
         "You touched my things. Nobody touches my things.",
         "Oh, you're gonna wish you stayed in that freezer."
       ],
       "on_catch": [
         "There you are. I was hoping we could do this the easy way.",
-        "Found you. Now — you wanna know what a butcher does with a problem? He breaks it down into smaller pieces.",
+        "Found you. Now \u2014 you wanna know what a butcher does with a problem? He breaks it down into smaller pieces.",
         "End of the line, friend. Let's go to the back room."
       ]
     },
-
     "on_visit_effects": [
       {
         "conditions": [
-          { "type": "object_state", "object": "freezer_door", "state": "open" },
-          { "type": "flag_not", "flag": "escaped_freezer", "value": "true" }
+          {
+            "type": "object_state",
+            "object": "freezer_door",
+            "state": "open"
+          },
+          {
+            "type": "flag_not",
+            "flag": "escaped_freezer",
+            "value": "true"
+          }
         ],
         "effects": [
-          { "type": "message", "text": "Sal slams the freezer door shut and chains it. You hear him cursing." }
+          {
+            "type": "message",
+            "text": "Sal slams the freezer door shut and chains it. You hear him cursing."
+          }
         ]
       },
       {
         "conditions": [
-          { "type": "object_state", "object": "knife_rack", "state": "one_missing" }
+          {
+            "type": "object_state",
+            "object": "knife_rack",
+            "state": "one_missing"
+          }
         ],
         "effects": [
-          { "type": "message", "text": "Sal notices the missing knife. 'Where's my ten-inch? Son of a...' His searches will be more thorough now." },
-          { "type": "set_flag", "flag": "harold_suspicious", "value": "true" }
+          {
+            "type": "message",
+            "text": "Sal notices the missing knife. 'Where's my ten-inch? Son of a...' His searches will be more thorough now."
+          },
+          {
+            "type": "set_flag",
+            "flag": "harold_suspicious",
+            "value": "true"
+          }
         ]
       },
       {
         "conditions": [
-          { "type": "object_state", "object": "office_desk", "state": "forced" }
+          {
+            "type": "object_state",
+            "object": "office_desk",
+            "state": "forced"
+          }
         ],
         "effects": [
-          { "type": "message", "text": "Sal sees the forced drawer. His face goes white, then red. 'THE BOOK! WHERE'S MY BOOK?!'" },
-          { "type": "set_flag", "flag": "sal_saw_evidence_missing", "value": "true" }
+          {
+            "type": "message",
+            "text": "Sal sees the forced drawer. His face goes white, then red. 'THE BOOK! WHERE'S MY BOOK?!'"
+          },
+          {
+            "type": "set_flag",
+            "flag": "sal_saw_evidence_missing",
+            "value": "true"
+          }
         ]
       }
     ],
-
     "special_behaviors": [
       {
         "id": "grinder_distraction",
-        "trigger": { "type": "flag_is", "flag": "grinder_running", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "grinder_running",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 30,
         "description": "Sal rushes to shut off the meat grinder."
       },
       {
         "id": "lights_out_confusion",
-        "trigger": { "type": "flag_is", "flag": "lights_out", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "lights_out",
+          "value": "true"
+        },
         "effect": "distracted",
         "duration_seconds": 45,
         "description": "Sal stumbles in the dark looking for the fuse box."
       },
       {
         "id": "enraged_mode",
-        "trigger": { "type": "flag_is", "flag": "sal_saw_evidence_missing", "value": "true" },
+        "trigger": {
+          "type": "flag_is",
+          "flag": "sal_saw_evidence_missing",
+          "value": "true"
+        },
         "effect": "enraged",
         "overrides": {
           "check_interval_seconds": 20,
@@ -2426,58 +4660,87 @@
       }
     ]
   },
-
   "win_conditions": [
     {
       "id": "police_rescue",
       "description": "Call the police with assembled evidence",
       "conditions": [
-        { "type": "flag_is", "flag": "called_cops", "value": "true" },
-        { "type": "flag_is", "flag": "evidence_assembled", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "called_cops",
+          "value": "true"
+        },
+        {
+          "type": "flag_is",
+          "flag": "evidence_assembled",
+          "value": "true"
+        }
       ]
     },
     {
       "id": "loading_dock_escape",
       "description": "Break out through the loading dock",
       "conditions": [
-        { "type": "flag_is", "flag": "door_chain_loosened", "value": "true" },
-        { "type": "object_state", "object": "roll_up_door", "state": "unchained" }
+        {
+          "type": "flag_is",
+          "flag": "door_chain_loosened",
+          "value": "true"
+        },
+        {
+          "type": "object_state",
+          "object": "roll_up_door",
+          "state": "unchained"
+        }
       ]
     },
     {
       "id": "blackmail_escape",
       "description": "Blackmail Tony Ricci with Sal's evidence",
       "conditions": [
-        { "type": "flag_is", "flag": "blackmail_delivered", "value": "true" }
+        {
+          "type": "flag_is",
+          "flag": "blackmail_delivered",
+          "value": "true"
+        }
       ]
     }
   ],
-
   "lose_conditions": [
     {
       "id": "caught",
       "description": "Caught by Sal",
       "conditions": [
-        { "type": "killer_is", "state": "checking" },
-        { "type": "not_hiding" }
+        {
+          "type": "killer_is",
+          "state": "checking"
+        },
+        {
+          "type": "not_hiding"
+        }
       ]
     },
     {
       "id": "frozen",
       "description": "Died of hypothermia in the freezer",
       "conditions": [
-        { "type": "time_after", "seconds": 330 },
-        { "type": "flag_not", "flag": "escaped_freezer", "value": "true" }
+        {
+          "type": "time_after",
+          "seconds": 330
+        },
+        {
+          "type": "flag_not",
+          "flag": "escaped_freezer",
+          "value": "true"
+        }
       ]
     }
   ],
-
   "hints": [
     {
       "id": "hint_freezer_escape",
       "phase": "hypothermia_setting_in",
       "delay_seconds": 60,
-      "text": "The freezer door's hinges are on the inside. Something sharp and strong could work on the hinge bolts — especially if they're frozen and brittle."
+      "text": "The freezer door's hinges are on the inside. Something sharp and strong could work on the hinge bolts \u2014 especially if they're frozen and brittle."
     },
     {
       "id": "hint_find_tools",
@@ -2489,13 +4752,13 @@
       "id": "hint_office_code",
       "phase": "the_shop_floor",
       "delay_seconds": 90,
-      "text": "The office door has a keypad. The code might be hidden somewhere in the freezer — on a receipt or document Sal left in his work apron."
+      "text": "The office door has a keypad. The code might be hidden somewhere in the freezer \u2014 on a receipt or document Sal left in his work apron."
     },
     {
       "id": "hint_safe_combo",
       "phase": "the_shop_floor",
       "delay_seconds": 120,
-      "text": "The wall safe behind the painting needs a combination. Think about what's important to Sal — check the calendar and his personal effects."
+      "text": "The wall safe behind the painting needs a combination. Think about what's important to Sal \u2014 check the calendar and his personal effects."
     },
     {
       "id": "hint_evidence",
@@ -2513,7 +4776,7 @@
       "id": "hint_loading_dock",
       "phase": "the_shop_floor",
       "delay_seconds": 100,
-      "text": "The loading dock roll-up door is padlocked with a chain. A crowbar alone isn't enough leverage — but what if you reinforced it?"
+      "text": "The loading dock roll-up door is padlocked with a chain. A crowbar alone isn't enough leverage \u2014 but what if you reinforced it?"
     },
     {
       "id": "hint_blackmail",
@@ -2522,12 +4785,11 @@
       "text": "The newspaper has a phone number for someone named Tony. If you had Sal's black book and called Tony with the right leverage, you might be able to arrange an... exit."
     }
   ],
-
   "solution_paths": [
     {
       "id": "justice_path",
       "name": "The Right Thing (Police Rescue)",
-      "description": "Gather ironclad evidence and call the police. The lawful path — put Sal away for life.",
+      "description": "Gather ironclad evidence and call the police. The lawful path \u2014 put Sal away for life.",
       "difficulty": "hard",
       "steps": [
         "Take the meat hook from the rail",
@@ -2569,11 +4831,11 @@
     {
       "id": "noir_path",
       "name": "The Deal (Blackmail Escape)",
-      "description": "Use Sal's own secrets against the mob. The morally gray path — make a deal with the devil.",
+      "description": "Use Sal's own secrets against the mob. The morally gray path \u2014 make a deal with the devil.",
       "difficulty": "hard",
       "steps": [
         "Take the meat hook and escape the freezer",
-        "Take the newspaper from the counter — learn Tony's phone number (555-0134)",
+        "Take the newspaper from the counter \u2014 learn Tony's phone number (555-0134)",
         "Get the office code from the apron receipt and enter the office",
         "Get the black book from the desk drawer",
         "Create a distraction to use a phone safely",
