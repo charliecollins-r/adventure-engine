@@ -11,8 +11,10 @@ interface GameViewProps {
 
 const VIEW_WIDTH = 960;
 const VIEW_HEIGHT = 540;
-const SCALE_X = VIEW_WIDTH / 1920;
-const SCALE_Y = VIEW_HEIGHT / 1080;
+const COORD_SPACE_W = 960;
+const COORD_SPACE_H = 720;
+const SCALE_X = VIEW_WIDTH / COORD_SPACE_W;
+const SCALE_Y = VIEW_HEIGHT / COORD_SPACE_H;
 
 const VERB_CURSORS: Record<string, string> = {
   look: 'help',

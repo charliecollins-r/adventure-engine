@@ -155,11 +155,13 @@ Each scenario doc (`docs/scenarios/*.md`) follows this structure:
 
 ## Current State (keep updated)
 
-- **13 scenario JSONs** complete in `examples/`
+- **13 scenario JSONs** complete in `examples/` — **all pass schema audit with zero issues**
 - **14 scenario docs** in `docs/scenarios/` (all in integrated format)
-- **Engine POC** in progress: ScenarioEngine + React components being built
+- **Engine POC** in progress: ScenarioEngine + React components, compiles with zero errors
+- **Schema audit completed**: all conditions, effects, verbs, and cross-references validated
+- **Coordinate space**: 960x720 (canonical, documented in SCENARIO_SCHEMA.md, all scenarios aligned)
 - **Lighthouse-keeper** is the simplest scenario (3 views) — first playtest target
-- **The Harvest** is the largest (50 views, 5 acts) — stress test target
+- **The Harvest** is the largest (50 views, 5 acts) — stress test target, positions fixed for all acts
 - **Blackwood Manor** still needs Acts 3-5 Gemini prompts
 - **Branch**: `claude/dreamy-volta-ha3r6v`
 
