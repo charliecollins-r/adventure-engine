@@ -1,7 +1,7 @@
-# CAPTIVE Scenario Schema Specification
+# Adventure Engine Scenario Schema Specification
 
 > Version: 1.0-draft
-> This document defines the JSON schema for CAPTIVE escape room scenarios.
+> This document defines the JSON schema for Adventure Engine scenarios.
 > A scenario is fully defined by one JSON file + background images. No code changes are needed.
 
 ---
@@ -35,7 +35,7 @@
 
 ## Overview
 
-A CAPTIVE scenario is a single-player escape room. The player is the captive — trapped in a room, solving puzzles to escape before an AI-controlled killer catches them.
+An Adventure Engine scenario is a single-player escape room. The player is the captive — trapped in a room, solving puzzles to escape before an AI-controlled killer catches them.
 
 Every scenario is defined entirely as:
 - **One JSON file** — all game logic, objects, puzzles, killer behavior, narrative
@@ -63,7 +63,7 @@ This schema captures mechanics from the greatest point-and-click adventure games
 | Telltale / Undertale | Moral forks, meaningful exclusive choices, multiple endings |
 | Baba Is You | Rule subversion — change the constraint instead of satisfying it |
 | Real escape rooms | Revelation tools (UV/blacklight), overlay puzzles, physical assembly, cross-reference clues |
-| CAPTIVE (original) | AI killer antagonist, noise as risk/reward mechanic, hiding under pressure, evidence awareness, phase-based escalation |
+| Adventure Engine (original) | AI killer antagonist, noise as risk/reward mechanic, hiding under pressure, evidence awareness, phase-based escalation |
 
 ---
 
@@ -1613,7 +1613,7 @@ An irreversible action the player knows is permanent and must commit to. The ten
 *The room changes around you. The killer fights back.*
 
 #### Pattern 28: The Camouflage
-*CAPTIVE-unique*
+*Adventure Engine-unique*
 
 Actively hide evidence of your escape progress. After opening the safe, close it again. After cutting the wire mesh, hang a towel over the window. After prying up the floorboard, push the rug back over it. Extra interactions that produce zero puzzle progress but clear evidence flags so the killer doesn't escalate on the next visit.
 
@@ -1663,7 +1663,7 @@ Different from the Myst Machine (a single panel with co-located controls). The E
 The player only sees the faucet running when they visit the bathroom view — and only then do they understand the connection.
 
 #### Pattern 30: The Decay Clock
-*CAPTIVE-unique*
+*Adventure Engine-unique*
 
 Puzzles get harder over time because the killer actively interferes via `on_visit_effects`. Early in the game, the window has thin wire mesh — one tool cuts it. But if the killer visits and notices, they board it up. Now you need a crowbar AND the wire cutters. Wait longer and the killer adds a padlock. Same escape route, three steps instead of one.
 

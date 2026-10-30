@@ -1,4 +1,4 @@
-# CAPTIVE — Project Plan & Design Document
+# Adventure Engine — Project Plan & Design Document
 
 > Living document. Updated throughout the design/development conversation.
 > Last updated: 2026-10-29
@@ -94,7 +94,7 @@ A browser-based single-player escape room game where:
 - Story-integrated puzzles (every puzzle serves narrative)
 - Environment changes over time
 
-**Unique to CAPTIVE:**
+**Unique to Adventure Engine:**
 - AI killer antagonist with configurable personality
 - Noise meter as risk/reward mechanic (and strategic tool)
 - Hiding spots with tension
@@ -225,9 +225,9 @@ Noise isn't just risk — it's a tool:
 27. **The Point of No Return** *(survival horror)* — Irreversible action the player must commit to. Rewards preparation.
 
 **Environment & Adaptation Patterns** (the room fights back)
-28. **The Camouflage** *(CAPTIVE-unique)* — Hide evidence of progress so the killer doesn't escalate on visits.
+28. **The Camouflage** *(Adventure Engine-unique)* — Hide evidence of progress so the killer doesn't escalate on visits.
 29. **The Echo** *(Myst, Day of the Tentacle)* — Action in one view produces observable effect in another. Spatial cause-and-effect.
-30. **The Decay Clock** *(CAPTIVE-unique)* — Puzzles get harder over time as the killer adds obstacles on visits. Early action = easier escape.
+30. **The Decay Clock** *(Adventure Engine-unique)* — Puzzles get harder over time as the killer adds obstacles on visits. Early action = easier escape.
 
 ---
 

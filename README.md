@@ -1,8 +1,8 @@
-# CAPTIVE
+# Adventure Engine
 
-**A JSON-driven escape room engine inspired by the golden age of point-and-click adventure games.**
+**A JSON-driven game engine inspired by the golden age of point-and-click adventure games.**
 
-Define an entire escape room scenario — puzzles, narrative, killer AI, branching outcomes — as a single JSON file and a set of background images. No code changes. No plugins. No scripting language. Drop in JSON, drop in art, play.
+Define an entire adventure scenario — puzzles, narrative, AI antagonists, branching outcomes — as a single JSON file and a set of background images. No code changes. No plugins. No scripting language. Drop in JSON, drop in art, play.
 
 <p align="center">
   <img src="assets/act1-backgrounds/act1_stasis_hold.webp" width="800" alt="The Stasis Hold — Act 1 of The Harvest" />
@@ -14,7 +14,7 @@ Define an entire escape room scenario — puzzles, narrative, killer AI, branchi
 
 ## What Is This?
 
-CAPTIVE is a browser-based single-player escape room game where:
+Adventure Engine is a browser-based single-player adventure game engine where:
 
 - **You are always the captive** — trapped, solving puzzles to escape before an AI-controlled antagonist catches you
 - **Every scenario is pure data** — one JSON file defines all game logic, interactions, puzzles, narrative, and killer behavior
@@ -218,7 +218,7 @@ The client runs at `http://localhost:5173` and connects to the Spring Boot WebSo
 
 ## Creating a Scenario
 
-Anyone can create a new CAPTIVE scenario. No code changes required — just JSON and art.
+Anyone can create a new scenario. No code changes required — just JSON and art.
 
 ### 1. Write the JSON
 

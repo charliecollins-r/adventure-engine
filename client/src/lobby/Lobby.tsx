@@ -281,8 +281,8 @@ export function Lobby({ wsClient, playerId, onGameStart }: LobbyProps) {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Captive</h1>
-      <p style={styles.subtitle}>An Asymmetric Escape Game</p>
+      <h1 style={styles.title}>Adventure Engine</h1>
+      <p style={styles.subtitle}>JSON-Driven Point-and-Click Adventures</p>
 
       <div style={styles.card}>
         {mode === 'menu' && (

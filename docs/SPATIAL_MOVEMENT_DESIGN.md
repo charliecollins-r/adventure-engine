@@ -27,7 +27,7 @@
 
 ## Design Goals
 
-Transform CAPTIVE from a static point-and-click scene viewer into a spatially immersive adventure game where:
+Transform Adventure Engine from a static point-and-click scene viewer into a spatially immersive adventure game where:
 
 1. **The player avatar walks within and between scenes** — click a point, the character pathfinds there
 2. **Distance matters** — objects have interaction ranges; walk closer to reach them
