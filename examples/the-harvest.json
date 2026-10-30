@@ -3134,6 +3134,468 @@
       }
     }
   ],
+  "events": [
+    {
+      "id": "pod_fluid_drains",
+      "trigger": {
+        "type": "time_after",
+        "seconds": 10
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The last of the stasis fluid drains from your pod. You shiver. Around you, other pods glow with their preserved contents \u2014 some moving, most still."
+        },
+        {
+          "type": "play_sound",
+          "sound": "fluid_drain"
+        }
+      ]
+    },
+    {
+      "id": "distant_curator_patrol",
+      "trigger": {
+        "type": "time_after",
+        "seconds": 45
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Click. Click. Click. Somewhere far below, precise footsteps on metal grating. The Curator begins its rounds."
+        },
+        {
+          "type": "play_sound",
+          "sound": "distant_footsteps"
+        }
+      ]
+    },
+    {
+      "id": "specimen_stirs",
+      "trigger": {
+        "type": "time_after",
+        "seconds": 120
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "A pod near you rattles. Something inside twitches \u2014 alive, barely. Its eyes open, unfocused, and close again. Not all the specimens are dead."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        }
+      ]
+    },
+    {
+      "id": "ship_pulse",
+      "trigger": {
+        "type": "time_after",
+        "seconds": 240
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The ship pulses. The bioluminescent veins in the walls brighten, then fade. Like a heartbeat. The ship is alive, and it just noticed something."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        }
+      ]
+    },
+    {
+      "id": "curator_evidence_escalation",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "curator_found_evidence",
+            "value": "true"
+          },
+          {
+            "type": "phase_is",
+            "phase": "infiltration"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "A change in the ship's resonance. The Curator's patrol pattern accelerates. It has found evidence of your passage. Amber light sweeps faster through the corridors."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alert_escalation"
+        }
+      ]
+    },
+    {
+      "id": "drone_deployment",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "infiltration"
+          },
+          {
+            "type": "time_after",
+            "seconds": 600
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "A new sound: the skittering of small mechanical legs. Maintenance drones \u2014 spider-like automata \u2014 fan out from their charging stations. The Curator has deployed its assistants."
+        },
+        {
+          "type": "set_flag",
+          "flag": "drones_active",
+          "value": "true"
+        },
+        {
+          "type": "play_sound",
+          "sound": "drone_skitter"
+        }
+      ]
+    },
+    {
+      "id": "planet_view_horror",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "bridge_accessed",
+            "value": "true"
+          },
+          {
+            "type": "view_is",
+            "view": "act2_observation_deck"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The viewport shows the planet in full. Energy siphons descend from orbit like needles. Where they touch, the surface blackens and dies. The planet's atmosphere is yellowing. It's being murdered slowly, and you're watching from the killer's house."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "dim"
+        }
+      ]
+    },
+    {
+      "id": "crash_landing_aftermath",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "survival"
+          },
+          {
+            "type": "time_after",
+            "seconds": 30
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Smoke rises from the shuttle wreckage behind you. The beetle-shaped craft will never fly again. Above, the alien ship is a dark shape against the wrong-colored sky. You are alone on a dying world."
+        }
+      ]
+    },
+    {
+      "id": "first_echo_encounter",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "survival"
+          },
+          {
+            "type": "view_is",
+            "view": "act3_echo_field"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Reality stutters. A translucent figure materializes \u2014 tall, four-armed, wearing what might be a uniform. It walks three steps, stops, turns, and walks back. Again. Again. It doesn't see you. It's replaying its last moments. An Echo \u2014 a remnant of this world's consumed civilization, burned into the Convergence's energy field."
+        },
+        {
+          "type": "set_flag",
+          "flag": "first_echo_seen",
+          "value": "true"
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flicker"
+        },
+        {
+          "type": "add_noise",
+          "amount": 15
+        }
+      ]
+    },
+    {
+      "id": "refugee_camp_discovery",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act3_refugee_camp"
+          },
+          {
+            "type": "flag_not",
+            "flag": "refugee_camp_explored",
+            "value": "true"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Collapsed shelters. Scattered belongings. A makeshift barricade facing the city \u2014 they tried to hold something back. And on the ground: skeletons. Tall, thin, four arms each. They tried to flee. They didn't make it. The silence here is heavier than anywhere else."
+        },
+        {
+          "type": "set_flag",
+          "flag": "refugee_camp_explored",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "id": "watcher_first_appearance",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "investigation"
+          },
+          {
+            "type": "time_after",
+            "seconds": 120
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Something new. A geometric shape \u2014 a shifting polyhedron of pure light \u2014 drifts between the city's spires. It doesn't move like a living thing. It optimizes. The Watcher. The Convergence's eye in its own domain."
+        },
+        {
+          "type": "set_flag",
+          "flag": "watcher_active",
+          "value": "true"
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        },
+        {
+          "type": "play_sound",
+          "sound": "crystalline_hum"
+        }
+      ]
+    },
+    {
+      "id": "echo_chamber_fracture",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act4_echo_chamber"
+          },
+          {
+            "type": "flag_is",
+            "flag": "echo_stabilizer_active",
+            "value": "true"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The room splits. Half decayed ruin, half living city as it was. The boundary shimmers and cracks. A ghostly scientist stands at a console in the pristine half, frozen mid-action. With the Echo Stabilizer, you can almost hear their voice: '...the weapon core must be shielded before assembly or the energy will...' The vision fractures."
+        },
+        {
+          "type": "set_flag",
+          "flag": "echo_chamber_vision_seen",
+          "value": "true"
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        }
+      ]
+    },
+    {
+      "id": "nexus_energy_surge",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "endgame"
+          },
+          {
+            "type": "time_after",
+            "seconds": 180
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The nexus surges. Energy flows brighten, the hum rises to a roar \u2014 the harvesting is accelerating. The planet is running out of time."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "shake"
+        },
+        {
+          "type": "play_sound",
+          "sound": "energy_surge"
+        }
+      ]
+    },
+    {
+      "id": "curator_arrives_on_planet",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "phase_is",
+            "phase": "endgame"
+          },
+          {
+            "type": "flag_not",
+            "flag": "curator_on_planet",
+            "value": "true"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "A distant boom. A Choir shuttle crashes into the crystallized landscape near the nexus entrance. Amber light emerges from the wreckage. The Curator. It followed you from orbit. It crash-landed a shuttle to pursue its escaped specimen across a dying world. Dedication or programming \u2014 does it matter?"
+        },
+        {
+          "type": "set_flag",
+          "flag": "curator_on_planet",
+          "value": "true"
+        },
+        {
+          "type": "play_sound",
+          "sound": "distant_crash"
+        }
+      ]
+    },
+    {
+      "id": "convergence_speaks",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "reached_convergence_core",
+            "value": "true"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "It speaks. Not in words \u2014 in visions. Consumed worlds flash before your eyes: blue oceans turned to dust, forests crystallized, civilizations reduced to Echoes. Thousands of worlds. Millions of species. And beneath the horror, a deeper truth: the Convergence is afraid. The universe is winding down. Entropy is winning. It consumes to survive."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "flash"
+        },
+        {
+          "type": "delay_then",
+          "seconds": 5,
+          "effects": [
+            {
+              "type": "message",
+              "text": "The visions fade. You stand before something older than most stars. It has shown you its fear. Now it waits for your answer."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stasis_gallery_horror",
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act5_stasis_gallery"
+          }
+        ]
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "A gallery of the damned. Specimens from the Convergence's first worlds \u2014 beings from billions of years ago, perfectly preserved in crystal. Species beyond imagination, each the last of its kind. And there \u2014 one of the four-armed planet inhabitants, frozen mid-scream, mouth open, eyes wide. They got this far. They saw what you're seeing. They didn't make it out."
+        }
+      ]
+    },
+    {
+      "id": "planet_dying_warning",
+      "trigger": {
+        "type": "time_after",
+        "seconds": 2400
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "message",
+          "text": "The sky darkens further. The energy siphons are reaching critical extraction. The planet shudders. Whatever you're going to do, the time to do it is running out."
+        },
+        {
+          "type": "visual_cue",
+          "cue": "red_pulse"
+        },
+        {
+          "type": "play_sound",
+          "sound": "distant_rumble"
+        }
+      ]
+    }
+  ],
   "killer": {
     "name": "The Curator",
     "description": "A specialized Choir unit responsible for the specimen collection. Taller than standard Choir drones, with additional manipulator limbs and optical sensors that glow amber. It catalogues, preserves, and maintains specimens with obsessive precision. You are its most recent acquisition \u2014 and its first escape.",
