@@ -581,21 +581,54 @@ export class ScenarioEngine {
     }
   }
 
+  private static pick(pool: string[]): string {
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
   private getDefaultFailMessage(verb: string, objectName: string): string {
     switch (verb) {
       case 'move':
-        return `You can't go that way.`;
+        return ScenarioEngine.pick([
+          `You can't go that way.`,
+          `That doesn't lead anywhere.`,
+          `There's no passage through ${objectName}.`,
+          `${objectName} isn't an exit.`,
+        ]);
       case 'hand':
-        return `You can't do anything useful with ${objectName} right now.`;
+        return ScenarioEngine.pick([
+          `You can't do anything useful with ${objectName} right now.`,
+          `${objectName} doesn't budge.`,
+          `You reach for ${objectName}, but nothing happens.`,
+          `Touching ${objectName} accomplishes nothing.`,
+          `You prod ${objectName}. Nothing useful comes of it.`,
+        ]);
       case 'take':
-        return `You can't take ${objectName}.`;
+        return ScenarioEngine.pick([
+          `You can't take ${objectName}.`,
+          `${objectName} won't come loose.`,
+          `You tug at ${objectName}, but it's firmly in place.`,
+        ]);
       case 'talk':
-        return `Talking to ${objectName} doesn't accomplish anything.`;
+        return ScenarioEngine.pick([
+          `Talking to ${objectName} doesn't accomplish anything.`,
+          `${objectName} has nothing to say.`,
+          `You mutter at ${objectName}. Unsurprisingly, no response.`,
+          `${objectName} remains silent.`,
+        ]);
       case 'use':
       case 'use_item':
-        return `That doesn't seem to work.`;
+        return ScenarioEngine.pick([
+          `That doesn't seem to work.`,
+          `That combination doesn't do anything useful.`,
+          `You try, but nothing happens.`,
+          `Those two things don't go together.`,
+        ]);
       default:
-        return `Nothing happens.`;
+        return ScenarioEngine.pick([
+          `Nothing happens.`,
+          `That doesn't do anything.`,
+          `Nothing useful comes of that.`,
+        ]);
     }
   }
 }

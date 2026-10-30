@@ -163,18 +163,44 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleEmptyClick = useCallback(() => {
     engine.dismissMessages();
+    const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
     if (selectedItem) {
-      engine.showMessage("You can't use that here.");
+      engine.showMessage(pick([
+        "You can't use that here.",
+        "There's nothing here to use that on.",
+        "That won't work on empty space.",
+      ]));
       setSelectedItem(null);
       bump();
     } else {
-      const msgs: Record<string, string> = {
-        move: "You can't go that way.",
-        look: "You don't see anything noteworthy there.",
-        hand: "There's nothing to interact with there.",
-        talk: "There's nobody to talk to there.",
+      const pools: Record<string, string[]> = {
+        move: [
+          "You can't go that way.",
+          "There's no passage there.",
+          "That direction leads nowhere.",
+          "You don't see an exit there.",
+        ],
+        look: [
+          "You don't see anything noteworthy there.",
+          "Nothing catches your eye.",
+          "Just the walls of the room.",
+          "Nothing unusual in that spot.",
+        ],
+        hand: [
+          "There's nothing to interact with there.",
+          "You grasp at nothing.",
+          "Your hand finds only empty air.",
+          "Nothing useful within reach there.",
+        ],
+        talk: [
+          "There's nobody to talk to there.",
+          "You speak into the silence. No reply.",
+          "Your words echo back unanswered.",
+          "Nobody responds.",
+        ],
       };
-      engine.showMessage(msgs[activeVerb] ?? 'Nothing happens.');
+      const pool = pools[activeVerb] ?? ['Nothing happens.', "That doesn't do anything."];
+      engine.showMessage(pick(pool));
       bump();
     }
   }, [engine, activeVerb, selectedItem, bump]);
