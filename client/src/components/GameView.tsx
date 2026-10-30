@@ -22,10 +22,6 @@ const VERB_CURSORS: Record<string, string> = {
   use: 'cell',
   hand: 'pointer',
   talk: 'text',
-  push: 'e-resize',
-  pull: 'w-resize',
-  open: 'pointer',
-  close: 'pointer',
 };
 
 const styles: Record<string, CSSProperties> = {
@@ -106,6 +102,7 @@ export function GameView({
   const viewStack = engine.getViewStack();
   const bgColor = engine.getBackgroundColor();
   const bgFile = engine.getBackgroundFile();
+  const scenarioId = engine.getScenario().metadata.id;
   const cursor = VERB_CURSORS[activeVerb] ?? 'default';
 
   const cursorLabel = selectedItem
@@ -123,7 +120,7 @@ export function GameView({
       {/* Background image */}
       {bgFile && (
         <img
-          src={`/scenarios/${bgFile}`}
+          src={`/scenarios/${scenarioId}/${bgFile}`}
           alt=""
           style={{
             position: 'absolute',

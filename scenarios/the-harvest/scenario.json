@@ -73,7 +73,7 @@
         "nav_act1_stasis_hold_to_act1_ventilation_shaft"
       ],
       "background_key": "act1_stasis_hold",
-      "background_file": "backgrounds/act1_stasis_hold.png"
+      "background_file": "backgrounds/act1_stasis_hold.webp"
     },
     {
       "id": "act1_pod_cluster",
@@ -86,7 +86,7 @@
         "nav_act1_pod_cluster_to_act1_processing_lab"
       ],
       "background_key": "act1_pod_cluster",
-      "background_file": "backgrounds/act1_pod_cluster.png"
+      "background_file": "backgrounds/act1_pod_cluster.webp"
     },
     {
       "id": "act1_processing_lab",
@@ -100,7 +100,7 @@
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
       "background_key": "act1_processing_lab",
-      "background_file": "backgrounds/act1_processing_lab.png"
+      "background_file": "backgrounds/act1_processing_lab.webp"
     },
     {
       "id": "act1_containment_corridor",
@@ -112,7 +112,7 @@
         "nav_act1_containment_corridor_to_act1_airlock_bay"
       ],
       "background_key": "act1_containment_corridor",
-      "background_file": "backgrounds/act1_containment_corridor.png"
+      "background_file": "backgrounds/act1_containment_corridor.webp"
     },
     {
       "id": "act1_morgue",
@@ -124,7 +124,7 @@
         "nav_act1_morgue_to_act1_processing_lab"
       ],
       "background_key": "act1_morgue",
-      "background_file": "backgrounds/act1_morgue.png"
+      "background_file": "backgrounds/act1_morgue.webp"
     },
     {
       "id": "act1_feeding_station",
@@ -137,7 +137,7 @@
         "nav_act1_feeding_station_to_act1_ventilation_shaft"
       ],
       "background_key": "act1_feeding_station",
-      "background_file": "backgrounds/act1_feeding_station.png"
+      "background_file": "backgrounds/act1_feeding_station.webp"
     },
     {
       "id": "act1_ventilation_shaft",
@@ -149,7 +149,7 @@
         "nav_act1_ventilation_shaft_to_act1_security_hub"
       ],
       "background_key": "act1_ventilation_shaft",
-      "background_file": "backgrounds/act1_ventilation_shaft.png"
+      "background_file": "backgrounds/act1_ventilation_shaft.webp"
     },
     {
       "id": "act1_security_hub",
@@ -162,7 +162,7 @@
         "nav_act1_security_hub_to_act1_ventilation_shaft"
       ],
       "background_key": "act1_security_hub",
-      "background_file": "backgrounds/act1_security_hub.png"
+      "background_file": "backgrounds/act1_security_hub.webp"
     },
     {
       "id": "act1_specimen_archive",
@@ -174,7 +174,7 @@
         "nav_act1_specimen_archive_to_act1_security_hub"
       ],
       "background_key": "act1_specimen_archive",
-      "background_file": "backgrounds/act1_specimen_archive.png"
+      "background_file": "backgrounds/act1_specimen_archive.webp"
     },
     {
       "id": "act1_airlock_bay",
@@ -187,7 +187,7 @@
         "nav_act1_airlock_bay_to_act1_containment_corridor"
       ],
       "background_key": "act1_airlock_bay",
-      "background_file": "backgrounds/act1_airlock_bay.png"
+      "background_file": "backgrounds/act1_airlock_bay.webp"
     },
     {
       "id": "act2_navigation_bridge",
@@ -200,7 +200,7 @@
         "nav_act2_navigation_bridge_to_act2_observation_deck"
       ],
       "background_key": "act2_navigation_bridge",
-      "background_file": "backgrounds/act2_navigation_bridge.png"
+      "background_file": "backgrounds/act2_navigation_bridge.webp"
     },
     {
       "id": "act2_engineering",
@@ -215,7 +215,7 @@
         "nav_act2_engineering_to_act2_shuttle_bay"
       ],
       "background_key": "act2_engineering",
-      "background_file": "backgrounds/act2_engineering.png"
+      "background_file": "backgrounds/act2_engineering.webp"
     },
     {
       "id": "act2_comm_array",
@@ -228,7 +228,7 @@
         "nav_act2_comm_array_to_act2_data_core"
       ],
       "background_key": "act2_comm_array",
-      "background_file": "backgrounds/act2_comm_array.png"
+      "background_file": "backgrounds/act2_comm_array.webp"
     },
     {
       "id": "act2_armory",
@@ -240,7 +240,7 @@
         "nav_act2_armory_to_act2_shuttle_bay"
       ],
       "background_key": "act2_armory",
-      "background_file": "backgrounds/act2_armory.png"
+      "background_file": "backgrounds/act2_armory.webp"
     },
     {
       "id": "act2_hive_quarters",
@@ -253,7 +253,7 @@
         "nav_act2_hive_quarters_to_act2_waste_processing"
       ],
       "background_key": "act2_hive_quarters",
-      "background_file": "backgrounds/act2_hive_quarters.png"
+      "background_file": "backgrounds/act2_hive_quarters.webp"
     },
     {
       "id": "act2_shuttle_bay",
@@ -265,7 +265,7 @@
         "nav_act2_shuttle_bay_to_act2_armory"
       ],
       "background_key": "act2_shuttle_bay",
-      "background_file": "backgrounds/act2_shuttle_bay.png"
+      "background_file": "backgrounds/act2_shuttle_bay.webp"
     },
     {
       "id": "act2_hydroponics",
@@ -277,7 +277,7 @@
         "nav_act2_hydroponics_to_act2_observation_deck"
       ],
       "background_key": "act2_hydroponics",
-      "background_file": "backgrounds/act2_hydroponics.png"
+      "background_file": "backgrounds/act2_hydroponics.webp"
     },
     {
       "id": "act2_data_core",
@@ -288,7 +288,7 @@
         "nav_act2_data_core_to_act2_hydroponics"
       ],
       "background_key": "act2_data_core",
-      "background_file": "backgrounds/act2_data_core.png"
+      "background_file": "backgrounds/act2_data_core.webp"
     },
     {
       "id": "act2_waste_processing",
@@ -299,7 +299,7 @@
         "nav_act2_waste_processing_to_act2_hive_quarters"
       ],
       "background_key": "act2_waste_processing",
-      "background_file": "backgrounds/act2_waste_processing.png"
+      "background_file": "backgrounds/act2_waste_processing.webp"
     },
     {
       "id": "act2_observation_deck",
@@ -310,7 +310,7 @@
         "nav_act2_observation_deck_to_act2_hydroponics"
       ],
       "background_key": "act2_observation_deck",
-      "background_file": "backgrounds/act2_observation_deck.png"
+      "background_file": "backgrounds/act2_observation_deck.webp"
     },
     {
       "id": "act3_crash_site",
@@ -320,7 +320,7 @@
         "nav_act3_crash_site_to_act3_wasteland_path"
       ],
       "background_key": "act3_crash_site",
-      "background_file": "backgrounds/act3_crash_site.png"
+      "background_file": "backgrounds/act3_crash_site.webp"
     },
     {
       "id": "act3_shuttle_wreck_interior",
@@ -331,7 +331,7 @@
         "nav_act3_shuttle_wreck_interior_to_act3_crash_site"
       ],
       "background_key": "act3_shuttle_wreck_interior",
-      "background_file": "backgrounds/act3_shuttle_wreck_interior.png"
+      "background_file": "backgrounds/act3_shuttle_wreck_interior.webp"
     },
     {
       "id": "act3_wasteland_path",
@@ -345,7 +345,7 @@
         "nav_act3_wasteland_path_to_act3_overlook"
       ],
       "background_key": "act3_wasteland_path",
-      "background_file": "backgrounds/act3_wasteland_path.png"
+      "background_file": "backgrounds/act3_wasteland_path.webp"
     },
     {
       "id": "act3_siphon_tower",
@@ -355,7 +355,7 @@
         "nav_act3_siphon_tower_to_act3_wasteland_path"
       ],
       "background_key": "act3_siphon_tower",
-      "background_file": "backgrounds/act3_siphon_tower.png"
+      "background_file": "backgrounds/act3_siphon_tower.webp"
     },
     {
       "id": "act3_refugee_camp",
@@ -367,7 +367,7 @@
         "nav_act3_refugee_camp_to_act3_echo_field"
       ],
       "background_key": "act3_refugee_camp",
-      "background_file": "backgrounds/act3_refugee_camp.png"
+      "background_file": "backgrounds/act3_refugee_camp.webp"
     },
     {
       "id": "act3_fungal_grove",
@@ -378,7 +378,7 @@
         "nav_act3_fungal_grove_to_act3_buried_bunker"
       ],
       "background_key": "act3_fungal_grove",
-      "background_file": "backgrounds/act3_fungal_grove.png"
+      "background_file": "backgrounds/act3_fungal_grove.webp"
     },
     {
       "id": "act3_echo_field",
@@ -388,7 +388,7 @@
         "nav_act3_echo_field_to_act3_city_gates"
       ],
       "background_key": "act3_echo_field",
-      "background_file": "backgrounds/act3_echo_field.png"
+      "background_file": "backgrounds/act3_echo_field.webp"
     },
     {
       "id": "act3_buried_bunker",
@@ -400,7 +400,7 @@
         "nav_act3_buried_bunker_to_act3_fungal_grove"
       ],
       "background_key": "act3_buried_bunker",
-      "background_file": "backgrounds/act3_buried_bunker.png"
+      "background_file": "backgrounds/act3_buried_bunker.webp"
     },
     {
       "id": "act3_city_gates",
@@ -410,7 +410,7 @@
         "nav_act3_city_gates_to_act3_overlook"
       ],
       "background_key": "act3_city_gates",
-      "background_file": "backgrounds/act3_city_gates.png"
+      "background_file": "backgrounds/act3_city_gates.webp"
     },
     {
       "id": "act3_overlook",
@@ -420,12 +420,12 @@
         "nav_act3_overlook_to_act3_city_gates"
       ],
       "background_key": "act3_overlook",
-      "background_file": "backgrounds/act3_overlook.png"
+      "background_file": "backgrounds/act3_overlook.webp"
     },
     {
       "id": "act4_grand_plaza",
       "background_key": "act4_grand_plaza",
-      "background_file": "backgrounds/act4_grand_plaza.png",
+      "background_file": "backgrounds/act4_grand_plaza.webp",
       "objects": [
         "plaza_fountain",
         "plaza_statue",
@@ -440,7 +440,7 @@
     {
       "id": "act4_library",
       "background_key": "act4_library",
-      "background_file": "backgrounds/act4_library.png",
+      "background_file": "backgrounds/act4_library.webp",
       "objects": [
         "library_crystal_stacks",
         "library_reading_station",
@@ -452,7 +452,7 @@
     {
       "id": "act4_war_room",
       "background_key": "act4_war_room",
-      "background_file": "backgrounds/act4_war_room.png",
+      "background_file": "backgrounds/act4_war_room.webp",
       "objects": [
         "holographic_table",
         "tactical_displays",
@@ -465,7 +465,7 @@
     {
       "id": "act4_research_lab",
       "background_key": "act4_research_lab",
-      "background_file": "backgrounds/act4_research_lab.png",
+      "background_file": "backgrounds/act4_research_lab.webp",
       "objects": [
         "prototype_weapon",
         "lab_workstation",
@@ -478,7 +478,7 @@
     {
       "id": "act4_residential_block",
       "background_key": "act4_residential_block",
-      "background_file": "backgrounds/act4_residential_block.png",
+      "background_file": "backgrounds/act4_residential_block.webp",
       "objects": [
         "open_doorway",
         "alien_toys",
@@ -491,7 +491,7 @@
     {
       "id": "act4_power_station",
       "background_key": "act4_power_station",
-      "background_file": "backgrounds/act4_power_station.png",
+      "background_file": "backgrounds/act4_power_station.webp",
       "objects": [
         "reactor_chamber",
         "power_distribution_panel",
@@ -504,7 +504,7 @@
     {
       "id": "act4_temple",
       "background_key": "act4_temple",
-      "background_file": "backgrounds/act4_temple.png",
+      "background_file": "backgrounds/act4_temple.webp",
       "objects": [
         "temple_resonance_chamber",
         "temple_altar",
@@ -517,7 +517,7 @@
     {
       "id": "act4_underground_railway",
       "background_key": "act4_underground_railway",
-      "background_file": "backgrounds/act4_underground_railway.png",
+      "background_file": "backgrounds/act4_underground_railway.webp",
       "objects": [
         "rail_vehicle",
         "railway_platform",
@@ -530,7 +530,7 @@
     {
       "id": "act4_echo_chamber",
       "background_key": "act4_echo_chamber",
-      "background_file": "backgrounds/act4_echo_chamber.png",
+      "background_file": "backgrounds/act4_echo_chamber.webp",
       "objects": [
         "reality_boundary",
         "ruined_half",
@@ -543,7 +543,7 @@
     {
       "id": "act4_weapon_vault",
       "background_key": "act4_weapon_vault",
-      "background_file": "backgrounds/act4_weapon_vault.png",
+      "background_file": "backgrounds/act4_weapon_vault.webp",
       "objects": [
         "containment_units",
         "biometric_lock",
@@ -556,7 +556,7 @@
     {
       "id": "act5_nexus_approach",
       "background_key": "act5_nexus_approach",
-      "background_file": "backgrounds/act5_nexus_approach.png",
+      "background_file": "backgrounds/act5_nexus_approach.webp",
       "objects": [
         "crystallized_ground",
         "frozen_trees",
@@ -569,7 +569,7 @@
     {
       "id": "act5_nexus_entrance",
       "background_key": "act5_nexus_entrance",
-      "background_file": "backgrounds/act5_nexus_entrance.png",
+      "background_file": "backgrounds/act5_nexus_entrance.webp",
       "objects": [
         "nexus_gate",
         "crystal_walls_entrance",
@@ -581,7 +581,7 @@
     {
       "id": "act5_energy_conduit",
       "background_key": "act5_energy_conduit",
-      "background_file": "backgrounds/act5_energy_conduit.png",
+      "background_file": "backgrounds/act5_energy_conduit.webp",
       "objects": [
         "energy_rivers",
         "metal_walkway",
@@ -594,7 +594,7 @@
     {
       "id": "act5_convergence_chamber",
       "background_key": "act5_convergence_chamber",
-      "background_file": "backgrounds/act5_convergence_chamber.png",
+      "background_file": "backgrounds/act5_convergence_chamber.webp",
       "objects": [
         "harvesting_apparatus",
         "energy_beam",
@@ -606,7 +606,7 @@
     {
       "id": "act5_control_spire",
       "background_key": "act5_control_spire",
-      "background_file": "backgrounds/act5_control_spire.png",
+      "background_file": "backgrounds/act5_control_spire.webp",
       "objects": [
         "choir_consoles",
         "ancient_controls",
@@ -618,7 +618,7 @@
     {
       "id": "act5_stasis_gallery",
       "background_key": "act5_stasis_gallery",
-      "background_file": "backgrounds/act5_stasis_gallery.png",
+      "background_file": "backgrounds/act5_stasis_gallery.webp",
       "objects": [
         "ancient_specimens",
         "screaming_inhabitant",
@@ -630,7 +630,7 @@
     {
       "id": "act5_weapon_assembly",
       "background_key": "act5_weapon_assembly",
-      "background_file": "backgrounds/act5_weapon_assembly.png",
+      "background_file": "backgrounds/act5_weapon_assembly.webp",
       "objects": [
         "assembly_workbench",
         "discarded_armor",
@@ -643,7 +643,7 @@
     {
       "id": "act5_transmission_array",
       "background_key": "act5_transmission_array",
-      "background_file": "backgrounds/act5_transmission_array.png",
+      "background_file": "backgrounds/act5_transmission_array.webp",
       "objects": [
         "crystal_antenna",
         "array_consoles",
@@ -655,7 +655,7 @@
     {
       "id": "act5_core",
       "background_key": "act5_core",
-      "background_file": "backgrounds/act5_core.png",
+      "background_file": "backgrounds/act5_core.webp",
       "objects": [
         "convergence_intelligence",
         "energy_patterns",
@@ -667,7 +667,7 @@
     {
       "id": "act5_escape_route",
       "background_key": "act5_escape_route",
-      "background_file": "backgrounds/act5_escape_route.png",
+      "background_file": "backgrounds/act5_escape_route.webp",
       "objects": [
         "vertical_shaft",
         "carved_ladder",
