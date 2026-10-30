@@ -368,7 +368,7 @@ export function GameView({
                 }}
               />
             )}
-            {isHovered && <div style={styles.objectLabel}>{obj.visual.label}</div>}
+            {isHovered && debugMode && <div style={styles.objectLabel}>{obj.visual.label}</div>}
           </div>
         );
       })}
