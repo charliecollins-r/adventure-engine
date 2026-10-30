@@ -1,0 +1,3 @@
+
+## Future Direction: Spatial Movement
+The spatial movement / click-to-move system is designed and documented in `docs/SPATIAL_MOVEMENT_DESIGN.md` but deferred for post-MVP. The current focus is JSON → gameplay with classic point-and-click adventuring (static backgrounds, verb-on-hotspot interactions). The spatial system adds walkable area polygons, distance-based interactions, screen-edge transitions, sprite sheet animations, and maze/hazard mechanics — all fully additive and backward-compatible. For MVP, the player is implied to be "in the room" without a visible avatar. Spatial mode can be layered on per-view later.
