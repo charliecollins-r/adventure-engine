@@ -578,8 +578,3 @@ This is critical to the 10-hour experience: death isn't common, but setbacks com
 | Estimated Play Time | 8-12 hours | Others are 10-20 min |
 | JSON Size Estimate | ~300-400 KB | Pharaoh was 151 KB |
 
----
-
-## JSON Scenario
-
-See: `examples/blackwood-manor.json` *(to be generated)*

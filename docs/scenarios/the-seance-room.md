@@ -18,13 +18,31 @@ The scenario's emotional core is the tension between Lenore's genuine maternal l
 
 ## Image Descriptions & Generation Prompts
 
+### How to Use These Prompts
+
+Each entry below includes the filename and a ready-to-paste prompt for **Google Gemini (free tier)**. Tips for best results:
+- Use Gemini's image generation (Imagen 3 via Gemini)
+- Specify "game background art" and "16:9 aspect ratio" in every prompt
+- Request "no text, no UI elements, no characters" to keep backgrounds clean
+- If a result is too bright or friendly, add "dark atmosphere, muted colors, unsettling"
+- Generate at **1920x1080** or the closest available resolution
+- **Style consistency keywords** for this scenario: `Victorian gothic, séance parlor, candlelight and deep shadow, burgundy and mahogany, occult atmosphere, London townhouse 1860s`
+
+---
+
 ### Background Images (3 total)
 
-1. **`backgrounds/parlor_main.png`** — A Victorian séance parlor on the second floor of a London townhouse. Burgundy wallpaper with damask pattern. Heavy oak door with ironwork skull motif (locked). Large bay window with heavy drapes, overlooking a moonlit garden two stories below. Marble fireplace with cold ashes. Tall mahogany spirit cabinet with carved vine doors (combination locked). Floor-to-ceiling bookshelf crammed with occult texts. Heavy burgundy curtain concealing an alcove shrine. Grandfather clock reading quarter to midnight. Fainting chaise with faded red upholstery. Brass gas lamp on the wall. Persian rug covering most of the floor. Central round table draped in black velvet with séance implements. The atmosphere is warm candlelight against deep shadow, lavender and age.
+**1. `backgrounds/parlor_main.png`** — A Victorian séance parlor on the second floor of a London townhouse. Burgundy wallpaper with damask pattern. Heavy oak door with ironwork skull motif (locked). Large bay window with heavy drapes, overlooking a moonlit garden two stories below. Marble fireplace with cold ashes. Tall mahogany spirit cabinet with carved vine doors (combination locked). Floor-to-ceiling bookshelf crammed with occult texts. Heavy burgundy curtain concealing an alcove shrine. Grandfather clock reading quarter to midnight. Fainting chaise with faded red upholstery. Brass gas lamp on the wall. Persian rug covering most of the floor. Central round table draped in black velvet with séance implements. The atmosphere is warm candlelight against deep shadow, lavender and age.
 
-2. **`backgrounds/seance_table_closeup.png`** — Close-up of the round séance table. Black velvet surface, perfectly arranged implements: a wooden spirit board (alphabet arc, numbers, YES/NO/GOODBYE), a heart-shaped planchette on the board, a five-armed brass candelabra with colored candles (rose-pink, lily-white, violet-purple, plain white, black), and a large cloudy crystal ball on a brass stand. The silk binding where the player was tied visible at the near edge. Beneath the table, an ornate carved pedestal with serpentine motifs and a barely-visible maintenance panel. Candlelight reflects off polished wood and brass.
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Victorian séance parlor on the second floor of a London townhouse. Burgundy damask wallpaper. Heavy oak door with ironwork skull motif, locked. Large bay window with heavy drapes overlooking a moonlit garden two stories below. Marble fireplace with cold ashes. Tall mahogany spirit cabinet with carved vine doors. Floor-to-ceiling bookshelf crammed with occult texts. Heavy burgundy curtain concealing an alcove. Grandfather clock reading quarter to midnight. Fainting chaise with faded red upholstery. Brass gas lamp on wall. Persian rug covering most of the floor. Central round table draped in black velvet with séance implements. Warm candlelight against deep shadow, atmosphere of lavender and age. Victorian gothic, occult, mysterious. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
 
-3. **`backgrounds/cabinet_closeup.png`** — Interior of the mahogany spirit cabinet, doors thrown open. Upper shelf: séance props (tambourine, speaking trumpet, slate, music box). Lower shelf: bellows mechanism (missing handle), coils of wire, box of magnets. Center: a large oval mirror in a brass frame mounted on a pivot. A hidden panel at the base. Wires and pulleys connect to concealed tracks running to the table. The cabinet is a fraud workshop — every surface hides a mechanism. Through the turned mirror, a dark narrow passage is visible.
+**2. `backgrounds/seance_table_closeup.png`** — Close-up of the round séance table. Black velvet surface, perfectly arranged implements: a wooden spirit board (alphabet arc, numbers, YES/NO/GOODBYE), a heart-shaped planchette on the board, a five-armed brass candelabra with colored candles (rose-pink, lily-white, violet-purple, plain white, black), and a large cloudy crystal ball on a brass stand. The silk binding where the player was tied visible at the near edge. Beneath the table, an ornate carved pedestal with serpentine motifs and a barely-visible maintenance panel. Candlelight reflects off polished wood and brass.
+
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of a round Victorian séance table. Black velvet surface with perfectly arranged implements: a wooden spirit board with alphabet arc and numbers and YES/NO/GOODBYE markings, a heart-shaped wooden planchette, a five-armed brass candelabra with colored candles in rose pink, lily white, violet purple, plain white, and black. A large cloudy crystal ball on a brass stand. Silk binding cords visible at the near edge. Beneath the table, an ornate carved pedestal with serpentine motifs. Warm candlelight reflecting off polished wood and brass. Victorian gothic, mystical, intimate. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
+
+**3. `backgrounds/cabinet_closeup.png`** — Interior of the mahogany spirit cabinet, doors thrown open. Upper shelf: séance props (tambourine, speaking trumpet, slate, music box). Lower shelf: bellows mechanism (missing handle), coils of wire, box of magnets. Center: a large oval mirror in a brass frame mounted on a pivot. A hidden panel at the base. Wires and pulleys connect to concealed tracks running to the table. The cabinet is a fraud workshop — every surface hides a mechanism. Through the turned mirror, a dark narrow passage is visible.
+
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Interior of a mahogany Victorian spirit cabinet with doors thrown open. Upper shelf: séance props including a tambourine, a speaking trumpet, a slate, and a music box. Lower shelf: bellows mechanism missing its handle, coils of wire, box of magnets. Center: a large oval mirror in a brass frame mounted on a pivot. Hidden panel visible at the base. Wires and pulleys connecting to concealed tracks. Through the turned mirror, a dark narrow passage is barely visible. The cabinet is a Victorian fraud workshop, every surface hiding a mechanism. Warm amber lighting, mysterious. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
 
 ---
 
@@ -317,30 +335,3 @@ Inside the spirit cabinet. Contains:
 | 28 | Camouflage | Trapdoor hidden under rug; diary hidden in clock; tools hidden behind portrait |
 | 30 | Decay Clock | 600-second total timer; phases escalate killer behavior over time |
 
----
-
-## Image Generation Prompts
-
-Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. The target art style is **1990s Sierra On-Line adventure games** — specifically **King's Quest V** and **King's Quest VI** — hand-painted, lush, richly detailed backgrounds with painterly textures, atmospheric lighting, and a sense of depth. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one. If results look too modern or photorealistic, append: `"painterly style, hand-painted, 1990s adventure game aesthetic"`.
-
-**Style consistency keywords** (include in every prompt for this scenario): `Victorian gothic, séance parlor, candlelight and deep shadow, burgundy and mahogany, occult atmosphere, London townhouse 1860s`
-
-### `backgrounds/parlor_main.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Victorian séance parlor on the second floor of a London townhouse. Burgundy damask wallpaper. Heavy oak door with ironwork skull motif, locked. Large bay window with heavy drapes overlooking a moonlit garden two stories below. Marble fireplace with cold ashes. Tall mahogany spirit cabinet with carved vine doors. Floor-to-ceiling bookshelf crammed with occult texts. Heavy burgundy curtain concealing an alcove. Grandfather clock reading quarter to midnight. Fainting chaise with faded red upholstery. Brass gas lamp on wall. Persian rug covering most of the floor. Central round table draped in black velvet with séance implements. Warm candlelight against deep shadow, atmosphere of lavender and age. Victorian gothic, occult, mysterious. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
-### `backgrounds/seance_table_closeup.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of a round Victorian séance table. Black velvet surface with perfectly arranged implements: a wooden spirit board with alphabet arc and numbers and YES/NO/GOODBYE markings, a heart-shaped wooden planchette, a five-armed brass candelabra with colored candles in rose pink, lily white, violet purple, plain white, and black. A large cloudy crystal ball on a brass stand. Silk binding cords visible at the near edge. Beneath the table, an ornate carved pedestal with serpentine motifs. Warm candlelight reflecting off polished wood and brass. Victorian gothic, mystical, intimate. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
-### `backgrounds/cabinet_closeup.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Interior of a mahogany Victorian spirit cabinet with doors thrown open. Upper shelf: séance props including a tambourine, a speaking trumpet, a slate, and a music box. Lower shelf: bellows mechanism missing its handle, coils of wire, box of magnets. Center: a large oval mirror in a brass frame mounted on a pivot. Hidden panel visible at the base. Wires and pulleys connecting to concealed tracks. Through the turned mirror, a dark narrow passage is barely visible. The cabinet is a Victorian fraud workshop, every surface hiding a mechanism. Warm amber lighting, mysterious. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
----
-
-## Schema Notes
-
-- **Views**: 3 views (main, seance_table_closeup, cabinet_closeup) keeping the 1-3 room target
-- **Puzzle Widgets**: Uses `puzzle_widgets` (not `puzzle_objects`) — combination_lock, sequence_puzzle, and dial types
-- **Condition System**: Uses `view_is` for cabinet-only interactions, `any_of`/`all_of` for compound conditions
-- **Killer On-Visit Effects**: Three effects — window relatch, rug replacement (advances phase), and gas lamp trap trigger
-- **Flag Initialization**: All 29 flags initialized in the `flags` block
-- **Interaction Ordering**: Most specific conditions listed first in each interaction array

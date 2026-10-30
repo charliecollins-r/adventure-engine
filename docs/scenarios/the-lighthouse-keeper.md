@@ -18,13 +18,31 @@ Below you, accessible through a floor grate, is Pete — a fisherman Harold caug
 
 ## Image Descriptions & Generation Prompts
 
-### Background Images (3 total)
+### How to Use These Prompts
 
-1. **`backgrounds/service_room.png`** — The main lighthouse service room, circular, roughly 15 feet across. Stone walls curved to match the tower's shape. A steel door (locked, industrial) on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A floor grate (metal bars, you can see dimness below). Mounted on the walls: rusted hooks, a signal lamp (old naval type), a fuse box (gray metal, closed). A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Lighting: dim, cold — a single bare bulb overhead, moonlight through the porthole. The room feels institutional, maritime, isolated. Salt stains on the stone. Condensation on the steel.
+Each entry below includes the filename and a ready-to-paste prompt for **Google Gemini (free tier)**. Tips for best results:
+- Use Gemini's image generation (Imagen 3 via Gemini)
+- Specify "game background art" and "16:9 aspect ratio" in every prompt
+- Request "no text, no UI elements, no characters" to keep backgrounds clean
+- If a result is too bright or friendly, add "dark atmosphere, muted colors, unsettling"
+- Generate at **1920x1080** or the closest available resolution
+- **Style consistency keywords** for this scenario: `maritime horror, isolated lighthouse, cold moonlight, institutional decay, salt-stained stone, 1970s Coast Guard aesthetic`
 
-2. **`backgrounds/workbench_closeup.png`** — A heavy wooden workbench built against the curved wall. On the surface: a closed metal toolbox (padlocked), a rolled maritime chart, a signal manual (worn Coast Guard booklet), a dead radio (old tube-style transceiver, no power), a tin can, a spool of wire, and a pot of black machine grease. Tools hang on the wall behind — but most are missing, just nail holes and faded outlines. A small porthole window lets in moonlight. The bench is oil-stained, well-used, organized in Harold's precise military fashion.
+---
 
-3. **`backgrounds/radio_closeup.png`** — Close-up of the old marine radio transceiver. Bakelite body, dented metal chassis. A tuning dial with frequency markings (VHF marine band). A speaker grille with torn fabric. A telescoping antenna, extended but bent. Patch cables and vacuum tubes visible through an access panel. The radio is dead — needs a fuse to power up. When powered, the dial glows amber. Period-appropriate 1970s Coast Guard equipment.
+### Background Images (3 views)
+
+**1. `backgrounds/service_room.png`** — The main lighthouse service room, circular, roughly 15 feet across. Stone walls curved to match the tower's shape. A steel door (locked, industrial) on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A floor grate (metal bars, you can see dimness below). Mounted on the walls: rusted hooks, a signal lamp (old naval type), a fuse box (gray metal, closed). A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Lighting: dim, cold — a single bare bulb overhead, moonlight through the porthole. The room feels institutional, maritime, isolated. Salt stains on the stone. Condensation on the steel.
+
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Circular lighthouse service room roughly 15 feet across. Curved stone walls with salt stains and condensation. A steel door with industrial lock on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A metal floor grate showing darkness below. Rusted hooks on walls, an old naval signal lamp, a closed gray metal fuse box. A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Dim cold lighting from a single bare bulb overhead and moonlight through the porthole. Maritime horror atmosphere, isolated lighthouse, institutional decay, 1970s Coast Guard aesthetic. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
+
+**2. `backgrounds/workbench_closeup.png`** — A heavy wooden workbench built against the curved wall. On the surface: a closed metal toolbox (padlocked), a rolled maritime chart, a signal manual (worn Coast Guard booklet), a dead radio (old tube-style transceiver, no power), a tin can, a spool of wire, and a pot of black machine grease. Tools hang on the wall behind — but most are missing, just nail holes and faded outlines. A small porthole window lets in moonlight. The bench is oil-stained, well-used, organized in Harold's precise military fashion.
+
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of a heavy wooden workbench built against a curved stone wall. On the surface: a closed padlocked metal toolbox, a rolled maritime chart, a worn Coast Guard signal manual booklet, a dead old tube-style radio transceiver, a tin can, a spool of wire, and a pot of black machine grease. Tool outlines on the wall behind where tools once hung but are now missing. A small porthole window lets in moonlight. The bench is oil-stained and well-used, organized with military precision. Maritime horror, cold moonlight, 1970s Coast Guard aesthetic. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
+
+**3. `backgrounds/radio_closeup.png`** — Close-up of the old marine radio transceiver. Bakelite body, dented metal chassis. A tuning dial with frequency markings (VHF marine band). A speaker grille with torn fabric. A telescoping antenna, extended but bent. Patch cables and vacuum tubes visible through an access panel. The radio is dead — needs a fuse to power up. When powered, the dial glows amber. Period-appropriate 1970s Coast Guard equipment.
+
+> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of an old marine radio transceiver from the 1970s. Bakelite body, dented metal chassis. A tuning dial with VHF marine band frequency markings. A speaker grille with torn fabric. A bent telescoping antenna. Patch cables and vacuum tubes visible through an open access panel. The radio is dead and dark. Period-appropriate 1970s Coast Guard communications equipment. Warm moonlight from one side, cold shadows. Maritime, vintage, isolated. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
 
 ---
 
@@ -176,25 +194,3 @@ Triggered if Harold finds evidence (open locker, missing items, broken porthole 
 - Evidence: "Someone's been in my supplies." / "This wasn't open before."
 - Catch: "Trespasser secured. Awaiting further orders."
 
----
-
-## Image Generation Prompts
-
-Copy-paste these prompts into **Google Gemini (free tier)** to generate background images. The target art style is **1990s Sierra On-Line adventure games** — specifically **King's Quest V** and **King's Quest VI** — hand-painted, lush, richly detailed backgrounds with painterly textures, atmospheric lighting, and a sense of depth. Generate at 1920x1080 when resolution options are available. Generate 3-4 variations and pick the most atmospheric one. If results look too modern or photorealistic, append: `"painterly style, hand-painted, 1990s adventure game aesthetic"`.
-
-**Style consistency keywords** (include in every prompt for this scenario): `maritime horror, isolated lighthouse, cold moonlight, institutional decay, salt-stained stone, 1970s Coast Guard aesthetic`
-
-### `backgrounds/service_room.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Circular lighthouse service room roughly 15 feet across. Curved stone walls with salt stains and condensation. A steel door with industrial lock on one wall. A porthole window with heavy bolts opposite. A military cot with rough wool blankets against the wall. A metal floor grate showing darkness below. Rusted hooks on walls, an old naval signal lamp, a closed gray metal fuse box. A coil of heavy rope hanging from a hook. An ankle chain bolted to the wall near the cot. Dim cold lighting from a single bare bulb overhead and moonlight through the porthole. Maritime horror atmosphere, isolated lighthouse, institutional decay, 1970s Coast Guard aesthetic. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
-### `backgrounds/workbench_closeup.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of a heavy wooden workbench built against a curved stone wall. On the surface: a closed padlocked metal toolbox, a rolled maritime chart, a worn Coast Guard signal manual booklet, a dead old tube-style radio transceiver, a tin can, a spool of wire, and a pot of black machine grease. Tool outlines on the wall behind where tools once hung but are now missing. A small porthole window lets in moonlight. The bench is oil-stained and well-used, organized with military precision. Maritime horror, cold moonlight, 1970s Coast Guard aesthetic. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
-### `backgrounds/radio_closeup.png`
-> **Gemini Prompt**: `Hand-painted game background art in the style of 1990s Sierra On-Line adventure games like King's Quest V and King's Quest VI, 16:9 aspect ratio, 1920x1080. Close-up of an old marine radio transceiver from the 1970s. Bakelite body, dented metal chassis. A tuning dial with VHF marine band frequency markings. A speaker grille with torn fabric. A bent telescoping antenna. Patch cables and vacuum tubes visible through an open access panel. The radio is dead and dark. Period-appropriate 1970s Coast Guard communications equipment. Warm moonlight from one side, cold shadows. Maritime, vintage, isolated. Low camera angle, as if viewed by a small creature at knee-height, emphasizing the towering scale of the environment. Painterly style, lush detailed backgrounds, rich colors, atmospheric. No text, no UI, no characters.`
-
----
-
-## JSON Scenario
-
-See: [`examples/the-lighthouse-keeper.json`](../../examples/the-lighthouse-keeper.json)
