@@ -17387,12 +17387,12 @@
       "name": "Right Passage",
       "description": "A sealed doorway on the right wall of the feeding station, leading to the Specimen Archive.",
       "position": {
-        "x": 780,
-        "y": 187
+        "x": 700,
+        "y": 160
       },
       "size": {
-        "width": 180,
-        "height": 400
+        "width": 100,
+        "height": 280
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -17447,12 +17447,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 720,
-        "y": 100
+        "x": 740,
+        "y": 80
       },
       "size": {
-        "width": 200,
-        "height": 450
+        "width": 120,
+        "height": 430
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
