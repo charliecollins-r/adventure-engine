@@ -222,6 +222,41 @@
       ]
     },
     {
+      "id": "act1_cataloguer_closeup",
+      "name": "Specimen Jars — Close-up",
+      "objects": [
+        "specimen_tank_left",
+        "specimen_tank_center",
+        "specimen_tank_right",
+        "specimen_data_plates",
+        "cataloguer_mechanism"
+      ],
+      "background_key": "act1_cataloguer_closeup",
+      "background_file": "closeups/cataloguer_specimens.webp",
+      "back_label": "Stasis Hold",
+      "hints": [
+        {
+          "text": "Study the specimen jars closely. The data plates on each one display numbers — those might be useful.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known"
+            }
+          ]
+        },
+        {
+          "text": "You've already noted the section code: 7-3-1-9. The processing lab keypad might accept it.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "act1_processing_lab",
       "name": "Processing Lab",
       "objects": [
@@ -6168,8 +6203,8 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 780,
-        "y": 460
+        "x": 830,
+        "y": 550
       },
       "size": {
         "width": 100,
@@ -6188,7 +6223,7 @@
         "frame_height": 768,
         "columns": 4,
         "rows": 1,
-        "frame_rate": 2,
+        "frame_rate": 0,
         "scale": 0.2
       },
       "interactions": [
@@ -6206,8 +6241,8 @@
               "text": "A biomechanical spider-drone clings to the wall among the pods, methodically scanning and cataloguing specimens. Its amber jars hold preserved creatures. The data plates on each jar catch your eye \u2014 numerical readouts alongside alien script. The numbers might be readable..."
             },
             {
-              "type": "show_closeup",
-              "image": "closeups/cataloguer_specimens.webp"
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
             }
           ]
         },
@@ -6226,8 +6261,8 @@
               "text": "The cataloguer robot continues its work, oblivious. You've already noted the section code from its specimen plates \u2014 7-3-1-9."
             },
             {
-              "type": "show_closeup",
-              "image": "closeups/cataloguer_specimens.webp"
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
             }
           ]
         },
@@ -6250,8 +6285,8 @@
               "value": "true"
             },
             {
-              "type": "show_closeup",
-              "image": "closeups/cataloguer_specimens.webp"
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
             }
           ]
         },
@@ -6278,6 +6313,313 @@
             {
               "type": "message",
               "text": "The cataloguer emits a low electronic hum as it works. It doesn't respond to your voice \u2014 this machine operates on instinct, not intelligence. Just a collector, endlessly sorting the ship's trophies."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "specimen_tank_left",
+      "name": "Left Specimen Tank",
+      "description": "A tall cylindrical jar filled with murky amber preservative. Something coiled and segmented floats inside.",
+      "position": {
+        "x": 80,
+        "y": 80
+      },
+      "size": {
+        "width": 240,
+        "height": 560
+      },
+      "visual": {
+        "color": "rgba(180, 140, 60, 0.15)",
+        "label": "Left Tank"
+      },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A segmented, worm-like creature curled in on itself, suspended in amber fluid. Bioluminescent nodes line its body like tiny lanterns. Its mouth — if that's what it is — is a ring of inward-facing barbs. A harvested specimen from some other world, preserved for study."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The glass is warm to the touch and faintly vibrates. You pull your hand back — was that the ship's hum, or did the thing inside just move?"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You mutter something to the thing in the jar. It doesn't respond. Of course it doesn't. But for a moment the bioluminescent nodes pulse brighter, as if it heard."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "specimen_tank_center",
+      "name": "Center Specimen Tank",
+      "description": "The largest jar. Something vaguely humanoid floats inside, curled in a fetal position.",
+      "position": {
+        "x": 360,
+        "y": 60
+      },
+      "size": {
+        "width": 240,
+        "height": 580
+      },
+      "visual": {
+        "color": "rgba(180, 140, 60, 0.15)",
+        "label": "Center Tank"
+      },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "This specimen is larger — almost your size. A pale, translucent being with too many joints, curled in on itself. Its skin is membrane-thin; you can see dark organs pulsing slowly beneath. The creature's face is smooth and featureless except for a single vertical slit where a mouth should be. It looks... peaceful. Asleep, maybe. Or something worse than asleep."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your palm flat against the glass. The creature's slit-mouth twitches. A bubble escapes from somewhere on its body and drifts upward through the amber fluid. You step back quickly. Best not to wake what the Convergence put to sleep."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Can you hear me?\" Nothing. But you notice the creature's fingers — all seven of them — are pressed against the glass from the inside, as if it was reaching for something when the preservative took hold."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "specimen_tank_right",
+      "name": "Right Specimen Tank",
+      "description": "A smaller jar containing something dark and spiny. The amber fluid around it has a reddish tint.",
+      "position": {
+        "x": 640,
+        "y": 100
+      },
+      "size": {
+        "width": 240,
+        "height": 540
+      },
+      "visual": {
+        "color": "rgba(180, 140, 60, 0.15)",
+        "label": "Right Tank"
+      },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A compact, spiny creature bristling with chitinous quills. The amber preservative around it has turned reddish — some chemical reaction with the specimen's biology. Its quills are tipped with something iridescent that catches the light. Even dead and jarred, it looks dangerous."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You tap the glass cautiously. The reddish fluid swirls where you touched, as if reacting to pressure. The quills seem to shift — just the fluid currents, surely. This one was probably venomous when it was alive. The Convergence collects everything."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Sorry about this,\" you whisper to the spiny thing. You know the feeling — being catalogued, stored away, just another specimen in the collection. At least you got out of your jar."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "specimen_data_plates",
+      "name": "Data Plates",
+      "description": "Small metal plates affixed to the base of each specimen jar, displaying numerical codes alongside alien script.",
+      "position": {
+        "x": 120,
+        "y": 620
+      },
+      "size": {
+        "width": 720,
+        "height": 100
+      },
+      "visual": {
+        "color": "rgba(200, 180, 80, 0.2)",
+        "label": "Data Plates"
+      },
+      "initial_state": "unread",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Each jar has a small metal plate riveted to its base. Alien script you can't decipher runs across the top — but below it, numbers. Universal, unmistakable numbers. The plates read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every plate."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The data plates still read 7319-101, 7319-102, 7319-103. You've already memorized the section code: 7-3-1-9."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You trace your finger along the numbers: 7319-101... 7319-102... 7319-103. The first four digits repeat on every plate — that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab door had a keypad. This could be the access code you need."
+            },
+            {
+              "type": "set_flag",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You've already noted the section code: 7-3-1-9. No need to study the plates further."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You read the numbers aloud: \"Seven... three... one... nine.\" Your voice sounds small in this place. The numbers echo back from the glass like a whispered prayer."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "cataloguer_mechanism",
+      "name": "Cataloguer Mechanism",
+      "description": "The spider-drone's sorting arm extends into the specimen rack, its manipulators frozen mid-scan.",
+      "position": {
+        "x": 350,
+        "y": 0
+      },
+      "size": {
+        "width": 260,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(100, 160, 80, 0.15)",
+        "label": "Mechanism"
+      },
+      "initial_state": "active",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The cataloguer's sorting arm — a delicate lattice of bio-metal joints — extends down from above. Tiny optical sensors blink along its length, still scanning even now. The arm moves with glacial precision, cataloguing each specimen in turn. It's been doing this for years. Maybe centuries."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach for the mechanism. It retracts slightly at your touch — a reflexive motion, like a spider pulling in a leg. Then it extends again, resuming its endless inventory. It doesn't consider you a threat. You're not a specimen anymore. Or perhaps it simply hasn't been told to collect you yet."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The mechanism emits a series of rapid clicks in response to your voice — a cataloguing reflex, recording the sound. Then it returns to silence, its optical sensors sweeping methodically across the jars."
             }
           ]
         }
@@ -17724,8 +18066,8 @@
       "name": "Ventilation Grate",
       "description": "A heavy metal grate bolted to the floor. Warm air pulses up through the slats in rhythmic gusts.",
       "position": {
-        "x": 180,
-        "y": 640
+        "x": 100,
+        "y": 700
       },
       "size": {
         "width": 140,

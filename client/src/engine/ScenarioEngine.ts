@@ -121,8 +121,7 @@ export class ScenarioEngine {
   getCharacterPlacement(): CharacterPlacement | null {
     const view = this.getCurrentView();
     const base = view.character;
-    if (!base && !this._characterOverride) return null;
-    if (!base) return this._characterOverride as CharacterPlacement;
+    if (!base) return null;
     return { ...base, ...this._characterOverride };
   }
 
