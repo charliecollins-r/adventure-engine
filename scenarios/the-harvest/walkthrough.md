@@ -21,28 +21,32 @@ Act 1 takes place entirely on the containment deck: 9 interconnected rooms with 
                     ┌──────┴───────┐
       Left Door ┌───│  CONTAINMENT │───┐ Right Door
                 │   │  CORRIDOR    │   │
-                │   │   (hub)      │   │
-                │   └──────┬───────┘   │
-                │          │ Far End   │
-        ┌───────┴──────┐   │   ┌───────┴──────┐
-        │ PROCESSING   │   │   │ SECURITY     │
-        │ LAB          │   │   │ HUB          │
-        │  ◆ ✧         │   │   │  ◆ ✧✧ ✦     │
-        └──────────────┘   │   └──────────────┘
-                           │
+                │   │   (hub)  ✦   │   │
+                │   └───┬──┬───────┘   │
+                │       │  │ Far End   │
+        ┌───────┴────┐  │  │   ┌───────┴──────┐
+        │ PROCESSING │  │  │   │ SECURITY     │
+        │ LAB        │  │  │   │ HUB          │
+        │  ◆ ✧       │  │  │   │  ◆ ✧✧ ✦     │
+        └────────────┘  │  │   └──────────────┘
+                        │  │
+           Floor Vent ──┘  │
+          (needs security  │
+           override)       │
                     ┌──────┴───────┐
       Left     ┌───│  FEEDING     │───┐ Right
       Passage  │   │  STATION     │   │ Passage
-               │   │  ◆ ♦ (hub)   │   │
-               │   └──────┬───────┘   │
-               │          │ Floor     │
-        ┌──────┴───────┐  │ Vent  ┌───┴──────────┐
-        │ MORGUE       │  │       │ SPECIMEN     │
-        │  ◆ ✧         │  │       │ ARCHIVE      │
-        └──────────────┘  │       │  ◆ ✧✧ ✦      │
-                          │       └──────────────┘
-                   ┌──────┴───────┐
-                   │ VENTILATION  │
+               │   │  ◆ ♦         │   │
+               │   └──────────────┘   │
+               │                      │
+        ┌──────┴───────┐       ┌──────┴──────┐
+        │ MORGUE       │       │ SPECIMEN    │
+        │  ◆ ✧         │       │ ARCHIVE     │
+        └──────────────┘       │  ◆ ✧✧ ✦     │
+                               └─────────────┘
+
+                   ┌──────────────┐
+                   │ VENTILATION  │ ← via corridor vent
                    │ SHAFT  ◆     │
                    └──────┬───────┘
                           │ Shaft Exit
@@ -105,7 +109,7 @@ MOVE through the Dark Archway to reach the **Containment Corridor**.
 
 ### 2. Containment Corridor (Hub)
 
-The central hallway connecting most of the deck. Four exits lead to: Stasis Hold, Processing Lab, Security Hub, and Feeding Station. No items to collect here, but LOOK at the drag marks and emergency panel for story context.
+The central hallway connecting most of the deck. Five exits lead to: Stasis Hold, Processing Lab, Security Hub, Feeding Station, and the Ventilation Shaft (via a floor grate that's locked until you override security). No items to collect here, but LOOK at the drag marks and emergency panel for story context.
 
 Head to the **Processing Lab** first.
 
@@ -142,7 +146,7 @@ Return to the Corridor, then head to the **Feeding Station**.
 
 ### 5. Feeding Station (Secondary Hub)
 
-The feeding station is the second hub with four exits: Morgue, Containment Corridor, Specimen Archive, and Ventilation Shaft.
+The feeding station is the second hub with three exits: Morgue, Specimen Archive, and back to the Containment Corridor.
 
 - **HAND the Nutrient Dispenser** — Collect a tube of grey nutrient paste. Disgusting, but Choir drones are attracted to it. *(Gains: `nutrient_paste_tube`)*
 - **TALK to the Caged Prisoner** — A four-armed alien creature behind an energy barrier. This triggers the **dialogue choice system** (see branching section below). *(Sets flags: `prisoner_spoken`, `prisoner_bond`, and potentially `airlock_hinted` or `choir_nature_known`)*
@@ -176,7 +180,7 @@ Return to the Feeding Station, then head to the **Specimen Archive**.
 
 **Also here**: Crystal Rack, Right Crystal Wall, Archive Benches — lore-rich LOOK interactions.
 
-Return to the Feeding Station, then head to the **Ventilation Shaft**.
+Return to the Feeding Station, then back to the **Containment Corridor**. The ventilation grate in the corridor floor is now unlocked (you overrode security earlier). Head through it to the **Ventilation Shaft**.
 
 ---
 
@@ -260,17 +264,17 @@ All 9 collectible items in Act 1:
 
 1. **"The security console won't activate"** — You need the startup sequence from the Processing Lab (LOOK at the Lab Startup Display). Without it, pressing buttons just triggers alarms. The section code from the Cataloguer Robot in Stasis Hold (HAND to study data plates) is separate knowledge for the Processing Lab keypad.
 
-2. **"I can't find the Pod Cluster"** — It's not a separate room on the map. MOVE on the Occupied Pods in the Stasis Hold to climb up to the close-up view.
+2. **"How do I get the code 7-3-1-9?"** — LOOKing at the Cataloguer Robot only hints at the codes on its data plates. You must HAND it (lean in and study the plates) to actually memorize the pattern.
 
-3. **"The pod labels just describe codes but nothing happens"** — LOOK only hints at the code. You need to HAND the labels (physically trace them) to memorize the number sequence 7-3-1-9.
+3. **"How do I use inventory items?"** — Click an item in your inventory to select it (it highlights), then click a world object to USE it on. The engine handles the `use_item` verb automatically. Used for: crystal on reading device, key card on airlock panel.
 
-4. **"How do I use inventory items?"** — Click an item in your inventory to select it (it highlights), then click a world object to USE it on. The engine handles the `use_item` verb automatically. Used for: crystal on reading device, key card on airlock panel.
+4. **"I can't reach the Morgue or Archive"** — Both are accessible from the Feeding Station, not the Containment Corridor. The Corridor leads to: Stasis Hold, Processing Lab, Security Hub, and Feeding Station. From the Feeding Station you reach: Morgue, Archive, and back to Corridor.
 
-5. **"I can't reach the Morgue or Archive"** — Both are accessible from the Feeding Station, not the Containment Corridor. The Corridor leads to: Stasis Hold, Processing Lab, Security Hub, and Feeding Station. From the Feeding Station you reach: Morgue, Archive, Ventilation Shaft, and back to Corridor.
+5. **"I can't get into the ventilation shaft"** — The vent grate is in the Containment Corridor floor, but it's locked by the containment security system. You need to override security first (Security Hub → HAND Console twice to trigger the lock override). Once `security_locks_overridden` is set, the grate opens.
 
 6. **"The prisoner won't talk to me"** — Make sure you're using the TALK verb, not HAND or LOOK. The dialogue choice modal appears after the initial greeting.
 
-7. **"I explored everything but nothing seems to happen"** — Act 1 is about gathering items and knowledge. There's no timed pressure (the Curator exists but isn't active in this act). Take your time, LOOK at everything, and make sure you've visited all 10 rooms.
+7. **"I explored everything but nothing seems to happen"** — Act 1 is about gathering items and knowledge. There's no timed pressure (the Curator exists but isn't active in this act). Take your time, LOOK at everything, and make sure you've visited all 9 rooms.
 
 ---
 
