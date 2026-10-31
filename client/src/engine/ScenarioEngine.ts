@@ -27,6 +27,7 @@ export class ScenarioEngine {
   private _isHiding: boolean;
   private _closeupImage: string | null;
   private _characterOverride: Partial<CharacterPlacement> | null;
+  private _pendingSounds: string[];
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -47,6 +48,7 @@ export class ScenarioEngine {
     this._isHiding = false;
     this._closeupImage = null;
     this._characterOverride = null;
+    this._pendingSounds = [];
 
     this.objectIndex = new Map();
     for (const obj of scenario.objects) {
@@ -223,6 +225,7 @@ export class ScenarioEngine {
     }
 
     this._messages = [];
+    this._pendingSounds = [];
 
     const obj = this.objectIndex.get(objectId);
     if (!obj) {
@@ -376,6 +379,14 @@ export class ScenarioEngine {
 
   dismissCloseup(): void {
     this._closeupImage = null;
+  }
+
+  getPendingSounds(): string[] {
+    return this._pendingSounds;
+  }
+
+  clearPendingSounds(): void {
+    this._pendingSounds = [];
   }
 
   getHint(): string | null {
@@ -613,8 +624,11 @@ export class ScenarioEngine {
           break;
         }
 
-        case 'visual_cue':
         case 'play_sound':
+          if (e.sound) this._pendingSounds.push(e.sound);
+          break;
+
+        case 'visual_cue':
         case 'trigger_event':
           break;
       }

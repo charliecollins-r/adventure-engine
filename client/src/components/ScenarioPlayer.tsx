@@ -230,6 +230,33 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     }
   }, [muted]);
 
+  const scenarioId = scenario.metadata.id;
+
+  const playSound = useCallback(
+    (file: string) => {
+      if (muted) return;
+      const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
+      audio.volume = 0.5;
+      audio.play().catch(() => {});
+    },
+    [scenarioId, muted],
+  );
+
+  const playPendingSounds = useCallback(() => {
+    const sounds = engine.getPendingSounds();
+    for (const s of sounds) playSound(s);
+    engine.clearPendingSounds();
+  }, [engine, playSound]);
+
+  const prevViewRef = useRef(engine.currentViewId);
+  useEffect(() => {
+    const currentView = engine.currentViewId;
+    if (prevViewRef.current !== currentView) {
+      playSound('audio/door_open_close.wav');
+      prevViewRef.current = currentView;
+    }
+  });
+
   const prevItemCount = useRef(-1);
   useEffect(() => {
     const count = engine.getInventory().length;
@@ -247,9 +274,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       } else {
         engine.interact(objectId, activeVerb);
       }
+      playPendingSounds();
       bump();
     },
-    [engine, activeVerb, selectedItem, bump],
+    [engine, activeVerb, selectedItem, bump, playPendingSounds],
   );
 
   const handleEmptyClick = useCallback(() => {
@@ -313,6 +341,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       if (selectedItem && selectedItem !== itemId) {
         engine.combineItems(selectedItem, itemId);
         setSelectedItem(null);
+        playPendingSounds();
         bump();
       } else if (selectedItem === itemId) {
         setSelectedItem(null);
@@ -325,15 +354,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         }
       }
     },
-    [engine, selectedItem, bump],
+    [engine, selectedItem, bump, playPendingSounds],
   );
 
   const handleItemExamine = useCallback(
     (itemId: string) => {
       engine.examineItem(itemId, 'look');
+      playPendingSounds();
       bump();
     },
-    [engine, bump],
+    [engine, bump, playPendingSounds],
   );
 
   const handleDismiss = useCallback(() => {
