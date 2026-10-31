@@ -6,8 +6,6 @@ interface IntroSequenceProps {
   onComplete: () => void;
 }
 
-const HOLD_DURATION_MS = 1500;
-
 const styles: Record<string, CSSProperties> = {
   overlay: {
     position: 'fixed',
@@ -46,34 +44,31 @@ const styles: Record<string, CSSProperties> = {
     lineHeight: '2',
     letterSpacing: '0.5px',
   },
-  prompt: {
+  bottomPrompts: {
     position: 'absolute',
     bottom: '40px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  prompt: {
     fontSize: '12px',
     fontFamily: 'monospace',
     color: '#4a3a2a',
     letterSpacing: '2px',
     animation: 'intro-pulse 2s ease-in-out infinite',
   },
-  skipContainer: {
-    position: 'absolute',
-    top: '20px',
-    right: '20px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  },
-  skipLabel: {
+  skipLink: {
     fontSize: '11px',
     fontFamily: 'monospace',
     color: '#3a2a1a',
     letterSpacing: '1px',
-    transition: 'opacity 0.3s ease',
-  },
-  skipRing: {
-    width: '28px',
-    height: '28px',
-    position: 'relative',
+    cursor: 'pointer',
+    background: 'none',
+    border: 'none',
+    padding: '4px 12px',
+    transition: 'color 0.2s ease',
   },
 };
 
@@ -90,9 +85,6 @@ export function IntroSequence({ pages, title, onComplete }: IntroSequenceProps) 
   const [pageIndex, setPageIndex] = useState(-1);
   const [textVisible, setTextVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
-  const [holdProgress, setHoldProgress] = useState(0);
-  const holdStartRef = useRef<number | null>(null);
-  const holdAnimRef = useRef<number>(0);
   const skippedRef = useRef(false);
 
   useEffect(() => {
@@ -135,36 +127,6 @@ export function IntroSequence({ pages, title, onComplete }: IntroSequenceProps) 
     setTimeout(onComplete, 600);
   }, [onComplete]);
 
-  const startHold = useCallback(() => {
-    if (exiting || skippedRef.current) return;
-    holdStartRef.current = performance.now();
-
-    const tick = () => {
-      if (holdStartRef.current === null) return;
-      const elapsed = performance.now() - holdStartRef.current;
-      const progress = Math.min(1, elapsed / HOLD_DURATION_MS);
-      setHoldProgress(progress);
-
-      if (progress >= 1) {
-        holdStartRef.current = null;
-        skip();
-      } else {
-        holdAnimRef.current = requestAnimationFrame(tick);
-      }
-    };
-    holdAnimRef.current = requestAnimationFrame(tick);
-  }, [exiting, skip]);
-
-  const cancelHold = useCallback(() => {
-    holdStartRef.current = null;
-    cancelAnimationFrame(holdAnimRef.current);
-    setHoldProgress(0);
-  }, []);
-
-  useEffect(() => {
-    return () => cancelAnimationFrame(holdAnimRef.current);
-  }, []);
-
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') skip();
@@ -176,62 +138,22 @@ export function IntroSequence({ pages, title, onComplete }: IntroSequenceProps) 
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
-      if (holdProgress > 0.15) return;
+      const target = e.target as HTMLElement;
+      if (target.closest('[data-skip-intro]')) return;
       if (pageIndex === -1) return;
       advance();
     },
-    [pageIndex, advance, holdProgress],
+    [pageIndex, advance],
   );
 
   const showTitle = pageIndex === -1;
   const currentPage = pageIndex >= 0 && pageIndex < pages.length ? pages[pageIndex] : null;
-  const holding = holdProgress > 0;
-
-  const ringRadius = 10;
-  const ringCircumference = 2 * Math.PI * ringRadius;
-  const ringOffset = ringCircumference * (1 - holdProgress);
 
   return (
     <div
       style={{ ...styles.overlay, opacity: exiting ? 0 : 1 }}
       onClick={handleClick}
-      onMouseDown={startHold}
-      onMouseUp={cancelHold}
-      onMouseLeave={cancelHold}
-      onTouchStart={startHold}
-      onTouchEnd={cancelHold}
     >
-      <div style={styles.skipContainer}>
-        <div style={{ ...styles.skipLabel, opacity: holding ? 0.7 : 0.4 }}>
-          hold to skip
-        </div>
-        <div style={styles.skipRing}>
-          <svg width="28" height="28" viewBox="0 0 28 28">
-            <circle
-              cx="14"
-              cy="14"
-              r={ringRadius}
-              fill="none"
-              stroke="#2a1a10"
-              strokeWidth="2"
-            />
-            <circle
-              cx="14"
-              cy="14"
-              r={ringRadius}
-              fill="none"
-              stroke={holdProgress > 0.8 ? '#c0a030' : '#6a5a3a'}
-              strokeWidth="2"
-              strokeDasharray={ringCircumference}
-              strokeDashoffset={ringOffset}
-              strokeLinecap="round"
-              transform="rotate(-90 14 14)"
-              style={{ transition: holdProgress === 0 ? 'stroke-dashoffset 0.15s ease' : 'none' }}
-            />
-          </svg>
-        </div>
-      </div>
-
       <div style={{ ...styles.content, opacity: showTitle || textVisible ? 1 : 0 }}>
         {showTitle && <div style={styles.title}>{title}</div>}
         {currentPage && (
@@ -247,7 +169,18 @@ export function IntroSequence({ pages, title, onComplete }: IntroSequenceProps) 
       </div>
 
       {pageIndex >= 0 && !exiting && (
-        <div style={styles.prompt}>click to continue</div>
+        <div style={styles.bottomPrompts}>
+          <div style={styles.prompt}>click to continue</div>
+          <button
+            data-skip-intro
+            style={styles.skipLink}
+            onClick={skip}
+            onMouseEnter={(e) => { (e.target as HTMLElement).style.color = '#6a5a3a'; }}
+            onMouseLeave={(e) => { (e.target as HTMLElement).style.color = '#3a2a1a'; }}
+          >
+            skip intro
+          </button>
+        </div>
       )}
     </div>
   );
