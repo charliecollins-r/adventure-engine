@@ -20588,7 +20588,7 @@
       "id": "caged_prisoner",
       "name": "Caged Creature",
       "description": "A creature pacing behind the middle energy barrier. It watches you with intelligent, sorrowful eyes.",
-      "position": { "x": 230, "y": 270 },
+      "position": { "x": 295, "y": 460 },
       "size": { "width": 100, "height": 180 },
       "visual": { "color": "#3a2a4a", "label": "Prisoner" },
       "initial_state": "pacing",
@@ -20600,7 +20600,7 @@
         "columns": 4,
         "rows": 1,
         "frame_rate": 3,
-        "scale": 0.4
+        "scale": 0.45
       },
       "interactions": [
         {

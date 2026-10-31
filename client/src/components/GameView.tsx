@@ -251,8 +251,8 @@ export function GameView({
         {cursorLabel}
       </div>
 
-      {/* Back navigation bar */}
-      {engine.canGoBack() && (
+      {/* Back navigation bar — only on views with explicit back_label */}
+      {engine.getBackLabel() && (
         <div
           data-object-hotspot
           onClick={(e) => { e.stopPropagation(); onNavigateBack?.(); }}
