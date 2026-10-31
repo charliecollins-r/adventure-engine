@@ -132,8 +132,7 @@
         "x": 300,
         "y": 640,
         "facing": "right",
-        "sprite_set": "scared",
-        "frame": 0
+        "sprite_set": "idle"
       },
       "hints": [
         {
@@ -236,8 +235,7 @@
         "x": 480,
         "y": 510,
         "facing": "down",
-        "sprite_set": "scared",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -443,8 +441,7 @@
         "x": 700,
         "y": 680,
         "facing": "left",
-        "sprite_set": "scared",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -554,8 +551,7 @@
         "x": 480,
         "y": 500,
         "facing": "up",
-        "sprite_set": "crouch",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -708,8 +704,7 @@
         "x": 480,
         "y": 620,
         "facing": "right",
-        "sprite_set": "scared",
-        "frame": 1
+        "sprite_set": "idle"
       }
     },
     {
