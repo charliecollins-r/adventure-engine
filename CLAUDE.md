@@ -140,7 +140,7 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 `flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `noise_above`, `noise_below`, `phase_is`, `time_after`, `time_before`, `item_count`, `is_hiding`, `not_hiding`, `killer_is` + composites: `any_of`, `all_of`
 
 ### Effect Types (20+)
-`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`, `set_character`
+`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `show_dialogue`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`, `set_character`
 
 ### Other Systems
 - **Items**: Inventory objects with examine interactions
@@ -152,6 +152,7 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 - **Events**: Timer/condition-triggered narrative beats
 - **Win/Lose Conditions**: Flag/state checks that end the game
 - **Hints**: Progressive help system
+- **Dialogue Choices**: Branching conversation system via `show_dialogue` effect
 - **Character Sprites**: Sierra-style sprite sheet rendering on backgrounds
 - **30 Design Patterns**: Documented reusable puzzle patterns
 
@@ -293,6 +294,10 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Immersive HUD**: Messages overlay on the game viewport (semi-transparent backdrop) instead of a dedicated panel below. Inventory is a collapsible drawer with "Items" toggle tab at bottom-left. Hint "?" button floats at bottom-right. Ambient text shows subtly when idle. Inventory auto-opens on item pickup. No UI elements below the viewport — full immersion.
 - **Starting puzzle fix**: Stasis pod starts open (matches background art). Player scavenges wreckage instead of "breaking out." specimen_tag_hook now visible from start.
 - **Character sprite system**: Sierra-style sprite sheet rendering on top of backgrounds. `CharacterSprite` component uses CSS background-position to show frames from sprite sheets. Supports animated walk cycles and static poses. Per-view character placement in scenario JSON. Dynamic state changes via `set_character` effect. Sprite sheets go in scenario `sprites/` subfolder. Splicing tool at `tools/splice-sprites.mjs`. The Harvest has character placements for all 10 Act 1 views — awaiting sprite sheet image files.
+- **Dialogue choice system**: `show_dialogue` effect pauses gameplay and shows a branching conversation modal (`DialogueOverlay` component). Each choice has a label, optional `when` conditions (hidden if not met), and `then` effects array. Engine methods: `getDialogue()`, `selectDialogueChoice(index)`, `dismissDialogue()`. First use: caged prisoner in feeding station with 4 branching choices that set different `prisoner_bond` values affecting all subsequent interactions. Documented in SCENARIO_SCHEMA.md.
+- **Object sprite system**: `SpriteObject` component renders animated sprite sheets on world objects. Defined via `sprite` field in object JSON: `{ file, frame_width, frame_height, columns, rows, frame_rate, scale }`. Uses CSS background-position with requestAnimationFrame. Bottom-center anchored at z-index 4. First uses: caged_prisoner (pacing animation), holographic_display (spinning planets).
+- **Act 1 fully solvable**: Playwright audit confirms all 10 rooms navigable, all 9 items collectible, all key flags settable, all 4 dialogue branches functional. Walkthrough at `scenarios/the-harvest/walkthrough.md` with screenshots.
+- **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
 
 ---
 

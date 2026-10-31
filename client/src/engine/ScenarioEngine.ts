@@ -451,8 +451,8 @@ export class ScenarioEngine {
     return null;
   }
 
-  private evaluateConditions(conditions: Condition[]): boolean {
-    if (conditions.length === 0) return true;
+  private evaluateConditions(conditions: Condition[] | undefined): boolean {
+    if (!conditions || conditions.length === 0) return true;
 
     for (const c of conditions) {
       if (!this.evaluateCondition(c)) return false;
@@ -463,9 +463,9 @@ export class ScenarioEngine {
   private evaluateCondition(c: Condition): boolean {
     switch (c.type) {
       case 'flag_is':
-        return this.flags[c.flag!] === c.value;
+        return this.flags[c.flag!] === (c.value ?? 'true');
       case 'flag_not':
-        return this.flags[c.flag!] !== c.value;
+        return this.flags[c.flag!] !== (c.value ?? 'true');
       case 'object_state':
         return this.objectStates[c.object!] === c.state;
       case 'has_item':

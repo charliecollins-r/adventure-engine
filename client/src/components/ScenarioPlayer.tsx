@@ -191,6 +191,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
+  (window as unknown as Record<string, unknown>).__engine = engine;
 
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
