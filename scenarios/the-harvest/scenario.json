@@ -320,8 +320,8 @@
         }
       ],
       "character": {
-        "x": 350,
-        "y": 530,
+        "x": 260,
+        "y": 650,
         "facing": "right",
         "sprite_set": "idle",
         "frame": 0
@@ -442,8 +442,8 @@
         }
       ],
       "character": {
-        "x": 500,
-        "y": 540,
+        "x": 700,
+        "y": 680,
         "facing": "left",
         "sprite_set": "scared",
         "frame": 0
@@ -511,9 +511,9 @@
         }
       ],
       "character": {
-        "x": 440,
-        "y": 560,
-        "facing": "down",
+        "x": 280,
+        "y": 660,
+        "facing": "right",
         "sprite_set": "idle",
         "frame": 0
       }
@@ -630,8 +630,8 @@
         }
       ],
       "character": {
-        "x": 520,
-        "y": 530,
+        "x": 680,
+        "y": 650,
         "facing": "left",
         "sprite_set": "idle",
         "frame": 0
@@ -709,9 +709,9 @@
         }
       ],
       "character": {
-        "x": 460,
-        "y": 540,
-        "facing": "down",
+        "x": 480,
+        "y": 620,
+        "facing": "right",
         "sprite_set": "scared",
         "frame": 1
       }
