@@ -7,7 +7,7 @@ Drop a scenario JSON, background art, and audio into a folder. The engine render
 <p align="center">
   <img src="docs/images/screenshot-harvest-gameplay.png" width="800" alt="Gameplay — The Harvest, Act 1: Stasis Hold" />
   <br />
-  <em>Gameplay from "The Harvest" — waking in a stasis pod aboard an alien vessel</em>
+  <em>The Harvest — waking beside a shattered stasis pod aboard an alien harvester ship</em>
 </p>
 
 ---
@@ -20,13 +20,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`, select a scenario, and play.
-
-<p align="center">
-  <img src="docs/images/screenshot-scenario-select.png" width="700" alt="Scenario Selection Screen" />
-  <br />
-  <em>Choose from 13 playable scenarios spanning horror, sci-fi, thriller, and more</em>
-</p>
+Open `http://localhost:5173` and play. The Harvest loads automatically — you wake in a stasis pod and start exploring.
 
 ---
 
@@ -35,6 +29,35 @@ Open `http://localhost:5173`, select a scenario, and play.
 Adventure Engine is a **no-code adventure game builder** inspired by the golden age of Sierra On-Line and LucasArts. You author a single JSON file describing rooms, objects, puzzles, items, and story — pair it with painted background art — and the engine turns it into a playable point-and-click adventure.
 
 The engine is completely generic. It reads your JSON, builds the game state, renders backgrounds with interactive hotspots, and resolves every player action through a condition-and-effect system. There is no scenario-specific code anywhere in the engine. All game logic lives in the JSON.
+
+---
+
+## Gameplay Showcase
+
+<p align="center">
+  <img src="docs/images/screenshot-corridor.png" width="800" alt="Containment Corridor" />
+  <br />
+  <em>Containment Corridor — the central hub with five branching passages</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-feeding-station.png" width="800" alt="Feeding Station with prisoner NPC" />
+  <br />
+  <em>Feeding Station — animated prisoner NPC paces behind an energy barrier</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-interaction.png" width="800" alt="Closeup interaction with cataloguer robot" />
+  <br />
+  <em>Closeup overlay — examining the cataloguer robot's specimen tanks reveals a section code</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-security-hub.png" width="400" alt="Security Hub" />
+  <img src="docs/images/screenshot-processing-lab.png" width="400" alt="Processing Lab" />
+  <br />
+  <em>Security Hub and Processing Lab — interconnected puzzle rooms</em>
+</p>
 
 ---
 
@@ -58,10 +81,13 @@ my-scenario/
   backgrounds/               # Painted background art for each view
     main_room.webp
     closet.webp
+  closeups/                  # Detail images for zoom-in interactions (optional)
+    mechanism_detail.webp
+  sprites/                   # Character and object sprite sheets (optional)
+    walk.png
+    npc_idle.png
   audio/                     # Ambient audio tracks (optional)
     ambient_music.mp3
-  items/                     # Item icon images (optional)
-    rusty_key.png
   design.md                  # Story notes, puzzle flow, image prompts (optional)
 ```
 
@@ -71,7 +97,9 @@ The `scenario.json` is the entire game. It defines:
 - **Interactions** — verb + conditions &rarr; effects ("if player uses key on door AND door is locked, THEN unlock door and show message")
 - **Items** — inventory objects that can be used on the world or combined with each other
 - **Flags** — key-value pairs tracking game progress
+- **Dialogue choices** — branching conversation trees with conditional branches
 - **Win/Lose Conditions** — state checks that end the game
+- **Hints** — progressive per-view hints that guide stuck players
 
 Object positions use a **960&times;720 coordinate space** (origin at top-left). Background images can be any resolution (1920&times;1080 recommended); the engine scales to fit.
 
@@ -111,12 +139,6 @@ Interactions are gated by **conditions** (what must be true) and produce **effec
 }
 ```
 
-<p align="center">
-  <img src="docs/images/screenshot-security-hub.png" width="700" alt="Gameplay — Security Hub" />
-  <br />
-  <em>Security Hub — organic control console with navigation between rooms</em>
-</p>
-
 ---
 
 ## What You Can Build
@@ -151,13 +173,22 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 | [The Butcher's Debt](scenarios/the-butchers-debt/) | Horror | 4 | Hard |
 | [The Dollmaker's Workshop](scenarios/the-dollmakers-workshop/) | Psychological Horror | 5 | Hard |
 | [The Pharaoh's Architect](scenarios/the-pharaohs-architect/) | Historical | 24 | Hard |
-| [The Harvest](scenarios/the-harvest/) | Sci-Fi Epic | 49 | Epic |
+| **[The Harvest](scenarios/the-harvest/)** | **Sci-Fi Epic** | **49** | **Epic** |
 | [Blackwood Manor](scenarios/blackwood-manor/) | Gothic Mystery | -- | *Design only* |
 | [The Clockmaker's Secret](scenarios/the-clockmakers-secret/) | Steampunk | -- | *Design only* |
 
 ### The Harvest (Flagship)
 
-A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien vessel, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus. Act 1 is fully playable with 9 rooms, 9 collectible items, animated NPC sprites, branching dialogue, and a complete walkthrough.
+A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
+
+**Act 1 is fully playable** with:
+- **9 rooms** — Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay
+- **9 collectible items** — pod glass shard, stasis fluid vial, specimen tag, surgical probe, containment key card, nutrient paste tube, severed neural tendril, personal log crystal, ventilation map
+- **Animated NPC** — caged prisoner with 4-frame pacing animation behind an energy barrier
+- **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
+- **Puzzle chains** — cataloguer code → lab sequence → security override → vent access → airlock
+- **Closeup interactions** — specimen tanks, holographic displays
+- **Complete walkthrough** at [`scenarios/the-harvest/walkthrough.md`](scenarios/the-harvest/walkthrough.md)
 
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_stasis_hold.webp" width="400" alt="Stasis Hold" />
@@ -166,6 +197,28 @@ A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** in
   <img src="scenarios/the-harvest/backgrounds/act1_morgue.webp" width="400" alt="Morgue" />
   <img src="scenarios/the-harvest/backgrounds/act1_ventilation_shaft.webp" width="400" alt="Ventilation Shaft" />
 </p>
+
+---
+
+## Engine Features
+
+### Immersive HUD
+Messages overlay on the game viewport with a semi-transparent backdrop instead of a dedicated panel. Inventory is a collapsible drawer with a toggle tab. Progressive hints float at the corner. Room names appear subtly in gold text. No UI elements below the viewport — full immersion.
+
+### Character Sprites
+Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art.
+
+### Object Sprites
+Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored for natural grounding.
+
+### Closeup Overlays
+Detail images displayed in a dismissable framed overlay for examining objects up close. The cataloguer robot in The Harvest shows a three-tank specimen closeup with data plates revealing the section code needed for the processing lab keypad.
+
+### Dialogue Choices
+Branching conversation system via `show_dialogue` effect. Each choice has a label, optional visibility conditions, and its own chain of effects. The prisoner in The Harvest's feeding station offers 4 dialogue paths that set different `prisoner_bond` values affecting all subsequent interactions.
+
+### Progressive Hints
+Per-view hint arrays in the scenario JSON. The engine evaluates conditions and returns the most specific matching hint. A floating "?" button shows hints as a message overlay. Players can never softlock — hints always point toward the next step.
 
 ---
 
