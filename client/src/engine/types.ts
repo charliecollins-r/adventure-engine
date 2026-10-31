@@ -29,6 +29,7 @@ export interface View {
   name?: string;
   background_key: string;
   background_file?: string;
+  background_fit?: 'cover' | 'contain';
   objects: string[];
   back_label?: string;
   room_animation?: string;

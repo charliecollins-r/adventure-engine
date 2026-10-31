@@ -212,7 +212,7 @@ export function GameView({
             left: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            objectFit: view.background_fit ?? 'cover',
             pointerEvents: 'none',
             zIndex: 0,
           }}

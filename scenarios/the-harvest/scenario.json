@@ -233,6 +233,7 @@
       ],
       "background_key": "act1_cataloguer_closeup",
       "background_file": "closeups/cataloguer_specimens.webp",
+      "background_fit": "contain",
       "back_label": "Stasis Hold",
       "hints": [
         {
@@ -6203,8 +6204,8 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 830,
-        "y": 550
+        "x": 800,
+        "y": 520
       },
       "size": {
         "width": 100,
@@ -6223,7 +6224,7 @@
         "frame_height": 768,
         "columns": 4,
         "rows": 1,
-        "frame_rate": 0,
+        "frame_rate": 1,
         "scale": 0.2
       },
       "interactions": [
@@ -6324,12 +6325,12 @@
       "name": "Left Specimen Tank",
       "description": "A tall cylindrical jar filled with murky amber preservative. Something coiled and segmented floats inside.",
       "position": {
-        "x": 80,
-        "y": 80
+        "x": 259,
+        "y": 43
       },
       "size": {
-        "width": 240,
-        "height": 560
+        "width": 146,
+        "height": 463
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6376,12 +6377,12 @@
       "name": "Center Specimen Tank",
       "description": "The largest jar. Something vaguely humanoid floats inside, curled in a fetal position.",
       "position": {
-        "x": 360,
-        "y": 60
+        "x": 405,
+        "y": 29
       },
       "size": {
-        "width": 240,
-        "height": 580
+        "width": 146,
+        "height": 477
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6428,12 +6429,12 @@
       "name": "Right Specimen Tank",
       "description": "A smaller jar containing something dark and spiny. The amber fluid around it has a reddish tint.",
       "position": {
-        "x": 640,
-        "y": 100
+        "x": 551,
+        "y": 43
       },
       "size": {
-        "width": 240,
-        "height": 540
+        "width": 150,
+        "height": 463
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6480,12 +6481,12 @@
       "name": "Data Plates",
       "description": "Small metal plates affixed to the base of each specimen jar, displaying numerical codes alongside alien script.",
       "position": {
-        "x": 120,
-        "y": 620
+        "x": 286,
+        "y": 506
       },
       "size": {
-        "width": 720,
-        "height": 100
+        "width": 384,
+        "height": 159
       },
       "visual": {
         "color": "rgba(200, 180, 80, 0.2)",
@@ -6579,12 +6580,12 @@
       "name": "Cataloguer Mechanism",
       "description": "The spider-drone's sorting arm extends into the specimen rack, its manipulators frozen mid-scan.",
       "position": {
-        "x": 350,
+        "x": 394,
         "y": 0
       },
       "size": {
-        "width": 260,
-        "height": 120
+        "width": 168,
+        "height": 72
       },
       "visual": {
         "color": "rgba(100, 160, 80, 0.15)",
