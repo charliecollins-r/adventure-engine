@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
 import { AmbientCanvas } from './AmbientCanvas';
 import { CharacterSprite } from './CharacterSprite';
+import { SpriteObject } from './SpriteObject';
 
 interface GameViewProps {
   engine: ScenarioEngine;
@@ -240,6 +241,21 @@ export function GameView({
 
       {/* Object hotspots */}
       {objects.map((obj) => {
+        if (obj.sprite) {
+          return (
+            <SpriteObject
+              key={obj.id}
+              sprite={obj.sprite}
+              scenarioId={scenarioId}
+              x={obj.position.x}
+              y={obj.position.y}
+              scaleX={SCALE_X}
+              scaleY={SCALE_Y}
+              cursor={cursor}
+              onClick={() => onObjectClick(obj.id)}
+            />
+          );
+        }
         const isHovered = hoveredObject === obj.id;
         const isNav = obj.id.startsWith('nav_');
         const animation = obj.visual.animation;

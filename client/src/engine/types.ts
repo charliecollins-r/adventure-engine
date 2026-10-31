@@ -105,6 +105,16 @@ export interface Interaction {
   noise?: number;
 }
 
+export interface ObjectSprite {
+  file: string;
+  frame_width: number;
+  frame_height: number;
+  columns: number;
+  rows: number;
+  frame_rate: number;
+  scale: number;
+}
+
 export interface ScenarioObject {
   id: string;
   name: string;
@@ -115,6 +125,7 @@ export interface ScenarioObject {
   initial_state: string;
   initially_visible: boolean;
   hiding_spot?: boolean;
+  sprite?: ObjectSprite;
   interactions: Interaction[];
 }
 

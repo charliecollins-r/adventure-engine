@@ -332,6 +332,7 @@
       "objects": [
         "corridor_pipes",
         "floor_grating",
+        "black_cat",
         "nav_act1_containment_corridor_to_act1_stasis_hold",
         "nav_act1_containment_corridor_to_act1_processing_lab",
         "nav_act1_containment_corridor_to_act1_feeding_station",
@@ -2617,7 +2618,9 @@
     "studied_prototype": "false",
     "vault_opened": "false",
     "watcher_active": "false",
-    "weapon_vault_discovered": "false"
+    "weapon_vault_discovered": "false",
+    "corridor_visited": "false",
+    "cat_petted": "false"
   },
   "items": [
     {
@@ -3934,6 +3937,34 @@
           ]
         }
       ]
+    },
+    {
+      "id": "cat_hair",
+      "name": "Shadow Cat Fur",
+      "description": "A tuft of impossibly soft black fur. It shimmers faintly with an iridescent purple sheen.",
+      "icon": "fur",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small tuft of black fur that seems to absorb light. When you tilt it, it shimmers with deep purple and violet hues. It's unnaturally soft — like holding a piece of shadow."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You roll the fur between your fingers. It's warm, almost alive. For a moment you smell something like ozone and old libraries."
+            }
+          ]
+        }
+      ]
     }
   ],
   "combinations": [
@@ -4227,6 +4258,63 @@
         {
           "verb": "use_item",
           "response": "You don't think that would help right now."
+        }
+      ]
+    },
+    {
+      "id": "black_cat",
+      "name": "Shadow Cat",
+      "description": "A small black cat with glowing purple-amber eyes. It shouldn't be here. Nothing like this should exist on an alien harvester ship.",
+      "position": {
+        "x": 700,
+        "y": 580
+      },
+      "size": {
+        "width": 60,
+        "height": 80
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Cat"
+      },
+      "sprite": {
+        "file": "sprites/black-cat.png",
+        "frame_width": 272,
+        "frame_height": 348,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.2
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "response": "A black cat sits perfectly still, watching you with luminous purple-amber eyes. Its fur shimmers faintly, as if dusted with starlight. How did it get here?"
+        },
+        {
+          "verb": "talk",
+          "response": "You whisper to the cat. It blinks slowly — once, twice — then tilts its head as if considering whether you're worth its time."
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "cat_petted", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You reach out carefully. The cat allows a single stroke along its back, then slips away into the shadows like smoke. A tuft of dark fur clings to your fingers." },
+            { "type": "add_item", "item": "cat_hair" },
+            { "type": "set_flag", "flag": "cat_petted", "value": "true" },
+            { "type": "hide_object", "object": "black_cat" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "cat_petted", "value": "true" }],
+          "response": "The cat is gone. Only the memory of its strange, knowing eyes remains."
+        },
+        {
+          "verb": "move",
+          "response": "The cat watches you approach, then vanishes into the shadows before you get close."
         }
       ]
     },
@@ -16730,6 +16818,17 @@
           "when": [],
           "then": [
             {
+              "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "corridor_visited", "value": "true" },
+                { "type": "flag_not", "flag": "cat_petted", "value": "true" }
+              ],
+              "then": [
+                { "type": "show_object", "object": "black_cat" }
+              ]
+            },
+            { "type": "set_flag", "flag": "corridor_visited", "value": "true" },
+            {
               "type": "set_view",
               "view": "act1_containment_corridor"
             },
@@ -16849,6 +16948,17 @@
           "verb": "move",
           "when": [],
           "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "corridor_visited", "value": "true" },
+                { "type": "flag_not", "flag": "cat_petted", "value": "true" }
+              ],
+              "then": [
+                { "type": "show_object", "object": "black_cat" }
+              ]
+            },
+            { "type": "set_flag", "flag": "corridor_visited", "value": "true" },
             {
               "type": "set_view",
               "view": "act1_containment_corridor"
@@ -17210,6 +17320,17 @@
           "when": [],
           "then": [
             {
+              "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "corridor_visited", "value": "true" },
+                { "type": "flag_not", "flag": "cat_petted", "value": "true" }
+              ],
+              "then": [
+                { "type": "show_object", "object": "black_cat" }
+              ]
+            },
+            { "type": "set_flag", "flag": "corridor_visited", "value": "true" },
+            {
               "type": "set_view",
               "view": "act1_containment_corridor"
             },
@@ -17389,6 +17510,17 @@
           "verb": "move",
           "when": [],
           "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                { "type": "flag_is", "flag": "corridor_visited", "value": "true" },
+                { "type": "flag_not", "flag": "cat_petted", "value": "true" }
+              ],
+              "then": [
+                { "type": "show_object", "object": "black_cat" }
+              ]
+            },
+            { "type": "set_flag", "flag": "corridor_visited", "value": "true" },
             {
               "type": "set_view",
               "view": "act1_containment_corridor"
