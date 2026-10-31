@@ -282,7 +282,13 @@ adventure-engine/
 
 ### Audio
 
-- **Item pickup chime** (`scenarios/the-harvest/audio/item_pickup.wav`): [Synth glockenspiel bell item money gold coin pick up.wav](https://freesound.org/s/531175/) by ryusa — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Item pickup chime** (`item_pickup.wav`): [Synth glockenspiel bell item money gold coin pick up.wav](https://freesound.org/s/531175/) by ryusa — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Door open/close** (`door_open_close.wav`): [door_open_close](https://freesound.org/s/156507/) by primeval_polypod — License: [Attribution NonCommercial 3.0](https://creativecommons.org/licenses/by-nc/3.0/)
+- **Lab ambience** (`ambient_lab.mp3`): [Sci-fi Laboratory Ambience](https://freesound.org/s/212025/) by qubodup — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Ship ambience** (`ambient_ship.mp3`) — composed from:
+  - [control_room.wav](https://freesound.org/s/211683/) by Diboz — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
+  - [Kaiju Lab Interior Ambience #1.wav](https://freesound.org/s/191852/) by Vortex4 — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
+  - [Cinematic Deep Rumble](https://freesound.org/s/184313/) by swiftoid — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ---
 
