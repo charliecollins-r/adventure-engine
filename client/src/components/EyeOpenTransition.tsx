@@ -13,15 +13,15 @@ const VIGNETTE_DURATION_MS = 4000;
 const KEYFRAMES = `
 @keyframes eye-lid-top {
   0% { transform: translateY(0); }
-  8% { transform: translateY(2vh); }
-  15% { transform: translateY(1vh); }
-  100% { transform: translateY(-55vh); }
+  8% { transform: translateY(10px); }
+  15% { transform: translateY(5px); }
+  100% { transform: translateY(-100%); }
 }
 @keyframes eye-lid-bottom {
   0% { transform: translateY(0); }
-  8% { transform: translateY(-2vh); }
-  15% { transform: translateY(-1vh); }
-  100% { transform: translateY(55vh); }
+  8% { transform: translateY(-10px); }
+  15% { transform: translateY(-5px); }
+  100% { transform: translateY(100%); }
 }
 `;
 
@@ -59,14 +59,24 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
 
   const isOpening = phase === 'opening';
 
-  const lidBase: CSSProperties = {
-    position: 'fixed',
+  const wrapper: CSSProperties = {
+    position: 'absolute',
+    top: 0,
     left: 0,
-    width: '100vw',
-    height: '55vh',
-    backgroundColor: '#000',
-    zIndex: 901,
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    zIndex: 30,
     pointerEvents: 'none',
+  };
+
+  const lidBase: CSSProperties = {
+    position: 'absolute',
+    left: 0,
+    width: '100%',
+    height: '55%',
+    backgroundColor: '#000',
+    zIndex: 1,
   };
 
   const topLid: CSSProperties = {
@@ -94,35 +104,26 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
   };
 
   const lidEdgeShadow: CSSProperties = {
-    position: 'fixed',
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    top: 0,
-    pointerEvents: 'none',
-    zIndex: 902,
+    position: 'absolute',
+    inset: 0,
+    zIndex: 2,
     boxShadow: 'inset 0 0 120px 60px rgba(0,0,0,0.7)',
     opacity: isOpening ? 0 : 1,
     transition: `opacity ${VIGNETTE_DURATION_MS}ms ease-out`,
   };
 
   const blurOverlay: CSSProperties = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
+    position: 'absolute',
+    inset: 0,
     backdropFilter: isOpening ? 'blur(0px)' : 'blur(6px)',
     WebkitBackdropFilter: isOpening ? 'blur(0px)' : 'blur(6px)',
     transition: `backdrop-filter ${BLUR_DURATION_MS}ms ease-out, -webkit-backdrop-filter ${BLUR_DURATION_MS}ms ease-out`,
-    pointerEvents: 'none',
-    zIndex: 900,
+    zIndex: 0,
   };
 
   return (
-    <>
+    <div style={wrapper}>
       <div style={topLid}>
-        {/* Eyelash/membrane detail along bottom edge */}
         <div
           style={{
             position: 'absolute',
@@ -130,7 +131,8 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
             left: '10%',
             width: '80%',
             height: '4px',
-            background: 'linear-gradient(90deg, transparent 0%, #1a1a10 20%, #2a2018 50%, #1a1a10 80%, transparent 100%)',
+            background:
+              'linear-gradient(90deg, transparent 0%, #1a1a10 20%, #2a2018 50%, #1a1a10 80%, transparent 100%)',
             borderRadius: '0 0 50% 50%',
           }}
         />
@@ -143,13 +145,14 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
             left: '10%',
             width: '80%',
             height: '4px',
-            background: 'linear-gradient(90deg, transparent 0%, #1a1a10 20%, #2a2018 50%, #1a1a10 80%, transparent 100%)',
+            background:
+              'linear-gradient(90deg, transparent 0%, #1a1a10 20%, #2a2018 50%, #1a1a10 80%, transparent 100%)',
             borderRadius: '50% 50% 0 0',
           }}
         />
       </div>
       <div style={blurOverlay} />
       <div style={lidEdgeShadow} />
-    </>
+    </div>
   );
 }

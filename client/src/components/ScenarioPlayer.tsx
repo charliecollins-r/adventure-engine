@@ -21,6 +21,7 @@ const styles: Record<string, CSSProperties> = {
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: '8px',
+    overflowY: 'auto' as const,
   },
   titleBar: {
     display: 'flex',
@@ -54,6 +55,7 @@ const styles: Record<string, CSSProperties> = {
   gameArea: {
     position: 'relative' as const,
     width: '960px',
+    overflow: 'hidden' as const,
   },
   bottomHud: {
     position: 'absolute' as const,
@@ -65,14 +67,15 @@ const styles: Record<string, CSSProperties> = {
     flexDirection: 'column' as const,
     pointerEvents: 'none' as const,
   },
-  messageOverlay: {
-    pointerEvents: 'auto' as const,
-    backgroundColor: 'rgba(10, 8, 5, 0.88)',
-    backdropFilter: 'blur(4px)',
+  messagePanel: {
+    width: '960px',
     padding: '10px 16px',
+    backgroundColor: '#0d0d0a',
+    borderTop: '1px solid #2a2018',
     cursor: 'pointer',
     maxHeight: '120px',
     overflowY: 'auto' as const,
+    boxSizing: 'border-box' as const,
   },
   messageText: {
     fontSize: '14px',
@@ -88,14 +91,15 @@ const styles: Record<string, CSSProperties> = {
     textAlign: 'right' as const,
     marginTop: '4px',
   },
-  ambientOverlay: {
-    pointerEvents: 'none' as const,
+  ambientPanel: {
+    width: '960px',
     padding: '8px 16px',
     fontSize: '13px',
     fontFamily: '"Georgia", serif',
     color: 'rgba(90, 74, 48, 0.5)',
     fontStyle: 'italic',
-    backgroundColor: 'rgba(10, 8, 5, 0.3)',
+    backgroundColor: '#0d0d0a',
+    boxSizing: 'border-box' as const,
   },
   tabRow: {
     display: 'flex',
@@ -379,8 +383,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   return (
     <div style={styles.container}>
-      <EyeOpenTransition active={eyeOpen} />
-
       {/* Minimal title bar */}
       <div style={styles.titleBar}>
         <div style={styles.titleLeft}>
@@ -447,20 +449,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
         {/* Bottom HUD overlay */}
         <div style={styles.bottomHud}>
-          {/* Message or ambient text overlay */}
-          {messages.length > 0 ? (
-            <div style={styles.messageOverlay} onClick={handleDismiss}>
-              {messages.map((msg, i) => (
-                <p key={i} style={styles.messageText}>
-                  {msg}
-                </p>
-              ))}
-              <div style={styles.dismissHint}>click to dismiss</div>
-            </div>
-          ) : ambientText ? (
-            <div style={styles.ambientOverlay}>{ambientText}</div>
-          ) : null}
-
           {/* Collapsible inventory tray */}
           <div
             style={{
@@ -514,7 +502,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             </button>
           </div>
         </div>
+
+        {/* Eye-open animation scoped to viewport */}
+        <EyeOpenTransition active={eyeOpen} />
       </div>
+
+      {/* Text feedback below viewport */}
+      {messages.length > 0 ? (
+        <div style={styles.messagePanel} onClick={handleDismiss}>
+          {messages.map((msg, i) => (
+            <p key={i} style={styles.messageText}>
+              {msg}
+            </p>
+          ))}
+          <div style={styles.dismissHint}>click to dismiss</div>
+        </div>
+      ) : ambientText ? (
+        <div style={styles.ambientPanel}>{ambientText}</div>
+      ) : null}
 
       {/* Closeup overlay */}
       {closeupImage && (
