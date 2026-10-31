@@ -415,6 +415,26 @@ export function GameView({
         })
       }
 
+      {/* Room name label */}
+      {view.name && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '26px',
+            right: '10px',
+            fontSize: '11px',
+            fontFamily: '"Georgia", serif',
+            color: 'rgba(192, 160, 48, 0.5)',
+            zIndex: 10,
+            pointerEvents: 'none',
+            letterSpacing: '1px',
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.9)',
+          }}
+        >
+          {view.name}
+        </div>
+      )}
+
       {/* Room transition overlay */}
       {transitioning && (
         <div

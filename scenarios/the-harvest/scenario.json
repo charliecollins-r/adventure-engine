@@ -117,6 +117,7 @@
   "views": [
     {
       "id": "act1_stasis_hold",
+      "name": "Stasis Hold",
       "objects": [
         "broken_pod",
         "pod_drainage_channel",
@@ -202,6 +203,7 @@
     },
     {
       "id": "act1_pod_cluster",
+      "name": "Pod Cluster",
       "objects": [
         "pod_labels",
         "pod_cluster_controls",
@@ -238,6 +240,7 @@
     },
     {
       "id": "act1_processing_lab",
+      "name": "Processing Lab",
       "objects": [
         "examination_tables",
         "instrument_rack",
@@ -327,6 +330,7 @@
     },
     {
       "id": "act1_containment_corridor",
+      "name": "Containment Corridor",
       "objects": [
         "corridor_pipes",
         "floor_grating",
@@ -409,6 +413,7 @@
     },
     {
       "id": "act1_morgue",
+      "name": "Morgue",
       "objects": [
         "morgue_drawers",
         "autopsy_slab",
@@ -456,6 +461,7 @@
     },
     {
       "id": "act1_feeding_station",
+      "name": "Feeding Station",
       "objects": [
         "nutrient_dispenser",
         "feeding_troughs",
@@ -529,6 +535,7 @@
     },
     {
       "id": "act1_ventilation_shaft",
+      "name": "Ventilation Shaft",
       "objects": [
         "wall_scratches",
         "shaft_branches",
@@ -574,6 +581,7 @@
     },
     {
       "id": "act1_security_hub",
+      "name": "Security Hub",
       "objects": [
         "security_console",
         "cracked_screen",
@@ -651,6 +659,7 @@
     },
     {
       "id": "act1_specimen_archive",
+      "name": "Specimen Archive",
       "objects": [
         "crystal_rack",
         "personal_log_crystal",
@@ -732,6 +741,7 @@
     },
     {
       "id": "act1_airlock_bay",
+      "name": "Airlock Bay",
       "objects": [
         "airlock_viewport",
         "empty_docking_clamps",

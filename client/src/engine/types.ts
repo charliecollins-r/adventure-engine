@@ -26,6 +26,7 @@ export interface Setting {
 
 export interface View {
   id: string;
+  name?: string;
   background_key: string;
   background_file?: string;
   objects: string[];
