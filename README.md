@@ -125,7 +125,9 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 
 **Puzzle Mechanics** — Lock-and-key, combination locks, keypads, toggle panels, dials, sliders, sequence memory, multi-step item crafting, transformation chains, state-dependent puzzles, environmental puzzles (noise, timing).
 
-**Narrative Systems** — Branching dialogue, multiple solution paths, progressive hints, win/lose conditions with custom endings, phase-based story progression, ambient text and audio.
+**Narrative Systems** — Branching dialogue with conditional choices, multiple solution paths, progressive per-room hints, win/lose conditions with custom endings, phase-based story progression, ambient text and audio, closeup detail images.
+
+**Character & NPC Systems** — Sierra-style sprite sheet characters with animated walk cycles and static poses, object sprites for animated world entities (pacing prisoners, spinning holograms, scanning robots), per-view character placement, dynamic sprite changes via effects.
 
 **Advanced Features** — AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), stealth system (hiding spots, noise tracking, detection), timed events, hotspot animations (glimmer, pulse), ambient audio layers, 14 condition types with composites (`any_of`, `all_of`), 20+ effect types.
 
@@ -149,13 +151,13 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 | [The Butcher's Debt](scenarios/the-butchers-debt/) | Horror | 4 | Hard |
 | [The Dollmaker's Workshop](scenarios/the-dollmakers-workshop/) | Psychological Horror | 5 | Hard |
 | [The Pharaoh's Architect](scenarios/the-pharaohs-architect/) | Historical | 24 | Hard |
-| [The Harvest](scenarios/the-harvest/) | Sci-Fi Epic | 50 | Epic |
+| [The Harvest](scenarios/the-harvest/) | Sci-Fi Epic | 49 | Epic |
 | [Blackwood Manor](scenarios/blackwood-manor/) | Gothic Mystery | -- | *Design only* |
 | [The Clockmaker's Secret](scenarios/the-clockmakers-secret/) | Steampunk | -- | *Design only* |
 
 ### The Harvest (Flagship)
 
-A full-length adventure spanning **5 acts, 50 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien vessel, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
+A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien vessel, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus. Act 1 is fully playable with 9 rooms, 9 collectible items, animated NPC sprites, branching dialogue, and a complete walkthrough.
 
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_stasis_hold.webp" width="400" alt="Stasis Hold" />
@@ -222,11 +224,12 @@ adventure-engine/
 |       |   +-- ScenarioEngine.ts     Core: load JSON, manage state, resolve interactions
 |       +-- components/               React UI components
 |           +-- ScenarioPlayer.tsx    Main game orchestrator
-|           +-- ScenarioLoader.tsx    Scenario selection screen
 |           +-- GameView.tsx          Background + hotspot rendering + animations
+|           +-- CharacterSprite.tsx   Sierra-style sprite sheet character renderer
+|           +-- SpriteObject.tsx      Animated sprite sheets on world objects
+|           +-- DialogueOverlay.tsx   Branching conversation choice modal
 |           +-- VerbBar.tsx           Verb selection (look, move, hand, talk)
 |           +-- InventoryPanel.tsx    Item display and selection
-|           +-- MessagePanel.tsx      Story text display
 |           +-- NoiseIndicator.tsx    Noise level meter
 |
 +-- server/                           Spring Boot 3 + Java 21 + Maven
@@ -239,7 +242,7 @@ adventure-engine/
 |   |   +-- backgrounds/              Background images for this scenario
 |   |   +-- audio/                    Ambient audio tracks (optional)
 |   |   +-- items/                    Item icon images (optional)
-|   +-- the-harvest/                  Flagship: 5 acts, 50 views, 7 endings
+|   +-- the-harvest/                  Flagship: 5 acts, 49 views, 7 endings
 |   +-- ... (15 scenarios total)
 |
 +-- docs/                             Engine-level documentation
@@ -268,6 +271,15 @@ adventure-engine/
 - [x] Ambient audio system (layered tracks per scenario)
 - [x] Hotspot animations (glimmer, pulse via JSON visual config)
 - [x] KQ5-style verb feedback on every click
+- [x] Closeup overlay system for detail images
+- [x] Character sprite system (Sierra-style sprite sheets)
+- [x] Object sprite system (animated world entities)
+- [x] Branching dialogue choice system
+- [x] Progressive per-room hint system
+- [x] Immersive HUD (overlay messages, collapsible inventory, ambient text)
+- [x] Room name labels in viewport
+- [x] Back navigation for closeup views
+- [x] Act 1 of The Harvest fully solvable (9 rooms, 9 items, walkthrough)
 - [ ] Item icon images in inventory panel
 - [ ] Events system (timed/conditional narrative beats)
 - [ ] Puzzle widget UI components

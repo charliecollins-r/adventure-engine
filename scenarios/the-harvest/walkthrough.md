@@ -4,9 +4,81 @@
 
 You are a goblin specimen aboard an alien harvester ship belonging to the Choir — a hive-mind species that collects and processes life forms from across the galaxy. You wake in a shattered stasis pod on the containment deck. Your ship, the Outrider, brought you here. Now you need to understand where you are, gather tools and knowledge, and find a way off this deck.
 
-Act 1 takes place entirely on the containment deck: 10 interconnected rooms with 9 collectible items, multiple knowledge flags, and one branching NPC conversation. The critical path below gets you through every room and sets you up for Act 2.
+Act 1 takes place entirely on the containment deck: 9 interconnected rooms with 9 collectible items, multiple knowledge flags, and one branching NPC conversation. The critical path below gets you through every room and sets you up for Act 2.
 
 > **Note**: This walkthrough covers the critical path only. Every room has additional LOOK interactions that build atmosphere and lore — explore freely. You can't softlock yourself; everything is recoverable.
+
+---
+
+## Deck Map
+
+```
+                    ┌──────────────┐
+                    │ STASIS HOLD  │ ← START (3 items + code 7319)
+                    │   ◆◆◆ ✦     │
+                    └──────┬───────┘
+                           │ Dark Archway
+                    ┌──────┴───────┐
+      Left Door ┌───│  CONTAINMENT │───┐ Right Door
+                │   │  CORRIDOR    │   │
+                │   │   (hub)      │   │
+                │   └──────┬───────┘   │
+                │          │ Far End   │
+        ┌───────┴──────┐   │   ┌───────┴──────┐
+        │ PROCESSING   │   │   │ SECURITY     │
+        │ LAB          │   │   │ HUB          │
+        │  ◆ ✧         │   │   │  ◆ ✧✧ ✦     │
+        └──────────────┘   │   └──────────────┘
+                           │
+                    ┌──────┴───────┐
+      Left     ┌───│  FEEDING     │───┐ Right
+      Passage  │   │  STATION     │   │ Passage
+               │   │  ◆ ♦ (hub)   │   │
+               │   └──────┬───────┘   │
+               │          │ Floor     │
+        ┌──────┴───────┐  │ Vent  ┌───┴──────────┐
+        │ MORGUE       │  │       │ SPECIMEN     │
+        │  ◆ ✧         │  │       │ ARCHIVE      │
+        └──────────────┘  │       │  ◆ ✧✧ ✦      │
+                          │       └──────────────┘
+                   ┌──────┴───────┐
+                   │ VENTILATION  │
+                   │ SHAFT  ◆     │
+                   └──────┬───────┘
+                          │ Shaft Exit
+                   ┌──────┴───────┐
+                   │ AIRLOCK BAY  │ ← EXIT
+                   │  ◆ ✧✧ ✦     │
+                   └──────────────┘
+
+  ◆ = collectible item    ✧ = knowledge flag
+  ✦ = puzzle/gate          ♦ = NPC dialogue
+```
+
+## Critical Path (20 Steps)
+
+| # | Room | Action | Result |
+|---|------|--------|--------|
+| 1 | Stasis Hold | HAND Broken Pod | `pod_glass_shard` |
+| 2 | Stasis Hold | HAND Drainage Channel | `stasis_fluid_vial` |
+| 3 | Stasis Hold | HAND Specimen Tag Hook | `specimen_tag` |
+| 4 | Stasis Hold | HAND Cataloguer Robot | `lab_code_known` (code 7-3-1-9) |
+| 5 | Corridor | MOVE Dark Archway | Reach hub |
+| 6 | Processing Lab | LOOK Lab Screens | `security_sequence_known` |
+| 7 | Processing Lab | HAND Instrument Rack | `surgical_probe` |
+| 8 | Security Hub | HAND Console (x2) | `security_hub_accessed`, `security_locks_overridden` (+20 noise) |
+| 9 | Security Hub | HAND Key Card Drawer | `containment_key_card` |
+| 10 | Feeding Station | HAND Nutrient Dispenser | `nutrient_paste_tube` |
+| 11 | Feeding Station | TALK Caged Prisoner | `prisoner_bond` (4 branches) |
+| 12 | Morgue | HAND Neural Tendril | `severed_neural_tendril` |
+| 13 | Morgue | LOOK Dead Goblin | `dead_goblin_seen` |
+| 14 | Specimen Archive | HAND Misplaced Crystal | `data_crystal_personal_log` |
+| 15 | Specimen Archive | USE crystal ON Reader | `archive_accessed` |
+| 16 | Specimen Archive | LOOK Holographic Display | `convergence_history_known` |
+| 17 | Ventilation Shaft | HAND Wall Scratches | `ventilation_map` |
+| 18 | Airlock Bay | USE key_card ON Override | Open airlock controls |
+| 19 | Airlock Bay | HAND Suit Locker | `emergency_suit_helmet` |
+| 20 | Airlock Bay | LOOK Viewport + Clamps | `outrider_gone_known`, `airlock_visited` |
 
 ---
 
@@ -14,33 +86,24 @@ Act 1 takes place entirely on the containment deck: 10 interconnected rooms with
 
 ### 1. Stasis Hold (Starting Room)
 
-You wake here among rows of specimen pods. Three items are within reach.
+You wake here among rows of specimen pods. Three items and a key puzzle clue are within reach.
 
 - **HAND the Broken Pod** — Snap off a curved shard of pod glass. Razor-sharp alien composite. *(Gains: `pod_glass_shard`)*
 - **HAND the Pod Drainage Channel** — Scoop amber stasis fluid from the floor channel. *(Gains: `stasis_fluid_vial`)*
 - **HAND the Specimen Tag Hook** — Tear your specimen tag from the pod frame. Proof you were cataloged. *(Gains: `specimen_tag`)*
+- **HAND the Cataloguer Robot** — Examine the spider-legged drone's specimen jars. Each data plate shows a shared section code: **7-3-1-9**. That's the access code for the processing lab keypad. *(Sets flag: `lab_code_known`)*
+
+> **Easy to miss**: LOOKing at the cataloguer only hints at the codes on the data plates. You must HAND it (lean in and study the plates) to actually memorize the pattern.
 
 ![After collecting the three starting items](walkthrough-screenshots/02_stasis_items.png)
 
-**Also in this room**: Occupied Pods (MOVE to reach Pod Cluster), Neural Network Wall, Walkway Railing, Specimen Pod Wall — all have LOOK text for atmosphere.
+**Also in this room**: Occupied Pods, Walkway Railing — LOOK interactions for atmosphere. The Cataloguer Robot also shows a closeup of three preserved specimen tanks when examined.
+
+MOVE through the Dark Archway to reach the **Containment Corridor**.
 
 ---
 
-### 2. Pod Cluster (Close-up from Stasis Hold)
-
-MOVE on the **Occupied Pods** in Stasis Hold to climb up and examine the pod cluster.
-
-- **HAND the Pod Labels** — Physically trace the numerical sequences across pods. The first four digits are identical: **7-3-1-9**. That's the section access code for the processing lab. *(Sets flag: `lab_code_known`)*
-
-> **Easy to miss**: LOOKing at the labels only hints at the code. You must HAND them (trace the numbers) to actually memorize the pattern. This is the classic adventure-game distinction between observing and interacting.
-
-![Learning the lab access code from pod labels](walkthrough-screenshots/03_pod_labels.png)
-
-Navigate back to Stasis Hold, then MOVE through the nav exit to the **Containment Corridor**.
-
----
-
-### 3. Containment Corridor (Hub)
+### 2. Containment Corridor (Hub)
 
 The central hallway connecting most of the deck. Four exits lead to: Stasis Hold, Processing Lab, Security Hub, and Feeding Station. No items to collect here, but LOOK at the drag marks and emergency panel for story context.
 
@@ -48,7 +111,7 @@ Head to the **Processing Lab** first.
 
 ---
 
-### 4. Processing Lab
+### 3. Processing Lab
 
 - **LOOK at the Lab Startup Display** — The screens cycle through processing routines. One shows a startup sequence for the security systems — five-button pattern with specific timing. You memorize it. *(Sets flag: `security_sequence_known`)*
 - **HAND the Instrument Rack** — Take the smallest surgical instrument: a probe with a fine, flexible tip. *(Gains: `surgical_probe`)*
@@ -61,9 +124,9 @@ Return to the Corridor and head to the **Security Hub**.
 
 ---
 
-### 5. Security Hub
+### 4. Security Hub
 
-This is a two-step interaction. You need the security sequence from the lab (Step 4) before the console will activate.
+This is a two-step interaction. You need the security sequence from the lab (Step 3) before the console will activate.
 
 - **HAND the Security Console** (first time) — Enter the startup sequence. The console hums to life, revealing a full ship layout. *(Sets flags: `security_hub_accessed`, `ship_layout_known`)*
 - **HAND the Security Console** (second time) — Trigger the containment lock override. Every sealed door on the deck clicks open. The Curator will notice. *(Sets flag: `security_locks_overridden`; adds 20 noise)*
@@ -71,13 +134,13 @@ This is a two-step interaction. You need the security sequence from the lab (Ste
 
 ![Security console activated and key card obtained](walkthrough-screenshots/05_security_hub.png)
 
-> **Puzzle chain**: Pod Labels (HAND) → Lab Display (LOOK) → Security Console (HAND twice). If you try the console without the sequence, it just beeps and adds noise.
+> **Puzzle chain**: Cataloguer Robot (HAND, for code 7319) → Lab Display (LOOK, for security sequence) → Security Console (HAND twice). If you try the console without the sequence, it just beeps and adds noise.
 
 Return to the Corridor, then head to the **Feeding Station**.
 
 ---
 
-### 6. Feeding Station (Secondary Hub)
+### 5. Feeding Station (Secondary Hub)
 
 The feeding station is the second hub with four exits: Morgue, Containment Corridor, Specimen Archive, and Ventilation Shaft.
 
@@ -88,7 +151,7 @@ The feeding station is the second hub with four exits: Morgue, Containment Corri
 
 ---
 
-### 7. Morgue
+### 6. Morgue
 
 Accessible from the Feeding Station.
 
@@ -103,7 +166,7 @@ Return to the Feeding Station, then head to the **Specimen Archive**.
 
 ---
 
-### 8. Specimen Archive
+### 7. Specimen Archive
 
 - **HAND the Personal Log Crystal** — Pocket a data crystal misfiled among specimen records. *(Gains: `data_crystal_personal_log`)*
 - **USE the crystal ON the Reading Device** — Select the crystal from your inventory, then click the reading device. Alien text floods the air — diagrams of biological processes, planetary data, convergence timelines. *(Consumes or keeps: `data_crystal_personal_log`)*
@@ -117,7 +180,7 @@ Return to the Feeding Station, then head to the **Ventilation Shaft**.
 
 ---
 
-### 9. Ventilation Shaft
+### 8. Ventilation Shaft
 
 - **HAND the Wall Scratches** — Trace a map scratched into the wall by a previous escapee. Three main routes memorized. *(Gains: `ventilation_map`; sets flag: `ventilation_map_found`)*
 
@@ -129,7 +192,7 @@ Continue through to the **Airlock Bay**.
 
 ---
 
-### 10. Airlock Bay
+### 9. Airlock Bay
 
 - **USE the Containment Key Card ON the Airlock Override Panel** — The key card interfaces with the lock, opening the override panel. *(Uses: `containment_key_card`)*
 - **HAND the Suit Locker** — Choir emergency suits are too large, but the helmets have universal seals. *(Sets flag: `emergency_helmet_taken`)*
@@ -177,7 +240,7 @@ All 9 collectible items in Act 1:
 
 | Flag | How to Set | Required? |
 |------|-----------|-----------|
-| `lab_code_known` | HAND Pod Labels in Pod Cluster | Story/future use |
+| `lab_code_known` | HAND Cataloguer Robot in Stasis Hold | Section code 7319 for Processing Lab |
 | `security_sequence_known` | LOOK Lab Startup Display in Processing Lab | Yes — needed for security console |
 | `security_hub_accessed` | HAND Security Console (with sequence) | Yes — unlocks ship layout |
 | `security_locks_overridden` | HAND Security Console again (when active) | Yes — opens all doors |
@@ -195,7 +258,7 @@ All 9 collectible items in Act 1:
 
 ## Tips for Stuck Players
 
-1. **"The security console won't activate"** — You need the startup sequence from the Processing Lab (LOOK at the Lab Startup Display). Without it, pressing buttons just triggers alarms. The lab code from the Pod Cluster (HAND the Pod Labels) is separate knowledge useful elsewhere.
+1. **"The security console won't activate"** — You need the startup sequence from the Processing Lab (LOOK at the Lab Startup Display). Without it, pressing buttons just triggers alarms. The section code from the Cataloguer Robot in Stasis Hold (HAND to study data plates) is separate knowledge for the Processing Lab keypad.
 
 2. **"I can't find the Pod Cluster"** — It's not a separate room on the map. MOVE on the Occupied Pods in the Stasis Hold to climb up to the close-up view.
 
