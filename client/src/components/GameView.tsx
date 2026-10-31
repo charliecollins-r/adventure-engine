@@ -108,10 +108,8 @@ const ANIMATION_KEYFRAMES = `
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.7; }
 }
-@keyframes room-transition {
-  0% { opacity: 0; }
-  15% { opacity: 1; }
-  85% { opacity: 1; }
+@keyframes room-fade-in {
+  0% { opacity: 1; }
   100% { opacity: 0; }
 }
 `;
@@ -145,7 +143,7 @@ export function GameView({
   useEffect(() => {
     if (prevViewRef.current !== null && prevViewRef.current !== currentViewId) {
       setTransitioning(true);
-      const timer = setTimeout(() => setTransitioning(false), 2500);
+      const timer = setTimeout(() => setTransitioning(false), 1800);
       prevViewRef.current = currentViewId;
       return () => clearTimeout(timer);
     }
@@ -323,7 +321,7 @@ export function GameView({
             width: '100%',
             height: '100%',
             backgroundColor: '#000',
-            animation: 'room-transition 2500ms ease-in-out forwards',
+            animation: 'room-fade-in 1800ms ease-out forwards',
             pointerEvents: 'none',
             zIndex: 20,
           }}
