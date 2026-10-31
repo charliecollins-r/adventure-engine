@@ -273,7 +273,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Verb system redesigned**: 4 verbs (look, move, hand, talk) + implicit inventory use. KQ5-style feedback on every click. "move" for navigation, "hand" merges old hand+take, inventory items selected then clicked on world objects.
 - **All core conditions implemented**: `all_of`, `any_of`, `noise_above`, `noise_below`, `item_count` all working
 - **All core effects implemented**: `set_noise`, `transform_item`, `conditional_effect`, `delay_then` all working
-- **The Harvest Act 1** redesigned — navigation graph corrected to match actual background art. 9 rooms: Stasis Hold → Corridor (hub, 4 exits) → Processing Lab, Security Hub, Feeding Station (secondary hub, 4 exits) → Morgue, Specimen Archive, Ventilation Shaft → Airlock Bay. All object positions aligned to painted backgrounds.
+- **The Harvest Act 1** redesigned — navigation graph corrected to match actual background art. 9 rooms: Stasis Hold → Corridor (hub, 5 exits) → Processing Lab, Security Hub, Feeding Station (secondary hub, 3 exits), Ventilation Shaft (via gated floor vent, requires `security_locks_overridden`) → Feeding Station → Morgue, Specimen Archive → Ventilation Shaft → Airlock Bay. All object positions aligned to painted backgrounds.
 - **Ambient audio system**: Supports single or layered audio tracks per scenario. The Harvest has 2 ambient tracks (ship hum + lab ambience).
 - **Level design doc** at `scenarios/the-harvest/act1-level-design.md` with navigation map, room-by-room tables, puzzle flow, and Gemini background regeneration prompts.
 - **All 13 scenario JSONs updated** with new verb mappings (nav: hand→move, take→hand).
@@ -285,7 +285,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Documentation suite**: README.md (ecosystem overview), ADVENTURE_BUILDER.md (third-party dev guide), TECHNICAL_DEEP_DIVE.md (engine internals), docs/SCENARIO_SCHEMA.md (JSON reference), docs/ARCHITECTURE.md (architecture diagrams)
 - **Hotspot animation system**: CSS glimmer/pulse animations driven by `visual.animation` in schema. Applied to key Harvest objects.
 - **Response shorthand**: Interactions can use `response` string instead of `then` effects array for simple messages.
-- **Navigation routing corrected**: Feeding Station is secondary hub (4 exits), Processing Lab and Security Hub are dead ends.
+- **Navigation routing corrected**: Corridor is primary hub (5 exits including gated vent), Feeding Station is secondary hub (3 exits: morgue, archive, corridor). Vent shaft entrance moved from Feeding Station to Corridor — gated by `security_locks_overridden`. Processing Lab and Security Hub are dead ends.
 - **Animation suppression**: `set_animation` effect clears glimmer/pulse on completed objects so they stop drawing attention after the player has collected items or gained knowledge from them.
 - **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. Used by: cataloguer robot in Stasis Hold shows 3-tank specimen closeup.
 - **Hotspot positioning guide**: Comprehensive documentation across ADVENTURE_BUILDER.md, TECHNICAL_DEEP_DIVE.md, SCENARIO_SCHEMA.md, and CLAUDE.md covering image-to-coordinate conversion formulas, worked examples, debug mode workflow, common mistakes, and an AI agent checklist. Self-maintenance rule #9 requires verifying positions against actual background image dimensions.
@@ -302,6 +302,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Interactive scenario map**: Published artifact at claude.ai showing Act 1 room graph, item locations, puzzle chains, and 30-step walkthrough. Keep this updated when rooms, items, or puzzles change. Data extracted from scenario JSON.
 - **Cataloguer robot closeup**: Spider-legged drone in Stasis Hold with animated sprite (4 frames). Looking shows 3-tank specimen closeup; touching discovers section code 7319 (sets `lab_code_known`). Pod Cluster view removed — cataloguer closeup replaces it.
 - **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
+- **Vent cover in corridor**: Ventilation shaft entrance moved from Feeding Station to Containment Corridor. A `vent_cover` object is always visible in the corridor floor (bottom-left) but gated by `security_locks_overridden` — trying to enter before overriding security shows a locked message. Navigation graph: Corridor → Vent Shaft → Airlock Bay. Vent shaft back-nav returns to corridor.
 
 ---
 
