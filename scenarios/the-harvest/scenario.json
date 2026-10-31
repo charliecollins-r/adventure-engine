@@ -323,8 +323,7 @@
         "x": 260,
         "y": 650,
         "facing": "right",
-        "sprite_set": "idle",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -401,8 +400,7 @@
         "x": 480,
         "y": 550,
         "facing": "down",
-        "sprite_set": "idle",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -514,8 +512,7 @@
         "x": 280,
         "y": 660,
         "facing": "right",
-        "sprite_set": "idle",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -633,8 +630,7 @@
         "x": 680,
         "y": 650,
         "facing": "left",
-        "sprite_set": "idle",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
@@ -794,8 +790,7 @@
         "x": 480,
         "y": 520,
         "facing": "right",
-        "sprite_set": "idle",
-        "frame": 0
+        "sprite_set": "idle"
       }
     },
     {
