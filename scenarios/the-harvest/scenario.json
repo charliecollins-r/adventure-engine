@@ -129,9 +129,9 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 420,
-        "y": 520,
-        "facing": "down",
+        "x": 300,
+        "y": 640,
+        "facing": "right",
         "sprite_set": "scared",
         "frame": 0
       },
