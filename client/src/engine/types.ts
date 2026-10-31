@@ -31,6 +31,7 @@ export interface View {
   objects: string[];
   back_label?: string;
   room_animation?: string;
+  hints?: ViewHint[];
 }
 
 export interface Position {
@@ -219,6 +220,11 @@ export interface LoseCondition {
   id: string;
   description: string;
   conditions?: Condition[];
+}
+
+export interface ViewHint {
+  text: string;
+  when: Condition[];
 }
 
 export interface Hint {

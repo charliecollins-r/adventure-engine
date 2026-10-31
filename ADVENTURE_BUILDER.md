@@ -1175,9 +1175,48 @@ An AI antagonist that patrols, responds to noise, searches for the player, and h
 
 Named events triggered by conditions or timers. Use for narrative beats — a phone ringing after 90 seconds, lights flickering when the player enters a phase, the killer discovering an empty chair.
 
-### Hints *(Planned)*
+### View Hints
 
-Progressive help system. Hints appear after a configurable delay, gated by conditions so they only show for unsolved puzzles.
+Progressive hint system. Each view has a `hints` array of context-sensitive guidance. When the player clicks the "?" button, the engine evaluates every hint's conditions and shows the **last** matching one — so order hints from general to specific.
+
+```json
+{
+  "id": "act1_stasis_hold",
+  "hints": [
+    {
+      "text": "You need to get out of this pod. Try pushing against it.",
+      "when": [{ "type": "object_state", "object": "broken_pod", "state": "sealed" }]
+    },
+    {
+      "text": "The broken pod has sharp glass edges. You could snap off a piece.",
+      "when": [
+        { "type": "flag_is", "flag": "pod_escaped", "value": "true" },
+        { "type": "not_has_item", "item": "pod_glass_shard" }
+      ]
+    },
+    {
+      "text": "Stasis fluid is pooling in the drainage channel. It might be useful.",
+      "when": [
+        { "type": "has_item", "item": "pod_glass_shard" },
+        { "type": "not_has_item", "item": "stasis_fluid_vial" }
+      ]
+    },
+    {
+      "text": "You've gathered what you can here. The corridor archway leads deeper into the ship.",
+      "when": [
+        { "type": "has_item", "item": "pod_glass_shard" },
+        { "type": "has_item", "item": "stasis_fluid_vial" }
+      ]
+    }
+  ]
+}
+```
+
+**Design tips:**
+- Empty `when: []` means the hint is always active (good for a first/fallback hint)
+- Each hint's conditions should be a superset of the previous, so the last match is the most specific
+- Guide the player toward the **next action** — what to look at, where to go, what to try
+- Keep the tone atmospheric and in-character, not "game guide" voice
 
 ### Hiding Spots
 

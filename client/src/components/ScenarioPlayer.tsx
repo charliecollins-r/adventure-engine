@@ -269,6 +269,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [scenario, bump]);
 
+  const handleHint = useCallback(() => {
+    const hint = engine.getHint();
+    if (hint) {
+      engine.showMessage(hint);
+    } else {
+      engine.showMessage("No hints available for this room.");
+    }
+    bump();
+  }, [engine, bump]);
+
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
@@ -303,6 +313,25 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           <NoiseIndicator level={noiseLevel} />
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button
+            style={{
+              ...styles.exitButton,
+              fontSize: '14px',
+              fontFamily: '"Georgia", serif',
+              padding: '2px 10px',
+            }}
+            onClick={handleHint}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.borderColor = '#6a5a30';
+              (e.target as HTMLElement).style.color = '#c0a030';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.borderColor = '#2a2018';
+              (e.target as HTMLElement).style.color = '#6a5a3a';
+            }}
+          >
+            ?
+          </button>
           <button
             style={{
               ...styles.exitButton,

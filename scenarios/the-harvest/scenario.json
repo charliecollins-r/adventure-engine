@@ -85,7 +85,91 @@
       ],
       "background_key": "act1_stasis_hold",
       "background_file": "backgrounds/act1_stasis_hold.webp",
-      "room_animation": "breathe"
+      "room_animation": "breathe",
+      "hints": [
+        {
+          "text": "You need to get out of this pod. Try interacting with it directly.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "pod_escaped",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "Your broken pod is a source of useful materials. Search it thoroughly before moving on.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "pod_escaped",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "pod_glass_shard"
+            }
+          ]
+        },
+        {
+          "text": "The amber fluid pooling beneath the drainage channel could be useful. Collect some before it drains away.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "pod_escaped",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "pod_glass_shard"
+            },
+            {
+              "type": "not_has_item",
+              "item": "stasis_fluid_vial"
+            }
+          ]
+        },
+        {
+          "text": "There's a specimen tag on a hook nearby \u2014 it has your identification on it. Take it.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "pod_escaped",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "stasis_fluid_vial"
+            },
+            {
+              "type": "not_has_item",
+              "item": "specimen_tag"
+            }
+          ]
+        },
+        {
+          "text": "You've gathered what you can here. The occupied pods on the far wall are worth a closer look, and the archway leads deeper into the ship.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "pod_escaped",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "pod_glass_shard"
+            },
+            {
+              "type": "has_item",
+              "item": "stasis_fluid_vial"
+            },
+            {
+              "type": "has_item",
+              "item": "specimen_tag"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_pod_cluster",
@@ -97,7 +181,29 @@
       "background_key": "act1_pod_cluster",
       "background_file": "backgrounds/act1_pod_cluster.webp",
       "back_label": "Back to Stasis Hold",
-      "room_animation": "breathe"
+      "room_animation": "breathe",
+      "hints": [
+        {
+          "text": "These pods hold catalogued specimens. The alien labels might contain useful information if you can interact with them.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've memorized the access code from the pod labels. This information will be useful elsewhere on the ship.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_processing_lab",
@@ -110,7 +216,74 @@
       ],
       "background_key": "act1_processing_lab",
       "background_file": "backgrounds/act1_processing_lab.webp",
-      "room_animation": "flicker"
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "A specimen processing lab. The surgical instruments and data screens might be worth investigating.",
+          "when": []
+        },
+        {
+          "text": "The instrument rack holds alien surgical tools. Take one \u2014 it could serve as a makeshift tool.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "surgical_probe"
+            }
+          ]
+        },
+        {
+          "text": "The lab data screens are still active. Interact with them \u2014 they might contain security codes or ship layout data.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've found a security access sequence in the lab data. Head to the security hub in the corridor to use it.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've taken everything useful from the lab. Continue exploring the ship.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_containment_corridor",
@@ -124,7 +297,64 @@
       ],
       "background_key": "act1_containment_corridor",
       "background_file": "backgrounds/act1_containment_corridor.webp",
-      "room_animation": "flicker"
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "This corridor connects the containment sections. Explore the passages branching off in each direction.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The processing lab to the left might have tools and information. The security hub could give you control over the ship's systems.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've accessed security. The feeding station deeper in the ship connects to more areas worth exploring.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "feeding_station_visited",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You know this corridor well now. Make sure you've explored every branch before looking for a way off this deck.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "feeding_station_visited",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_morgue",
@@ -137,7 +367,31 @@
       ],
       "background_key": "act1_morgue",
       "background_file": "backgrounds/act1_morgue.webp",
-      "room_animation": "breathe"
+      "room_animation": "breathe",
+      "hints": [
+        {
+          "text": "A grim place. The Choir dispose of failed specimens here. Search the room \u2014 even in death, there may be something useful.",
+          "when": []
+        },
+        {
+          "text": "A severed neural tendril lies near one of the slabs. Choir neural tissue could have applications elsewhere.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "severed_neural_tendril"
+            }
+          ]
+        },
+        {
+          "text": "You've taken the neural tendril. The recycling vats and drawers tell a grim story, but you've found what's useful here.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "severed_neural_tendril"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_feeding_station",
@@ -151,7 +405,55 @@
       ],
       "background_key": "act1_feeding_station",
       "background_file": "backgrounds/act1_feeding_station.webp",
-      "room_animation": "flicker"
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "The feeding station connects to several areas. Explore the passages leading left, right, and back the way you came.",
+          "when": []
+        },
+        {
+          "text": "The nutrient dispenser still functions. The paste isn't appetizing, but it might have other uses.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "nutrient_paste_tube"
+            }
+          ]
+        },
+        {
+          "text": "The morgue is through the left passage, and the specimen archive is to the right. Both may hold items you need.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "nutrient_paste_tube"
+            },
+            {
+              "type": "flag_not",
+              "flag": "morgue_visited",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "Make sure you've explored the morgue and the archive thoroughly. The airlock bay beyond the ventilation shaft is your way off this deck.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "nutrient_paste_tube"
+            },
+            {
+              "type": "flag_is",
+              "flag": "morgue_visited",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "airlock_visited",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_ventilation_shaft",
@@ -163,7 +465,31 @@
       ],
       "background_key": "act1_ventilation_shaft",
       "background_file": "backgrounds/act1_ventilation_shaft.webp",
-      "room_animation": "flicker"
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "The shaft is tight but passable for someone your size. Look for anything useful along the walls.",
+          "when": []
+        },
+        {
+          "text": "Scratch marks on the walls form a crude map \u2014 previous escape attempts. Trace them to create a ventilation map.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        },
+        {
+          "text": "You have the ventilation map. The shaft leads toward what looks like an airlock bay.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_security_hub",
@@ -175,7 +501,64 @@
       ],
       "background_key": "act1_security_hub",
       "background_file": "backgrounds/act1_security_hub.webp",
-      "room_animation": "scan"
+      "room_animation": "scan",
+      "hints": [
+        {
+          "text": "The security console is dark. You need an access sequence to activate it \u2014 perhaps the processing lab has one.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You know the access sequence from the lab. Use it on the security console to bring the system online.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The console is active. Try overriding the containment locks to open more of the ship. Also check the drawer for useful items.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "containment_key_obtained",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You have the key card and the locks are overridden. The rest of the containment deck should be accessible now.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "containment_key_obtained",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_specimen_archive",
@@ -188,7 +571,66 @@
       ],
       "background_key": "act1_specimen_archive",
       "background_file": "backgrounds/act1_specimen_archive.webp",
-      "room_animation": "breathe"
+      "room_animation": "breathe",
+      "hints": [
+        {
+          "text": "The archive holds records of every species the Choir have collected. The data crystals and reading device could reveal vital information.",
+          "when": []
+        },
+        {
+          "text": "One of the data crystals is out of place \u2014 a personal log, perhaps. Take it and use the reading device to access its contents.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "data_crystal_personal_log"
+            }
+          ]
+        },
+        {
+          "text": "You have the data crystal. Insert it into the reading device to decrypt its contents.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "data_crystal_personal_log"
+            },
+            {
+              "type": "flag_not",
+              "flag": "archive_accessed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The holographic display shows the Convergence's path of destruction across galaxies. Examine it to understand what you're up against.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "archive_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "convergence_history_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've uncovered the Choir's records and the Convergence's history. This knowledge will be crucial as you go deeper.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "archive_accessed",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "convergence_history_known",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_airlock_bay",
@@ -202,7 +644,68 @@
       ],
       "background_key": "act1_airlock_bay",
       "background_file": "backgrounds/act1_airlock_bay.webp",
-      "room_animation": "breathe"
+      "room_animation": "breathe",
+      "hints": [
+        {
+          "text": "An airlock bay. Your ship might have been docked here. Look around for supplies and a way to open the outer doors.",
+          "when": []
+        },
+        {
+          "text": "The docking clamps are empty \u2014 your ship is gone. Check the suit locker and the viewport.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "outrider_gone_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The suit locker might contain an emergency helmet. Open it and take what you can.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "outrider_gone_known",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ]
+        },
+        {
+          "text": "The manual override panel is locked tight. You'll need a containment key card \u2014 the security hub might have one.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            },
+            {
+              "type": "not_has_item",
+              "item": "containment_key_card"
+            }
+          ]
+        },
+        {
+          "text": "You have the containment key card. Use it on the override panel to unlock the airlock systems.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            },
+            {
+              "type": "has_item",
+              "item": "containment_key_card"
+            },
+            {
+              "type": "object_state",
+              "object": "airlock_override_panel",
+              "state": "locked"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_navigation_bridge",
@@ -215,7 +718,33 @@
         "nav_act2_navigation_bridge_to_act2_observation_deck"
       ],
       "background_key": "act2_navigation_bridge",
-      "background_file": "backgrounds/act2_navigation_bridge.webp"
+      "background_file": "backgrounds/act2_navigation_bridge.webp",
+      "hints": [
+        {
+          "text": "The bridge holds the ship's star charts and navigation systems. Understanding where this vessel has been could reveal where it's going.",
+          "when": []
+        },
+        {
+          "text": "The star map shows the Convergence's path. The command console may have a removable navigation chip with jump coordinates.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "navigation_chip_taken",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You have the navigation data. Engineering and the comm array are accessible from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "navigation_chip_taken",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_engineering",
@@ -230,7 +759,44 @@
         "nav_act2_engineering_to_act2_shuttle_bay"
       ],
       "background_key": "act2_engineering",
-      "background_file": "backgrounds/act2_engineering.webp"
+      "background_file": "backgrounds/act2_engineering.webp",
+      "hints": [
+        {
+          "text": "The ship's reactor pulses like a living heart. Look for portable power sources and coolant \u2014 both could be invaluable.",
+          "when": []
+        },
+        {
+          "text": "The reactor access panel might yield a power cell. The coolant system could provide a useful chemical agent.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "power_cell"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "coolant_flask"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've salvaged what you can from engineering. The shuttle bay and waste processing are accessible from here.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "power_cell"
+            },
+            {
+              "type": "has_item",
+              "item": "coolant_flask"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_comm_array",
@@ -243,7 +809,33 @@
         "nav_act2_comm_array_to_act2_data_core"
       ],
       "background_key": "act2_comm_array",
-      "background_file": "backgrounds/act2_comm_array.webp"
+      "background_file": "backgrounds/act2_comm_array.webp",
+      "hints": [
+        {
+          "text": "The communications array handles all signals to and from The Convergence. The schematics and recording station may hold useful intelligence.",
+          "when": []
+        },
+        {
+          "text": "Look for the comm array schematics \u2014 understanding the frequencies could let you send your own transmissions later.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "comm_schematics_taken",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You have the schematics. The data core and navigation bridge are connected from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "comm_schematics_taken",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_armory",
@@ -255,7 +847,31 @@
         "nav_act2_armory_to_act2_shuttle_bay"
       ],
       "background_key": "act2_armory",
-      "background_file": "backgrounds/act2_armory.webp"
+      "background_file": "backgrounds/act2_armory.webp",
+      "hints": [
+        {
+          "text": "The Choir's weapons are biometrically locked, but something has already been removed from one rack. Search for anything you can actually use.",
+          "when": []
+        },
+        {
+          "text": "The resonance disruptor on the workbench might be operable. It disrupts bio-mechanical systems \u2014 extremely useful against Choir technology.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "resonance_disruptor"
+            }
+          ]
+        },
+        {
+          "text": "The resonance disruptor is yours. The hive quarters and shuttle bay connect from here.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "resonance_disruptor"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_hive_quarters",
@@ -268,7 +884,46 @@
         "nav_act2_hive_quarters_to_act2_waste_processing"
       ],
       "background_key": "act2_hive_quarters",
-      "background_file": "backgrounds/act2_hive_quarters.webp"
+      "background_file": "backgrounds/act2_hive_quarters.webp",
+      "hints": [
+        {
+          "text": "The Choir's living quarters. Their resonance chamber and dormancy alcoves might hold items attuned to their biology.",
+          "when": []
+        },
+        {
+          "text": "The resonance chamber could contain a Choir crystal \u2014 their communication medium. A cipher fragment may be hidden in their patterns.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "choir_resonance_crystal"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "cipher_fragment_2_found",
+                  "value": "true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've gathered what you can from the Choir's quarters. The armory, comm array, and waste processing are accessible from here.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "choir_resonance_crystal"
+            },
+            {
+              "type": "flag_is",
+              "flag": "cipher_fragment_2_found",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_shuttle_bay",
@@ -280,7 +935,37 @@
         "nav_act2_shuttle_bay_to_act2_armory"
       ],
       "background_key": "act2_shuttle_bay",
-      "background_file": "backgrounds/act2_shuttle_bay.webp"
+      "background_file": "backgrounds/act2_shuttle_bay.webp",
+      "hints": [
+        {
+          "text": "A damaged shuttle sits in the bay. It might be your ticket off this ship \u2014 if you can repair it.",
+          "when": []
+        },
+        {
+          "text": "The shuttle needs fuel, power, and navigation to fly. Look for a fuel line in the supply rack, and bring a power cell and navigation chip from elsewhere.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "shuttle_fuel_line_taken",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You have what you need to start repairs. Install the fuel line, power cell, and navigation chip into the shuttle systems.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "shuttle_fuel_line"
+            },
+            {
+              "type": "flag_not",
+              "flag": "shuttle_repaired",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_hydroponics",
@@ -292,7 +977,44 @@
         "nav_act2_hydroponics_to_act2_observation_deck"
       ],
       "background_key": "act2_hydroponics",
-      "background_file": "backgrounds/act2_hydroponics.webp"
+      "background_file": "backgrounds/act2_hydroponics.webp",
+      "hints": [
+        {
+          "text": "The ship's bio-garden grows alien plants. Some may have biochemical properties worth harvesting.",
+          "when": []
+        },
+        {
+          "text": "The harvest station has concentrated bio-extract, and the fiber plants produce incredibly strong strands. Take both.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "bio_garden_extract"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "bio_garden_fiber"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've harvested what you need. These materials can be combined with other items for new tools.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "bio_garden_extract"
+            },
+            {
+              "type": "has_item",
+              "item": "bio_garden_fiber"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_data_core",
@@ -303,7 +1025,33 @@
         "nav_act2_data_core_to_act2_hydroponics"
       ],
       "background_key": "act2_data_core",
-      "background_file": "backgrounds/act2_data_core.webp"
+      "background_file": "backgrounds/act2_data_core.webp",
+      "hints": [
+        {
+          "text": "The ship's data core \u2014 an organic brain that stores all operational data. The interface terminal may let you access encrypted Convergence communications.",
+          "when": []
+        },
+        {
+          "text": "Use the interface terminal to query the organic brain. The Convergence's encrypted communications could reveal their plans for this planet.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "convergence_comms_decrypted",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've accessed the data core. The comm array and hydroponics connect from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "convergence_comms_decrypted",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_waste_processing",
@@ -314,7 +1062,31 @@
         "nav_act2_waste_processing_to_act2_hive_quarters"
       ],
       "background_key": "act2_waste_processing",
-      "background_file": "backgrounds/act2_waste_processing.webp"
+      "background_file": "backgrounds/act2_waste_processing.webp",
+      "hints": [
+        {
+          "text": "The ship's waste processing. Catwalks over grinding machinery. A dangerous place, but perhaps something useful was discarded here.",
+          "when": []
+        },
+        {
+          "text": "A disabled maintenance drone near the catwalks still has its sensory antenna intact. It could detect Choir patrol signals.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "drone_antenna"
+            }
+          ]
+        },
+        {
+          "text": "You've taken the drone antenna. Engineering and the hive quarters are accessible from here.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "drone_antenna"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act2_observation_deck",
@@ -325,7 +1097,33 @@
         "nav_act2_observation_deck_to_act2_hydroponics"
       ],
       "background_key": "act2_observation_deck",
-      "background_file": "backgrounds/act2_observation_deck.webp"
+      "background_file": "backgrounds/act2_observation_deck.webp",
+      "hints": [
+        {
+          "text": "The observation deck offers a view of the planet below. The instruments here monitor the harvesting process.",
+          "when": []
+        },
+        {
+          "text": "Study the observation instruments carefully. Understanding the energy siphon network could be critical when you reach the surface.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "observation_deck_visited",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've studied the siphon network. The bridge and hydroponics connect from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "observation_deck_visited",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_crash_site",
@@ -335,7 +1133,33 @@
         "nav_act3_crash_site_to_act3_wasteland_path"
       ],
       "background_key": "act3_crash_site",
-      "background_file": "backgrounds/act3_crash_site.webp"
+      "background_file": "backgrounds/act3_crash_site.webp",
+      "hints": [
+        {
+          "text": "You've crashed on the planet's surface. Search the wreckage for anything salvageable before moving on.",
+          "when": []
+        },
+        {
+          "text": "The shuttle interior may have an emergency beacon and other supplies. The wasteland stretches out beyond the crash site.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "shuttle_beacon_taken",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've salvaged what you can. Head into the wasteland to find the planet's former inhabitants and their weapons.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "shuttle_beacon_taken",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_shuttle_wreck_interior",
@@ -346,7 +1170,44 @@
         "nav_act3_shuttle_wreck_interior_to_act3_crash_site"
       ],
       "background_key": "act3_shuttle_wreck_interior",
-      "background_file": "backgrounds/act3_shuttle_wreck_interior.webp"
+      "background_file": "backgrounds/act3_shuttle_wreck_interior.webp",
+      "hints": [
+        {
+          "text": "The shuttle's interior is smashed but some systems still function. Check the dashboard, emergency kit, and personal storage.",
+          "when": []
+        },
+        {
+          "text": "The emergency beacon and signal flare could save your life. Take everything that isn't bolted down.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "shuttle_emergency_beacon"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "signal_flare"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've taken everything useful from the wreck.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "shuttle_emergency_beacon"
+            },
+            {
+              "type": "has_item",
+              "item": "signal_flare"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_wasteland_path",
@@ -360,7 +1221,38 @@
         "nav_act3_wasteland_path_to_act3_overlook"
       ],
       "background_key": "act3_wasteland_path",
-      "background_file": "backgrounds/act3_wasteland_path.webp"
+      "background_file": "backgrounds/act3_wasteland_path.webp",
+      "hints": [
+        {
+          "text": "The wasteland stretches in all directions. Paths lead to a siphon tower, a refugee camp, a fungal grove, and an overlook.",
+          "when": []
+        },
+        {
+          "text": "The siphon tower has energy crystals worth collecting. The refugee camp might have supplies and information from the former inhabitants.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "refugee_camp_visited",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The city gates lie beyond the echo field near the refugee camp. You'll need to prepare before venturing there.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "refugee_camp_visited",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "city_gates_reached",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_siphon_tower",
@@ -370,7 +1262,44 @@
         "nav_act3_siphon_tower_to_act3_wasteland_path"
       ],
       "background_key": "act3_siphon_tower",
-      "background_file": "backgrounds/act3_siphon_tower.webp"
+      "background_file": "backgrounds/act3_siphon_tower.webp",
+      "hints": [
+        {
+          "text": "A massive energy siphon tower drains life from the planet. The crystals at its base pulse with raw Convergence energy.",
+          "when": []
+        },
+        {
+          "text": "Break off a siphon crystal fragment and take a mineral sample. Both contain Convergence energy that could be weaponized.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "siphon_crystal_fragment"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "wasteland_mineral_sample"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've collected what you need from the tower. These materials can be combined with items from the ship.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "siphon_crystal_fragment"
+            },
+            {
+              "type": "has_item",
+              "item": "wasteland_mineral_sample"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_refugee_camp",
@@ -382,7 +1311,48 @@
         "nav_act3_refugee_camp_to_act3_echo_field"
       ],
       "background_key": "act3_refugee_camp",
-      "background_file": "backgrounds/act3_refugee_camp.webp"
+      "background_file": "backgrounds/act3_refugee_camp.webp",
+      "hints": [
+        {
+          "text": "The remains of a refugee camp. The former inhabitants fled here before the end. Search their belongings for supplies and information.",
+          "when": []
+        },
+        {
+          "text": "A journal among the scattered belongings could contain a cipher fragment. The supply crate may still have rations and climbing gear.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "refugee_journal"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "survival_rations"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "climbing_pitons"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've gathered what the refugees left behind. The echo field beyond could lead to the city.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "refugee_journal"
+            },
+            {
+              "type": "has_item",
+              "item": "climbing_pitons"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_fungal_grove",
@@ -393,7 +1363,36 @@
         "nav_act3_fungal_grove_to_act3_buried_bunker"
       ],
       "background_key": "act3_fungal_grove",
-      "background_file": "backgrounds/act3_fungal_grove.webp"
+      "background_file": "backgrounds/act3_fungal_grove.webp",
+      "hints": [
+        {
+          "text": "Bioluminescent fungi thrive here, feeding on the Convergence's residual energy. Their biochemistry could be potent.",
+          "when": []
+        },
+        {
+          "text": "Extract the concentrated fungal compounds. They could be combined with other chemicals for powerful effects.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "fungal_extract"
+            }
+          ]
+        },
+        {
+          "text": "You have the extract. A buried military bunker is accessible deeper in the grove.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "fungal_extract"
+            },
+            {
+              "type": "flag_not",
+              "flag": "bunker_accessed",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_echo_field",
@@ -403,7 +1402,37 @@
         "nav_act3_echo_field_to_act3_city_gates"
       ],
       "background_key": "act3_echo_field",
-      "background_file": "backgrounds/act3_echo_field.webp"
+      "background_file": "backgrounds/act3_echo_field.webp",
+      "hints": [
+        {
+          "text": "Reality warps here \u2014 echoes of the dead civilization manifest as ghostly apparitions. Navigate carefully.",
+          "when": []
+        },
+        {
+          "text": "The echo stabilizer from the bunker could help you pass through safely. Without it, the echo field is dangerous and disorienting.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "echo_stabilizer"
+            },
+            {
+              "type": "flag_not",
+              "flag": "echo_field_navigated",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The city gates are visible through the distortion. Press on toward the dead civilization's last stronghold.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "echo_field_navigated",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_buried_bunker",
@@ -415,7 +1444,59 @@
         "nav_act3_buried_bunker_to_act3_fungal_grove"
       ],
       "background_key": "act3_buried_bunker",
-      "background_file": "backgrounds/act3_buried_bunker.webp"
+      "background_file": "backgrounds/act3_buried_bunker.webp",
+      "hints": [
+        {
+          "text": "A military bunker from the planet's final days. The door may require a code. Search for one among the refugee camp's belongings.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "bunker_accessed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The bunker holds military equipment \u2014 an echo stabilizer, weapons, defense schematics, and a radiation badge. Take everything.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "bunker_accessed",
+              "value": "true"
+            },
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "echo_stabilizer"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "alien_sidearm"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "bunker_defense_schematics"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've taken everything useful from the bunker. The echo stabilizer will help you navigate the echo field toward the city.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "echo_stabilizer"
+            },
+            {
+              "type": "has_item",
+              "item": "alien_sidearm"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_city_gates",
@@ -425,7 +1506,29 @@
         "nav_act3_city_gates_to_act3_overlook"
       ],
       "background_key": "act3_city_gates",
-      "background_file": "backgrounds/act3_city_gates.webp"
+      "background_file": "backgrounds/act3_city_gates.webp",
+      "hints": [
+        {
+          "text": "The gates of the dead city loom before you. They may need a keystone or a specific approach to open.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "city_gates_opened",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The gates are open. The dead city awaits. The overlook nearby offers a panoramic view of what lies ahead.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "city_gates_opened",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act3_overlook",
@@ -435,7 +1538,23 @@
         "nav_act3_overlook_to_act3_city_gates"
       ],
       "background_key": "act3_overlook",
-      "background_file": "backgrounds/act3_overlook.webp"
+      "background_file": "backgrounds/act3_overlook.webp",
+      "hints": [
+        {
+          "text": "From this vantage point you can see the dead city spread below, the siphon towers draining it, and the nexus at its heart.",
+          "when": []
+        },
+        {
+          "text": "The panoramic vista reveals the layout of the city. Study it \u2014 knowledge of the terrain will help you navigate below.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "overlook_visited",
+              "value": "true"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act4_grand_plaza",
@@ -450,6 +1569,45 @@
         "plaza_echo",
         "plaza_archway",
         "plaza_spire"
+      ],
+      "hints": [
+        {
+          "text": "The grand plaza of a dead civilization. Explore the buildings, monuments, and pathways branching from here.",
+          "when": []
+        },
+        {
+          "text": "The central statue may hold a keystone \u2014 an access token for restricted areas. The map kiosk could reveal the city's layout.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "city_keystone"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "city_mapped",
+                  "value": "true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You have the keystone and know the layout. The library, war room, and research lab hold the information you need to find the weapon.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "city_keystone"
+            },
+            {
+              "type": "flag_not",
+              "flag": "weapon_existence_known",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -462,6 +1620,37 @@
         "library_holographic_index",
         "library_convergence_section",
         "library_alcove"
+      ],
+      "hints": [
+        {
+          "text": "The city's library \u2014 a vast collection of crystalline knowledge. The translation cipher will help you read the ancient texts.",
+          "when": []
+        },
+        {
+          "text": "Search the crystal stacks for the final cipher fragment. The reading station and holographic index can help decipher the planet's history.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "cipher_fragment_4_found",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "With the cipher fragments, you can assemble a complete translation. Use it to read the Convergence section for weapon intelligence.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "cipher_fragment_4_found",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "complete_cipher_assembled",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -475,6 +1664,35 @@
         "battle_plans",
         "war_room_locker",
         "war_room_chair"
+      ],
+      "hints": [
+        {
+          "text": "The military command center. The holographic table and tactical displays show the civilization's last stand against the Convergence.",
+          "when": []
+        },
+        {
+          "text": "The defense grid controller on the tactical table could control orbital defense satellites \u2014 if any still function.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "defense_grid_controller"
+            }
+          ]
+        },
+        {
+          "text": "You have the controller. The battle plans mention a countermeasure weapon \u2014 its schematics may be in the research lab.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "defense_grid_controller"
+            },
+            {
+              "type": "flag_not",
+              "flag": "weapon_schematics_known",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -488,6 +1706,44 @@
         "containment_field",
         "lab_equipment_rack",
         "lab_supply_cabinet"
+      ],
+      "hints": [
+        {
+          "text": "The research lab where the countermeasure weapon was designed. The prototype and schematics are here.",
+          "when": []
+        },
+        {
+          "text": "Study the prototype weapon and find the assembly blueprint. You'll need to understand exactly how to build the countermeasure.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_not",
+                  "flag": "weapon_schematics_known",
+                  "value": "true"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "ancient_blueprint"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You have the blueprint and know the weapon design. The lab goggles will protect you from dangerous energy when you reach the nexus.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ancient_blueprint"
+            },
+            {
+              "type": "not_has_item",
+              "item": "lab_safety_goggles"
+            }
+          ]
+        }
       ]
     },
     {
@@ -501,6 +1757,30 @@
         "family_portrait_wall",
         "residential_echo",
         "abandoned_meal"
+      ],
+      "hints": [
+        {
+          "text": "Homes abandoned in haste. The packed luggage and half-eaten meals paint a picture of sudden evacuation.",
+          "when": []
+        },
+        {
+          "text": "A personal locket among the possessions might hold emotional significance. An echo of a former resident may appear if you're still enough.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "alien_personal_locket"
+            }
+          ]
+        },
+        {
+          "text": "You've seen the lives that were lived here. Their memory drives you forward.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "alien_personal_locket"
+            }
+          ]
+        }
       ]
     },
     {
@@ -514,6 +1794,36 @@
         "convergence_breach",
         "power_conduits",
         "maintenance_hatch"
+      ],
+      "hints": [
+        {
+          "text": "The city's power station. The reactor is offline but the backup systems might be restorable.",
+          "when": []
+        },
+        {
+          "text": "Restart the reactor to power the city's systems. The power distribution panel and adapter will let you bridge alien technology together.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "power_station_restored",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "Power is restored. The city's transit system and other infrastructure should be functional now.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "power_station_restored",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "power_cell_adapter"
+            }
+          ]
+        }
       ]
     },
     {
@@ -527,6 +1837,43 @@
         "temple_offerings",
         "crystal_walls",
         "temple_alcove"
+      ],
+      "hints": [
+        {
+          "text": "A sacred place. The resonance chamber and altar held spiritual significance for the former inhabitants.",
+          "when": []
+        },
+        {
+          "text": "The prophet's crystal on the altar shows visions of possible futures. The resonance tuning fork could communicate with echoes.",
+          "when": [
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "prophets_crystal"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "resonance_tuning_fork"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You have the crystal and tuning fork. These sacred tools may prove decisive at the nexus.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "prophets_crystal"
+            },
+            {
+              "type": "has_item",
+              "item": "resonance_tuning_fork"
+            }
+          ]
+        }
       ]
     },
     {
@@ -540,6 +1887,35 @@
         "flooded_section",
         "railway_controls",
         "railway_tunnel"
+      ],
+      "hints": [
+        {
+          "text": "The city's underground transit. The rails lead deeper \u2014 toward the weapon vault and the nexus beyond.",
+          "when": []
+        },
+        {
+          "text": "The railway controls need a pass token and power to function. Check the platform area for a token.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "railway_pass_token"
+            }
+          ]
+        },
+        {
+          "text": "You have the pass token. With city power restored, the railway can take you deeper.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "railway_pass_token"
+            },
+            {
+              "type": "flag_not",
+              "flag": "railway_active",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -553,6 +1929,32 @@
         "ghost_scientist",
         "echo_console",
         "shimmering_crack"
+      ],
+      "hints": [
+        {
+          "text": "Reality splits here \u2014 one half pristine, one half ruined. A ghost scientist lingers at the boundary.",
+          "when": []
+        },
+        {
+          "text": "The echo communicator could let you speak with the ghost scientist. They may know the vault's access codes.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "echo_chamber_survived",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The scientist's echo has shared what it knows. The weapon vault should be accessible now.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "echo_chamber_survived",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -566,6 +1968,36 @@
         "energy_barriers",
         "vault_security_door",
         "forced_unit"
+      ],
+      "hints": [
+        {
+          "text": "The weapon vault \u2014 where the countermeasure was stored. Security systems still guard the weapon core.",
+          "when": []
+        },
+        {
+          "text": "The biometric lock requires ancient access authorization. The vault's energy barriers and security door must be bypassed.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "weapon_vault_opened",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The weapon core sits on its pedestal. Take it \u2014 this is what the entire civilization built to fight the Convergence.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "weapon_vault_opened",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "weapon_core"
+            }
+          ]
+        }
       ]
     },
     {
@@ -579,6 +2011,22 @@
         "nexus_vista",
         "crystal_formation",
         "warped_air"
+      ],
+      "hints": [
+        {
+          "text": "The ground crystallizes beneath your feet. The nexus is close \u2014 reality itself bends around the Convergence's power.",
+          "when": []
+        },
+        {
+          "text": "Press forward. The entrance to the nexus lies ahead. Prepare everything you have \u2014 there may be no turning back.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "nexus_approached",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -591,6 +2039,22 @@
         "energy_pulses",
         "descent_tunnel",
         "ancient_markings"
+      ],
+      "hints": [
+        {
+          "text": "The nexus gate pulses with Convergence energy. Ancient markings from the former inhabitants surround the entrance.",
+          "when": []
+        },
+        {
+          "text": "Study the ancient markings \u2014 they may reveal how the former civilization intended to approach the nexus. The descent tunnel leads down.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "entered_nexus",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -604,6 +2068,22 @@
         "energy_sample_point",
         "heat_shimmer",
         "walkway_railing"
+      ],
+      "hints": [
+        {
+          "text": "Rivers of raw energy flow through massive conduits. A narrow metal walkway spans the chasm.",
+          "when": []
+        },
+        {
+          "text": "The shielded helmet will protect you from the energy. Cross the walkway to reach the convergence chamber. An energy sample point could yield pure Convergence energy.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "energy_conduit_crossed",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -616,6 +2096,34 @@
         "crystal_cathedral",
         "apparatus_base",
         "countermeasure_slot"
+      ],
+      "hints": [
+        {
+          "text": "The heart of the harvesting apparatus. A beam of energy connects the planet's core to the ship above. This is where it all ends \u2014 or begins.",
+          "when": []
+        },
+        {
+          "text": "The countermeasure slot at the base of the apparatus is where the weapon must be deployed. Assemble the countermeasure from the weapon core and your gathered components.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "the_countermeasure"
+            },
+            {
+              "type": "has_item",
+              "item": "weapon_core"
+            }
+          ]
+        },
+        {
+          "text": "The assembled countermeasure is ready. Place it in the slot to end the harvesting \u2014 but consider your options. There may be other ways to resolve this.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "the_countermeasure"
+            }
+          ]
+        }
       ]
     },
     {
@@ -628,6 +2136,22 @@
         "harvesting_display",
         "spire_interface",
         "convergence_lock"
+      ],
+      "hints": [
+        {
+          "text": "The control spire oversees the entire harvesting operation. Choir consoles and ancient controls coexist here.",
+          "when": []
+        },
+        {
+          "text": "The spire interface module could let you communicate directly with the Convergence. The ancient controls might offer alternative solutions.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "spire_accessed",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -640,6 +2164,21 @@
         "gallery_pedestal",
         "oldest_specimen",
         "gallery_alcove"
+      ],
+      "hints": [
+        {
+          "text": "A gallery of the Convergence's oldest specimens \u2014 civilizations consumed across eons. A pedestal holds an ancient access key.",
+          "when": []
+        },
+        {
+          "text": "Take the ancient access key from the pedestal. It opens the deepest sections of the nexus.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ancient_access_key"
+            }
+          ]
+        }
       ]
     },
     {
@@ -653,6 +2192,34 @@
         "weapon_station",
         "alien_equipment",
         "staging_barricade"
+      ],
+      "hints": [
+        {
+          "text": "A staging area where the former inhabitants prepared their assault on the nexus. The workbench can assemble complex devices.",
+          "when": []
+        },
+        {
+          "text": "Use the assembly workbench to combine the weapon core with your gathered components. The blueprint shows the full recipe.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "weapon_core"
+            },
+            {
+              "type": "not_has_item",
+              "item": "the_countermeasure"
+            }
+          ]
+        },
+        {
+          "text": "The countermeasure is assembled. Take it to the convergence chamber to deploy it.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "the_countermeasure"
+            }
+          ]
+        }
       ]
     },
     {
@@ -665,6 +2232,22 @@
         "galaxy_map_display",
         "frequency_controls",
         "array_power_coupling"
+      ],
+      "hints": [
+        {
+          "text": "A crystal antenna array capable of broadcasting across the galaxy. The consoles control targeting and frequency.",
+          "when": []
+        },
+        {
+          "text": "With the comm schematics and a galactic broadcast assembled, you could warn other civilizations about the Convergence.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "broadcast_sent",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -677,6 +2260,22 @@
         "consumed_visions",
         "core_interface_point",
         "crystal_floor"
+      ],
+      "hints": [
+        {
+          "text": "The Convergence itself. An ancient intelligence, vast and patient, that has consumed worlds for longer than most stars have burned.",
+          "when": []
+        },
+        {
+          "text": "The core interface point allows direct neural contact with the Convergence. You could confront it, reason with it, or merge with it. Choose carefully \u2014 this decides everything.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "core_confronted",
+              "value": "true"
+            }
+          ]
+        }
       ]
     },
     {
@@ -689,6 +2288,36 @@
         "collapsed_section",
         "shaft_gate",
         "sky_light"
+      ],
+      "hints": [
+        {
+          "text": "A vertical shaft carved by the former inhabitants as an emergency exit. It leads to the surface \u2014 and freedom, if you can reach it.",
+          "when": []
+        },
+        {
+          "text": "The shaft gate requires a key. The carved ladder leads up, but a collapsed section blocks the way. The climbing pitons could help.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "escape_shaft_key"
+            },
+            {
+              "type": "flag_not",
+              "flag": "escape_route_found",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The shaft is open. Climb toward the light above \u2014 but are you sure you've done everything you needed to?",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "escape_route_found",
+              "value": "true"
+            }
+          ]
+        }
       ]
     }
   ],
@@ -4472,7 +6101,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You peer closer at the specimen pods. Each contains a perfectly preserved creature from a different world — an ammonite-like spiral with tendrils, a skeletal predator curled in fetal position, a bulbous cephalopod with too many eyes. All suspended in amber fluid, cataloged trophies of consumed civilizations."
+              "text": "You peer closer at the specimen pods. Each contains a perfectly preserved creature from a different world \u2014 an ammonite-like spiral with tendrils, a skeletal predator curled in fetal position, a bulbous cephalopod with too many eyes. All suspended in amber fluid, cataloged trophies of consumed civilizations."
             },
             {
               "type": "show_closeup",
@@ -4486,7 +6115,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press your palm against the nearest pod. The glass is warm and faintly vibrates — the preservation fluid is circulating. These specimens are being kept alive, or at least in a state between life and death."
+              "text": "You press your palm against the nearest pod. The glass is warm and faintly vibrates \u2014 the preservation fluid is circulating. These specimens are being kept alive, or at least in a state between life and death."
             }
           ]
         },
@@ -4496,7 +6125,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"What were you?\" you whisper to the curled skeleton. Its empty eye sockets stare back through the amber fluid. No answer — just the low hum of the preservation system."
+              "text": "\"What were you?\" you whisper to the curled skeleton. Its empty eye sockets stare back through the amber fluid. No answer \u2014 just the low hum of the preservation system."
             }
           ]
         },
@@ -17618,277 +19247,6 @@
       "seconds": 3600,
       "message": "The planet shudders one final time. The energy siphons reach critical mass. The surface cracks, continents splitting apart as the Convergence drains the last of the world's energy. The sky burns white. Then \u2014 silence. The harvest is complete.",
       "description": "The planet is fully consumed before you can act."
-    }
-  ],
-  "hints": [
-    {
-      "id": "hint_act1_pod",
-      "after_seconds": 30,
-      "text": "Your stasis pod is cracked. Examine it carefully \u2014 the glass and fluid may both be useful.",
-      "relates_to": "stasis_pod"
-    },
-    {
-      "id": "hint_act1_lab_code",
-      "after_seconds": 120,
-      "conditions": [
-        {
-          "type": "flag_not",
-          "flag": "lab_accessible",
-          "value": "true"
-        }
-      ],
-      "text": "The adjacent pods have specimen log numbers. The lab keypad might respond to a sequence from those logs.",
-      "relates_to": "lab_access_keypad"
-    },
-    {
-      "id": "hint_act1_security",
-      "after_seconds": 300,
-      "conditions": [
-        {
-          "type": "flag_not",
-          "flag": "security_hacked",
-          "value": "true"
-        }
-      ],
-      "text": "The processing lab has a startup display that cycles through a specific sequence. That pattern might work on the security console.",
-      "relates_to": "security_console_hack"
-    },
-    {
-      "id": "hint_act1_vents",
-      "after_seconds": 420,
-      "conditions": [
-        {
-          "type": "flag_is",
-          "flag": "security_hacked",
-          "value": "true"
-        }
-      ],
-      "text": "The ventilation shafts are sized for maintenance drones \u2014 but you're small enough to fit. A fine tool could remove the grate.",
-      "relates_to": "vent_grate"
-    },
-    {
-      "id": "hint_act2_bridge",
-      "after_seconds": 600,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "infiltration"
-        },
-        {
-          "type": "flag_not",
-          "flag": "bridge_accessed",
-          "value": "true"
-        }
-      ],
-      "text": "The data core records contain resonance frequencies used throughout the ship. The bridge lock responds to tonal combinations.",
-      "relates_to": "bridge_access_lock"
-    },
-    {
-      "id": "hint_act2_shuttle",
-      "after_seconds": 900,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "infiltration"
-        },
-        {
-          "type": "flag_not",
-          "flag": "shuttle_ready",
-          "value": "true"
-        }
-      ],
-      "text": "The damaged shuttle in the bay needs three things: a power cell from engineering, a fuel line reconnection, and a navigation chip from the bridge.",
-      "relates_to": "shuttle_repair"
-    },
-    {
-      "id": "hint_act2_power",
-      "after_seconds": 750,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "infiltration"
-        },
-        {
-          "type": "flag_not",
-          "flag": "power_rerouted",
-          "value": "true"
-        }
-      ],
-      "text": "The engineering power panel has linked switches \u2014 toggling one affects others. Route power to the shuttle bay without triggering the alarm circuit.",
-      "relates_to": "engineering_power_panel"
-    },
-    {
-      "id": "hint_act3_bunker",
-      "after_seconds": 300,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "survival"
-        },
-        {
-          "type": "flag_not",
-          "flag": "bunker_open",
-          "value": "true"
-        }
-      ],
-      "text": "The refugee journal mentions dates that were significant to the military. Cross-reference those with the bunker defense schematics for the door code.",
-      "relates_to": "bunker_door_lock"
-    },
-    {
-      "id": "hint_act3_echo_field",
-      "after_seconds": 450,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "survival"
-        },
-        {
-          "type": "flag_not",
-          "flag": "echo_field_navigated",
-          "value": "true"
-        }
-      ],
-      "text": "The Echoes in the field aren't random \u2014 they're replaying their final movements. Watch their paths. They're showing you which way was safe.",
-      "relates_to": "echo_field_navigation"
-    },
-    {
-      "id": "hint_act3_city_gate",
-      "after_seconds": 600,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "city_approach"
-        },
-        {
-          "type": "flag_not",
-          "flag": "entered_dead_city",
-          "value": "true"
-        }
-      ],
-      "text": "The city defenses detect non-native biology. The echo stabilizer from the bunker might make you register as something the city remembers, not something it rejects.",
-      "relates_to": "city_gate_auth"
-    },
-    {
-      "id": "hint_act4_cipher",
-      "after_seconds": 300,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "investigation"
-        },
-        {
-          "type": "flag_not",
-          "flag": "cipher_complete",
-          "value": "true"
-        }
-      ],
-      "text": "You've found cipher fragments in Acts 1, 2, and 3. The library holds the fourth. With all four, you can read every piece of alien text in this world.",
-      "relates_to": "translation_cipher"
-    },
-    {
-      "id": "hint_act4_power_station",
-      "after_seconds": 450,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "investigation"
-        },
-        {
-          "type": "flag_not",
-          "flag": "city_power_restored",
-          "value": "true"
-        }
-      ],
-      "text": "The city power station still works, but can only power three districts at once. Choose carefully \u2014 the research district and military quarter may be the most useful.",
-      "relates_to": "city_power_grid"
-    },
-    {
-      "id": "hint_act4_weapon_vault",
-      "after_seconds": 900,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "investigation"
-        },
-        {
-          "type": "flag_not",
-          "flag": "weapon_core_obtained",
-          "value": "true"
-        }
-      ],
-      "text": "The weapon vault has alien biometric locks. You might bypass them with a combination of items: the neural tendril from the ship, the echo stabilizer, and a power cell adapter.",
-      "relates_to": "weapon_vault_bypass"
-    },
-    {
-      "id": "hint_act5_countermeasure",
-      "after_seconds": 300,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "endgame"
-        },
-        {
-          "type": "flag_not",
-          "flag": "countermeasure_assembled",
-          "value": "true"
-        },
-        {
-          "type": "has_item",
-          "item": "primed_weapon_core"
-        }
-      ],
-      "text": "The countermeasure needs three components: the primed weapon core, the energy dampener, and a siphon crystal fragment. The ancient blueprint shows the assembly order.",
-      "relates_to": "countermeasure_assembly"
-    },
-    {
-      "id": "hint_act5_curator_ally",
-      "after_seconds": 600,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "endgame"
-        },
-        {
-          "type": "flag_is",
-          "flag": "curator_on_planet",
-          "value": "true"
-        },
-        {
-          "type": "flag_not",
-          "flag": "curator_convinced",
-          "value": "true"
-        }
-      ],
-      "text": "The Curator followed you here. It's a machine that catalogs specimens \u2014 prove you're not just a specimen. The ship's black box, your specimen tag, and its own signal device might form an argument it can process.",
-      "relates_to": "proof_of_sentience"
-    },
-    {
-      "id": "hint_act5_endings",
-      "after_seconds": 900,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "endgame"
-        }
-      ],
-      "text": "Multiple paths converge here. The weapon assembly point, the transmission array, the control spire, and the core itself each lead to a different outcome. The prophet's crystal showed you glimpses of all of them.",
-      "relates_to": "ending_choice"
-    },
-    {
-      "id": "hint_act5_golden",
-      "after_seconds": 1200,
-      "conditions": [
-        {
-          "type": "phase_is",
-          "phase": "endgame"
-        },
-        {
-          "type": "has_item",
-          "item": "the_countermeasure"
-        }
-      ],
-      "text": "If you can set the countermeasure on a timer \u2014 jury-rig the overcharge device as a detonator \u2014 you might have time to reach the escape shaft and get off the planet before it blows.",
-      "relates_to": "golden_ending"
     }
   ],
   "solution_paths": [

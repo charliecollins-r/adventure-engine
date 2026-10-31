@@ -367,6 +367,19 @@ export class ScenarioEngine {
     this._closeupImage = null;
   }
 
+  getHint(): string | null {
+    const view = this.getCurrentView();
+    if (!view.hints || view.hints.length === 0) return null;
+
+    let best: string | null = null;
+    for (const hint of view.hints) {
+      if (this.evaluateConditions(hint.when)) {
+        best = hint.text;
+      }
+    }
+    return best;
+  }
+
   decayNoise(amount: number): void {
     this._noiseLevel = Math.max(0, this._noiseLevel - amount);
   }

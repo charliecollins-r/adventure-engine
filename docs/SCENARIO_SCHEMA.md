@@ -193,6 +193,24 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `background_file` | string | yes | Relative path to the background image file. |
 | `objects` | string[] | yes | IDs of objects visible in this view. |
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
+| `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
+
+### View Hints
+
+Each view can have a `hints` array that provides progressive guidance to the player. When the player requests a hint, the engine evaluates each hint's `when` conditions in order and returns the **last** matching hint — so hints should be ordered from general to specific. As the player progresses (sets flags, collects items), more specific hints become active.
+
+```json
+"hints": [
+  { "text": "Look around carefully. There might be something useful here.", "when": [] },
+  { "text": "The desk drawer looks like it could be opened.", "when": [{"type": "flag_is", "flag": "room_searched", "value": "true"}] },
+  { "text": "Try using the key on the desk drawer.", "when": [{"type": "has_item", "item": "brass_key"}] }
+]
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `text` | string | yes | The hint text shown to the player. |
+| `when` | Condition[] | yes | Conditions that must ALL be true for this hint to be active. Empty array `[]` means always active. |
 
 If `views` is omitted, a default main view is created containing all objects, using `room_style` for rendering.
 
