@@ -79,6 +79,7 @@
         "broken_pod",
         "pod_drainage_channel",
         "occupied_pods",
+        "specimen_pod_wall",
         "specimen_tag_hook",
         "nav_act1_stasis_hold_to_act1_containment_corridor"
       ],
@@ -144,9 +145,8 @@
         "nutrient_dispenser",
         "feeding_troughs",
         "energy_barrier_enclosures",
-        "nav_act1_feeding_station_to_act1_containment_corridor",
-        "nav_act1_feeding_station_to_act1_ventilation_shaft",
         "nav_act1_feeding_station_to_act1_morgue",
+        "nav_act1_feeding_station_to_act1_containment_corridor",
         "nav_act1_feeding_station_to_act1_specimen_archive"
       ],
       "background_key": "act1_feeding_station",
@@ -180,7 +180,6 @@
     {
       "id": "act1_specimen_archive",
       "objects": [
-        "specimen_pod_wall",
         "crystal_rack",
         "personal_log_crystal",
         "reading_device",
@@ -4453,12 +4452,12 @@
       "name": "Specimen Pods",
       "description": "Rows of amber preservation pods line the wall, each containing a different alien specimen suspended in fluid.",
       "position": {
-        "x": 750,
-        "y": 230
+        "x": 650,
+        "y": 50
       },
       "size": {
-        "width": 200,
-        "height": 350
+        "width": 280,
+        "height": 550
       },
       "visual": {
         "color": "#3a4a2a",
@@ -13370,15 +13369,15 @@
     },
     {
       "id": "nav_act1_feeding_station_to_act1_morgue",
-      "name": "Rear Passage",
-      "description": "A dark passage at the back of the feeding station, leading deeper into the ship.",
+      "name": "Left Passage",
+      "description": "A dark passage on the left side of the feeding station, leading deeper into the ship.",
       "position": {
-        "x": 370,
-        "y": 0
+        "x": 0,
+        "y": 60
       },
       "size": {
-        "width": 200,
-        "height": 200
+        "width": 120,
+        "height": 580
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -13791,14 +13790,14 @@
     {
       "id": "nav_act1_feeding_station_to_act1_containment_corridor",
       "name": "Corridor Entrance",
-      "description": "A passage leading to Containment Corridor.",
+      "description": "A passage leading back to the containment corridor.",
       "position": {
-        "x": 0,
-        "y": 120
+        "x": 280,
+        "y": 640
       },
       "size": {
-        "width": 70,
-        "height": 547
+        "width": 400,
+        "height": 80
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",

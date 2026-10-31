@@ -8,7 +8,6 @@ interface GameViewProps {
   selectedItem: string | null;
   debugMode: boolean;
   onObjectClick: (objectId: string) => void;
-  onBackClick: () => void;
   onEmptyClick?: () => void;
   onCycleVerb?: () => void;
 }
@@ -27,7 +26,7 @@ function svgCursor(svg: string, hotX: number, hotY: number, fallback: string): s
 const VERB_CURSORS: Record<string, string> = {
   look: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 16Q16 4 30 16Q16 28 2 16Z' fill='%23c0a030' stroke='%23000' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='%231a1008'/><circle cx='14.5' cy='14' r='1.8' fill='%23fff'/></svg>", 16, 16, 'help'),
   move: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><ellipse cx='10' cy='9' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 10 9)'/><ellipse cx='22' cy='22' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 22 22)'/></svg>", 16, 28, 'crosshair'),
-  hand: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M7 14L7 6L11 6L11 9L13 9L13 2L19 2L19 9L21 9L21 6L25 6L25 14L28 14L28 29L4 29L4 14Z' fill='%23c0a030' stroke='%23000' stroke-width='2' stroke-linejoin='round'/></svg>", 16, 2, 'pointer'),
+  hand: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='6' y='14' width='20' height='15' rx='4' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='7' y='3' width='5' height='14' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='13.5' y='1' width='5' height='15' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='20' y='3' width='5' height='14' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/></svg>", 16, 2, 'pointer'),
   talk: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M8 3L24 3Q29 3 29 8L29 14Q29 19 24 19L19 19L10 28L12 19L8 19Q3 19 3 14L3 8Q3 3 8 3Z' fill='%23c0a030' stroke='%23000' stroke-width='2' stroke-linejoin='round'/></svg>", 10, 28, 'text'),
 };
 
@@ -45,21 +44,6 @@ const styles: Record<string, CSSProperties> = {
     margin: '0 auto',
     border: '2px solid #2a2018',
     borderRadius: '2px',
-  },
-  backButton: {
-    position: 'absolute',
-    bottom: '10px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    padding: '6px 20px',
-    fontSize: '12px',
-    fontFamily: '"Georgia", serif',
-    color: '#c0a030',
-    backgroundColor: 'rgba(20, 16, 10, 0.85)',
-    border: '1px solid #3a2a18',
-    borderRadius: '3px',
-    cursor: 'pointer',
-    zIndex: 10,
   },
   objectLabel: {
     position: 'absolute',
@@ -147,7 +131,6 @@ export function GameView({
   selectedItem,
   debugMode,
   onObjectClick,
-  onBackClick,
   onEmptyClick,
   onCycleVerb,
 }: GameViewProps) {
@@ -170,7 +153,7 @@ export function GameView({
 
   const view = engine.getCurrentView();
   const objects = engine.getVisibleObjects();
-  const viewStack = engine.getViewStack();
+
   const bgColor = engine.getBackgroundColor();
   const bgFile = engine.getBackgroundFile();
   const scenarioId = engine.getScenario().metadata.id;
@@ -185,8 +168,7 @@ export function GameView({
   const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const isObject = target.closest('[data-object-hotspot]');
-    const isBackButton = target.closest('[data-back-button]');
-    if (!isObject && !isBackButton && onEmptyClick) {
+    if (!isObject && onEmptyClick) {
       onEmptyClick();
     }
   };
@@ -318,23 +300,6 @@ export function GameView({
           </div>
         );
       })}
-
-      {/* Back button */}
-      {(view.back_label || viewStack.length > 0) && (
-        <button
-          data-back-button
-          style={styles.backButton}
-          onClick={onBackClick}
-          onMouseEnter={(e) => {
-            (e.target as HTMLElement).style.borderColor = '#c0a030';
-          }}
-          onMouseLeave={(e) => {
-            (e.target as HTMLElement).style.borderColor = '#3a2a18';
-          }}
-        >
-          {view.back_label ?? '< Back'}
-        </button>
-      )}
 
       {/* Room transition overlay */}
       {transitioning && (

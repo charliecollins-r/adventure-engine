@@ -167,11 +167,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     [engine, activeVerb, selectedItem, bump],
   );
 
-  const handleBackClick = useCallback(() => {
-    engine.navigateBack();
-    bump();
-  }, [engine, bump]);
-
   const handleEmptyClick = useCallback(() => {
     engine.dismissMessages();
     const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
@@ -361,7 +356,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           selectedItem={selectedItem}
           debugMode={debugMode}
           onObjectClick={handleObjectClick}
-          onBackClick={handleBackClick}
+
           onEmptyClick={handleEmptyClick}
           onCycleVerb={handleCycleVerb}
         />
