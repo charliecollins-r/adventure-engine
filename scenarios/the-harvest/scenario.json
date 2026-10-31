@@ -458,7 +458,8 @@
         "energy_barrier_enclosures",
         "nav_act1_feeding_station_to_act1_morgue",
         "nav_act1_feeding_station_to_act1_containment_corridor",
-        "nav_act1_feeding_station_to_act1_specimen_archive"
+        "nav_act1_feeding_station_to_act1_specimen_archive",
+        "nav_act1_feeding_station_to_act1_ventilation_shaft"
       ],
       "background_key": "act1_feeding_station",
       "background_file": "backgrounds/act1_feeding_station.webp",
@@ -4323,12 +4324,12 @@
       "name": "Your Broken Pod",
       "description": "The stasis pod you woke in. The glass is cracked, amber fluid pooling beneath it. Fragments of the pod casing litter the floor.",
       "position": {
-        "x": 200,
-        "y": 500
+        "x": 170,
+        "y": 450
       },
       "size": {
-        "width": 35,
-        "height": 35
+        "width": 130,
+        "height": 110
       },
       "visual": {
         "color": "#2a4a3a",
@@ -4416,12 +4417,12 @@
       "name": "Drainage Channel",
       "description": "A channel beneath the pods where spilled stasis fluid collects before being recycled.",
       "position": {
-        "x": 200,
+        "x": 170,
         "y": 640
       },
       "size": {
-        "width": 40,
-        "height": 25
+        "width": 130,
+        "height": 45
       },
       "visual": {
         "color": "#1a2a1a",
@@ -4563,12 +4564,12 @@
       "name": "Specimen Tag",
       "description": "A small tag hanging from your pod's frame, inscribed with alien notation.",
       "position": {
-        "x": 340,
-        "y": 570
+        "x": 310,
+        "y": 550
       },
       "size": {
-        "width": 25,
-        "height": 20
+        "width": 65,
+        "height": 50
       },
       "visual": {
         "color": "#8a6a2a",
@@ -4639,16 +4640,17 @@
       "name": "Pod Labels",
       "description": "Alien script labels on each pod in the cluster, with numerical sequences.",
       "position": {
-        "x": 480,
-        "y": 120
+        "x": 420,
+        "y": 100
       },
       "size": {
-        "width": 40,
-        "height": 25
+        "width": 140,
+        "height": 60
       },
       "visual": {
         "color": "#3a5a4a",
-        "label": "Labels"
+        "label": "Labels",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -4732,12 +4734,12 @@
       "name": "Pod Cluster Controls",
       "description": "Bio-organic control panels between the pods with fleshy buttons and tendon-like cables.",
       "position": {
-        "x": 480,
-        "y": 620
+        "x": 440,
+        "y": 600
       },
       "size": {
-        "width": 35,
-        "height": 25
+        "width": 100,
+        "height": 55
       },
       "visual": {
         "color": "#2a3a2a",
@@ -4798,12 +4800,12 @@
       "name": "Preserved Insect Specimen",
       "description": "A large insect-like creature perfectly preserved in amber fluid inside one of the hexagonal pods.",
       "position": {
-        "x": 220,
-        "y": 280
+        "x": 190,
+        "y": 250
       },
       "size": {
-        "width": 25,
-        "height": 25
+        "width": 70,
+        "height": 70
       },
       "visual": {
         "color": "#4a3a1a",
@@ -4860,12 +4862,12 @@
       "name": "Examination Tables",
       "description": "Long tables with organic restraints, designed for specimens much larger than you.",
       "position": {
-        "x": 480,
-        "y": 470
+        "x": 420,
+        "y": 440
       },
       "size": {
-        "width": 45,
-        "height": 30
+        "width": 140,
+        "height": 70
       },
       "visual": {
         "color": "#2a2a3a",
@@ -4922,16 +4924,17 @@
       "name": "Surgical Instrument Rack",
       "description": "A rack of alien surgical tools — curved bone-like instruments, probes, and extractors.",
       "position": {
-        "x": 450,
-        "y": 630
+        "x": 410,
+        "y": 610
       },
       "size": {
-        "width": 35,
-        "height": 25
+        "width": 100,
+        "height": 60
       },
       "visual": {
         "color": "#3a3a4a",
-        "label": "Tools"
+        "label": "Tools",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -4998,12 +5001,12 @@
       "name": "Sample Jars",
       "description": "Shelves of preserved biological samples in sealed jars.",
       "position": {
-        "x": 80,
-        "y": 310
+        "x": 50,
+        "y": 280
       },
       "size": {
-        "width": 30,
-        "height": 35
+        "width": 80,
+        "height": 80
       },
       "visual": {
         "color": "#3a4a3a",
@@ -5060,12 +5063,12 @@
       "name": "Lab Data Screens",
       "description": "Screens cycling through biological data and procedural information.",
       "position": {
-        "x": 280,
-        "y": 170
+        "x": 240,
+        "y": 140
       },
       "size": {
-        "width": 35,
-        "height": 30
+        "width": 100,
+        "height": 70
       },
       "visual": {
         "color": "#1a3a4a",
@@ -5133,12 +5136,12 @@
       "name": "Specimen Drawers",
       "description": "Walls of drawers containing failed specimens. Most are sealed. One is partially open.",
       "position": {
-        "x": 130,
-        "y": 300
+        "x": 80,
+        "y": 260
       },
       "size": {
-        "width": 35,
-        "height": 40
+        "width": 120,
+        "height": 100
       },
       "visual": {
         "color": "#2a2a2a",
@@ -5199,12 +5202,12 @@
       "name": "Autopsy Slab",
       "description": "A central examination surface with drainage channels and overhead lighting.",
       "position": {
-        "x": 500,
-        "y": 400
+        "x": 440,
+        "y": 370
       },
       "size": {
-        "width": 40,
-        "height": 30
+        "width": 140,
+        "height": 70
       },
       "visual": {
         "color": "#3a3a3a",
@@ -5261,12 +5264,12 @@
       "name": "Recycling Vats",
       "description": "Large vats where failed specimens are dissolved and their biological material reclaimed.",
       "position": {
-        "x": 550,
-        "y": 170
+        "x": 510,
+        "y": 140
       },
       "size": {
-        "width": 30,
-        "height": 35
+        "width": 100,
+        "height": 80
       },
       "visual": {
         "color": "#2a3a1a",
@@ -5323,12 +5326,12 @@
       "name": "Severed Neural Tendril",
       "description": "A neural connection tendril, severed during the struggle that damaged the security hub.",
       "position": {
-        "x": 170,
-        "y": 500
+        "x": 440,
+        "y": 460
       },
       "size": {
-        "width": 25,
-        "height": 25
+        "width": 80,
+        "height": 55
       },
       "visual": {
         "color": "#4a5a4a",
@@ -5405,16 +5408,17 @@
       "name": "Nutrient Dispenser",
       "description": "An automated dispenser that drips grey nutrient paste into troughs at regular intervals.",
       "position": {
-        "x": 620,
-        "y": 350
+        "x": 580,
+        "y": 310
       },
       "size": {
-        "width": 35,
-        "height": 35
+        "width": 100,
+        "height": 80
       },
       "visual": {
         "color": "#4a4a3a",
-        "label": "Dispenser"
+        "label": "Dispenser",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -5481,12 +5485,12 @@
       "name": "Feeding Troughs",
       "description": "Long troughs filled with grey nutrient paste for living specimens.",
       "position": {
-        "x": 400,
-        "y": 540
+        "x": 340,
+        "y": 520
       },
       "size": {
-        "width": 40,
-        "height": 25
+        "width": 160,
+        "height": 55
       },
       "visual": {
         "color": "#3a3a2a",
