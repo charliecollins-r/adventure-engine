@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
 import { AmbientCanvas } from './AmbientCanvas';
+import { CharacterSprite } from './CharacterSprite';
 
 interface GameViewProps {
   engine: ScenarioEngine;
@@ -209,6 +210,17 @@ export function GameView({
 
       {/* Canvas-based ambient lighting */}
       <AmbientCanvas viewId={view.id} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
+
+      {/* Character sprite */}
+      {engine.getScenario().character && engine.getCharacterPlacement() && (
+        <CharacterSprite
+          config={engine.getScenario().character!}
+          placement={engine.getCharacterPlacement()!}
+          scenarioId={scenarioId}
+          scaleX={SCALE_X}
+          scaleY={SCALE_Y}
+        />
+      )}
 
       {/* Cursor action label */}
       <div

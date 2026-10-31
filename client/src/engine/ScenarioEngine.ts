@@ -8,6 +8,7 @@ import type {
   Interaction,
   InteractionResult,
   GameOverResult,
+  CharacterPlacement,
 } from './types';
 
 export class ScenarioEngine {
@@ -25,6 +26,7 @@ export class ScenarioEngine {
   private _currentPhaseId: string | null;
   private _isHiding: boolean;
   private _closeupImage: string | null;
+  private _characterOverride: Partial<CharacterPlacement> | null;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -44,6 +46,7 @@ export class ScenarioEngine {
     this._currentPhaseId = scenario.phases?.[0]?.id ?? null;
     this._isHiding = false;
     this._closeupImage = null;
+    this._characterOverride = null;
 
     this.objectIndex = new Map();
     for (const obj of scenario.objects) {
@@ -106,6 +109,14 @@ export class ScenarioEngine {
       }
     }
     return objects;
+  }
+
+  getCharacterPlacement(): CharacterPlacement | null {
+    const view = this.getCurrentView();
+    const base = view.character;
+    if (!base && !this._characterOverride) return null;
+    if (!base) return this._characterOverride as CharacterPlacement;
+    return { ...base, ...this._characterOverride };
   }
 
   getObjectState(objectId: string): string {
@@ -589,6 +600,18 @@ export class ScenarioEngine {
             }
           }
           break;
+
+        case 'set_character': {
+          const overrides: Partial<CharacterPlacement> = {};
+          if (e.sprite_set) overrides.sprite_set = e.sprite_set;
+          if (e.facing) overrides.facing = e.facing;
+          if (e.x !== undefined) overrides.x = e.x;
+          if (e.y !== undefined) overrides.y = e.y;
+          if (e.frame !== undefined) overrides.frame = e.frame;
+          if (e.flip_h !== undefined) overrides.flip_h = e.flip_h;
+          this._characterOverride = { ...this._characterOverride, ...overrides };
+          break;
+        }
 
         case 'visual_cue':
         case 'play_sound':

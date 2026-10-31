@@ -72,6 +72,61 @@
       "You are cold. You are weak.\nYou are alone on a vessel\nbuilt to harvest worlds.\n\nFind a way out."
     ]
   },
+  "character": {
+    "sprite_sets": {
+      "idle": {
+        "file": "sprites/goblin-bare-walk.png",
+        "columns": 4,
+        "rows": 4,
+        "frame_rate": 0,
+        "directions": [
+          "down",
+          "left",
+          "right",
+          "up"
+        ]
+      },
+      "walk": {
+        "file": "sprites/goblin-bare-walk.png",
+        "columns": 4,
+        "rows": 4,
+        "frame_rate": 6,
+        "directions": [
+          "down",
+          "left",
+          "right",
+          "up"
+        ]
+      },
+      "scared": {
+        "file": "sprites/goblin-scared.png",
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4
+      },
+      "crouch": {
+        "file": "sprites/goblin-crouch.png",
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0
+      },
+      "armored_walk": {
+        "file": "sprites/goblin-armored-walk.png",
+        "columns": 4,
+        "rows": 4,
+        "frame_rate": 6,
+        "directions": [
+          "down",
+          "left",
+          "right",
+          "up"
+        ]
+      }
+    },
+    "frame_width": 64,
+    "frame_height": 64,
+    "scale": 2
+  },
   "views": [
     {
       "id": "act1_stasis_hold",
@@ -86,6 +141,13 @@
       "background_key": "act1_stasis_hold",
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
+      "character": {
+        "x": 420,
+        "y": 520,
+        "facing": "down",
+        "sprite_set": "scared",
+        "frame": 0
+      },
       "hints": [
         {
           "text": "Your stasis pod is shattered. Search the wreckage \u2014 the broken glass and pooling fluid might be useful.",
@@ -182,7 +244,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 480,
+        "y": 510,
+        "facing": "down",
+        "sprite_set": "scared",
+        "frame": 0
+      }
     },
     {
       "id": "act1_processing_lab",
@@ -262,7 +331,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 350,
+        "y": 530,
+        "facing": "right",
+        "sprite_set": "idle",
+        "frame": 0
+      }
     },
     {
       "id": "act1_containment_corridor",
@@ -333,7 +409,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 480,
+        "y": 550,
+        "facing": "down",
+        "sprite_set": "idle",
+        "frame": 0
+      }
     },
     {
       "id": "act1_morgue",
@@ -370,7 +453,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 500,
+        "y": 540,
+        "facing": "left",
+        "sprite_set": "scared",
+        "frame": 0
+      }
     },
     {
       "id": "act1_feeding_station",
@@ -432,7 +522,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 440,
+        "y": 560,
+        "facing": "down",
+        "sprite_set": "idle",
+        "frame": 0
+      }
     },
     {
       "id": "act1_ventilation_shaft",
@@ -468,7 +565,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 480,
+        "y": 500,
+        "facing": "up",
+        "sprite_set": "crouch",
+        "frame": 0
+      }
     },
     {
       "id": "act1_security_hub",
@@ -537,7 +641,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 520,
+        "y": 530,
+        "facing": "left",
+        "sprite_set": "idle",
+        "frame": 0
+      }
     },
     {
       "id": "act1_specimen_archive",
@@ -609,7 +720,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 460,
+        "y": 540,
+        "facing": "down",
+        "sprite_set": "scared",
+        "frame": 1
+      }
     },
     {
       "id": "act1_airlock_bay",
@@ -684,7 +802,14 @@
             }
           ]
         }
-      ]
+      ],
+      "character": {
+        "x": 480,
+        "y": 520,
+        "facing": "right",
+        "sprite_set": "idle",
+        "frame": 0
+      }
     },
     {
       "id": "act2_navigation_bridge",

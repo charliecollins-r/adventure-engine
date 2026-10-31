@@ -32,6 +32,7 @@ export interface View {
   back_label?: string;
   room_animation?: string;
   hints?: ViewHint[];
+  character?: CharacterPlacement;
 }
 
 export interface Position {
@@ -87,6 +88,12 @@ export interface Effect {
   when?: Condition[];
   then?: Effect[];
   else?: Effect[];
+  sprite_set?: string;
+  facing?: 'down' | 'left' | 'right' | 'up';
+  x?: number;
+  y?: number;
+  frame?: number;
+  flip_h?: boolean;
 }
 
 export interface Interaction {
@@ -227,6 +234,30 @@ export interface ViewHint {
   when: Condition[];
 }
 
+export interface SpriteSet {
+  file: string;
+  columns: number;
+  rows: number;
+  frame_rate?: number;
+  directions?: ('down' | 'left' | 'right' | 'up')[];
+}
+
+export interface CharacterConfig {
+  sprite_sets: Record<string, SpriteSet>;
+  frame_width: number;
+  frame_height: number;
+  scale?: number;
+}
+
+export interface CharacterPlacement {
+  x: number;
+  y: number;
+  facing?: 'down' | 'left' | 'right' | 'up';
+  sprite_set: string;
+  frame?: number;
+  flip_h?: boolean;
+}
+
 export interface Hint {
   id: string;
   after_seconds: number;
@@ -258,6 +289,7 @@ export interface Scenario {
   lose_conditions?: LoseCondition[];
   hints?: Hint[];
   solution_paths?: SolutionPath[];
+  character?: CharacterConfig;
 }
 
 export interface GameOverResult {

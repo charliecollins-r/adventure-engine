@@ -27,6 +27,7 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   │   ├── ScenarioPlayer.tsx    ← Main game orchestrator
 │   │   │   ├── ScenarioLoader.tsx    ← Scenario selection screen
 │   │   │   ├── GameView.tsx          ← Renders background + object hotspots + animations
+│   │   │   ├── CharacterSprite.tsx   ← Sierra-style sprite sheet character renderer
 │   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
 │   │   │   ├── InventoryPanel.tsx    ← Item display and selection
 │   │   │   ├── MessagePanel.tsx      ← Story text display
@@ -49,13 +50,16 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   ├── deep-design.md
 │   │   ├── audio/                    ←   Ambient audio tracks
 │   │   ├── backgrounds/              ←   11 Act 1 backgrounds
-│   │   └── closeups/                 ←   Detail images for show_closeup effect
+│   │   ├── closeups/                 ←   Detail images for show_closeup effect
+│   │   └── sprites/                  ←   Character sprite sheets
 │   └── ... (15 scenarios total, 13 with JSONs, 2 design-only)
 ├── docs/
 │   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — full JSON reference
 │   ├── ARCHITECTURE.md               ← Engine internals (diagrams, data flow)
 │   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
 │   └── images/                       ← Screenshots for README
+├── tools/
+│   └── splice-sprites.mjs            ← Node.js sprite sheet splicing utility
 ├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
 ├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)
 └── .gitignore
@@ -136,7 +140,7 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 `flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `noise_above`, `noise_below`, `phase_is`, `time_after`, `time_before`, `item_count`, `is_hiding`, `not_hiding`, `killer_is` + composites: `any_of`, `all_of`
 
 ### Effect Types (20+)
-`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`
+`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`, `set_character`
 
 ### Other Systems
 - **Items**: Inventory objects with examine interactions
@@ -148,7 +152,23 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 - **Events**: Timer/condition-triggered narrative beats
 - **Win/Lose Conditions**: Flag/state checks that end the game
 - **Hints**: Progressive help system
+- **Character Sprites**: Sierra-style sprite sheet rendering on backgrounds
 - **30 Design Patterns**: Documented reusable puzzle patterns
+
+### Character Sprite System
+Optional `character` config at scenario root defines available sprite sets (walk cycles, poses) with frame dimensions and scale. Each view can include a `character` placement specifying position (960x720 coords), facing direction, sprite set, and optional static frame. The `set_character` effect changes character state dynamically (e.g., switch from scared to idle after a puzzle). Sprite sheets use CSS background-position rendering with `image-rendering: pixelated` for crisp pixel art.
+
+```json
+"character": {
+  "sprite_sets": {
+    "idle": { "file": "sprites/walk.png", "columns": 4, "rows": 4, "frame_rate": 0, "directions": ["down","left","right","up"] },
+    "walk": { "file": "sprites/walk.png", "columns": 4, "rows": 4, "frame_rate": 6, "directions": ["down","left","right","up"] }
+  },
+  "frame_width": 64, "frame_height": 64, "scale": 2
+}
+```
+
+Per-view placement: `"character": { "x": 480, "y": 550, "facing": "down", "sprite_set": "idle", "frame": 0 }`
 
 ---
 
@@ -271,6 +291,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Progressive hint system**: Per-view `hints` array on each view in the scenario JSON. Engine evaluates conditions in order and returns the last matching hint (most specific). Floating "?" button at bottom-right of viewport shows hints as message overlay. Implemented in ScenarioEngine.getHint(), ScenarioPlayer, and documented in SCENARIO_SCHEMA.md and ADVENTURE_BUILDER.md.
 - **Auto-load campaign**: App.tsx auto-loads The Harvest (no scenario picker menu). IntroSequence has "skip intro" link near "click to continue" prompt.
 - **Immersive HUD**: Messages overlay on the game viewport (semi-transparent backdrop) instead of a dedicated panel below. Inventory is a collapsible drawer with "Items" toggle tab at bottom-left. Hint "?" button floats at bottom-right. Ambient text shows subtly when idle. Inventory auto-opens on item pickup. No UI elements below the viewport — full immersion.
+- **Starting puzzle fix**: Stasis pod starts open (matches background art). Player scavenges wreckage instead of "breaking out." specimen_tag_hook now visible from start.
+- **Character sprite system**: Sierra-style sprite sheet rendering on top of backgrounds. `CharacterSprite` component uses CSS background-position to show frames from sprite sheets. Supports animated walk cycles and static poses. Per-view character placement in scenario JSON. Dynamic state changes via `set_character` effect. Sprite sheets go in scenario `sprites/` subfolder. Splicing tool at `tools/splice-sprites.mjs`. The Harvest has character placements for all 10 Act 1 views — awaiting sprite sheet image files.
 
 ---
 
