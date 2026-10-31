@@ -132,7 +132,8 @@
         "x": 300,
         "y": 640,
         "facing": "right",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       },
       "hints": [
         {
@@ -235,7 +236,8 @@
         "x": 480,
         "y": 510,
         "facing": "down",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -321,7 +323,8 @@
         "x": 260,
         "y": 650,
         "facing": "right",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -398,7 +401,8 @@
         "x": 480,
         "y": 550,
         "facing": "down",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -441,7 +445,8 @@
         "x": 700,
         "y": 680,
         "facing": "left",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -509,7 +514,8 @@
         "x": 280,
         "y": 660,
         "facing": "right",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -551,7 +557,8 @@
         "x": 480,
         "y": 500,
         "facing": "up",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -626,7 +633,8 @@
         "x": 680,
         "y": 650,
         "facing": "left",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -704,7 +712,8 @@
         "x": 480,
         "y": 620,
         "facing": "right",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -785,7 +794,8 @@
         "x": 480,
         "y": 520,
         "facing": "right",
-        "sprite_set": "idle"
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
       }
     },
     {
@@ -4168,6 +4178,58 @@
     }
   ],
   "objects": [
+    {
+      "id": "goblin_self",
+      "name": "Yourself",
+      "description": "A small goblin-like creature — you. Wiry green skin, oversized ears, wide amber eyes darting nervously. You're wearing nothing but tattered shorts and a worn satchel.",
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": 1, "height": 1 },
+      "visual": { "color": "transparent", "label": "You" },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "response": "You catch a glimpse of yourself — small, green, and terrified. Your ears twitch at every sound. You're covered in dried amber fluid from the stasis pod. Not exactly intimidating."
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "has_item", "item": "makeshift_armor" }],
+          "response": "You're wearing cobbled-together armor plating over your chest. It makes you feel slightly less like prey. Slightly."
+        },
+        {
+          "verb": "hand",
+          "response": "You pat yourself down. Still alive. Still small. Still on an alien ship. The usual."
+        },
+        {
+          "verb": "talk",
+          "response": "\"Keep it together,\" you mutter to yourself. Your voice sounds impossibly small in this enormous ship."
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_is", "flag": "found_other_survivors", "value": "true" }],
+          "response": "\"We can do this. We can get out of here.\" You're not sure if you're trying to convince yourself or rehearsing for the others."
+        },
+        {
+          "verb": "use_item",
+          "item": "nutrient_paste",
+          "then": [
+            { "type": "message", "text": "You squeeze the paste into your mouth. It tastes like wet cardboard mixed with engine grease. But your hands stop shaking for a moment." },
+            { "type": "remove_item", "item": "nutrient_paste" },
+            { "type": "set_flag", "flag": "eaten_paste", "value": "true" }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "specimen_tag",
+          "response": "You turn your own specimen tag over in your hands. Subject 7-Gamma. Is that really all you are to them?"
+        },
+        {
+          "verb": "use_item",
+          "response": "You don't think that would help right now."
+        }
+      ]
+    },
     {
       "id": "broken_pod",
       "name": "Your Broken Pod",

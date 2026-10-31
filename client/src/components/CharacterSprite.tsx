@@ -7,6 +7,8 @@ interface CharacterSpriteProps {
   scenarioId: string;
   scaleX: number;
   scaleY: number;
+  cursor?: string;
+  onObjectClick?: (objectId: string) => void;
 }
 
 export function CharacterSprite({
@@ -15,6 +17,8 @@ export function CharacterSprite({
   scenarioId,
   scaleX,
   scaleY,
+  cursor,
+  onObjectClick,
 }: CharacterSpriteProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -61,6 +65,7 @@ export function CharacterSprite({
 
   const flipH = placement.flip_h ?? false;
   const mirrorFacing = facing === 'left' && !directions.includes('left');
+  const interactive = !!placement.object_id && !!onObjectClick;
 
   const style: CSSProperties = {
     position: 'absolute',
@@ -73,10 +78,15 @@ export function CharacterSprite({
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',
     imageRendering: 'auto',
-    pointerEvents: 'none',
+    pointerEvents: interactive ? 'auto' : 'none',
     zIndex: 5,
+    cursor: interactive ? cursor : undefined,
     transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
   };
 
-  return <div style={style} />;
+  const handleClick = interactive
+    ? (e: React.MouseEvent) => { e.stopPropagation(); onObjectClick!(placement.object_id!); }
+    : undefined;
+
+  return <div data-object-hotspot style={style} onClick={handleClick} />;
 }

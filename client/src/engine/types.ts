@@ -256,6 +256,7 @@ export interface CharacterPlacement {
   sprite_set: string;
   frame?: number;
   flip_h?: boolean;
+  object_id?: string;
 }
 
 export interface Hint {

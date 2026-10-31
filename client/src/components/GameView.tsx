@@ -217,6 +217,8 @@ export function GameView({
           scenarioId={scenarioId}
           scaleX={SCALE_X}
           scaleY={SCALE_Y}
+          cursor={cursor}
+          onObjectClick={onObjectClick}
         />
       )}
 
