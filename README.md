@@ -278,6 +278,14 @@ adventure-engine/
 
 ---
 
+## Attribution
+
+### Audio
+
+- **Item pickup chime** (`scenarios/the-harvest/audio/item_pickup.wav`): [Synth glockenspiel bell item money gold coin pick up.wav](https://freesound.org/s/531175/) by ryusa — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+---
+
 ## License
 
 TBD
