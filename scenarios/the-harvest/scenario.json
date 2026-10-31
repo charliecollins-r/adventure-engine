@@ -20727,7 +20727,7 @@
       "sprite": {
         "file": "sprites/caged_prisoner.png",
         "frame_width": 300,
-        "frame_height": 300,
+        "frame_height": 205,
         "columns": 4,
         "rows": 1,
         "frame_rate": 3,
