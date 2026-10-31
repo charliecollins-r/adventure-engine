@@ -123,7 +123,6 @@
         "occupied_pods",
         "specimen_pod_wall",
         "specimen_tag_hook",
-        "neural_network_wall",
         "walkway_railing",
         "nav_act1_stasis_hold_to_act1_containment_corridor"
       ],
@@ -4548,17 +4547,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Dozens of amber pods line the wall above, stretching up into shadow. Each glows faintly from within — specimens suspended in stasis fluid. Alien labels mark each one. You could move closer to examine them."
-            }
-          ],
-          "noise": 0
-        },
-        {
-          "verb": "move",
-          "then": [
-            {
-              "type": "message",
-              "text": "You climb carefully up the pod framework to get a closer look at the cluster."
+              "text": "You peer closely at the pods above. Each glows faintly — specimens suspended in amber fluid. Alien labels mark each one. You climb the framework for a better look."
             },
             {
               "type": "set_view",
@@ -4887,12 +4876,12 @@
       "name": "Examination Tables",
       "description": "Long tables with organic restraints, designed for specimens much larger than you.",
       "position": {
-        "x": 420,
-        "y": 440
+        "x": 150,
+        "y": 400
       },
       "size": {
-        "width": 140,
-        "height": 70
+        "width": 280,
+        "height": 120
       },
       "visual": {
         "color": "#2a2a3a",
@@ -4949,12 +4938,12 @@
       "name": "Surgical Instrument Rack",
       "description": "A rack of alien surgical tools — curved bone-like instruments, probes, and extractors.",
       "position": {
-        "x": 410,
-        "y": 610
+        "x": 545,
+        "y": 555
       },
       "size": {
-        "width": 100,
-        "height": 60
+        "width": 85,
+        "height": 70
       },
       "visual": {
         "color": "#3a3a4a",
@@ -17227,12 +17216,12 @@
       "name": "Dark Archway",
       "description": "A passage leading to Containment Corridor.",
       "position": {
-        "x": 135,
-        "y": 40
+        "x": 205,
+        "y": 70
       },
       "size": {
-        "width": 335,
-        "height": 453
+        "width": 190,
+        "height": 370
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -20369,8 +20358,8 @@
       "id": "restraint_straps",
       "name": "Restraint Straps",
       "description": "Leather-like straps on the examination table, worn smooth by struggling.",
-      "position": { "x": 460, "y": 480 },
-      "size": { "width": 100, "height": 60 },
+      "position": { "x": 560, "y": 400 },
+      "size": { "width": 200, "height": 110 },
       "visual": { "color": "#4a3a2a", "label": "Restraints" },
       "initial_state": "default",
       "initially_visible": true,
@@ -20613,12 +20602,12 @@
       "initially_visible": true,
       "sprite": {
         "file": "sprites/caged_prisoner.png",
-        "frame_width": 64,
-        "frame_height": 96,
+        "frame_width": 300,
+        "frame_height": 300,
         "columns": 4,
         "rows": 1,
         "frame_rate": 3,
-        "scale": 2
+        "scale": 0.4
       },
       "interactions": [
         {
