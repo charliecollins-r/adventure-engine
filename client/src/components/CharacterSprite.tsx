@@ -72,7 +72,7 @@ export function CharacterSprite({
     backgroundPosition: `${bgX * scale}px ${bgY * scale}px`,
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',
-    imageRendering: 'pixelated',
+    imageRendering: 'auto',
     pointerEvents: 'none',
     zIndex: 5,
     transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
