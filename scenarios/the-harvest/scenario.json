@@ -118,6 +118,16 @@
         "directions": [
           "right"
         ]
+      },
+      "standup": {
+        "file": "sprites/goblin_standup.png",
+        "columns": 8,
+        "rows": 1,
+        "frame_rate": 3,
+        "directions": [
+          "right"
+        ],
+        "loop": false
       }
     },
     "frame_width": 304,
@@ -17714,16 +17724,25 @@
       "name": "Ventilation Grate",
       "description": "A heavy metal grate bolted to the floor. Warm air pulses up through the slats in rhythmic gusts.",
       "position": {
-        "x": 120,
-        "y": 560
+        "x": 180,
+        "y": 640
       },
       "size": {
-        "width": 120,
+        "width": 140,
         "height": 80
       },
       "visual": {
         "color": "rgba(100, 80, 60, 0.3)",
         "label": "Vent"
+      },
+      "sprite": {
+        "file": "sprites/vent_cover.png",
+        "frame_width": 1408,
+        "frame_height": 768,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.1
       },
       "initial_state": "sealed",
       "initially_visible": true,

@@ -199,10 +199,28 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
+      const hasStandup = !!scenario.character?.sprite_sets?.['standup'];
+      if (hasStandup) {
+        engine.setCharacterOverride({ sprite_set: 'standup' });
+        bump();
+      }
       const timer = setTimeout(() => setEyeOpen(true), 50);
       return () => clearTimeout(timer);
     }
-  }, [showIntro, eyeOpen]);
+  }, [showIntro, eyeOpen, engine, bump, scenario]);
+
+  useEffect(() => {
+    if (!eyeOpen) return;
+    const standupSet = scenario.character?.sprite_sets?.['standup'];
+    if (!standupSet) return;
+    const frameRate = standupSet.frame_rate || 3;
+    const duration = (standupSet.columns / frameRate) * 1000 + 200;
+    const timer = setTimeout(() => {
+      engine.setCharacterOverride({ sprite_set: 'idle' });
+      bump();
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [eyeOpen, engine, bump, scenario]);
 
   useEffect(() => {
     const raw = scenario.setting.ambient_audio;

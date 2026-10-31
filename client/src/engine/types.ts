@@ -261,6 +261,7 @@ export interface SpriteSet {
   rows: number;
   frame_rate?: number;
   directions?: ('down' | 'left' | 'right' | 'up')[];
+  loop?: boolean;
 }
 
 export interface CharacterConfig {

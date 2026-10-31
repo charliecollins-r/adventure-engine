@@ -36,21 +36,27 @@ export function CharacterSprite({
   const facing = placement.facing ?? 'down';
   const row = Math.max(0, directions.indexOf(facing));
   const cols = spriteSet.columns;
+  const shouldLoop = spriteSet.loop !== false;
 
   useEffect(() => {
     if (isStatic) return;
+    setCurrentFrame(0);
     let last = 0;
     const interval = 1000 / frameRate;
     const tick = (time: number) => {
       if (time - last >= interval) {
         last = time;
-        setCurrentFrame((f) => (f + 1) % cols);
+        setCurrentFrame((f) => {
+          const next = f + 1;
+          if (next >= cols) return shouldLoop ? 0 : cols - 1;
+          return next;
+        });
       }
       animRef.current = requestAnimationFrame(tick);
     };
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
-  }, [isStatic, frameRate, cols]);
+  }, [isStatic, frameRate, cols, shouldLoop, placement.sprite_set]);
 
   const frame = isStatic ? (placement.frame ?? 0) : currentFrame;
   const bgX = -(frame * fw);

@@ -126,6 +126,10 @@ export class ScenarioEngine {
     return { ...base, ...this._characterOverride };
   }
 
+  setCharacterOverride(overrides: Partial<CharacterPlacement> | null): void {
+    this._characterOverride = overrides;
+  }
+
   getObjectState(objectId: string): string {
     return this.objectStates[objectId] ?? '';
   }
