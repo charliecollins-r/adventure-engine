@@ -20,12 +20,21 @@ const COORD_SPACE_H = 720;
 const SCALE_X = VIEW_WIDTH / COORD_SPACE_W;
 const SCALE_Y = VIEW_HEIGHT / COORD_SPACE_H;
 
+function svgCursor(svg: string, hotX: number, hotY: number, fallback: string): string {
+  return `url("data:image/svg+xml,${svg}") ${hotX} ${hotY}, ${fallback}`;
+}
+
 const VERB_CURSORS: Record<string, string> = {
-  look: "url('/cursors/look.png') 14 16, help",
-  move: "url('/cursors/move.png') 10 24, crosshair",
-  hand: "url('/cursors/hand.png') 10 4, pointer",
-  talk: "url('/cursors/talk.png') 8 20, text",
+  look: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 16Q16 4 30 16Q16 28 2 16Z' fill='%23c0a030' stroke='%23000' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='%231a1008'/><circle cx='14.5' cy='14' r='1.8' fill='%23fff'/></svg>", 16, 16, 'help'),
+  move: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><ellipse cx='10' cy='9' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 10 9)'/><ellipse cx='22' cy='22' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 22 22)'/></svg>", 16, 28, 'crosshair'),
+  hand: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M7 14L7 6L11 6L11 9L13 9L13 2L19 2L19 9L21 9L21 6L25 6L25 14L28 14L28 29L4 29L4 14Z' fill='%23c0a030' stroke='%23000' stroke-width='2' stroke-linejoin='round'/></svg>", 16, 2, 'pointer'),
+  talk: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M8 3L24 3Q29 3 29 8L29 14Q29 19 24 19L19 19L10 28L12 19L8 19Q3 19 3 14L3 8Q3 3 8 3Z' fill='%23c0a030' stroke='%23000' stroke-width='2' stroke-linejoin='round'/></svg>", 10, 28, 'text'),
 };
+
+const USE_ITEM_CURSOR = svgCursor(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M16 2L18 13L29 16L18 19L16 30L14 19L3 16L14 13Z' fill='%23c0a030' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/></svg>",
+  16, 16, 'crosshair',
+);
 
 const styles: Record<string, CSSProperties> = {
   viewport: {
@@ -166,7 +175,7 @@ export function GameView({
   const bgFile = engine.getBackgroundFile();
   const scenarioId = engine.getScenario().metadata.id;
   const cursor = selectedItem
-    ? "url('/cursors/use_item.png') 15 15, crosshair"
+    ? USE_ITEM_CURSOR
     : VERB_CURSORS[activeVerb] ?? 'default';
 
   const cursorLabel = selectedItem
