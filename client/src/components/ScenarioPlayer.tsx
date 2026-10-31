@@ -4,7 +4,6 @@ import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { GameView } from './GameView';
 import { IntroSequence } from './IntroSequence';
 import { InventoryPanel } from './InventoryPanel';
-import { MessagePanel } from './MessagePanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
 import { EyeOpenTransition } from './EyeOpenTransition';
@@ -42,7 +41,7 @@ const styles: Record<string, CSSProperties> = {
     color: '#c0a030',
     letterSpacing: '2px',
   },
-  exitButton: {
+  chromeButton: {
     padding: '4px 16px',
     fontSize: '12px',
     fontFamily: 'monospace',
@@ -53,17 +52,89 @@ const styles: Record<string, CSSProperties> = {
     cursor: 'pointer',
   },
   gameArea: {
+    position: 'relative' as const,
     width: '960px',
   },
+  bottomHud: {
+    position: 'absolute' as const,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 15,
+    display: 'flex',
+    flexDirection: 'column' as const,
+    pointerEvents: 'none' as const,
+  },
+  messageOverlay: {
+    pointerEvents: 'auto' as const,
+    backgroundColor: 'rgba(10, 8, 5, 0.88)',
+    backdropFilter: 'blur(4px)',
+    padding: '10px 16px',
+    cursor: 'pointer',
+    maxHeight: '120px',
+    overflowY: 'auto' as const,
+  },
+  messageText: {
+    fontSize: '14px',
+    fontFamily: '"Georgia", serif',
+    color: '#e0d0a0',
+    lineHeight: '1.6',
+    margin: '0 0 4px',
+  },
+  dismissHint: {
+    fontSize: '11px',
+    fontFamily: 'monospace',
+    color: '#3a3020',
+    textAlign: 'right' as const,
+    marginTop: '4px',
+  },
+  ambientOverlay: {
+    pointerEvents: 'none' as const,
+    padding: '8px 16px',
+    fontSize: '13px',
+    fontFamily: '"Georgia", serif',
+    color: 'rgba(90, 74, 48, 0.5)',
+    fontStyle: 'italic',
+    backgroundColor: 'rgba(10, 8, 5, 0.3)',
+  },
+  tabRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    pointerEvents: 'none' as const,
+    padding: '0 4px',
+  },
+  inventoryTab: {
+    pointerEvents: 'auto' as const,
+    padding: '3px 12px',
+    fontSize: '11px',
+    fontFamily: 'monospace',
+    backgroundColor: 'rgba(13, 13, 10, 0.6)',
+    border: 'none',
+    borderRadius: '0 0 3px 3px',
+    cursor: 'pointer',
+    letterSpacing: '1px',
+    transition: 'color 0.2s ease',
+  },
+  hintTab: {
+    pointerEvents: 'auto' as const,
+    padding: '3px 10px',
+    fontSize: '14px',
+    fontFamily: '"Georgia", serif',
+    backgroundColor: 'rgba(13, 13, 10, 0.6)',
+    border: 'none',
+    borderRadius: '0 0 3px 3px',
+    cursor: 'pointer',
+    transition: 'color 0.2s ease',
+  },
   gameOver: {
-    position: 'fixed',
+    position: 'fixed' as const,
     top: 0,
     left: 0,
     width: '100vw',
     height: '100vh',
     backgroundColor: 'rgba(0, 0, 0, 0.88)',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as const,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
@@ -72,7 +143,7 @@ const styles: Record<string, CSSProperties> = {
     fontSize: '3.5rem',
     fontFamily: '"Georgia", serif',
     letterSpacing: '6px',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase' as const,
     marginBottom: '16px',
   },
   gameOverText: {
@@ -80,7 +151,7 @@ const styles: Record<string, CSSProperties> = {
     fontFamily: '"Georgia", serif',
     color: '#8a7a5a',
     marginBottom: '32px',
-    textAlign: 'center',
+    textAlign: 'center' as const,
     maxWidth: '500px',
     lineHeight: '1.6',
   },
@@ -111,6 +182,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  const [inventoryOpen, setInventoryOpen] = useState(false);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
@@ -154,6 +226,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     }
   }, [muted]);
 
+  const prevItemCount = useRef(-1);
+  useEffect(() => {
+    const count = engine.getInventory().length;
+    if (prevItemCount.current >= 0 && count > prevItemCount.current) {
+      setInventoryOpen(true);
+    }
+    prevItemCount.current = count;
+  });
+
   const handleObjectClick = useCallback(
     (objectId: string) => {
       if (selectedItem) {
@@ -171,11 +252,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     engine.dismissMessages();
     const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
     if (selectedItem) {
-      engine.showMessage(pick([
-        "You can't use that here.",
-        "There's nothing here to use that on.",
-        "That won't work on empty space.",
-      ]));
+      engine.showMessage(
+        pick([
+          "You can't use that here.",
+          "There's nothing here to use that on.",
+          "That won't work on empty space.",
+        ]),
+      );
       setSelectedItem(null);
       bump();
     } else {
@@ -212,14 +295,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [engine, activeVerb, selectedItem, bump]);
 
   const VERB_ORDER = ['look', 'move', 'hand', 'talk'];
-
-  const handleVerbSelect = useCallback(
-    (verb: string) => {
-      setActiveVerb(verb);
-      setSelectedItem(null);
-    },
-    [],
-  );
 
   const handleCycleVerb = useCallback(() => {
     setActiveVerb((prev) => {
@@ -266,6 +341,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     engineRef.current = new ScenarioEngine(scenario);
     setActiveVerb('look');
     setSelectedItem(null);
+    setInventoryOpen(false);
     bump();
   }, [scenario, bump]);
 
@@ -274,7 +350,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     if (hint) {
       engine.showMessage(hint);
     } else {
-      engine.showMessage("No hints available for this room.");
+      engine.showMessage('No hints available for this room.');
     }
     bump();
   }, [engine, bump]);
@@ -303,10 +379,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   return (
     <div style={styles.container}>
-      {/* Eye-opening transition from black */}
       <EyeOpenTransition active={eyeOpen} />
 
-      {/* Title bar */}
+      {/* Minimal title bar */}
       <div style={styles.titleBar}>
         <div style={styles.titleLeft}>
           <div style={styles.title}>{scenario.metadata.title}</div>
@@ -315,26 +390,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <button
             style={{
-              ...styles.exitButton,
-              fontSize: '14px',
-              fontFamily: '"Georgia", serif',
-              padding: '2px 10px',
-            }}
-            onClick={handleHint}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.borderColor = '#6a5a30';
-              (e.target as HTMLElement).style.color = '#c0a030';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.borderColor = '#2a2018';
-              (e.target as HTMLElement).style.color = '#6a5a3a';
-            }}
-          >
-            ?
-          </button>
-          <button
-            style={{
-              ...styles.exitButton,
+              ...styles.chromeButton,
               color: debugMode ? '#e0c040' : '#6a5a3a',
               borderColor: debugMode ? '#6a5a30' : '#2a2018',
             }}
@@ -350,7 +406,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           </button>
           {scenario.setting.ambient_audio && (
             <button
-              style={styles.exitButton}
+              style={styles.chromeButton}
               onClick={() => setMuted((m) => !m)}
               onMouseEnter={(e) => {
                 (e.target as HTMLElement).style.borderColor = '#6a5a30';
@@ -363,7 +419,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             </button>
           )}
           <button
-            style={styles.exitButton}
+            style={styles.chromeButton}
             onClick={onExit}
             onMouseEnter={(e) => {
               (e.target as HTMLElement).style.borderColor = '#6a5a30';
@@ -377,7 +433,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         </div>
       </div>
 
-      {/* Game area */}
+      {/* Game viewport with HUD overlays */}
       <div style={styles.gameArea}>
         <GameView
           engine={engine}
@@ -385,19 +441,79 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           selectedItem={selectedItem}
           debugMode={debugMode}
           onObjectClick={handleObjectClick}
-
           onEmptyClick={handleEmptyClick}
           onCycleVerb={handleCycleVerb}
         />
-        <MessagePanel messages={messages} ambientText={ambientText} onDismiss={handleDismiss} />
-        <InventoryPanel
-          items={inventory}
-          selectedItem={selectedItem}
-          scenarioId={scenario.metadata.id}
-          onItemSelect={handleItemSelect}
-          onItemExamine={handleItemExamine}
-        />
-        {/* Right-click cycles verbs KQ5-style — no verb bar needed */}
+
+        {/* Bottom HUD overlay */}
+        <div style={styles.bottomHud}>
+          {/* Message or ambient text overlay */}
+          {messages.length > 0 ? (
+            <div style={styles.messageOverlay} onClick={handleDismiss}>
+              {messages.map((msg, i) => (
+                <p key={i} style={styles.messageText}>
+                  {msg}
+                </p>
+              ))}
+              <div style={styles.dismissHint}>click to dismiss</div>
+            </div>
+          ) : ambientText ? (
+            <div style={styles.ambientOverlay}>{ambientText}</div>
+          ) : null}
+
+          {/* Collapsible inventory tray */}
+          <div
+            style={{
+              overflow: 'hidden',
+              maxHeight: inventoryOpen ? '54px' : '0',
+              transition: 'max-height 0.3s ease',
+              pointerEvents: 'auto' as const,
+              backgroundColor: 'rgba(13, 13, 10, 0.92)',
+              backdropFilter: 'blur(4px)',
+              borderTop: inventoryOpen ? '1px solid rgba(42, 32, 24, 0.4)' : 'none',
+            }}
+          >
+            <InventoryPanel
+              items={inventory}
+              selectedItem={selectedItem}
+              scenarioId={scenario.metadata.id}
+              onItemSelect={handleItemSelect}
+              onItemExamine={handleItemExamine}
+            />
+          </div>
+
+          {/* Tab row: inventory toggle + hint */}
+          <div style={styles.tabRow}>
+            <button
+              style={{
+                ...styles.inventoryTab,
+                color: inventoryOpen ? '#c0a030' : '#5a4a30',
+              }}
+              onClick={() => setInventoryOpen((o) => !o)}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.color = '#c0a030';
+              }}
+              onMouseLeave={(e) => {
+                if (!inventoryOpen) (e.target as HTMLElement).style.color = '#5a4a30';
+              }}
+            >
+              {inventoryOpen ? '▾' : '▸'} Items
+              {inventory.length > 0 ? ` (${inventory.length})` : ''}
+            </button>
+            <button
+              style={{ ...styles.hintTab, color: '#5a4a30' }}
+              onClick={handleHint}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.color = '#c0a030';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.color = '#5a4a30';
+              }}
+            >
+              ?
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Closeup overlay */}
