@@ -105,5 +105,5 @@
   <text x="745" y="474" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4a30">positioned divs, gold border on hover</text>
 
   <text x="450" y="510" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a7a5a">Objects are transparent until hovered — player discovers them by mousing over the painted background</text>
-  <text x="450" y="528" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">Positions in JSON are center-point coordinates (object renders centered at that position)</text>
+  <text x="450" y="528" text-anchor="middle" font-family="monospace" font-size="10" fill="#5a4a30">Positions in JSON are top-left coordinates (hotspot box starts at that corner)</text>
 </svg>

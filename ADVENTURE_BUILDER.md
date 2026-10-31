@@ -562,7 +562,7 @@ Objects are everything the player can see and interact with — furniture, doors
 | `id` | string | Yes | Unique identifier. Referenced in view `objects` arrays and by conditions/effects. |
 | `name` | string | Yes | Display name shown on hover and in messages. |
 | `description` | string | Yes | Fallback text when looking without a specific look interaction. |
-| `position` | `{x, y}` | Yes | Center point in 960x720 coordinate space. |
+| `position` | `{x, y}` | Yes | Top-left corner in 960x720 coordinate space. |
 | `size` | `{width, height}` | Yes | Clickable region dimensions. |
 | `visual.color` | string | Yes | Hotspot overlay color. Use `rgba()` with low alpha (0.2-0.35) for subtle tinting. |
 | `visual.label` | string | Yes | Short label shown below the hotspot on hover. |
