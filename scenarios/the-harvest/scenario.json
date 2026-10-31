@@ -332,6 +332,9 @@
       "objects": [
         "corridor_pipes",
         "floor_grating",
+        "corridor_drag_marks",
+        "corridor_emergency_panel",
+        "corridor_organic_growth",
         "black_cat",
         "nav_act1_containment_corridor_to_act1_stasis_hold",
         "nav_act1_containment_corridor_to_act1_processing_lab",
@@ -413,6 +416,8 @@
         "autopsy_slab",
         "recycling_vats",
         "neural_tendril_sample",
+        "morgue_chemical_cabinet",
+        "morgue_drain_channel",
         "nav_act1_morgue_to_act1_feeding_station"
       ],
       "background_key": "act1_morgue",
@@ -525,6 +530,8 @@
       "objects": [
         "wall_scratches",
         "shaft_branches",
+        "vent_old_remains",
+        "vent_maintenance_hatch",
         "nav_act1_ventilation_shaft_to_act1_feeding_station",
         "nav_act1_ventilation_shaft_to_act1_airlock_bay"
       ],
@@ -4504,12 +4511,12 @@
       "name": "Occupied Stasis Pods",
       "description": "Rows of intact pods stretching into the shadows above. Most contain dead specimens. Some glow faintly — still active.",
       "position": {
-        "x": 500,
-        "y": 260
+        "x": 450,
+        "y": 200
       },
       "size": {
-        "width": 40,
-        "height": 35
+        "width": 140,
+        "height": 120
       },
       "visual": {
         "color": "#1a3a2a",
@@ -4522,12 +4529,22 @@
           "verb": "look",
           "then": [
             {
-              "type": "set_view",
-              "view": "act1_pod_cluster"
-            },
+              "type": "message",
+              "text": "Dozens of amber pods line the wall above, stretching up into shadow. Each glows faintly from within — specimens suspended in stasis fluid. Alien labels mark each one. You could move closer to examine them."
+            }
+          ],
+          "noise": 0
+        },
+        {
+          "verb": "move",
+          "then": [
             {
               "type": "message",
-              "text": "You peer closely at the wall of amber pods. Each one contains a different specimen, suspended in stasis fluid. Alien script labels identify each creature."
+              "text": "You climb carefully up the pod framework to get a closer look at the cluster."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_pod_cluster"
             }
           ],
           "noise": 0
@@ -4543,16 +4560,6 @@
             {
               "type": "message",
               "text": "\"Can you hear me?\" you murmur, pressing close to a pod. The creature inside doesn't stir. Maybe that's a mercy."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The pods are integrated into the wall like organs in a body. They're grown in place — you'd need to cut them free."
             }
           ]
         }
@@ -5080,17 +5087,53 @@
       "interactions": [
         {
           "verb": "look",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen shows what appears to be a startup sequence — a series of bio-organic buttons being pressed in a specific order. It's demonstrating the security console procedure for someone (or something) learning the system."
+              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye — it's showing a startup sequence, a series of bio-organic buttons pressed in a specific order. Five steps, specific timing. You watch the loop repeat twice and commit the pattern to memory. This is the security console activation procedure — the Choir trains its drones with these demonstration loops."
+            },
+            {
+              "type": "set_flag",
+              "flag": "security_sequence_known",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "lab_startup_display",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The screens continue cycling through processing routines. The startup sequence loop still plays — you've already memorized the pattern."
             }
           ]
         },
         {
           "verb": "hand",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known"
+            }
+          ],
           "then": [
             {
               "type": "message",
@@ -5107,6 +5150,17 @@
               "value": ""
             }
           ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "response": "You've already memorized the activation sequence from the display."
         },
         {
           "verb": "move",
@@ -5547,12 +5601,12 @@
       "name": "Specimen Enclosures",
       "description": "Small enclosures behind shimmering energy barriers, holding living specimens.",
       "position": {
-        "x": 200,
-        "y": 310
+        "x": 150,
+        "y": 270
       },
       "size": {
-        "width": 35,
-        "height": 35
+        "width": 120,
+        "height": 100
       },
       "visual": {
         "color": "#2a3a4a",
@@ -5609,16 +5663,17 @@
       "name": "Scratch Marks",
       "description": "Deep scratches gouged into the ventilation shaft walls — previous escape attempts.",
       "position": {
-        "x": 200,
-        "y": 350
+        "x": 150,
+        "y": 310
       },
       "size": {
-        "width": 30,
-        "height": 30
+        "width": 100,
+        "height": 80
       },
       "visual": {
         "color": "#4a3a2a",
-        "label": "Scratches"
+        "label": "Scratches",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -5685,12 +5740,12 @@
       "name": "Shaft Branches",
       "description": "The ventilation shaft splits into multiple directions, each marked by dim red maintenance lights.",
       "position": {
-        "x": 480,
-        "y": 350
+        "x": 430,
+        "y": 320
       },
       "size": {
-        "width": 35,
-        "height": 30
+        "width": 120,
+        "height": 70
       },
       "visual": {
         "color": "#3a1a1a",
@@ -5768,12 +5823,12 @@
       "name": "Security Console",
       "description": "The main control station for containment deck security. Multiple screens show surveillance feeds.",
       "position": {
-        "x": 480,
-        "y": 480
+        "x": 400,
+        "y": 430
       },
       "size": {
-        "width": 45,
-        "height": 30
+        "width": 160,
+        "height": 80
       },
       "visual": {
         "color": "#2a2a4a",
@@ -5905,12 +5960,12 @@
       "name": "Cracked Surveillance Screen",
       "description": "One of the surveillance screens is badly cracked — someone or something fought here.",
       "position": {
-        "x": 520,
-        "y": 200
+        "x": 490,
+        "y": 170
       },
       "size": {
-        "width": 30,
-        "height": 25
+        "width": 80,
+        "height": 60
       },
       "visual": {
         "color": "#2a2a3a",
@@ -5967,12 +6022,12 @@
       "name": "Security Drawer",
       "description": "A drawer beneath the security console, partially jammed open.",
       "position": {
-        "x": 350,
-        "y": 560
+        "x": 400,
+        "y": 530
       },
       "size": {
-        "width": 30,
-        "height": 20
+        "width": 100,
+        "height": 45
       },
       "visual": {
         "color": "#3a3a3a",
@@ -6049,12 +6104,12 @@
       "name": "Data Crystal Archive",
       "description": "Floor-to-ceiling racks of glowing data crystals — each one a species' complete biological record.",
       "position": {
-        "x": 100,
-        "y": 300
+        "x": 60,
+        "y": 250
       },
       "size": {
-        "width": 30,
-        "height": 40
+        "width": 80,
+        "height": 120
       },
       "visual": {
         "color": "#3a4a5a",
@@ -6111,16 +6166,17 @@
       "name": "Misplaced Data Crystal",
       "description": "A crystal that's slightly different from the others — personal records rather than specimen data.",
       "position": {
-        "x": 200,
-        "y": 480
+        "x": 170,
+        "y": 460
       },
       "size": {
-        "width": 25,
-        "height": 20
+        "width": 70,
+        "height": 50
       },
       "visual": {
         "color": "#5a6a7a",
-        "label": "Crystal"
+        "label": "Crystal",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -6192,12 +6248,12 @@
       "name": "Crystal Reading Device",
       "description": "A pedestal-mounted device for reading data crystals, projecting holographic content.",
       "position": {
-        "x": 480,
-        "y": 510
+        "x": 440,
+        "y": 480
       },
       "size": {
-        "width": 30,
-        "height": 25
+        "width": 90,
+        "height": 60
       },
       "visual": {
         "color": "#4a5a6a",
@@ -6336,12 +6392,12 @@
       "name": "Holographic Planet Display",
       "description": "Holographic projections of cataloged worlds drifting slowly above the archive, most marked in red.",
       "position": {
-        "x": 480,
-        "y": 200
+        "x": 400,
+        "y": 150
       },
       "size": {
-        "width": 40,
-        "height": 35
+        "width": 160,
+        "height": 100
       },
       "visual": {
         "color": "#2a1a3a",
@@ -6409,12 +6465,12 @@
       "name": "Viewport",
       "description": "A large viewport showing the planet below — beautiful from orbit, unaware it's dying.",
       "position": {
-        "x": 150,
-        "y": 300
+        "x": 80,
+        "y": 230
       },
       "size": {
-        "width": 40,
-        "height": 40
+        "width": 160,
+        "height": 130
       },
       "visual": {
         "color": "#1a2a4a",
@@ -6476,12 +6532,12 @@
       "name": "Empty Docking Clamps",
       "description": "Heavy mechanical clamps where your ship, the Outrider, was once docked. The clamps are open and empty.",
       "position": {
-        "x": 500,
-        "y": 590
+        "x": 440,
+        "y": 570
       },
       "size": {
-        "width": 35,
-        "height": 20
+        "width": 140,
+        "height": 50
       },
       "visual": {
         "color": "#3a3a3a",
@@ -6543,12 +6599,12 @@
       "name": "Emergency Suit Locker",
       "description": "A locker containing alien emergency space suits, designed for Choir physiology.",
       "position": {
-        "x": 810,
-        "y": 330
+        "x": 780,
+        "y": 290
       },
       "size": {
-        "width": 30,
-        "height": 40
+        "width": 80,
+        "height": 100
       },
       "visual": {
         "color": "#3a4a3a",
@@ -6645,12 +6701,12 @@
       "name": "Manual Override Panel",
       "description": "A heavily locked manual override panel for the airlock blast doors.",
       "position": {
-        "x": 370,
-        "y": 460
+        "x": 340,
+        "y": 430
       },
       "size": {
-        "width": 25,
-        "height": 30
+        "width": 80,
+        "height": 60
       },
       "visual": {
         "color": "#4a2a2a",
@@ -6735,12 +6791,12 @@
       "name": "Sealed Blast Doors",
       "description": "Heavy organic-metallic blast doors sealing the airlock from the corridor.",
       "position": {
-        "x": 500,
-        "y": 320
+        "x": 440,
+        "y": 280
       },
       "size": {
-        "width": 40,
-        "height": 45
+        "width": 120,
+        "height": 100
       },
       "visual": {
         "color": "#2a2a2a",
@@ -16701,12 +16757,12 @@
       "id": "corridor_pipes",
       "name": "Ceiling Conduits",
       "position": {
-        "x": 480,
-        "y": 80
+        "x": 360,
+        "y": 60
       },
       "size": {
-        "width": 40,
-        "height": 25
+        "width": 240,
+        "height": 50
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -16749,12 +16805,12 @@
       "id": "floor_grating",
       "name": "Floor Grating",
       "position": {
-        "x": 480,
-        "y": 580
+        "x": 360,
+        "y": 560
       },
       "size": {
-        "width": 45,
-        "height": 25
+        "width": 240,
+        "height": 50
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -16790,6 +16846,396 @@
               "text": "You whisper into the grate. Your voice disappears into the dark below without echo, as if something down there absorbed the sound."
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "corridor_drag_marks",
+      "name": "Drag Marks",
+      "description": "Deep scratches and dark stains on the corridor wall — something was dragged through here.",
+      "position": {
+        "x": 100,
+        "y": 350
+      },
+      "size": {
+        "width": 120,
+        "height": 80
+      },
+      "visual": {
+        "color": "#3a1a1a",
+        "label": "Marks"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Deep gouges in the organic wall, the kind made by something clawing desperately as it was dragged. The stains beside them are dark and old — not blood, exactly, but something's vital fluid. The marks lead toward the left passage. Toward the processing lab."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You trace the grooves with your fingers. Five parallel scratches — claws, or fingers, dragging against the wall. Whatever made these was strong. And terrified."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "There's nothing to say to claw marks. But you understand the message they left behind: don't get caught."
+        }
+      ]
+    },
+    {
+      "id": "corridor_emergency_panel",
+      "name": "Emergency Status Panel",
+      "description": "A wall-mounted status panel showing the containment deck's emergency state.",
+      "position": {
+        "x": 680,
+        "y": 300
+      },
+      "size": {
+        "width": 90,
+        "height": 70
+      },
+      "visual": {
+        "color": "#2a1a1a",
+        "label": "Panel",
+        "animation": "pulse"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_hub_accessed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A status panel pulses with dull red light. Alien symbols you can't fully read, but the color coding is universal: red means danger. Several sections are flashing — containment breaches across the deck. One symbol keeps repeating, probably an alert about you. The security hub to the right might let you access these systems."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The panel still pulses red, but now you can read some of the symbols thanks to the security console's translation overlays. 'Containment Deck 7 — Multiple Breach Events.' Your escape triggered a cascade of alerts. The Curator is listed as active and patrolling."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You tap the panel. It chirps in response and cycles through several screens of alien text. Without access to the security systems, you can't make sense of most of it — but the flashing red sections clearly show which parts of the deck are compromised."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "You try speaking to the panel. It chirps once — voice commands might work, but not in any language you know."
+        }
+      ]
+    },
+    {
+      "id": "corridor_organic_growth",
+      "name": "Organic Wall Growth",
+      "description": "A patch of bioluminescent growth spreading across the corridor wall.",
+      "position": {
+        "x": 250,
+        "y": 200
+      },
+      "size": {
+        "width": 100,
+        "height": 90
+      },
+      "visual": {
+        "color": "#1a3a1a",
+        "label": "Growth"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A patch of bioluminescent growth spreads across the wall like a living bruise — deep greens and purples pulsing faintly. It's not damage; it's the ship healing itself. The Choir's vessels are alive. Walls, floors, conduits — it's all one massive organism. You're not in a ship. You're inside something."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "pod_glass_shard"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The growth is warm and slightly damp. It contracts at your touch like disturbed flesh, then slowly relaxes. The bioluminescence brightens where you touched, then fades. Disgusting. But fascinating."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "pod_glass_shard"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The growth is warm and slightly damp. It contracts at your touch, bioluminescence brightening briefly. You could cut into it with the glass shard, but that might alert the ship's immune system — and by extension, the Curator. Better not."
+            },
+            {
+              "type": "add_noise",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "You murmur to the organic growth. It pulses in response — or maybe that's just its natural rhythm. Hard to tell with a living ship."
+        }
+      ]
+    },
+    {
+      "id": "morgue_chemical_cabinet",
+      "name": "Chemical Storage Cabinet",
+      "description": "A wall-mounted cabinet with bio-organic seals. Labeled with alien hazard symbols.",
+      "position": {
+        "x": 700,
+        "y": 280
+      },
+      "size": {
+        "width": 90,
+        "height": 100
+      },
+      "visual": {
+        "color": "#2a3a2a",
+        "label": "Cabinet"
+      },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A wall-mounted cabinet sealed with bio-organic locks. Hazard symbols in alien script mark the doors — the universal triangle-and-circle pattern is recognizable even in Choir notation. Whatever's inside is dangerous enough to warrant warnings."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "morgue_chemical_cabinet",
+              "state": "sealed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The bio-organic seals resist your fingers. They're designed for Choir appendages — broader, stronger. You'd need a tool to pry them open. Something sharp and thin."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "morgue_chemical_cabinet",
+              "state": "open"
+            }
+          ],
+          "response": "The cabinet is open. Rows of bio-capsules in color-coded racks — but without knowing Choir chemistry, they're too dangerous to take."
+        },
+        {
+          "verb": "talk",
+          "response": "The cabinet doesn't respond to vocal commands. Choir security is tactile, not verbal."
+        }
+      ]
+    },
+    {
+      "id": "morgue_drain_channel",
+      "name": "Drainage Channel",
+      "description": "A wide channel in the floor collecting runoff from the recycling vats and autopsy slab.",
+      "position": {
+        "x": 300,
+        "y": 600
+      },
+      "size": {
+        "width": 180,
+        "height": 50
+      },
+      "visual": {
+        "color": "#1a2a1a",
+        "label": "Drain"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A wide drainage channel runs the length of the floor, collecting runoff from the vats and slab above. The fluid is a sickly green — dissolved biological material flowing back into the ship's recycling systems. Small things glint in the murk. Fragments of bone, maybe. Or teeth."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach into the channel. The fluid is warm and viscous. Your fingers close around something small and hard — a fragment of bone from some dissolved specimen. You drop it back. Nothing useful here, just reminders of what happens to failed experiments."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "The fluid gurgles softly as it drains. The sound is uncomfortably like digestion."
+        }
+      ]
+    },
+    {
+      "id": "vent_old_remains",
+      "name": "Small Bones",
+      "description": "The scattered remains of a small creature that didn't make it through the ventilation shaft.",
+      "position": {
+        "x": 600,
+        "y": 500
+      },
+      "size": {
+        "width": 90,
+        "height": 60
+      },
+      "visual": {
+        "color": "#4a4a3a",
+        "label": "Bones"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Small bones scattered against the shaft wall — another specimen that tried to escape through the ventilation system. It was about your size. Four limbs, a skull. Bipedal. Familiar proportions. It almost made it. Almost. The claw marks on the wall nearby might be theirs."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You carefully examine the remains. The bones are old and dry — this escape attempt happened long before yours. Among the bones you find scraps of the same organic material your pod was made of. They broke out the same way you did. But they didn't get far enough."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "\"I'm sorry,\" you whisper to the bones. \"I'll make it. For both of us.\""
+        }
+      ]
+    },
+    {
+      "id": "vent_maintenance_hatch",
+      "name": "Maintenance Hatch",
+      "description": "A sealed maintenance access panel in the shaft wall.",
+      "position": {
+        "x": 350,
+        "y": 180
+      },
+      "size": {
+        "width": 100,
+        "height": 80
+      },
+      "visual": {
+        "color": "#3a3a4a",
+        "label": "Hatch"
+      },
+      "initial_state": "sealed",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_maintenance_hatch",
+              "state": "sealed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A maintenance access hatch set into the shaft wall. Sealed with organic rivets that have calcified shut. Through a small window in the hatch, you can see a tangle of the ship's internal conduits — thick veins of pumping fluid and clusters of nerve-like fibers. A maintenance access for the ship's living systems."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_maintenance_hatch",
+              "state": "sealed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You pull at the hatch. The organic rivets flex but hold firm — they've fused shut over time. You'd need something sharp to pry them loose."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "You tap on the hatch. A hollow echo comes back. There's space behind it — part of the ship's maintenance network."
         }
       ]
     },
