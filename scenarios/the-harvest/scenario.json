@@ -122,7 +122,7 @@
         "broken_pod",
         "pod_drainage_channel",
         "occupied_pods",
-        "specimen_pod_wall",
+        "cataloguer_robot",
         "specimen_tag_hook",
         "walkway_railing",
         "nav_act1_stasis_hold_to_act1_containment_corridor"
@@ -6332,23 +6332,32 @@
       "hiding_spot": false
     },
     {
-      "id": "specimen_pod_wall",
-      "name": "Specimen Pods",
-      "description": "Rows of amber preservation pods line the wall, each containing a different alien specimen suspended in fluid.",
+      "id": "cataloguer_robot",
+      "name": "Cataloguer Robot",
+      "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 650,
-        "y": 50
+        "x": 780,
+        "y": 460
       },
       "size": {
-        "width": 280,
-        "height": 550
+        "width": 100,
+        "height": 200
       },
       "visual": {
-        "color": "#3a4a2a",
-        "label": "Pods"
+        "color": "#4a6a3a",
+        "label": "Cataloguer"
       },
-      "initial_state": "default",
+      "initial_state": "scanning",
       "initially_visible": true,
+      "sprite": {
+        "file": "sprites/cataloguer_robot.png",
+        "frame_width": 338,
+        "frame_height": 768,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.2
+      },
       "interactions": [
         {
           "verb": "look",
@@ -6356,11 +6365,11 @@
           "then": [
             {
               "type": "message",
-              "text": "You peer closer at the specimen pods. Each contains a perfectly preserved creature from a different world — an ammonite-like spiral with tendrils, a skeletal predator curled in fetal position, a bulbous cephalopod with too many eyes. All suspended in amber fluid, cataloged trophies of consumed civilizations."
+              "text": "A biomechanical spider-drone clings to the wall, methodically cataloguing specimens. Its amber jars hold preserved creatures — an ammonite spiral with tendrils, a skeletal predator, a bulbous cephalopod. It doesn't seem to have sensors for detecting escapees. Its sole purpose is taxonomy."
             },
             {
               "type": "show_closeup",
-              "image": "closeups/specimen_jars.webp"
+              "image": "closeups/cataloguer_specimens.webp"
             }
           ]
         },
@@ -6370,7 +6379,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press your palm against the nearest pod. The glass is warm and faintly vibrates — the preservation fluid is circulating. These specimens are being kept alive, or at least in a state between life and death."
+              "text": "You reach toward the robot but think better of it. Its legs twitch as it works, scanning each pod with a green beam. It hasn't noticed you — disturbing it might change that."
             }
           ]
         },
@@ -6380,17 +6389,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"What were you?\" you whisper to the curled skeleton. Its empty eye sockets stare back through the amber fluid. No answer — just the low hum of the preservation system."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The pods are embedded deep in the living wall of the ship. There's no way to move or detach them."
+              "text": "The cataloguer emits a low electronic hum as it works. It doesn't respond to your voice — this machine operates on instinct, not intelligence. Just a collector, endlessly sorting the ship's trophies."
             }
           ]
         }
