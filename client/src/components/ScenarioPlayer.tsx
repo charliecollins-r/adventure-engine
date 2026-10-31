@@ -262,6 +262,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const count = engine.getInventory().length;
     if (prevItemCount.current >= 0 && count > prevItemCount.current) {
       setInventoryOpen(true);
+      playSound('audio/item_pickup.wav');
     }
     prevItemCount.current = count;
   });
