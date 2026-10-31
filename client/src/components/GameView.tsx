@@ -9,6 +9,7 @@ interface GameViewProps {
   activeVerb: string;
   selectedItem: string | null;
   debugMode: boolean;
+  walkthroughHighlights?: string[];
   onObjectClick: (objectId: string) => void;
   onEmptyClick?: () => void;
   onCycleVerb?: () => void;
@@ -113,6 +114,14 @@ const ANIMATION_KEYFRAMES = `
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+@keyframes wt-ring-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.6; }
+}
+@keyframes wt-arrow-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
 `;
 
 let stylesInjected = false;
@@ -130,6 +139,7 @@ export function GameView({
   activeVerb,
   selectedItem,
   debugMode,
+  walkthroughHighlights,
   onObjectClick,
   onEmptyClick,
   onCycleVerb,
@@ -328,6 +338,45 @@ export function GameView({
           </div>
         );
       })}
+
+      {/* Walkthrough highlight rings */}
+      {walkthroughHighlights && walkthroughHighlights.length > 0 && objects
+        .filter(obj => walkthroughHighlights.includes(obj.id))
+        .map(obj => {
+          const cx = (obj.position.x + obj.size.width / 2) * SCALE_X;
+          const cy = (obj.position.y + obj.size.height / 2) * SCALE_Y;
+          const radius = Math.max(obj.size.width * SCALE_X, obj.size.height * SCALE_Y) * 0.7;
+          return (
+            <div key={`wt-${obj.id}`} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 15 }}>
+              <div style={{
+                position: 'absolute',
+                left: `${cx}px`,
+                top: `${cy}px`,
+                width: `${radius}px`,
+                height: `${radius}px`,
+                borderRadius: '50%',
+                border: '3px solid rgba(255, 60, 60, 0.9)',
+                boxShadow: '0 0 12px 4px rgba(255, 60, 60, 0.3), inset 0 0 8px 2px rgba(255, 60, 60, 0.1)',
+                animation: 'wt-ring-pulse 1.5s ease-in-out infinite',
+                pointerEvents: 'none',
+              }} />
+              <div style={{
+                position: 'absolute',
+                left: `${cx}px`,
+                top: `${cy - radius / 2 - 18}px`,
+                transform: 'translateX(-50%)',
+                fontSize: '18px',
+                lineHeight: '1',
+                animation: 'wt-arrow-bob 1s ease-in-out infinite',
+                pointerEvents: 'none',
+                filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.8))',
+              }}>
+                <span style={{ color: 'rgba(255, 60, 60, 0.95)' }}>&#x25BC;</span>
+              </div>
+            </div>
+          );
+        })
+      }
 
       {/* Room transition overlay */}
       {transitioning && (

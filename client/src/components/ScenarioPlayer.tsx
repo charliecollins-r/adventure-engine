@@ -188,11 +188,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [muted, setMuted] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [walkthroughHighlights, setWalkthroughHighlights] = useState<string[]>([]);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
   (window as unknown as Record<string, unknown>).__engine = engine;
   (window as unknown as Record<string, unknown>).__bump = bump;
+  (window as unknown as Record<string, unknown>).__setHighlights = (ids: string[]) => { setWalkthroughHighlights(ids); };
+  (window as unknown as Record<string, unknown>).__setDebug = (on: boolean) => { setDebugMode(on); };
 
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
@@ -486,6 +489,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           activeVerb={activeVerb}
           selectedItem={selectedItem}
           debugMode={debugMode}
+          walkthroughHighlights={walkthroughHighlights}
           onObjectClick={handleObjectClick}
           onEmptyClick={handleEmptyClick}
           onCycleVerb={handleCycleVerb}
