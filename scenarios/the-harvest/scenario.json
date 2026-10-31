@@ -314,7 +314,8 @@
         "nav_act1_containment_corridor_to_act1_stasis_hold",
         "nav_act1_containment_corridor_to_act1_processing_lab",
         "nav_act1_containment_corridor_to_act1_feeding_station",
-        "nav_act1_containment_corridor_to_act1_security_hub"
+        "nav_act1_containment_corridor_to_act1_security_hub",
+        "vent_cover"
       ],
       "background_key": "act1_containment_corridor",
       "background_file": "backgrounds/act1_containment_corridor.webp",
@@ -371,6 +372,26 @@
             {
               "type": "flag_is",
               "flag": "feeding_station_visited",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The security override released the ventilation grate in the floor. It leads deeper into the ship — toward the airlock bay.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "airlock_visited",
               "value": "true"
             }
           ]
@@ -444,15 +465,14 @@
         "feeding_chair",
         "nav_act1_feeding_station_to_act1_morgue",
         "nav_act1_feeding_station_to_act1_containment_corridor",
-        "nav_act1_feeding_station_to_act1_specimen_archive",
-        "nav_act1_feeding_station_to_act1_ventilation_shaft"
+        "nav_act1_feeding_station_to_act1_specimen_archive"
       ],
       "background_key": "act1_feeding_station",
       "background_file": "backgrounds/act1_feeding_station.webp",
       "room_animation": "flicker",
       "hints": [
         {
-          "text": "The feeding station connects to several areas. Explore the passages leading left, right, and back the way you came.",
+          "text": "The feeding station connects to the morgue, the specimen archive, and the corridor. Explore the passages leading left and right.",
           "when": []
         },
         {
@@ -514,7 +534,7 @@
         "shaft_branches",
         "vent_old_remains",
         "vent_maintenance_hatch",
-        "nav_act1_ventilation_shaft_to_act1_feeding_station",
+        "nav_act1_ventilation_shaft_to_act1_containment_corridor",
         "nav_act1_ventilation_shaft_to_act1_airlock_bay"
       ],
       "background_key": "act1_ventilation_shaft",
@@ -17690,32 +17710,82 @@
       ]
     },
     {
-      "id": "nav_act1_feeding_station_to_act1_ventilation_shaft",
-      "name": "Floor Vent",
-      "description": "A passage leading to Ventilation Shaft.",
+      "id": "vent_cover",
+      "name": "Ventilation Grate",
+      "description": "A heavy metal grate bolted to the floor. Warm air pulses up through the slats in rhythmic gusts.",
       "position": {
-        "x": 330,
-        "y": 640
+        "x": 120,
+        "y": 560
       },
       "size": {
-        "width": 330,
+        "width": 120,
         "height": 80
       },
       "visual": {
-        "color": "rgba(70, 130, 180, 0.25)",
+        "color": "rgba(100, 80, 60, 0.3)",
         "label": "Vent"
       },
-      "initial_state": "default",
+      "initial_state": "sealed",
       "initially_visible": true,
       "hiding_spot": false,
       "interactions": [
         {
           "verb": "look",
-          "response": "A ventilation grate in the floor has been pried partially open. Red emergency light spills from below. Something clawed its way through here."
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A heavy ventilation grate is bolted into the floor. Warm, stale air pulses up through the slats. The bolts are sealed with bio-organic locks — the same kind that secure every door on this deck. You'd need to override the containment locks to open it."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The ventilation grate's bio-locks have released. The heavy cover can be lifted now — warm air rushes up from the shaft below. Red emergency light spills through the slats."
+            }
+          ]
         },
         {
           "verb": "move",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The grate won't budge. Bio-organic bolts seal it to the floor — part of the containment lockdown. You'd need to override the security system first."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "set_view",
@@ -17723,17 +17793,39 @@
             },
             {
               "type": "message",
-              "text": "You squeeze through the floor vent and drop into the ventilation shaft. Red emergency lights cast everything in crimson."
+              "text": "You heave the unlocked grate aside and squeeze into the ventilation shaft. Red emergency lights cast everything in crimson below."
             }
           ]
         },
         {
           "verb": "hand",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "You grip the edges of the vent opening and hoist yourself up. The metal is slick with condensation."
+              "text": "You grip the grate and pull. The bio-locks hold firm — not even a rattle. Whatever mechanism seals these doors, it's the same one keeping this grate shut."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The released grate lifts with a groan of metal. Beneath it, the ventilation shaft drops into darkness pierced by red emergency light."
             }
           ]
         },
@@ -17743,16 +17835,16 @@
           "then": [
             {
               "type": "message",
-              "text": "Air moves through the shaft in rhythmic gusts. Inhale, exhale. The ship is breathing through these vents."
+              "text": "Air moves through the grate in rhythmic gusts. Inhale, exhale. The ship is breathing through these vents."
             }
           ]
         }
       ]
     },
     {
-      "id": "nav_act1_ventilation_shaft_to_act1_feeding_station",
-      "name": "Back to Feeding Station",
-      "description": "A passage leading to Feeding Station.",
+      "id": "nav_act1_ventilation_shaft_to_act1_containment_corridor",
+      "name": "Back to Corridor",
+      "description": "The vent shaft opening leads back up to the containment corridor.",
       "position": {
         "x": 300,
         "y": 650
@@ -17771,7 +17863,7 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The shaft opening behind you leads back up toward the feeding station."
+          "response": "The shaft opening behind you leads back up toward the containment corridor."
         },
         {
           "verb": "move",
@@ -17779,11 +17871,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_feeding_station"
+              "view": "act1_containment_corridor"
             },
             {
               "type": "message",
-              "text": "You climb back up through the vent into the feeding station."
+              "text": "You haul yourself back up through the vent shaft and emerge in the containment corridor."
             }
           ]
         },
@@ -17793,7 +17885,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You brace yourself against the shaft walls and pull yourself back toward the feeding station."
+              "text": "You brace yourself against the shaft walls and pull yourself back toward the corridor."
             }
           ]
         },
@@ -17803,7 +17895,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The faint hum of the nutrient dispensers echoes from that direction."
+              "text": "Your voice echoes up the shaft, bouncing off the metal walls back toward the corridor above."
             }
           ]
         }
