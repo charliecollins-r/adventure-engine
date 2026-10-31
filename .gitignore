@@ -5,9 +5,12 @@ server/target/
 *.war
 
 # Node / Vite
+node_modules/
 client/node_modules/
 client/dist/
 client/.vite/
+/package.json
+/package-lock.json
 
 # IDE
 .idea/
