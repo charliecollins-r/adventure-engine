@@ -17447,12 +17447,12 @@
       "name": "Back to Feeding Station",
       "description": "A passage leading back to the Feeding Station.",
       "position": {
-        "x": 740,
-        "y": 80
+        "x": 280,
+        "y": 640
       },
       "size": {
-        "width": 120,
-        "height": 430
+        "width": 440,
+        "height": 80
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
