@@ -123,6 +123,8 @@
         "occupied_pods",
         "specimen_pod_wall",
         "specimen_tag_hook",
+        "neural_network_wall",
+        "walkway_railing",
         "nav_act1_stasis_hold_to_act1_containment_corridor"
       ],
       "background_key": "act1_stasis_hold",
@@ -204,7 +206,9 @@
       "objects": [
         "pod_labels",
         "pod_cluster_controls",
-        "preserved_insect"
+        "preserved_insect",
+        "specimen_pod_wasp",
+        "central_nexus"
       ],
       "background_key": "act1_pod_cluster",
       "background_file": "backgrounds/act1_pod_cluster.webp",
@@ -247,6 +251,8 @@
         "instrument_rack",
         "sample_jars",
         "lab_startup_display",
+        "anatomy_display",
+        "restraint_straps",
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
       "background_key": "act1_processing_lab",
@@ -418,6 +424,7 @@
         "neural_tendril_sample",
         "morgue_chemical_cabinet",
         "morgue_drain_channel",
+        "dead_goblin",
         "nav_act1_morgue_to_act1_feeding_station"
       ],
       "background_key": "act1_morgue",
@@ -461,6 +468,9 @@
         "nutrient_dispenser",
         "feeding_troughs",
         "energy_barrier_enclosures",
+        "caged_prisoner",
+        "enclosure_monitors",
+        "feeding_chair",
         "nav_act1_feeding_station_to_act1_morgue",
         "nav_act1_feeding_station_to_act1_containment_corridor",
         "nav_act1_feeding_station_to_act1_specimen_archive",
@@ -576,6 +586,7 @@
         "security_console",
         "cracked_screen",
         "key_card_drawer",
+        "overturned_chair",
         "nav_act1_security_hub_to_act1_containment_corridor"
       ],
       "background_key": "act1_security_hub",
@@ -653,6 +664,8 @@
         "personal_log_crystal",
         "reading_device",
         "holographic_display",
+        "right_crystal_wall",
+        "archive_benches",
         "nav_act1_specimen_archive_to_act1_feeding_station"
       ],
       "background_key": "act1_specimen_archive",
@@ -2628,7 +2641,12 @@
     "watcher_active": "false",
     "weapon_vault_discovered": "false",
     "corridor_visited": "false",
-    "cat_petted": "false"
+    "cat_petted": "false",
+    "dead_goblin_seen": "false",
+    "prisoner_spoken": "false",
+    "prisoner_bond": "none",
+    "airlock_hinted": "false",
+    "choir_nature_known": "false"
   },
   "items": [
     {
@@ -6392,17 +6410,26 @@
       "name": "Holographic Planet Display",
       "description": "Holographic projections of cataloged worlds drifting slowly above the archive, most marked in red.",
       "position": {
-        "x": 400,
-        "y": 150
+        "x": 280,
+        "y": 60
       },
       "size": {
-        "width": 160,
-        "height": 100
+        "width": 380,
+        "height": 300
       },
       "visual": {
         "color": "#2a1a3a",
         "label": "Holograms",
         "animation": "pulse"
+      },
+      "sprite": {
+        "file": "sprites/holographic_planets.png",
+        "frame_width": 128,
+        "frame_height": 96,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 3
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -14736,50 +14763,6 @@
       ]
     },
     {
-      "id": "walkway_railing",
-      "name": "Walkway Railing",
-      "description": "A simple railing along the walkway edge.",
-      "position": {
-        "x": 512,
-        "y": 550
-      },
-      "size": {
-        "width": 200,
-        "height": 216
-      },
-      "visual": {
-        "color": "#3a3a4a",
-        "label": "Railing"
-      },
-      "initial_state": "intact",
-      "initially_visible": true,
-      "hiding_spot": false,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A simple metal railing. Below: rivers of energy that would vaporize you. The railing is the only thing between you and oblivion. It's not very tall."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "response": "You strain against the Railing. It doesn't move."
-        },
-        {
-          "verb": "hand",
-          "response": "You touch the Railing. Nothing happens."
-        },
-        {
-          "verb": "talk",
-          "response": "Talking to the Railing yields no response."
-        }
-      ]
-    },
-    {
       "id": "harvesting_apparatus",
       "name": "Harvesting Apparatus",
       "description": "The massive machine that drains the planet.",
@@ -20300,6 +20283,437 @@
               "text": "The shaft behind you exhales stale, warm air. At least it's warmer than this bay."
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "neural_network_wall",
+      "name": "Neural Network Veins",
+      "description": "A web of glowing green veins spreads across the right wall, pulsing with faint bioluminescence.",
+      "position": { "x": 680, "y": 120 },
+      "size": { "width": 200, "height": 400 },
+      "visual": { "color": "#1a4a2a", "label": "Neural Veins", "animation": "pulse" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "A network of translucent green veins runs through the wall like a living nervous system. They pulse rhythmically — the ship's heartbeat. Where the veins branch, tiny nodes glow brighter, as if processing information. The ship isn't just a machine. It's alive." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "You press your palm against a thick vein. It's warm, and you feel a rapid pulse beneath the surface. The surrounding veins pulse faster at your touch, as if the ship just noticed you. You pull your hand away quickly." },
+            { "type": "add_noise", "amount": 3 }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "You whisper to the wall. For a moment, the pulsing seems to sync with your breathing. Then it resumes its own rhythm. You're not sure if that was coincidence." }]
+        }
+      ]
+    },
+    {
+      "id": "walkway_railing",
+      "name": "Metal Walkway",
+      "description": "A walkway runs between the pod racks. The metal is warm and slightly flexible.",
+      "position": { "x": 380, "y": 380 },
+      "size": { "width": 200, "height": 80 },
+      "visual": { "color": "#3a3a3a", "label": "Walkway" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "A walkway runs between the pod racks. The metal has an organic quality — slightly warm, with a texture like tree bark. Grown, not forged. Drainage channels run along both sides, collecting the amber fluid that seeps from damaged pods." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "The railing flexes slightly under your grip, like gripping a thick branch. It's sturdy enough, but the organic warmth is unsettling." }]
+        }
+      ]
+    },
+    {
+      "id": "anatomy_display",
+      "name": "Anatomy Display",
+      "description": "A large holographic screen showing detailed anatomical cross-sections.",
+      "position": { "x": 680, "y": 140 },
+      "size": { "width": 160, "height": 140 },
+      "visual": { "color": "#1a3a2a", "label": "Anatomy Screen", "animation": "pulse" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "Detailed anatomical cross-sections of... you. A goblin's entire nervous system mapped in glowing green lines. Organs catalogued, bone structure measured, pain receptors highlighted in red. They've been studying your kind. Thoroughly." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You swipe through the holographic display. More species — dozens of them, each mapped in clinical detail. Your entry has a small symbol in the corner that matches the labels on the pods. A specimen number." }]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "\"I'm not just a number,\" you mutter at the display. The hologram flickers, cycling to a page of behavioral observations. Apparently, talking to inanimate objects is noted as 'common stress response in specimen 7G.'" }]
+        }
+      ]
+    },
+    {
+      "id": "restraint_straps",
+      "name": "Restraint Straps",
+      "description": "Leather-like straps on the examination table, worn smooth by struggling.",
+      "position": { "x": 460, "y": 480 },
+      "size": { "width": 100, "height": 60 },
+      "visual": { "color": "#4a3a2a", "label": "Restraints" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "Thick straps bolted to the examination table, worn smooth by years of struggling. The buckles are sized for something much larger than you — but smaller buckle holes have been punched in recently. Your size." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You test the straps. They're impossibly strong — some kind of bioengineered material. Whatever was held here fought hard and long, and still couldn't break free." }]
+        }
+      ]
+    },
+    {
+      "id": "dead_goblin",
+      "name": "Open Drawer",
+      "description": "A drawer pulled open at floor level. Something is inside.",
+      "position": { "x": 60, "y": 480 },
+      "size": { "width": 140, "height": 120 },
+      "visual": { "color": "#2a2a3a", "label": "Open Drawer", "animation": "glimmer" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "dead_goblin_seen", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "Your blood runs cold. Lying in the drawer is a goblin. Like you. Dead — for some time, by the look of it. The eyes are open, staring at nothing. Surgical marks run across its chest, precise and methodical. You weren't the first specimen to wake up." },
+            { "type": "set_flag", "flag": "dead_goblin_seen", "value": "true" }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "dead_goblin_seen", "value": "true" }],
+          "then": [{ "type": "message", "text": "The dead goblin lies still in its drawer. The surgical precision of the marks on its chest tells you everything about what the Choir do to their specimens. Whatever happened to this one... you won't let it happen to you." }]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_not", "flag": "dead_goblin_seen", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "You reach into the drawer and find — a body. A goblin, like you. Dead. You gently close its eyes. The skin is cold but not rigid. It hasn't been dead that long. You weren't the first to wake up here. And the first one didn't make it." },
+            { "type": "set_flag", "flag": "dead_goblin_seen", "value": "true" }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [{ "type": "flag_is", "flag": "dead_goblin_seen", "value": "true" }],
+          "then": [{ "type": "message", "text": "You've already closed its eyes. There's nothing more you can do for it. But you can make sure their sacrifice wasn't meaningless — you'll find a way out." }]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "\"I'll get out,\" you whisper to the still form. \"For both of us.\" The silence in the morgue feels heavier than before." }]
+        }
+      ]
+    },
+    {
+      "id": "overturned_chair",
+      "name": "Overturned Chair",
+      "description": "An overturned chair with a snapped leg, lying on its side.",
+      "position": { "x": 100, "y": 420 },
+      "size": { "width": 120, "height": 100 },
+      "visual": { "color": "#3a3a2a", "label": "Chair" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "The chair is overturned, one leg snapped clean off. Deep scratch marks gouge the floor beneath it — something was dragged away from this spot. The security operator didn't leave willingly." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You right the chair. Underneath, scratch marks are gouged deep into the floor — five parallel lines, like claws. Or fingers, desperately gripping as their owner was dragged away." }]
+        }
+      ]
+    },
+    {
+      "id": "right_crystal_wall",
+      "name": "Dark Crystal Rack",
+      "description": "The right wall holds crystals that are darker, almost black.",
+      "position": { "x": 750, "y": 200 },
+      "size": { "width": 120, "height": 300 },
+      "visual": { "color": "#2a1a3a", "label": "Dark Crystals" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "These crystals are darker than the ones on the left — almost black, with deep violet cores. The labels are different too. Not species data or collection records. Personal logs? Mission reports? Whatever these contain, it's not meant for the specimens." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You try to pull one free, but these are locked in place — unlike the left rack. Whatever's stored here, the Choir considered it important enough to secure." }]
+        }
+      ]
+    },
+    {
+      "id": "archive_benches",
+      "name": "Stone Benches",
+      "description": "Two worn benches flanking the central pedestal.",
+      "position": { "x": 300, "y": 520 },
+      "size": { "width": 360, "height": 60 },
+      "visual": { "color": "#3a3a4a", "label": "Benches" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "Two seats, worn smooth by long use. The indentations suggest the Choir sat here regularly, reviewing their collection. Studying the worlds they'd stripped bare. There's something almost meditative about the arrangement — a chapel to their own conquest." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You sit down. The bench adjusts slightly to your weight — it's organic, like everything else on this ship. From here, the holographic display is perfectly framed. A front-row seat to the end of worlds." }]
+        }
+      ]
+    },
+    {
+      "id": "specimen_pod_wasp",
+      "name": "Wasp Specimen Pod",
+      "description": "A large pod containing a wasp-like creature with translucent wings.",
+      "position": { "x": 100, "y": 180 },
+      "size": { "width": 120, "height": 150 },
+      "visual": { "color": "#4a3a1a", "label": "Wasp Pod" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "A massive insectoid creature, easily twice your size, suspended in amber fluid. Its translucent wings are folded tight against a segmented body covered in fine, dark hairs. The mandibles are closed but you can see serrated edges designed for cutting through — what? Bone? Metal? You don't want to know." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You press your hand against the pod glass. Inside, one of the creature's compound eyes swivels toward you. It can see you. It's been watching. The amber fluid isn't sedation — it's paralysis. This thing is fully conscious." }]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "You try clicking and buzzing sounds at it. The creature's antennae twitch. Its mandibles part slightly. Something vibrates through the glass — too low to hear, but you feel it in your teeth. Communication? Or a threat?" }]
+        }
+      ]
+    },
+    {
+      "id": "central_nexus",
+      "name": "Central Nexus Hub",
+      "description": "The organic hub where all pod tubes converge.",
+      "position": { "x": 380, "y": 300 },
+      "size": { "width": 180, "height": 150 },
+      "visual": { "color": "#2a3a2a", "label": "Nexus Hub" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "All the tubes from every pod converge into this central node — a fleshy, pulsing mass of organic circuitry. It's monitoring them. You can feel awareness emanating from it, like standing too close to someone staring at you. The Nexus. This is the ship's brain, or at least a piece of it." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            { "type": "message", "text": "The moment your fingers touch the nexus, a jolt shoots up your arm. Images flash — star charts, specimen catalogs, a blue planet third from a yellow sun. Earth. The Choir have been watching your world. The nexus releases you and you stumble back, gasping." },
+            { "type": "add_noise", "amount": 5 }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "You address the nexus directly. The pulsing slows, as if it's listening. Then resumes at its normal pace. It heard you. It doesn't care." }]
+        }
+      ]
+    },
+    {
+      "id": "enclosure_monitors",
+      "name": "Enclosure Monitors",
+      "description": "Small screens above each energy barrier enclosure showing specimen data.",
+      "position": { "x": 110, "y": 180 },
+      "size": { "width": 160, "height": 60 },
+      "visual": { "color": "#1a2a3a", "label": "Monitors" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "Vital signs, feeding schedules, behavioral notes — all in alien script. But the numbers are universal. These creatures have been here for years. Decades, some of them. The one in the middle enclosure has a note that translates roughly to 'communicative — further study warranted.'" }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You tap one of the screens. It cycles through data — weight, metabolism, aggression index. The middle enclosure's occupant is flagged as 'sapient, cooperative.' That creature can think. It might be able to help." }]
+        }
+      ]
+    },
+    {
+      "id": "feeding_chair",
+      "name": "Feeding Chair",
+      "description": "A reclining seat next to the nutrient dispensing trough.",
+      "position": { "x": 680, "y": 380 },
+      "size": { "width": 140, "height": 140 },
+      "visual": { "color": "#3a2a2a", "label": "Chair" },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [{ "type": "message", "text": "A reclining seat next to the dispensing trough. Restraint grooves on the armrests suggest the 'feeding' wasn't voluntary. A tube hangs from above, aimed at where a seated creature's mouth would be. The Choir didn't just cage their specimens — they force-fed them." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You sit down experimentally. The chair hums and adjusts to your body. A tendril extends from the tube, reaching toward your mouth — you leap out before it connects. The chair powers down with a disappointed whir." }]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [{ "type": "message", "text": "\"Not hungry,\" you tell the chair firmly. The feeding tube retracts slightly. You're not sure if it understood or just lost interest." }]
+        }
+      ]
+    },
+    {
+      "id": "caged_prisoner",
+      "name": "Caged Creature",
+      "description": "A creature pacing behind the middle energy barrier. It watches you with intelligent, sorrowful eyes.",
+      "position": { "x": 230, "y": 270 },
+      "size": { "width": 100, "height": 180 },
+      "visual": { "color": "#3a2a4a", "label": "Prisoner" },
+      "initial_state": "pacing",
+      "initially_visible": true,
+      "sprite": {
+        "file": "sprites/caged_prisoner.png",
+        "frame_width": 64,
+        "frame_height": 96,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 3,
+        "scale": 2
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_not", "flag": "prisoner_spoken", "value": "true" }],
+          "then": [{ "type": "message", "text": "Behind the middle energy barrier, a creature paces in a tight circle. It's roughly your height but lean and angular, with mottled grey-blue skin and four arms folded against its torso. Its eyes — large, dark, and unmistakably intelligent — track your every move. The monitor above its cell reads 'sapient, cooperative.' This one can think. It might be able to communicate." }]
+        },
+        {
+          "verb": "look",
+          "when": [{ "type": "flag_is", "flag": "prisoner_spoken", "value": "true" }],
+          "then": [{ "type": "message", "text": "The Keth-Vari watches you through the barrier. Its four arms gesture slowly — a greeting, perhaps, or a plea. After your conversation, there's a connection between you. Two prisoners on the same ship, both far from home." }]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [{ "type": "message", "text": "You reach toward the barrier. Static crackles and the hair on your arm stands up. The creature shakes its head urgently — no. It's seen what the barrier does to things that touch it." }]
+        },
+        {
+          "verb": "talk",
+          "when": [{ "type": "flag_not", "flag": "prisoner_spoken", "value": "true" }],
+          "then": [
+            { "type": "message", "text": "The creature stops pacing and approaches the barrier. It makes a series of clicking sounds, then tilts its head, waiting. When you don't respond, it tries different sounds — whistles, hums, a deep thrumming. Then it touches two of its hands together and points at you, then at itself. A universal gesture: you and me. Same." },
+            {
+              "type": "show_dialogue",
+              "prompt": "The creature waits, watching you with those dark, intelligent eyes. It pointed at you, then itself. Same. What do you say?",
+              "choices": [
+                {
+                  "label": "\"We're both prisoners here, aren't we?\"",
+                  "then": [
+                    { "type": "message", "text": "The creature's four arms spread wide — a gesture that somehow clearly means 'yes, exactly.' It presses two hands against the barrier space and makes a low, mournful sound. Then it points to the corridor exit and makes a running motion with its lower arms. Escape. It's telling you to go. To do what it can't." },
+                    { "type": "set_flag", "flag": "prisoner_spoken", "value": "true" },
+                    { "type": "set_flag", "flag": "prisoner_bond", "value": "empathy" }
+                  ]
+                },
+                {
+                  "label": "\"Do you know a way out of here?\"",
+                  "then": [
+                    { "type": "message", "text": "The creature cocks its head, processing your tone. It points upward with one arm, then makes a sweeping gesture — the ship. With its other arms, it traces a path: left, forward, down. Then it mimics an opening motion, like doors parting. The airlock. It knows the layout — it's been here long enough to memorize every sound, every vibration through the walls. It taps the barrier and makes a frustrated sound. Trapped. But you're not." },
+                    { "type": "set_flag", "flag": "prisoner_spoken", "value": "true" },
+                    { "type": "set_flag", "flag": "prisoner_bond", "value": "pragmatic" },
+                    { "type": "set_flag", "flag": "airlock_hinted", "value": "true" }
+                  ]
+                },
+                {
+                  "label": "\"What are they? The ones who put us here?\"",
+                  "then": [
+                    { "type": "message", "text": "The creature shudders, all four arms wrapping around itself. It makes a sound like grinding stone — disgust? Fear? It holds up three fingers and mimes something large, something that moves through walls. Then it points to the organic veins running through the ceiling and makes an encompassing gesture. The ship. The captors. They're the same thing. The Choir aren't just ON this ship — they ARE the ship." },
+                    { "type": "set_flag", "flag": "prisoner_spoken", "value": "true" },
+                    { "type": "set_flag", "flag": "prisoner_bond", "value": "knowledge" },
+                    { "type": "set_flag", "flag": "choir_nature_known", "value": "true" }
+                  ]
+                },
+                {
+                  "label": "[Say nothing — just nod]",
+                  "then": [
+                    { "type": "message", "text": "You simply nod. The creature nods back — an eerily human gesture it must have learned from watching specimens. For a long moment, you just look at each other through the shimmering barrier. Two strangers from opposite ends of the galaxy, sharing the same cage. It touches its chest, then points at you. Remember me. Then it returns to pacing." },
+                    { "type": "set_flag", "flag": "prisoner_spoken", "value": "true" },
+                    { "type": "set_flag", "flag": "prisoner_bond", "value": "silent" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "prisoner_spoken", "value": "true" },
+            { "type": "flag_is", "flag": "prisoner_bond", "value": "empathy" }
+          ],
+          "then": [{ "type": "message", "text": "The creature presses its hands against the barrier space, mirroring your position. It makes a soft thrumming sound — comforting, like a lullaby from a world you'll never see. It can't help you escape, but it wants you to know you're not alone. Not anymore." }]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "prisoner_spoken", "value": "true" },
+            { "type": "flag_is", "flag": "prisoner_bond", "value": "pragmatic" }
+          ],
+          "then": [{ "type": "message", "text": "The creature traces the path again — left, forward, down. The airlock. It adds a new gesture: a fist opening slowly. The key. You need a key. It points toward the corridor and makes a stern, official-looking pose. Security. The key is somewhere in the security area." }]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "prisoner_spoken", "value": "true" },
+            { "type": "flag_is", "flag": "prisoner_bond", "value": "knowledge" }
+          ],
+          "then": [{ "type": "message", "text": "The creature makes the grinding-stone sound again and gestures at the walls, the ceiling, the floor. All connected. All alive. It holds up its hands and makes a harvesting motion — scooping, collecting. The Choir harvest entire species. Your world, its world, dozens of others. All specimens in a collection that spans galaxies." }]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            { "type": "flag_is", "flag": "prisoner_spoken", "value": "true" },
+            { "type": "flag_is", "flag": "prisoner_bond", "value": "silent" }
+          ],
+          "then": [{ "type": "message", "text": "The creature stops pacing when it sees you. It touches its chest again. Remember me. Then it returns to its circuit. There's nothing more to say. But you won't forget." }]
         }
       ]
     }

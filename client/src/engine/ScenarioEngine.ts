@@ -9,6 +9,7 @@ import type {
   InteractionResult,
   GameOverResult,
   CharacterPlacement,
+  DialogueChoice,
 } from './types';
 
 export class ScenarioEngine {
@@ -28,6 +29,8 @@ export class ScenarioEngine {
   private _closeupImage: string | null;
   private _characterOverride: Partial<CharacterPlacement> | null;
   private _pendingSounds: string[];
+  private _dialoguePrompt: string | null;
+  private _dialogueChoices: DialogueChoice[];
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -49,6 +52,8 @@ export class ScenarioEngine {
     this._closeupImage = null;
     this._characterOverride = null;
     this._pendingSounds = [];
+    this._dialoguePrompt = null;
+    this._dialogueChoices = [];
 
     this.objectIndex = new Map();
     for (const obj of scenario.objects) {
@@ -381,6 +386,31 @@ export class ScenarioEngine {
     this._closeupImage = null;
   }
 
+  getDialogue(): { prompt: string; choices: DialogueChoice[] } | null {
+    if (!this._dialoguePrompt) return null;
+    const available = this._dialogueChoices.filter(
+      c => !c.when || this.evaluateConditions(c.when)
+    );
+    return { prompt: this._dialoguePrompt, choices: available };
+  }
+
+  selectDialogueChoice(index: number): string[] {
+    const dialogue = this.getDialogue();
+    if (!dialogue || index < 0 || index >= dialogue.choices.length) return [];
+    const choice = dialogue.choices[index];
+    this._dialoguePrompt = null;
+    this._dialogueChoices = [];
+    this._messages = [];
+    const messages = this.applyEffects(choice.then);
+    this.checkGameEndConditions();
+    return messages;
+  }
+
+  dismissDialogue(): void {
+    this._dialoguePrompt = null;
+    this._dialogueChoices = [];
+  }
+
   getPendingSounds(): string[] {
     return this._pendingSounds;
   }
@@ -626,6 +656,13 @@ export class ScenarioEngine {
 
         case 'play_sound':
           if (e.sound) this._pendingSounds.push(e.sound);
+          break;
+
+        case 'show_dialogue':
+          if (e.prompt && e.choices) {
+            this._dialoguePrompt = e.prompt;
+            this._dialogueChoices = e.choices;
+          }
           break;
 
         case 'visual_cue':

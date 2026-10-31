@@ -666,6 +666,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `trigger_event` | `event` | Manually fire a named event. |
 | `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"` |
 | `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks to dismiss. |
+| `show_dialogue` | `prompt`, `choices` | Show a dialogue choice overlay. `prompt` is the situation text. `choices` is an array of `{label, when?, then}` objects — each choice has display text, optional conditions (hidden if not met), and effects to apply when selected. See Dialogue Choices section. |
 | `set_view` | `view` | Switch to a different view (closeup or back to main). |
 | `play_sound` | `sound` | Play a named sound effect (from a standard library). |
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |
@@ -702,6 +703,39 @@ Effects change the game world. They execute in order within an interaction's `th
   "Just dust and cobwebs."
 ]}
 ```
+
+**`show_dialogue`** presents branching conversation choices:
+```json
+{
+  "type": "show_dialogue",
+  "prompt": "The creature watches you expectantly. What do you say?",
+  "choices": [
+    {
+      "label": "\"We're both prisoners here.\"",
+      "then": [
+        { "type": "message", "text": "The creature nods slowly..." },
+        { "type": "set_flag", "flag": "prisoner_bond", "value": "empathy" }
+      ]
+    },
+    {
+      "label": "\"Do you know a way out?\"",
+      "when": [{ "type": "flag_not", "flag": "already_asked_escape", "value": "true" }],
+      "then": [
+        { "type": "message", "text": "It points toward the airlock..." },
+        { "type": "set_flag", "flag": "already_asked_escape", "value": "true" }
+      ]
+    },
+    {
+      "label": "[Say nothing]",
+      "then": [
+        { "type": "message", "text": "Silence says enough." }
+      ]
+    }
+  ]
+}
+```
+
+Each choice has a `label` (the text shown to the player), optional `when` conditions (choice is hidden if conditions aren't met), and `then` effects that fire when selected. Different choices can set different flags, enabling branching storylines where your dialogue choices affect the game world. Choices appear in a modal overlay that pauses gameplay until the player selects one.
 
 ---
 

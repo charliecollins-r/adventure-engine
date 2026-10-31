@@ -6,6 +6,7 @@ import { IntroSequence } from './IntroSequence';
 import { InventoryPanel } from './InventoryPanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
+import { DialogueOverlay } from './DialogueOverlay';
 import { EyeOpenTransition } from './EyeOpenTransition';
 
 interface ScenarioPlayerProps {
@@ -390,11 +391,21 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [engine, bump]);
 
+  const handleDialogueSelect = useCallback(
+    (index: number) => {
+      engine.selectDialogueChoice(index);
+      playPendingSounds();
+      bump();
+    },
+    [engine, bump, playPendingSounds],
+  );
+
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
   const gameOverResult = engine.getGameOverResult();
   const closeupImage = engine.getCloseupImage();
+  const dialogue = engine.getDialogue();
   const ambientText = scenario.setting.ambient_text;
 
   const handleCloseupDismiss = useCallback(() => {
@@ -557,6 +568,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         <CloseupOverlay
           imageSrc={`/scenarios/${scenario.metadata.id}/${closeupImage}`}
           onClose={handleCloseupDismiss}
+        />
+      )}
+
+      {/* Dialogue choice overlay */}
+      {dialogue && (
+        <DialogueOverlay
+          prompt={dialogue.prompt}
+          choices={dialogue.choices}
+          onSelect={handleDialogueSelect}
         />
       )}
 

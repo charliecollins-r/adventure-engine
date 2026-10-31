@@ -65,6 +65,12 @@ export interface Condition {
   conditions?: Condition[];
 }
 
+export interface DialogueChoice {
+  label: string;
+  when?: Condition[];
+  then: Effect[];
+}
+
 export interface Effect {
   type: string;
   text?: string;
@@ -94,6 +100,9 @@ export interface Effect {
   y?: number;
   frame?: number;
   flip_h?: boolean;
+  prompt?: string;
+  choices?: DialogueChoice[];
+  sound?: string;
 }
 
 export interface Interaction {
