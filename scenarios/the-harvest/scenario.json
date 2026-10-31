@@ -234,14 +234,7 @@
             }
           ]
         }
-      ],
-      "character": {
-        "x": 480,
-        "y": 510,
-        "facing": "down",
-        "sprite_set": "idle",
-        "object_id": "goblin_self"
-      }
+      ]
     },
     {
       "id": "act1_processing_lab",

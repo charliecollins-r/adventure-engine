@@ -386,6 +386,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [scenario, bump]);
 
+  const handleNavigateBack = useCallback(() => {
+    engine.navigateBack();
+    playSound('audio/door_open_close.wav');
+    bump();
+  }, [engine, bump, playSound]);
+
   const handleHint = useCallback(() => {
     const hint = engine.getHint();
     if (hint) {
@@ -493,6 +499,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onObjectClick={handleObjectClick}
           onEmptyClick={handleEmptyClick}
           onCycleVerb={handleCycleVerb}
+          onNavigateBack={handleNavigateBack}
         />
 
         {/* Bottom HUD overlay */}

@@ -13,6 +13,7 @@ interface GameViewProps {
   onObjectClick: (objectId: string) => void;
   onEmptyClick?: () => void;
   onCycleVerb?: () => void;
+  onNavigateBack?: () => void;
 }
 
 const VIEW_WIDTH = 960;
@@ -143,6 +144,7 @@ export function GameView({
   onObjectClick,
   onEmptyClick,
   onCycleVerb,
+  onNavigateBack,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
@@ -248,6 +250,41 @@ export function GameView({
       >
         {cursorLabel}
       </div>
+
+      {/* Back navigation bar */}
+      {engine.canGoBack() && (
+        <div
+          data-object-hotspot
+          onClick={(e) => { e.stopPropagation(); onNavigateBack?.(); }}
+          style={{
+            position: 'absolute',
+            top: '8px',
+            left: '8px',
+            zIndex: 12,
+            padding: '4px 14px',
+            fontSize: '12px',
+            fontFamily: '"Georgia", serif',
+            color: '#c0a030',
+            backgroundColor: 'rgba(13, 13, 10, 0.7)',
+            border: '1px solid rgba(192, 160, 48, 0.3)',
+            borderRadius: '3px',
+            cursor: 'pointer',
+            pointerEvents: 'auto',
+            letterSpacing: '1px',
+            transition: 'background-color 0.2s ease, border-color 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(42, 32, 24, 0.9)';
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(192, 160, 48, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(13, 13, 10, 0.7)';
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(192, 160, 48, 0.3)';
+          }}
+        >
+          &#x25C0; {engine.getBackLabel() ?? 'Back'}
+        </div>
+      )}
 
       {/* Object hotspots */}
       {objects.map((obj) => {
