@@ -88,23 +88,17 @@
       "room_animation": "breathe",
       "hints": [
         {
-          "text": "You need to get out of this pod. Try interacting with it directly.",
+          "text": "Your stasis pod is shattered. Search the wreckage \u2014 the broken glass and pooling fluid might be useful.",
           "when": [
             {
-              "type": "flag_not",
-              "flag": "pod_escaped",
-              "value": "true"
+              "type": "not_has_item",
+              "item": "pod_glass_shard"
             }
           ]
         },
         {
           "text": "Your broken pod is a source of useful materials. Search it thoroughly before moving on.",
           "when": [
-            {
-              "type": "flag_is",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
             {
               "type": "not_has_item",
               "item": "pod_glass_shard"
@@ -114,11 +108,6 @@
         {
           "text": "The amber fluid pooling beneath the drainage channel could be useful. Collect some before it drains away.",
           "when": [
-            {
-              "type": "flag_is",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
             {
               "type": "has_item",
               "item": "pod_glass_shard"
@@ -133,11 +122,6 @@
           "text": "There's a specimen tag on a hook nearby \u2014 it has your identification on it. Take it.",
           "when": [
             {
-              "type": "flag_is",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
-            {
               "type": "has_item",
               "item": "stasis_fluid_vial"
             },
@@ -150,11 +134,6 @@
         {
           "text": "You've gathered what you can here. The occupied pods on the far wall are worth a closer look, and the archway leads deeper into the ship.",
           "when": [
-            {
-              "type": "flag_is",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
             {
               "type": "has_item",
               "item": "pod_glass_shard"
@@ -2322,7 +2301,7 @@
     }
   ],
   "flags": {
-    "pod_escaped": "false",
+    "pod_escaped": "true",
     "pod_glass_taken": "false",
     "stasis_fluid_collected": "false",
     "specimen_tag_taken": "false",
@@ -4104,25 +4083,9 @@
         "label": "Pod",
         "animation": "glimmer"
       },
-      "initial_state": "sealed",
+      "initial_state": "open",
       "initially_visible": true,
       "interactions": [
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "broken_pod",
-              "state": "sealed"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "Your stasis pod. The glass is fractured in a web of cracks, amber fluid seeping from the widest one. You're still half-inside it. The malfunction that freed you left shrapnel and fluid everywhere. Something glints in the drainage channel \u2014 a shard of pod glass, sharp as a knife."
-            }
-          ]
-        },
         {
           "verb": "look",
           "when": [
@@ -4136,36 +4099,6 @@
             {
               "type": "message",
               "text": "The pod hangs open, drained of fluid. Your outline is still visible in the residue on the back wall \u2014 a small creature's impression in amber. A specimen tag dangles from the pod's frame."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "broken_pod",
-              "state": "sealed"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You brace your feet against the pod's inner wall and push. The cracked glass groans, splinters, and finally gives way with a wet crunch. Amber fluid gushes out around you as you tumble free onto the cold floor. You're out. You're loose."
-            },
-            {
-              "type": "set_state",
-              "object": "broken_pod",
-              "state": "open"
-            },
-            {
-              "type": "set_flag",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
-            {
-              "type": "add_noise",
-              "amount": 15
             }
           ]
         },
@@ -4390,7 +4323,7 @@
         "label": "Tag"
       },
       "initial_state": "attached",
-      "initially_visible": false,
+      "initially_visible": true,
       "interactions": [
         {
           "verb": "look",
