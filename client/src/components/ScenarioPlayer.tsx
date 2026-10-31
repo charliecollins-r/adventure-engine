@@ -192,6 +192,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const engine = engineRef.current;
   (window as unknown as Record<string, unknown>).__engine = engine;
+  (window as unknown as Record<string, unknown>).__bump = bump;
 
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
