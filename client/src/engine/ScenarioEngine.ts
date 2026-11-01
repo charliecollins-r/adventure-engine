@@ -511,6 +511,7 @@ export class ScenarioEngine {
           if (e.text) {
             messages.push(e.text);
             this._messages.push(e.text);
+            if (e.voice) this._pendingSounds.push(e.voice);
           }
           break;
 

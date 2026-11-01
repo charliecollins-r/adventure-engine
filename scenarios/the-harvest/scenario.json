@@ -4644,7 +4644,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Rows of hexagonal pods stretch up into the shadows, each glowing faintly with amber fluid. Specimens from dozens of worlds \u2014 creatures frozen in stasis, catalogued and stored. Most are still, but a few pods pulse with faint signs of life. The pods are too high to reach from here."
+              "text": "Rows of hexagonal pods stretch up into the shadows, each glowing faintly with amber fluid. Specimens from dozens of worlds \u2014 creatures frozen in stasis, catalogued and stored. Most are still, but a few pods pulse with faint signs of life. The pods are too high to reach from here.",
+              "voice": "audio/voice/pods_look.mp3"
             }
           ],
           "noise": 0
@@ -6239,7 +6240,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A biomechanical spider-drone clings to the wall among the pods, methodically scanning and cataloguing specimens. Its amber jars hold preserved creatures. The data plates on each jar catch your eye \u2014 numerical readouts alongside alien script. The numbers might be readable..."
+              "text": "A biomechanical spider-drone clings to the wall among the pods, methodically scanning and cataloguing specimens. Its amber jars hold preserved creatures. The data plates on each jar catch your eye \u2014 numerical readouts alongside alien script. The numbers might be readable...",
+              "voice": "audio/voice/robot_look_first.mp3"
             },
             {
               "type": "set_view",

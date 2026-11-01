@@ -256,14 +256,29 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const scenarioId = scenario.metadata.id;
 
+  const voiceRef = useRef<HTMLAudioElement | null>(null);
+
+  const stopVoice = useCallback(() => {
+    if (voiceRef.current) {
+      voiceRef.current.pause();
+      voiceRef.current = null;
+    }
+  }, []);
+
   const playSound = useCallback(
     (file: string) => {
       if (muted) return;
+      const isVoice = file.includes('voice/');
       const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
-      audio.volume = 0.5;
+      audio.volume = isVoice ? 0.9 : 0.5;
+      if (isVoice) {
+        stopVoice();
+        voiceRef.current = audio;
+        audio.onended = () => { voiceRef.current = null; };
+      }
       audio.play().catch(() => {});
     },
-    [scenarioId, muted],
+    [scenarioId, muted, stopVoice],
   );
 
   const playPendingSounds = useCallback(() => {
@@ -392,9 +407,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   );
 
   const handleDismiss = useCallback(() => {
+    stopVoice();
     engine.dismissMessages();
     bump();
-  }, [engine, bump]);
+  }, [engine, bump, stopVoice]);
 
   const handleRestart = useCallback(() => {
     engineRef.current = new ScenarioEngine(scenario);

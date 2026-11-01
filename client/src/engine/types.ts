@@ -105,6 +105,7 @@ export interface Effect {
   prompt?: string;
   choices?: DialogueChoice[];
   sound?: string;
+  voice?: string;
 }
 
 export interface Interaction {
