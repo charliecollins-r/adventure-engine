@@ -313,6 +313,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **JSON-driven sound effects**: `setting.sounds` object in scenario JSON with optional `room_transition`, `item_pickup`, and `intro_voice` paths. Engine plays these on the corresponding events. Scenarios without sounds simply don't play any — no errors.
 - **JSON-driven ambient lighting**: Per-view `ambient_lighting` object with `lights` array and optional `flicker` flag. Each light has `x`, `y` (0-1 normalized), `radius`, `color` [r,g,b], `pulse_speed`, `pulse_amount`, `alpha`, and optional `phase`. Views without `ambient_lighting` show no canvas overlay. Moved from hardcoded AmbientCanvas.tsx presets into The Harvest's scenario.json.
 - **Scenario manifest**: `scenarios/manifest.json` lists all available scenario folder names. ScenarioLoader reads this on startup to populate the picker. Adding a new scenario = add folder with scenario.json + add ID to manifest.json.
+- **MVP menu restriction**: Manifest currently includes only `the-harvest`. ScenarioLoader auto-launches when a single scenario is available — no picker screen. Upload button preserved for custom JSONs. Other scenario folders remain on disk for future re-introduction.
+- **New player character sprites**: Replaced goblin with bearded human in green tunic. Three sprite sheets: `character_idle.png` (1×2, right+front), `character_walk.png` (4×2, right walk+front walk at 6fps), `character_standup.png` (4×1, lying→standing at 3fps, no loop). Frame size 300×447, scale 0.35. Left-facing via CSS scaleX(-1) flip. Old goblin sprites removed.
 
 ---
 
@@ -344,3 +346,5 @@ cd client && npx tsc --noEmit
 6. Implement killer AI state machine
 7. ~~Fix The Harvest position data~~ DONE (all Act 1 objects within 960x720 bounds, nav z-index fix)
 8. Get Lighthouse Keeper fully playable end-to-end
+9. Character shadow rendering — JSON-configurable direction, darkness, size (visual polish)
+10. Process and integrate cataloguer robot animated sprite (4-frame animation)

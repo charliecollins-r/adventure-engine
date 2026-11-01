@@ -1383,6 +1383,49 @@ elements, no characters.
 - Name the **color palette** explicitly (e.g., "amber ceiling lights, teal organic walls, green floor glow")
 - Include "No text, no UI elements, no characters" to keep backgrounds clean for hotspot overlays
 
+### Creating Sprite Sheets
+
+Character and object sprites use **sprite sheets** — a single PNG with animation frames laid out in a grid (columns = frames per direction, rows = directions).
+
+#### AI Image Generation Workflow
+
+When generating sprite frames with AI tools (Gemini, DALL-E, etc.), use a **solid blue chroma-key background** (`#0066FF`) for easy transparency extraction:
+
+1. **Generate frames** with the prompt directive: *"solid blue (#0066FF) background, no shadows on the background"*
+2. **Remove the blue background** using ImageMagick chroma key:
+   ```bash
+   convert input.png -fuzz 5% -transparent "rgb(0,102,255)" output.png
+   ```
+3. **Assemble into a sprite sheet** — tile frames left-to-right for each direction row
+
+**Why `#0066FF`?** Pure blue has zero overlap with natural character colors (skin tones, earth tones, greens, browns). A 5% fuzz tolerance cleanly keys out the blue without affecting character edges. Grey checkerboard backgrounds are much harder to remove because grey overlaps with shadows and muted clothing colors.
+
+**Alternative backgrounds**: Any saturated primary color works (`#FF0000` red, `#00FF00` green) — pick one that contrasts with your character's dominant colors. Blue works best for most fantasy/adventure characters.
+
+#### Sprite Sheet Layout
+
+```
+┌─────┬─────┬─────┬─────┐
+│ F0  │ F1  │ F2  │ F3  │  Row 0: direction[0] (e.g., "right")
+├─────┼─────┼─────┼─────┤
+│ F0  │ F1  │ F2  │ F3  │  Row 1: direction[1] (e.g., "down")
+└─────┴─────┴─────┴─────┘
+  columns: 4, rows: 2
+```
+
+- All frames must be the **same pixel dimensions** (`frame_width` × `frame_height`)
+- All sprite sets for a character must share the same frame dimensions (the engine uses a single `frame_width`/`frame_height` for all sets)
+- Left-facing is handled automatically via CSS horizontal flip — you only need right-facing frames
+- Static sprites (idle poses) use `frame_rate: 0` and `"frame": 0` in the placement
+
+#### Splicing Tool
+
+For combining separate frame images into a sprite sheet:
+
+```bash
+node tools/splice-sprites.mjs frame1.png frame2.png frame3.png --cols 3 --output sheet.png
+```
+
 ---
 
 ## Full Schema Reference
