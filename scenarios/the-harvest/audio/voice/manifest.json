@@ -1,0 +1,38 @@
+[
+  {
+    "id": "intro_001",
+    "category": "intro",
+    "text": "You remember fragments.\nA world with two suns. Fields of amber grain.\nFaces you can no longer name.",
+    "source": "setting.intro_text[0]"
+  },
+  {
+    "id": "intro_002",
+    "category": "intro",
+    "text": "Then the sky split open.\nSomething vast descended — a living ship,\nall tendrils and bioluminescent veins.\nIt took everything.",
+    "source": "setting.intro_text[1]"
+  },
+  {
+    "id": "intro_003",
+    "category": "intro",
+    "text": "You were catalogued.\nWeighed. Measured. Filed away in a pod\nof warm amber fluid alongside\nhundreds of other specimens.",
+    "source": "setting.intro_text[2]"
+  },
+  {
+    "id": "intro_004",
+    "category": "intro",
+    "text": "You don't know how long you slept.\nDays. Months. Years.\nThe ship hums around you —\na heartbeat that is not your own.",
+    "source": "setting.intro_text[3]"
+  },
+  {
+    "id": "intro_005",
+    "category": "intro",
+    "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\nAlarms pulse in colors you have no name for.\nThe ship's crew is nowhere to be seen.",
+    "source": "setting.intro_text[4]"
+  },
+  {
+    "id": "intro_006",
+    "category": "intro",
+    "text": "You are cold. You are weak.\nYou are alone on a vessel\nbuilt to harvest worlds.\n\nFind a way out.",
+    "source": "setting.intro_text[5]"
+  }
+]
