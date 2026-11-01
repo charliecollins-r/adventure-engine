@@ -224,19 +224,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [eyeOpen, standingUp, engine, bump, scenario]);
 
   useEffect(() => {
-    if (!standingUp) return;
-    const standupSet = scenario.character?.sprite_sets?.['standup'];
-    if (!standupSet) return;
-    const frameRate = standupSet.frame_rate || 3;
-    const duration = (standupSet.columns / frameRate) * 1000 + 200;
-    const timer = setTimeout(() => {
-      engine.setCharacterOverride({ sprite_set: 'idle' });
-      bump();
-    }, duration);
-    return () => clearTimeout(timer);
-  }, [standingUp, engine, bump, scenario]);
-
-  useEffect(() => {
     const raw = scenario.setting.ambient_audio;
     if (!raw) return;
 
@@ -294,6 +281,20 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     },
     [scenarioId, muted, stopVoice],
   );
+
+  useEffect(() => {
+    if (!standingUp) return;
+    const standupSet = scenario.character?.sprite_sets?.['standup'];
+    if (!standupSet) return;
+    const frameRate = standupSet.frame_rate || 3;
+    const duration = (standupSet.columns / frameRate) * 1000 + 200;
+    const timer = setTimeout(() => {
+      engine.setCharacterOverride({ sprite_set: 'idle' });
+      bump();
+      playSound('audio/voice/ambient_stasis.mp3');
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [standingUp, engine, bump, scenario, playSound]);
 
   const playPendingSounds = useCallback(() => {
     const sounds = engine.getPendingSounds();

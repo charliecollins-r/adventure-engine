@@ -4472,7 +4472,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The pod hangs open, drained of fluid. Your outline is still visible in the residue on the back wall \u2014 a small creature's impression in amber. A specimen tag dangles from the pod's frame."
+              "text": "The pod hangs open, drained of fluid. Your outline is still visible in the residue on the back wall \u2014 a small creature's impression in amber. A specimen tag dangles from the pod's frame.",
+              "voice": "audio/voice/your_pod_look.mp3"
             }
           ]
         },
@@ -4492,7 +4493,8 @@
           "then": [
             {
               "type": "message",
-              "text": "You carefully snap off a curved shard of pod glass from the broken edge. It's razor-sharp \u2014 some alien composite that's stronger and lighter than real glass. A crude tool, but a tool nonetheless."
+              "text": "You carefully snap off a curved shard of pod glass from the broken edge. It's razor-sharp \u2014 some alien composite that's stronger and lighter than real glass. A crude tool, but a tool nonetheless.",
+              "voice": "audio/voice/pod_shard_hand.mp3"
             },
             {
               "type": "add_item",
@@ -4559,7 +4561,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A shallow channel cut into the floor, feeding into the ship's recycling systems. Amber stasis fluid pools here, slowly draining. The fluid shimmers with faint bioluminescence."
+              "text": "A shallow channel cut into the floor, feeding into the ship's recycling systems. Amber stasis fluid pools here, slowly draining. The fluid shimmers with faint bioluminescence.",
+              "voice": "audio/voice/drainage_look.mp3"
             }
           ]
         },
@@ -4579,7 +4582,8 @@
           "then": [
             {
               "type": "message",
-              "text": "You cup your hands and scoop up some of the amber fluid. It's warm and viscous, almost alive. You need a container... wait \u2014 one of the sample jars from the processing lab would work. Actually, a small amount clings to a curved pod fragment, enough to seal in the shard itself. You carefully collect a vial's worth."
+              "text": "You cup your hands and scoop up some of the amber fluid. It's warm and viscous, almost alive. You need a container... wait \u2014 one of the sample jars from the processing lab would work. Actually, a small amount clings to a curved pod fragment, enough to seal in the shard itself. You carefully collect a vial's worth.",
+              "voice": "audio/voice/drainage_hand.mp3"
             },
             {
               "type": "add_item",
@@ -4692,7 +4696,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A small bio-organic tag, like a leaf made of cartilage. Alien notation is etched into its surface \u2014 your classification, probably. A serial number for a specimen. It identifies you as a collected organism. It's proof you were here. Proof you existed to them."
+              "text": "A small bio-organic tag, like a leaf made of cartilage. Alien notation is etched into its surface \u2014 your classification, probably. A serial number for a specimen. It identifies you as a collected organism. It's proof you were here. Proof you existed to them.",
+              "voice": "audio/voice/specimen_tag_look.mp3"
             }
           ]
         },
@@ -4707,7 +4712,8 @@
           "then": [
             {
               "type": "message",
-              "text": "You snap the tag free from the pod frame. It's small enough to pocket. You're not a specimen. You're a person. But this might be useful as proof \u2014 to someone, somewhere \u2014 that you were here."
+              "text": "You snap the tag free from the pod frame. It's small enough to pocket. You're not a specimen. You're a person. But this might be useful as proof \u2014 to someone, somewhere \u2014 that you were here.",
+              "voice": "audio/voice/specimen_tag_hand.mp3"
             },
             {
               "type": "add_item",
@@ -6325,14 +6331,14 @@
     {
       "id": "specimen_tank_left",
       "name": "Left Specimen Tank",
-      "description": "A tall cylindrical jar filled with murky amber preservative. Something coiled and segmented floats inside.",
+      "description": "Tank 101. A rounded amber jar containing what appears to be an ammonite — a spiral-shelled creature suspended in golden preservative fluid.",
       "position": {
-        "x": 259,
-        "y": 43
+        "x": 290,
+        "y": 98
       },
       "size": {
-        "width": 146,
-        "height": 463
+        "width": 121,
+        "height": 464
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6347,7 +6353,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A segmented, worm-like creature curled in on itself, suspended in amber fluid. Bioluminescent nodes line its body like tiny lanterns. Its mouth — if that's what it is — is a ring of inward-facing barbs. A harvested specimen from some other world, preserved for study."
+              "text": "An ammonite — a spiral-shelled creature, like something from an ancient ocean but wrong somehow. The shell has too many chambers, and in each one, something faintly glows. The readout says 'Subject Ammonite, Specimen 7SLB.' Harvested from some other world, preserved for study."
             }
           ]
         },
@@ -6357,7 +6363,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The glass is warm to the touch and faintly vibrates. You pull your hand back — was that the ship's hum, or did the thing inside just move?"
+              "text": "The glass is warm to the touch and faintly vibrates. The ammonite's shell rotates a fraction of a turn in the fluid — you pull your hand back. Was that the ship's hum, or is it still alive in there?"
             }
           ]
         },
@@ -6367,7 +6373,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You mutter something to the thing in the jar. It doesn't respond. Of course it doesn't. But for a moment the bioluminescent nodes pulse brighter, as if it heard."
+              "text": "You mutter something to the spiral shell. It doesn't respond. Of course it doesn't. But for a moment the chambers glow brighter, one after another, like a sequence trying to answer."
             }
           ]
         }
@@ -6377,14 +6383,14 @@
     {
       "id": "specimen_tank_center",
       "name": "Center Specimen Tank",
-      "description": "The largest jar. Something vaguely humanoid floats inside, curled in a fetal position.",
+      "description": "Tank 102. The largest jar, containing a skeletal specimen — some kind of feline creature with an impossibly long curling tail, stripped to the bone and preserved in amber fluid.",
       "position": {
-        "x": 405,
-        "y": 29
+        "x": 399,
+        "y": 75
       },
       "size": {
-        "width": 146,
-        "height": 477
+        "width": 152,
+        "height": 495
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6399,7 +6405,7 @@
           "then": [
             {
               "type": "message",
-              "text": "This specimen is larger — almost your size. A pale, translucent being with too many joints, curled in on itself. Its skin is membrane-thin; you can see dark organs pulsing slowly beneath. The creature's face is smooth and featureless except for a single vertical slit where a mouth should be. It looks... peaceful. Asleep, maybe. Or something worse than asleep."
+              "text": "The center tank holds a skeleton — something feline, stripped clean to the bone but perfectly preserved in amber fluid. Its skull is too long, its spine curves wrong, and that tail... it curls for what seems like forever. The readout says 'Subject Felis Skel, Specimen 721S.' Whatever this was, it wasn't from your world."
             }
           ]
         },
@@ -6409,7 +6415,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press your palm flat against the glass. The creature's slit-mouth twitches. A bubble escapes from somewhere on its body and drifts upward through the amber fluid. You step back quickly. Best not to wake what the Convergence put to sleep."
+              "text": "You press your palm flat against the glass. The bones are clean and white, arranged with surgical precision. A bubble rises from somewhere deep in the ribcage and drifts up past the skull. You pull back. How does a skeleton produce bubbles?"
             }
           ]
         },
@@ -6419,7 +6425,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Can you hear me?\" Nothing. But you notice the creature's fingers — all seven of them — are pressed against the glass from the inside, as if it was reaching for something when the preservative took hold."
+              "text": "\"What happened to you?\" you whisper. The skeleton grins back — they all do. But this one's jaw hangs slightly open, as if it was mid-howl when the preservative took hold. You wonder what sound it made."
             }
           ]
         }
@@ -6429,14 +6435,14 @@
     {
       "id": "specimen_tank_right",
       "name": "Right Specimen Tank",
-      "description": "A smaller jar containing something dark and spiny. The amber fluid around it has a reddish tint.",
+      "description": "Tank 103. A jar containing a squid-like creature with multiple eyes and trailing tentacles, suspended motionless in golden preservative.",
       "position": {
-        "x": 551,
-        "y": 43
+        "x": 543,
+        "y": 98
       },
       "size": {
-        "width": 150,
-        "height": 463
+        "width": 129,
+        "height": 464
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -6451,7 +6457,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A compact, spiny creature bristling with chitinous quills. The amber preservative around it has turned reddish — some chemical reaction with the specimen's biology. Its quills are tipped with something iridescent that catches the light. Even dead and jarred, it looks dangerous."
+              "text": "A squid — or something like one. Multiple bulging eyes stare out from a bulbous head, and long tentacles trail downward through the amber fluid. The readout says 'Subject Squid Spec, Specimen 73LB.' Its skin has a mottled pattern that shifts even in death, like camouflage searching for a surface to match."
             }
           ]
         },
@@ -6461,7 +6467,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tap the glass cautiously. The reddish fluid swirls where you touched, as if reacting to pressure. The quills seem to shift — just the fluid currents, surely. This one was probably venomous when it was alive. The Convergence collects everything."
+              "text": "You tap the glass. The tentacles drift lazily in the disturbed fluid, and for a moment every eye on the thing seems to track your finger. Just the currents. Probably. The Convergence collects everything — and this one looks like it was smart enough to mind being collected."
             }
           ]
         },
@@ -6471,7 +6477,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Sorry about this,\" you whisper to the spiny thing. You know the feeling — being catalogued, stored away, just another specimen in the collection. At least you got out of your jar."
+              "text": "\"Sorry about this,\" you whisper to the squid. You know the feeling — being catalogued, stored away, just another specimen in the collection. At least you got out of your jar. The squid's eyes follow you. All of them."
             }
           ]
         }
@@ -6481,14 +6487,14 @@
     {
       "id": "specimen_data_plates",
       "name": "Data Plates",
-      "description": "Small metal plates affixed to the base of each specimen jar, displaying numerical codes alongside alien script.",
+      "description": "Green-lit readout screens below each tank, displaying specimen IDs, tank status, and subject classifications.",
       "position": {
-        "x": 286,
-        "y": 506
+        "x": 309,
+        "y": 555
       },
       "size": {
-        "width": 384,
-        "height": 159
+        "width": 360,
+        "height": 90
       },
       "visual": {
         "color": "rgba(200, 180, 80, 0.2)",
@@ -6580,14 +6586,14 @@
     {
       "id": "cataloguer_mechanism",
       "name": "Cataloguer Mechanism",
-      "description": "The spider-drone's sorting arm extends into the specimen rack, its manipulators frozen mid-scan.",
+      "description": "The spider-drone's claw-like arm extends down from above, gripping the specimen rack with mechanical precision.",
       "position": {
-        "x": 394,
+        "x": 422,
         "y": 0
       },
       "size": {
-        "width": 168,
-        "height": 72
+        "width": 118,
+        "height": 98
       },
       "visual": {
         "color": "rgba(100, 160, 80, 0.15)",
@@ -20732,7 +20738,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A walkway runs between the pod racks. The metal has an organic quality \u2014 slightly warm, with a texture like tree bark. Grown, not forged. Drainage channels run along both sides, collecting the amber fluid that seeps from damaged pods."
+              "text": "A walkway runs between the pod racks. The metal has an organic quality \u2014 slightly warm, with a texture like tree bark. Grown, not forged. Drainage channels run along both sides, collecting the amber fluid that seeps from damaged pods.",
+              "voice": "audio/voice/walkway_look.mp3"
             }
           ]
         },
