@@ -5,7 +5,7 @@ interface EyeOpenTransitionProps {
   onComplete?: () => void;
 }
 
-const FADE_DURATION_MS = 4500;
+const FADE_DURATION_MS = 20000;
 
 export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps) {
   const [phase, setPhase] = useState<'black' | 'fading' | 'done'>('black');

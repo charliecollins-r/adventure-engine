@@ -206,8 +206,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         engine.setCharacterOverride({ sprite_set: 'standup', frame: 0 });
         bump();
       }
-      const timer = setTimeout(() => setEyeOpen(true), 50);
-      return () => clearTimeout(timer);
+      setEyeOpen(true);
     }
   }, [showIntro, eyeOpen, engine, bump, scenario]);
 
@@ -283,6 +282,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   );
 
   useEffect(() => {
+    if (!eyeOpen) return;
+    playSound('audio/voice/ambient_stasis.mp3');
+  }, [eyeOpen, playSound]);
+
+  useEffect(() => {
     if (!standingUp) return;
     const standupSet = scenario.character?.sprite_sets?.['standup'];
     if (!standupSet) return;
@@ -291,10 +295,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const timer = setTimeout(() => {
       engine.setCharacterOverride({ sprite_set: 'idle' });
       bump();
-      playSound('audio/voice/ambient_stasis.mp3');
     }, duration);
     return () => clearTimeout(timer);
-  }, [standingUp, engine, bump, scenario, playSound]);
+  }, [standingUp, engine, bump, scenario]);
 
   const playPendingSounds = useCallback(() => {
     const sounds = engine.getPendingSounds();
