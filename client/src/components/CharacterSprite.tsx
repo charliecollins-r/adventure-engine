@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { CharacterConfig, CharacterPlacement } from '../engine/types';
+import { resolveAsset } from '../engine/assetResolver';
 
 interface CharacterSpriteProps {
   config: CharacterConfig;
@@ -79,7 +80,7 @@ export function CharacterSprite({
     top: `${screenY - renderH}px`,
     width: `${renderW}px`,
     height: `${renderH}px`,
-    backgroundImage: `url(/scenarios/${scenarioId}/${spriteSet.file})`,
+    backgroundImage: `url(${resolveAsset(scenarioId, spriteSet.file)})`,
     backgroundPosition: `${bgX * scale}px ${bgY * scale}px`,
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',

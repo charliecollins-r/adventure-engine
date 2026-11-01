@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import type { Scenario } from '../engine/types';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
+import { resolveAsset } from '../engine/assetResolver';
 import { GameView } from './GameView';
 import { IntroSequence } from './IntroSequence';
 import { InventoryPanel } from './InventoryPanel';
@@ -231,7 +232,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const elements: HTMLAudioElement[] = [];
 
     for (const file of files) {
-      const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
+      const audio = new Audio(resolveAsset(scenarioId, file));
       audio.loop = true;
       audio.volume = 0.35;
       audio.play().catch(() => {});
@@ -269,7 +270,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     (file: string) => {
       if (muted) return;
       const isVoice = file.includes('voice/');
-      const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
+      const audio = new Audio(resolveAsset(scenarioId, file));
       audio.volume = isVoice ? 0.9 : 0.5;
       if (isVoice) {
         stopVoice();
@@ -635,7 +636,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       {/* Closeup overlay */}
       {closeupImage && (
         <CloseupOverlay
-          imageSrc={`/scenarios/${scenario.metadata.id}/${closeupImage}`}
+          imageSrc={resolveAsset(scenario.metadata.id, closeupImage)}
           onClose={handleCloseupDismiss}
         />
       )}

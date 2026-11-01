@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
+import { resolveAsset } from '../engine/assetResolver';
 import { AmbientCanvas } from './AmbientCanvas';
 import { CharacterSprite } from './CharacterSprite';
 import { SpriteObject } from './SpriteObject';
@@ -203,7 +204,7 @@ export function GameView({
       {/* Background image */}
       {bgFile && (
         <img
-          src={`/scenarios/${scenarioId}/${bgFile}`}
+          src={resolveAsset(scenarioId, bgFile)}
           alt=""
           onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
           style={{

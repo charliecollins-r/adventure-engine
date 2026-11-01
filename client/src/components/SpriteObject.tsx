@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ObjectSprite } from '../engine/types';
+import { resolveAsset } from '../engine/assetResolver';
 
 interface SpriteObjectProps {
   sprite: ObjectSprite;
@@ -56,7 +57,7 @@ export function SpriteObject({
     top: `${screenY - renderH}px`,
     width: `${renderW}px`,
     height: `${renderH}px`,
-    backgroundImage: `url(/scenarios/${scenarioId}/${file})`,
+    backgroundImage: `url(${resolveAsset(scenarioId, file)})`,
     backgroundPosition: `${bgX * scale}px 0px`,
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',

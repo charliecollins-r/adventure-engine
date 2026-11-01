@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import type { Item } from '../engine/types';
+import { resolveAsset } from '../engine/assetResolver';
 import { ItemIcon } from './ItemIcon';
 
 interface InventoryPanelProps {
@@ -79,7 +80,7 @@ export function InventoryPanel({
           >
             {item.icon_file ? (
               <img
-                src={`/scenarios/${scenarioId}/${item.icon_file}`}
+                src={resolveAsset(scenarioId, item.icon_file)}
                 alt={item.name}
                 style={{
                   height: '28px',
