@@ -95,5 +95,24 @@ export function CharacterSprite({
     ? (e: React.MouseEvent) => { e.stopPropagation(); onObjectClick!(placement.object_id!); }
     : undefined;
 
-  return <div data-object-hotspot style={style} onClick={handleClick} />;
+  const shadow = config.shadow;
+  const shadowStyle: CSSProperties | null = shadow ? {
+    position: 'absolute',
+    left: `${screenX + (shadow.offset_x ?? 0) * scaleX - ((shadow.width ?? renderW * 0.6) / 2)}px`,
+    top: `${screenY + (shadow.offset_y ?? 0) * scaleY - ((shadow.height ?? 6) / 2)}px`,
+    width: `${shadow.width ?? renderW * 0.6}px`,
+    height: `${shadow.height ?? 6}px`,
+    borderRadius: '50%',
+    background: `radial-gradient(ellipse, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`,
+    opacity: shadow.opacity ?? 0.6,
+    pointerEvents: 'none',
+    zIndex: 4,
+  } : null;
+
+  return (
+    <>
+      {shadowStyle && <div style={shadowStyle} />}
+      <div data-object-hotspot style={style} onClick={handleClick} />
+    </>
+  );
 }

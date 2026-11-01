@@ -290,11 +290,21 @@ export interface SpriteSet {
   loop?: boolean;
 }
 
+export interface CharacterShadow {
+  offset_x?: number;
+  offset_y?: number;
+  width?: number;
+  height?: number;
+  opacity?: number;
+  color?: string;
+}
+
 export interface CharacterConfig {
   sprite_sets: Record<string, SpriteSet>;
   frame_width: number;
   frame_height: number;
   scale?: number;
+  shadow?: CharacterShadow;
 }
 
 export interface CharacterPlacement {
