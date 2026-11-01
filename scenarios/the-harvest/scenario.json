@@ -124,8 +124,8 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 300,
-        "y": 570,
+        "x": 380,
+        "y": 615,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -196,7 +196,7 @@
     },
     {
       "id": "act1_cataloguer_closeup",
-      "name": "Specimen Jars — Close-up",
+      "name": "Specimen Jars \u2014 Close-up",
       "objects": [
         "specimen_tank_left",
         "specimen_tank_center",
@@ -210,7 +210,7 @@
       "back_label": "Stasis Hold",
       "hints": [
         {
-          "text": "Study the specimen jars closely. The data plates on each one display numbers — those might be useful.",
+          "text": "Study the specimen jars closely. The data plates on each one display numbers \u2014 those might be useful.",
           "when": [
             {
               "type": "flag_not",
@@ -313,9 +313,9 @@
         }
       ],
       "character": {
-        "x": 260,
-        "y": 560,
-        "facing": "right",
+        "x": 480,
+        "y": 605,
+        "facing": "down",
         "sprite_set": "idle",
         "object_id": "goblin_self"
       }
@@ -401,7 +401,7 @@
           ]
         },
         {
-          "text": "The security override released the ventilation grate in the floor. It leads deeper into the ship — toward the airlock bay.",
+          "text": "The security override released the ventilation grate in the floor. It leads deeper into the ship \u2014 toward the airlock bay.",
           "when": [
             {
               "type": "flag_is",
@@ -418,8 +418,8 @@
       ],
       "character": {
         "x": 480,
-        "y": 545,
-        "facing": "down",
+        "y": 540,
+        "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
       }
@@ -465,9 +465,9 @@
         }
       ],
       "character": {
-        "x": 700,
-        "y": 570,
-        "facing": "left",
+        "x": 350,
+        "y": 600,
+        "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
       }
@@ -539,7 +539,7 @@
       ],
       "character": {
         "x": 280,
-        "y": 575,
+        "y": 610,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -585,7 +585,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 500,
+        "y": 560,
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -662,8 +662,8 @@
         }
       ],
       "character": {
-        "x": 680,
-        "y": 585,
+        "x": 700,
+        "y": 600,
         "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -744,9 +744,9 @@
         }
       ],
       "character": {
-        "x": 480,
-        "y": 580,
-        "facing": "right",
+        "x": 680,
+        "y": 600,
+        "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
       }
@@ -828,7 +828,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 535,
+        "y": 580,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -6304,7 +6304,7 @@
     {
       "id": "specimen_tank_left",
       "name": "Left Specimen Tank",
-      "description": "Tank 101. A rounded amber jar containing what appears to be an ammonite — a spiral-shelled creature suspended in golden preservative fluid.",
+      "description": "Tank 101. A rounded amber jar containing what appears to be an ammonite \u2014 a spiral-shelled creature suspended in golden preservative fluid.",
       "position": {
         "x": 290,
         "y": 98
@@ -6326,7 +6326,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An ammonite — a spiral-shelled creature, like something from an ancient ocean but wrong somehow. The shell has too many chambers, and in each one, something faintly glows. The readout says 'Subject Ammonite, Specimen 7SLB.' Harvested from some other world, preserved for study."
+              "text": "An ammonite \u2014 a spiral-shelled creature, like something from an ancient ocean but wrong somehow. The shell has too many chambers, and in each one, something faintly glows. The readout says 'Subject Ammonite, Specimen 7SLB.' Harvested from some other world, preserved for study."
             }
           ]
         },
@@ -6336,7 +6336,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The glass is warm to the touch and faintly vibrates. The ammonite's shell rotates a fraction of a turn in the fluid — you pull your hand back. Was that the ship's hum, or is it still alive in there?"
+              "text": "The glass is warm to the touch and faintly vibrates. The ammonite's shell rotates a fraction of a turn in the fluid \u2014 you pull your hand back. Was that the ship's hum, or is it still alive in there?"
             }
           ]
         },
@@ -6356,7 +6356,7 @@
     {
       "id": "specimen_tank_center",
       "name": "Center Specimen Tank",
-      "description": "Tank 102. The largest jar, containing a skeletal specimen — some kind of feline creature with an impossibly long curling tail, stripped to the bone and preserved in amber fluid.",
+      "description": "Tank 102. The largest jar, containing a skeletal specimen \u2014 some kind of feline creature with an impossibly long curling tail, stripped to the bone and preserved in amber fluid.",
       "position": {
         "x": 399,
         "y": 75
@@ -6378,7 +6378,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The center tank holds a skeleton — something feline, stripped clean to the bone but perfectly preserved in amber fluid. Its skull is too long, its spine curves wrong, and that tail... it curls for what seems like forever. The readout says 'Subject Felis Skel, Specimen 721S.' Whatever this was, it wasn't from your world."
+              "text": "The center tank holds a skeleton \u2014 something feline, stripped clean to the bone but perfectly preserved in amber fluid. Its skull is too long, its spine curves wrong, and that tail... it curls for what seems like forever. The readout says 'Subject Felis Skel, Specimen 721S.' Whatever this was, it wasn't from your world."
             }
           ]
         },
@@ -6398,7 +6398,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"What happened to you?\" you whisper. The skeleton grins back — they all do. But this one's jaw hangs slightly open, as if it was mid-howl when the preservative took hold. You wonder what sound it made."
+              "text": "\"What happened to you?\" you whisper. The skeleton grins back \u2014 they all do. But this one's jaw hangs slightly open, as if it was mid-howl when the preservative took hold. You wonder what sound it made."
             }
           ]
         }
@@ -6430,7 +6430,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A squid — or something like one. Multiple bulging eyes stare out from a bulbous head, and long tentacles trail downward through the amber fluid. The readout says 'Subject Squid Spec, Specimen 73LB.' Its skin has a mottled pattern that shifts even in death, like camouflage searching for a surface to match."
+              "text": "A squid \u2014 or something like one. Multiple bulging eyes stare out from a bulbous head, and long tentacles trail downward through the amber fluid. The readout says 'Subject Squid Spec, Specimen 73LB.' Its skin has a mottled pattern that shifts even in death, like camouflage searching for a surface to match."
             }
           ]
         },
@@ -6440,7 +6440,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tap the glass. The tentacles drift lazily in the disturbed fluid, and for a moment every eye on the thing seems to track your finger. Just the currents. Probably. The Convergence collects everything — and this one looks like it was smart enough to mind being collected."
+              "text": "You tap the glass. The tentacles drift lazily in the disturbed fluid, and for a moment every eye on the thing seems to track your finger. Just the currents. Probably. The Convergence collects everything \u2014 and this one looks like it was smart enough to mind being collected."
             }
           ]
         },
@@ -6450,7 +6450,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Sorry about this,\" you whisper to the squid. You know the feeling — being catalogued, stored away, just another specimen in the collection. At least you got out of your jar. The squid's eyes follow you. All of them."
+              "text": "\"Sorry about this,\" you whisper to the squid. You know the feeling \u2014 being catalogued, stored away, just another specimen in the collection. At least you got out of your jar. The squid's eyes follow you. All of them."
             }
           ]
         }
@@ -6487,7 +6487,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each jar has a small metal plate riveted to its base. Alien script you can't decipher runs across the top — but below it, numbers. Universal, unmistakable numbers. The plates read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every plate."
+              "text": "Each jar has a small metal plate riveted to its base. Alien script you can't decipher runs across the top \u2014 but below it, numbers. Universal, unmistakable numbers. The plates read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every plate."
             }
           ]
         },
@@ -6518,7 +6518,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace your finger along the numbers: 7319-101... 7319-102... 7319-103. The first four digits repeat on every plate — that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab door had a keypad. This could be the access code you need."
+              "text": "You trace your finger along the numbers: 7319-101... 7319-102... 7319-103. The first four digits repeat on every plate \u2014 that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab door had a keypad. This could be the access code you need."
             },
             {
               "type": "set_flag",
@@ -6581,7 +6581,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The cataloguer's sorting arm — a delicate lattice of bio-metal joints — extends down from above. Tiny optical sensors blink along its length, still scanning even now. The arm moves with glacial precision, cataloguing each specimen in turn. It's been doing this for years. Maybe centuries."
+              "text": "The cataloguer's sorting arm \u2014 a delicate lattice of bio-metal joints \u2014 extends down from above. Tiny optical sensors blink along its length, still scanning even now. The arm moves with glacial precision, cataloguing each specimen in turn. It's been doing this for years. Maybe centuries."
             }
           ]
         },
@@ -6591,7 +6591,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach for the mechanism. It retracts slightly at your touch — a reflexive motion, like a spider pulling in a leg. Then it extends again, resuming its endless inventory. It doesn't consider you a threat. You're not a specimen anymore. Or perhaps it simply hasn't been told to collect you yet."
+              "text": "You reach for the mechanism. It retracts slightly at your touch \u2014 a reflexive motion, like a spider pulling in a leg. Then it extends again, resuming its endless inventory. It doesn't consider you a threat. You're not a specimen anymore. Or perhaps it simply hasn't been told to collect you yet."
             }
           ]
         },
@@ -6601,7 +6601,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The mechanism emits a series of rapid clicks in response to your voice — a cataloguing reflex, recording the sound. Then it returns to silence, its optical sensors sweeping methodically across the jars."
+              "text": "The mechanism emits a series of rapid clicks in response to your voice \u2014 a cataloguing reflex, recording the sound. Then it returns to silence, its optical sensors sweeping methodically across the jars."
             }
           ]
         }
@@ -18084,7 +18084,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A heavy ventilation grate is bolted into the floor. Warm, stale air pulses up through the slats. The bolts are sealed with bio-organic locks — the same kind that secure every door on this deck. You'd need to override the containment locks to open it."
+              "text": "A heavy ventilation grate is bolted into the floor. Warm, stale air pulses up through the slats. The bolts are sealed with bio-organic locks \u2014 the same kind that secure every door on this deck. You'd need to override the containment locks to open it."
             }
           ]
         },
@@ -18100,7 +18100,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The ventilation grate's bio-locks have released. The heavy cover can be lifted now — warm air rushes up from the shaft below. Red emergency light spills through the slats."
+              "text": "The ventilation grate's bio-locks have released. The heavy cover can be lifted now \u2014 warm air rushes up from the shaft below. Red emergency light spills through the slats."
             }
           ]
         },
@@ -18116,7 +18116,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The grate won't budge. Bio-organic bolts seal it to the floor — part of the containment lockdown. You'd need to override the security system first."
+              "text": "The grate won't budge. Bio-organic bolts seal it to the floor \u2014 part of the containment lockdown. You'd need to override the security system first."
             }
           ]
         },
@@ -18152,7 +18152,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You grip the grate and pull. The bio-locks hold firm — not even a rattle. Whatever mechanism seals these doors, it's the same one keeping this grate shut."
+              "text": "You grip the grate and pull. The bio-locks hold firm \u2014 not even a rattle. Whatever mechanism seals these doors, it's the same one keeping this grate shut."
             }
           ]
         },
