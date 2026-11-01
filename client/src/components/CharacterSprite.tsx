@@ -83,7 +83,7 @@ export function CharacterSprite({
     backgroundPosition: `${bgX * scale}px ${bgY * scale}px`,
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',
-    imageRendering: 'auto',
+    imageRendering: 'pixelated',
     pointerEvents: interactive ? 'auto' : 'none',
     zIndex: 5,
     cursor: interactive ? cursor : undefined,
