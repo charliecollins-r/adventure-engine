@@ -125,7 +125,7 @@
       "room_animation": "breathe",
       "character": {
         "x": 300,
-        "y": 640,
+        "y": 570,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -314,7 +314,7 @@
       ],
       "character": {
         "x": 260,
-        "y": 650,
+        "y": 560,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -418,7 +418,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 550,
+        "y": 545,
         "facing": "down",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -466,7 +466,7 @@
       ],
       "character": {
         "x": 700,
-        "y": 680,
+        "y": 570,
         "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -539,7 +539,7 @@
       ],
       "character": {
         "x": 280,
-        "y": 660,
+        "y": 575,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -663,7 +663,7 @@
       ],
       "character": {
         "x": 680,
-        "y": 650,
+        "y": 585,
         "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -745,7 +745,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 620,
+        "y": 580,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -828,7 +828,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 520,
+        "y": 535,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
