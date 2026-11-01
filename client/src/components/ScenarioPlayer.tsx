@@ -197,11 +197,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   (window as unknown as Record<string, unknown>).__setHighlights = (ids: string[]) => { setWalkthroughHighlights(ids); };
   (window as unknown as Record<string, unknown>).__setDebug = (on: boolean) => { setDebugMode(on); };
 
+  const [standingUp, setStandingUp] = useState(false);
+
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
       const hasStandup = !!scenario.character?.sprite_sets?.['standup'];
       if (hasStandup) {
-        engine.setCharacterOverride({ sprite_set: 'standup' });
+        engine.setCharacterOverride({ sprite_set: 'standup', frame: 0 });
         bump();
       }
       const timer = setTimeout(() => setEyeOpen(true), 50);
@@ -210,7 +212,19 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [showIntro, eyeOpen, engine, bump, scenario]);
 
   useEffect(() => {
-    if (!eyeOpen) return;
+    if (!eyeOpen || standingUp) return;
+    const hasStandup = !!scenario.character?.sprite_sets?.['standup'];
+    if (!hasStandup) return;
+    const timer = setTimeout(() => {
+      engine.setCharacterOverride({ sprite_set: 'standup' });
+      bump();
+      setStandingUp(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [eyeOpen, standingUp, engine, bump, scenario]);
+
+  useEffect(() => {
+    if (!standingUp) return;
     const standupSet = scenario.character?.sprite_sets?.['standup'];
     if (!standupSet) return;
     const frameRate = standupSet.frame_rate || 3;
@@ -220,7 +234,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       bump();
     }, duration);
     return () => clearTimeout(timer);
-  }, [eyeOpen, engine, bump, scenario]);
+  }, [standingUp, engine, bump, scenario]);
 
   useEffect(() => {
     const raw = scenario.setting.ambient_audio;
