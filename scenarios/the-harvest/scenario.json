@@ -80,26 +80,28 @@
   "character": {
     "sprite_sets": {
       "idle": {
-        "file": "sprites/character-idle.png",
-        "columns": 4,
-        "rows": 1,
+        "file": "sprites/character_idle.png",
+        "columns": 1,
+        "rows": 2,
         "frame_rate": 0,
         "directions": [
-          "right"
+          "right",
+          "down"
         ]
       },
       "walk": {
-        "file": "sprites/character-idle.png",
+        "file": "sprites/character_walk.png",
         "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
+        "rows": 2,
+        "frame_rate": 6,
         "directions": [
-          "right"
+          "right",
+          "down"
         ]
       },
       "standup": {
         "file": "sprites/character_standup.png",
-        "columns": 8,
+        "columns": 4,
         "rows": 1,
         "frame_rate": 3,
         "directions": [
