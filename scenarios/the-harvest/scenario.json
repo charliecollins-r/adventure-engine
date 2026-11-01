@@ -70,7 +70,12 @@
       "You don't know how long you slept.\nDays. Months. Years.\nThe ship hums around you —\na heartbeat that is not your own.",
       "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\nAlarms pulse in colors you have no name for.\nThe ship's crew is nowhere to be seen.",
       "You are cold. You are weak.\nYou are alone on a vessel\nbuilt to harvest worlds.\n\nFind a way out."
-    ]
+    ],
+    "sounds": {
+      "room_transition": "audio/door_open_close.wav",
+      "item_pickup": "audio/item_pickup.wav",
+      "intro_voice": "audio/voice/ambient_stasis.mp3"
+    }
   },
   "character": {
     "sprite_sets": {
@@ -192,7 +197,110 @@
             }
           ]
         }
-      ]
+      ],
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.72,
+            "y": 0.42,
+            "radius": 0.45,
+            "color": [
+              40,
+              200,
+              120
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.35,
+            "alpha": 0.45,
+            "phase": 0
+          },
+          {
+            "x": 0.68,
+            "y": 0.2,
+            "radius": 0.25,
+            "color": [
+              60,
+              220,
+              140
+            ],
+            "pulse_speed": 0.55,
+            "pulse_amount": 0.3,
+            "alpha": 0.3,
+            "phase": 1.2
+          },
+          {
+            "x": 0.75,
+            "y": 0.65,
+            "radius": 0.2,
+            "color": [
+              50,
+              180,
+              100
+            ],
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.25,
+            "alpha": 0.25,
+            "phase": 2.4
+          },
+          {
+            "x": 0.58,
+            "y": 0.35,
+            "radius": 0.18,
+            "color": [
+              30,
+              160,
+              90
+            ],
+            "pulse_speed": 0.65,
+            "pulse_amount": 0.4,
+            "alpha": 0.22,
+            "phase": 0.8
+          },
+          {
+            "x": 0.12,
+            "y": 0.35,
+            "radius": 0.2,
+            "color": [
+              200,
+              150,
+              50
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.15,
+            "alpha": 0.18,
+            "phase": 3.0
+          },
+          {
+            "x": 0.88,
+            "y": 0.35,
+            "radius": 0.18,
+            "color": [
+              180,
+              140,
+              40
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.12,
+            "alpha": 0.15,
+            "phase": 1.5
+          },
+          {
+            "x": 0.22,
+            "y": 0.8,
+            "radius": 0.15,
+            "color": [
+              200,
+              160,
+              60
+            ],
+            "pulse_speed": 0.15,
+            "pulse_amount": 0.1,
+            "alpha": 0.15,
+            "phase": 0.5
+          }
+        ],
+        "flicker": true
+      }
     },
     {
       "id": "act1_cataloguer_closeup",
@@ -318,6 +426,53 @@
         "facing": "down",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.3,
+            "y": 0.25,
+            "radius": 0.25,
+            "color": [
+              60,
+              200,
+              140
+            ],
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.3,
+            "alpha": 0.3,
+            "phase": 0
+          },
+          {
+            "x": 0.7,
+            "y": 0.3,
+            "radius": 0.2,
+            "color": [
+              50,
+              180,
+              120
+            ],
+            "pulse_speed": 0.6,
+            "pulse_amount": 0.25,
+            "alpha": 0.22,
+            "phase": 1.5
+          },
+          {
+            "x": 0.5,
+            "y": 0.1,
+            "radius": 0.3,
+            "color": [
+              200,
+              150,
+              50
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.15,
+            "alpha": 0.18,
+            "phase": 0.8
+          }
+        ],
+        "flicker": true
       }
     },
     {
@@ -422,6 +577,67 @@
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.25,
+            "y": 0.08,
+            "radius": 0.3,
+            "color": [
+              220,
+              170,
+              60
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.2,
+            "alpha": 0.3,
+            "phase": 0
+          },
+          {
+            "x": 0.55,
+            "y": 0.06,
+            "radius": 0.25,
+            "color": [
+              200,
+              150,
+              50
+            ],
+            "pulse_speed": 0.35,
+            "pulse_amount": 0.25,
+            "alpha": 0.25,
+            "phase": 1.0
+          },
+          {
+            "x": 0.85,
+            "y": 0.08,
+            "radius": 0.25,
+            "color": [
+              210,
+              160,
+              55
+            ],
+            "pulse_speed": 0.28,
+            "pulse_amount": 0.2,
+            "alpha": 0.22,
+            "phase": 2.0
+          },
+          {
+            "x": 0.5,
+            "y": 0.85,
+            "radius": 0.35,
+            "color": [
+              60,
+              180,
+              120
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.3,
+            "alpha": 0.22,
+            "phase": 0.5
+          }
+        ],
+        "flicker": true
       }
     },
     {
@@ -470,6 +686,52 @@
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.1,
+            "radius": 0.35,
+            "color": [
+              80,
+              120,
+              180
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.15,
+            "alpha": 0.22,
+            "phase": 0
+          },
+          {
+            "x": 0.55,
+            "y": 0.25,
+            "radius": 0.2,
+            "color": [
+              50,
+              180,
+              100
+            ],
+            "pulse_speed": 0.45,
+            "pulse_amount": 0.3,
+            "alpha": 0.25,
+            "phase": 1.0
+          },
+          {
+            "x": 0.15,
+            "y": 0.4,
+            "radius": 0.18,
+            "color": [
+              180,
+              140,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.2,
+            "alpha": 0.15,
+            "phase": 2.0
+          }
+        ]
       }
     },
     {
@@ -543,6 +805,67 @@
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.18,
+            "y": 0.4,
+            "radius": 0.2,
+            "color": [
+              140,
+              60,
+              200
+            ],
+            "pulse_speed": 0.6,
+            "pulse_amount": 0.35,
+            "alpha": 0.3,
+            "phase": 0
+          },
+          {
+            "x": 0.15,
+            "y": 0.55,
+            "radius": 0.15,
+            "color": [
+              160,
+              70,
+              220
+            ],
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.3,
+            "alpha": 0.22,
+            "phase": 1.2
+          },
+          {
+            "x": 0.6,
+            "y": 0.35,
+            "radius": 0.2,
+            "color": [
+              60,
+              200,
+              140
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.25,
+            "alpha": 0.22,
+            "phase": 0.5
+          },
+          {
+            "x": 0.85,
+            "y": 0.4,
+            "radius": 0.2,
+            "color": [
+              50,
+              180,
+              120
+            ],
+            "pulse_speed": 0.55,
+            "pulse_amount": 0.3,
+            "alpha": 0.18,
+            "phase": 2.0
+          }
+        ],
+        "flicker": true
       }
     },
     {
@@ -589,6 +912,53 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.3,
+            "y": 0.3,
+            "radius": 0.2,
+            "color": [
+              200,
+              60,
+              40
+            ],
+            "pulse_speed": 0.8,
+            "pulse_amount": 0.4,
+            "alpha": 0.25,
+            "phase": 0
+          },
+          {
+            "x": 0.7,
+            "y": 0.35,
+            "radius": 0.18,
+            "color": [
+              180,
+              50,
+              30
+            ],
+            "pulse_speed": 0.9,
+            "pulse_amount": 0.35,
+            "alpha": 0.2,
+            "phase": 1.5
+          },
+          {
+            "x": 0.5,
+            "y": 0.4,
+            "radius": 0.3,
+            "color": [
+              60,
+              180,
+              140
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.25,
+            "alpha": 0.25,
+            "phase": 0.5
+          }
+        ],
+        "flicker": true
       }
     },
     {
@@ -667,6 +1037,66 @@
         "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.35,
+            "y": 0.3,
+            "radius": 0.2,
+            "color": [
+              60,
+              180,
+              200
+            ],
+            "pulse_speed": 0.7,
+            "pulse_amount": 0.35,
+            "alpha": 0.28,
+            "phase": 0
+          },
+          {
+            "x": 0.65,
+            "y": 0.25,
+            "radius": 0.18,
+            "color": [
+              50,
+              160,
+              180
+            ],
+            "pulse_speed": 0.8,
+            "pulse_amount": 0.3,
+            "alpha": 0.22,
+            "phase": 1.0
+          },
+          {
+            "x": 0.5,
+            "y": 0.4,
+            "radius": 0.25,
+            "color": [
+              40,
+              200,
+              160
+            ],
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.25,
+            "alpha": 0.22,
+            "phase": 2.0
+          },
+          {
+            "x": 0.2,
+            "y": 0.35,
+            "radius": 0.15,
+            "color": [
+              200,
+              50,
+              40
+            ],
+            "pulse_speed": 1.2,
+            "pulse_amount": 0.5,
+            "alpha": 0.2,
+            "phase": 0
+          }
+        ]
       }
     },
     {
@@ -749,6 +1179,52 @@
         "facing": "left",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.12,
+            "y": 0.4,
+            "radius": 0.25,
+            "color": [
+              140,
+              80,
+              200
+            ],
+            "pulse_speed": 0.35,
+            "pulse_amount": 0.25,
+            "alpha": 0.3,
+            "phase": 0
+          },
+          {
+            "x": 0.88,
+            "y": 0.4,
+            "radius": 0.25,
+            "color": [
+              120,
+              60,
+              180
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.2,
+            "alpha": 0.25,
+            "phase": 1.5
+          },
+          {
+            "x": 0.5,
+            "y": 0.3,
+            "radius": 0.25,
+            "color": [
+              60,
+              200,
+              180
+            ],
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.3,
+            "alpha": 0.22,
+            "phase": 0.8
+          }
+        ]
       }
     },
     {
@@ -832,6 +1308,52 @@
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.18,
+            "y": 0.4,
+            "radius": 0.25,
+            "color": [
+              150,
+              180,
+              220
+            ],
+            "pulse_speed": 0.15,
+            "pulse_amount": 0.1,
+            "alpha": 0.22,
+            "phase": 0
+          },
+          {
+            "x": 0.52,
+            "y": 0.45,
+            "radius": 0.2,
+            "color": [
+              220,
+              160,
+              50
+            ],
+            "pulse_speed": 0.6,
+            "pulse_amount": 0.3,
+            "alpha": 0.22,
+            "phase": 1.0
+          },
+          {
+            "x": 0.85,
+            "y": 0.45,
+            "radius": 0.15,
+            "color": [
+              180,
+              200,
+              220
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.2,
+            "alpha": 0.15,
+            "phase": 2.0
+          }
+        ]
       }
     },
     {

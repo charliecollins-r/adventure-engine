@@ -220,7 +220,7 @@ export function GameView({
       )}
 
       {/* Canvas-based ambient lighting */}
-      <AmbientCanvas viewId={view.id} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
+      <AmbientCanvas lighting={view.ambient_lighting} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
 
       {/* Character sprite */}
       {engine.getScenario().character && engine.getCharacterPlacement() && (

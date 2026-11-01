@@ -16,12 +16,35 @@ export interface RoomStyle {
   floor_color: string;
 }
 
+export interface SoundEffects {
+  room_transition?: string;
+  item_pickup?: string;
+  intro_voice?: string;
+}
+
+export interface LightSource {
+  x: number;
+  y: number;
+  radius: number;
+  color: [number, number, number];
+  pulse_speed: number;
+  pulse_amount: number;
+  alpha: number;
+  phase?: number;
+}
+
+export interface AmbientLighting {
+  lights: LightSource[];
+  flicker?: boolean;
+}
+
 export interface Setting {
   initial_view: string;
   ambient_text: string;
   room_style: RoomStyle;
   ambient_audio?: string | string[];
   intro_text?: string[];
+  sounds?: SoundEffects;
 }
 
 export interface View {
@@ -35,6 +58,7 @@ export interface View {
   room_animation?: string;
   hints?: ViewHint[];
   character?: CharacterPlacement;
+  ambient_lighting?: AmbientLighting;
 }
 
 export interface Position {

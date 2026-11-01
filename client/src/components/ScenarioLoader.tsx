@@ -15,15 +15,6 @@ interface ScenarioMeta {
   error?: string;
 }
 
-const SCENARIOS = [
-  'the-harvest',
-  'the-lighthouse-keeper',
-  'the-butchers-debt',
-  'the-seance-room',
-  'the-taxidermist',
-  'pressure-point',
-];
-
 const styles: Record<string, CSSProperties> = {
   container: {
     minHeight: '100vh',
@@ -107,46 +98,54 @@ const styles: Record<string, CSSProperties> = {
 };
 
 export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
-  const [metas, setMetas] = useState<ScenarioMeta[]>(
-    SCENARIOS.map((id) => ({
-      id,
-      title: id.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-      description: '',
-      loading: true,
-    })),
-  );
+  const [metas, setMetas] = useState<ScenarioMeta[]>([]);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    SCENARIOS.forEach((id) => {
-      fetch(`/scenarios/${id}/scenario.json`)
-        .then((r) => r.json())
-        .then((data) => {
-          setMetas((prev) =>
-            prev.map((m) =>
-              m.id === id
-                ? {
-                    ...m,
-                    title: data.metadata?.title ?? m.title,
-                    description: data.metadata?.description ?? '',
-                    difficulty: data.metadata?.difficulty,
-                    estimated_minutes: data.metadata?.estimated_minutes,
-                    loading: false,
-                  }
-                : m,
-            ),
-          );
-        })
-        .catch(() => {
-          setMetas((prev) =>
-            prev.map((m) =>
-              m.id === id ? { ...m, loading: false, error: 'Failed to load' } : m,
-            ),
-          );
+    fetch('/scenarios/manifest.json')
+      .then((r) => r.json())
+      .then((ids: string[]) => {
+        setMetas(
+          ids.map((id) => ({
+            id,
+            title: id.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+            description: '',
+            loading: true,
+          })),
+        );
+        ids.forEach((id) => {
+          fetch(`/scenarios/${id}/scenario.json`)
+            .then((r) => r.json())
+            .then((data) => {
+              setMetas((prev) =>
+                prev.map((m) =>
+                  m.id === id
+                    ? {
+                        ...m,
+                        title: data.metadata?.title ?? m.title,
+                        description: data.metadata?.description ?? '',
+                        difficulty: data.metadata?.difficulty,
+                        estimated_minutes: data.metadata?.estimated_minutes,
+                        loading: false,
+                      }
+                    : m,
+                ),
+              );
+            })
+            .catch(() => {
+              setMetas((prev) =>
+                prev.map((m) =>
+                  m.id === id ? { ...m, loading: false, error: 'Failed to load' } : m,
+                ),
+              );
+            });
         });
-    });
+      })
+      .catch(() => {
+        // No manifest — show upload-only mode
+      });
   }, []);
 
   const handleCardClick = async (id: string) => {

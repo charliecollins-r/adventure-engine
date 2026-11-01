@@ -40,6 +40,7 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 ├── server/                            ← Spring Boot 3 backend (Java 21, Maven)
 │   └── src/main/java/com/kq/        ← Future: validation, tooling, save sync
 ├── scenarios/                         ← ALL scenario content (self-contained folders)
+│   ├── manifest.json                 ← List of available scenario IDs for auto-discovery
 │   ├── the-lighthouse-keeper/        ← Each scenario is a folder containing:
 │   │   ├── scenario.json             ←   The scenario definition
 │   │   ├── design.md                 ←   Design doc (story, image prompts, patterns)
@@ -155,6 +156,8 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 - **Dialogue Choices**: Branching conversation system via `show_dialogue` effect
 - **Character Sprites**: Sierra-style sprite sheet rendering on backgrounds
 - **30 Design Patterns**: Documented reusable puzzle patterns
+- **Sound Effects**: Optional `setting.sounds` with `room_transition`, `item_pickup`, `intro_voice` paths
+- **Ambient Lighting**: Optional per-view `ambient_lighting` with light sources for dynamic canvas glow effects
 
 ### Character Sprite System
 Optional `character` config at scenario root defines available sprite sets (walk cycles, poses) with frame dimensions and scale. Each view can include a `character` placement specifying position (960x720 coords), facing direction, sprite set, and optional static frame. The `set_character` effect changes character state dynamically (e.g., switch from scared to idle after a puzzle). Sprite sheets use CSS background-position rendering with `image-rendering: pixelated` for crisp pixel art.
@@ -290,7 +293,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. Used by: cataloguer robot in Stasis Hold shows 3-tank specimen closeup.
 - **Hotspot positioning guide**: Comprehensive documentation across ADVENTURE_BUILDER.md, TECHNICAL_DEEP_DIVE.md, SCENARIO_SCHEMA.md, and CLAUDE.md covering image-to-coordinate conversion formulas, worked examples, debug mode workflow, common mistakes, and an AI agent checklist. Self-maintenance rule #9 requires verifying positions against actual background image dimensions.
 - **Progressive hint system**: Per-view `hints` array on each view in the scenario JSON. Engine evaluates conditions in order and returns the last matching hint (most specific). Floating "?" button at bottom-right of viewport shows hints as message overlay. Implemented in ScenarioEngine.getHint(), ScenarioPlayer, and documented in SCENARIO_SCHEMA.md and ADVENTURE_BUILDER.md.
-- **Auto-load campaign**: App.tsx auto-loads The Harvest (no scenario picker menu). IntroSequence has "skip intro" link near "click to continue" prompt.
+- **Scenario picker restored**: App.tsx shows ScenarioLoader on startup — all scenarios with JSON files are auto-discovered from `scenarios/manifest.json`. Players can also upload a custom JSON file. No hardcoded scenario ID.
 - **Immersive HUD**: Messages overlay on the game viewport (semi-transparent backdrop) instead of a dedicated panel below. Inventory is a collapsible drawer with "Items" toggle tab at bottom-left. Hint "?" button floats at bottom-right. Ambient text shows subtly when idle. Inventory auto-opens on item pickup. No UI elements below the viewport — full immersion.
 - **Starting puzzle fix**: Stasis pod starts open (matches background art). Player scavenges wreckage instead of "breaking out." specimen_tag_hook now visible from start.
 - **Character sprite system**: Sierra-style sprite sheet rendering on top of backgrounds. `CharacterSprite` component uses CSS background-position to show frames from sprite sheets. Supports animated walk cycles and static poses. Per-view character placement in scenario JSON. Dynamic state changes via `set_character` effect. Sprite sheets go in scenario `sprites/` subfolder. Splicing tool at `tools/splice-sprites.mjs`. The Harvest has character placements for all 9 Act 1 views — awaiting sprite sheet image files.
@@ -304,6 +307,10 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
 - **Vent cover in corridor**: Ventilation shaft entrance moved from Feeding Station to Containment Corridor. A `vent_cover` object with a sprite grate graphic (`sprites/vent_cover.png`) is always visible in the corridor floor (bottom-left) but gated by `security_locks_overridden` — trying to enter before overriding security shows a locked message. Navigation graph: Corridor → Vent Shaft → Airlock Bay. Vent shaft back-nav returns to corridor.
 - **Standup intro animation**: When the game starts and the intro text is dismissed, the goblin plays an 8-frame stand-up animation (`sprites/goblin_standup.png`) during the fade-from-black transition, then transitions to the idle sprite. Implemented via `loop: false` on SpriteSet (plays once, holds last frame) and ScenarioPlayer managing the standup→idle character override. CharacterSprite resets frame counter when sprite_set changes.
+- **Portability audit complete**: All scenario-specific hardcoding removed from engine and components. Zero references to "the-harvest" or any scenario-specific assets in `client/src/`. Changes: (1) App.tsx restored ScenarioLoader instead of hardcoded CAMPAIGN_ID, (2) ScenarioPlayer.tsx sound effects now read from `setting.sounds` in JSON instead of hardcoded paths, (3) AmbientCanvas.tsx rewritten to read `ambient_lighting` from view JSON instead of hardcoded presets, (4) ScenarioLoader.tsx reads from `scenarios/manifest.json` for auto-discovery. A third-party scenario needs only JSON + asset folders — no engine changes.
+- **JSON-driven sound effects**: `setting.sounds` object in scenario JSON with optional `room_transition`, `item_pickup`, and `intro_voice` paths. Engine plays these on the corresponding events. Scenarios without sounds simply don't play any — no errors.
+- **JSON-driven ambient lighting**: Per-view `ambient_lighting` object with `lights` array and optional `flicker` flag. Each light has `x`, `y` (0-1 normalized), `radius`, `color` [r,g,b], `pulse_speed`, `pulse_amount`, `alpha`, and optional `phase`. Views without `ambient_lighting` show no canvas overlay. Moved from hardcoded AmbientCanvas.tsx presets into The Harvest's scenario.json.
+- **Scenario manifest**: `scenarios/manifest.json` lists all available scenario folder names. ScenarioLoader reads this on startup to populate the picker. Adding a new scenario = add folder with scenario.json + add ID to manifest.json.
 
 ---
 

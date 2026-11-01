@@ -283,8 +283,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   useEffect(() => {
     if (!eyeOpen) return;
-    playSound('audio/voice/ambient_stasis.mp3');
-  }, [eyeOpen, playSound]);
+    const introVoice = scenario.setting.sounds?.intro_voice;
+    if (introVoice) playSound(introVoice);
+  }, [eyeOpen, playSound, scenario]);
 
   useEffect(() => {
     if (!standingUp) return;
@@ -309,7 +310,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const currentView = engine.currentViewId;
     if (prevViewRef.current !== currentView) {
-      playSound('audio/door_open_close.wav');
+      const transitionSound = scenario.setting.sounds?.room_transition;
+      if (transitionSound) playSound(transitionSound);
       prevViewRef.current = currentView;
     }
   });
@@ -319,7 +321,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const count = engine.getInventory().length;
     if (prevItemCount.current >= 0 && count > prevItemCount.current) {
       setInventoryOpen(true);
-      playSound('audio/item_pickup.wav');
+      const pickupSound = scenario.setting.sounds?.item_pickup;
+      if (pickupSound) playSound(pickupSound);
     }
     prevItemCount.current = count;
   });
@@ -440,9 +443,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleNavigateBack = useCallback(() => {
     engine.navigateBack();
-    playSound('audio/door_open_close.wav');
+    const transitionSound = scenario.setting.sounds?.room_transition;
+    if (transitionSound) playSound(transitionSound);
     bump();
-  }, [engine, bump, playSound]);
+  }, [engine, bump, playSound, scenario]);
 
   const handleHint = useCallback(() => {
     const hint = engine.getHint();
