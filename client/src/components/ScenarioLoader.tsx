@@ -115,6 +115,13 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
             loading: true,
           })),
         );
+        if (ids.length === 1) {
+          fetch(`/scenarios/${ids[0]}/scenario.json`)
+            .then((r) => r.json())
+            .then((data) => onLoad(data as Scenario))
+            .catch(() => {});
+          return;
+        }
         ids.forEach((id) => {
           fetch(`/scenarios/${id}/scenario.json`)
             .then((r) => r.json())
