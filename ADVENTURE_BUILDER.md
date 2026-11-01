@@ -1428,6 +1428,63 @@ node tools/splice-sprites.mjs frame1.png frame2.png frame3.png --cols 3 --output
 
 ---
 
+## Voiceover Narration
+
+The engine supports voiced narration via the ElevenLabs TTS API. A batch generation tool extracts all player-facing text from your scenario JSON and produces MP3 files.
+
+### Setup
+
+1. Create a free ElevenLabs account at [elevenlabs.io](https://elevenlabs.io)
+2. Get your API key from Profile → API Keys
+3. Pick a voice ID (use `--list-voices` to browse)
+
+```bash
+export ELEVENLABS_API_KEY=your_key_here
+export ELEVENLABS_VOICE_ID=your_voice_id
+```
+
+### Usage
+
+```bash
+# Preview what would be generated (no API calls)
+node tools/generate-voiceover.mjs my-scenario --dry-run
+
+# Generate only intro narration (smallest quota usage)
+node tools/generate-voiceover.mjs my-scenario --filter intro
+
+# Generate all voiceover
+node tools/generate-voiceover.mjs my-scenario
+
+# Re-generate existing files
+node tools/generate-voiceover.mjs my-scenario --force
+```
+
+### Text Categories
+
+The tool extracts text from these sources in your scenario JSON:
+
+| Category | Source | Typical Use |
+|----------|--------|-------------|
+| `intro` | `setting.intro_text[]` | Opening narration |
+| `ambient` | `setting.ambient_text`, phase ambient text | Room descriptions |
+| `message` | Interaction `response` / `message` effects | All gameplay text |
+| `dialogue` | Messages inside `show_dialogue` choices | Conversation responses |
+| `gameover` | `game_over` effects, win/lose descriptions | Ending narration |
+| `hint` | View hints, global hints | Help text |
+
+### Output
+
+Generated files go to `scenarios/<id>/audio/voice/` with a `manifest.json` mapping each file to its source text and location in the JSON. Files are named by stable IDs (`intro_001.mp3`, `msg_042.mp3`, etc.).
+
+### Quota Tips
+
+ElevenLabs free tier gives ~10,000 characters/month (resets monthly). Prioritize by category:
+- **Intro narration** first (`--filter intro`) — highest impact, fewest characters
+- **Game over** next (`--filter gameover`) — dramatic moments
+- **Key messages** last — use `--filter message` but expect many entries
+
+---
+
 ## Full Schema Reference
 
 For the complete specification — all condition types, effect types, puzzle widget configurations, killer AI parameters, event triggers, hints, solution paths, validation rules, and all 30 design patterns with JSON examples — see:

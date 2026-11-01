@@ -23,6 +23,9 @@ client/.vite/
 .DS_Store
 Thumbs.db
 
+# Generated voiceover audio (large MP3s, regenerated from API)
+**/audio/voice/*.mp3
+
 # Env
 .env
 .env.local

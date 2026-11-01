@@ -61,7 +61,8 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
 │   └── images/                       ← Screenshots for README
 ├── tools/
-│   └── splice-sprites.mjs            ← Node.js sprite sheet splicing utility
+│   ├── splice-sprites.mjs            ← Node.js sprite sheet splicing utility
+│   └── generate-voiceover.mjs        ← ElevenLabs TTS batch generator for scenario narration
 ├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
 ├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)
 └── .gitignore
@@ -315,6 +316,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Scenario manifest**: `scenarios/manifest.json` lists all available scenario folder names. ScenarioLoader reads this on startup to populate the picker. Adding a new scenario = add folder with scenario.json + add ID to manifest.json.
 - **MVP menu restriction**: Manifest currently includes only `the-harvest`. ScenarioLoader auto-launches when a single scenario is available — no picker screen. Upload button preserved for custom JSONs. Other scenario folders remain on disk for future re-introduction.
 - **New player character sprites**: Replaced goblin with bearded human in green tunic. Three sprite sheets: `character_idle.png` (1×2, right+front), `character_walk.png` (4×2, right walk+front walk at 6fps), `character_standup.png` (4×1, lying→standing at 3fps, no loop). Frame size 300×447, scale 0.35. Left-facing via CSS scaleX(-1) flip. Old goblin sprites removed.
+- **Voiceover narration tool**: `tools/generate-voiceover.mjs` extracts all player-facing text from a scenario JSON (intro, ambient, messages, dialogue, game over, hints) and batch-generates MP3 files via the ElevenLabs TTS API. Supports `--dry-run` to preview without API calls, `--filter <category>` to generate only specific types, `--force` to regenerate existing files, and `--list-voices` to browse available voices. Saves to `scenarios/<id>/audio/voice/` with a manifest.json. Requires `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` environment variables. The Harvest has 1,489 text entries (~193K characters). Free tier gives 10K chars/month — prioritize intro narration first (`--filter intro`, 706 chars).
+- **Scenario-builder skill**: `.claude/skills/scenario-builder/SKILL.md` — comprehensive AI agent onboarding guide (1100+ lines) covering package structure, background image generation (Gemini prompt formula), sprite creation (blue chroma-key workflow), full JSON authoring, coordinate system, ambient lighting, a 3-room template, and pre-flight checklist.
 
 ---
 
@@ -348,3 +351,4 @@ cd client && npx tsc --noEmit
 8. Get Lighthouse Keeper fully playable end-to-end
 9. Character shadow rendering — JSON-configurable direction, darkness, size (visual polish)
 10. Process and integrate cataloguer robot animated sprite (4-frame animation)
+11. Voiceover narration — ElevenLabs TTS integration (script built, awaiting API key)
