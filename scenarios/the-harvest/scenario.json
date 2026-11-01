@@ -81,9 +81,9 @@
     "sprite_sets": {
       "idle": {
         "file": "sprites/character_idle.png",
-        "columns": 1,
+        "columns": 2,
         "rows": 2,
-        "frame_rate": 0,
+        "frame_rate": 1,
         "directions": [
           "right",
           "down"
@@ -137,8 +137,8 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 340,
-        "y": 650,
+        "x": 245,
+        "y": 620,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -4948,12 +4948,12 @@
       "name": "Your Broken Pod",
       "description": "The stasis pod you woke in. The glass is cracked, amber fluid pooling beneath it. Fragments of the pod casing litter the floor.",
       "position": {
-        "x": 170,
-        "y": 450
+        "x": 275,
+        "y": 660
       },
       "size": {
-        "width": 130,
-        "height": 110
+        "width": 50,
+        "height": 35
       },
       "visual": {
         "color": "#2a4a3a",
@@ -6730,11 +6730,11 @@
       "initially_visible": true,
       "sprite": {
         "file": "sprites/cataloguer_robot.png",
-        "frame_width": 338,
+        "frame_width": 339,
         "frame_height": 768,
-        "columns": 3,
+        "columns": 4,
         "rows": 1,
-        "frame_rate": 1,
+        "frame_rate": 2,
         "scale": 0.2
       },
       "interactions": [

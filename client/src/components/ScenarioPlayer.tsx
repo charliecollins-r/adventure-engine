@@ -219,7 +219,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       engine.setCharacterOverride({ sprite_set: 'standup' });
       bump();
       setStandingUp(true);
-    }, 5000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, [eyeOpen, standingUp, engine, bump, scenario]);
 
