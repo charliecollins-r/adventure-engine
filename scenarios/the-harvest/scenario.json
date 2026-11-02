@@ -435,11 +435,18 @@
         }
       ],
       "character": {
-        "x": 527,
-        "y": 517,
+        "x": 507,
+        "y": 594,
         "facing": "down",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
