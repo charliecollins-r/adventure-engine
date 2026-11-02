@@ -1183,7 +1183,7 @@
         }
       ],
       "character": {
-        "x": 680,
+        "x": 450,
         "y": 600,
         "facing": "left",
         "sprite_set": "idle",
@@ -6493,12 +6493,12 @@
       "name": "Data Crystal Archive",
       "description": "Floor-to-ceiling racks of glowing data crystals \u2014 each one a species' complete biological record.",
       "position": {
-        "x": 60,
-        "y": 250
+        "x": 0,
+        "y": 0
       },
       "size": {
-        "width": 80,
-        "height": 120
+        "width": 318,
+        "height": 503
       },
       "visual": {
         "color": "#3a4a5a",
@@ -6555,12 +6555,12 @@
       "name": "Misplaced Data Crystal",
       "description": "A crystal that's slightly different from the others \u2014 personal records rather than specimen data.",
       "position": {
-        "x": 170,
-        "y": 460
+        "x": 862,
+        "y": 184
       },
       "size": {
-        "width": 70,
-        "height": 50
+        "width": 20,
+        "height": 53
       },
       "visual": {
         "color": "#5a6a7a",
@@ -6637,12 +6637,12 @@
       "name": "Crystal Reading Device",
       "description": "A pedestal-mounted device for reading data crystals, projecting holographic content.",
       "position": {
-        "x": 440,
-        "y": 460
+        "x": 458,
+        "y": 394
       },
       "size": {
-        "width": 90,
-        "height": 60
+        "width": 141,
+        "height": 183
       },
       "visual": {
         "color": "#4a5a6a",
@@ -7144,12 +7144,12 @@
       "name": "Holographic Planet Display",
       "description": "Holographic projections of cataloged worlds drifting slowly above the archive, most marked in red.",
       "position": {
-        "x": 280,
-        "y": 60
+        "x": 335,
+        "y": 0
       },
       "size": {
-        "width": 380,
-        "height": 300
+        "width": 383,
+        "height": 388
       },
       "visual": {
         "color": "#2a1a3a",
@@ -21504,12 +21504,12 @@
       "name": "Dark Crystal Rack",
       "description": "The right wall holds crystals that are darker, almost black.",
       "position": {
-        "x": 750,
-        "y": 200
+        "x": 881,
+        "y": 0
       },
       "size": {
-        "width": 120,
-        "height": 300
+        "width": 79,
+        "height": 489
       },
       "visual": {
         "color": "#2a1a3a",
@@ -21545,12 +21545,12 @@
       "name": "Stone Benches",
       "description": "Two worn benches flanking the central pedestal.",
       "position": {
-        "x": 300,
-        "y": 520
+        "x": 650,
+        "y": 496
       },
       "size": {
-        "width": 360,
-        "height": 60
+        "width": 68,
+        "height": 97
       },
       "visual": {
         "color": "#3a3a4a",
