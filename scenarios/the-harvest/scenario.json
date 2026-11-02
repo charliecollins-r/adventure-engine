@@ -5926,16 +5926,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/instrument_rack.png",
-        "frame_width": 128,
-        "frame_height": 128,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1.5
-      }
+      "hiding_spot": false
     },
     {
       "id": "sample_jars",
@@ -6766,16 +6757,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/neural_tendril.png",
-        "frame_width": 64,
-        "frame_height": 64,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 3,
-        "scale": 1.0
-      }
+      "hiding_spot": false
     },
     {
       "id": "nutrient_dispenser",
@@ -6861,16 +6843,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/nutrient_dispenser.png",
-        "frame_width": 64,
-        "frame_height": 128,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1.5
-      }
+      "hiding_spot": false
     },
     {
       "id": "feeding_troughs",
@@ -18495,16 +18468,7 @@
           "verb": "talk",
           "response": "There's nothing to say to claw marks. But you understand the message they left behind: don't get caught."
         }
-      ],
-      "sprite": {
-        "file": "sprites/drag_marks.png",
-        "frame_width": 128,
-        "frame_height": 64,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1.5
-      }
+      ]
     },
     {
       "id": "corridor_emergency_panel",
@@ -18580,16 +18544,7 @@
           "verb": "talk",
           "response": "You try speaking to the panel. It chirps once — voice commands might work, but not in any language you know."
         }
-      ],
-      "sprite": {
-        "file": "sprites/emergency_panel.png",
-        "frame_width": 452,
-        "frame_height": 571,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 1,
-        "scale": 0.23
-      }
+      ]
     },
     {
       "id": "corridor_organic_growth",
@@ -18701,16 +18656,7 @@
             }
           ]
         }
-      ],
-      "sprite": {
-        "file": "sprites/organic_growth.png",
-        "frame_width": 648,
-        "frame_height": 491,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.15
-      }
+      ]
     },
     {
       "id": "morgue_chemical_cabinet",

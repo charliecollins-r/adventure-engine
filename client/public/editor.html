@@ -147,14 +147,14 @@
     outline-offset: 2px;
   }
   .obj-sprite .handle {
-    position: absolute; width: 8px; height: 8px;
-    background: var(--accent-sprite); border: 1px solid #000;
-    z-index: 30;
+    position: absolute; width: 14px; height: 14px;
+    background: #ff0; border: 2px solid #000;
+    z-index: 30; border-radius: 2px;
   }
-  .obj-sprite .handle.tl { top: -4px; left: -4px; cursor: nw-resize; }
-  .obj-sprite .handle.tr { top: -4px; right: -4px; cursor: ne-resize; }
-  .obj-sprite .handle.bl { bottom: -4px; left: -4px; cursor: sw-resize; }
-  .obj-sprite .handle.br { bottom: -4px; right: -4px; cursor: se-resize; }
+  .obj-sprite .handle.tl { top: -7px; left: -7px; cursor: nw-resize; }
+  .obj-sprite .handle.tr { top: -7px; right: -7px; cursor: ne-resize; }
+  .obj-sprite .handle.bl { bottom: -7px; left: -7px; cursor: sw-resize; }
+  .obj-sprite .handle.br { bottom: -7px; right: -7px; cursor: se-resize; }
   .obj-sprite .label {
     position: absolute; bottom: -16px; left: 50%;
     transform: translateX(-50%); font-size: 9px;
@@ -711,6 +711,7 @@ async function init() {
   vp.addEventListener('mousemove', onMouseMove);
   vp.addEventListener('mouseup', onMouseUp);
   vp.addEventListener('mouseleave', onMouseUp);
+  vp.addEventListener('wheel', onWheel, { passive: false });
   document.addEventListener('keydown', onKeyDown);
   document.getElementById('showHotspots').addEventListener('change', render);
   document.getElementById('showSprites').addEventListener('change', render);
@@ -1805,6 +1806,20 @@ function onMouseUp(e) {
     }
     drawState = null;
   }
+}
+
+function onWheel(e) {
+  if (!selectedSpriteId) return;
+  const obj = findObject(selectedSpriteId);
+  if (!obj || !obj.sprite) return;
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.02 : 0.02;
+  const newScale = Math.max(0.02, Math.round(((obj.sprite.scale || 1) + delta) * 100) / 100);
+  obj.sprite.scale = newScale;
+  if (obj.origScale === undefined) obj.origScale = obj.sprite.scale;
+  syncSpriteHitbox(obj);
+  render();
+  renderSpritePanel();
 }
 
 function toggleObjShadow(objId, enabled) {
