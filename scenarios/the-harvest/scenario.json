@@ -5365,7 +5365,7 @@
       },
       "sprite": {
         "file": "sprites/black-cat.png",
-        "frame_width": 272,
+        "frame_width": 266,
         "frame_height": 342,
         "columns": 4,
         "rows": 1,
@@ -7377,7 +7377,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
+      "hiding_spot": false
     },
     {
       "id": "reading_device",
@@ -19543,7 +19543,7 @@
       },
       "sprite": {
         "file": "sprites/vent_cover.png",
-        "frame_width": 1408,
+        "frame_width": 904,
         "frame_height": 551,
         "columns": 1,
         "rows": 1,
@@ -22639,7 +22639,7 @@
       "initially_visible": true,
       "sprite": {
         "file": "sprites/caged_prisoner.png",
-        "frame_width": 300,
+        "frame_width": 248,
         "frame_height": 173,
         "columns": 4,
         "rows": 1,
