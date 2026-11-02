@@ -103,7 +103,7 @@ export function CharacterSprite({
     width: `${shadow.width ?? renderW * 0.6}px`,
     height: `${shadow.height ?? 6}px`,
     borderRadius: '50%',
-    background: `radial-gradient(ellipse, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`,
+    background: `radial-gradient(ellipse, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 0%, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`,
     opacity: shadow.opacity ?? 0.6,
     pointerEvents: 'none',
     zIndex: 4,

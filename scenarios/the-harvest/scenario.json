@@ -143,8 +143,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -443,8 +443,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -601,8 +601,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -718,8 +718,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -845,8 +845,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -959,8 +959,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -1092,8 +1092,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },
@@ -1242,8 +1242,8 @@
         "shadow": {
           "width": 60,
           "height": 12,
-          "color": "rgba(0,0,0,0.7)",
-          "opacity": 0.85,
+          "color": "rgba(0,0,0,1)",
+          "opacity": 0.9,
           "offset_y": 2
         }
       },

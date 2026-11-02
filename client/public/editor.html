@@ -854,7 +854,7 @@ function renderObjSprite(vp, obj) {
     shadowEl.style.width = sw + 'px';
     shadowEl.style.height = sheight + 'px';
     shadowEl.style.borderRadius = '50%';
-    shadowEl.style.background = `radial-gradient(ellipse, ${sh.color ?? 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`;
+    shadowEl.style.background = `radial-gradient(ellipse, ${sh.color ?? 'rgba(0,0,0,0.5)'} 0%, ${sh.color ?? 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`;
     shadowEl.style.opacity = sh.opacity ?? 0.6;
     shadowEl.style.pointerEvents = 'none';
     shadowEl.style.zIndex = '10';
@@ -939,7 +939,7 @@ function renderCharacter(vp) {
     se.style.top = (screenY + (shadow.offset_y || 0) - sh / 2) + 'px';
     se.style.width = sw + 'px';
     se.style.height = sh + 'px';
-    se.style.background = `radial-gradient(ellipse, ${shadow.color || 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`;
+    se.style.background = `radial-gradient(ellipse, ${shadow.color || 'rgba(0,0,0,0.5)'} 0%, ${shadow.color || 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`;
     se.style.opacity = shadow.opacity || 0.6;
     vp.appendChild(se);
   }
