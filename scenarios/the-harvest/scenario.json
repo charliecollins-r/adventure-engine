@@ -5780,17 +5780,26 @@
       "name": "Surgical Instrument Rack",
       "description": "A rack of alien surgical tools — curved bone-like instruments, probes, and extractors.",
       "position": {
-        "x": 555,
-        "y": 522
+        "x": 604,
+        "y": 406
       },
       "size": {
-        "width": 73,
-        "height": 43
+        "width": 132,
+        "height": 63
       },
       "visual": {
         "color": "#3a3a4a",
         "label": "Tools",
         "animation": "glimmer"
+      },
+      "sprite": {
+        "file": "sprites/instrument_rack.png",
+        "frame_width": 1247,
+        "frame_height": 549,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.11
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -21832,12 +21841,12 @@
       "name": "Restraint Straps",
       "description": "Leather-like straps on the examination table, worn smooth by struggling.",
       "position": {
-        "x": 642,
-        "y": 408
+        "x": 587,
+        "y": 508
       },
       "size": {
-        "width": 124,
-        "height": 97
+        "width": 137,
+        "height": 193
       },
       "visual": {
         "color": "#4a3a2a",
