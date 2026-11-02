@@ -6250,6 +6250,15 @@
         "label": "Tendril",
         "animation": "glimmer"
       },
+      "sprite": {
+        "file": "sprites/neural_tendril.png",
+        "frame_width": 556,
+        "frame_height": 373,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.19
+      },
       "initial_state": "default",
       "initially_visible": true,
       "interactions": [
