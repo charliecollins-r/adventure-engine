@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotspot Editor — Adventure Engine</title>
+<title>Visual Editor — Adventure Engine</title>
 <style>
   :root {
     --gold: #c0a030;
@@ -17,6 +17,7 @@
     --accent-obj: #c0a030;
     --accent-char: #44cc66;
     --accent-new: #cc4444;
+    --accent-sprite: #cc88ff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -105,6 +106,7 @@
     z-index: 10;
   }
   .hotspot.nav { border-color: var(--accent-nav); background: rgba(68, 136, 204, 0.12); }
+  .hotspot.has-sprite { border-color: var(--accent-sprite); background: rgba(204, 136, 255, 0.08); }
   .hotspot.selected { border-width: 3px; z-index: 20; }
   .hotspot.new-box { border-color: var(--accent-new); background: rgba(204, 68, 68, 0.15); border-style: dashed; }
   .hotspot .label {
@@ -118,6 +120,7 @@
     text-shadow: 0 0 3px #000, 0 0 6px #000;
   }
   .hotspot.nav .label { color: var(--accent-nav); }
+  .hotspot.has-sprite .label { color: var(--accent-sprite); }
   .hotspot .handle {
     position: absolute;
     width: 8px;
@@ -131,39 +134,28 @@
   .hotspot .handle.bl { bottom: -4px; left: -4px; cursor: sw-resize; }
   .hotspot .handle.br { bottom: -4px; right: -4px; cursor: se-resize; }
 
-  /* Character marker */
-  .char-marker {
+  /* Object sprite overlay */
+  .obj-sprite {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 3px solid var(--accent-char);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 11;
+    image-rendering: auto;
+    background-repeat: no-repeat;
+  }
+
+  /* Character sprite */
+  .char-sprite {
+    position: absolute;
     cursor: move;
     z-index: 15;
-    box-shadow: 0 0 8px rgba(68, 204, 102, 0.5);
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
   }
-  .char-marker::after {
-    content: '';
+  .char-shadow {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background: var(--accent-char);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .char-marker .label {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: var(--accent-char);
-    white-space: nowrap;
     pointer-events: none;
-    text-shadow: 0 0 3px #000, 0 0 6px #000;
+    z-index: 14;
+    border-radius: 50%;
   }
 
   /* Draw preview */
@@ -178,7 +170,7 @@
 
   /* Side panel */
   .panel {
-    width: 320px;
+    width: 360px;
     background: var(--panel);
     border-left: 1px solid var(--border);
     display: flex;
@@ -186,19 +178,48 @@
     overflow: hidden;
     flex-shrink: 0;
   }
-  .panel-header {
-    padding: 10px 12px;
+
+  /* Panel tabs */
+  .panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .panel-tab {
+    flex: 1;
+    padding: 8px 12px;
+    text-align: center;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--gold);
-    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
   }
-  .panel-body {
+  .panel-tab:hover { color: var(--text); }
+  .panel-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .panel-content {
     flex: 1;
     overflow-y: auto;
-    padding: 8px;
+    display: none;
   }
+  .panel-content.active { display: flex; flex-direction: column; }
+
+  .panel-section {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-section-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+
+  /* Object list */
   .obj-row {
     display: flex;
     align-items: center;
@@ -219,9 +240,82 @@
   .obj-row .dot.obj { background: var(--accent-obj); }
   .obj-row .dot.nav { background: var(--accent-nav); }
   .obj-row .dot.char { background: var(--accent-char); }
+  .obj-row .dot.sprite { background: var(--accent-sprite); }
   .obj-row .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .obj-row .pos { color: var(--text-dim); font-size: 10px; white-space: nowrap; }
   .obj-row .changed { color: var(--accent-new); font-weight: bold; font-size: 10px; }
+
+  /* Character controls */
+  .char-controls { display: flex; flex-direction: column; gap: 10px; }
+  .char-controls .row { display: flex; align-items: center; gap: 8px; }
+  .char-controls label { color: var(--text-dim); font-size: 11px; min-width: 70px; }
+  .char-controls select, .char-controls input {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  .char-controls select:hover, .char-controls input:hover { border-color: var(--gold); }
+
+  .facing-btns { display: flex; gap: 4px; }
+  .facing-btn {
+    background: var(--bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    font-family: inherit;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .facing-btn:hover { border-color: var(--gold); color: var(--text); }
+  .facing-btn.active { background: #2a2210; border-color: var(--gold); color: var(--gold); }
+
+  .anim-toggle {
+    background: var(--bg);
+    color: var(--accent-char);
+    border: 1px solid var(--accent-char);
+    padding: 4px 14px;
+    font-family: inherit;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .anim-toggle:hover { background: rgba(68, 204, 102, 0.1); }
+  .anim-toggle.paused { color: var(--accent-new); border-color: var(--accent-new); }
+
+  .char-pos-display {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .sprite-preview-box {
+    margin-top: 8px;
+    padding: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sprite-preview-box .sprite-el {
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+  }
+  .no-char-msg {
+    color: var(--text-dim);
+    font-size: 12px;
+    text-align: center;
+    padding: 20px;
+  }
 
   /* Export modal */
   .modal-overlay {
@@ -238,8 +332,8 @@
     background: var(--panel);
     border: 1px solid var(--gold);
     border-radius: 6px;
-    width: 700px;
-    max-height: 80vh;
+    width: 750px;
+    max-height: 85vh;
     display: flex;
     flex-direction: column;
   }
@@ -264,6 +358,24 @@
     resize: vertical;
     border-radius: 3px;
   }
+  .modal-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 12px;
+  }
+  .modal-tab {
+    padding: 6px 16px;
+    font-size: 11px;
+    color: var(--text-dim);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    background: var(--bg);
+    margin-right: -1px;
+  }
+  .modal-tab:first-child { border-radius: 4px 0 0 0; }
+  .modal-tab:last-child { border-radius: 0 4px 0 0; }
+  .modal-tab.active { color: var(--gold); background: var(--panel); border-bottom: 1px solid var(--panel); }
   .modal-footer {
     display: flex;
     gap: 8px;
@@ -295,6 +407,14 @@
   <select id="scenarioSelect"><option value="">Loading...</option></select>
   <label>View</label>
   <select id="viewSelect"><option value="">Pick scenario first</option></select>
+  <label style="margin-left:8px">
+    <input type="checkbox" id="showHotspots" checked style="margin-right:4px;vertical-align:middle;">
+    Hotspots
+  </label>
+  <label>
+    <input type="checkbox" id="showSprites" checked style="margin-right:4px;vertical-align:middle;">
+    Sprites
+  </label>
   <div class="spacer"></div>
   <div class="coords" id="coordsDisplay">Move mouse over viewport</div>
   <button onclick="resetView()">Reset View</button>
@@ -309,8 +429,16 @@
     </div>
   </div>
   <div class="panel">
-    <div class="panel-header">Objects in View</div>
-    <div class="panel-body" id="objectList"></div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" data-tab="objects" onclick="switchTab('objects')">Objects</div>
+      <div class="panel-tab" data-tab="character" onclick="switchTab('character')">Character</div>
+    </div>
+    <div class="panel-content active" id="tab-objects">
+      <div id="objectList" style="padding:8px;"></div>
+    </div>
+    <div class="panel-content" id="tab-character">
+      <div id="charPanel"></div>
+    </div>
   </div>
 </div>
 
@@ -328,9 +456,11 @@
       <button onclick="closeExport()">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="margin-bottom:8px; color:var(--text-dim); font-size:11px;">
-        Copy this text and paste it to Claude. It contains all position changes you made.
-      </p>
+      <div class="modal-tabs">
+        <div class="modal-tab active" onclick="switchExportTab(0)">Changes</div>
+        <div class="modal-tab" onclick="switchExportTab(1)">JSON Patch</div>
+        <div class="modal-tab" onclick="switchExportTab(2)">Full View JSON</div>
+      </div>
       <textarea id="exportText" readonly></textarea>
     </div>
     <div class="modal-footer">
@@ -347,13 +477,26 @@
 let scenario = null;
 let scenarioId = '';
 let currentViewId = '';
-let objects = [];       // { id, name, x, y, w, h, isNav, origX, origY, origW, origH }
-let character = null;   // { x, y, origX, origY }
+let objects = [];       // { id, name, x, y, w, h, isNav, hasSprite, sprite, origX, origY, origW, origH }
+let character = null;   // { x, y, origX, origY, facing, sprite_set }
+let charConfig = null;  // scenario.character config
 let newBoxes = [];      // { id, x, y, w, h } — user-drawn boxes
 let selectedId = null;
-let dragState = null;   // { type, id, startMX, startMY, startX, startY, startW?, startH? }
-let drawState = null;   // { startX, startY }
+let dragState = null;
+let drawState = null;
 
+// Animation state
+let animPaused = false;
+let charAnimFrame = 0;
+let charAnimId = 0;
+let objAnimFrames = {};  // { objectId: frame }
+let objAnimIds = {};     // { objectId: rafId }
+
+// Editor overrides (not from JSON)
+let charFacingOverride = null;
+let charSpriteSetOverride = null;
+
+const SCALE_X = 1.0;
 const SCALE_Y = 0.75;
 const VP_W = 960;
 const VP_H = 540;
@@ -382,6 +525,8 @@ async function init() {
   vp.addEventListener('mouseup', onMouseUp);
   vp.addEventListener('mouseleave', onMouseUp);
   document.addEventListener('keydown', onKeyDown);
+  document.getElementById('showHotspots').addEventListener('change', render);
+  document.getElementById('showSprites').addEventListener('change', render);
 }
 
 // ============================================================
@@ -393,6 +538,7 @@ async function loadScenario(id) {
   try {
     const r = await fetch(`/scenarios/${id}/scenario.json`);
     scenario = await r.json();
+    charConfig = scenario.character || null;
 
     const sel = document.getElementById('viewSelect');
     sel.innerHTML = scenario.views.map(v =>
@@ -406,6 +552,7 @@ async function loadScenario(id) {
 }
 
 function loadView(viewId) {
+  cancelAllAnimations();
   currentViewId = viewId;
   const view = scenario.views.find(v => v.id === viewId);
   if (!view) return;
@@ -428,6 +575,8 @@ function loadView(viewId) {
       w: obj.size.width,
       h: obj.size.height,
       isNav,
+      hasSprite: !!obj.sprite,
+      sprite: obj.sprite || null,
       origX: obj.position.x,
       origY: obj.position.y,
       origW: obj.size.width,
@@ -436,10 +585,15 @@ function loadView(viewId) {
   }
 
   // Character
+  charFacingOverride = null;
+  charSpriteSetOverride = null;
   if (view.character) {
     character = {
       x: view.character.x,
       y: view.character.y,
+      facing: view.character.facing || 'down',
+      sprite_set: view.character.sprite_set || 'idle',
+      frame: view.character.frame,
       origX: view.character.x,
       origY: view.character.y,
     };
@@ -447,12 +601,95 @@ function loadView(viewId) {
     character = null;
   }
 
-  // Clear new boxes for this view
   newBoxes = [];
   selectedId = null;
+  animPaused = false;
+  charAnimFrame = 0;
+  objAnimFrames = {};
 
   render();
+  renderCharPanel();
+  startAnimations();
   updateStatus();
+}
+
+// ============================================================
+// Animation management
+// ============================================================
+function cancelAllAnimations() {
+  if (charAnimId) { cancelAnimationFrame(charAnimId); charAnimId = 0; }
+  for (const id of Object.values(objAnimIds)) { cancelAnimationFrame(id); }
+  objAnimIds = {};
+  objAnimFrames = {};
+}
+
+function startAnimations() {
+  if (animPaused) return;
+  startCharAnimation();
+  for (const obj of objects) {
+    if (obj.hasSprite && obj.sprite.frame_rate > 0) {
+      startObjAnimation(obj.id, obj.sprite);
+    }
+  }
+}
+
+function startCharAnimation() {
+  if (!character || !charConfig) return;
+  const ss = charConfig.sprite_sets[getCharSpriteSet()];
+  if (!ss || ss.frame_rate <= 0) return;
+  if (character.frame !== undefined) return; // static placement
+
+  let last = 0;
+  const interval = 1000 / ss.frame_rate;
+  const shouldLoop = ss.loop !== false;
+
+  function tick(time) {
+    if (time - last >= interval) {
+      last = time;
+      charAnimFrame++;
+      if (charAnimFrame >= ss.columns) {
+        charAnimFrame = shouldLoop ? 0 : ss.columns - 1;
+      }
+      updateCharSprite();
+    }
+    charAnimId = requestAnimationFrame(tick);
+  }
+  charAnimFrame = 0;
+  charAnimId = requestAnimationFrame(tick);
+}
+
+function startObjAnimation(objId, sprite) {
+  let last = 0;
+  const interval = 1000 / sprite.frame_rate;
+  objAnimFrames[objId] = 0;
+
+  function tick(time) {
+    if (time - last >= interval) {
+      last = time;
+      objAnimFrames[objId] = (objAnimFrames[objId] + 1) % sprite.columns;
+      updateObjSprite(objId);
+    }
+    objAnimIds[objId] = requestAnimationFrame(tick);
+  }
+  objAnimIds[objId] = requestAnimationFrame(tick);
+}
+
+function togglePause() {
+  animPaused = !animPaused;
+  if (animPaused) {
+    cancelAllAnimations();
+  } else {
+    startAnimations();
+  }
+  renderCharPanel();
+}
+
+function getCharFacing() {
+  return charFacingOverride || (character ? character.facing : 'down');
+}
+
+function getCharSpriteSet() {
+  return charSpriteSetOverride || (character ? character.sprite_set : 'idle');
 }
 
 // ============================================================
@@ -460,64 +697,191 @@ function loadView(viewId) {
 // ============================================================
 function render() {
   const vp = document.getElementById('viewport');
+  const showHotspots = document.getElementById('showHotspots').checked;
+  const showSprites = document.getElementById('showSprites').checked;
 
-  // Remove old hotspots and markers
-  vp.querySelectorAll('.hotspot, .char-marker').forEach(el => el.remove());
+  // Remove old dynamic elements
+  vp.querySelectorAll('.hotspot, .char-sprite, .char-shadow, .obj-sprite').forEach(el => el.remove());
 
-  // Render object hotspots
-  for (const obj of [...objects, ...newBoxes]) {
-    const el = document.createElement('div');
-    el.className = 'hotspot' +
-      (obj.isNav ? ' nav' : '') +
-      (obj.id === selectedId ? ' selected' : '') +
-      (obj.isNew ? ' new-box' : '');
-    el.dataset.id = obj.id;
-
-    const sx = obj.x;
-    const sy = obj.y * SCALE_Y;
-    const sw = obj.w;
-    const sh = obj.h * SCALE_Y;
-
-    el.style.left = sx + 'px';
-    el.style.top = sy + 'px';
-    el.style.width = sw + 'px';
-    el.style.height = sh + 'px';
-
-    const label = document.createElement('div');
-    label.className = 'label';
-    label.textContent = obj.name || obj.id;
-    el.appendChild(label);
-
-    // Resize handles (only on selected)
-    if (obj.id === selectedId) {
-      for (const corner of ['tl', 'tr', 'bl', 'br']) {
-        const h = document.createElement('div');
-        h.className = 'handle ' + corner;
-        h.dataset.corner = corner;
-        el.appendChild(h);
-      }
+  // Render object sprites (behind hotspots)
+  if (showSprites) {
+    for (const obj of objects) {
+      if (!obj.hasSprite) continue;
+      renderObjSprite(vp, obj);
     }
-
-    vp.appendChild(el);
   }
 
-  // Render character marker
-  if (character) {
-    const marker = document.createElement('div');
-    marker.className = 'char-marker';
-    marker.dataset.id = '__character__';
-    marker.style.left = character.x + 'px';
-    marker.style.top = (character.y * SCALE_Y) + 'px';
+  // Render hotspot boxes
+  if (showHotspots) {
+    for (const obj of [...objects, ...newBoxes]) {
+      renderHotspotBox(vp, obj);
+    }
+  }
 
-    const label = document.createElement('div');
-    label.className = 'label';
-    label.textContent = `character (${character.x}, ${character.y})`;
-    marker.appendChild(label);
-
-    vp.appendChild(marker);
+  // Render character sprite
+  if (showSprites && character && charConfig) {
+    renderCharacter(vp);
   }
 
   renderObjectList();
+}
+
+function renderHotspotBox(vp, obj) {
+  const el = document.createElement('div');
+  el.className = 'hotspot' +
+    (obj.isNav ? ' nav' : '') +
+    (obj.hasSprite ? ' has-sprite' : '') +
+    (obj.id === selectedId ? ' selected' : '') +
+    (obj.isNew ? ' new-box' : '');
+  el.dataset.id = obj.id;
+
+  const sx = obj.x * SCALE_X;
+  const sy = obj.y * SCALE_Y;
+  const sw = obj.w * SCALE_X;
+  const sh = obj.h * SCALE_Y;
+
+  el.style.left = sx + 'px';
+  el.style.top = sy + 'px';
+  el.style.width = sw + 'px';
+  el.style.height = sh + 'px';
+
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = obj.name || obj.id;
+  el.appendChild(label);
+
+  if (obj.id === selectedId) {
+    for (const corner of ['tl', 'tr', 'bl', 'br']) {
+      const h = document.createElement('div');
+      h.className = 'handle ' + corner;
+      h.dataset.corner = corner;
+      el.appendChild(h);
+    }
+  }
+
+  vp.appendChild(el);
+}
+
+function renderObjSprite(vp, obj) {
+  const sp = obj.sprite;
+  const fw = sp.frame_width;
+  const fh = sp.frame_height;
+  const scale = sp.scale || 1;
+  const renderW = fw * scale;
+  const renderH = fh * scale;
+  const screenX = obj.x * SCALE_X + (obj.w * SCALE_X / 2); // center of hotspot
+  const screenY = (obj.y + obj.h) * SCALE_Y; // bottom of hotspot
+  const sheetW = sp.columns * fw * scale;
+  const sheetH = (sp.rows || 1) * fh * scale;
+  const frame = objAnimFrames[obj.id] || 0;
+  const bgX = -(frame * fw) * scale;
+
+  const el = document.createElement('div');
+  el.className = 'obj-sprite';
+  el.dataset.spriteFor = obj.id;
+  el.style.left = (screenX - renderW / 2) + 'px';
+  el.style.top = (screenY - renderH) + 'px';
+  el.style.width = renderW + 'px';
+  el.style.height = renderH + 'px';
+  el.style.backgroundImage = `url(/scenarios/${scenarioId}/${sp.file})`;
+  el.style.backgroundPosition = `${bgX}px 0px`;
+  el.style.backgroundSize = `${sheetW}px ${sheetH}px`;
+
+  vp.appendChild(el);
+}
+
+function updateObjSprite(objId) {
+  const el = document.querySelector(`.obj-sprite[data-sprite-for="${objId}"]`);
+  if (!el) return;
+  const obj = objects.find(o => o.id === objId);
+  if (!obj || !obj.sprite) return;
+  const sp = obj.sprite;
+  const scale = sp.scale || 1;
+  const frame = objAnimFrames[objId] || 0;
+  const bgX = -(frame * sp.frame_width) * scale;
+  el.style.backgroundPosition = `${bgX}px 0px`;
+}
+
+function renderCharacter(vp) {
+  const ss = charConfig.sprite_sets[getCharSpriteSet()];
+  if (!ss) return;
+
+  const fw = charConfig.frame_width;
+  const fh = charConfig.frame_height;
+  const scale = charConfig.scale || 1;
+  const renderW = fw * scale;
+  const renderH = fh * scale;
+  const screenX = character.x * SCALE_X;
+  const screenY = character.y * SCALE_Y;
+  const sheetW = ss.columns * fw * scale;
+  const sheetH = ss.rows * fh * scale;
+
+  const directions = ss.directions || ['down', 'left', 'right', 'up'];
+  const facing = getCharFacing();
+  const mirrorFacing = facing === 'left' && !directions.includes('left');
+  const effectiveFacing = mirrorFacing ? 'right' : facing;
+  const row = Math.max(0, directions.indexOf(effectiveFacing));
+
+  const frame = (character.frame !== undefined) ? character.frame : charAnimFrame;
+  const bgX = -(frame * fw) * scale;
+  const bgY = -(row * fh) * scale;
+
+  // Shadow
+  const shadow = charConfig.shadow;
+  if (shadow) {
+    const se = document.createElement('div');
+    se.className = 'char-shadow';
+    const sw = shadow.width || renderW * 0.6;
+    const sh = shadow.height || 6;
+    se.style.left = (screenX + (shadow.offset_x || 0) * SCALE_X - sw / 2) + 'px';
+    se.style.top = (screenY + (shadow.offset_y || 0) * SCALE_Y - sh / 2) + 'px';
+    se.style.width = sw + 'px';
+    se.style.height = sh + 'px';
+    se.style.background = `radial-gradient(ellipse, ${shadow.color || 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`;
+    se.style.opacity = shadow.opacity || 0.6;
+    vp.appendChild(se);
+  }
+
+  // Sprite
+  const el = document.createElement('div');
+  el.className = 'char-sprite';
+  el.dataset.id = '__character__';
+  el.style.left = (screenX - renderW / 2) + 'px';
+  el.style.top = (screenY - renderH) + 'px';
+  el.style.width = renderW + 'px';
+  el.style.height = renderH + 'px';
+  el.style.backgroundImage = `url(/scenarios/${scenarioId}/${ss.file})`;
+  el.style.backgroundPosition = `${bgX}px ${bgY}px`;
+  el.style.backgroundSize = `${sheetW}px ${sheetH}px`;
+  if (mirrorFacing) {
+    el.style.transform = 'scaleX(-1)';
+  }
+
+  vp.appendChild(el);
+}
+
+function updateCharSprite() {
+  const el = document.querySelector('.char-sprite');
+  if (!el || !charConfig || !character) return;
+  const ss = charConfig.sprite_sets[getCharSpriteSet()];
+  if (!ss) return;
+
+  const fw = charConfig.frame_width;
+  const fh = charConfig.frame_height;
+  const scale = charConfig.scale || 1;
+
+  const directions = ss.directions || ['down', 'left', 'right', 'up'];
+  const facing = getCharFacing();
+  const mirrorFacing = facing === 'left' && !directions.includes('left');
+  const effectiveFacing = mirrorFacing ? 'right' : facing;
+  const row = Math.max(0, directions.indexOf(effectiveFacing));
+
+  const frame = charAnimFrame;
+  const bgX = -(frame * fw) * scale;
+  const bgY = -(row * fh) * scale;
+
+  el.style.backgroundPosition = `${bgX}px ${bgY}px`;
+  el.style.transform = mirrorFacing ? 'scaleX(-1)' : '';
 }
 
 function renderObjectList() {
@@ -540,9 +904,10 @@ function renderObjectList() {
   for (const obj of objects) {
     const changed = obj.x !== obj.origX || obj.y !== obj.origY ||
                     obj.w !== obj.origW || obj.h !== obj.origH;
+    const dotClass = obj.hasSprite ? 'sprite' : (obj.isNav ? 'nav' : 'obj');
     html += `<div class="obj-row${selectedId === obj.id ? ' selected' : ''}"
                   onclick="selectObject('${obj.id}')">
-      <div class="dot ${obj.isNav ? 'nav' : 'obj'}"></div>
+      <div class="dot ${dotClass}"></div>
       <div class="name" title="${obj.id}">${obj.name || obj.id}</div>
       <div class="pos">(${obj.x},${obj.y}) ${obj.w}x${obj.h}</div>
       ${changed ? '<div class="changed">*</div>' : ''}
@@ -564,6 +929,163 @@ function renderObjectList() {
 }
 
 // ============================================================
+// Character panel
+// ============================================================
+function renderCharPanel() {
+  const panel = document.getElementById('charPanel');
+
+  if (!character || !charConfig) {
+    panel.innerHTML = '<div class="no-char-msg">No character placement in this view.</div>';
+    return;
+  }
+
+  const spriteSets = Object.keys(charConfig.sprite_sets);
+  const currentSS = getCharSpriteSet();
+  const ss = charConfig.sprite_sets[currentSS];
+  const dirs = ss ? (ss.directions || ['down', 'left', 'right', 'up']) : [];
+  const allDirs = [...new Set([...dirs, ...(dirs.includes('left') ? [] : dirs.includes('right') ? ['left'] : [])])];
+  if (!allDirs.includes('left') && dirs.includes('right')) allDirs.push('left');
+  const currentFacing = getCharFacing();
+
+  let html = '';
+
+  // Position
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Position (960x720)</div>
+    <div class="char-controls">
+      <div class="row">
+        <label>X, Y:</label>
+        <span class="char-pos-display">${character.x}, ${character.y}</span>
+      </div>
+      ${(character.x !== character.origX || character.y !== character.origY)
+        ? `<div style="font-size:10px;color:var(--accent-new);margin-top:2px;">was (${character.origX}, ${character.origY})</div>`
+        : ''}
+    </div>
+  </div>`;
+
+  // Sprite Set
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Sprite Set</div>
+    <div class="char-controls">
+      <div class="row">
+        <select id="charSpriteSetSelect" onchange="onCharSpriteSetChange(this.value)">
+          ${spriteSets.map(s => `<option value="${s}"${s === currentSS ? ' selected' : ''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">
+        ${ss ? `${ss.columns} frames, ${ss.rows} row${ss.rows > 1 ? 's' : ''}, ${ss.frame_rate || 0}fps` : ''}
+        ${ss && ss.loop === false ? ', no loop' : ''}
+      </div>
+    </div>
+  </div>`;
+
+  // Facing
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Facing Direction</div>
+    <div class="char-controls">
+      <div class="facing-btns">
+        ${allDirs.map(d => `<button class="facing-btn${d === currentFacing ? ' active' : ''}" onclick="onCharFacingChange('${d}')">${d}${!dirs.includes(d) ? ' (flip)' : ''}</button>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  // Animation control
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Animation</div>
+    <div class="char-controls">
+      <div class="row">
+        <button class="anim-toggle${animPaused ? ' paused' : ''}" onclick="togglePause()">
+          ${animPaused ? '▶ Play' : '⏸ Pause'}
+        </button>
+        <span style="font-size:11px;color:var(--text-dim);">Frame: ${charAnimFrame}</span>
+      </div>
+    </div>
+  </div>`;
+
+  // Sprite preview
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Preview</div>
+    <div class="sprite-preview-box" id="charPreviewBox"></div>
+  </div>`;
+
+  // Config info
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Config</div>
+    <div style="font-size:10px;color:var(--text-dim);line-height:1.6;">
+      frame: ${charConfig.frame_width}x${charConfig.frame_height}<br>
+      scale: ${charConfig.scale}<br>
+      rendered: ${Math.round(charConfig.frame_width * charConfig.scale)}x${Math.round(charConfig.frame_height * charConfig.scale)}px
+      ${charConfig.shadow ? `<br>shadow: ${charConfig.shadow.width}x${charConfig.shadow.height}` : ''}
+    </div>
+  </div>`;
+
+  panel.innerHTML = html;
+
+  // Render sprite preview in the box
+  renderCharPreview();
+}
+
+function renderCharPreview() {
+  const box = document.getElementById('charPreviewBox');
+  if (!box || !charConfig || !character) return;
+  box.innerHTML = '';
+
+  const ss = charConfig.sprite_sets[getCharSpriteSet()];
+  if (!ss) { box.innerHTML = '<span style="color:var(--text-dim);">No sprite set</span>'; return; }
+
+  const fw = charConfig.frame_width;
+  const fh = charConfig.frame_height;
+  const previewScale = Math.min(1, 100 / fh); // fit ~100px tall
+  const renderW = fw * previewScale;
+  const renderH = fh * previewScale;
+  const sheetW = ss.columns * fw * previewScale;
+  const sheetH = ss.rows * fh * previewScale;
+
+  const directions = ss.directions || ['down', 'left', 'right', 'up'];
+  const facing = getCharFacing();
+  const mirrorFacing = facing === 'left' && !directions.includes('left');
+  const effectiveFacing = mirrorFacing ? 'right' : facing;
+  const row = Math.max(0, directions.indexOf(effectiveFacing));
+  const frame = charAnimFrame;
+  const bgX = -(frame * fw) * previewScale;
+  const bgY = -(row * fh) * previewScale;
+
+  const el = document.createElement('div');
+  el.className = 'sprite-el';
+  el.style.width = renderW + 'px';
+  el.style.height = renderH + 'px';
+  el.style.backgroundImage = `url(/scenarios/${scenarioId}/${ss.file})`;
+  el.style.backgroundPosition = `${bgX}px ${bgY}px`;
+  el.style.backgroundSize = `${sheetW}px ${sheetH}px`;
+  if (mirrorFacing) el.style.transform = 'scaleX(-1)';
+
+  box.appendChild(el);
+}
+
+function onCharSpriteSetChange(val) {
+  charSpriteSetOverride = val;
+  charAnimFrame = 0;
+  cancelAllAnimations();
+  render();
+  if (!animPaused) startAnimations();
+  renderCharPanel();
+}
+
+function onCharFacingChange(dir) {
+  charFacingOverride = dir;
+  render();
+  renderCharPanel();
+}
+
+// ============================================================
+// Panel tabs
+// ============================================================
+function switchTab(tab) {
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.panel-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tab));
+}
+
+// ============================================================
 // Mouse interactions
 // ============================================================
 function getCoords(e) {
@@ -571,8 +1093,8 @@ function getCoords(e) {
   const rect = vp.getBoundingClientRect();
   const px = Math.round(e.clientX - rect.left);
   const py = Math.round(e.clientY - rect.top);
-  const jx = Math.round(px);                   // JSON x = screen x (SCALE_X = 1)
-  const jy = Math.round(py / SCALE_Y);         // JSON y = screen y / 0.75
+  const jx = Math.round(px / SCALE_X);
+  const jy = Math.round(py / SCALE_Y);
   return { px, py, jx, jy };
 }
 
@@ -598,6 +1120,22 @@ function onMouseDown(e) {
     return;
   }
 
+  // Handle character sprite drag
+  const charSprite = target.closest('.char-sprite');
+  if (charSprite && character) {
+    e.preventDefault();
+    selectedId = '__character__';
+    dragState = {
+      type: 'move-char',
+      id: '__character__',
+      startMX: px, startMY: py,
+      startX: character.x, startY: character.y,
+    };
+    render();
+    switchTab('character');
+    return;
+  }
+
   // Handle hotspot drag
   const hotspot = target.closest('.hotspot');
   if (hotspot) {
@@ -613,21 +1151,6 @@ function onMouseDown(e) {
         startX: obj.x, startY: obj.y,
       };
     }
-    render();
-    return;
-  }
-
-  // Handle character drag
-  const charMarker = target.closest('.char-marker');
-  if (charMarker && character) {
-    e.preventDefault();
-    selectedId = '__character__';
-    dragState = {
-      type: 'move-char',
-      id: '__character__',
-      startMX: px, startMY: py,
-      startX: character.x, startY: character.y,
-    };
     render();
     return;
   }
@@ -652,7 +1175,7 @@ function onMouseMove(e) {
   if (dragState) {
     const dx = px - dragState.startMX;
     const dy = py - dragState.startMY;
-    const djx = Math.round(dx);
+    const djx = Math.round(dx / SCALE_X);
     const djy = Math.round(dy / SCALE_Y);
 
     if (dragState.type === 'move') {
@@ -666,6 +1189,7 @@ function onMouseMove(e) {
       character.x = Math.max(0, Math.min(COORD_W, dragState.startX + djx));
       character.y = Math.max(0, Math.min(COORD_H, dragState.startY + djy));
       render();
+      renderCharPanel();
     } else if (dragState.type === 'resize') {
       const obj = findObject(dragState.id);
       if (obj) {
@@ -715,7 +1239,6 @@ function onMouseUp(e) {
       render();
       updateStatus();
 
-      // Prompt for name
       const name = prompt('Name this hotspot (or leave blank):', id);
       if (name) {
         const box = newBoxes.find(b => b.id === id);
@@ -756,6 +1279,7 @@ function findObject(id) {
 function selectObject(id) {
   selectedId = id;
   render();
+  if (id === '__character__') switchTab('character');
 }
 
 function resizeObject(obj, state, djx, djy) {
@@ -781,10 +1305,11 @@ function resetView() {
 // ============================================================
 // Export
 // ============================================================
+let exportTabIdx = 0;
+
 function getChanges() {
   const changes = [];
 
-  // Changed objects
   for (const obj of objects) {
     if (obj.x !== obj.origX || obj.y !== obj.origY ||
         obj.w !== obj.origW || obj.h !== obj.origH) {
@@ -802,7 +1327,6 @@ function getChanges() {
     }
   }
 
-  // Character
   if (character && (character.x !== character.origX || character.y !== character.origY)) {
     changes.push({
       type: 'character',
@@ -811,7 +1335,6 @@ function getChanges() {
     });
   }
 
-  // New boxes
   for (const box of newBoxes) {
     changes.push({
       type: 'new',
@@ -824,49 +1347,108 @@ function getChanges() {
   return changes;
 }
 
-function showExport() {
+function getExportText(tabIdx) {
   const changes = getChanges();
-  let text = '';
 
-  text += `=== HOTSPOT EDITOR EXPORT ===\n`;
-  text += `Scenario: ${scenarioId}\n`;
-  text += `View: ${currentViewId}\n`;
-  text += `Date: ${new Date().toISOString()}\n`;
-  text += `Changes: ${changes.length}\n\n`;
+  if (tabIdx === 0) {
+    // Human-readable changes
+    let text = `=== VISUAL EDITOR EXPORT ===\n`;
+    text += `Scenario: ${scenarioId}\n`;
+    text += `View: ${currentViewId}\n`;
+    text += `Date: ${new Date().toISOString()}\n`;
+    text += `Changes: ${changes.length}\n\n`;
 
-  if (changes.length === 0) {
-    text += '(no changes)\n';
-  }
-
-  for (const c of changes) {
-    if (c.type === 'object') {
-      text += `MOVED OBJECT: "${c.id}" (${c.name})\n`;
-      text += `  position: { x: ${c.was.position.x}, y: ${c.was.position.y} }`;
-      text += ` -> { x: ${c.position.x}, y: ${c.position.y} }\n`;
-      if (c.size.width !== c.was.size.width || c.size.height !== c.was.size.height) {
-        text += `  size: { width: ${c.was.size.width}, height: ${c.was.size.height} }`;
-        text += ` -> { width: ${c.size.width}, height: ${c.size.height} }\n`;
-      }
-      text += '\n';
-    } else if (c.type === 'character') {
-      text += `MOVED CHARACTER:\n`;
-      text += `  { x: ${c.was.x}, y: ${c.was.y} } -> { x: ${c.position.x}, y: ${c.position.y} }\n\n`;
-    } else if (c.type === 'new') {
-      text += `NEW HOTSPOT: "${c.id}"\n`;
-      text += `  position: { x: ${c.position.x}, y: ${c.position.y} }\n`;
-      text += `  size: { width: ${c.size.width}, height: ${c.size.height} }\n\n`;
+    if (changes.length === 0) {
+      text += '(no changes)\n';
+      return text;
     }
+
+    for (const c of changes) {
+      if (c.type === 'object') {
+        text += `MOVED OBJECT: "${c.id}" (${c.name})\n`;
+        text += `  position: { x: ${c.was.position.x}, y: ${c.was.position.y} }`;
+        text += ` -> { x: ${c.position.x}, y: ${c.position.y} }\n`;
+        if (c.size.width !== c.was.size.width || c.size.height !== c.was.size.height) {
+          text += `  size: { width: ${c.was.size.width}, height: ${c.was.size.height} }`;
+          text += ` -> { width: ${c.size.width}, height: ${c.size.height} }\n`;
+        }
+        text += '\n';
+      } else if (c.type === 'character') {
+        text += `MOVED CHARACTER:\n`;
+        text += `  { x: ${c.was.x}, y: ${c.was.y} } -> { x: ${c.position.x}, y: ${c.position.y} }\n\n`;
+      } else if (c.type === 'new') {
+        text += `NEW HOTSPOT: "${c.id}"\n`;
+        text += `  position: { x: ${c.position.x}, y: ${c.position.y} }\n`;
+        text += `  size: { width: ${c.size.width}, height: ${c.size.height} }\n\n`;
+      }
+    }
+    return text;
+
+  } else if (tabIdx === 1) {
+    // JSON patch
+    return JSON.stringify({
+      scenario: scenarioId,
+      view: currentViewId,
+      changes: changes,
+    }, null, 2);
+
+  } else {
+    // Full view JSON
+    const view = scenario.views.find(v => v.id === currentViewId);
+    if (!view) return '(no view loaded)';
+
+    const viewCopy = JSON.parse(JSON.stringify(view));
+
+    // Apply position changes to objects
+    for (const obj of objects) {
+      const scenObj = scenario.objects.find(o => o.id === obj.id);
+      if (scenObj) {
+        const patched = JSON.parse(JSON.stringify(scenObj));
+        patched.position = { x: obj.x, y: obj.y };
+        patched.size = { width: obj.w, height: obj.h };
+        // Include inline in the export for convenience
+        if (!viewCopy._objects) viewCopy._objects = [];
+        viewCopy._objects.push(patched);
+      }
+    }
+
+    // Apply character changes
+    if (character && viewCopy.character) {
+      viewCopy.character.x = character.x;
+      viewCopy.character.y = character.y;
+    }
+
+    // Add new boxes
+    for (const box of newBoxes) {
+      if (!viewCopy._new_objects) viewCopy._new_objects = [];
+      viewCopy._new_objects.push({
+        id: box.id,
+        name: box.name || box.id,
+        position: { x: box.x, y: box.y },
+        size: { width: box.w, height: box.h },
+      });
+    }
+
+    return JSON.stringify(viewCopy, null, 2);
   }
+}
 
-  text += `=== JSON PATCH ===\n`;
-  text += JSON.stringify({
-    scenario: scenarioId,
-    view: currentViewId,
-    changes: changes,
-  }, null, 2);
-
-  document.getElementById('exportText').value = text;
+function showExport() {
+  exportTabIdx = 0;
+  document.getElementById('exportText').value = getExportText(0);
   document.getElementById('exportModal').classList.add('active');
+  updateExportTabs();
+}
+
+function switchExportTab(idx) {
+  exportTabIdx = idx;
+  document.getElementById('exportText').value = getExportText(idx);
+  updateExportTabs();
+}
+
+function updateExportTabs() {
+  document.querySelectorAll('.modal-tab').forEach((t, i) =>
+    t.classList.toggle('active', i === exportTabIdx));
 }
 
 function closeExport() {
@@ -891,7 +1473,7 @@ function updateStatus() {
   document.getElementById('statusHint').textContent =
     selectedId
       ? (selectedId === '__character__'
-          ? 'Drag green marker to reposition character. Press Escape to deselect.'
+          ? 'Drag character sprite to reposition. Use Character tab for facing/animation.'
           : `Selected: ${selectedId}. Drag to move, corners to resize. Delete key removes new boxes.`)
       : 'Click + drag on empty space to draw a new hotspot. Click an object to select it.';
 }
