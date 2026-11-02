@@ -597,7 +597,14 @@
         "y": 582,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -703,11 +710,18 @@
         }
       ],
       "character": {
-        "x": 719,
+        "x": 726,
         "y": 604,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -823,11 +837,18 @@
         }
       ],
       "character": {
-        "x": 280,
-        "y": 610,
+        "x": 161,
+        "y": 637,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -4884,8 +4905,8 @@
       "name": "Shadow Cat",
       "description": "A small black cat with glowing purple-amber eyes. It shouldn't be here. Nothing like this should exist on an alien harvester ship.",
       "position": {
-        "x": 621,
-        "y": 471
+        "x": 641,
+        "y": 567
       },
       "size": {
         "width": 63,
@@ -21695,8 +21716,8 @@
       "name": "Caged Creature",
       "description": "A creature pacing behind the middle energy barrier. It watches you with intelligent, sorrowful eyes.",
       "position": {
-        "x": 271,
-        "y": 328
+        "x": 381,
+        "y": 510
       },
       "size": {
         "width": 99,

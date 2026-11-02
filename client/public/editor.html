@@ -849,8 +849,8 @@ function renderObjSprite(vp, obj) {
     shadowEl.style.position = 'absolute';
     const sw = sh.width ?? 60;
     const sheight = sh.height ?? 10;
-    shadowEl.style.left = (screenX + (sh.offset_x ?? 0) * SCALE_X - sw / 2) + 'px';
-    shadowEl.style.top = (screenY + (sh.offset_y ?? 0) * SCALE_Y - sheight / 2) + 'px';
+    shadowEl.style.left = (screenX + (sh.offset_x ?? 0) - sw / 2) + 'px';
+    shadowEl.style.top = (screenY + (sh.offset_y ?? 0) - sheight / 2) + 'px';
     shadowEl.style.width = sw + 'px';
     shadowEl.style.height = sheight + 'px';
     shadowEl.style.borderRadius = '50%';
@@ -935,8 +935,8 @@ function renderCharacter(vp) {
     se.className = 'char-shadow';
     const sw = shadow.width || renderW * 0.6;
     const sh = shadow.height || 6;
-    se.style.left = (screenX + (shadow.offset_x || 0) * SCALE_X - sw / 2) + 'px';
-    se.style.top = (screenY + (shadow.offset_y || 0) * SCALE_Y - sh / 2) + 'px';
+    se.style.left = (screenX + (shadow.offset_x || 0) - sw / 2) + 'px';
+    se.style.top = (screenY + (shadow.offset_y || 0) - sh / 2) + 'px';
     se.style.width = sw + 'px';
     se.style.height = sh + 'px';
     se.style.background = `radial-gradient(ellipse, ${shadow.color || 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`;
@@ -1276,8 +1276,8 @@ function renderCharSpriteDetail(el) {
   if (hasShadow) {
     const sh = character.shadow;
     html += '<div class="sprite-detail-grid">';
-    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_x ?? 0}" oninput="updateCharShadow('offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
-    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_y ?? 0}" oninput="updateCharShadow('offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-100" max="100" value="${sh.offset_x ?? 0}" oninput="updateCharShadow('offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-100" max="100" value="${sh.offset_y ?? 0}" oninput="updateCharShadow('offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
     html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateCharShadow('opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
     html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateCharShadow('width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
     html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateCharShadow('height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;
@@ -1340,8 +1340,8 @@ function renderObjSpriteDetail(el, obj) {
   if (hasShadow) {
     const sh = obj.shadow;
     html += '<div class="sprite-detail-grid">';
-    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_x ?? 0}" oninput="updateObjShadow('${obj.id}','offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
-    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_y ?? 0}" oninput="updateObjShadow('${obj.id}','offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-100" max="100" value="${sh.offset_x ?? 0}" oninput="updateObjShadow('${obj.id}','offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-100" max="100" value="${sh.offset_y ?? 0}" oninput="updateObjShadow('${obj.id}','offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
     html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateObjShadow('${obj.id}','opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
     html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateObjShadow('${obj.id}','width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
     html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateObjShadow('${obj.id}','height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;

@@ -98,8 +98,8 @@ export function CharacterSprite({
   const shadow = placement.shadow ?? config.shadow;
   const shadowStyle: CSSProperties | null = shadow ? {
     position: 'absolute',
-    left: `${screenX + (shadow.offset_x ?? 0) * scaleX - ((shadow.width ?? renderW * 0.6) / 2)}px`,
-    top: `${screenY + (shadow.offset_y ?? 0) * scaleY - ((shadow.height ?? 6) / 2)}px`,
+    left: `${screenX + (shadow.offset_x ?? 0) - ((shadow.width ?? renderW * 0.6) / 2)}px`,
+    top: `${screenY + (shadow.offset_y ?? 0) - ((shadow.height ?? 6) / 2)}px`,
     width: `${shadow.width ?? renderW * 0.6}px`,
     height: `${shadow.height ?? 6}px`,
     borderRadius: '50%',
