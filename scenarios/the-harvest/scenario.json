@@ -18432,7 +18432,7 @@
     {
       "id": "corridor_drag_marks",
       "name": "Drag Marks",
-      "description": "Deep scratches and dark stains on the corridor wall — something was dragged through here.",
+      "description": "Deep scratches and dark stains on the corridor floor — something was dragged through here recently.",
       "position": {
         "x": 336,
         "y": 584
@@ -18455,7 +18455,7 @@
         "scale": 0.14
       },
       "initial_state": "default",
-      "initially_visible": true,
+      "initially_visible": false,
       "interactions": [
         {
           "verb": "look",
@@ -18580,7 +18580,7 @@
     {
       "id": "corridor_organic_growth",
       "name": "Organic Wall Growth",
-      "description": "A patch of bioluminescent growth spreading across the corridor wall.",
+      "description": "A patch of bioluminescent growth that has spread across the corridor wall since you were last here.",
       "position": {
         "x": 315,
         "y": 253
@@ -18594,7 +18594,7 @@
         "label": "Growth"
       },
       "initial_state": "default",
-      "initially_visible": true,
+      "initially_visible": false,
       "interactions": [
         {
           "verb": "look",
@@ -18940,6 +18940,60 @@
               "when": [
                 {
                   "type": "flag_is",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_growth_revealed",
+                  "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
                   "flag": "corridor_visited",
                   "value": "true"
                 },
@@ -19081,6 +19135,64 @@
           "verb": "move",
           "when": [],
           "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_growth_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
+                }
+              ]
+            },
             {
               "type": "conditional_effect",
               "when": [
@@ -19472,6 +19584,64 @@
               "when": [
                 {
                   "type": "flag_is",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_growth_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
                   "flag": "corridor_visited",
                   "value": "true"
                 },
@@ -19695,6 +19865,64 @@
           "when": [],
           "then": [
             {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_growth_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
+                }
+              ]
+            },
+            {
               "type": "set_view",
               "view": "act1_containment_corridor"
             },
@@ -19754,6 +19982,64 @@
           "verb": "move",
           "when": [],
           "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_growth_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "corridor_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "corridor_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "corridor_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
+                }
+              ]
+            },
             {
               "type": "conditional_effect",
               "when": [
