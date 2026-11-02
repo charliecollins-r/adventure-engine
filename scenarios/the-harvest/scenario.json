@@ -4932,7 +4932,7 @@
       "sprite": {
         "file": "sprites/black-cat.png",
         "frame_width": 272,
-        "frame_height": 348,
+        "frame_height": 342,
         "columns": 4,
         "rows": 1,
         "frame_rate": 2,
@@ -6783,7 +6783,7 @@
       "sprite": {
         "file": "sprites/cataloguer_robot.png",
         "frame_width": 339,
-        "frame_height": 768,
+        "frame_height": 562,
         "columns": 4,
         "rows": 1,
         "frame_rate": 2,
@@ -18644,7 +18644,7 @@
       "sprite": {
         "file": "sprites/vent_cover.png",
         "frame_width": 1408,
-        "frame_height": 768,
+        "frame_height": 551,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -21745,7 +21745,7 @@
       "sprite": {
         "file": "sprites/caged_prisoner.png",
         "frame_width": 300,
-        "frame_height": 205,
+        "frame_height": 173,
         "columns": 4,
         "rows": 1,
         "frame_rate": 3,
