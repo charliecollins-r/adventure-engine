@@ -135,8 +135,8 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 167,
-        "y": 666,
+        "x": 163,
+        "y": 685,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self",
@@ -144,7 +144,8 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
+          "opacity": 0.68,
+          "offset_y": 0
         }
       },
       "hints": [
