@@ -224,7 +224,7 @@ Per-view hint arrays in the scenario JSON. The engine evaluates conditions and r
 Two built-in tools for scenario authors:
 
 - **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view), Objects (position/size/visibility inspector), Character (live sprite animation preview with facing/sprite_set controls), Sprites (browse all sprite sheets with animation), Export (paste-to-Claude position data). Auto-enables debug hitbox overlays and skips intro.
-- **Hotspot Editor** (`/editor.html`) — standalone visual tool for drawing and repositioning hotspot boxes on scenario backgrounds. Drag objects, resize with corner handles, draw new hotspot areas, export changes as a text patch.
+- **Visual Editor** (`/editor.html`) — standalone visual editor with actual animated sprite rendering. Shows character and object sprites on backgrounds (matching the in-game rendering), draggable/resizable hotspot boxes, character controls panel (sprite set, facing direction, animation play/pause), toggleable hotspot/sprite overlays, live coordinate display, and 3-tab export (human-readable changes, JSON patch, full view JSON). Draw new hotspot areas directly on backgrounds.
 
 ---
 

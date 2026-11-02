@@ -32,10 +32,13 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
 │   │   │   ├── InventoryPanel.tsx    ← Item display and selection
 │   │   │   ├── MessagePanel.tsx      ← Story text display
-│   │   │   └── NoiseIndicator.tsx    ← Noise level meter
+│   │   │   ├── NoiseIndicator.tsx    ← Noise level meter
+│   │   │   └── DevPanel.tsx          ← In-game developer tools panel (?dev URL param)
 │   │   ├── App.tsx                   ← Entry: ScenarioLoader → ScenarioPlayer
 │   │   └── App.css                   ← Dark theme base styles
-│   ├── public/scenarios → ../../scenarios  ← Symlink so Vite serves scenario content
+│   ├── public/
+│   │   ├── scenarios → ../../scenarios  ← Symlink so Vite serves scenario content
+│   │   └── editor.html               ← Standalone visual editor (sprite preview, hotspot drawing)
 │   ├── package.json                  ← React 19
 │   └── vite.config.ts
 ├── server/                            ← Spring Boot 3 backend (Java 21, Maven)
@@ -318,6 +321,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **New player character sprites**: Replaced goblin with bearded human in green tunic. Three sprite sheets: `character_idle.png` (1×2, right+front), `character_walk.png` (4×2, right walk+front walk at 6fps), `character_standup.png` (4×1, lying→standing at 3fps, no loop). Frame size 300×447, scale 0.35. Left-facing via CSS scaleX(-1) flip. Old goblin sprites removed.
 - **Voiceover narration tool**: `tools/generate-voiceover.mjs` extracts all player-facing text from a scenario JSON (intro, ambient, messages, dialogue, game over, hints) and batch-generates MP3 files via the ElevenLabs TTS API. Supports `--dry-run` to preview without API calls, `--filter <category>` to generate only specific types, `--force` to regenerate existing files, and `--list-voices` to browse available voices. Saves to `scenarios/<id>/audio/voice/` with a manifest.json. Requires `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` environment variables. The Harvest has 1,489 text entries (~193K characters). Free tier gives 10K chars/month — prioritize intro narration first (`--filter intro`, 706 chars).
 - **Scenario-builder skill**: `.claude/skills/scenario-builder/SKILL.md` — comprehensive AI agent onboarding guide (1100+ lines) covering package structure, background image generation (Gemini prompt formula), sprite creation (blue chroma-key workflow), full JSON authoring, coordinate system, ambient lighting, a 3-room template, and pre-flight checklist.
+- **In-game DevPanel**: `DevPanel.tsx` — 5-tab developer tools panel activated via `?dev` URL parameter. Tabs: Views (jump to any view), Objects (position/size/visibility), Character (live animated sprite preview with facing/sprite_set controls), Sprites (browse all sprite sheets with animation), Export (paste-to-Claude format + JSON patch). Auto-enables debug mode and skips intro. Layout shifts to 960px game + 340px panel side-by-side.
+- **Standalone Visual Editor**: `client/public/editor.html` — full visual editor for scenario authors. Shows actual animated sprites (character + object sprites) on backgrounds, hotspot boxes with drag/resize, character controls panel (sprite set, facing, animation play/pause), toggleable hotspot/sprite overlays, coordinate display, and 3-tab export (human-readable changes, JSON patch, full view JSON). Accessible at `/editor.html` when dev server is running.
 
 ---
 

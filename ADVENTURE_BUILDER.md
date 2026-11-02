@@ -26,9 +26,10 @@ This guide covers everything you need to build a scenario package for the Advent
 15. [Phases](#phases)
 16. [Win & Lose Conditions](#win--lose-conditions)
 17. [Advanced Features](#advanced-features)
-18. [Registration & Testing](#registration--testing)
-19. [Design Patterns](#design-patterns)
-20. [Art Direction](#art-direction)
+18. [Developer Tools](#developer-tools)
+19. [Registration & Testing](#registration--testing)
+20. [Design Patterns](#design-patterns)
+21. [Art Direction](#art-direction)
 
 ---
 
@@ -453,6 +454,20 @@ The game has a **Debug Mode** button in the title bar that shows all hotspot bou
 - **Labels**: Object names appear on hover in debug mode
 
 **Workflow**: Set approximate positions → launch `npm run dev` → load the scenario → toggle Debug Mode → compare outlines to background art → adjust JSON values → refresh.
+
+### Visual Editor
+
+The engine includes a standalone **Visual Editor** at `/editor.html` (accessible when the dev server is running). It provides a more interactive workflow than Debug Mode:
+
+- **Animated sprite rendering** — character and object sprites render with the same CSS technique as the game, so you see exactly how they'll look
+- **Draggable hotspot boxes** — click and drag any hotspot box to reposition; use corner handles to resize
+- **Draw new hotspots** — click and drag on empty background space to draw a new hotspot area
+- **Character controls** — switch sprite sets (idle/walk/etc.), change facing direction, play/pause animation
+- **Toggle overlays** — show/hide hotspot boxes and sprites independently
+- **Live coordinate display** — mouse position shows both JSON coordinates (960×720) and screen coordinates
+- **Export** — three export formats: human-readable change summary, JSON patch, and full view JSON with updated positions
+
+**Editor workflow**: Load your scenario → navigate to a view → drag objects into position → switch to Character tab to preview sprite sets and facing → Export Changes → paste to Claude or apply manually.
 
 ### Positioning Tips and Common Mistakes
 
@@ -1259,19 +1274,74 @@ Noise is a global value (0-100) that tracks how much sound the player makes. Use
 
 ---
 
+## Developer Tools
+
+Two tools help you visually verify and fine-tune your scenario during development.
+
+### In-Game Dev Panel (`?dev`)
+
+Add `?dev` to the game URL to activate a developer panel alongside the game viewport:
+
+```
+http://localhost:5173/?dev
+```
+
+This opens a 340px side panel with 5 tabs:
+
+| Tab | What It Shows |
+|-----|---------------|
+| **Views** | All views with metadata badges (has background, character, hints, lighting). Click to jump to any view. |
+| **Objects** | Position, size, visibility, and state for all objects in the current view. Hover highlights the hotspot in-game. |
+| **Character** | Live animated sprite preview. Dropdown controls for sprite set and facing direction. |
+| **Sprites** | Browse all sprite sheets (character + object) with animated previews. |
+| **Export** | Paste-to-Claude text format and JSON patch for the current view. Copy-to-clipboard button. |
+
+Dev mode auto-enables debug mode (visible hotspot outlines) and skips the intro sequence.
+
+### Standalone Visual Editor (`/editor.html`)
+
+A full visual editor for drawing hotspot boxes, positioning sprites, and previewing animations on top of your actual background images:
+
+```
+http://localhost:5173/editor.html
+```
+
+Features:
+- **Load any scenario** — paste a scenario JSON or load from the server
+- **See actual sprites** — character and object sprites render with animation on the background
+- **Draw hotspot boxes** — click and drag to create/resize object hotspot rectangles
+- **Drag sprites** — reposition character and object sprites by dragging them
+- **Character controls** — dropdown for sprite set and facing direction, play/pause animation
+- **Toggle overlays** — show/hide hotspot boxes and sprite overlays independently
+- **Coordinate readout** — live 960x720 coordinates as you move the mouse
+- **3-tab export** — human-readable changes, JSON patch, and full view JSON
+
+The editor reads your scenario JSON and renders everything the game engine would render, but lets you visually adjust positions and export the changes.
+
+### Debug Mode (`?debug`)
+
+Add `?debug` to the game URL to show hotspot outlines without the full dev panel:
+
+```
+http://localhost:5173/?debug
+```
+
+Hotspots render with colored borders: blue for navigation objects, gold for interactive objects. This is the quickest way to verify your hitbox positions match the background art.
+
+---
+
 ## Registration & Testing
 
 ### Register Your Scenario
 
-Add your scenario's folder name to the `SCENARIOS` array in `client/src/components/ScenarioLoader.tsx`:
+Add your scenario's folder name to `scenarios/manifest.json`:
 
-```typescript
-const SCENARIOS = [
-  'the-harvest',
-  'the-lighthouse-keeper',
-  // ... existing scenarios
-  'my-first-escape',  // ← Add yours here
-];
+```json
+[
+  "the-harvest",
+  "the-lighthouse-keeper",
+  "my-first-escape"
+]
 ```
 
 ### Run and Test
@@ -1297,7 +1367,7 @@ This checks the engine code, not your JSON. JSON validation tooling is planned.
 
 | Problem | Cause | Fix |
 |---------|-------|-----|
-| Scenario doesn't appear in list | Not registered in ScenarioLoader.tsx | Add folder name to SCENARIOS array |
+| Scenario doesn't appear in list | Not in `scenarios/manifest.json` | Add folder name to `manifest.json` array |
 | "View not found" error | A `set_view` effect references a view ID that doesn't exist | Check spelling of view IDs |
 | Object not clickable | Object ID not in the view's `objects` array | Add the object ID to the correct view |
 | Item use does nothing | No `use_item` interaction matches | Add an interaction with `"verb": "use_item"` and the correct `"item"` ID |
