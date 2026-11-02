@@ -139,14 +139,7 @@
         "y": 685,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.68,
-          "offset_y": 0
-        }
+        "object_id": "goblin_self"
       },
       "hints": [
         {
@@ -439,13 +432,7 @@
         "y": 594,
         "facing": "down",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -596,14 +583,7 @@
         "y": 581,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 59,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.82,
-          "offset_y": -2
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -713,13 +693,7 @@
         "y": 604,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -839,13 +813,7 @@
         "y": 637,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -952,13 +920,7 @@
         "y": 595,
         "facing": "up",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -1084,13 +1046,7 @@
         "y": 697,
         "facing": "left",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [
@@ -1233,13 +1189,7 @@
         "y": 604,
         "facing": "left",
         "sprite_set": "idle",
-        "object_id": "goblin_self",
-        "shadow": {
-          "width": 60,
-          "height": 12,
-          "color": "rgba(0,0,0,1)",
-          "opacity": 0.9
-        }
+        "object_id": "goblin_self"
       },
       "ambient_lighting": {
         "lights": [

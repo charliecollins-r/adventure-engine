@@ -69,6 +69,7 @@ export function SpriteObject({
     cursor,
   };
 
+  const shColor = shadow?.color ?? 'rgba(0,0,0,0.5)';
   const shadowStyle: CSSProperties | null = shadow ? {
     position: 'absolute',
     left: `${screenX + (shadow.offset_x ?? 0) - ((shadow.width ?? renderW * 0.6) / 2)}px`,
@@ -76,8 +77,9 @@ export function SpriteObject({
     width: `${shadow.width ?? renderW * 0.6}px`,
     height: `${shadow.height ?? 6}px`,
     borderRadius: '50%',
-    background: `radial-gradient(ellipse, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 0%, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`,
+    background: `radial-gradient(ellipse, ${shColor} 0%, ${shColor} 40%, transparent 100%)`,
     opacity: shadow.opacity ?? 0.6,
+    transform: shadow.skew_x ? `skewX(${shadow.skew_x}deg)` : undefined,
     pointerEvents: 'none',
     zIndex: 4,
   } : null;

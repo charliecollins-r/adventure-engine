@@ -856,6 +856,7 @@ function renderObjSprite(vp, obj) {
     shadowEl.style.borderRadius = '50%';
     shadowEl.style.background = `radial-gradient(ellipse, ${sh.color ?? 'rgba(0,0,0,0.5)'} 0%, ${sh.color ?? 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`;
     shadowEl.style.opacity = sh.opacity ?? 0.6;
+    if (sh.skew_x) shadowEl.style.transform = `skewX(${sh.skew_x}deg)`;
     shadowEl.style.pointerEvents = 'none';
     shadowEl.style.zIndex = '10';
     shadowEl.style.cursor = 'default';
@@ -941,6 +942,7 @@ function renderCharacter(vp) {
     se.style.height = sh + 'px';
     se.style.background = `radial-gradient(ellipse, ${shadow.color || 'rgba(0,0,0,0.5)'} 0%, ${shadow.color || 'rgba(0,0,0,0.5)'} 40%, transparent 100%)`;
     se.style.opacity = shadow.opacity || 0.6;
+    if (shadow.skew_x) se.style.transform = `skewX(${shadow.skew_x}deg)`;
     vp.appendChild(se);
   }
 
@@ -1281,6 +1283,7 @@ function renderCharSpriteDetail(el) {
     html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateCharShadow('opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
     html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateCharShadow('width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
     html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateCharShadow('height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;
+    html += `<div class="lbl">Skew X:</div><div class="val"><input type="range" min="-60" max="60" value="${sh.skew_x ?? 0}" oninput="updateCharShadow('skew_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.skew_x ?? 0}°</span></div>`;
     html += '</div>';
   }
   html += '</div>';
@@ -1345,6 +1348,7 @@ function renderObjSpriteDetail(el, obj) {
     html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateObjShadow('${obj.id}','opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
     html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateObjShadow('${obj.id}','width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
     html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateObjShadow('${obj.id}','height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;
+    html += `<div class="lbl">Skew X:</div><div class="val"><input type="range" min="-60" max="60" value="${sh.skew_x ?? 0}" oninput="updateObjShadow('${obj.id}','skew_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.skew_x ?? 0}°</span></div>`;
     html += '</div>';
   }
   html += '</div>';

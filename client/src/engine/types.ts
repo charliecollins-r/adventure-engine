@@ -299,6 +299,7 @@ export interface CharacterShadow {
   height?: number;
   opacity?: number;
   color?: string;
+  skew_x?: number;
 }
 
 export interface CharacterConfig {
