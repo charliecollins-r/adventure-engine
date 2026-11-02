@@ -334,7 +334,7 @@
           ]
         },
         {
-          "text": "You've already noted the section code: 7-3-1-9. The processing lab keypad might accept it.",
+          "text": "You've already noted the section code: 7-3-1-9. The lab terminal keypad in the processing lab might accept it.",
           "when": [
             {
               "type": "flag_is",
@@ -425,7 +425,7 @@
           ]
         },
         {
-          "text": "The lab data screens are still active. Interact with them — they might contain security codes or ship layout data.",
+          "text": "The lab data screens are still active. Look at them closely — they might contain security codes or ship layout data.",
           "when": [
             {
               "type": "has_item",
@@ -458,7 +458,7 @@
           ]
         },
         {
-          "text": "You've taken everything useful from the lab. Continue exploring the ship.",
+          "text": "Look at the lab data screens again for a closer view of the terminal. If you have a section code, you might be able to unlock restricted data.",
           "when": [
             {
               "type": "has_item",
@@ -467,6 +467,20 @@
             {
               "type": "flag_is",
               "flag": "security_sequence_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "terminal_unlocked"
+            }
+          ]
+        },
+        {
+          "text": "You've unlocked the lab terminal and discovered the Convergence's harvesting route. Continue exploring the ship.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
               "value": "true"
             },
             {
@@ -6107,6 +6121,361 @@
             {
               "type": "message",
               "text": "You try speaking to the display. A symbol flickers in response — the ship might understand vocal commands, but you don't know its language. Yet."
+            }
+          ]
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "lab_terminal_screen",
+      "name": "Main Display",
+      "description": "A large green screen showing a detailed alien organism diagram with alien text annotations.",
+      "position": {
+        "x": 84,
+        "y": 32
+      },
+      "size": {
+        "width": 784,
+        "height": 442
+      },
+      "visual": {
+        "color": "rgba(60, 200, 140, 0.1)",
+        "label": "Screen"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "terminal_unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The main screen shows a detailed biological diagram — some kind of spiny, multi-limbed organism rendered in green phosphor lines. Alien text runs across the top and bottom. Two smaller sub-panels on the right show anatomical cross-sections and what looks like processing data. The alien characters are unlike anything on Earth — curved, angular, almost calligraphic. The screen is locked to this default display."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "terminal_data_read"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The screen has changed — it now cycles through specimen processing records. You recognize some of the organism silhouettes from the stasis hold tanks. Each record shows intake data, biological classification, and... a schedule. Processing dates. Future dates. The ship is still collecting. Still processing. Still on its route. And according to this schedule, the next harvesting stop is a planet in a system with a single yellow star. Eight planets. Third from the sun. Earth. Your home. The Convergence is heading for Earth."
+            },
+            {
+              "type": "set_flag",
+              "flag": "terminal_data_read",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_data_read",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The processing records continue cycling. Earth is on the harvesting schedule. You need to find a way to stop this ship — or at least warn someone — before it reaches your world."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You touch the screen surface. It ripples like a membrane — warm, slightly wet. Bioluminescent. This isn't a monitor; it's a living tissue display. The alien characters swim under your fingertips."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "response": "You speak to the screen. The alien characters flicker slightly, but the display doesn't respond to your voice. The Choir's systems don't understand your language."
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "lab_terminal_keypad",
+      "name": "Alien Keypad",
+      "description": "A small keypad with alien characters etched into bio-organic keys.",
+      "position": {
+        "x": 217,
+        "y": 530
+      },
+      "size": {
+        "width": 153,
+        "height": 137
+      },
+      "visual": {
+        "color": "rgba(60, 200, 140, 0.15)",
+        "label": "Keypad",
+        "animation": "pulse"
+      },
+      "initial_state": "locked",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "terminal_unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small keypad with alien characters etched into each key — the characters match the ones you've seen on specimen data plates throughout the ship. Some keys have numerical notations beneath the alien glyphs. This keypad accepts access codes."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ],
+          "response": "The keypad glows a steady green — access granted. The terminal is unlocked."
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                { "type": "flag_not", "flag": "terminal_unlocked" },
+                { "type": "flag_is", "flag": "lab_code_known", "value": "true" }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press the keys matching the sequence from the specimen data plates: 7... 3... 1... 9. Each key yields like warm cartilage. The keypad flashes green — ACCESS GRANTED. The main screen flickers and begins cycling through restricted processing records. You've unlocked the terminal."
+            },
+            {
+              "type": "set_flag",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "lab_terminal_keypad",
+              "value": ""
+            },
+            {
+              "type": "add_noise",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                { "type": "flag_not", "flag": "terminal_unlocked" },
+                { "type": "flag_not", "flag": "lab_code_known" }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press a few keys experimentally. The alien characters mean nothing to you — you'd need an access code to get anywhere with this. The data plates on the specimen tanks might have section codes you could use."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ],
+          "response": "The keypad is already showing green — the terminal is unlocked. No need to enter the code again."
+        },
+        {
+          "verb": "talk",
+          "response": "The keypad doesn't respond to voice. It needs physical key presses — and the right code."
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "lab_terminal_data_left",
+      "name": "Processing Status",
+      "description": "A small monitor showing processing status data and system diagnostics.",
+      "position": {
+        "x": 386,
+        "y": 522
+      },
+      "size": {
+        "width": 177,
+        "height": 145
+      },
+      "visual": {
+        "color": "rgba(60, 200, 140, 0.1)",
+        "label": "Status"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "terminal_unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small monitor displaying what looks like a schematic — circuit pathways and node connections rendered in green. The alien characters alongside it are indecipherable. The display is locked to this diagnostic view."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "With the terminal unlocked, this monitor now shows a processing queue. Specimen intake, neural mapping, bio-integration — each step listed with status indicators. Most are complete. But one entry stands out: 'XY-97-A | C44' — marked as 'INTAKE PENDING.' That's the designation on your specimen tag. You're still in the queue. Neural Integration is scheduled. They're planning to take your mind apart and catalogue it, piece by piece."
+            },
+            {
+              "type": "set_flag",
+              "flag": "integration_schedule_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "response": "The monitor's surface is the same bioluminescent membrane as the main screen. Warm, slightly damp. You can't interact with it directly — the keypad controls what it displays."
+        },
+        {
+          "verb": "talk",
+          "response": "You mutter at the status display. The alien characters don't change. The processing queue doesn't care about your feelings."
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "lab_terminal_data_right",
+      "name": "Specimen Registry",
+      "description": "A small monitor showing specimen classification records and biological data.",
+      "position": {
+        "x": 587,
+        "y": 522
+      },
+      "size": {
+        "width": 185,
+        "height": 145
+      },
+      "visual": {
+        "color": "rgba(60, 200, 140, 0.1)",
+        "label": "Registry"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "terminal_unlocked"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Another small monitor, this one showing what looks like tabular data — rows of alien characters with numerical columns. A specimen registry of some kind, but locked behind the same access code as the main terminal."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The registry shows every species the Convergence has collected from this sector. Hundreds of entries, organized by world of origin. You find the entries for your world — 'SOL-3' — and the list is chilling. Seventeen species catalogued. Felis catus. Canis lupus familiaris. Pan troglodytes. Homo sapiens. They've been visiting Earth for a long time, taking samples. The cat in the feeding station — it's not a coincidence. It's an escaped specimen, just like you."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "response": "You can't interact with this display directly. The keypad controls all the terminal's screens."
+        },
+        {
+          "verb": "talk",
+          "response": "\"Seventeen species from Earth,\" you whisper. The registry scrolls on, indifferent to your horror."
+        },
+        {
+          "verb": "use_item",
+          "item": "specimen_tag",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You hold the specimen tag up to the registry screen. The display flickers — it reads the tag's embedded data and pulls up your full record. XY-97-A, Classification C44. Species: Homo sapiens. Origin: SOL-3. Intake: Cycle 4,891. Status: Neural Integration Pending. Notes: 'Unusual cognitive resistance. Recommend accelerated processing.' They noticed you were different. Fighting back. And they want to process you faster because of it."
+            },
+            {
+              "type": "set_flag",
+              "flag": "full_record_known",
+              "value": "true"
             }
           ]
         }
