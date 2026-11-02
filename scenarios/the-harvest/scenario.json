@@ -6714,12 +6714,12 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 758,
-        "y": 312
+        "x": 757,
+        "y": 314
       },
       "size": {
-        "width": 89,
-        "height": 187
+        "width": 81,
+        "height": 197
       },
       "visual": {
         "color": "#4a6a3a",
