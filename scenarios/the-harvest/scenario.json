@@ -6767,8 +6767,8 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 796,
-        "y": 514
+        "x": 795,
+        "y": 480
       },
       "size": {
         "width": 81,
@@ -6882,7 +6882,14 @@
           ]
         }
       ],
-      "hiding_spot": false
+      "hiding_spot": false,
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": 4,
+        "opacity": 1,
+        "width": 86,
+        "height": 23
+      }
     },
     {
       "id": "specimen_tank_left",
