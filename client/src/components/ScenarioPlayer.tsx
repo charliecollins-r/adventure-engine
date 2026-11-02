@@ -182,12 +182,27 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [, setVersion] = useState(0);
   const bump = useCallback(() => setVersion((v) => v + 1), []);
 
-  const [showIntro, setShowIntro] = useState(() => !!scenario.setting.intro_text?.length);
+  const devParams = useRef((() => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      startView: params.get('view'),
+      skipIntro: params.has('skipIntro') || !!params.get('view'),
+      debug: params.has('debug'),
+    };
+  })());
+
+  const dev = devParams.current;
+
+  const [showIntro, setShowIntro] = useState(() => {
+    if (dev.skipIntro) return false;
+    return !!scenario.setting.intro_text?.length;
+  });
   const [eyeOpen, setEyeOpen] = useState(false);
+  const [skipEyeTransition] = useState(() => dev.skipIntro);
   const [activeVerb, setActiveVerb] = useState('look');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
-  const [debugMode, setDebugMode] = useState(false);
+  const [debugMode, setDebugMode] = useState(() => dev.debug);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [walkthroughHighlights, setWalkthroughHighlights] = useState<string[]>([]);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
@@ -198,7 +213,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   (window as unknown as Record<string, unknown>).__setHighlights = (ids: string[]) => { setWalkthroughHighlights(ids); };
   (window as unknown as Record<string, unknown>).__setDebug = (on: boolean) => { setDebugMode(on); };
 
-  const [standingUp, setStandingUp] = useState(false);
+  const [standingUp, setStandingUp] = useState(() => dev.skipIntro);
+
+  useEffect(() => {
+    if (dev.startView) {
+      engine.navigateToView(dev.startView);
+      bump();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!showIntro && !eyeOpen) {
@@ -616,7 +638,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         </div>
 
         {/* Eye-open animation scoped to viewport */}
-        <EyeOpenTransition active={eyeOpen} />
+        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} />}
       </div>
 
       {/* Text feedback below viewport */}
