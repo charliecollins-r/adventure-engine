@@ -325,7 +325,7 @@
       "back_label": "Stasis Hold",
       "hints": [
         {
-          "text": "Study the specimen jars closely. The data plates on each one display numbers — those might be useful.",
+          "text": "Study the three specimens — a Velith Ammonite, a Kethrani Weaver, and a Neural Orchid. The display screens below each tank show numbers alongside the alien text.",
           "when": [
             {
               "type": "flag_not",
@@ -334,7 +334,7 @@
           ]
         },
         {
-          "text": "You've already noted the section code: 7-3-1-9. The lab terminal keypad in the processing lab might accept it.",
+          "text": "You've already noted the section code: 7-3-1-9. The terminal keypad in the processing lab might accept it.",
           "when": [
             {
               "type": "flag_is",
@@ -5743,16 +5743,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/specimen_tag_hook.png",
-        "frame_width": 64,
-        "frame_height": 64,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1.0
-      }
+      "hiding_spot": false
     },
     {
       "id": "examination_tables",
@@ -5861,7 +5852,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.11
+        "scale": 0.03
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -7387,15 +7378,6 @@
         }
       ],
       "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/data_crystal.png",
-        "frame_width": 32,
-        "frame_height": 64,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 2,
-        "scale": 1.0
-      }
     },
     {
       "id": "reading_device",
@@ -7661,15 +7643,15 @@
     },
     {
       "id": "specimen_tank_left",
-      "name": "Left Specimen Tank",
-      "description": "Tank 101. A tall amber cylinder containing a tentacled creature — part octopus, part nautilus — suspended in swirling golden preservative fluid.",
+      "name": "Velith Ammonite",
+      "description": "Specimen 7319-101: a Velith Ammonite — a deep-ocean cephalopod with a coiled nautilus shell and dozens of sinuous tentacles, suspended in swirling amber preservative.",
       "position": {
         "x": 113,
-        "y": 29
+        "y": 0
       },
       "size": {
-        "width": 200,
-        "height": 428
+        "width": 217,
+        "height": 464
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7684,7 +7666,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A tentacled creature floats in the amber fluid — part octopus, part nautilus, with a ridged shell and dozens of sinuous arms. Its skin shifts color even in preservation, iridescent patterns rippling across the surface. The green display below reads alien glyphs alongside a specimen number: 7319-101."
+              "text": "The Velith Ammonite floats in the amber fluid — part octopus, part nautilus, with a coiled ridged shell and dozens of sinuous arms. Its skin shifts color even in preservation, iridescent patterns rippling across the surface. The green display below scrolls alien glyphs alongside a specimen number: 7319-101."
             }
           ]
         },
@@ -7713,15 +7695,15 @@
     },
     {
       "id": "specimen_tank_center",
-      "name": "Center Specimen Tank",
-      "description": "Tank 102. The tallest cylinder, containing a multi-legged arachnoid creature with jointed limbs and a segmented carapace, suspended in swirling amber fluid.",
+      "name": "Kethrani Weaver",
+      "description": "Specimen 7319-102: a Kethrani Weaver — a massive arachnoid predator with eight jointed legs, armored carapace, and mandibles that could crush bone, preserved in amber fluid.",
       "position": {
-        "x": 331,
-        "y": 29
+        "x": 389,
+        "y": 0
       },
       "size": {
-        "width": 192,
-        "height": 428
+        "width": 196,
+        "height": 472
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7736,7 +7718,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An arachnoid creature fills the center tank — eight jointed legs spread wide, a segmented carapace with chitinous ridges, and mandibles that could crush bone. It's bigger than you are. The green display below reads alien glyphs alongside a specimen number: 7319-102. Whatever world this came from, you're glad you weren't there."
+              "text": "The Kethrani Weaver fills the center tank — eight jointed legs spread wide, a segmented carapace with chitinous ridges, and mandibles that could crush bone. It's bigger than you are. The green display below scrolls alien glyphs alongside a specimen number: 7319-102. Whatever world this came from, you're glad you weren't there."
             }
           ]
         },
@@ -7746,7 +7728,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You press your palm flat against the glass. The bones are clean and white, arranged with surgical precision. A bubble rises from somewhere deep in the ribcage and drifts up past the skull. You pull back. How does a skeleton produce bubbles?"
+              "text": "You press your palm flat against the glass. One of its eight legs twitches — a reflex, surely — and the mandibles click together once. A bubble rises from somewhere beneath the carapace. You pull back. Is this thing still alive in there?"
             }
           ]
         },
@@ -7756,7 +7738,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"What happened to you?\" you whisper. The skeleton grins back — they all do. But this one's jaw hangs slightly open, as if it was mid-howl when the preservative took hold. You wonder what sound it made."
+              "text": "\"What happened to you?\" you whisper. The Weaver's compound eyes stare back — hundreds of dark facets, each one reflecting a tiny version of your face. Its mandibles are frozen mid-spread, as if it was about to strike when the preservative took hold. You wonder how fast it was."
             }
           ]
         }
@@ -7765,11 +7747,11 @@
     },
     {
       "id": "specimen_tank_right",
-      "name": "Right Specimen Tank",
-      "description": "Tank 103. A cylinder containing a strange alien plant — a bulbous flower with curling roots and layered petals, preserved in golden fluid.",
+      "name": "Neural Orchid",
+      "description": "Specimen 7319-103: a Neural Orchid — an alien plant with layered burgundy petals and thick root tendrils, preserved in golden fluid. It blurs the line between flora and fauna.",
       "position": {
-        "x": 549,
-        "y": 29
+        "x": 642,
+        "y": 25
       },
       "size": {
         "width": 209,
@@ -7788,7 +7770,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Not an animal — a plant. Or something that blurs the line. A bulbous flower with layered petals in deep burgundy, and thick roots that curl through the amber fluid like searching fingers. The green display reads: 7319-103. A botanical specimen from some alien world, preserved perfectly. The petals seem to open slightly as you watch."
+              "text": "Not an animal — a plant. Or something that blurs the line. The Neural Orchid has layered petals in deep burgundy, and thick root tendrils that curl through the amber fluid like searching fingers. The green display reads: 7319-103. A botanical specimen from some alien world, preserved perfectly. The petals seem to open slightly as you watch."
             }
           ]
         },
@@ -7798,7 +7780,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You tap the glass. The tentacles drift lazily in the disturbed fluid, and for a moment every eye on the thing seems to track your finger. Just the currents. Probably. The Convergence collects everything — and this one looks like it was smart enough to mind being collected."
+              "text": "You tap the glass. The orchid's root tendrils drift toward your finger, drawn by the vibration. The petals spread wider — almost hungrily — revealing a dark core pulsing with faint bioluminescence. The Convergence collects everything, and this one looks like it might collect you back if it could."
             }
           ]
         },
@@ -7808,7 +7790,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Sorry about this,\" you whisper to the squid. You know the feeling — being catalogued, stored away, just another specimen in the collection. At least you got out of your jar. The squid's eyes follow you. All of them."
+              "text": "\"You're beautiful,\" you whisper to the orchid. And it is — alien and deadly-looking, but beautiful. The petals flutter faintly, as if responding to your voice. You wonder if it's some kind of symbiont — something that attracts, and then feeds. The Choir might have plucked it from a garden. Or a trap."
             }
           ]
         }
@@ -7817,15 +7799,15 @@
     },
     {
       "id": "specimen_data_plates",
-      "name": "Data Plates",
-      "description": "Three green-lit readout screens below the tanks, displaying alien glyphs, specimen IDs, and biological classifications.",
+      "name": "Specimen Displays",
+      "description": "Three glowing teal screens below the tanks, scrolling alien glyphs and biological data alongside specimen ID numbers.",
       "position": {
-        "x": 105,
-        "y": 479
+        "x": 110,
+        "y": 575
       },
       "size": {
-        "width": 644,
-        "height": 89
+        "width": 757,
+        "height": 137
       },
       "visual": {
         "color": "rgba(200, 180, 80, 0.2)",
@@ -7845,7 +7827,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each jar has a small metal plate riveted to its base. Alien script you can't decipher runs across the top — but below it, numbers. Universal, unmistakable numbers. The plates read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every plate."
+              "text": "Each tank has a teal display screen at its base, scrolling alien glyphs you can't decipher — biological classifications, feeding schedules, who knows. But alongside the glyphs, numbers. Universal, unmistakable numbers. The screens read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every display."
             }
           ]
         },
@@ -7861,7 +7843,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The data plates still read 7319-101, 7319-102, 7319-103. You've already memorized the section code: 7-3-1-9."
+              "text": "The specimen displays still scroll their alien data alongside the numbers: 7319-101, 7319-102, 7319-103. You've already memorized the section code: 7-3-1-9."
             }
           ]
         },
@@ -7876,7 +7858,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace your finger along the numbers: 7319-101... 7319-102... 7319-103. The first four digits repeat on every plate — that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab door had a keypad. This could be the access code you need."
+              "text": "You trace your finger along the numbers on each screen: 7319-101... 7319-102... 7319-103. The first four digits repeat on every display — that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab had a terminal with a keypad. This could be the access code you need."
             },
             {
               "type": "set_flag",
@@ -7897,7 +7879,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code: 7-3-1-9. No need to study the plates further."
+              "text": "You've already noted the section code: 7-3-1-9. The displays continue scrolling their alien data, but you've got what you need."
             }
           ]
         },
@@ -7907,7 +7889,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You read the numbers aloud: \"Seven... three... one... nine.\" Your voice sounds small in this place. The numbers echo back from the glass like a whispered prayer."
+              "text": "You read the numbers aloud: \"Seven... three... one... nine.\" Your voice sounds small against the hum of the specimen tanks. The Ammonite's tentacles stir faintly in its fluid. Even it seems to be listening."
             }
           ]
         }
@@ -7919,12 +7901,12 @@
       "name": "Specimen Terminal",
       "description": "A bio-organic keyboard and control terminal beneath the specimen tanks, its keys inscribed with alien characters.",
       "position": {
-        "x": 296,
-        "y": 590
+        "x": 109,
+        "y": 462
       },
       "size": {
-        "width": 296,
-        "height": 110
+        "width": 789,
+        "height": 113
       },
       "visual": {
         "color": "rgba(100, 160, 80, 0.15)",
@@ -18452,7 +18434,7 @@
       "name": "Drag Marks",
       "description": "Deep scratches and dark stains on the corridor wall — something was dragged through here.",
       "position": {
-        "x": 123,
+        "x": 336,
         "y": 584
       },
       "size": {
@@ -18515,8 +18497,8 @@
       "name": "Emergency Status Panel",
       "description": "A wall-mounted status panel showing the containment deck's emergency state.",
       "position": {
-        "x": 848,
-        "y": 310
+        "x": 854,
+        "y": 468
       },
       "size": {
         "width": 106,
@@ -18600,8 +18582,8 @@
       "name": "Organic Wall Growth",
       "description": "A patch of bioluminescent growth spreading across the corridor wall.",
       "position": {
-        "x": 276,
-        "y": 176
+        "x": 315,
+        "y": 253
       },
       "size": {
         "width": 100,
@@ -18923,16 +18905,7 @@
           "verb": "talk",
           "response": "You tap on the hatch. A hollow echo comes back. There's space behind it — part of the ship's maintenance network."
         }
-      ],
-      "sprite": {
-        "file": "sprites/maintenance_hatch.png",
-        "frame_width": 96,
-        "frame_height": 96,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1.0
-      }
+      ]
     },
     {
       "id": "nav_act1_stasis_hold_to_act1_containment_corridor",
