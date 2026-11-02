@@ -86,6 +86,7 @@ When you contribute to this project, follow these rules:
 7. **Never let docs drift from reality** — if you see something outdated, fix it
 8. **Everything must be schema-driven** — never hardcode scenario-specific behavior in the engine. All game logic comes from the JSON. A third-party dev must be able to create a complete scenario package without writing code.
 9. **Maintain hotspot positioning accuracy** — when adding or modifying object positions in any scenario JSON: (a) check the actual background image dimensions, (b) apply the correct conversion formula (`json_x = img_x × (960/IMG_W)`, `json_y = img_y × (720/IMG_H)`), (c) validate bounds (`x+w ≤ 960`, `y+h ≤ 720`), (d) verify with debug mode when possible. Position is **top-left corner** of the hotspot box. See ADVENTURE_BUILDER.md "Coordinate System" for the full guide.
+10. **Always trim processed sprite PNGs** — when processing chroma-key sprites: (a) convert webp→png with ImageMagick if needed, (b) run through `tools/process-chromakey-sprite.mjs` with `--padding 0` for tight cropping, (c) for single-frame sprites, additionally run `convert sprite.png -trim +repage sprite.png` to remove any remaining transparent border, (d) update frame_width/frame_height in the JSON to match the trimmed dimensions. Tight bounds ensure proper shadow rendering. Never use padding > 0 unless there's a specific reason.
 
 ---
 
