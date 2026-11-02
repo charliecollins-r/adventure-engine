@@ -220,6 +220,12 @@ Branching conversation system via `show_dialogue` effect. Each choice has a labe
 ### Progressive Hints
 Per-view hint arrays in the scenario JSON. The engine evaluates conditions and returns the most specific matching hint. A floating "?" button shows hints as a message overlay. Players can never softlock — hints always point toward the next step.
 
+### Developer Tools
+Two built-in tools for scenario authors:
+
+- **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view), Objects (position/size/visibility inspector), Character (live sprite animation preview with facing/sprite_set controls), Sprites (browse all sprite sheets with animation), Export (paste-to-Claude position data). Auto-enables debug hitbox overlays and skips intro.
+- **Hotspot Editor** (`/editor.html`) — standalone visual tool for drawing and repositioning hotspot boxes on scenario backgrounds. Drag objects, resize with corner handles, draw new hotspot areas, export changes as a text patch.
+
 ---
 
 ## Tech Stack
@@ -241,7 +247,7 @@ Per-view hint arrays in the scenario JSON. The engine evaluates conditions and r
 
 All background art follows the **Sierra King's Quest V/VI aesthetic** — 2D gouache illustration with visible brushstrokes, soft color gradients, dramatic lighting. NOT photorealistic, NOT 3D rendered.
 
-The player character is a small goblin-sized creature at knee-height. Backgrounds are painted from this low camera angle, looking UP at furniture and architecture.
+The player character is a bearded human in a green tunic, rendered as a pixel-art sprite sheet. Backgrounds are painted from a low camera angle, looking UP at furniture and architecture.
 
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_specimen_archive.webp" width="400" alt="Specimen Archive" />
@@ -281,9 +287,12 @@ adventure-engine/
 |           +-- CharacterSprite.tsx   Sierra-style sprite sheet character renderer
 |           +-- SpriteObject.tsx      Animated sprite sheets on world objects
 |           +-- DialogueOverlay.tsx   Branching conversation choice modal
+|           +-- DevPanel.tsx          In-game developer tools panel (?dev)
 |           +-- VerbBar.tsx           Verb selection (look, move, hand, talk)
 |           +-- InventoryPanel.tsx    Item display and selection
 |           +-- NoiseIndicator.tsx    Noise level meter
+|   +-- public/
+|       +-- editor.html              Standalone visual hotspot editor
 |
 +-- server/                           Spring Boot 3 + Java 21 + Maven
 |   +-- src/main/java/com/kq/        Future: validation, tooling, save sync
