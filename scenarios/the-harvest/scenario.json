@@ -1312,8 +1312,8 @@
         }
       ],
       "character": {
-        "x": 480,
-        "y": 580,
+        "x": 336,
+        "y": 642,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -7226,12 +7226,12 @@
       "name": "Viewport",
       "description": "A large viewport showing the planet below \u2014 beautiful from orbit, unaware it's dying.",
       "position": {
-        "x": 50,
-        "y": 150
+        "x": 16,
+        "y": 42
       },
       "size": {
-        "width": 230,
-        "height": 280
+        "width": 296,
+        "height": 529
       },
       "visual": {
         "color": "#1a2a4a",
@@ -7293,12 +7293,12 @@
       "name": "Empty Docking Clamps",
       "description": "Heavy mechanical clamps where your ship, the Outrider, was once docked. The clamps are open and empty.",
       "position": {
-        "x": 440,
-        "y": 570
+        "x": 683,
+        "y": 0
       },
       "size": {
-        "width": 140,
-        "height": 50
+        "width": 264,
+        "height": 192
       },
       "visual": {
         "color": "#3a3a3a",
@@ -7360,12 +7360,12 @@
       "name": "Emergency Suit Locker",
       "description": "A locker containing alien emergency space suits, designed for Choir physiology.",
       "position": {
-        "x": 775,
-        "y": 240
+        "x": 744,
+        "y": 191
       },
       "size": {
-        "width": 90,
-        "height": 180
+        "width": 167,
+        "height": 439
       },
       "visual": {
         "color": "#3a4a3a",
@@ -7462,12 +7462,12 @@
       "name": "Manual Override Panel",
       "description": "A heavily locked manual override panel for the airlock blast doors.",
       "position": {
-        "x": 320,
-        "y": 390
+        "x": 377,
+        "y": 239
       },
       "size": {
-        "width": 100,
-        "height": 100
+        "width": 109,
+        "height": 324
       },
       "visual": {
         "color": "#4a2a2a",
@@ -7552,12 +7552,12 @@
       "name": "Sealed Blast Doors",
       "description": "Heavy organic-metallic blast doors sealing the airlock from the corridor.",
       "position": {
-        "x": 430,
-        "y": 200
+        "x": 498,
+        "y": 192
       },
       "size": {
-        "width": 200,
-        "height": 200
+        "width": 217,
+        "height": 353
       },
       "visual": {
         "color": "#2a2a2a",
@@ -21107,12 +21107,12 @@
       "id": "nav_act1_airlock_bay_to_act1_ventilation_shaft",
       "name": "Ventilation Shaft",
       "position": {
-        "x": 300,
-        "y": 640
+        "x": 246,
+        "y": 650
       },
       "size": {
-        "width": 360,
-        "height": 70
+        "width": 503,
+        "height": 72
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
