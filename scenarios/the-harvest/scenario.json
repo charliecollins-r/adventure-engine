@@ -135,11 +135,18 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 163,
-        "y": 685,
+        "x": 155,
+        "y": 684,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "hints": [
         {
@@ -5441,12 +5448,12 @@
       "name": "Your Broken Pod",
       "description": "The stasis pod you woke in. The glass is cracked, amber fluid pooling beneath it. Fragments of the pod casing litter the floor.",
       "position": {
-        "x": 160,
-        "y": 560
+        "x": 193,
+        "y": 585
       },
       "size": {
-        "width": 150,
-        "height": 100
+        "width": 108,
+        "height": 63
       },
       "visual": {
         "color": "#2a4a3a",
@@ -5536,8 +5543,8 @@
       "name": "Drainage Channel",
       "description": "A channel beneath the pods where spilled stasis fluid collects before being recycled.",
       "position": {
-        "x": 214,
-        "y": 640
+        "x": 216,
+        "y": 647
       },
       "size": {
         "width": 159,
@@ -5672,12 +5679,12 @@
       "name": "Specimen Tag",
       "description": "A small tag hanging from your pod's frame, inscribed with alien notation.",
       "position": {
-        "x": 268,
-        "y": 558
+        "x": 303,
+        "y": 562
       },
       "size": {
-        "width": 65,
-        "height": 50
+        "width": 47,
+        "height": 54
       },
       "visual": {
         "color": "#8a6a2a",
