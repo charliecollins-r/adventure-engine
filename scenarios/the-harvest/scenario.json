@@ -18600,6 +18600,15 @@
         "color": "#1a3a1a",
         "label": "Growth"
       },
+      "sprite": {
+        "file": "sprites/organic_growth.png",
+        "frame_width": 345,
+        "frame_height": 319,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.3
+      },
       "initial_state": "default",
       "initially_visible": false,
       "interactions": [
