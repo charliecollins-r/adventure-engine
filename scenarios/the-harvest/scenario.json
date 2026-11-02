@@ -347,6 +347,54 @@
       "ambient_audio": "audio/ambient_lab.mp3"
     },
     {
+      "id": "act1_lab_terminal_closeup",
+      "name": "Lab Terminal — Close-up",
+      "objects": [
+        "lab_terminal_screen",
+        "lab_terminal_keypad",
+        "lab_terminal_data_left",
+        "lab_terminal_data_right"
+      ],
+      "background_key": "act1_lab_terminal_closeup",
+      "background_file": "closeups/lab_terminal.webp",
+      "background_fit": "contain",
+      "back_label": "Processing Lab",
+      "hints": [
+        {
+          "text": "The terminal has alien keypads. If you had an access code, you might be able to enter it here.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known"
+            }
+          ]
+        },
+        {
+          "text": "You know the code 7-3-1-9 from the specimen data plates. Try entering it on the keypad.",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                { "type": "flag_is", "flag": "lab_code_known", "value": "true" },
+                { "type": "flag_not", "flag": "terminal_unlocked" }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "You've unlocked the terminal. Check all the readouts — there might be more to learn.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "ambient_audio": "audio/ambient_lab.mp3"
+    },
+    {
       "id": "act1_processing_lab",
       "name": "Processing Lab",
       "objects": [
@@ -5989,7 +6037,11 @@
           "then": [
             {
               "type": "message",
-              "text": "The screens continue cycling through processing routines. The startup sequence loop still plays — you've already memorized the pattern."
+              "text": "The main screen shows a detailed alien organism diagram with alien text annotations. Below it, three keypads with alien characters glow faintly. You lean in closer to examine the terminal..."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_lab_terminal_closeup"
             }
           ]
         },
@@ -6027,7 +6079,16 @@
               "value": "true"
             }
           ],
-          "response": "You've already memorized the activation sequence from the display."
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach toward the terminal's alien keypads, leaning in to get a closer look..."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_lab_terminal_closeup"
+            }
+          ]
         },
         {
           "verb": "move",
@@ -7232,14 +7293,14 @@
     {
       "id": "specimen_tank_left",
       "name": "Left Specimen Tank",
-      "description": "Tank 101. A rounded amber jar containing what appears to be an ammonite — a spiral-shelled creature suspended in golden preservative fluid.",
+      "description": "Tank 101. A tall amber cylinder containing a tentacled creature — part octopus, part nautilus — suspended in swirling golden preservative fluid.",
       "position": {
-        "x": 290,
-        "y": 98
+        "x": 113,
+        "y": 29
       },
       "size": {
-        "width": 109,
-        "height": 457
+        "width": 200,
+        "height": 428
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7254,7 +7315,7 @@
           "then": [
             {
               "type": "message",
-              "text": "An ammonite — a spiral-shelled creature, like something from an ancient ocean but wrong somehow. The shell has too many chambers, and in each one, something faintly glows. The readout says 'Subject Ammonite, Specimen 7SLB.' Harvested from some other world, preserved for study."
+              "text": "A tentacled creature floats in the amber fluid — part octopus, part nautilus, with a ridged shell and dozens of sinuous arms. Its skin shifts color even in preservation, iridescent patterns rippling across the surface. The green display below reads alien glyphs alongside a specimen number: 7319-101."
             }
           ]
         },
@@ -7284,14 +7345,14 @@
     {
       "id": "specimen_tank_center",
       "name": "Center Specimen Tank",
-      "description": "Tank 102. The largest jar, containing a skeletal specimen — some kind of feline creature with an impossibly long curling tail, stripped to the bone and preserved in amber fluid.",
+      "description": "Tank 102. The tallest cylinder, containing a multi-legged arachnoid creature with jointed limbs and a segmented carapace, suspended in swirling amber fluid.",
       "position": {
-        "x": 399,
-        "y": 98
+        "x": 331,
+        "y": 29
       },
       "size": {
-        "width": 144,
-        "height": 457
+        "width": 192,
+        "height": 428
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7306,7 +7367,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The center tank holds a skeleton — something feline, stripped clean to the bone but perfectly preserved in amber fluid. Its skull is too long, its spine curves wrong, and that tail... it curls for what seems like forever. The readout says 'Subject Felis Skel, Specimen 721S.' Whatever this was, it wasn't from your world."
+              "text": "An arachnoid creature fills the center tank — eight jointed legs spread wide, a segmented carapace with chitinous ridges, and mandibles that could crush bone. It's bigger than you are. The green display below reads alien glyphs alongside a specimen number: 7319-102. Whatever world this came from, you're glad you weren't there."
             }
           ]
         },
@@ -7336,14 +7397,14 @@
     {
       "id": "specimen_tank_right",
       "name": "Right Specimen Tank",
-      "description": "Tank 103. A jar containing a squid-like creature with multiple eyes and trailing tentacles, suspended motionless in golden preservative.",
+      "description": "Tank 103. A cylinder containing a strange alien plant — a bulbous flower with curling roots and layered petals, preserved in golden fluid.",
       "position": {
-        "x": 543,
-        "y": 98
+        "x": 549,
+        "y": 29
       },
       "size": {
-        "width": 129,
-        "height": 457
+        "width": 209,
+        "height": 428
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7358,7 +7419,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A squid — or something like one. Multiple bulging eyes stare out from a bulbous head, and long tentacles trail downward through the amber fluid. The readout says 'Subject Squid Spec, Specimen 73LB.' Its skin has a mottled pattern that shifts even in death, like camouflage searching for a surface to match."
+              "text": "Not an animal — a plant. Or something that blurs the line. A bulbous flower with layered petals in deep burgundy, and thick roots that curl through the amber fluid like searching fingers. The green display reads: 7319-103. A botanical specimen from some alien world, preserved perfectly. The petals seem to open slightly as you watch."
             }
           ]
         },
@@ -7388,14 +7449,14 @@
     {
       "id": "specimen_data_plates",
       "name": "Data Plates",
-      "description": "Green-lit readout screens below each tank, displaying specimen IDs, tank status, and subject classifications.",
+      "description": "Three green-lit readout screens below the tanks, displaying alien glyphs, specimen IDs, and biological classifications.",
       "position": {
-        "x": 309,
-        "y": 555
+        "x": 105,
+        "y": 479
       },
       "size": {
-        "width": 360,
-        "height": 90
+        "width": 644,
+        "height": 89
       },
       "visual": {
         "color": "rgba(200, 180, 80, 0.2)",
@@ -7486,19 +7547,19 @@
     },
     {
       "id": "cataloguer_mechanism",
-      "name": "Cataloguer Mechanism",
-      "description": "The spider-drone's claw-like arm extends down from above, gripping the specimen rack with mechanical precision.",
+      "name": "Specimen Terminal",
+      "description": "A bio-organic keyboard and control terminal beneath the specimen tanks, its keys inscribed with alien characters.",
       "position": {
-        "x": 422,
-        "y": 0
+        "x": 296,
+        "y": 590
       },
       "size": {
-        "width": 118,
-        "height": 98
+        "width": 296,
+        "height": 110
       },
       "visual": {
         "color": "rgba(100, 160, 80, 0.15)",
-        "label": "Mechanism"
+        "label": "Terminal"
       },
       "initial_state": "active",
       "initially_visible": true,
@@ -7509,7 +7570,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The cataloguer's sorting arm — a delicate lattice of bio-metal joints — extends down from above. Tiny optical sensors blink along its length, still scanning even now. The arm moves with glacial precision, cataloguing each specimen in turn. It's been doing this for years. Maybe centuries."
+              "text": "A bio-organic keyboard sits below the specimen tanks — its keys inscribed with alien characters that match the glyphs on the data displays above. Small monitors flank the keyboard, showing specimen cross-sections and scrolling biological data. The characters are different from the ones on the data plates — more like operational commands than specimen labels."
             }
           ]
         },
@@ -7519,7 +7580,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach for the mechanism. It retracts slightly at your touch — a reflexive motion, like a spider pulling in a leg. Then it extends again, resuming its endless inventory. It doesn't consider you a threat. You're not a specimen anymore. Or perhaps it simply hasn't been told to collect you yet."
+              "text": "You press one of the alien keys experimentally. It yields like cartilage, then springs back. The display above flickers — a new specimen record cycles into view, then returns to its default. You don't know the commands, but the keyboard is definitely functional. The Choir's drones use these to manage the collection."
             }
           ]
         },
@@ -7529,7 +7590,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The mechanism emits a series of rapid clicks in response to your voice — a cataloguing reflex, recording the sound. Then it returns to silence, its optical sensors sweeping methodically across the jars."
+              "text": "You speak to the terminal. A small light on the keyboard blinks once — voice input detected — but nothing happens. The system expects Choir command tones, not your voice. You'd need to know their language to operate this remotely."
             }
           ]
         }

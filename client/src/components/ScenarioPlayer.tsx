@@ -372,6 +372,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const currentView = engine.currentViewId;
     if (prevViewRef.current !== currentView) {
+      stopVoice();
       const transitionSound = scenario.setting.sounds?.room_transition;
       if (transitionSound) playSound(transitionSound);
       prevViewRef.current = currentView;
