@@ -404,6 +404,104 @@
   }
 
   /* Status bar */
+  /* Narration tab */
+  .narr-config {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .narr-config label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dim); }
+  .narr-config input, .narr-config select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .narr-config input:focus, .narr-config select:focus { border-color: var(--gold); outline: none; }
+  .narr-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .narr-row:hover { background: rgba(192, 160, 48, 0.04); }
+  .narr-row .narr-id { color: var(--text-dim); font-size: 10px; }
+  .narr-row .narr-text { color: var(--text); line-height: 1.4; }
+  .narr-row .narr-btns {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    align-items: center;
+  }
+  .narr-row .narr-btns button {
+    background: var(--bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    font-family: inherit;
+    font-size: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .narr-row .narr-btns button:hover { color: var(--gold); border-color: var(--gold); }
+  .narr-row .narr-btns button.has-audio { color: #44cc66; border-color: #44cc66; }
+  .narr-row .narr-btns button.generating { color: var(--accent-new); border-color: var(--accent-new); cursor: wait; }
+  .narr-row .narr-btns .narr-status { font-size: 10px; color: var(--text-dim); margin-left: 4px; }
+  .narr-filter-bar {
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .narr-filter-bar button {
+    background: var(--bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    font-size: 10px;
+    font-family: inherit;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .narr-filter-bar button:hover { color: var(--text); }
+  .narr-filter-bar button.active { color: var(--gold); border-color: var(--gold); }
+  .narr-batch-bar {
+    display: flex;
+    gap: 6px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .narr-batch-bar button {
+    background: #2a2210;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 4px 12px;
+    font-family: inherit;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .narr-batch-bar button:hover { background: #3a3218; }
+  .narr-batch-bar button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .narr-batch-bar .narr-progress { font-size: 10px; color: var(--text-dim); }
+  .narr-summary {
+    padding: 6px 12px;
+    font-size: 10px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+
   .statusbar {
     display: flex;
     align-items: center;
@@ -484,6 +582,7 @@
       <div class="panel-tab active" data-tab="objects" onclick="switchTab('objects')">Objects</div>
       <div class="panel-tab" data-tab="character" onclick="switchTab('character')">Character</div>
       <div class="panel-tab" data-tab="sprites" onclick="switchTab('sprites')">Sprites</div>
+      <div class="panel-tab" data-tab="narration" onclick="switchTab('narration')">Narration</div>
     </div>
     <div class="panel-content active" id="tab-objects">
       <div id="objectList" style="padding:8px;"></div>
@@ -494,6 +593,30 @@
     <div class="panel-content" id="tab-sprites">
       <div id="spriteList" style="padding:8px;"></div>
       <div id="spriteDetail"></div>
+    </div>
+    <div class="panel-content" id="tab-narration">
+      <div class="narr-config">
+        <label>ElevenLabs API Key</label>
+        <input type="password" id="narrApiKey" placeholder="sk_..." />
+        <div style="display:flex;gap:6px;">
+          <div style="flex:1;">
+            <label>Voice</label>
+            <select id="narrVoiceSelect"><option value="">-- Load voices --</option></select>
+          </div>
+          <div style="flex-shrink:0;align-self:flex-end;">
+            <button onclick="narrLoadVoices()" style="background:var(--bg);color:var(--text-dim);border:1px solid var(--border);padding:4px 8px;font-size:10px;font-family:inherit;border-radius:2px;cursor:pointer;">Fetch</button>
+          </div>
+        </div>
+      </div>
+      <div class="narr-filter-bar" id="narrFilterBar"></div>
+      <div class="narr-batch-bar" id="narrBatchBar">
+        <button onclick="narrBatchGenerate()" id="narrBatchBtn" disabled>Generate Filtered</button>
+        <button onclick="narrStop()" id="narrStopBtn" style="display:none;background:var(--bg);color:var(--accent-new);border:1px solid var(--accent-new);padding:4px 12px;font-family:inherit;font-size:11px;border-radius:3px;cursor:pointer;">Stop</button>
+        <button onclick="narrDownloadZip()" style="background:var(--bg);color:var(--text-dim);border:1px solid var(--border);padding:4px 12px;font-family:inherit;font-size:11px;border-radius:3px;cursor:pointer;">Download ZIP</button>
+        <span class="narr-progress" id="narrProgress"></span>
+      </div>
+      <div class="narr-summary" id="narrSummary"></div>
+      <div id="narrList" style="overflow-y:auto;flex:1;"></div>
     </div>
   </div>
 </div>
@@ -1963,8 +2086,497 @@ function updateStatus() {
 }
 
 // ============================================================
+// Narration tab — ElevenLabs TTS integration
+// ============================================================
+
+let narrEntries = [];
+let narrFilter = 'all';
+let narrAudioCache = {};
+let narrCurrentAudio = null;
+let narrBatchRunning = false;
+let narrBatchAbort = false;
+
+function narrSlugify(text, maxLen = 40) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, maxLen);
+}
+
+function narrExtractText(sc) {
+  const entries = [];
+  let counter = 0;
+  const nextId = () => String(++counter).padStart(3, '0');
+
+  if (sc.setting?.intro_text) {
+    sc.setting.intro_text.forEach((line, i) => {
+      entries.push({ id: `intro_${nextId()}`, category: 'intro', text: line, source: `setting.intro_text[${i}]` });
+    });
+  }
+
+  if (sc.setting?.ambient_text) {
+    entries.push({ id: `ambient_${nextId()}`, category: 'ambient', text: sc.setting.ambient_text, source: 'setting.ambient_text' });
+  }
+
+  if (sc.phases) {
+    for (const phase of sc.phases) {
+      if (phase.ambient_text) {
+        entries.push({ id: `ambient_phase_${narrSlugify(phase.id)}_${nextId()}`, category: 'ambient', text: phase.ambient_text, source: `phases[${phase.id}].ambient_text` });
+      }
+    }
+  }
+
+  function walkEffects(effects, sourcePrefix) {
+    if (!effects) return;
+    for (let i = 0; i < effects.length; i++) {
+      const e = effects[i];
+      const src = `${sourcePrefix}.effects[${i}]`;
+
+      if (e.type === 'message' && e.text) {
+        entries.push({ id: `msg_${nextId()}`, category: 'message', text: e.text, source: src });
+      }
+      if (e.type === 'random_message' && e.messages) {
+        e.messages.forEach((m, j) => {
+          entries.push({ id: `msg_${nextId()}`, category: 'message', text: m, source: `${src}.messages[${j}]` });
+        });
+      }
+      if (e.type === 'game_over' && e.text) {
+        entries.push({ id: `gameover_${nextId()}`, category: 'gameover', text: e.text, source: src });
+      }
+      if (e.type === 'show_dialogue' && e.choices) {
+        for (let c = 0; c < e.choices.length; c++) {
+          if (e.choices[c].then) walkEffects(e.choices[c].then, `${src}.choices[${c}]`);
+        }
+      }
+      if (e.type === 'delay_then' && e.effects) walkEffects(e.effects, `${src}(delay_then)`);
+      if (e.type === 'conditional_effect') {
+        if (e.then) walkEffects(e.then, `${src}(then)`);
+        if (e.else) walkEffects(e.else, `${src}(else)`);
+      }
+    }
+  }
+
+  if (sc.objects) {
+    for (const obj of sc.objects) {
+      for (let ix = 0; ix < obj.interactions.length; ix++) {
+        const inter = obj.interactions[ix];
+        const prefix = `objects[${obj.id}].interactions[${ix}]`;
+        if (inter.response) entries.push({ id: `msg_${nextId()}`, category: 'message', text: inter.response, source: `${prefix}.response` });
+        if (inter.then) walkEffects(inter.then, prefix);
+      }
+    }
+  }
+
+  if (sc.items) {
+    for (const item of sc.items) {
+      if (item.examine) {
+        for (let ix = 0; ix < item.examine.length; ix++) {
+          walkEffects(item.examine[ix].then, `items[${item.id}].examine[${ix}]`);
+        }
+      }
+    }
+  }
+
+  if (sc.combinations) {
+    for (let i = 0; i < sc.combinations.length; i++) {
+      if (sc.combinations[i].message) {
+        entries.push({ id: `msg_${nextId()}`, category: 'message', text: sc.combinations[i].message, source: `combinations[${i}]` });
+      }
+    }
+  }
+
+  if (sc.events) {
+    for (const evt of sc.events) walkEffects(evt.effects, `events[${evt.id}]`);
+  }
+
+  if (sc.phases) {
+    for (const phase of sc.phases) walkEffects(phase.on_enter, `phases[${phase.id}].on_enter`);
+  }
+
+  if (sc.win_conditions) {
+    for (const wc of sc.win_conditions) {
+      if (wc.description) entries.push({ id: `gameover_win_${nextId()}`, category: 'gameover', text: wc.description, source: `win_conditions[${wc.id}]` });
+    }
+  }
+  if (sc.lose_conditions) {
+    for (const lc of sc.lose_conditions) {
+      if (lc.description) entries.push({ id: `gameover_lose_${nextId()}`, category: 'gameover', text: lc.description, source: `lose_conditions[${lc.id}]` });
+    }
+  }
+
+  if (sc.views) {
+    for (const view of sc.views) {
+      if (view.hints) {
+        for (let i = 0; i < view.hints.length; i++) {
+          entries.push({ id: `hint_${nextId()}`, category: 'hint', text: view.hints[i].text, source: `views[${view.id}].hints[${i}]` });
+        }
+      }
+    }
+  }
+
+  return entries;
+}
+
+function narrGetApiKey() {
+  return document.getElementById('narrApiKey').value.trim();
+}
+
+function narrGetVoiceId() {
+  return document.getElementById('narrVoiceSelect').value;
+}
+
+async function narrLoadVoices() {
+  const key = narrGetApiKey();
+  if (!key) { alert('Enter your ElevenLabs API key first.'); return; }
+  try { localStorage.setItem('narr_api_key', key); } catch {}
+  const sel = document.getElementById('narrVoiceSelect');
+  sel.innerHTML = '<option value="">Loading...</option>';
+  try {
+    const res = await fetch('https://api.elevenlabs.io/v1/voices', { headers: { 'xi-api-key': key } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const voices = data.voices || [];
+    sel.innerHTML = '<option value="">-- Select voice --</option>' +
+      voices.map(v => `<option value="${v.voice_id}">${v.name} [${v.category || ''}]</option>`).join('');
+    let saved;
+    try { saved = localStorage.getItem('narr_voice_id'); } catch {}
+    if (saved && voices.some(v => v.voice_id === saved)) sel.value = saved;
+    sel.onchange = () => { try { localStorage.setItem('narr_voice_id', sel.value); } catch {} };
+  } catch (e) {
+    sel.innerHTML = '<option value="">Failed: ' + e.message + '</option>';
+  }
+}
+
+function narrRefresh() {
+  if (!scenario) {
+    document.getElementById('narrList').innerHTML = '<div style="padding:12px;color:var(--text-dim);">Load a scenario first.</div>';
+    return;
+  }
+  narrEntries = narrExtractText(scenario);
+  narrAudioCache = {};
+
+  const cats = {};
+  for (const e of narrEntries) cats[e.category] = (cats[e.category] || 0) + 1;
+
+  const bar = document.getElementById('narrFilterBar');
+  bar.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.textContent = `All (${narrEntries.length})`;
+  allBtn.className = narrFilter === 'all' ? 'active' : '';
+  allBtn.onclick = () => { narrFilter = 'all'; narrRenderList(); narrUpdateFilterBtns(); };
+  bar.appendChild(allBtn);
+  for (const [cat, count] of Object.entries(cats)) {
+    const btn = document.createElement('button');
+    btn.textContent = `${cat} (${count})`;
+    btn.className = narrFilter === cat ? 'active' : '';
+    btn.onclick = () => { narrFilter = cat; narrRenderList(); narrUpdateFilterBtns(); };
+    bar.appendChild(btn);
+  }
+  const viewBtn = document.createElement('button');
+  viewBtn.textContent = 'This View';
+  viewBtn.className = narrFilter === '_view' ? 'active' : '';
+  viewBtn.onclick = () => { narrFilter = '_view'; narrRenderList(); narrUpdateFilterBtns(); };
+  bar.appendChild(viewBtn);
+
+  const totalChars = narrEntries.reduce((s, e) => s + e.text.length, 0);
+  document.getElementById('narrSummary').textContent =
+    `${narrEntries.length} entries | ${totalChars.toLocaleString()} characters total`;
+
+  document.getElementById('narrBatchBtn').disabled = false;
+  narrRenderList();
+}
+
+function narrUpdateFilterBtns() {
+  const btns = document.querySelectorAll('#narrFilterBar button');
+  btns.forEach(b => {
+    const label = b.textContent.split(' ')[0].toLowerCase();
+    const isView = b.textContent === 'This View';
+    b.className = (isView ? narrFilter === '_view' : (label === narrFilter)) ? 'active' : '';
+  });
+}
+
+function narrGetFiltered() {
+  if (narrFilter === 'all') return narrEntries;
+  if (narrFilter === '_view') {
+    if (!currentViewId || !scenario) return [];
+    const view = scenario.views.find(v => v.id === currentViewId);
+    if (!view) return [];
+    const objIds = new Set(view.objects || []);
+    return narrEntries.filter(e => {
+      if (e.source.startsWith(`views[${currentViewId}]`)) return true;
+      for (const oid of objIds) {
+        if (e.source.startsWith(`objects[${oid}]`)) return true;
+      }
+      return false;
+    });
+  }
+  return narrEntries.filter(e => e.category === narrFilter);
+}
+
+function narrRenderList() {
+  const container = document.getElementById('narrList');
+  const filtered = narrGetFiltered();
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding:12px;color:var(--text-dim);">No entries for this filter.</div>';
+    return;
+  }
+  container.innerHTML = '';
+  for (const entry of filtered) {
+    const row = document.createElement('div');
+    row.className = 'narr-row';
+    row.id = `narr-row-${entry.id}`;
+    const truncText = entry.text.length > 120 ? entry.text.slice(0, 120) + '...' : entry.text;
+    row.innerHTML = `
+      <div class="narr-id">[${entry.category}] ${entry.id} &mdash; ${entry.source}</div>
+      <div class="narr-text">${escHtml(truncText)}</div>
+      <div class="narr-btns">
+        <button onclick="narrGenerate('${entry.id}')" title="Generate audio">Generate</button>
+        <button onclick="narrPlay('${entry.id}')" title="Play audio" disabled>Play</button>
+        <button onclick="narrDownload('${entry.id}')" title="Download MP3" disabled>Save</button>
+        <span class="narr-status" id="narr-status-${entry.id}">${entry.text.length} chars</span>
+      </div>
+    `;
+    container.appendChild(row);
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+async function narrGenerate(entryId) {
+  const key = narrGetApiKey();
+  const voiceId = narrGetVoiceId();
+  if (!key) { alert('Enter your ElevenLabs API key.'); return; }
+  if (!voiceId) { alert('Select a voice first.'); return; }
+
+  const entry = narrEntries.find(e => e.id === entryId);
+  if (!entry) return;
+
+  const statusEl = document.getElementById(`narr-status-${entryId}`);
+  const row = document.getElementById(`narr-row-${entryId}`);
+  const genBtn = row?.querySelector('button');
+  if (genBtn) { genBtn.className = 'generating'; genBtn.textContent = '...'; }
+  if (statusEl) statusEl.textContent = 'Generating...';
+
+  try {
+    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+      method: 'POST',
+      headers: {
+        'xi-api-key': key,
+        'Content-Type': 'application/json',
+        'Accept': 'audio/mpeg',
+      },
+      body: JSON.stringify({
+        text: entry.text,
+        model_id: 'eleven_monolingual_v1',
+        voice_settings: { stability: 0.5, similarity_boost: 0.75 },
+      }),
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error(`HTTP ${res.status}: ${body.slice(0, 200)}`);
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    narrAudioCache[entryId] = { url, blob };
+
+    if (genBtn) { genBtn.className = 'has-audio'; genBtn.textContent = 'Regen'; }
+    if (statusEl) statusEl.textContent = `${(blob.size / 1024).toFixed(1)} KB`;
+
+    const playBtn = row?.querySelectorAll('button')[1];
+    const saveBtn = row?.querySelectorAll('button')[2];
+    if (playBtn) playBtn.disabled = false;
+    if (saveBtn) saveBtn.disabled = false;
+
+    return true;
+  } catch (e) {
+    if (genBtn) { genBtn.className = ''; genBtn.textContent = 'Generate'; }
+    if (statusEl) statusEl.textContent = `Error: ${e.message.slice(0, 60)}`;
+    return false;
+  }
+}
+
+function narrPlay(entryId) {
+  if (narrCurrentAudio) { narrCurrentAudio.pause(); narrCurrentAudio = null; }
+  const cached = narrAudioCache[entryId];
+  if (!cached) return;
+  const audio = new Audio(cached.url);
+  narrCurrentAudio = audio;
+  audio.play();
+}
+
+function narrDownload(entryId) {
+  const cached = narrAudioCache[entryId];
+  if (!cached) return;
+  const a = document.createElement('a');
+  a.href = cached.url;
+  a.download = `${entryId}.mp3`;
+  a.click();
+}
+
+async function narrBatchGenerate() {
+  const key = narrGetApiKey();
+  const voiceId = narrGetVoiceId();
+  if (!key) { alert('Enter your ElevenLabs API key.'); return; }
+  if (!voiceId) { alert('Select a voice first.'); return; }
+
+  const filtered = narrGetFiltered();
+  const toGenerate = filtered.filter(e => !narrAudioCache[e.id]);
+  if (toGenerate.length === 0) {
+    document.getElementById('narrProgress').textContent = 'All filtered entries already generated.';
+    return;
+  }
+
+  narrBatchRunning = true;
+  narrBatchAbort = false;
+  document.getElementById('narrBatchBtn').disabled = true;
+  document.getElementById('narrStopBtn').style.display = '';
+
+  let done = 0;
+  let failed = 0;
+  let charsUsed = 0;
+
+  for (const entry of toGenerate) {
+    if (narrBatchAbort) break;
+    document.getElementById('narrProgress').textContent =
+      `${done + failed}/${toGenerate.length} (${charsUsed.toLocaleString()} chars used)`;
+
+    const ok = await narrGenerate(entry.id);
+    if (ok) { done++; charsUsed += entry.text.length; }
+    else failed++;
+
+    // Rate limit: ~500ms between requests
+    if (!narrBatchAbort) await new Promise(r => setTimeout(r, 500));
+  }
+
+  narrBatchRunning = false;
+  document.getElementById('narrBatchBtn').disabled = false;
+  document.getElementById('narrStopBtn').style.display = 'none';
+  document.getElementById('narrProgress').textContent =
+    `Done: ${done} generated, ${failed} failed, ${charsUsed.toLocaleString()} chars used.`;
+}
+
+function narrStop() {
+  narrBatchAbort = true;
+  document.getElementById('narrStopBtn').style.display = 'none';
+  document.getElementById('narrProgress').textContent += ' (stopping...)';
+}
+
+async function narrDownloadZip() {
+  const cached = Object.entries(narrAudioCache);
+  if (cached.length === 0) { alert('No generated audio to download. Generate some entries first.'); return; }
+
+  // Minimal ZIP file builder (store method, no compression)
+  function buildZip(files) {
+    const entries = [];
+    let offset = 0;
+
+    for (const { name, data } of files) {
+      const nameBytes = new TextEncoder().encode(name);
+      // Local file header
+      const header = new Uint8Array(30 + nameBytes.length);
+      const hv = new DataView(header.buffer);
+      hv.setUint32(0, 0x04034b50, true); // signature
+      hv.setUint16(4, 20, true); // version
+      hv.setUint16(14, data.length, true); // compressed size
+      hv.setUint16(18, data.length, true); // uncompressed size
+      // Actually set as uint32 for larger files
+      hv.setUint32(14, 0, true); // crc (0 = skip for store)
+      hv.setUint32(18, data.length, true); // compressed
+      hv.setUint32(22, data.length, true); // uncompressed
+      hv.setUint16(26, nameBytes.length, true);
+      header.set(nameBytes, 30);
+
+      entries.push({ nameBytes, data, headerOffset: offset });
+      offset += header.length + data.length;
+    }
+
+    // Central directory
+    const cdParts = [];
+    let cdSize = 0;
+    for (const { nameBytes, data, headerOffset } of entries) {
+      const cd = new Uint8Array(46 + nameBytes.length);
+      const cv = new DataView(cd.buffer);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint32(20, data.length, true);
+      cv.setUint32(24, data.length, true);
+      cv.setUint16(28, nameBytes.length, true);
+      cv.setUint32(42, headerOffset, true);
+      cd.set(nameBytes, 46);
+      cdParts.push(cd);
+      cdSize += cd.length;
+    }
+
+    // End of central directory
+    const eocd = new Uint8Array(22);
+    const ev = new DataView(eocd.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(8, entries.length, true);
+    ev.setUint16(10, entries.length, true);
+    ev.setUint32(12, cdSize, true);
+    ev.setUint32(16, offset, true);
+
+    // Combine all parts
+    const totalSize = offset + cdSize + 22;
+    const result = new Uint8Array(totalSize);
+    let pos = 0;
+    for (let i = 0; i < entries.length; i++) {
+      const { nameBytes, data } = entries[i];
+      const header = new Uint8Array(30 + nameBytes.length);
+      const hv = new DataView(header.buffer);
+      hv.setUint32(0, 0x04034b50, true);
+      hv.setUint16(4, 20, true);
+      hv.setUint32(18, data.length, true);
+      hv.setUint32(22, data.length, true);
+      hv.setUint16(26, nameBytes.length, true);
+      header.set(nameBytes, 30);
+      result.set(header, pos); pos += header.length;
+      result.set(new Uint8Array(data), pos); pos += data.length;
+    }
+    for (const cd of cdParts) { result.set(cd, pos); pos += cd.length; }
+    result.set(eocd, pos);
+    return result;
+  }
+
+  const files = [];
+  for (const [id, { blob }] of cached) {
+    const data = await blob.arrayBuffer();
+    files.push({ name: `voice/${id}.mp3`, data });
+  }
+
+  const zip = buildZip(files);
+  const blob = new Blob([zip], { type: 'application/zip' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${scenarioId || 'scenario'}-voiceover.zip`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// Restore saved API key and wire up scenario reload hook
+function narrInit() {
+  try {
+    const saved = localStorage.getItem('narr_api_key');
+    if (saved) document.getElementById('narrApiKey').value = saved;
+  } catch {}
+  document.getElementById('narrApiKey').addEventListener('change', () => {
+    try { localStorage.setItem('narr_api_key', narrGetApiKey()); } catch {}
+  });
+}
+
+// Hook into scenario loading to refresh narration entries
+const _origLoadScenario = loadScenario;
+loadScenario = async function(id) {
+  await _origLoadScenario(id);
+  narrRefresh();
+};
+
+// ============================================================
 // Boot
 // ============================================================
+narrInit();
 init();
 </script>
 </body>
