@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotspot Editor — Adventure Engine</title>
+<style>
+  :root {
+    --gold: #c0a030;
+    --gold-dim: #6a5a3a;
+    --bg: #0d0d0a;
+    --panel: #151210;
+    --border: #2a2018;
+    --text: #e0d0a0;
+    --text-dim: #8a7a5a;
+    --accent-nav: #4488cc;
+    --accent-obj: #c0a030;
+    --accent-char: #44cc66;
+    --accent-new: #cc4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top bar */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .toolbar label { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .toolbar select, .toolbar button {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .toolbar select:hover, .toolbar button:hover { border-color: var(--gold); }
+  .toolbar button.primary { background: #2a2210; border-color: var(--gold); color: var(--gold); }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .coords {
+    color: var(--gold);
+    font-size: 12px;
+    min-width: 180px;
+    text-align: right;
+  }
+
+  /* Main layout */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Canvas area */
+  .canvas-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 16px;
+  }
+  .viewport {
+    position: relative;
+    width: 960px;
+    height: 540px;
+    background: #111;
+    border: 1px solid var(--border);
+    cursor: crosshair;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .viewport img.bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Hotspot boxes */
+  .hotspot {
+    position: absolute;
+    border: 2px solid var(--accent-obj);
+    background: rgba(192, 160, 48, 0.12);
+    cursor: move;
+    z-index: 10;
+  }
+  .hotspot.nav { border-color: var(--accent-nav); background: rgba(68, 136, 204, 0.12); }
+  .hotspot.selected { border-width: 3px; z-index: 20; }
+  .hotspot.new-box { border-color: var(--accent-new); background: rgba(204, 68, 68, 0.15); border-style: dashed; }
+  .hotspot .label {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 10px;
+    color: var(--accent-obj);
+    white-space: nowrap;
+    pointer-events: none;
+    text-shadow: 0 0 3px #000, 0 0 6px #000;
+  }
+  .hotspot.nav .label { color: var(--accent-nav); }
+  .hotspot .handle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border: 1px solid #000;
+    z-index: 30;
+  }
+  .hotspot .handle.tl { top: -4px; left: -4px; cursor: nw-resize; }
+  .hotspot .handle.tr { top: -4px; right: -4px; cursor: ne-resize; }
+  .hotspot .handle.bl { bottom: -4px; left: -4px; cursor: sw-resize; }
+  .hotspot .handle.br { bottom: -4px; right: -4px; cursor: se-resize; }
+
+  /* Character marker */
+  .char-marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--accent-char);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: move;
+    z-index: 15;
+    box-shadow: 0 0 8px rgba(68, 204, 102, 0.5);
+  }
+  .char-marker::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-char);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .char-marker .label {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--accent-char);
+    white-space: nowrap;
+    pointer-events: none;
+    text-shadow: 0 0 3px #000, 0 0 6px #000;
+  }
+
+  /* Draw preview */
+  .draw-preview {
+    position: absolute;
+    border: 2px dashed var(--accent-new);
+    background: rgba(204, 68, 68, 0.1);
+    pointer-events: none;
+    z-index: 25;
+    display: none;
+  }
+
+  /* Side panel */
+  .panel {
+    width: 320px;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .panel-header {
+    padding: 10px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .obj-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+  }
+  .obj-row:hover { background: rgba(192, 160, 48, 0.08); }
+  .obj-row.selected { background: rgba(192, 160, 48, 0.15); border: 1px solid var(--border); }
+  .obj-row .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .obj-row .dot.obj { background: var(--accent-obj); }
+  .obj-row .dot.nav { background: var(--accent-nav); }
+  .obj-row .dot.char { background: var(--accent-char); }
+  .obj-row .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .obj-row .pos { color: var(--text-dim); font-size: 10px; white-space: nowrap; }
+  .obj-row .changed { color: var(--accent-new); font-weight: bold; font-size: 10px; }
+
+  /* Export modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    width: 700px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-header h3 { color: var(--gold); font-size: 14px; }
+  .modal-body { padding: 16px; flex: 1; overflow-y: auto; }
+  .modal textarea {
+    width: 100%;
+    min-height: 300px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 12px;
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    resize: vertical;
+    border-radius: 3px;
+  }
+  .modal-footer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Status bar */
+  .statusbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 16px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .statusbar .hint { flex: 1; }
+  .statusbar .change-count { color: var(--accent-new); }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <label>Scenario</label>
+  <select id="scenarioSelect"><option value="">Loading...</option></select>
+  <label>View</label>
+  <select id="viewSelect"><option value="">Pick scenario first</option></select>
+  <div class="spacer"></div>
+  <div class="coords" id="coordsDisplay">Move mouse over viewport</div>
+  <button onclick="resetView()">Reset View</button>
+  <button class="primary" onclick="showExport()">Export Changes</button>
+</div>
+
+<div class="main">
+  <div class="canvas-wrap">
+    <div class="viewport" id="viewport">
+      <img class="bg" id="bgImage" src="" alt="background" />
+      <div class="draw-preview" id="drawPreview"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">Objects in View</div>
+    <div class="panel-body" id="objectList"></div>
+  </div>
+</div>
+
+<div class="statusbar">
+  <div class="hint" id="statusHint">Load a scenario to begin. Click + drag on empty space to draw a new hotspot box.</div>
+  <div class="change-count" id="changeCount"></div>
+  <div>960x720 coord space | viewport 960x540 | SCALE_Y=0.75</div>
+</div>
+
+<!-- Export modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Export Changes</h3>
+      <button onclick="closeExport()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom:8px; color:var(--text-dim); font-size:11px;">
+        Copy this text and paste it to Claude. It contains all position changes you made.
+      </p>
+      <textarea id="exportText" readonly></textarea>
+    </div>
+    <div class="modal-footer">
+      <button onclick="copyExport()">Copy to Clipboard</button>
+      <button onclick="closeExport()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// State
+// ============================================================
+let scenario = null;
+let scenarioId = '';
+let currentViewId = '';
+let objects = [];       // { id, name, x, y, w, h, isNav, origX, origY, origW, origH }
+let character = null;   // { x, y, origX, origY }
+let newBoxes = [];      // { id, x, y, w, h } — user-drawn boxes
+let selectedId = null;
+let dragState = null;   // { type, id, startMX, startMY, startX, startY, startW?, startH? }
+let drawState = null;   // { startX, startY }
+
+const SCALE_Y = 0.75;
+const VP_W = 960;
+const VP_H = 540;
+const COORD_W = 960;
+const COORD_H = 720;
+
+// ============================================================
+// Init
+// ============================================================
+async function init() {
+  try {
+    const r = await fetch('/scenarios/manifest.json');
+    const ids = await r.json();
+    const sel = document.getElementById('scenarioSelect');
+    sel.innerHTML = '<option value="">-- Select --</option>' +
+      ids.map(id => `<option value="${id}">${id}</option>`).join('');
+    sel.onchange = () => loadScenario(sel.value);
+  } catch {
+    document.getElementById('scenarioSelect').innerHTML =
+      '<option value="">Failed to load manifest</option>';
+  }
+
+  const vp = document.getElementById('viewport');
+  vp.addEventListener('mousedown', onMouseDown);
+  vp.addEventListener('mousemove', onMouseMove);
+  vp.addEventListener('mouseup', onMouseUp);
+  vp.addEventListener('mouseleave', onMouseUp);
+  document.addEventListener('keydown', onKeyDown);
+}
+
+// ============================================================
+// Scenario / View loading
+// ============================================================
+async function loadScenario(id) {
+  if (!id) return;
+  scenarioId = id;
+  try {
+    const r = await fetch(`/scenarios/${id}/scenario.json`);
+    scenario = await r.json();
+
+    const sel = document.getElementById('viewSelect');
+    sel.innerHTML = scenario.views.map(v =>
+      `<option value="${v.id}">${v.name || v.id}</option>`
+    ).join('');
+    sel.onchange = () => loadView(sel.value);
+    loadView(scenario.views[0].id);
+  } catch (e) {
+    alert('Failed to load scenario: ' + e.message);
+  }
+}
+
+function loadView(viewId) {
+  currentViewId = viewId;
+  const view = scenario.views.find(v => v.id === viewId);
+  if (!view) return;
+
+  // Background
+  const bgFile = view.background_file || `backgrounds/${view.background_key}.webp`;
+  document.getElementById('bgImage').src = `/scenarios/${scenarioId}/${bgFile}`;
+
+  // Objects
+  objects = [];
+  for (const objId of view.objects) {
+    const obj = scenario.objects.find(o => o.id === objId);
+    if (!obj) continue;
+    const isNav = objId.startsWith('nav_');
+    objects.push({
+      id: obj.id,
+      name: obj.name,
+      x: obj.position.x,
+      y: obj.position.y,
+      w: obj.size.width,
+      h: obj.size.height,
+      isNav,
+      origX: obj.position.x,
+      origY: obj.position.y,
+      origW: obj.size.width,
+      origH: obj.size.height,
+    });
+  }
+
+  // Character
+  if (view.character) {
+    character = {
+      x: view.character.x,
+      y: view.character.y,
+      origX: view.character.x,
+      origY: view.character.y,
+    };
+  } else {
+    character = null;
+  }
+
+  // Clear new boxes for this view
+  newBoxes = [];
+  selectedId = null;
+
+  render();
+  updateStatus();
+}
+
+// ============================================================
+// Rendering
+// ============================================================
+function render() {
+  const vp = document.getElementById('viewport');
+
+  // Remove old hotspots and markers
+  vp.querySelectorAll('.hotspot, .char-marker').forEach(el => el.remove());
+
+  // Render object hotspots
+  for (const obj of [...objects, ...newBoxes]) {
+    const el = document.createElement('div');
+    el.className = 'hotspot' +
+      (obj.isNav ? ' nav' : '') +
+      (obj.id === selectedId ? ' selected' : '') +
+      (obj.isNew ? ' new-box' : '');
+    el.dataset.id = obj.id;
+
+    const sx = obj.x;
+    const sy = obj.y * SCALE_Y;
+    const sw = obj.w;
+    const sh = obj.h * SCALE_Y;
+
+    el.style.left = sx + 'px';
+    el.style.top = sy + 'px';
+    el.style.width = sw + 'px';
+    el.style.height = sh + 'px';
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = obj.name || obj.id;
+    el.appendChild(label);
+
+    // Resize handles (only on selected)
+    if (obj.id === selectedId) {
+      for (const corner of ['tl', 'tr', 'bl', 'br']) {
+        const h = document.createElement('div');
+        h.className = 'handle ' + corner;
+        h.dataset.corner = corner;
+        el.appendChild(h);
+      }
+    }
+
+    vp.appendChild(el);
+  }
+
+  // Render character marker
+  if (character) {
+    const marker = document.createElement('div');
+    marker.className = 'char-marker';
+    marker.dataset.id = '__character__';
+    marker.style.left = character.x + 'px';
+    marker.style.top = (character.y * SCALE_Y) + 'px';
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = `character (${character.x}, ${character.y})`;
+    marker.appendChild(label);
+
+    vp.appendChild(marker);
+  }
+
+  renderObjectList();
+}
+
+function renderObjectList() {
+  const listEl = document.getElementById('objectList');
+  let html = '';
+
+  // Character
+  if (character) {
+    const changed = character.x !== character.origX || character.y !== character.origY;
+    html += `<div class="obj-row${selectedId === '__character__' ? ' selected' : ''}"
+                  onclick="selectObject('__character__')">
+      <div class="dot char"></div>
+      <div class="name">Character</div>
+      <div class="pos">(${character.x}, ${character.y})</div>
+      ${changed ? '<div class="changed">*</div>' : ''}
+    </div>`;
+  }
+
+  // Objects
+  for (const obj of objects) {
+    const changed = obj.x !== obj.origX || obj.y !== obj.origY ||
+                    obj.w !== obj.origW || obj.h !== obj.origH;
+    html += `<div class="obj-row${selectedId === obj.id ? ' selected' : ''}"
+                  onclick="selectObject('${obj.id}')">
+      <div class="dot ${obj.isNav ? 'nav' : 'obj'}"></div>
+      <div class="name" title="${obj.id}">${obj.name || obj.id}</div>
+      <div class="pos">(${obj.x},${obj.y}) ${obj.w}x${obj.h}</div>
+      ${changed ? '<div class="changed">*</div>' : ''}
+    </div>`;
+  }
+
+  // New boxes
+  for (const box of newBoxes) {
+    html += `<div class="obj-row${selectedId === box.id ? ' selected' : ''}"
+                  onclick="selectObject('${box.id}')" style="border-left: 2px solid var(--accent-new);">
+      <div class="dot" style="background:var(--accent-new)"></div>
+      <div class="name">${box.id}</div>
+      <div class="pos">(${box.x},${box.y}) ${box.w}x${box.h}</div>
+      <div class="changed">NEW</div>
+    </div>`;
+  }
+
+  listEl.innerHTML = html;
+}
+
+// ============================================================
+// Mouse interactions
+// ============================================================
+function getCoords(e) {
+  const vp = document.getElementById('viewport');
+  const rect = vp.getBoundingClientRect();
+  const px = Math.round(e.clientX - rect.left);
+  const py = Math.round(e.clientY - rect.top);
+  const jx = Math.round(px);                   // JSON x = screen x (SCALE_X = 1)
+  const jy = Math.round(py / SCALE_Y);         // JSON y = screen y / 0.75
+  return { px, py, jx, jy };
+}
+
+function onMouseDown(e) {
+  const { px, py, jx, jy } = getCoords(e);
+  const target = e.target;
+
+  // Handle resize
+  if (target.classList.contains('handle')) {
+    e.preventDefault();
+    const corner = target.dataset.corner;
+    const obj = findObject(selectedId);
+    if (obj) {
+      dragState = {
+        type: 'resize',
+        corner,
+        id: selectedId,
+        startMX: px, startMY: py,
+        startX: obj.x, startY: obj.y,
+        startW: obj.w, startH: obj.h,
+      };
+    }
+    return;
+  }
+
+  // Handle hotspot drag
+  const hotspot = target.closest('.hotspot');
+  if (hotspot) {
+    e.preventDefault();
+    const id = hotspot.dataset.id;
+    selectedId = id;
+    const obj = findObject(id);
+    if (obj) {
+      dragState = {
+        type: 'move',
+        id,
+        startMX: px, startMY: py,
+        startX: obj.x, startY: obj.y,
+      };
+    }
+    render();
+    return;
+  }
+
+  // Handle character drag
+  const charMarker = target.closest('.char-marker');
+  if (charMarker && character) {
+    e.preventDefault();
+    selectedId = '__character__';
+    dragState = {
+      type: 'move-char',
+      id: '__character__',
+      startMX: px, startMY: py,
+      startX: character.x, startY: character.y,
+    };
+    render();
+    return;
+  }
+
+  // Start drawing new box
+  if (target === document.getElementById('viewport') ||
+      target === document.getElementById('bgImage')) {
+    selectedId = null;
+    drawState = { startX: jx, startY: jy, startPX: px, startPY: py };
+    render();
+  }
+}
+
+function onMouseMove(e) {
+  const { px, py, jx, jy } = getCoords(e);
+
+  // Update coords display
+  document.getElementById('coordsDisplay').textContent =
+    `JSON: (${jx}, ${jy})  |  Screen: (${px}, ${py})`;
+
+  // Handle drag
+  if (dragState) {
+    const dx = px - dragState.startMX;
+    const dy = py - dragState.startMY;
+    const djx = Math.round(dx);
+    const djy = Math.round(dy / SCALE_Y);
+
+    if (dragState.type === 'move') {
+      const obj = findObject(dragState.id);
+      if (obj) {
+        obj.x = Math.max(0, Math.min(COORD_W - obj.w, dragState.startX + djx));
+        obj.y = Math.max(0, Math.min(COORD_H - obj.h, dragState.startY + djy));
+        render();
+      }
+    } else if (dragState.type === 'move-char' && character) {
+      character.x = Math.max(0, Math.min(COORD_W, dragState.startX + djx));
+      character.y = Math.max(0, Math.min(COORD_H, dragState.startY + djy));
+      render();
+    } else if (dragState.type === 'resize') {
+      const obj = findObject(dragState.id);
+      if (obj) {
+        resizeObject(obj, dragState, djx, djy);
+        render();
+      }
+    }
+    updateStatus();
+    return;
+  }
+
+  // Handle drawing preview
+  if (drawState) {
+    const preview = document.getElementById('drawPreview');
+    const sx = Math.min(drawState.startPX, px);
+    const sy = Math.min(drawState.startPY, py);
+    const sw = Math.abs(px - drawState.startPX);
+    const sh = Math.abs(py - drawState.startPY);
+    preview.style.display = 'block';
+    preview.style.left = sx + 'px';
+    preview.style.top = sy + 'px';
+    preview.style.width = sw + 'px';
+    preview.style.height = sh + 'px';
+  }
+}
+
+function onMouseUp(e) {
+  if (dragState) {
+    dragState = null;
+    updateStatus();
+    return;
+  }
+
+  if (drawState) {
+    const { px, py, jx, jy } = getCoords(e);
+    const x1 = Math.min(drawState.startX, jx);
+    const y1 = Math.min(drawState.startY, jy);
+    const w = Math.abs(jx - drawState.startX);
+    const h = Math.abs(jy - drawState.startY);
+
+    document.getElementById('drawPreview').style.display = 'none';
+
+    if (w > 5 && h > 5) {
+      const id = 'new_box_' + (newBoxes.length + 1);
+      newBoxes.push({ id, name: id, x: x1, y: y1, w, h, isNew: true });
+      selectedId = id;
+      render();
+      updateStatus();
+
+      // Prompt for name
+      const name = prompt('Name this hotspot (or leave blank):', id);
+      if (name) {
+        const box = newBoxes.find(b => b.id === id);
+        if (box) { box.id = name; box.name = name; selectedId = name; }
+        render();
+      }
+    }
+    drawState = null;
+  }
+}
+
+function onKeyDown(e) {
+  if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (selectedId && selectedId !== '__character__') {
+      const idx = newBoxes.findIndex(b => b.id === selectedId);
+      if (idx >= 0) {
+        newBoxes.splice(idx, 1);
+        selectedId = null;
+        render();
+        updateStatus();
+      }
+    }
+  }
+  if (e.key === 'Escape') {
+    selectedId = null;
+    render();
+  }
+}
+
+// ============================================================
+// Helpers
+// ============================================================
+function findObject(id) {
+  if (!id) return null;
+  return objects.find(o => o.id === id) || newBoxes.find(b => b.id === id);
+}
+
+function selectObject(id) {
+  selectedId = id;
+  render();
+}
+
+function resizeObject(obj, state, djx, djy) {
+  const c = state.corner;
+  let x = state.startX, y = state.startY, w = state.startW, h = state.startH;
+  if (c === 'br') { w += djx; h += djy; }
+  if (c === 'bl') { x += djx; w -= djx; h += djy; }
+  if (c === 'tr') { y += djy; w += djx; h -= djy; }
+  if (c === 'tl') { x += djx; y += djy; w -= djx; h -= djy; }
+  if (w < 10) w = 10;
+  if (h < 10) h = 10;
+  obj.x = Math.max(0, x);
+  obj.y = Math.max(0, y);
+  obj.w = w;
+  obj.h = h;
+}
+
+function resetView() {
+  if (!currentViewId) return;
+  loadView(currentViewId);
+}
+
+// ============================================================
+// Export
+// ============================================================
+function getChanges() {
+  const changes = [];
+
+  // Changed objects
+  for (const obj of objects) {
+    if (obj.x !== obj.origX || obj.y !== obj.origY ||
+        obj.w !== obj.origW || obj.h !== obj.origH) {
+      changes.push({
+        type: 'object',
+        id: obj.id,
+        name: obj.name,
+        position: { x: obj.x, y: obj.y },
+        size: { width: obj.w, height: obj.h },
+        was: {
+          position: { x: obj.origX, y: obj.origY },
+          size: { width: obj.origW, height: obj.origH },
+        },
+      });
+    }
+  }
+
+  // Character
+  if (character && (character.x !== character.origX || character.y !== character.origY)) {
+    changes.push({
+      type: 'character',
+      position: { x: character.x, y: character.y },
+      was: { x: character.origX, y: character.origY },
+    });
+  }
+
+  // New boxes
+  for (const box of newBoxes) {
+    changes.push({
+      type: 'new',
+      id: box.id,
+      position: { x: box.x, y: box.y },
+      size: { width: box.w, height: box.h },
+    });
+  }
+
+  return changes;
+}
+
+function showExport() {
+  const changes = getChanges();
+  let text = '';
+
+  text += `=== HOTSPOT EDITOR EXPORT ===\n`;
+  text += `Scenario: ${scenarioId}\n`;
+  text += `View: ${currentViewId}\n`;
+  text += `Date: ${new Date().toISOString()}\n`;
+  text += `Changes: ${changes.length}\n\n`;
+
+  if (changes.length === 0) {
+    text += '(no changes)\n';
+  }
+
+  for (const c of changes) {
+    if (c.type === 'object') {
+      text += `MOVED OBJECT: "${c.id}" (${c.name})\n`;
+      text += `  position: { x: ${c.was.position.x}, y: ${c.was.position.y} }`;
+      text += ` -> { x: ${c.position.x}, y: ${c.position.y} }\n`;
+      if (c.size.width !== c.was.size.width || c.size.height !== c.was.size.height) {
+        text += `  size: { width: ${c.was.size.width}, height: ${c.was.size.height} }`;
+        text += ` -> { width: ${c.size.width}, height: ${c.size.height} }\n`;
+      }
+      text += '\n';
+    } else if (c.type === 'character') {
+      text += `MOVED CHARACTER:\n`;
+      text += `  { x: ${c.was.x}, y: ${c.was.y} } -> { x: ${c.position.x}, y: ${c.position.y} }\n\n`;
+    } else if (c.type === 'new') {
+      text += `NEW HOTSPOT: "${c.id}"\n`;
+      text += `  position: { x: ${c.position.x}, y: ${c.position.y} }\n`;
+      text += `  size: { width: ${c.size.width}, height: ${c.size.height} }\n\n`;
+    }
+  }
+
+  text += `=== JSON PATCH ===\n`;
+  text += JSON.stringify({
+    scenario: scenarioId,
+    view: currentViewId,
+    changes: changes,
+  }, null, 2);
+
+  document.getElementById('exportText').value = text;
+  document.getElementById('exportModal').classList.add('active');
+}
+
+function closeExport() {
+  document.getElementById('exportModal').classList.remove('active');
+}
+
+function copyExport() {
+  const textarea = document.getElementById('exportText');
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    const btn = document.querySelector('.modal-footer button');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy to Clipboard'; }, 1500);
+  });
+}
+
+function updateStatus() {
+  const changes = getChanges();
+  const count = changes.length;
+  document.getElementById('changeCount').textContent =
+    count > 0 ? `${count} change${count > 1 ? 's' : ''}` : '';
+  document.getElementById('statusHint').textContent =
+    selectedId
+      ? (selectedId === '__character__'
+          ? 'Drag green marker to reposition character. Press Escape to deselect.'
+          : `Selected: ${selectedId}. Drag to move, corners to resize. Delete key removes new boxes.`)
+      : 'Click + drag on empty space to draw a new hotspot. Click an object to select it.';
+}
+
+// ============================================================
+// Boot
+// ============================================================
+init();
+</script>
+</body>
+</html>
