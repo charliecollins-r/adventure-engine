@@ -1294,6 +1294,20 @@
         {
           "when": [],
           "text": "A dead end, but not a wasted trip. The skeleton tells a story."
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "crew_datapad_found",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "choir_access_chip"
+            }
+          ],
+          "text": "The skeleton had more than just a datapad. Search the body again \u2014 check their uniform pockets."
         }
       ]
     },
@@ -5011,6 +5025,22 @@
         }
       ],
       "icon_file": "items/crew_datapad.png"
+    },
+    {
+      "id": "choir_access_chip",
+      "name": "Choir Access Chip",
+      "description": "A small crystalline security chip from a dead Choir crew member's uniform. It pulses with a faint bio-luminescent pattern \u2014 still keyed to their clearance level.",
+      "icon": "items/choir_access_chip.png",
+      "examine": [
+        {
+          "verb": "look",
+          "response": "A translucent chip the size of a thumbnail, shot through with microscopic veins of light. Choir bio-security \u2014 it reads the holder's resonance signature and broadcasts clearance to nearby locks. The dead engineer's signature is still stored. It might fool a few doors."
+        },
+        {
+          "verb": "hand",
+          "response": "The chip is warm in your palm. The bioluminescent veins pulse faster when you touch it, as if it's trying to read you. It can't \u2014 you're the wrong species \u2014 but the stored clearance might still work on Choir systems."
+        }
+      ]
     }
   ],
   "combinations": [
@@ -19715,30 +19745,138 @@
       "hiding_spot": false,
       "interactions": [
         {
-          "verb": "move",
+          "verb": "look",
           "when": [],
           "then": [
+            {
+              "type": "message",
+              "text": "A heavy bulkhead separates Engineering from the Shuttle Bay. A bio-security panel glows beside the door \u2014 Choir resonance lock. Standard crew clearance would open it instantly. Without that, you'd have to guess the right frequency from the panel's options."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "choir_access_chip"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press the Choir access chip against the bio-security panel. It hums, reads the stored signature, and the bulkhead slides open silently. The dead engineer's clearance still works. You slip through into the Shuttle Bay."
+            },
             {
               "type": "set_view",
               "view": "act2_shuttle_bay"
             },
             {
-              "type": "message",
-              "text": "You move to Shuttle Bay."
+              "type": "set_flag",
+              "flag": "shuttle_bay_accessed_clean",
+              "value": "true"
             }
           ]
         },
         {
-          "verb": "look",
-          "response": "A passage leading to Shuttle Bay."
+          "verb": "move",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "shuttle_bay_resonance_solved",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The bulkhead is still unlocked from your earlier resonance match. You pass through into the Shuttle Bay."
+            },
+            {
+              "type": "set_view",
+              "view": "act2_shuttle_bay"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The bio-security panel flashes three resonance patterns. Choir locks cycle through options \u2014 you need to pick the right frequency. Guess wrong and the alarm sounds."
+            },
+            {
+              "type": "show_dialogue",
+              "prompt": "The panel displays three resonance frequencies. Each pulses with a different bio-luminescent rhythm. Only one matches the ship's crew signature. Choose carefully \u2014 a wrong guess triggers the security alarm.",
+              "choices": [
+                {
+                  "label": "Low harmonic \u2014 slow, deep pulse",
+                  "then": [
+                    {
+                      "type": "message",
+                      "text": "WRONG. The panel flashes red and a piercing alarm screams through Engineering. That was the cargo frequency \u2014 automated systems only. The alarm echoes down every corridor."
+                    },
+                    {
+                      "type": "add_noise",
+                      "amount": 15
+                    }
+                  ]
+                },
+                {
+                  "label": "Mid harmonic \u2014 steady, rhythmic pulse",
+                  "then": [
+                    {
+                      "type": "message",
+                      "text": "The panel glows green. The bulkhead grinds open \u2014 crew frequency accepted. You matched the Choir's standard bio-rhythm. Lucky guess, or good instinct."
+                    },
+                    {
+                      "type": "set_view",
+                      "view": "act2_shuttle_bay"
+                    },
+                    {
+                      "type": "set_flag",
+                      "flag": "shuttle_bay_resonance_solved",
+                      "value": "true"
+                    }
+                  ]
+                },
+                {
+                  "label": "High harmonic \u2014 rapid, sharp pulse",
+                  "then": [
+                    {
+                      "type": "message",
+                      "text": "WRONG. The panel flashes red and an alarm blares. That was the emergency frequency \u2014 distress signals only. The ship now thinks there's a crisis in Engineering."
+                    },
+                    {
+                      "type": "add_noise",
+                      "amount": 15
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The bulkhead is sealed with a bio-resonance lock. No amount of pushing will force it. You need either the right frequency or a Choir crew member's security clearance."
+            }
+          ]
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The lock responds to resonance patterns, not voice commands. Though the panel does seem to vibrate slightly when you speak near it."
+            }
+          ]
         }
       ]
     },
@@ -20108,7 +20246,7 @@
             },
             {
               "type": "message",
-              "text": "You move to Engineering."
+              "text": "You step back through the bulkhead into Engineering. The bio-lock stays open from this side \u2014 shuttle bay crew need quick evacuation access."
             }
           ]
         },
@@ -24151,6 +24289,26 @@
           ]
         },
         {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "empty_hands"
+            },
+            {
+              "type": "not_has_item",
+              "item": "choir_access_chip"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Without the datapad's glow, you notice something else \u2014 a faint pulsing light beneath the skeleton's uniform collar. Something small, crystalline, tucked into a chest pocket. A security chip?"
+            }
+          ]
+        },
+        {
           "verb": "hand",
           "when": [
             {
@@ -24191,12 +24349,67 @@
               "type": "object_state",
               "object": "collapsed_skeleton",
               "state": "empty_hands"
+            },
+            {
+              "type": "not_has_item",
+              "item": "choir_access_chip"
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "The skeleton's hands are empty now. Nothing else useful on the body \u2014 the uniform is disintegrated, the bones brittle."
+              "text": "You reach into the skeleton's chest pocket and extract a small crystalline chip. It pulses warmly in your hand \u2014 a Choir security clearance badge, still active. This engineer's bio-signature is stored inside. Whoever they were, their clearance might open doors deeper in the ship."
+            },
+            {
+              "type": "add_item",
+              "item": "choir_access_chip"
+            },
+            {
+              "type": "set_flag",
+              "flag": "choir_access_chip_found",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "empty_hands"
+            },
+            {
+              "type": "flag_is",
+              "flag": "choir_access_chip_found",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The skeleton has nothing left to offer. You've taken the datapad and the security chip \u2014 everything useful from this dead engineer's last journey."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "empty_hands"
+            },
+            {
+              "type": "flag_is",
+              "flag": "choir_access_chip_found",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The skeleton sits empty-handed and stripped of valuables. A Choir engineer who died trying to escape through the same vents you're crawling through now. At least their security chip might still be useful."
             }
           ]
         },

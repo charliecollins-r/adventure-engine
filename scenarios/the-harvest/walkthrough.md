@@ -226,7 +226,7 @@ A T-shaped intersection. The map (if you have it) guides you: **LEFT is correct*
 - **LOOK at the Junction Markings** — With the map, you learn left has a helmet warning and right has dead-end gouges
 - **LOOK at the Air Current** — Left smells chemical/dangerous, right smells stale/dead
 
-**Optional detour RIGHT → Collapsed Section**: A dead end with a Choir skeleton holding a glowing datapad. HAND the skeleton to get the **Crew Datapad** (Act 2 lore item). Then return to the junction.
+**Optional detour RIGHT → Collapsed Section**: A dead end with a Choir skeleton holding a glowing datapad. HAND the skeleton to get the **Crew Datapad** (Act 2 lore item). Then HAND the skeleton again — a **Choir Access Chip** is hidden in their uniform pocket. This chip bypasses a bio-security lock on the Shuttle Bay in Act 2; without it, you'll have to guess the right resonance frequency (1-in-3 odds, wrong guesses trigger alarms). Then return to the junction.
 
 Go LEFT into the **Gas Chamber**.
 
@@ -308,6 +308,7 @@ All 11 collectible items in Act 1:
 | 9 | Personal Log Crystal | Specimen Archive | HAND Personal Log Crystal |
 | 10 | Ventilation Map | Vent Entry | HAND Wall Scratches |
 | 11 | Crew Datapad (optional) | Collapsed Section | HAND Skeleton |
+| 12 | Choir Access Chip (optional) | Collapsed Section | HAND Skeleton again |
 
 > **Note**: The surgical probe is consumed when jamming the vent fan (step 20). Make sure you've done everything you need with it first.
 
@@ -328,6 +329,7 @@ All 11 collectible items in Act 1:
 | `ventilation_map_found` | HAND Wall Scratches in Vent Entry | Yes — maze navigation |
 | `fan_jammed` | USE surgical_probe ON Fan Mechanism | Yes — opens vent path |
 | `crew_datapad_found` | HAND Skeleton in Collapsed Section | Optional — Act 2 lore |
+| `choir_access_chip_found` | HAND Skeleton again in Collapsed Section | Optional — bypasses Shuttle Bay lock in Act 2 |
 | `airlock_visited` | LOOK Viewport in Airlock Bay | Story flag |
 | `outrider_gone_known` | LOOK Empty Docking Clamps in Airlock Bay | Story flag |
 | `airlock_hinted` | Prisoner dialogue: "way out" choice only | Branch-dependent |
