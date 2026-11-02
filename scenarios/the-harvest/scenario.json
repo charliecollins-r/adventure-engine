@@ -581,7 +581,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 540,
+        "y": 590,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
