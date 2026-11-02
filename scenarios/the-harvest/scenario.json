@@ -59,10 +59,7 @@
       "wall_color": "#0a1a15",
       "floor_color": "#0c0e12"
     },
-    "ambient_audio": [
-      "audio/ambient_ship.mp3",
-      "audio/ambient_lab.mp3"
-    ],
+    "ambient_audio": "audio/haunted.wav",
     "intro_text": [
       "You remember fragments.\nA world with two suns. Fields of amber grain.\nFaces you can no longer name.",
       "Then the sky split open.\nSomething vast descended \u2014 a living ship,\nall tendrils and bioluminescent veins.\nIt took everything.",
@@ -359,6 +356,7 @@
         "restraint_straps",
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
+      "ambient_audio": "audio/ambient_lab.mp3",
       "background_key": "act1_processing_lab",
       "background_file": "backgrounds/act1_processing_lab.webp",
       "room_animation": "flicker",

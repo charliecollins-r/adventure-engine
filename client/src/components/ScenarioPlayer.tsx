@@ -249,31 +249,36 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     return () => clearTimeout(timer);
   }, [eyeOpen, standingUp, engine, bump, scenario]);
 
+  const prevAudioKey = useRef<string>('');
   useEffect(() => {
-    const raw = scenario.setting.ambient_audio;
-    if (!raw) return;
+    const view = engine.getCurrentView();
+    const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
+    const files = raw ? (Array.isArray(raw) ? raw : [raw]) : [];
+    const key = files.join('|');
 
-    const files = Array.isArray(raw) ? raw : [raw];
+    if (key === prevAudioKey.current) return;
+    prevAudioKey.current = key;
+
+    for (const a of audioRefs.current) {
+      a.pause();
+      a.src = '';
+    }
+    audioRefs.current = [];
+
+    if (files.length === 0) return;
+
     const scenarioId = scenario.metadata.id;
     const elements: HTMLAudioElement[] = [];
-
     for (const file of files) {
       const audio = new Audio(resolveAsset(scenarioId, file));
       audio.loop = true;
       audio.volume = 0.35;
+      audio.muted = muted;
       audio.play().catch(() => {});
       elements.push(audio);
     }
     audioRefs.current = elements;
-
-    return () => {
-      for (const a of elements) {
-        a.pause();
-        a.src = '';
-      }
-      audioRefs.current = [];
-    };
-  }, [scenario]);
+  });
 
   useEffect(() => {
     for (const a of audioRefs.current) {
@@ -584,7 +589,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           >
             {debugMode ? 'Debug ON' : 'Debug'}
           </button>
-          {scenario.setting.ambient_audio && (
+          {(scenario.setting.ambient_audio || scenario.views.some(v => v.ambient_audio)) && (
             <button
               style={styles.chromeButton}
               onClick={() => setMuted((m) => !m)}

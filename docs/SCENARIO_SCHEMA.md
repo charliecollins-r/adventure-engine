@@ -195,6 +195,7 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
 | `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
+| `ambient_audio` | string or string[] | no | Ambient audio track(s) for this view, overriding the scenario-level `setting.ambient_audio`. Loops continuously while the player is in this view. Falls back to `setting.ambient_audio` when not specified. |
 | `ambient_lighting` | object | no | Per-view ambient lighting with `lights` array and optional `flicker`. |
 
 ### View Hints

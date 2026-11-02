@@ -59,6 +59,7 @@ export interface View {
   hints?: ViewHint[];
   character?: CharacterPlacement;
   ambient_lighting?: AmbientLighting;
+  ambient_audio?: string | string[];
 }
 
 export interface Position {
