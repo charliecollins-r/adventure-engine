@@ -145,7 +145,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "hints": [
@@ -445,7 +445,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -603,7 +603,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -720,7 +720,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -847,7 +847,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -961,7 +961,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -1094,7 +1094,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
@@ -1244,7 +1244,7 @@
           "height": 12,
           "color": "rgba(0,0,0,1)",
           "opacity": 0.9,
-          "offset_y": 2
+          "offset_y": -9
         }
       },
       "ambient_lighting": {
