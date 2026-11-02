@@ -306,7 +306,8 @@
           }
         ],
         "flicker": true
-      }
+      },
+      "ambient_audio": "audio/ambient_lab.mp3"
     },
     {
       "id": "act1_cataloguer_closeup",
@@ -342,7 +343,8 @@
             }
           ]
         }
-      ]
+      ],
+      "ambient_audio": "audio/ambient_lab.mp3"
     },
     {
       "id": "act1_processing_lab",
@@ -1108,7 +1110,7 @@
           }
         ]
       },
-      "ambient_audio": "audio/ambient_lab.mp3"
+      "ambient_audio": "audio/haunted.wav"
     },
     {
       "id": "act1_specimen_archive",
@@ -1237,7 +1239,7 @@
           }
         ]
       },
-      "ambient_audio": "audio/ambient_vastness.wav"
+      "ambient_audio": "audio/ambient_lab.mp3"
     },
     {
       "id": "act1_airlock_bay",
