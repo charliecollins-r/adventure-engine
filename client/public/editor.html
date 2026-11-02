@@ -86,7 +86,7 @@
     border: 1px solid var(--border);
     cursor: crosshair;
     flex-shrink: 0;
-    overflow: hidden;
+    overflow: visible;
   }
   .viewport img.bg {
     width: 100%;
@@ -1704,8 +1704,10 @@ function onMouseMove(e) {
     if (dragState.type === 'move') {
       const obj = findObject(dragState.id);
       if (obj) {
-        obj.x = Math.max(0, Math.min(COORD_W - obj.w, dragState.startX + djx));
-        obj.y = Math.max(0, Math.min(COORD_H - obj.h, dragState.startY + djy));
+        const margin = obj.hasSprite ? obj.w : Math.round(obj.w / 2);
+        const marginY = obj.hasSprite ? obj.h : Math.round(obj.h / 2);
+        obj.x = Math.max(-margin, Math.min(COORD_W, dragState.startX + djx));
+        obj.y = Math.max(-marginY, Math.min(COORD_H, dragState.startY + djy));
         render();
         if (selectedSpriteId === dragState.id) renderSpritePanel();
       }
@@ -1879,8 +1881,8 @@ function resizeObject(obj, state, djx, djy) {
   if (c === 'tl') { x += djx; y += djy; w -= djx; h -= djy; }
   if (w < 10) w = 10;
   if (h < 10) h = 10;
-  obj.x = Math.max(0, x);
-  obj.y = Math.max(0, y);
+  obj.x = Math.max(-Math.round(w / 2), x);
+  obj.y = Math.max(-Math.round(h / 2), y);
   obj.w = w;
   obj.h = h;
 }
