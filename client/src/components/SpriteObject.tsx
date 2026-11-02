@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
-import type { ObjectSprite } from '../engine/types';
+import type { ObjectSprite, CharacterShadow } from '../engine/types';
 import { resolveAsset } from '../engine/assetResolver';
 
 interface SpriteObjectProps {
   sprite: ObjectSprite;
+  shadow?: CharacterShadow;
   scenarioId: string;
   x: number;
   y: number;
@@ -15,6 +16,7 @@ interface SpriteObjectProps {
 
 export function SpriteObject({
   sprite,
+  shadow,
   scenarioId,
   x,
   y,
@@ -67,10 +69,28 @@ export function SpriteObject({
     cursor,
   };
 
+  const shadowStyle: CSSProperties | null = shadow ? {
+    position: 'absolute',
+    left: `${screenX + (shadow.offset_x ?? 0) * scaleX - ((shadow.width ?? renderW * 0.6) / 2)}px`,
+    top: `${screenY + (shadow.offset_y ?? 0) * scaleY - ((shadow.height ?? 6) / 2)}px`,
+    width: `${shadow.width ?? renderW * 0.6}px`,
+    height: `${shadow.height ?? 6}px`,
+    borderRadius: '50%',
+    background: `radial-gradient(ellipse, ${shadow.color ?? 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`,
+    opacity: shadow.opacity ?? 0.6,
+    pointerEvents: 'none',
+    zIndex: 4,
+  } : null;
+
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     onClick();
   };
 
-  return <div data-object-hotspot style={style} onClick={handleClick} />;
+  return (
+    <>
+      {shadowStyle && <div style={shadowStyle} />}
+      <div data-object-hotspot style={style} onClick={handleClick} />
+    </>
+  );
 }

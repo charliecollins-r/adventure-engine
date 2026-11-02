@@ -194,6 +194,8 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `objects` | string[] | yes | IDs of objects visible in this view. |
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
+| `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
+| `ambient_lighting` | object | no | Per-view ambient lighting with `lights` array and optional `flicker`. |
 
 ### View Hints
 
@@ -420,7 +422,63 @@ World objects are everything the player can see and interact with in the game wo
 | `initial_state` | string | yes | Starting state. |
 | `initially_visible` | boolean | no | Whether visible at game start. Default `true`. |
 | `hiding_spot` | boolean | no | Whether the player can hide here. Default `false`. |
+| `sprite` | object | no | Animated sprite sheet for this object. See **Object Sprites** below. |
+| `shadow` | object | no | Shadow ellipse rendered beneath the sprite. See **Sprite Shadows** below. |
 | `interactions` | interaction[] | yes | What happens when the player interacts. |
+
+### Object Sprites
+
+Objects can optionally render as animated sprite sheets instead of (or in addition to) their hotspot box. When an object has a `sprite`, the sprite is rendered at the object's `position` using **bottom-center anchoring**: `position.x` is the horizontal center, `position.y` is the bottom edge.
+
+```json
+"sprite": {
+  "file": "sprites/holographic_planets.png",
+  "frame_width": 128,
+  "frame_height": 96,
+  "columns": 4,
+  "rows": 1,
+  "frame_rate": 2,
+  "scale": 3
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `file` | string | yes | Path to sprite sheet image, relative to scenario folder. |
+| `frame_width` | number | yes | Width of a single frame in pixels. |
+| `frame_height` | number | yes | Height of a single frame in pixels. |
+| `columns` | number | yes | Number of columns in the sprite sheet grid. |
+| `rows` | number | yes | Number of rows in the sprite sheet grid. |
+| `frame_rate` | number | yes | Animation frames per second. `0` = static (shows first frame). |
+| `scale` | number | yes | Render scale multiplier. Rendered size = `frame_width × scale` by `frame_height × scale`. |
+
+### Sprite Shadows
+
+Both object sprites and character sprites can have shadows — dark ellipses rendered beneath the sprite to ground it visually. Object shadows are configured on the object itself. Character shadows can be set globally on the character config, and optionally overridden per-view in the character placement.
+
+```json
+"shadow": {
+  "offset_x": 0,
+  "offset_y": 2,
+  "width": 60,
+  "height": 12,
+  "opacity": 0.85,
+  "color": "rgba(0,0,0,0.7)"
+}
+```
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `offset_x` | number | `0` | Horizontal offset from anchor point (positive = right). |
+| `offset_y` | number | `0` | Vertical offset from anchor point (positive = down, toward feet). |
+| `width` | number | 60% of sprite width | Ellipse width in pixels. |
+| `height` | number | `6` | Ellipse height in pixels. |
+| `opacity` | number | `0.6` | Shadow opacity (0–1). |
+| `color` | string | `"rgba(0,0,0,0.5)"` | Shadow color as CSS color string. |
+
+**Object shadows**: Add `shadow` alongside `sprite` on the object definition.
+
+**Character shadows**: Set `shadow` on the top-level `character` config for global defaults. Override per-view by adding `shadow` to the view's `character` placement — the per-view shadow completely replaces the global one for that view.
 
 ### Object States
 

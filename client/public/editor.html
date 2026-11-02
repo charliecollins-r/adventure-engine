@@ -146,6 +146,21 @@
     outline: 2px solid var(--accent-sprite);
     outline-offset: 2px;
   }
+  .obj-sprite .handle {
+    position: absolute; width: 8px; height: 8px;
+    background: var(--accent-sprite); border: 1px solid #000;
+    z-index: 30;
+  }
+  .obj-sprite .handle.tl { top: -4px; left: -4px; cursor: nw-resize; }
+  .obj-sprite .handle.tr { top: -4px; right: -4px; cursor: ne-resize; }
+  .obj-sprite .handle.bl { bottom: -4px; left: -4px; cursor: sw-resize; }
+  .obj-sprite .handle.br { bottom: -4px; right: -4px; cursor: se-resize; }
+  .obj-sprite .label {
+    position: absolute; bottom: -16px; left: 50%;
+    transform: translateX(-50%); font-size: 9px;
+    color: var(--accent-sprite); white-space: nowrap;
+    pointer-events: none; text-shadow: 0 1px 2px #000;
+  }
 
   /* Character sprite */
   .char-sprite {
@@ -618,11 +633,14 @@ function loadView(viewId) {
       h: obj.size.height,
       isNav,
       hasSprite: !!obj.sprite,
-      sprite: obj.sprite || null,
+      sprite: obj.sprite ? { ...obj.sprite } : null,
       origX: obj.position.x,
       origY: obj.position.y,
       origW: obj.size.width,
       origH: obj.size.height,
+      origScale: obj.sprite ? (obj.sprite.scale || 1) : undefined,
+      shadow: obj.shadow ? { ...obj.shadow } : null,
+      origShadow: obj.shadow ? JSON.stringify(obj.shadow) : null,
     });
   }
 
@@ -638,6 +656,8 @@ function loadView(viewId) {
       frame: view.character.frame,
       origX: view.character.x,
       origY: view.character.y,
+      shadow: view.character.shadow ? { ...view.character.shadow } : (charConfig && charConfig.shadow ? { ...charConfig.shadow } : null),
+      origShadow: view.character.shadow ? JSON.stringify(view.character.shadow) : null,
     };
   } else {
     character = null;
@@ -771,6 +791,7 @@ function render() {
 }
 
 function renderHotspotBox(vp, obj) {
+  if (obj.hasSprite) return;
   const el = document.createElement('div');
   el.className = 'hotspot' +
     (obj.isNav ? ' nav' : '') +
@@ -820,6 +841,27 @@ function renderObjSprite(vp, obj) {
   const frame = objAnimFrames[obj.id] || 0;
   const bgX = -(frame * fw) * scale;
 
+  // Render shadow if configured
+  if (obj.shadow) {
+    const sh = obj.shadow;
+    const shadowEl = document.createElement('div');
+    shadowEl.className = 'obj-sprite';
+    shadowEl.style.position = 'absolute';
+    const sw = sh.width ?? 60;
+    const sheight = sh.height ?? 10;
+    shadowEl.style.left = (screenX + (sh.offset_x ?? 0) * SCALE_X - sw / 2) + 'px';
+    shadowEl.style.top = (screenY + (sh.offset_y ?? 0) * SCALE_Y - sheight / 2) + 'px';
+    shadowEl.style.width = sw + 'px';
+    shadowEl.style.height = sheight + 'px';
+    shadowEl.style.borderRadius = '50%';
+    shadowEl.style.background = `radial-gradient(ellipse, ${sh.color ?? 'rgba(0,0,0,0.5)'} 0%, transparent 70%)`;
+    shadowEl.style.opacity = sh.opacity ?? 0.6;
+    shadowEl.style.pointerEvents = 'none';
+    shadowEl.style.zIndex = '10';
+    shadowEl.style.cursor = 'default';
+    vp.appendChild(shadowEl);
+  }
+
   const el = document.createElement('div');
   el.className = 'obj-sprite' + (selectedSpriteId === obj.id ? ' selected' : '');
   el.dataset.spriteFor = obj.id;
@@ -830,6 +872,20 @@ function renderObjSprite(vp, obj) {
   el.style.backgroundImage = `url(/scenarios/${scenarioId}/${sp.file})`;
   el.style.backgroundPosition = `${bgX}px 0px`;
   el.style.backgroundSize = `${sheetW}px ${sheetH}px`;
+
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = obj.name || obj.id;
+  el.appendChild(label);
+
+  if (selectedSpriteId === obj.id) {
+    for (const corner of ['tl', 'tr', 'bl', 'br']) {
+      const h = document.createElement('div');
+      h.className = 'handle ' + corner;
+      h.dataset.corner = corner;
+      el.appendChild(h);
+    }
+  }
 
   vp.appendChild(el);
 }
@@ -872,8 +928,8 @@ function renderCharacter(vp) {
   const bgX = -(frame * fw) * scale;
   const bgY = -(row * fh) * scale;
 
-  // Shadow
-  const shadow = charConfig.shadow;
+  // Shadow — per-view override takes precedence
+  const shadow = character.shadow || charConfig.shadow;
   if (shadow) {
     const se = document.createElement('div');
     se.className = 'char-shadow';
@@ -1209,7 +1265,24 @@ function renderCharSpriteDetail(el) {
   html += `<div class="lbl">Frame Rate:</div><div class="val">${ss.frame_rate || 0} fps</div>`;
   html += `<div class="lbl">Directions:</div><div class="val">${(ss.directions || []).join(', ')}</div>`;
   if (ss.loop === false) html += `<div class="lbl">Loop:</div><div class="val">false (play once)</div>`;
-  if (charConfig.shadow) html += `<div class="lbl">Shadow:</div><div class="val">${charConfig.shadow.width}x${charConfig.shadow.height}</div>`;
+  html += '</div>';
+
+  // Shadow controls for character (per-view override)
+  html += '<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;">';
+  html += '<div style="font-size:11px;color:var(--gold);font-weight:bold;margin-bottom:8px;">Shadow (View Override)</div>';
+  const hasShadow = !!character.shadow;
+  html += '<label style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-dim);margin-bottom:8px;cursor:pointer;">';
+  html += `<input type="checkbox" ${hasShadow ? 'checked' : ''} onchange="toggleCharShadow(this.checked)"> Enable Shadow</label>`;
+  if (hasShadow) {
+    const sh = character.shadow;
+    html += '<div class="sprite-detail-grid">';
+    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_x ?? 0}" oninput="updateCharShadow('offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_y ?? 0}" oninput="updateCharShadow('offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
+    html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateCharShadow('opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
+    html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateCharShadow('width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
+    html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateCharShadow('height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;
+    html += '</div>';
+  }
   html += '</div>';
 
   // All sprite sets
@@ -1237,7 +1310,9 @@ function renderObjSpriteDetail(el, obj) {
   const renderW = Math.round(sp.frame_width * scale);
   const renderH = Math.round(sp.frame_height * scale);
   const totalFrames = sp.columns * (sp.rows || 1);
-  const changed = obj.x !== obj.origX || obj.y !== obj.origY || obj.w !== obj.origW || obj.h !== obj.origH;
+  const scaleChanged = obj.origScale !== undefined && scale !== obj.origScale;
+  const shadowChanged = JSON.stringify(obj.shadow || null) !== (obj.origShadow || null);
+  const changed = obj.x !== obj.origX || obj.y !== obj.origY || obj.w !== obj.origW || obj.h !== obj.origH || scaleChanged || shadowChanged;
 
   let html = '<div class="sprite-detail">';
   html += `<div class="sprite-detail-header">${obj.name || obj.id}</div>`;
@@ -1248,12 +1323,30 @@ function renderObjSpriteDetail(el, obj) {
   html += `<div class="lbl">Hotspot:</div><div class="val">${obj.w} x ${obj.h}</div>`;
   html += `<div class="lbl">File:</div><div class="val" style="word-break:break-all;">${sp.file}</div>`;
   html += `<div class="lbl">Frame Size:</div><div class="val">${sp.frame_width} x ${sp.frame_height}</div>`;
-  html += `<div class="lbl">Scale:</div><div class="val">${scale}</div>`;
+  html += `<div class="lbl">Scale:</div><div class="val">${scale}${scaleChanged ? ' *' : ''}</div>`;
   html += `<div class="lbl">Rendered:</div><div class="val">${renderW} x ${renderH}px</div>`;
   html += `<div class="lbl">Grid:</div><div class="val">${sp.columns} cols x ${sp.rows || 1} rows</div>`;
   html += `<div class="lbl">Frame Rate:</div><div class="val">${sp.frame_rate || 0} fps</div>`;
   html += `<div class="lbl">Total Frames:</div><div class="val">${totalFrames}</div>`;
-  html += `<div class="lbl">Anchor:</div><div class="val">bottom-center of hotspot</div>`;
+  html += `<div class="lbl">Anchor:</div><div class="val">bottom-center of position</div>`;
+  html += '</div>';
+
+  // Shadow controls
+  html += '<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;">';
+  html += '<div style="font-size:11px;color:var(--gold);font-weight:bold;margin-bottom:8px;">Shadow</div>';
+  const hasShadow = !!obj.shadow;
+  html += '<label style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-dim);margin-bottom:8px;cursor:pointer;">';
+  html += `<input type="checkbox" ${hasShadow ? 'checked' : ''} onchange="toggleObjShadow('${obj.id}', this.checked)"> Enable Shadow</label>`;
+  if (hasShadow) {
+    const sh = obj.shadow;
+    html += '<div class="sprite-detail-grid">';
+    html += `<div class="lbl">Offset X:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_x ?? 0}" oninput="updateObjShadow('${obj.id}','offset_x',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_x ?? 0}</span></div>`;
+    html += `<div class="lbl">Offset Y:</div><div class="val"><input type="range" min="-30" max="30" value="${sh.offset_y ?? 0}" oninput="updateObjShadow('${obj.id}','offset_y',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.offset_y ?? 0}</span></div>`;
+    html += `<div class="lbl">Opacity:</div><div class="val"><input type="range" min="0" max="100" value="${Math.round((sh.opacity ?? 0.6) * 100)}" oninput="updateObjShadow('${obj.id}','opacity',+this.value/100)" style="width:80px;vertical-align:middle;"> <span>${(sh.opacity ?? 0.6).toFixed(2)}</span></div>`;
+    html += `<div class="lbl">Width:</div><div class="val"><input type="range" min="10" max="200" value="${sh.width ?? 60}" oninput="updateObjShadow('${obj.id}','width',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.width ?? 60}</span></div>`;
+    html += `<div class="lbl">Height:</div><div class="val"><input type="range" min="3" max="50" value="${sh.height ?? 10}" oninput="updateObjShadow('${obj.id}','height',+this.value)" style="width:80px;vertical-align:middle;"> <span>${sh.height ?? 10}</span></div>`;
+    html += '</div>';
+  }
   html += '</div>';
 
   // Preview
@@ -1391,6 +1484,32 @@ function onMouseDown(e) {
     return;
   }
 
+  // Handle sprite resize via corner handles
+  const spriteHandle = target.closest('.obj-sprite .handle');
+  if (spriteHandle) {
+    e.preventDefault();
+    const spriteEl = spriteHandle.closest('.obj-sprite');
+    const objId = spriteEl.dataset.spriteFor;
+    selectedSpriteId = objId;
+    selectedId = objId;
+    const obj = objects.find(o => o.id === objId);
+    if (obj && obj.sprite) {
+      dragState = {
+        type: 'resize-sprite',
+        id: objId,
+        corner: spriteHandle.dataset.corner,
+        startMX: px, startMY: py,
+        startX: obj.x, startY: obj.y,
+        startScale: obj.sprite.scale || 1,
+        startW: obj.w, startH: obj.h,
+      };
+    }
+    render();
+    renderSpritePanel();
+    switchTab('sprites');
+    return;
+  }
+
   // Handle object sprite drag
   const objSprite = target.closest('.obj-sprite');
   if (objSprite) {
@@ -1468,6 +1587,27 @@ function onMouseMove(e) {
       character.y = Math.max(0, Math.min(COORD_H, dragState.startY + djy));
       render();
       renderCharPanel();
+    } else if (dragState.type === 'resize-sprite') {
+      const obj = findObject(dragState.id);
+      if (obj && obj.sprite) {
+        const dx = px - dragState.startMX;
+        const dy = py - dragState.startMY;
+        const corner = dragState.corner;
+        let delta = 0;
+        if (corner === 'br') delta = Math.max(dx, dy);
+        else if (corner === 'bl') delta = Math.max(-dx, dy);
+        else if (corner === 'tr') delta = Math.max(dx, -dy);
+        else if (corner === 'tl') delta = Math.max(-dx, -dy);
+
+        const fw = obj.sprite.frame_width;
+        const origRenderW = fw * dragState.startScale;
+        const newRenderW = Math.max(fw * 0.1, origRenderW + delta);
+        const newScale = Math.round((newRenderW / fw) * 100) / 100;
+        obj.sprite.scale = newScale;
+        if (obj.origScale === undefined) obj.origScale = dragState.startScale;
+        render();
+        if (selectedSpriteId === dragState.id) renderSpritePanel();
+      }
     } else if (dragState.type === 'resize') {
       const obj = findObject(dragState.id);
       if (obj) {
@@ -1526,6 +1666,49 @@ function onMouseUp(e) {
     }
     drawState = null;
   }
+}
+
+function toggleObjShadow(objId, enabled) {
+  const obj = objects.find(o => o.id === objId);
+  if (!obj) return;
+  if (enabled) {
+    obj.shadow = { offset_x: 0, offset_y: 2, opacity: 0.7, width: 60, height: 10 };
+  } else {
+    obj.shadow = null;
+  }
+  render();
+  renderSpritePanel();
+  updateStatus();
+}
+
+function updateObjShadow(objId, prop, value) {
+  const obj = objects.find(o => o.id === objId);
+  if (!obj || !obj.shadow) return;
+  obj.shadow[prop] = value;
+  render();
+  renderSpritePanel();
+  updateStatus();
+}
+
+function toggleCharShadow(enabled) {
+  if (!character) return;
+  if (enabled) {
+    const base = charConfig && charConfig.shadow ? { ...charConfig.shadow } : {};
+    character.shadow = { offset_x: base.offset_x ?? 0, offset_y: base.offset_y ?? 2, opacity: base.opacity ?? 0.7, width: base.width ?? 60, height: base.height ?? 10 };
+  } else {
+    character.shadow = null;
+  }
+  render();
+  renderSpritePanel();
+  updateStatus();
+}
+
+function updateCharShadow(prop, value) {
+  if (!character || !character.shadow) return;
+  character.shadow[prop] = value;
+  render();
+  renderSpritePanel();
+  updateStatus();
 }
 
 function onKeyDown(e) {
@@ -1589,9 +1772,12 @@ function getChanges() {
   const changes = [];
 
   for (const obj of objects) {
+    const scaleChanged = obj.hasSprite && obj.origScale !== undefined && (obj.sprite.scale || 1) !== obj.origScale;
+    const shadowChanged = JSON.stringify(obj.shadow || null) !== (obj.origShadow || null);
     if (obj.x !== obj.origX || obj.y !== obj.origY ||
-        obj.w !== obj.origW || obj.h !== obj.origH) {
-      changes.push({
+        obj.w !== obj.origW || obj.h !== obj.origH ||
+        scaleChanged || shadowChanged) {
+      const change = {
         type: 'object',
         id: obj.id,
         name: obj.name,
@@ -1601,16 +1787,22 @@ function getChanges() {
           position: { x: obj.origX, y: obj.origY },
           size: { width: obj.origW, height: obj.origH },
         },
-      });
+      };
+      if (scaleChanged) change.scale = obj.sprite.scale;
+      if (shadowChanged) change.shadow = obj.shadow;
+      changes.push(change);
     }
   }
 
-  if (character && (character.x !== character.origX || character.y !== character.origY)) {
-    changes.push({
+  const charShadowChanged = character && JSON.stringify(character.shadow || null) !== (character.origShadow || null);
+  if (character && (character.x !== character.origX || character.y !== character.origY || charShadowChanged)) {
+    const change = {
       type: 'character',
       position: { x: character.x, y: character.y },
       was: { x: character.origX, y: character.origY },
-    });
+    };
+    if (charShadowChanged) change.shadow = character.shadow;
+    changes.push(change);
   }
 
   for (const box of newBoxes) {
@@ -1643,17 +1835,27 @@ function getExportText(tabIdx) {
 
     for (const c of changes) {
       if (c.type === 'object') {
-        text += `MOVED OBJECT: "${c.id}" (${c.name})\n`;
+        text += `CHANGED OBJECT: "${c.id}" (${c.name})\n`;
         text += `  position: { x: ${c.was.position.x}, y: ${c.was.position.y} }`;
         text += ` -> { x: ${c.position.x}, y: ${c.position.y} }\n`;
         if (c.size.width !== c.was.size.width || c.size.height !== c.was.size.height) {
           text += `  size: { width: ${c.was.size.width}, height: ${c.was.size.height} }`;
           text += ` -> { width: ${c.size.width}, height: ${c.size.height} }\n`;
         }
+        if (c.scale !== undefined) {
+          text += `  scale: ${c.scale}\n`;
+        }
+        if (c.shadow !== undefined) {
+          text += `  shadow: ${JSON.stringify(c.shadow)}\n`;
+        }
         text += '\n';
       } else if (c.type === 'character') {
-        text += `MOVED CHARACTER:\n`;
-        text += `  { x: ${c.was.x}, y: ${c.was.y} } -> { x: ${c.position.x}, y: ${c.position.y} }\n\n`;
+        text += `CHANGED CHARACTER:\n`;
+        text += `  { x: ${c.was.x}, y: ${c.was.y} } -> { x: ${c.position.x}, y: ${c.position.y} }\n`;
+        if (c.shadow !== undefined) {
+          text += `  shadow: ${JSON.stringify(c.shadow)}\n`;
+        }
+        text += '\n';
       } else if (c.type === 'new') {
         text += `NEW HOTSPOT: "${c.id}"\n`;
         text += `  position: { x: ${c.position.x}, y: ${c.position.y} }\n`;

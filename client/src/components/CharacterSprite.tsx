@@ -95,7 +95,7 @@ export function CharacterSprite({
     ? (e: React.MouseEvent) => { e.stopPropagation(); onObjectClick!(placement.object_id!); }
     : undefined;
 
-  const shadow = config.shadow;
+  const shadow = placement.shadow ?? config.shadow;
   const shadowStyle: CSSProperties | null = shadow ? {
     position: 'absolute',
     left: `${screenX + (shadow.offset_x ?? 0) * scaleX - ((shadow.width ?? renderW * 0.6) / 2)}px`,

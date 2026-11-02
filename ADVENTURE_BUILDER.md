@@ -1488,6 +1488,35 @@ When generating sprite frames with AI tools (Gemini, DALL-E, etc.), use a **soli
 - Left-facing is handled automatically via CSS horizontal flip — you only need right-facing frames
 - Static sprites (idle poses) use `frame_rate: 0` and `"frame": 0` in the placement
 
+#### Sprite Shadows
+
+Any sprite (character or object) can have a shadow ellipse rendered beneath it to ground it visually. Shadows are configured with offset, size, and opacity controls.
+
+**Object sprite shadow** — add `shadow` alongside `sprite` on the object:
+```json
+{
+  "id": "cataloguer_robot",
+  "sprite": { "file": "sprites/robot.png", ... },
+  "shadow": {
+    "offset_x": 0,
+    "offset_y": 2,
+    "width": 60,
+    "height": 12,
+    "opacity": 0.7
+  }
+}
+```
+
+**Character shadow** — set `shadow` on the top-level `character` config for global defaults. Override per-view by adding `shadow` to the view's character placement:
+```json
+"character": {
+  "x": 480, "y": 550, "facing": "down", "sprite_set": "idle",
+  "shadow": { "offset_y": 5, "opacity": 0.9, "width": 70, "height": 14 }
+}
+```
+
+Shadow properties: `offset_x` (horizontal shift), `offset_y` (vertical shift, positive = down), `width`, `height`, `opacity` (0–1), `color` (CSS color string). All optional with sensible defaults. Use the visual editor's shadow sliders to dial in values.
+
 #### Splicing Tool
 
 For combining separate frame images into a sprite sheet:

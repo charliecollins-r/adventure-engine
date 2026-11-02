@@ -162,6 +162,7 @@ export interface ScenarioObject {
   initially_visible: boolean;
   hiding_spot?: boolean;
   sprite?: ObjectSprite;
+  shadow?: CharacterShadow;
   interactions: Interaction[];
 }
 
@@ -315,6 +316,7 @@ export interface CharacterPlacement {
   frame?: number;
   flip_h?: boolean;
   object_id?: string;
+  shadow?: CharacterShadow;
 }
 
 export interface Hint {

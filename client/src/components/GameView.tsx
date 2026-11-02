@@ -294,6 +294,7 @@ export function GameView({
             <SpriteObject
               key={obj.id}
               sprite={obj.sprite}
+              shadow={obj.shadow}
               scenarioId={scenarioId}
               x={obj.position.x}
               y={obj.position.y}
