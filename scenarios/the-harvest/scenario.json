@@ -137,8 +137,8 @@
       "background_file": "backgrounds/act1_stasis_hold.webp",
       "room_animation": "breathe",
       "character": {
-        "x": 195,
-        "y": 650,
+        "x": 171,
+        "y": 646,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -4948,12 +4948,12 @@
       "name": "Your Broken Pod",
       "description": "The stasis pod you woke in. The glass is cracked, amber fluid pooling beneath it. Fragments of the pod casing litter the floor.",
       "position": {
-        "x": 275,
-        "y": 660
+        "x": 231,
+        "y": 600
       },
       "size": {
-        "width": 50,
-        "height": 35
+        "width": 30,
+        "height": 39
       },
       "visual": {
         "color": "#2a4a3a",
@@ -5043,12 +5043,12 @@
       "name": "Drainage Channel",
       "description": "A channel beneath the pods where spilled stasis fluid collects before being recycled.",
       "position": {
-        "x": 170,
+        "x": 214,
         "y": 640
       },
       "size": {
-        "width": 130,
-        "height": 45
+        "width": 159,
+        "height": 73
       },
       "visual": {
         "color": "#1a2a1a",
@@ -5132,12 +5132,12 @@
       "name": "Occupied Stasis Pods",
       "description": "Rows of intact pods stretching into the shadows above. Most contain dead specimens. Some glow faintly \u2014 still active.",
       "position": {
-        "x": 450,
-        "y": 200
+        "x": 0,
+        "y": 0
       },
       "size": {
-        "width": 140,
-        "height": 120
+        "width": 203,
+        "height": 513
       },
       "visual": {
         "color": "#1a3a2a",
@@ -5179,8 +5179,8 @@
       "name": "Specimen Tag",
       "description": "A small tag hanging from your pod's frame, inscribed with alien notation.",
       "position": {
-        "x": 310,
-        "y": 550
+        "x": 268,
+        "y": 558
       },
       "size": {
         "width": 65,
@@ -6714,12 +6714,12 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 785,
-        "y": 516
+        "x": 758,
+        "y": 312
       },
       "size": {
-        "width": 100,
-        "height": 200
+        "width": 89,
+        "height": 187
       },
       "visual": {
         "color": "#4a6a3a",
@@ -17961,11 +17961,11 @@
       "description": "A passage leading to Containment Corridor.",
       "position": {
         "x": 205,
-        "y": 70
+        "y": 106
       },
       "size": {
-        "width": 190,
-        "height": 370
+        "width": 139,
+        "height": 334
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -21221,12 +21221,12 @@
       "name": "Metal Walkway",
       "description": "A walkway runs between the pod racks. The metal is warm and slightly flexible.",
       "position": {
-        "x": 380,
-        "y": 380
+        "x": 364,
+        "y": 4
       },
       "size": {
-        "width": 200,
-        "height": 80
+        "width": 185,
+        "height": 475
       },
       "visual": {
         "color": "#3a3a3a",
