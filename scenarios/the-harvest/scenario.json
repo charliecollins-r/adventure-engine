@@ -741,7 +741,7 @@
           }
         ]
       },
-      "ambient_audio": "audio/ambient_cold.wav"
+      "ambient_audio": []
     },
     {
       "id": "act1_feeding_station",
@@ -1236,7 +1236,8 @@
             "phase": 0.8
           }
         ]
-      }
+      },
+      "ambient_audio": "audio/ambient_vastness.wav"
     },
     {
       "id": "act1_airlock_bay",
