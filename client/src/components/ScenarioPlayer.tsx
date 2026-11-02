@@ -9,6 +9,7 @@ import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
 import { DialogueOverlay } from './DialogueOverlay';
 import { EyeOpenTransition } from './EyeOpenTransition';
+import { DevPanel } from './DevPanel';
 
 interface ScenarioPlayerProps {
   scenario: Scenario;
@@ -184,10 +185,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const devParams = useRef((() => {
     const params = new URLSearchParams(window.location.search);
+    const isDev = params.has('dev');
     return {
       startView: params.get('view'),
-      skipIntro: params.has('skipIntro') || !!params.get('view'),
-      debug: params.has('debug'),
+      skipIntro: params.has('skipIntro') || !!params.get('view') || isDev,
+      debug: params.has('debug') || isDev,
+      isDev,
     };
   })());
 
@@ -205,6 +208,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [debugMode, setDebugMode] = useState(() => dev.debug);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [walkthroughHighlights, setWalkthroughHighlights] = useState<string[]>([]);
+  const [devPanelOpen, setDevPanelOpen] = useState(() => dev.isDev);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   const engine = engineRef.current;
@@ -481,6 +485,29 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [engine, bump]);
 
+  const handleDevViewChange = useCallback(
+    (viewId: string) => {
+      engine.navigateToView(viewId);
+      bump();
+    },
+    [engine, bump],
+  );
+
+  const handleDevHighlight = useCallback(
+    (objectId: string | null) => {
+      setWalkthroughHighlights(objectId ? [objectId] : []);
+    },
+    [],
+  );
+
+  const handleDevCharOverride = useCallback(
+    (override: Parameters<typeof engine.setCharacterOverride>[0]) => {
+      engine.setCharacterOverride(override);
+      bump();
+    },
+    [engine, bump],
+  );
+
   const handleDialogueSelect = useCallback(
     (index: number) => {
       engine.selectDialogueChoice(index);
@@ -514,7 +541,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }
 
   return (
-    <div style={styles.container}>
+    <div style={{
+      ...styles.container,
+      ...(devPanelOpen ? { flexDirection: 'row' as const, alignItems: 'stretch', paddingTop: 0, height: '100vh', overflow: 'hidden' as const } : {}),
+    }}>
+      {/* Game column */}
+      <div style={devPanelOpen ? { flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', paddingTop: '8px', overflowY: 'auto' as const } : { width: '100%', display: 'contents' }}>
       {/* Minimal title bar */}
       <div style={styles.titleBar}>
         <div style={styles.titleLeft}>
@@ -522,6 +554,20 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           <NoiseIndicator level={noiseLevel} />
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {dev.isDev && (
+            <button
+              style={{
+                ...styles.chromeButton,
+                color: devPanelOpen ? '#44cc66' : '#6a5a3a',
+                borderColor: devPanelOpen ? '#2a6a30' : '#2a2018',
+              }}
+              onClick={() => setDevPanelOpen((d) => !d)}
+              onMouseEnter={(e) => { (e.target as HTMLElement).style.borderColor = '#2a6a30'; }}
+              onMouseLeave={(e) => { if (!devPanelOpen) (e.target as HTMLElement).style.borderColor = '#2a2018'; }}
+            >
+              {devPanelOpen ? 'DEV ON' : 'DEV'}
+            </button>
+          )}
           <button
             style={{
               ...styles.chromeButton,
@@ -696,6 +742,21 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Close game column wrapper */}
+      </div>
+
+      {/* Dev panel */}
+      {devPanelOpen && (
+        <DevPanel
+          engine={engine}
+          scenario={scenario}
+          onViewChange={handleDevViewChange}
+          onHighlightObject={handleDevHighlight}
+          onCharacterOverride={handleDevCharOverride}
+          bump={bump}
+        />
       )}
     </div>
   );
