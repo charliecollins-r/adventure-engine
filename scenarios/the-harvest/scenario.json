@@ -108,7 +108,7 @@
       }
     },
     "frame_width": 300,
-    "frame_height": 447,
+    "frame_height": 410,
     "scale": 0.35,
     "shadow": {
       "width": 60,
@@ -144,8 +144,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "hints": [
@@ -444,8 +443,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -602,8 +600,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -719,8 +716,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -846,8 +842,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -960,8 +955,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -1093,8 +1087,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
@@ -1243,8 +1236,7 @@
           "width": 60,
           "height": 12,
           "color": "rgba(0,0,0,1)",
-          "opacity": 0.9,
-          "offset_y": -9
+          "opacity": 0.9
         }
       },
       "ambient_lighting": {
