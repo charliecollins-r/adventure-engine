@@ -7985,12 +7985,12 @@
       },
       "sprite": {
         "file": "sprites/holographic_planets.png",
-        "frame_width": 128,
-        "frame_height": 96,
+        "frame_width": 322,
+        "frame_height": 322,
         "columns": 4,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 3
+        "scale": 1.19
       },
       "initial_state": "default",
       "initially_visible": true,
