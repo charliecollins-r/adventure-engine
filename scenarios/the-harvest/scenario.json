@@ -139,7 +139,14 @@
         "y": 666,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "hints": [
         {
@@ -6718,8 +6725,8 @@
       "name": "Cataloguer Robot",
       "description": "A spider-legged machine perched among the pods, methodically scanning and cataloguing specimens. Its amber specimen jars glow with a sickly light.",
       "position": {
-        "x": 757,
-        "y": 314
+        "x": 796,
+        "y": 514
       },
       "size": {
         "width": 81,
