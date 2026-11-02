@@ -3,6 +3,12 @@
 > **Create point-and-click adventure games without writing any code.**
 > Define your game in a single JSON file, drop in background art and audio, and it's playable.
 
+<p align="center">
+  <img src="docs/images/screenshot-feeding-station.png" width="800" alt="The Harvest — Feeding Station with animated NPC" />
+  <br />
+  <em>Everything in this scene — the room, the prisoner, the energy barrier, the dialogue, the puzzles — is defined in a single JSON file.</em>
+</p>
+
 This guide covers everything you need to build a scenario package for the Adventure Engine. You don't need to understand the engine's source code — the JSON schema is the product.
 
 ---
@@ -1298,6 +1304,19 @@ This opens a 340px side panel with 5 tabs:
 
 Dev mode auto-enables debug mode (visible hotspot outlines) and skips the intro sequence.
 
+<p align="center">
+  <img src="docs/images/screenshot-dev-panel.png" width="400" alt="Dev Panel — Views tab" />
+  <img src="docs/images/screenshot-dev-objects.png" width="400" alt="Dev Panel — Objects inspector" />
+  <br />
+  <em>Dev Panel: Views tab with metadata badges (left) and Objects inspector showing hotspot positions, sizes, and states (right)</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-dev-sprites.png" width="800" alt="Dev Panel — Sprites browser" />
+  <br />
+  <em>Sprites tab: browse all sprite sheets with live animated previews, frame counts, and scale info</em>
+</p>
+
 ### Standalone Visual Editor (`/editor.html`)
 
 A full visual editor for drawing hotspot boxes, positioning sprites, and previewing animations on top of your actual background images:
@@ -1312,11 +1331,25 @@ Features:
 - **Draw hotspot boxes** — click and drag to create/resize object hotspot rectangles
 - **Drag sprites** — reposition character and object sprites by dragging them
 - **Character controls** — dropdown for sprite set and facing direction, play/pause animation
+- **Shadow controls** — real-time sliders for offset, opacity, width, height, and directional skew per sprite per view
 - **Toggle overlays** — show/hide hotspot boxes and sprite overlays independently
 - **Coordinate readout** — live 960x720 coordinates as you move the mouse
 - **3-tab export** — human-readable changes, JSON patch, and full view JSON
 
 The editor reads your scenario JSON and renders everything the game engine would render, but lets you visually adjust positions and export the changes.
+
+<p align="center">
+  <img src="docs/images/screenshot-editor-overview.png" width="800" alt="Visual Editor — overview with sprites and hotspots" />
+  <br />
+  <em>Visual Editor showing the Feeding Station with animated prisoner sprite, character preview panel, and labeled hotspot boxes</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-editor-hotspots.png" width="400" alt="Visual Editor — hotspot layout" />
+  <img src="docs/images/screenshot-editor-shadows.png" width="400" alt="Visual Editor — shadow controls" />
+  <br />
+  <em>Objects list with hotspot inspector (left) and shadow control sliders for fine-tuning sprite shadows (right)</em>
+</p>
 
 ### Debug Mode (`?debug`)
 
@@ -1515,7 +1548,7 @@ Any sprite (character or object) can have a shadow ellipse rendered beneath it t
 }
 ```
 
-Shadow properties: `offset_x` (horizontal shift), `offset_y` (vertical shift, positive = down), `width`, `height`, `opacity` (0–1), `color` (CSS color string). All optional with sensible defaults. Use the visual editor's shadow sliders to dial in values.
+Shadow properties: `offset_x` (horizontal shift in screen pixels), `offset_y` (vertical shift, negative = closer to sprite feet), `width`, `height`, `opacity` (0–1), `color` (CSS color string), `skew_x` (degrees, directional shadow — positive = light from left, negative = light from right). All optional with sensible defaults. Use the visual editor's shadow sliders (including Skew X) to dial in values per view.
 
 #### Splicing Tool
 

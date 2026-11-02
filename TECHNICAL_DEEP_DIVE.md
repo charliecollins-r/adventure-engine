@@ -6,6 +6,12 @@
 > For how to build a scenario package, see [`ADVENTURE_BUILDER.md`](ADVENTURE_BUILDER.md).
 > For the project overview, see the [`README`](README.md).
 
+<p align="center">
+  <img src="docs/images/screenshot-dev-objects.png" width="800" alt="Debug mode — Objects inspector with hotspot overlays" />
+  <br />
+  <em>Engine internals exposed: debug hitbox overlays, object state inspector, interaction counts, and sprite metadata — all driven by the scenario JSON.</em>
+</p>
+
 ---
 
 ## Table of Contents
@@ -647,7 +653,9 @@ When reviewing or generating object positions:
 
 ## Audio System
 
-Ambient audio is entirely schema-driven. Any scenario can specify audio files in its `setting`:
+Ambient audio is entirely schema-driven. The system supports two levels of audio configuration:
+
+**Scenario-level default** — applies to all views unless overridden:
 
 ```json
 {
@@ -667,33 +675,42 @@ Or multiple layered tracks:
 }
 ```
 
-### Implementation (ScenarioPlayer.tsx)
+**Per-view overrides** — each view can specify its own `ambient_audio` that replaces the scenario default when the player enters that room:
 
-Audio elements are created in a `useEffect` when the scenario loads:
-
-```typescript
-useEffect(() => {
-  const raw = scenario.setting.ambient_audio;
-  if (!raw) return;
-  const files = Array.isArray(raw) ? raw : [raw];
-  const elements: HTMLAudioElement[] = [];
-  for (const file of files) {
-    const audio = new Audio(`/scenarios/${scenarioId}/${file}`);
-    audio.loop = true;
-    audio.volume = 0.35;
-    audio.play().catch(() => {});
-    elements.push(audio);
-  }
-  audioRefs.current = elements;
-  return () => { /* pause and cleanup */ };
-}, [scenario]);
+```json
+{
+  "id": "morgue",
+  "ambient_audio": [],
+  "background_key": "morgue"
+}
 ```
 
-- **Looping**: all tracks loop continuously
+An empty array `[]` means dead silence. When navigating between views with different audio, the engine crossfades — stopping the old tracks and starting the new ones. Views without an `ambient_audio` field inherit the scenario-level default.
+
+**Sound effects** — optional `setting.sounds` object with paths for `room_transition`, `item_pickup`, and `intro_voice`. The engine plays these on the corresponding events:
+
+```json
+{
+  "setting": {
+    "sounds": {
+      "room_transition": "audio/door_open_close.wav",
+      "item_pickup": "audio/item_pickup.wav"
+    }
+  }
+}
+```
+
+### Implementation (ScenarioPlayer.tsx)
+
+Audio elements are created and managed in `useEffect` hooks. The ambient audio effect reacts to view changes, comparing the current view's track list against the previous one:
+
+- **Per-view switching**: when the player navigates to a view with different `ambient_audio`, the old tracks are paused and new ones start
+- **Looping**: all ambient tracks loop continuously
 - **Volume**: 0.35 (35%) — ambient, not dominant
-- **Mute toggle**: a Mute/Unmute button appears when `ambient_audio` is defined
+- **Mute toggle**: a Mute/Unmute button appears when any `ambient_audio` is defined
 - **Cleanup**: on unmount, all audio elements are paused and their `src` is cleared
 - **Autoplay**: `.play().catch(() => {})` silently handles browsers that block autoplay
+- **Asset resolution**: all audio paths route through `resolveAsset()` for CDN portability
 
 ### Asset Serving
 

@@ -7,7 +7,7 @@ Drop a scenario JSON, background art, and audio into a folder. The engine render
 <p align="center">
   <img src="docs/images/screenshot-harvest-gameplay.png" width="800" alt="Gameplay — The Harvest, Act 1: Stasis Hold" />
   <br />
-  <em>The Harvest — waking beside a shattered stasis pod aboard an alien harvester ship</em>
+  <em>The Harvest — waking beside a shattered stasis pod aboard an alien harvester ship. Character sprites with directional shadows, animated cataloguer robot, immersive HUD overlay.</em>
 </p>
 
 ---
@@ -37,26 +37,33 @@ The engine is completely generic. It reads your JSON, builds the game state, ren
 <p align="center">
   <img src="docs/images/screenshot-corridor.png" width="800" alt="Containment Corridor" />
   <br />
-  <em>Containment Corridor — the central hub with five branching passages</em>
+  <em>Containment Corridor — the central hub with five branching passages, vent grate sprite, and a lurking shadow cat</em>
 </p>
 
 <p align="center">
   <img src="docs/images/screenshot-feeding-station.png" width="800" alt="Feeding Station with prisoner NPC" />
   <br />
-  <em>Feeding Station — animated prisoner NPC paces behind an energy barrier</em>
+  <em>Feeding Station — animated alien prisoner NPC behind an energy barrier with branching dialogue</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-interaction.png" width="800" alt="Closeup interaction with cataloguer robot" />
+  <img src="docs/images/screenshot-morgue.png" width="800" alt="Morgue — cold storage" />
   <br />
-  <em>Closeup overlay — examining the cataloguer robot's specimen tanks reveals a section code</em>
+  <em>Morgue — dead silence contrasts the ship's ambient hum. Specimen drawers and a neural tendril to collect.</em>
 </p>
 
 <p align="center">
   <img src="docs/images/screenshot-security-hub.png" width="400" alt="Security Hub" />
   <img src="docs/images/screenshot-processing-lab.png" width="400" alt="Processing Lab" />
   <br />
-  <em>Security Hub and Processing Lab — interconnected puzzle rooms</em>
+  <em>Security Hub and Processing Lab — interconnected puzzle rooms with distinct ambient audio</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-specimen-archive.png" width="400" alt="Specimen Archive" />
+  <img src="docs/images/screenshot-airlock.png" width="400" alt="Airlock Bay" />
+  <br />
+  <em>Specimen Archive (holographic display sprite) and Airlock Bay — the Act 1 finale</em>
 </p>
 
 ---
@@ -149,9 +156,11 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 
 **Narrative Systems** — Branching dialogue with conditional choices, multiple solution paths, progressive per-room hints, win/lose conditions with custom endings, phase-based story progression, ambient text and audio, closeup detail images.
 
-**Character & NPC Systems** — Sierra-style sprite sheet characters with animated walk cycles and static poses, object sprites for animated world entities (pacing prisoners, spinning holograms, scanning robots), per-view character placement, dynamic sprite changes via effects.
+**Character & NPC Systems** — Sierra-style sprite sheet characters with animated walk cycles and static poses, object sprites for animated world entities (pacing prisoners, spinning holograms, scanning robots), per-view character placement, dynamic sprite changes via effects, configurable directional shadows with per-view overrides.
 
-**Advanced Features** — AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), stealth system (hiding spots, noise tracking, detection), timed events, hotspot animations (glimmer, pulse), ambient audio layers, 14 condition types with composites (`any_of`, `all_of`), 20+ effect types.
+**Audio & Atmosphere** — Per-room ambient audio with automatic crossfading on navigation, layered ambient tracks, sound effects on item pickup and room transitions, JSON-driven ambient lighting with pulsing light sources.
+
+**Advanced Features** — AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), stealth system (hiding spots, noise tracking, detection), timed events, hotspot animations (glimmer, pulse), 14 condition types with composites (`any_of`, `all_of`), 20+ effect types.
 
 ---
 
@@ -182,12 +191,13 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
 
 **Act 1 is fully playable** with:
-- **9 rooms** — Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay
-- **9 collectible items** — pod glass shard, stasis fluid vial, specimen tag, surgical probe, containment key card, nutrient paste tube, severed neural tendril, personal log crystal, ventilation map
-- **Animated NPC** — caged prisoner with 4-frame pacing animation behind an energy barrier
+- **9 rooms + 1 closeup** — Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay, plus an interactive cataloguer closeup sub-view
+- **11 collectible items** — pod glass shard, stasis fluid vial, specimen tag, surgical probe, containment key card, nutrient paste tube, severed neural tendril, personal log crystal, ventilation map, and more
+- **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot (static sprite), holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
 - **Puzzle chains** — cataloguer code → lab sequence → security override → vent access → airlock
-- **Closeup interactions** — specimen tanks, holographic displays
+- **Per-room ambient audio** — distinct soundscapes per room (lab ambience, industrial ventilation, eerie harmonics, dead silence in the morgue)
+- **Directional character shadows** — skewed to match each room's lighting
 - **Complete walkthrough** at [`scenarios/the-harvest/walkthrough.md`](scenarios/the-harvest/walkthrough.md)
 
 <p align="center">
@@ -206,10 +216,10 @@ A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** in
 Messages overlay on the game viewport with a semi-transparent backdrop instead of a dedicated panel. Inventory is a collapsible drawer with a toggle tab. Progressive hints float at the corner. Room names appear subtly in gold text. No UI elements below the viewport — full immersion.
 
 ### Character Sprites
-Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art.
+Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes via effects. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art. Configurable directional shadows with offset, opacity, size, and skew — global defaults with per-view overrides.
 
 ### Object Sprites
-Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored for natural grounding.
+Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored with JSON-configurable shadows matching the character shadow system.
 
 ### Closeup Overlays
 Detail images displayed in a dismissable framed overlay for examining objects up close. The cataloguer robot in The Harvest shows a three-tank specimen closeup with data plates revealing the section code needed for the processing lab keypad.
@@ -217,14 +227,34 @@ Detail images displayed in a dismissable framed overlay for examining objects up
 ### Dialogue Choices
 Branching conversation system via `show_dialogue` effect. Each choice has a label, optional visibility conditions, and its own chain of effects. The prisoner in The Harvest's feeding station offers 4 dialogue paths that set different `prisoner_bond` values affecting all subsequent interactions.
 
+### Ambient Audio
+Per-room audio with automatic crossfading on view transitions. Each view can override the scenario-level ambient track — the Morgue uses dead silence for contrast, the Security Hub plays eerie harmonics, and the Processing Lab hums with gentle lab equipment. Sound effects fire on item pickup, room transitions, and intro narration. All audio paths defined in JSON.
+
+### Sprite Shadows
+All sprites (character and object) support JSON-configurable shadows with offset, opacity, size, and directional skew. Set a global default on the character config and override per-view to match each room's lighting angle. The visual editor provides real-time shadow sliders for fine-tuning.
+
 ### Progressive Hints
 Per-view hint arrays in the scenario JSON. The engine evaluates conditions and returns the most specific matching hint. A floating "?" button shows hints as a message overlay. Players can never softlock — hints always point toward the next step.
 
 ### Developer Tools
 Two built-in tools for scenario authors:
 
-- **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view), Objects (position/size/visibility inspector), Character (live sprite animation preview with facing/sprite_set controls), Sprites (browse all sprite sheets with animation), Export (paste-to-Claude position data). Auto-enables debug hitbox overlays and skips intro.
-- **Visual Editor** (`/editor.html`) — standalone visual editor with actual animated sprite rendering. Shows character and object sprites on backgrounds (matching the in-game rendering), draggable/resizable hotspot boxes, character controls panel (sprite set, facing direction, animation play/pause), toggleable hotspot/sprite overlays, live coordinate display, and 3-tab export (human-readable changes, JSON patch, full view JSON). Draw new hotspot areas directly on backgrounds.
+- **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view with metadata badges), Objects (position/size/visibility/state inspector), Character (live sprite animation preview), Sprites (browse all sprite sheets), Export (copy-to-clipboard position data). Auto-enables debug hitbox overlays and skips intro.
+- **Visual Editor** (`/editor.html`) — standalone visual editor with actual animated sprite rendering. Drag/resize hotspot boxes, position character and object sprites, adjust shadow properties with real-time sliders, toggle overlays, and export changes in 3 formats.
+
+<p align="center">
+  <img src="docs/images/screenshot-dev-panel.png" width="400" alt="Dev Panel — Views tab" />
+  <img src="docs/images/screenshot-dev-objects.png" width="400" alt="Dev Panel — Objects tab" />
+  <br />
+  <em>Dev Panel: Views tab (50 views with metadata) and Objects tab (hotspot inspector with debug overlays)</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-dev-sprites.png" width="400" alt="Dev Panel — Sprites browser" />
+  <img src="docs/images/screenshot-editor-overview.png" width="400" alt="Visual Editor" />
+  <br />
+  <em>Sprites browser (animated previews of all 8 sprite sheets) and Visual Editor (drag hotspots, position sprites, export JSON)</em>
+</p>
 
 ---
 
@@ -341,7 +371,11 @@ adventure-engine/
 - [x] Immersive HUD (overlay messages, collapsible inventory, ambient text)
 - [x] Room name labels in viewport
 - [x] Back navigation for closeup views
-- [x] Act 1 of The Harvest fully solvable (9 rooms, 9 items, walkthrough)
+- [x] Act 1 of The Harvest fully solvable (10 views, 11 items, walkthrough)
+- [x] Per-room ambient audio with crossfading
+- [x] Sprite shadow system (directional shadows with per-view overrides)
+- [x] Visual editor with shadow sliders and sprite positioning
+- [x] Voiceover narration tooling (ElevenLabs TTS batch generator)
 - [ ] Item icon images in inventory panel
 - [ ] Events system (timed/conditional narrative beats)
 - [ ] Puzzle widget UI components
@@ -363,6 +397,10 @@ adventure-engine/
   - [control_room.wav](https://freesound.org/s/211683/) by Diboz — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
   - [Kaiju Lab Interior Ambience #1.wav](https://freesound.org/s/191852/) by Vortex4 — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
   - [Cinematic Deep Rumble](https://freesound.org/s/184313/) by swiftoid — License: [Creative Commons 0](https://creativecommons.org/publicdomain/zero/1.0/)
+- **Cold fridge hum** (`ambient_cold.wav`): [Fridge 2](https://freesound.org/people/freekit/) by freekit — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Industrial ventilation** (`ambient_industrial.wav`): Large ventilation system by kevp888 — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Eerie ambient** (`haunted.wav`): Haunted by RCH (2015)
+- **Stargazer ambient** (`ambient_vastness.wav`): Stargazer remix of Tim Kahn's freesound #702910 by Timbre — License: [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
 ---
 
