@@ -6347,17 +6347,26 @@
       "name": "Nutrient Dispenser",
       "description": "An automated dispenser that drips grey nutrient paste into troughs at regular intervals.",
       "position": {
-        "x": 454,
-        "y": 351
+        "x": 509,
+        "y": 355
       },
       "size": {
-        "width": 221,
-        "height": 101
+        "width": 70,
+        "height": 98
       },
       "visual": {
         "color": "#4a4a3a",
         "label": "Dispenser",
         "animation": "glimmer"
+      },
+      "sprite": {
+        "file": "sprites/nutrient_dispenser.png",
+        "frame_width": 921,
+        "frame_height": 747,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.10
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -22212,8 +22221,8 @@
       "name": "Caged Creature",
       "description": "A creature pacing behind the middle energy barrier. It watches you with intelligent, sorrowful eyes.",
       "position": {
-        "x": 381,
-        "y": 510
+        "x": 384,
+        "y": 490
       },
       "size": {
         "width": 99,
