@@ -83,7 +83,7 @@
         "file": "sprites/character_idle.png",
         "columns": 2,
         "rows": 2,
-        "frame_rate": 1,
+        "frame_rate": 0,
         "directions": [
           "right",
           "down"
@@ -114,10 +114,11 @@
     "frame_height": 447,
     "scale": 0.35,
     "shadow": {
-      "width": 55,
-      "height": 10,
-      "opacity": 0.55,
-      "offset_y": -2
+      "width": 60,
+      "height": 12,
+      "color": "rgba(0,0,0,0.7)",
+      "opacity": 0.85,
+      "offset_y": 2
     }
   },
   "views": [
