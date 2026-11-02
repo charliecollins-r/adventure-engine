@@ -683,6 +683,13 @@ const VP_H = 540;
 const COORD_W = 960;
 const COORD_H = 720;
 
+function syncSpriteHitbox(obj) {
+  if (!obj.sprite) return;
+  const s = obj.sprite.scale || 1;
+  obj.w = Math.round(obj.sprite.frame_width * s);
+  obj.h = Math.round(obj.sprite.frame_height * s / SCALE_Y);
+}
+
 // ============================================================
 // Init
 // ============================================================
@@ -747,7 +754,7 @@ function loadView(viewId) {
     const obj = scenario.objects.find(o => o.id === objId);
     if (!obj) continue;
     const isNav = objId.startsWith('nav_');
-    objects.push({
+    const entry = {
       id: obj.id,
       name: obj.name,
       x: obj.position.x,
@@ -764,7 +771,9 @@ function loadView(viewId) {
       origScale: obj.sprite ? (obj.sprite.scale || 1) : undefined,
       shadow: obj.shadow ? { ...obj.shadow } : null,
       origShadow: obj.shadow ? JSON.stringify(obj.shadow) : null,
-    });
+    };
+    if (entry.hasSprite) syncSpriteHitbox(entry);
+    objects.push(entry);
   }
 
   // Character
@@ -1734,6 +1743,7 @@ function onMouseMove(e) {
         const newScale = Math.round((newRenderW / fw) * 100) / 100;
         obj.sprite.scale = newScale;
         if (obj.origScale === undefined) obj.origScale = dragState.startScale;
+        syncSpriteHitbox(obj);
         render();
         if (selectedSpriteId === dragState.id) renderSpritePanel();
       }

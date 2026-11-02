@@ -654,7 +654,14 @@
         "y": 581,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -18454,8 +18461,8 @@
       },
       "sprite": {
         "file": "sprites/drag_marks.png",
-        "frame_width": 1255,
-        "frame_height": 661,
+        "frame_width": 1214,
+        "frame_height": 624,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -18504,8 +18511,8 @@
       "name": "Emergency Status Panel",
       "description": "A wall-mounted status panel showing the containment deck's emergency state.",
       "position": {
-        "x": 854,
-        "y": 468
+        "x": 906,
+        "y": 464
       },
       "size": {
         "width": 106,
