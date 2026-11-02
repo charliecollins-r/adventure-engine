@@ -813,8 +813,8 @@ function renderObjSprite(vp, obj) {
   const scale = sp.scale || 1;
   const renderW = fw * scale;
   const renderH = fh * scale;
-  const screenX = obj.x * SCALE_X + (obj.w * SCALE_X / 2); // center of hotspot
-  const screenY = (obj.y + obj.h) * SCALE_Y; // bottom of hotspot
+  const screenX = obj.x * SCALE_X; // matches game: position.x is bottom-center anchor
+  const screenY = obj.y * SCALE_Y; // matches game: position.y is bottom anchor
   const sheetW = sp.columns * fw * scale;
   const sheetH = (sp.rows || 1) * fh * scale;
   const frame = objAnimFrames[obj.id] || 0;
