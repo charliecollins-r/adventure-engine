@@ -17995,16 +17995,25 @@
       "name": "Drag Marks",
       "description": "Deep scratches and dark stains on the corridor wall — something was dragged through here.",
       "position": {
-        "x": 249,
-        "y": 412
+        "x": 123,
+        "y": 584
       },
       "size": {
-        "width": 120,
-        "height": 80
+        "width": 169,
+        "height": 136
       },
       "visual": {
         "color": "#3a1a1a",
         "label": "Marks"
+      },
+      "sprite": {
+        "file": "sprites/drag_marks.png",
+        "frame_width": 1263,
+        "frame_height": 669,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.14
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -18696,12 +18705,12 @@
       "name": "Stasis Hold",
       "description": "A passage leading to Stasis Hold.",
       "position": {
-        "x": 195,
-        "y": 649
+        "x": 293,
+        "y": 658
       },
       "size": {
-        "width": 503,
-        "height": 71
+        "width": 347,
+        "height": 62
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
