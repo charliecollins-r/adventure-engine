@@ -137,10 +137,14 @@
   /* Object sprite overlay */
   .obj-sprite {
     position: absolute;
-    pointer-events: none;
+    cursor: move;
     z-index: 11;
     image-rendering: auto;
     background-repeat: no-repeat;
+  }
+  .obj-sprite.selected {
+    outline: 2px solid var(--accent-sprite);
+    outline-offset: 2px;
   }
 
   /* Character sprite */
@@ -398,6 +402,38 @@
   }
   .statusbar .hint { flex: 1; }
   .statusbar .change-count { color: var(--accent-new); }
+
+  /* Sprite detail panel */
+  .sprite-detail { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .sprite-detail-header {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+    font-size: 12px; color: var(--accent-sprite); font-weight: bold;
+  }
+  .sprite-detail-grid {
+    display: grid; grid-template-columns: 80px 1fr; gap: 4px 8px;
+    font-size: 11px;
+  }
+  .sprite-detail-grid .lbl { color: var(--text-dim); }
+  .sprite-detail-grid .val { color: var(--text); }
+  .sprite-detail-preview {
+    margin-top: 8px; padding: 10px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100px; position: relative; overflow: hidden;
+  }
+  .sprite-detail-preview .sprite-el {
+    image-rendering: pixelated; background-repeat: no-repeat;
+  }
+  .sprite-list-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 10px; cursor: pointer; border-radius: 3px; font-size: 11px;
+  }
+  .sprite-list-item:hover { background: rgba(204, 136, 255, 0.08); }
+  .sprite-list-item.active { background: rgba(204, 136, 255, 0.15); border: 1px solid var(--border); }
+  .sprite-list-item .sprite-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-sprite); flex-shrink: 0; }
+  .sprite-list-item .sprite-dot.char { background: var(--accent-char); }
+  .sprite-list-item .sprite-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sprite-list-item .sprite-info { color: var(--text-dim); font-size: 10px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -432,12 +468,17 @@
     <div class="panel-tabs">
       <div class="panel-tab active" data-tab="objects" onclick="switchTab('objects')">Objects</div>
       <div class="panel-tab" data-tab="character" onclick="switchTab('character')">Character</div>
+      <div class="panel-tab" data-tab="sprites" onclick="switchTab('sprites')">Sprites</div>
     </div>
     <div class="panel-content active" id="tab-objects">
       <div id="objectList" style="padding:8px;"></div>
     </div>
     <div class="panel-content" id="tab-character">
       <div id="charPanel"></div>
+    </div>
+    <div class="panel-content" id="tab-sprites">
+      <div id="spriteList" style="padding:8px;"></div>
+      <div id="spriteDetail"></div>
     </div>
   </div>
 </div>
@@ -482,6 +523,7 @@ let character = null;   // { x, y, origX, origY, facing, sprite_set }
 let charConfig = null;  // scenario.character config
 let newBoxes = [];      // { id, x, y, w, h } — user-drawn boxes
 let selectedId = null;
+let selectedSpriteId = null; // for Sprites tab: '__character__' or object ID
 let dragState = null;
 let drawState = null;
 
@@ -603,6 +645,7 @@ function loadView(viewId) {
 
   newBoxes = [];
   selectedId = null;
+  selectedSpriteId = null;
   animPaused = false;
   charAnimFrame = 0;
   objAnimFrames = {};
@@ -724,6 +767,7 @@ function render() {
   }
 
   renderObjectList();
+  renderSpritePanel();
 }
 
 function renderHotspotBox(vp, obj) {
@@ -777,7 +821,7 @@ function renderObjSprite(vp, obj) {
   const bgX = -(frame * fw) * scale;
 
   const el = document.createElement('div');
-  el.className = 'obj-sprite';
+  el.className = 'obj-sprite' + (selectedSpriteId === obj.id ? ' selected' : '');
   el.dataset.spriteFor = obj.id;
   el.style.left = (screenX - renderW / 2) + 'px';
   el.style.top = (screenY - renderH) + 'px';
@@ -800,6 +844,8 @@ function updateObjSprite(objId) {
   const frame = objAnimFrames[objId] || 0;
   const bgX = -(frame * sp.frame_width) * scale;
   el.style.backgroundPosition = `${bgX}px 0px`;
+
+  if (selectedSpriteId === objId) renderSpriteDetailPreview(objId);
 }
 
 function renderCharacter(vp) {
@@ -882,6 +928,8 @@ function updateCharSprite() {
 
   el.style.backgroundPosition = `${bgX}px ${bgY}px`;
   el.style.transform = mirrorFacing ? 'scaleX(-1)' : '';
+
+  if (selectedSpriteId === '__character__') renderSpriteDetailPreview('__character__');
 }
 
 function renderObjectList() {
@@ -1078,6 +1126,211 @@ function onCharFacingChange(dir) {
 }
 
 // ============================================================
+// Sprites panel
+// ============================================================
+function renderSpritePanel() {
+  const listEl = document.getElementById('spriteList');
+  const detailEl = document.getElementById('spriteDetail');
+  if (!listEl || !detailEl) return;
+
+  // Build list of all sprites on this view
+  let html = '<div class="panel-section"><div class="panel-section-title">Sprites on this View</div>';
+
+  // Character sprite
+  if (character && charConfig) {
+    const ss = charConfig.sprite_sets[character.sprite_set || 'idle'];
+    html += `<div class="sprite-list-item${selectedSpriteId === '__character__' ? ' active' : ''}"
+                  onclick="selectSprite('__character__')">
+      <div class="sprite-dot char"></div>
+      <div class="sprite-name">Character</div>
+      <div class="sprite-info">${charConfig.frame_width}x${charConfig.frame_height} s${charConfig.scale}</div>
+    </div>`;
+  }
+
+  // Object sprites
+  for (const obj of objects) {
+    if (!obj.hasSprite) continue;
+    const sp = obj.sprite;
+    html += `<div class="sprite-list-item${selectedSpriteId === obj.id ? ' active' : ''}"
+                  onclick="selectSprite('${obj.id}')">
+      <div class="sprite-dot"></div>
+      <div class="sprite-name" title="${obj.id}">${obj.name || obj.id}</div>
+      <div class="sprite-info">${sp.frame_width}x${sp.frame_height} s${sp.scale || 1}</div>
+    </div>`;
+  }
+
+  const spriteCount = (character && charConfig ? 1 : 0) + objects.filter(o => o.hasSprite).length;
+  if (spriteCount === 0) {
+    html += '<div class="no-char-msg">No sprites on this view.</div>';
+  }
+  html += '</div>';
+  listEl.innerHTML = html;
+
+  // Detail panel for selected sprite
+  if (!selectedSpriteId) {
+    detailEl.innerHTML = '<div class="no-char-msg" style="padding:20px;">Click a sprite to see details.</div>';
+    return;
+  }
+
+  if (selectedSpriteId === '__character__') {
+    renderCharSpriteDetail(detailEl);
+  } else {
+    const obj = objects.find(o => o.id === selectedSpriteId);
+    if (obj && obj.hasSprite) {
+      renderObjSpriteDetail(detailEl, obj);
+    } else {
+      detailEl.innerHTML = '';
+    }
+  }
+}
+
+function renderCharSpriteDetail(el) {
+  if (!charConfig || !character) { el.innerHTML = ''; return; }
+  const currentSS = getCharSpriteSet();
+  const ss = charConfig.sprite_sets[currentSS];
+  if (!ss) { el.innerHTML = ''; return; }
+
+  const renderW = Math.round(charConfig.frame_width * charConfig.scale);
+  const renderH = Math.round(charConfig.frame_height * charConfig.scale);
+  const changed = character.x !== character.origX || character.y !== character.origY;
+
+  let html = '<div class="sprite-detail">';
+  html += '<div class="sprite-detail-header">Character Sprite</div>';
+  html += '<div class="sprite-detail-grid">';
+  html += `<div class="lbl">Position:</div><div class="val" style="color:var(--gold);font-weight:bold;">(${character.x}, ${character.y})${changed ? ' *' : ''}</div>`;
+  if (changed) html += `<div class="lbl">Was:</div><div class="val" style="color:var(--accent-new);">(${character.origX}, ${character.origY})</div>`;
+  html += `<div class="lbl">Sprite Set:</div><div class="val">${currentSS}</div>`;
+  html += `<div class="lbl">Facing:</div><div class="val">${getCharFacing()}</div>`;
+  html += `<div class="lbl">File:</div><div class="val" style="word-break:break-all;">${ss.file}</div>`;
+  html += `<div class="lbl">Frame Size:</div><div class="val">${charConfig.frame_width} x ${charConfig.frame_height}</div>`;
+  html += `<div class="lbl">Scale:</div><div class="val">${charConfig.scale}</div>`;
+  html += `<div class="lbl">Rendered:</div><div class="val">${renderW} x ${renderH}px</div>`;
+  html += `<div class="lbl">Grid:</div><div class="val">${ss.columns} cols x ${ss.rows} rows</div>`;
+  html += `<div class="lbl">Frame Rate:</div><div class="val">${ss.frame_rate || 0} fps</div>`;
+  html += `<div class="lbl">Directions:</div><div class="val">${(ss.directions || []).join(', ')}</div>`;
+  if (ss.loop === false) html += `<div class="lbl">Loop:</div><div class="val">false (play once)</div>`;
+  if (charConfig.shadow) html += `<div class="lbl">Shadow:</div><div class="val">${charConfig.shadow.width}x${charConfig.shadow.height}</div>`;
+  html += '</div>';
+
+  // All sprite sets
+  const allSets = Object.keys(charConfig.sprite_sets);
+  html += '<div style="margin-top:10px;font-size:10px;color:var(--text-dim);">';
+  html += '<strong style="color:var(--gold-dim);">All Sprite Sets:</strong><br>';
+  for (const name of allSets) {
+    const s = charConfig.sprite_sets[name];
+    html += `${name === currentSS ? '► ' : '  '}<span style="color:${name === currentSS ? 'var(--accent-char)' : 'var(--text-dim)'}">${name}</span>: ${s.columns}f, ${s.frame_rate || 0}fps, ${s.file.split('/').pop()}<br>`;
+  }
+  html += '</div>';
+
+  // Preview
+  html += '<div class="sprite-detail-preview" id="spriteDetailPreview"></div>';
+  html += '</div>';
+  el.innerHTML = html;
+
+  // Render preview
+  renderSpriteDetailPreview('__character__');
+}
+
+function renderObjSpriteDetail(el, obj) {
+  const sp = obj.sprite;
+  const scale = sp.scale || 1;
+  const renderW = Math.round(sp.frame_width * scale);
+  const renderH = Math.round(sp.frame_height * scale);
+  const totalFrames = sp.columns * (sp.rows || 1);
+  const changed = obj.x !== obj.origX || obj.y !== obj.origY || obj.w !== obj.origW || obj.h !== obj.origH;
+
+  let html = '<div class="sprite-detail">';
+  html += `<div class="sprite-detail-header">${obj.name || obj.id}</div>`;
+  html += '<div class="sprite-detail-grid">';
+  html += `<div class="lbl">Object ID:</div><div class="val">${obj.id}</div>`;
+  html += `<div class="lbl">Position:</div><div class="val" style="color:var(--gold);font-weight:bold;">(${obj.x}, ${obj.y})${changed ? ' *' : ''}</div>`;
+  if (changed) html += `<div class="lbl">Was:</div><div class="val" style="color:var(--accent-new);">(${obj.origX}, ${obj.origY}) ${obj.origW}x${obj.origH}</div>`;
+  html += `<div class="lbl">Hotspot:</div><div class="val">${obj.w} x ${obj.h}</div>`;
+  html += `<div class="lbl">File:</div><div class="val" style="word-break:break-all;">${sp.file}</div>`;
+  html += `<div class="lbl">Frame Size:</div><div class="val">${sp.frame_width} x ${sp.frame_height}</div>`;
+  html += `<div class="lbl">Scale:</div><div class="val">${scale}</div>`;
+  html += `<div class="lbl">Rendered:</div><div class="val">${renderW} x ${renderH}px</div>`;
+  html += `<div class="lbl">Grid:</div><div class="val">${sp.columns} cols x ${sp.rows || 1} rows</div>`;
+  html += `<div class="lbl">Frame Rate:</div><div class="val">${sp.frame_rate || 0} fps</div>`;
+  html += `<div class="lbl">Total Frames:</div><div class="val">${totalFrames}</div>`;
+  html += `<div class="lbl">Anchor:</div><div class="val">bottom-center of hotspot</div>`;
+  html += '</div>';
+
+  // Preview
+  html += '<div class="sprite-detail-preview" id="spriteDetailPreview"></div>';
+  html += '</div>';
+  el.innerHTML = html;
+
+  renderSpriteDetailPreview(obj.id);
+}
+
+function renderSpriteDetailPreview(id) {
+  const box = document.getElementById('spriteDetailPreview');
+  if (!box) return;
+  box.innerHTML = '';
+
+  if (id === '__character__') {
+    if (!charConfig || !character) return;
+    const ss = charConfig.sprite_sets[getCharSpriteSet()];
+    if (!ss) return;
+    const fw = charConfig.frame_width;
+    const fh = charConfig.frame_height;
+    const previewScale = Math.min(1.5, 120 / fh);
+    const rw = fw * previewScale;
+    const rh = fh * previewScale;
+    const sw = ss.columns * fw * previewScale;
+    const sh = ss.rows * fh * previewScale;
+    const dirs = ss.directions || ['down','left','right','up'];
+    const facing = getCharFacing();
+    const mirror = facing === 'left' && !dirs.includes('left');
+    const eff = mirror ? 'right' : facing;
+    const row = Math.max(0, dirs.indexOf(eff));
+    const frame = charAnimFrame;
+    const bgX = -(frame * fw) * previewScale;
+    const bgY = -(row * fh) * previewScale;
+
+    const el = document.createElement('div');
+    el.className = 'sprite-el';
+    el.style.width = rw + 'px';
+    el.style.height = rh + 'px';
+    el.style.backgroundImage = `url(/scenarios/${scenarioId}/${ss.file})`;
+    el.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    el.style.backgroundSize = `${sw}px ${sh}px`;
+    if (mirror) el.style.transform = 'scaleX(-1)';
+    box.appendChild(el);
+  } else {
+    const obj = objects.find(o => o.id === id);
+    if (!obj || !obj.sprite) return;
+    const sp = obj.sprite;
+    const fw = sp.frame_width;
+    const fh = sp.frame_height;
+    const previewScale = Math.min(1.5, 120 / fh);
+    const rw = fw * previewScale;
+    const rh = fh * previewScale;
+    const sw = sp.columns * fw * previewScale;
+    const sh = (sp.rows || 1) * fh * previewScale;
+    const frame = objAnimFrames[id] || 0;
+    const bgX = -(frame * fw) * previewScale;
+
+    const el = document.createElement('div');
+    el.className = 'sprite-el';
+    el.style.width = rw + 'px';
+    el.style.height = rh + 'px';
+    el.style.backgroundImage = `url(/scenarios/${scenarioId}/${sp.file})`;
+    el.style.backgroundPosition = `${bgX}px 0px`;
+    el.style.backgroundSize = `${sw}px ${sh}px`;
+    box.appendChild(el);
+  }
+}
+
+function selectSprite(id) {
+  selectedSpriteId = id;
+  selectedId = id;
+  render();
+  renderSpritePanel();
+}
+
+// ============================================================
 // Panel tabs
 // ============================================================
 function switchTab(tab) {
@@ -1125,6 +1378,7 @@ function onMouseDown(e) {
   if (charSprite && character) {
     e.preventDefault();
     selectedId = '__character__';
+    selectedSpriteId = '__character__';
     dragState = {
       type: 'move-char',
       id: '__character__',
@@ -1132,7 +1386,30 @@ function onMouseDown(e) {
       startX: character.x, startY: character.y,
     };
     render();
-    switchTab('character');
+    renderSpritePanel();
+    switchTab('sprites');
+    return;
+  }
+
+  // Handle object sprite drag
+  const objSprite = target.closest('.obj-sprite');
+  if (objSprite) {
+    e.preventDefault();
+    const objId = objSprite.dataset.spriteFor;
+    selectedId = objId;
+    selectedSpriteId = objId;
+    const obj = objects.find(o => o.id === objId);
+    if (obj) {
+      dragState = {
+        type: 'move',
+        id: objId,
+        startMX: px, startMY: py,
+        startX: obj.x, startY: obj.y,
+      };
+    }
+    render();
+    renderSpritePanel();
+    switchTab('sprites');
     return;
   }
 
@@ -1184,6 +1461,7 @@ function onMouseMove(e) {
         obj.x = Math.max(0, Math.min(COORD_W - obj.w, dragState.startX + djx));
         obj.y = Math.max(0, Math.min(COORD_H - obj.h, dragState.startY + djy));
         render();
+        if (selectedSpriteId === dragState.id) renderSpritePanel();
       }
     } else if (dragState.type === 'move-char' && character) {
       character.x = Math.max(0, Math.min(COORD_W, dragState.startX + djx));
@@ -1352,7 +1630,7 @@ function getExportText(tabIdx) {
 
   if (tabIdx === 0) {
     // Human-readable changes
-    let text = `=== VISUAL EDITOR EXPORT ===\n`;
+    let text = `=== HOTSPOT EDITOR EXPORT ===\n`;
     text += `Scenario: ${scenarioId}\n`;
     text += `View: ${currentViewId}\n`;
     text += `Date: ${new Date().toISOString()}\n`;
@@ -1473,9 +1751,9 @@ function updateStatus() {
   document.getElementById('statusHint').textContent =
     selectedId
       ? (selectedId === '__character__'
-          ? 'Drag character sprite to reposition. Use Character tab for facing/animation.'
-          : `Selected: ${selectedId}. Drag to move, corners to resize. Delete key removes new boxes.`)
-      : 'Click + drag on empty space to draw a new hotspot. Click an object to select it.';
+          ? 'Drag character sprite to reposition. Use Sprites tab for details, Character tab for facing/animation.'
+          : `Selected: ${selectedId}. Drag to move, corners to resize. Sprites tab shows sprite details.`)
+      : 'Click + drag on empty space to draw a new hotspot. Click a sprite or hotspot to select it.';
 }
 
 // ============================================================
