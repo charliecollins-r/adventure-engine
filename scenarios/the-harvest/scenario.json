@@ -581,7 +581,7 @@
       ],
       "character": {
         "x": 480,
-        "y": 590,
+        "y": 569,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -4866,8 +4866,8 @@
       "name": "Shadow Cat",
       "description": "A small black cat with glowing purple-amber eyes. It shouldn't be here. Nothing like this should exist on an alien harvester ship.",
       "position": {
-        "x": 700,
-        "y": 580
+        "x": 618,
+        "y": 496
       },
       "size": {
         "width": 60,
@@ -17473,12 +17473,12 @@
       "id": "corridor_pipes",
       "name": "Ceiling Conduits",
       "position": {
-        "x": 360,
-        "y": 60
+        "x": 0,
+        "y": 0
       },
       "size": {
-        "width": 240,
-        "height": 50
+        "width": 965,
+        "height": 126
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -17521,12 +17521,12 @@
       "id": "floor_grating",
       "name": "Floor Grating",
       "position": {
-        "x": 360,
-        "y": 560
+        "x": 208,
+        "y": 531
       },
       "size": {
-        "width": 240,
-        "height": 50
+        "width": 511,
+        "height": 53
       },
       "visual": {
         "color": "rgba(192, 160, 48, 0.15)",
@@ -17570,8 +17570,8 @@
       "name": "Drag Marks",
       "description": "Deep scratches and dark stains on the corridor wall \u2014 something was dragged through here.",
       "position": {
-        "x": 100,
-        "y": 350
+        "x": 249,
+        "y": 412
       },
       "size": {
         "width": 120,
@@ -17615,8 +17615,8 @@
       "name": "Emergency Status Panel",
       "description": "A wall-mounted status panel showing the containment deck's emergency state.",
       "position": {
-        "x": 680,
-        "y": 300
+        "x": 250,
+        "y": 310
       },
       "size": {
         "width": 90,
@@ -18192,12 +18192,12 @@
       "name": "Stasis Hold",
       "description": "A passage leading to Stasis Hold.",
       "position": {
-        "x": 340,
-        "y": 653
+        "x": 195,
+        "y": 649
       },
       "size": {
-        "width": 310,
-        "height": 67
+        "width": 503,
+        "height": 71
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -18253,11 +18253,11 @@
       "description": "A passage leading to Processing Lab.",
       "position": {
         "x": 130,
-        "y": 80
+        "y": 139
       },
       "size": {
-        "width": 180,
-        "height": 480
+        "width": 111,
+        "height": 388
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -18312,12 +18312,12 @@
       "name": "Far End",
       "description": "A passage leading to Feeding Station.",
       "position": {
-        "x": 430,
-        "y": 72
+        "x": 495,
+        "y": 201
       },
       "size": {
-        "width": 240,
-        "height": 330
+        "width": 175,
+        "height": 216
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -18373,11 +18373,11 @@
       "description": "A passage leading to Security Hub.",
       "position": {
         "x": 720,
-        "y": 80
+        "y": 128
       },
       "size": {
-        "width": 180,
-        "height": 480
+        "width": 109,
+        "height": 432
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -18578,12 +18578,12 @@
       "name": "Ventilation Grate",
       "description": "A heavy metal grate bolted to the floor. Warm air pulses up through the slats in rhythmic gusts.",
       "position": {
-        "x": 100,
-        "y": 700
+        "x": 22,
+        "y": 563
       },
       "size": {
-        "width": 140,
-        "height": 80
+        "width": 139,
+        "height": 108
       },
       "visual": {
         "color": "rgba(100, 80, 60, 0.3)",
