@@ -645,7 +645,8 @@
           }
         ],
         "flicker": true
-      }
+      },
+      "ambient_audio": "audio/ambient_industrial.wav"
     },
     {
       "id": "act1_morgue",
@@ -739,7 +740,8 @@
             "phase": 2.0
           }
         ]
-      }
+      },
+      "ambient_audio": "audio/ambient_cold.wav"
     },
     {
       "id": "act1_feeding_station",
@@ -966,7 +968,8 @@
           }
         ],
         "flicker": true
-      }
+      },
+      "ambient_audio": "audio/ambient_industrial.wav"
     },
     {
       "id": "act1_security_hub",
@@ -1104,7 +1107,8 @@
             "phase": 0
           }
         ]
-      }
+      },
+      "ambient_audio": "audio/ambient_lab.mp3"
     },
     {
       "id": "act1_specimen_archive",
