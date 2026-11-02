@@ -218,6 +218,39 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   (window as unknown as Record<string, unknown>).__setDebug = (on: boolean) => { setDebugMode(on); };
 
   const [standingUp, setStandingUp] = useState(() => dev.skipIntro);
+  const [introVoiceDurationMs, setIntroVoiceDurationMs] = useState<number | null>(null);
+
+  const standupSet = scenario.character?.sprite_sets?.['standup'];
+  const standupAnimMs = standupSet
+    ? ((standupSet.columns ?? 1) / (standupSet.frame_rate || 3)) * 1000 + 200
+    : 0;
+
+  const hasIntroVoice = !!scenario.setting.sounds?.intro_voice;
+  const voiceDurationValid = introVoiceDurationMs != null && introVoiceDurationMs > 0;
+  const timingReady = !hasIntroVoice || introVoiceDurationMs != null;
+
+  const standupDelayMs = voiceDurationValid
+    ? Math.max(introVoiceDurationMs - standupAnimMs, 2000)
+    : (standupSet ? 3000 : 0);
+  const fadeDurationMs = standupSet
+    ? standupDelayMs + standupAnimMs
+    : (voiceDurationValid ? introVoiceDurationMs : 4000);
+
+  useEffect(() => {
+    const introVoicePath = scenario.setting.sounds?.intro_voice;
+    if (!introVoicePath) return;
+    const audio = new Audio(resolveAsset(scenario.metadata.id, introVoicePath));
+    const onMeta = () => {
+      const dur = audio.duration * 1000;
+      if (Number.isFinite(dur) && dur > 0) {
+        setIntroVoiceDurationMs(dur);
+      } else {
+        setIntroVoiceDurationMs(-1);
+      }
+    };
+    audio.addEventListener('loadedmetadata', onMeta);
+    return () => audio.removeEventListener('loadedmetadata', onMeta);
+  }, [scenario]);
 
   useEffect(() => {
     if (dev.startView) {
@@ -227,27 +260,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!showIntro && !eyeOpen) {
-      const hasStandup = !!scenario.character?.sprite_sets?.['standup'];
-      if (hasStandup) {
+    if (!showIntro && !eyeOpen && timingReady) {
+      if (standupSet) {
         engine.setCharacterOverride({ sprite_set: 'standup', frame: 0 });
         bump();
       }
       setEyeOpen(true);
     }
-  }, [showIntro, eyeOpen, engine, bump, scenario]);
+  }, [showIntro, eyeOpen, engine, bump, scenario, standupSet, timingReady]);
 
   useEffect(() => {
-    if (!eyeOpen || standingUp) return;
-    const hasStandup = !!scenario.character?.sprite_sets?.['standup'];
-    if (!hasStandup) return;
+    if (!eyeOpen || standingUp || !standupSet) return;
     const timer = setTimeout(() => {
       engine.setCharacterOverride({ sprite_set: 'standup' });
       bump();
       setStandingUp(true);
-    }, 10000);
+    }, standupDelayMs);
     return () => clearTimeout(timer);
-  }, [eyeOpen, standingUp, engine, bump, scenario]);
+  }, [eyeOpen, standingUp, engine, bump, standupSet, standupDelayMs]);
 
   const prevAudioKey = useRef<string>('');
   useEffect(() => {
@@ -689,7 +719,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         </div>
 
         {/* Eye-open animation scoped to viewport */}
-        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} />}
+        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} durationMs={fadeDurationMs} />}
       </div>
 
       {/* Text feedback below viewport */}

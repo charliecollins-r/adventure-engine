@@ -2,12 +2,14 @@ import { useState, useEffect, type CSSProperties } from 'react';
 
 interface EyeOpenTransitionProps {
   active: boolean;
+  durationMs?: number;
   onComplete?: () => void;
 }
 
-const FADE_DURATION_MS = 40000;
+const DEFAULT_FADE_MS = 4000;
 
-export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps) {
+export function EyeOpenTransition({ active, durationMs, onComplete }: EyeOpenTransitionProps) {
+  const fadeDuration = durationMs ?? DEFAULT_FADE_MS;
   const [phase, setPhase] = useState<'black' | 'fading' | 'done'>('black');
 
   useEffect(() => {
@@ -17,13 +19,13 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
     const t2 = setTimeout(() => {
       setPhase('done');
       onComplete?.();
-    }, 200 + FADE_DURATION_MS + 200);
+    }, 200 + fadeDuration + 200);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [active, onComplete]);
+  }, [active, fadeDuration, onComplete]);
 
   if (phase === 'done') return null;
 
@@ -37,7 +39,7 @@ export function EyeOpenTransition({ active, onComplete }: EyeOpenTransitionProps
     zIndex: 30,
     pointerEvents: 'none',
     opacity: phase === 'fading' ? 0 : 1,
-    transition: `opacity ${FADE_DURATION_MS}ms ease-out`,
+    transition: `opacity ${fadeDuration}ms ease-out`,
   };
 
   return <div style={overlay} />;
