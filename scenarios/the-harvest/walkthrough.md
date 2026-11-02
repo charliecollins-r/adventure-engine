@@ -4,7 +4,7 @@
 
 You are a goblin specimen aboard an alien harvester ship belonging to the Choir — a hive-mind species that collects and processes life forms from across the galaxy. You wake in a shattered stasis pod on the containment deck. Your ship, the Outrider, brought you here. Now you need to understand where you are, gather tools and knowledge, and find a way off this deck.
 
-Act 1 takes place entirely on the containment deck: 9 interconnected rooms with 9 collectible items, multiple knowledge flags, and one branching NPC conversation. The critical path below gets you through every room and sets you up for Act 2.
+Act 1 takes place entirely on the containment deck: 14 interconnected rooms (including a 6-room ventilation maze) with 11 collectible items, multiple knowledge flags, one branching NPC conversation, and two lethal hazards. The critical path below gets you through every room and sets you up for Act 2.
 
 > **Note**: This walkthrough covers the critical path only. Every room has additional LOOK interactions that build atmosphere and lore — explore freely. You can't softlock yourself; everything is recoverable.
 
@@ -46,17 +46,36 @@ Act 1 takes place entirely on the containment deck: 9 interconnected rooms with 
                                └─────────────┘
 
                    ┌──────────────┐
-                   │ VENTILATION  │ ← via corridor vent
-                   │ SHAFT  ◆     │
+                   │ VENT ENTRY   │ ← via corridor vent
+                   │  ◆           │
                    └──────┬───────┘
-                          │ Shaft Exit
+                          │
                    ┌──────┴───────┐
-                   │ AIRLOCK BAY  │ ← EXIT
-                   │  ◆ ✧✧ ✦     │
-                   └──────────────┘
+          Left ┌───│ VENT JUNCTION│───┐ Right
+               │   └──────────────┘   │
+        ┌──────┴───────┐       ┌──────┴──────┐
+        │ GAS CHAMBER  │       │ COLLAPSED   │
+        │  ☠ (helmet)  │       │ SECTION ◆   │
+        └──────┬───────┘       │ (dead end)  │
+               │               └─────────────┘
+        ┌──────┴───────┐
+        │ FAN ROOM     │
+        │  ☠ (probe)   │
+        └──────┬───────┘
+               │
+        ┌──────┴───────┐
+        │ EXIT PASSAGE │
+        │  ✧ (stars!)  │
+        └──────┬───────┘
+               │
+        ┌──────┴───────┐
+        │ AIRLOCK BAY  │ ← EXIT
+        │  ✧✧ ✦        │
+        └──────────────┘
 
   ◆ = collectible item    ✧ = knowledge flag
   ✦ = puzzle/gate          ♦ = NPC dialogue
+  ☠ = hazard (can kill!)
 ```
 
 ## Critical Path (20 Steps)
@@ -79,10 +98,15 @@ Act 1 takes place entirely on the containment deck: 9 interconnected rooms with 
 | 14 | Specimen Archive | HAND Misplaced Crystal | `data_crystal_personal_log` |
 | 15 | Specimen Archive | USE crystal ON Reader | `archive_accessed` |
 | 16 | Specimen Archive | LOOK Holographic Display | `convergence_history_known` |
-| 17 | Ventilation Shaft | HAND Wall Scratches | `ventilation_map` |
-| 18 | Airlock Bay | USE key_card ON Override | Open airlock controls |
-| 19 | Airlock Bay | HAND Suit Locker | `emergency_suit_helmet` |
-| 20 | Airlock Bay | LOOK Viewport + Clamps | `outrider_gone_known`, `airlock_visited` |
+| 17 | Ventilation Entry | HAND Wall Scratches | `ventilation_map` |
+| 18 | Vent Junction | GO LEFT | Correct path (map says so) |
+| 19 | Gas Chamber | MOVE forward (need helmet!) | Survive gas |
+| 20 | Fan Room | USE surgical_probe ON mechanism | Jam fan (probe consumed!) |
+| 21 | Fan Room | MOVE through jammed fan | Reach exit |
+| 22 | Exit Passage | LOOK crack in wall | Stars! First view outside |
+| 23 | Exit Passage | MOVE through hatch | Drop to airlock |
+| 24 | Airlock Bay | USE key_card ON Override | Open airlock controls |
+| 25 | Airlock Bay | LOOK Viewport + Clamps | `outrider_gone_known`, `airlock_visited` |
 
 ---
 
@@ -135,6 +159,7 @@ This is a two-step interaction. You need the security sequence from the lab (Ste
 - **HAND the Security Console** (first time) — Enter the startup sequence. The console hums to life, revealing a full ship layout. *(Sets flags: `security_hub_accessed`, `ship_layout_known`)*
 - **HAND the Security Console** (second time) — Trigger the containment lock override. Every sealed door on the deck clicks open. The Curator will notice. *(Sets flag: `security_locks_overridden`; adds 20 noise)*
 - **HAND the Key Card Drawer** — Pull out a bio-organic containment key card. *(Gains: `containment_key_card`)*
+- **HAND the Emergency Equipment Cabinet** — Smash the cracked glass and grab an alien helmet with universal seals. Too large for you but the atmosphere system works. Essential for surviving the vent maze gas. *(Gains: `emergency_suit_helmet`; sets flag: `emergency_helmet_taken`)*
 
 ![Security console activated and key card obtained](walkthrough-screenshots/05_security_hub.png)
 
@@ -184,22 +209,66 @@ Return to the Feeding Station, then back to the **Containment Corridor**. The ve
 
 ---
 
-### 8. Ventilation Shaft
+### 8. Ventilation Shaft Entry
 
-- **HAND the Wall Scratches** — Trace a map scratched into the wall by a previous escapee. Three main routes memorized. *(Gains: `ventilation_map`; sets flag: `ventilation_map_found`)*
+- **HAND the Wall Scratches** — Trace a map scratched into the wall by a previous escapee. The map shows a junction ahead: LEFT (helmet symbol) leads to the airlock, RIGHT is a dead end. *(Gains: `ventilation_map`; sets flag: `ventilation_map_found`)*
 
-![Ventilation shaft — wall scratch escape map](walkthrough-screenshots/09_ventilation.png)
+**Also here**: Old Remains (bones of a previous escapee), Maintenance Hatch.
 
-**Also here**: Shaft Branches, Old Remains (bones of a previous escapee), Maintenance Hatch.
-
-Continue through to the **Airlock Bay**.
+Continue forward to the **Vent Junction**.
 
 ---
 
-### 9. Airlock Bay
+### 9. Vent Junction
+
+A T-shaped intersection. The map (if you have it) guides you: **LEFT is correct** (but hazardous), RIGHT is a dead end.
+
+- **LOOK at the Junction Markings** — With the map, you learn left has a helmet warning and right has dead-end gouges
+- **LOOK at the Air Current** — Left smells chemical/dangerous, right smells stale/dead
+
+**Optional detour RIGHT → Collapsed Section**: A dead end with a Choir skeleton holding a glowing datapad. HAND the skeleton to get the **Crew Datapad** (Act 2 lore item). Then return to the junction.
+
+Go LEFT into the **Gas Chamber**.
+
+---
+
+### 10. Gas-Filled Passage ☠
+
+**DANGER**: This room is filled with toxic gas from a cracked bio-pipe. You MUST have the **Emergency Suit Helmet** (from the Security Hub emergency cabinet) to survive.
+
+- Without the helmet: attempting to move forward or touch the corpse = **death**
+- With the helmet: you can safely explore and proceed
+
+**MOVE forward** through the gas to reach the **Fan Room**.
+
+---
+
+### 11. Fan Chamber ☠
+
+**DANGER**: A massive spinning fan blocks the passage. Walking into it = **instant death**.
+
+- **LOOK at the Fan** — Blades spinning at lethal speed. No way through while it's running.
+- **LOOK at the Fan Mechanism** — Exposed drive mechanism with a narrow gap. Something long, thin, and strong could jam it.
+- **USE the Surgical Probe ON the Fan Mechanism** — The probe jams the gears! The fan locks. The probe is destroyed but the blades stop. *(Consumes: `surgical_probe`; sets flag: `fan_jammed`)*
+- **MOVE through the jammed Fan** — Squeeze between the stilled blades to the **Exit Passage**.
+
+> **Warning**: The surgical probe is permanently consumed here. Make sure you've used it for anything else you need first (security keypad prying, etc.).
+
+---
+
+### 12. Exit Passage
+
+The final stretch before freedom. A moment of quiet after the maze.
+
+- **LOOK at the Crack in Wall** — Stars! The first view outside the ship. Beautiful and terrifying.
+
+**MOVE through the Exit Hatch** to drop into the **Airlock Bay**.
+
+---
+
+### 13. Airlock Bay
 
 - **USE the Containment Key Card ON the Airlock Override Panel** — The key card interfaces with the lock, opening the override panel. *(Uses: `containment_key_card`)*
-- **HAND the Suit Locker** — Choir emergency suits are too large, but the helmets have universal seals. *(Sets flag: `emergency_helmet_taken`)*
 - **LOOK at the Empty Docking Clamps** — Your ship, the Outrider, was jettisoned. The docking clamps are empty. There is no easy way home. *(Sets flag: `outrider_gone_known`)*
 - **LOOK at the Viewport** — The planet below is beautiful from orbit. But thin energy beams descend from the ship to the surface. The Convergence is already feeding. *(Sets flag: `airlock_visited`)*
 
@@ -224,7 +293,7 @@ The `prisoner_bond` value affects all subsequent interactions with the prisoner 
 
 ## Inventory Checklist
 
-All 9 collectible items in Act 1:
+All 11 collectible items in Act 1:
 
 | # | Item | Source Room | How |
 |---|------|-------------|-----|
@@ -233,10 +302,14 @@ All 9 collectible items in Act 1:
 | 3 | Specimen Tag | Stasis Hold | HAND Specimen Tag Hook |
 | 4 | Surgical Probe | Processing Lab | HAND Instrument Rack |
 | 5 | Containment Key Card | Security Hub | HAND Key Card Drawer |
-| 6 | Nutrient Paste Tube | Feeding Station | HAND Nutrient Dispenser |
-| 7 | Severed Neural Tendril | Morgue | HAND Neural Tendril Sample |
-| 8 | Personal Log Crystal | Specimen Archive | HAND Personal Log Crystal |
-| 9 | Ventilation Map | Ventilation Shaft | HAND Wall Scratches |
+| 6 | Emergency Suit Helmet | Security Hub | HAND Emergency Cabinet |
+| 7 | Nutrient Paste Tube | Feeding Station | HAND Nutrient Dispenser |
+| 8 | Severed Neural Tendril | Morgue | HAND Neural Tendril Sample |
+| 9 | Personal Log Crystal | Specimen Archive | HAND Personal Log Crystal |
+| 10 | Ventilation Map | Vent Entry | HAND Wall Scratches |
+| 11 | Crew Datapad (optional) | Collapsed Section | HAND Skeleton |
+
+> **Note**: The surgical probe is consumed when jamming the vent fan (step 20). Make sure you've done everything you need with it first.
 
 ---
 
@@ -252,7 +325,9 @@ All 9 collectible items in Act 1:
 | `dead_goblin_seen` | LOOK Dead Goblin in Morgue | Story flag |
 | `prisoner_spoken` | TALK to Caged Prisoner | Story flag |
 | `convergence_history_known` | LOOK Holographic Display in Archive | Story flag |
-| `ventilation_map_found` | HAND Wall Scratches in Vent Shaft | Yes — escape route knowledge |
+| `ventilation_map_found` | HAND Wall Scratches in Vent Entry | Yes — maze navigation |
+| `fan_jammed` | USE surgical_probe ON Fan Mechanism | Yes — opens vent path |
+| `crew_datapad_found` | HAND Skeleton in Collapsed Section | Optional — Act 2 lore |
 | `airlock_visited` | LOOK Viewport in Airlock Bay | Story flag |
 | `outrider_gone_known` | LOOK Empty Docking Clamps in Airlock Bay | Story flag |
 | `airlock_hinted` | Prisoner dialogue: "way out" choice only | Branch-dependent |
@@ -272,9 +347,15 @@ All 9 collectible items in Act 1:
 
 5. **"I can't get into the ventilation shaft"** — The vent grate is in the Containment Corridor floor, but it's locked by the containment security system. You need to override security first (Security Hub → HAND Console twice to trigger the lock override). Once `security_locks_overridden` is set, the grate opens.
 
-6. **"The prisoner won't talk to me"** — Make sure you're using the TALK verb, not HAND or LOOK. The dialogue choice modal appears after the initial greeting.
+6. **"I keep dying in the vent maze"** — Two hazards: toxic gas (need the Emergency Suit Helmet from the Security Hub cabinet) and a spinning fan (need the Surgical Probe to jam the mechanism). Get both items BEFORE entering the vents. The ventilation map (from Wall Scratches in the vent entry) tells you which path is safe.
 
-7. **"I explored everything but nothing seems to happen"** — Act 1 is about gathering items and knowledge. There's no timed pressure (the Curator exists but isn't active in this act). Take your time, LOOK at everything, and make sure you've visited all 9 rooms.
+7. **"Which way at the vent junction?"** — LEFT leads to the airlock (through gas chamber and fan room). RIGHT is a dead end with an optional lore item. If you have the ventilation map, LOOK at the junction markings for clear directions.
+
+8. **"I used the surgical probe and now I'm stuck"** — The probe is consumed when you jam the fan. If you still need it for something else, reload. But in the normal flow, the fan is the probe's final purpose — you should have already used it at the security keypad.
+
+9. **"The prisoner won't talk to me"** — Make sure you're using the TALK verb, not HAND or LOOK. The dialogue choice modal appears after the initial greeting.
+
+10. **"I explored everything but nothing seems to happen"** — Act 1 is about gathering items and knowledge. There's no timed pressure (the Curator exists but isn't active in this act). Take your time, LOOK at everything, and make sure you've visited all rooms including the vent maze.
 
 ---
 

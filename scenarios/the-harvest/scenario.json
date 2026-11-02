@@ -884,37 +884,36 @@
       "name": "Ventilation Shaft",
       "objects": [
         "wall_scratches",
-        "shaft_branches",
         "vent_old_remains",
         "vent_maintenance_hatch",
         "nav_act1_ventilation_shaft_to_act1_containment_corridor",
-        "nav_act1_ventilation_shaft_to_act1_airlock_bay"
+        "nav_act1_vent_entry_to_act1_vent_junction"
       ],
       "background_key": "act1_ventilation_shaft",
       "background_file": "backgrounds/act1_ventilation_shaft.webp",
       "room_animation": "flicker",
       "hints": [
         {
-          "text": "The shaft is tight but passable for someone your size. Look for anything useful along the walls.",
-          "when": []
-        },
-        {
-          "text": "Scratch marks on the walls form a crude map — previous escape attempts. Trace them to create a ventilation map.",
           "when": [
             {
               "type": "not_has_item",
               "item": "ventilation_map"
             }
-          ]
+          ],
+          "text": "The scratches on the walls look deliberate. Maybe you should examine them more closely."
         },
         {
-          "text": "You have the ventilation map. The shaft leads toward what looks like an airlock bay.",
           "when": [
             {
               "type": "has_item",
               "item": "ventilation_map"
             }
-          ]
+          ],
+          "text": "Your map shows the way through the maze ahead. The left path at the junction is marked as correct."
+        },
+        {
+          "when": [],
+          "text": "The ventilation shaft branches ahead. This was someone else's escape route before yours."
         }
       ],
       "character": {
@@ -974,6 +973,383 @@
       "ambient_audio": "audio/ambient_industrial.wav"
     },
     {
+      "id": "act1_vent_junction",
+      "name": "Vent Junction",
+      "background": "vent_junction",
+      "background_file": "backgrounds/act1_vent_junction.webp",
+      "objects": [
+        "junction_markings",
+        "junction_pipes",
+        "junction_air_current",
+        "nav_act1_vent_junction_to_act1_vent_gas_chamber",
+        "nav_act1_vent_junction_to_act1_vent_collapsed",
+        "nav_act1_vent_junction_to_act1_ventilation_shaft"
+      ],
+      "character": {
+        "x": 480,
+        "y": 560,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.9,
+            "radius": 0.4,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "alpha": 0.15,
+            "pulse_speed": 0.8,
+            "pulse_amount": 0.05
+          },
+          {
+            "x": 0.1,
+            "y": 0.5,
+            "radius": 0.3,
+            "color": [
+              180,
+              200,
+              50
+            ],
+            "alpha": 0.1,
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.03
+          },
+          {
+            "x": 0.9,
+            "y": 0.5,
+            "radius": 0.2,
+            "color": [
+              100,
+              50,
+              50
+            ],
+            "alpha": 0.08
+          }
+        ]
+      },
+      "hints": [
+        {
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "text": "The wall markings might mean something. Too bad you don't have a reference."
+        },
+        {
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "text": "Your map says LEFT is the way. The helmet symbol means you'll need protection."
+        },
+        {
+          "when": [],
+          "text": "Two paths. One is correct. The air currents might give you a clue."
+        }
+      ]
+    },
+    {
+      "id": "act1_vent_gas_chamber",
+      "name": "Gas-Filled Passage",
+      "background": "vent_gas",
+      "background_file": "backgrounds/act1_vent_gas_chamber.webp",
+      "objects": [
+        "gas_source",
+        "gas_chamber_corpse",
+        "nav_act1_vent_gas_to_act1_vent_fan_room",
+        "nav_act1_vent_gas_to_act1_vent_junction"
+      ],
+      "character": {
+        "x": 480,
+        "y": 560,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_text": "Yellow-green gas swirls around you. Every breath burns.",
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.2,
+            "y": 0.4,
+            "radius": 0.5,
+            "color": [
+              180,
+              200,
+              50
+            ],
+            "alpha": 0.2,
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.08
+          },
+          {
+            "x": 0.7,
+            "y": 0.6,
+            "radius": 0.4,
+            "color": [
+              150,
+              180,
+              30
+            ],
+            "alpha": 0.15,
+            "pulse_speed": 0.5,
+            "pulse_amount": 0.05
+          },
+          {
+            "x": 0.5,
+            "y": 0.9,
+            "radius": 0.3,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "alpha": 0.1
+          }
+        ]
+      },
+      "hints": [
+        {
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "text": "The gas is lethal without protection. You need something to breathe through safely."
+        },
+        {
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "text": "The helmet should protect you from the gas. Press forward."
+        },
+        {
+          "when": [],
+          "text": "This section is filled with toxic gas from a cracked bio-organic pipe."
+        }
+      ]
+    },
+    {
+      "id": "act1_vent_fan_room",
+      "name": "Fan Chamber",
+      "background": "vent_fan",
+      "background_file": "backgrounds/act1_vent_fan_room.webp",
+      "objects": [
+        "vent_fan",
+        "fan_mechanism",
+        "nav_act1_vent_fan_to_act1_vent_gas_chamber"
+      ],
+      "character": {
+        "x": 480,
+        "y": 560,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.3,
+            "radius": 0.5,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "alpha": 0.2,
+            "pulse_speed": 2.0,
+            "pulse_amount": 0.15
+          },
+          {
+            "x": 0.5,
+            "y": 0.8,
+            "radius": 0.3,
+            "color": [
+              150,
+              40,
+              40
+            ],
+            "alpha": 0.1
+          }
+        ],
+        "flicker": true
+      },
+      "hints": [
+        {
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            },
+            {
+              "type": "not_has_item",
+              "item": "surgical_probe"
+            }
+          ],
+          "text": "The fan's mechanism has an exposed gap, but you don't have anything to jam it with. Did you leave a tool behind?"
+        },
+        {
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            },
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            }
+          ],
+          "text": "The fan mechanism has an exposed gap. Something long and thin — like your surgical probe — might jam the gears."
+        },
+        {
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "text": "The fan is stopped. You can squeeze through the blades now."
+        },
+        {
+          "when": [],
+          "text": "A massive fan blocks the passage. Its mechanism is exposed on the wall."
+        }
+      ]
+    },
+    {
+      "id": "act1_vent_collapsed",
+      "name": "Collapsed Section",
+      "background": "vent_collapsed",
+      "background_file": "backgrounds/act1_vent_collapsed.webp",
+      "objects": [
+        "collapse_debris",
+        "collapsed_skeleton",
+        "collapse_scratches",
+        "nav_act1_vent_collapsed_to_act1_vent_junction"
+      ],
+      "character": {
+        "x": 480,
+        "y": 560,
+        "facing": "right",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.65,
+            "y": 0.5,
+            "radius": 0.3,
+            "color": [
+              100,
+              150,
+              220
+            ],
+            "alpha": 0.12,
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.04
+          },
+          {
+            "x": 0.3,
+            "y": 0.8,
+            "radius": 0.2,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "alpha": 0.08
+          }
+        ]
+      },
+      "hints": [
+        {
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "holding_datapad"
+            }
+          ],
+          "text": "The skeleton is holding something. It still glows faintly."
+        },
+        {
+          "when": [],
+          "text": "A dead end, but not a wasted trip. The skeleton tells a story."
+        }
+      ]
+    },
+    {
+      "id": "act1_vent_exit",
+      "name": "Exit Passage",
+      "background": "vent_exit",
+      "background_file": "backgrounds/act1_vent_exit.webp",
+      "objects": [
+        "exit_viewport",
+        "exit_hatch",
+        "nav_act1_vent_exit_to_act1_vent_fan_room"
+      ],
+      "character": {
+        "x": 480,
+        "y": 460,
+        "facing": "down",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.15,
+            "y": 0.4,
+            "radius": 0.4,
+            "color": [
+              100,
+              150,
+              220
+            ],
+            "alpha": 0.15,
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.03
+          },
+          {
+            "x": 0.5,
+            "y": 0.7,
+            "radius": 0.3,
+            "color": [
+              200,
+              180,
+              150
+            ],
+            "alpha": 0.1
+          }
+        ]
+      },
+      "hints": [
+        {
+          "when": [],
+          "text": "The airlock bay is below. Drop through the hatch to reach it."
+        }
+      ]
+    },
+    {
       "id": "act1_security_hub",
       "name": "Security Hub",
       "objects": [
@@ -981,6 +1357,7 @@
         "cracked_screen",
         "key_card_drawer",
         "overturned_chair",
+        "emergency_cabinet",
         "nav_act1_security_hub_to_act1_containment_corridor"
       ],
       "background_key": "act1_security_hub",
@@ -1324,7 +1701,7 @@
         "suit_locker",
         "airlock_override_panel",
         "blast_doors",
-        "nav_act1_airlock_bay_to_act1_ventilation_shaft"
+        "nav_act1_airlock_bay_to_act1_vent_exit"
       ],
       "background_key": "act1_airlock_bay",
       "background_file": "backgrounds/act1_airlock_bay.webp",
@@ -4615,6 +4992,25 @@
           ]
         }
       ]
+    },
+    {
+      "id": "crew_datapad",
+      "name": "Choir Crew Datapad",
+      "description": "A Choir-make datapad recovered from a dead crew member in the vents. Still faintly glowing.",
+      "icon": "datapad",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The datapad's screen shows the last entries of a Choir crew member. Their log describes the ship's systems failing, the Curator going rogue, and their desperate attempt to reach the airlock through the vents. The final entry is coordinates — the ship's last known heading before the crash — and a security override frequency for the operational decks. This could be invaluable once you reach the upper sections."
+            }
+          ]
+        }
+      ],
+      "icon_file": "items/crew_datapad.png"
     }
   ],
   "combinations": [
@@ -6216,7 +6612,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Deep gouges in the organic walls, made by claws or tools. Someone else navigated these vents before you. The scratches form patterns — not random panic, but deliberate markings. Arrows, symbols, a crude map of the shaft system etched by a predecessor who wanted the next escapee to find their way."
+              "text": "Deep gouges in the organic walls, made by claws or tools. Someone else navigated these vents before you. The scratches form patterns — not random panic, but deliberate markings. Arrows, symbols, a crude map of the shaft system. A junction ahead splits left and right. The left path is marked with a helmet symbol. The right has deep warning gouges."
             }
           ]
         },
@@ -6231,7 +6627,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace the scratch-map with your fingers, memorizing the layout. Three main routes: one leads back to the stasis hold, one to the feeding station, one to what's marked with a crude eye symbol — the security hub. Whoever made this got further than the Choir expected."
+              "text": "You trace the scratch-map with your fingers, memorizing the layout. A junction ahead splits two ways: LEFT is marked with a helmet symbol and leads eventually to the airlock. RIGHT is gouged with warning marks — a dead end. Whoever made this got further than the Choir expected."
             },
             {
               "type": "add_item",
@@ -7515,7 +7911,27 @@
       "interactions": [
         {
           "verb": "look",
-          "when": [],
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Emergency suit locker, cracked open from whatever impact rocked the ship. The suits inside are designed for Choir physiology. You already have the helmet from the security hub — the only piece that fits you."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
           "then": [
             {
               "type": "message",
@@ -21326,8 +21742,8 @@
       ]
     },
     {
-      "id": "nav_act1_airlock_bay_to_act1_ventilation_shaft",
-      "name": "Ventilation Shaft",
+      "id": "nav_act1_airlock_bay_to_act1_vent_exit",
+      "name": "Vent Hatch Above",
       "position": {
         "x": 246,
         "y": 650
@@ -21352,11 +21768,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_ventilation_shaft"
+              "view": "act1_vent_exit"
             },
             {
               "type": "message",
-              "text": "You duck into the narrow ventilation shaft. Red emergency lights flicker around you."
+              "text": "You climb back up through the hatch into the ventilation shaft exit passage."
             }
           ],
           "noise": 0
@@ -21381,7 +21797,8 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "The ventilation hatch you came through, in the ceiling above."
     },
     {
       "id": "neural_network_wall",
@@ -22751,6 +23168,1764 @@
         }
       ],
       "hiding_spot": false
+    },
+    {
+      "id": "nav_act1_vent_entry_to_act1_vent_junction",
+      "name": "Shaft Ahead",
+      "description": "The ventilation shaft continues forward into branching darkness.",
+      "position": {
+        "x": 380,
+        "y": 16
+      },
+      "size": {
+        "width": 200,
+        "height": 140
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Forward",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The shaft ahead splits into multiple directions. Red emergency lights flicker in the distance."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_junction"
+            },
+            {
+              "type": "message",
+              "text": "You crawl forward through the ventilation shaft. The walls pulse faintly, alive. Ahead, the tunnel opens into a junction."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You feel the warm air flowing from ahead. The shaft beckons."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your voice echoes down the shaft and comes back distorted."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "junction_markings",
+      "name": "Wall Markings",
+      "description": "Scratch marks at the junction where the vent splits.",
+      "position": {
+        "x": 350,
+        "y": 200
+      },
+      "size": {
+        "width": 260,
+        "height": 200
+      },
+      "visual": {
+        "color": "rgba(200, 160, 100, 0.3)",
+        "label": "Markings"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Scratches on the walls at the junction. They might mean something, but without context they're just random gouges in the organic material."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cross-referencing with your map: the LEFT tunnel is marked with a small helmet symbol — hazardous but the correct path toward the airlock. The RIGHT tunnel is scored with deep warning gouges — a dead end. The mapmaker was thorough."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You run your fingers over the scratches. They're deep — made with desperate force."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Which way...\" The tunnels swallow your whisper without echo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "junction_pipes",
+      "name": "Overhead Pipes",
+      "description": "Bio-organic pipes running along the ceiling of the junction.",
+      "position": {
+        "x": 100,
+        "y": 20
+      },
+      "size": {
+        "width": 760,
+        "height": 80
+      },
+      "visual": {
+        "color": "rgba(80, 60, 100, 0.2)",
+        "label": "Pipes"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Thick bio-organic pipes run along the ceiling, branching where the tunnel splits. They pulse faintly — the ship's circulatory system. The left branch carries pipes that hiss with chemical vapor. The right branch's pipes are dry and cracked."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pipes are warm and faintly sticky. You pull your hand away quickly."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The pipes gurgle in response, like a stomach digesting."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "junction_air_current",
+      "name": "Air Current",
+      "description": "You can feel different air currents from each tunnel.",
+      "position": {
+        "x": 400,
+        "y": 420
+      },
+      "size": {
+        "width": 160,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(150, 200, 150, 0.15)",
+        "label": "Air"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The air behaves differently at the junction. From the LEFT, warm air carries a sharp chemical smell — acrid, metallic, wrong. From the RIGHT, the air is stale and dead — no circulation, as if the tunnel ends."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You hold your hand up to feel the currents. Left: warm, chemical-tinged, with a faint mechanical vibration. Right: still, stale, motionless."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You sniff the air. The left tunnel smells dangerous. The right smells like nothing at all."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_junction_to_act1_vent_gas_chamber",
+      "name": "Left Tunnel",
+      "description": "The left branch of the junction. A faint yellow-green haze drifts from it.",
+      "position": {
+        "x": 20,
+        "y": 200
+      },
+      "size": {
+        "width": 180,
+        "height": 300
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The left tunnel stretches into a yellowish haze. Something chemical hangs in the air. It could be dangerous… or it could be nothing."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your map marks this as the correct path. The helmet symbol means you'll need protection. The chemical haze confirms it — toxic gas ahead."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_gas_chamber"
+            },
+            {
+              "type": "message",
+              "text": "You crawl into the left tunnel. The air grows warmer, sharper. A yellow-green haze thickens around you."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The walls of the left tunnel are slick with chemical condensation."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your voice sounds muffled in the thickening air of the left tunnel."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_junction_to_act1_vent_collapsed",
+      "name": "Right Tunnel",
+      "description": "The right branch of the junction. Darker and narrower than the left.",
+      "position": {
+        "x": 760,
+        "y": 200
+      },
+      "size": {
+        "width": 180,
+        "height": 300
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The right tunnel is narrower and darker. The air from it is completely still."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your map marks this tunnel with deep warning gouges. Dead end. But someone made it that far… there might be something worth finding."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_collapsed"
+            },
+            {
+              "type": "message",
+              "text": "You squeeze into the narrower right tunnel. The walls close in. The air is stale and dead."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The walls of the right tunnel are dry and cracked. No moisture, no life."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your voice falls flat in the dead air of the right tunnel. No echo at all."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_junction_to_act1_ventilation_shaft",
+      "name": "Back to Entry",
+      "description": "The tunnel back to the ventilation shaft entry.",
+      "position": {
+        "x": 350,
+        "y": 640
+      },
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel leads back to the ventilation shaft entrance where you climbed in."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_ventilation_shaft"
+            },
+            {
+              "type": "message",
+              "text": "You crawl back to the vent shaft entry. The faint glow of the corridor above is reassuring."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace against the walls as you back up."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Maybe I should go back and prepare...\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gas_source",
+      "name": "Cracked Pipe",
+      "description": "A bio-organic pipe split open, leaking toxic yellow-green vapor.",
+      "position": {
+        "x": 80,
+        "y": 150
+      },
+      "size": {
+        "width": 200,
+        "height": 350
+      },
+      "visual": {
+        "color": "rgba(180, 200, 50, 0.3)",
+        "label": "Pipe"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A thick bio-organic pipe has split open like a wound, its dark flesh peeled back to reveal a luminous interior. Yellow-green vapor pours from the breach in steady pulses, synchronized with the ship's breathing rhythm. The gas is clearly toxic — the dissolved remains nearby prove that."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach toward the pipe and immediately pull back. The gas burns your skin on contact. You need protection before touching anything in here."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "With the helmet protecting you, you examine the pipe up close. The breach is organic — the ship's flesh tore open here, probably from the same impact that damaged the stasis hold. There's no way to seal it."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The gas hisses from the pipe like a warning. The ship exhales poison here."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gas_chamber_corpse",
+      "name": "Dissolved Remains",
+      "description": "The partially dissolved remains of a large creature.",
+      "position": {
+        "x": 600,
+        "y": 300
+      },
+      "size": {
+        "width": 200,
+        "height": 250
+      },
+      "visual": {
+        "color": "rgba(160, 140, 80, 0.3)",
+        "label": "Remains"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A specimen larger than the one in the entry shaft. This creature made it further into the maze before the gas stopped it. The body is partially dissolved — the toxic vapor has been eating at it for months. A Choir uniform clings to what's left of the torso."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You lean closer to examine the body. The gas burns your eyes, your throat, your lungs—"
+            },
+            {
+              "type": "game_over",
+              "message": "The toxic gas overwhelms you. Your vision blurs, your lungs seize. You collapse beside the remains, another specimen who didn't make it through the vents.",
+              "title": "Toxic Death"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "With the helmet sealing out the gas, you can examine the body safely. A Choir crew member, judging by the uniform. They were trying to escape their own ship. Their personnel badge is too corroded to read. Whatever they knew about the vent system, they didn't have protection for this section."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"You almost made it,\" you whisper to the remains. The gas swirls around them like a shroud."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_gas_to_act1_vent_fan_room",
+      "name": "Tunnel Ahead",
+      "description": "The tunnel continues through the gas toward a distant mechanical sound.",
+      "position": {
+        "x": 350,
+        "y": 30
+      },
+      "size": {
+        "width": 260,
+        "height": 150
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Forward",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel continues forward through the thickest part of the gas. You can hear a distant mechanical grinding from somewhere ahead. You can't survive walking through that concentration without some kind of breathing protection."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel continues through the gas. With the helmet, you could survive the passage. Beyond the haze, you hear a rhythmic mechanical grinding."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push deeper into the gas. Your eyes water. Your throat closes. You can't breathe—"
+            },
+            {
+              "type": "game_over",
+              "message": "Without protection, the toxic gas overwhelms you in seconds. Your lungs burn, your vision fails. You stumble and fall, another victim of the ship's poisoned veins.",
+              "title": "Toxic Death"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_fan_room"
+            },
+            {
+              "type": "message",
+              "text": "The helmet's visor seals automatically as you push through the densest gas. It sits like a fishbowl on your shoulders, but the internal atmosphere system keeps you breathing clean air. You emerge on the other side into a chamber dominated by a massive spinning fan."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You feel the air current pushing against you from deeper in the tunnel. Something mechanical is moving a lot of air ahead."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The grinding sound from ahead reverberates through the gas-filled tunnel."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_gas_to_act1_vent_junction",
+      "name": "Back to Junction",
+      "description": "The tunnel back to the junction.",
+      "position": {
+        "x": 350,
+        "y": 640
+      },
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel back to the junction. The air is cleaner that direction."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_junction"
+            },
+            {
+              "type": "message",
+              "text": "You retreat from the gas back to the junction. The air clears as you crawl."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace against the walls, backing away from the toxic haze."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"I need to find another way… or get protection.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_fan",
+      "name": "Ventilation Fan",
+      "description": "A massive ventilation fan blocks the entire passage.",
+      "position": {
+        "x": 200,
+        "y": 80
+      },
+      "size": {
+        "width": 560,
+        "height": 450
+      },
+      "visual": {
+        "color": "rgba(120, 100, 100, 0.3)",
+        "label": "Fan"
+      },
+      "initial_state": "spinning",
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A massive ventilation fan fills the entire tunnel cross-section, its five dark metal blades spinning at lethal speed. The wind pushes against you with physical force. Through the blur of the blades, you can see the tunnel continuing on the other side. Nothing could pass through alive while it's running."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fan blades are locked in place, frozen mid-rotation. Your surgical probe is wedged deep into the mechanism, bent beyond recovery but doing its job. There's enough gap between the stilled blades to squeeze through."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You'd lose your arm. The blades are moving far too fast — they'd cut through flesh and bone before you registered the impact."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The stilled blades are solid cold metal. They won't move while the probe holds. You could squeeze between them."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push against the wind toward the spinning blades. A blade catches you—"
+            },
+            {
+              "type": "game_over",
+              "message": "The fan blade strikes with the force of a freight train. Your adventure ends instantly in the spinning dark of the ventilation shaft.",
+              "title": "Fan Death"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_exit"
+            },
+            {
+              "type": "message",
+              "text": "You carefully squeeze between the jammed fan blades, turning sideways to fit through the narrow gaps. The metal is cold against your skin. On the other side, the air is fresher. You're through."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fan drowns out your voice with its rhythmic whooshing. WHUMP. WHUMP. WHUMP."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "In the silence of the stopped fan, you can hear your own breathing and the distant hum of the ship."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fan_mechanism",
+      "name": "Fan Mechanism",
+      "description": "The fan's exposed drive mechanism on the wall.",
+      "position": {
+        "x": 760,
+        "y": 200
+      },
+      "size": {
+        "width": 180,
+        "height": 250
+      },
+      "visual": {
+        "color": "rgba(180, 140, 100, 0.3)",
+        "label": "Mechanism"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fan's drive mechanism is exposed — bio-organic muscle tissue wrapped around a metal axle, pulsing with effort as it drives the massive blades. A narrow gap in the housing could accept a tool to jam the gears. Something long, thin, and strong enough to wedge into the mechanism."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your surgical probe is wedged firmly in the mechanism's gears. The bio-organic muscle tissue still strains against the obstruction, but the probe holds. It's bent and useless for anything else now."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The mechanism is too powerful to stop by hand. The bio-organic muscles driving it could tear your arm off. You need a tool — something to wedge into that gap in the housing."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The probe is locked in place. You couldn't extract it even if you wanted to."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You wedge the surgical probe into the mechanism's gears. Metal grinds against bio-tissue — the fan stutters, shudders, and LOCKS. The sudden silence is deafening. The probe is bent beyond recovery, but the blades are stopped. You can squeeze through now."
+            },
+            {
+              "type": "remove_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "set_state",
+              "object": "vent_fan",
+              "state": "jammed"
+            },
+            {
+              "type": "set_flag",
+              "flag": "fan_jammed",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "fan_mechanism",
+              "animation": "none"
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The mechanism pulses with a biological rhythm. The ship's muscles drive the fan like a heartbeat drives blood."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_fan_to_act1_vent_gas_chamber",
+      "name": "Back Through Gas",
+      "description": "The tunnel back through the gas chamber.",
+      "position": {
+        "x": 350,
+        "y": 640
+      },
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel leads back through the gas-filled chamber to the junction."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_gas_chamber"
+            },
+            {
+              "type": "message",
+              "text": "You crawl back through the gas. The helmet keeps you breathing safely."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You crawl back into the gas. Without the helmet, the fumes burn your eyes and throat—"
+            },
+            {
+              "type": "game_over",
+              "message": "The toxic gas overwhelms you on the return trip. Without the helmet that got you through before, you have no protection. Your lungs give out halfway back.",
+              "title": "Toxic Death"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace yourself for the return trip through the toxic section."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Back through the gas...\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collapse_debris",
+      "name": "Collapsed Rubble",
+      "description": "The ceiling has caved in, completely blocking the passage.",
+      "position": {
+        "x": 300,
+        "y": 100
+      },
+      "size": {
+        "width": 400,
+        "height": 350
+      },
+      "visual": {
+        "color": "rgba(120, 100, 80, 0.3)",
+        "label": "Rubble"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The ceiling has collapsed completely, sealing the passage with tons of rubble and twisted metal. The ship's organic material has grown OVER the debris like scar tissue — this collapse happened long ago and the living ship partially healed around it. There's no getting through."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You push against the rubble. It doesn't budge. The ship's organic growth has fused it into a solid mass. This passage is permanently sealed."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "There's no way through. The collapse is absolute."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your voice bounces off the rubble wall and returns flat. No space beyond it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collapsed_skeleton",
+      "name": "Skeletal Figure",
+      "description": "The skeleton of a large alien creature propped against the rubble.",
+      "position": {
+        "x": 550,
+        "y": 250
+      },
+      "size": {
+        "width": 180,
+        "height": 300
+      },
+      "visual": {
+        "color": "rgba(200, 200, 180, 0.3)",
+        "label": "Skeleton"
+      },
+      "initial_state": "holding_datapad",
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A skeletal figure sits propped against the rubble, too large for a human. Angular bones, elongated skull — this was a Choir crew member. They were trying to escape their own ship. In their bony hands, a datapad still faintly glows, its screen casting pale blue-white light across the dead face."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "holding_datapad"
+            },
+            {
+              "type": "not_has_item",
+              "item": "crew_datapad"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You carefully extract the datapad from the skeleton's grip. The bones creak but don't resist. The screen flickers — it still has charge. A Choir crew member's last record."
+            },
+            {
+              "type": "add_item",
+              "item": "crew_datapad"
+            },
+            {
+              "type": "set_state",
+              "object": "collapsed_skeleton",
+              "state": "empty_hands"
+            },
+            {
+              "type": "set_flag",
+              "flag": "crew_datapad_found",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "collapsed_skeleton",
+              "state": "empty_hands"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The skeleton's hands are empty now. Nothing else useful on the body — the uniform is disintegrated, the bones brittle."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"You were trying to get out too,\" you whisper to the remains. \"How long ago? How many have tried?\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collapse_scratches",
+      "name": "Wall Scratches",
+      "description": "Scratch marks on the walls near the skeleton.",
+      "position": {
+        "x": 100,
+        "y": 300
+      },
+      "size": {
+        "width": 180,
+        "height": 200
+      },
+      "visual": {
+        "color": "rgba(200, 160, 100, 0.25)",
+        "label": "Scratches"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "More scratches on the walls. These look more frantic than the ones at the entry — deep, desperate gouges. The marks of someone who realized they'd chosen wrong."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "These match the warning marks on your map. Whoever scratched the map in the entry shaft came here first, found the dead end, then went back and left warnings for the next escape attempt. The mapmaker and this skeleton might not be the same person."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Deep enough to feel the desperation. Claws, not tools — made by an alien, not a human."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Dead end. Just like the map warned.\" The words feel hollow in the sealed passage."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_collapsed_to_act1_vent_junction",
+      "name": "Back to Junction",
+      "description": "The tunnel back to the junction.",
+      "position": {
+        "x": 350,
+        "y": 640
+      },
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel back to the junction. Nothing more to find here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_junction"
+            },
+            {
+              "type": "message",
+              "text": "You crawl back to the junction. The dead end yields nothing more — except the datapad, if you took it."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace against the narrow walls as you back out."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Nothing more here. Time to try the other way.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_viewport",
+      "name": "Crack in Wall",
+      "description": "A crack in the vent wall revealing the void of space.",
+      "position": {
+        "x": 50,
+        "y": 150
+      },
+      "size": {
+        "width": 200,
+        "height": 300
+      },
+      "visual": {
+        "color": "rgba(100, 150, 220, 0.25)",
+        "label": "Stars"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Through a crack in the vent wall, you see STARS. Pinpoints of light scattered across infinite black. The first time you've seen outside the ship. The void is beautiful and terrifying — you are very, very far from home. Cool blue starlight spills through the crack, the first light that isn't emergency red since you woke up."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press your face to the crack. The hull is cold. Beyond it, nothing but vacuum and stars. The ship is adrift between worlds. You can see hull damage along the exterior — whatever hit this vessel hit it hard."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Stars…\" Your voice catches. You'd almost forgotten there was an outside. An anywhere that isn't this ship."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exit_hatch",
+      "name": "Exit Hatch",
+      "description": "The vent shaft opens into a larger chamber below.",
+      "position": {
+        "x": 350,
+        "y": 450
+      },
+      "size": {
+        "width": 260,
+        "height": 200
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.25)",
+        "label": "Hatch"
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The ventilation shaft opens into a large chamber below. Through the hatch, you can see docking clamps, the curved interior hull of an airlock bay, and — is that a shuttle? The operational decks. Freedom, or at least the next step toward it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_airlock_bay"
+            },
+            {
+              "type": "message",
+              "text": "You lower yourself through the hatch and drop into the airlock bay. The ceiling is high here, the space vast compared to the cramped vents. You've made it through."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The hatch rim is smooth — this was a maintenance access point, not an escape route. But it'll do."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Almost there. Just a drop into the bay below.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_act1_vent_exit_to_act1_vent_fan_room",
+      "name": "Back to Fan Room",
+      "description": "The tunnel back toward the fan.",
+      "position": {
+        "x": 350,
+        "y": 640
+      },
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tunnel leads back to the fan room. The jammed blades are still passable."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_fan_room"
+            },
+            {
+              "type": "message",
+              "text": "You crawl back through the jammed fan blades to the fan room."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace yourself to squeeze back through the fan blades."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Why would I go back? The airlock is right here.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "emergency_cabinet",
+      "name": "Emergency Equipment Cabinet",
+      "description": "A wall-mounted cabinet with a cracked glass front, marked with alien safety symbols.",
+      "position": {
+        "x": 750,
+        "y": 280
+      },
+      "size": {
+        "width": 150,
+        "height": 200
+      },
+      "visual": {
+        "color": "rgba(200, 100, 50, 0.3)",
+        "label": "Cabinet"
+      },
+      "initial_state": "closed",
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "emergency_cabinet",
+              "state": "closed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "A wall-mounted emergency equipment cabinet with a cracked glass front. Alien safety symbols are stenciled on it — what looks like a helmet icon and a breathing mask. The latch is stuck but the glass is already cracked. You could probably force it open."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "emergency_cabinet",
+              "state": "open"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The emergency cabinet hangs open, its cracked glass door askew. Most of the equipment inside is designed for Choir anatomy — far too large for you. The helmet slot is empty."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "emergency_cabinet",
+              "state": "closed"
+            },
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You smash through the cracked glass and wrench the cabinet open. Inside: emergency equipment designed for Choir anatomy — suits far too large, breathing apparatus you can't operate. But the helmet… the helmet has a universal seal. It sits like a fishbowl on your head, but it locks and the atmosphere system activates. This could protect you from toxic environments."
+            },
+            {
+              "type": "set_state",
+              "object": "emergency_cabinet",
+              "state": "open"
+            },
+            {
+              "type": "add_item",
+              "item": "emergency_suit_helmet"
+            },
+            {
+              "type": "set_flag",
+              "flag": "emergency_helmet_taken",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "emergency_cabinet",
+              "animation": "none"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "emergency_cabinet",
+              "state": "open"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The cabinet is empty of anything useful. The remaining equipment is all Choir-sized."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The safety symbols on the cabinet are clear enough — helmet, breathing mask, protective gear. Universal concepts, even for aliens."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's bolted to the wall."
+            }
+          ]
+        }
+      ]
     }
   ],
   "puzzle_widgets": [
