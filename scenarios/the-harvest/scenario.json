@@ -7872,12 +7872,12 @@
       "name": "Velith Ammonite",
       "description": "Specimen 7319-101: a Velith Ammonite — a deep-ocean cephalopod with a coiled nautilus shell and dozens of sinuous tentacles, suspended in swirling amber preservative.",
       "position": {
-        "x": 113,
-        "y": 0
+        "x": 250,
+        "y": 58
       },
       "size": {
-        "width": 217,
-        "height": 464
+        "width": 132,
+        "height": 414
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7924,12 +7924,12 @@
       "name": "Kethrani Weaver",
       "description": "Specimen 7319-102: a Kethrani Weaver — a massive arachnoid predator with eight jointed legs, armored carapace, and mandibles that could crush bone, preserved in amber fluid.",
       "position": {
-        "x": 389,
-        "y": 0
+        "x": 414,
+        "y": 59
       },
       "size": {
-        "width": 196,
-        "height": 472
+        "width": 139,
+        "height": 415
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -7976,12 +7976,12 @@
       "name": "Neural Orchid",
       "description": "Specimen 7319-103: a Neural Orchid — an alien plant with layered burgundy petals and thick root tendrils, preserved in golden fluid. It blurs the line between flora and fauna.",
       "position": {
-        "x": 642,
-        "y": 25
+        "x": 575,
+        "y": 59
       },
       "size": {
-        "width": 209,
-        "height": 428
+        "width": 145,
+        "height": 415
       },
       "visual": {
         "color": "rgba(180, 140, 60, 0.15)",
@@ -8028,12 +8028,12 @@
       "name": "Specimen Displays",
       "description": "Three glowing teal screens below the tanks, scrolling alien glyphs and biological data alongside specimen ID numbers.",
       "position": {
-        "x": 110,
-        "y": 575
+        "x": 239,
+        "y": 470
       },
       "size": {
-        "width": 757,
-        "height": 137
+        "width": 490,
+        "height": 136
       },
       "visual": {
         "color": "rgba(200, 180, 80, 0.2)",
