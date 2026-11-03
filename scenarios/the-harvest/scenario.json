@@ -7342,16 +7342,7 @@
           ]
         }
       ],
-      "hiding_spot": false,
-      "sprite": {
-        "file": "sprites/security_console.png",
-        "frame_width": 1819,
-        "frame_height": 592,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.22
-      }
+      "hiding_spot": false
     },
     {
       "id": "cracked_screen",
