@@ -168,7 +168,7 @@
           ]
         },
         {
-          "text": "The amber fluid pooling beneath the drainage channel could be useful. Collect some before it drains away.",
+          "text": "The amber fluid pooling beneath the drainage channel could be useful, but you need a container. The processing lab down the corridor might have something — sample jars, perhaps.",
           "when": [
             {
               "type": "has_item",
@@ -176,7 +176,24 @@
             },
             {
               "type": "not_has_item",
-              "item": "stasis_fluid_vial"
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
+            }
+          ]
+        },
+        {
+          "text": "You have a sample jar. Use it on the drainage channel to collect some of that amber stasis fluid.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
             }
           ]
         },
@@ -423,10 +440,27 @@
           "when": []
         },
         {
-          "text": "The instrument rack holds alien surgical tools. Take one — it could serve as a makeshift tool.",
+          "text": "The instrument rack holds alien surgical tools. Take one — it could serve as a makeshift tool. The sample jars on the shelf might also have something useful.",
           "when": [
             {
               "type": "not_has_item",
+              "item": "surgical_probe"
+            }
+          ]
+        },
+        {
+          "text": "One of the sample jars on the lower shelf looks empty and cracked open. You could use it to collect liquids.",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
+            },
+            {
+              "type": "has_item",
               "item": "surgical_probe"
             }
           ]
@@ -3741,6 +3775,34 @@
   },
   "items": [
     {
+      "id": "empty_sample_jar",
+      "name": "Empty Sample Jar",
+      "description": "A small bio-organic jar from the processing lab. Sealed once, now empty. Perfect for collecting liquid samples.",
+      "icon": "jar",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A small cylindrical jar made from the same bio-organic material as everything else on this ship. The seal is broken but the jar itself is intact. It could hold a few ounces of liquid."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The jar is lighter than glass and slightly warm. The interior still smells faintly of formaldehyde — or whatever alien equivalent preserved its previous contents."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "stasis_fluid_vial",
       "name": "Stasis Fluid Vial",
       "description": "A vial of amber stasis fluid from your broken pod. The liquid shimmers faintly, still biologically active.",
@@ -5580,20 +5642,48 @@
           "verb": "hand",
           "when": [
             {
-              "type": "flag_is",
-              "flag": "pod_escaped",
-              "value": "true"
-            },
-            {
-              "type": "not_has_item",
-              "item": "stasis_fluid_vial"
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "You cup your hands and scoop up some of the amber fluid. It's warm and viscous, almost alive. You need a container... wait — one of the sample jars from the processing lab would work. Actually, a small amount clings to a curved pod fragment, enough to seal in the shard itself. You carefully collect a vial's worth.",
-              "voice": "audio/voice/drainage_hand.mp3"
+              "text": "You cup your hands and try to scoop up the amber fluid. It's warm and viscous, almost alive — but it slips through your fingers, too thick to hold bare-handed. You'd need some kind of container. The processing lab down the corridor might have something."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The channel is mostly drained now. A thin film of amber residue clings to the groove, but nothing worth collecting."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "empty_sample_jar",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You dip the sample jar into the amber fluid. It fills quickly — the stasis compound is thick and clings to the jar's bio-organic walls like it belongs there. The jar seals itself shut with a soft click, some residual mechanism recognizing its purpose. The fluid shimmers faintly inside, still biologically active."
+            },
+            {
+              "type": "remove_item",
+              "item": "empty_sample_jar"
             },
             {
               "type": "add_item",
@@ -5607,7 +5697,7 @@
             {
               "type": "set_animation",
               "object": "pod_drainage_channel",
-              "value": ""
+              "animation": null
             }
           ]
         },
@@ -5960,11 +6050,31 @@
       },
       "visual": {
         "color": "#3a4a3a",
-        "label": "Jars"
+        "label": "Jars",
+        "animation": "glimmer"
       },
       "initial_state": "default",
       "initially_visible": true,
       "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Dozens of sealed jars containing biological samples — tissue, fluid, organs. Each is labeled with the same alien notation you've seen on the pods. Some samples are recognizable (a heart, an eye), others are abstract shapes in fluid. Your stomach turns. One jar on the lower shelf is empty — its seal cracked open, contents long since evaporated."
+            }
+          ]
+        },
         {
           "verb": "look",
           "when": [],
@@ -5972,6 +6082,34 @@
             {
               "type": "message",
               "text": "Dozens of sealed jars containing biological samples — tissue, fluid, organs. Each is labeled with the same alien notation you've seen on the pods. Some samples are recognizable (a heart, an eye), others are abstract shapes in fluid. Your stomach turns."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "flag_not",
+              "flag": "stasis_fluid_collected"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Most of the jars are sealed tight with bio-organic resin — you'd need tools to open them. But one on the lower shelf is already cracked open, its contents dried to a crust. You pry it free. The jar itself is intact. Could be useful for collecting samples."
+            },
+            {
+              "type": "add_item",
+              "item": "empty_sample_jar"
+            },
+            {
+              "type": "set_animation",
+              "object": "sample_jars",
+              "animation": null
             }
           ]
         },
