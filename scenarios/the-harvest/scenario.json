@@ -7039,8 +7039,8 @@
       },
       "sprite": {
         "file": "sprites/nutrient_dispenser.png",
-        "frame_width": 860,
-        "frame_height": 1191,
+        "frame_width": 444,
+        "frame_height": 744,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
