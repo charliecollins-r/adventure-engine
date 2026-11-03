@@ -932,7 +932,14 @@
         "y": 637,
         "facing": "right",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -6949,12 +6956,12 @@
       "name": "Nutrient Dispenser",
       "description": "An automated dispenser that drips grey nutrient paste into troughs at regular intervals.",
       "position": {
-        "x": 509,
-        "y": 355
+        "x": 544,
+        "y": 429
       },
       "size": {
-        "width": 70,
-        "height": 98
+        "width": 52,
+        "height": 120
       },
       "visual": {
         "color": "#4a4a3a",
@@ -23115,8 +23122,8 @@
         "y": 490
       },
       "size": {
-        "width": 99,
-        "height": 173
+        "width": 112,
+        "height": 104
       },
       "visual": {
         "color": "#3a2a4a",
