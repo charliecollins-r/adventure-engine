@@ -19240,12 +19240,12 @@
       "name": "Organic Wall Growth",
       "description": "A patch of bioluminescent growth that has spread across the lab wall since you were last here.",
       "position": {
-        "x": 465,
-        "y": 150
+        "x": 377,
+        "y": 542
       },
       "size": {
-        "width": 104,
-        "height": 128
+        "width": 75,
+        "height": 161
       },
       "visual": {
         "color": "#1a3a1a",
