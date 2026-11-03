@@ -1648,7 +1648,8 @@
         "sec_closeup_lever",
         "sec_closeup_drawer",
         "sec_closeup_monitor",
-        "sec_closeup_status"
+        "sec_closeup_status",
+        "sec_closeup_override_button"
       ],
       "background_key": "act1_security_closeup",
       "background_file": "closeups/security_console.webp",
@@ -7297,7 +7298,27 @@
           "then": [
             {
               "type": "message",
-              "text": "The main security console — bio-organic buttons arranged in a semicircle around a central display. Surveillance feeds from across the containment deck flicker on damaged screens. One screen clearly shows a tall, methodical figure moving through corridors. Some kind of overseer, making its rounds. The console is in standby mode, awaiting an activation sequence."
+              "text": "You lean in to examine the security console up close..."
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "terminal_unlocked",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "sec_closeup_override_button"
+                }
+              ]
+            },
+            {
+              "type": "set_view",
+              "view": "act1_security_closeup"
             }
           ]
         },
@@ -7318,20 +7339,6 @@
             {
               "type": "message",
               "text": "You mutter the alien symbols on the display under your breath. None of them resolve into anything meaningful, but a few recur — status codes, maybe. Or countdown timers."
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You lean over the console, studying its controls up close..."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_security_closeup"
             }
           ]
         }
@@ -24319,6 +24326,90 @@
           "when": [],
           "response": "You read the alien symbols aloud, trying to sound out the Choir's language. It sounds like grinding stones. Nothing responds.",
           "then": []
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "sec_closeup_override_button",
+      "name": "Emergency Override",
+      "description": "A red emergency button that appeared after the ship's processing terminal was accessed.",
+      "position": {
+        "x": 82,
+        "y": 446
+      },
+      "size": {
+        "width": 80,
+        "height": 90
+      },
+      "visual": {
+        "color": "rgba(200, 50, 50, 0.3)",
+        "label": "Override"
+      },
+      "sprite": {
+        "file": "sprites/override_button.png",
+        "frame_width": 99,
+        "frame_height": 114,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.7
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A red emergency override button — it wasn't glowing before. Accessing the processing terminal must have activated emergency protocols across the ship's network. The medic cross symbol suggests this is a containment safety override. Press it to disengage the deck's containment locks."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press the emergency override button. It sinks into the console with a wet click — and across the deck, containment locks disengage with a series of heavy thunks. Every secured door, every grated vent, every sealed passage on this level just opened. The surveillance feeds flicker. Whatever patrols these corridors will notice. But every path forward is now open."
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "add_noise",
+              "amount": 20
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "response": "The override button is dark now — all containment locks are already disengaged. There's nothing left to override."
+        },
+        {
+          "verb": "talk",
+          "response": "It's a button. It doesn't talk back."
         }
       ],
       "hiding_spot": false
