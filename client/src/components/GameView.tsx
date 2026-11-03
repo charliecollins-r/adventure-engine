@@ -234,6 +234,7 @@ export function GameView({
           scaleY={SCALE_Y}
           cursor={cursor}
           onObjectClick={onObjectClick}
+          equippedOverlays={engine.getEquippedOverlays()}
         />
       )}
 

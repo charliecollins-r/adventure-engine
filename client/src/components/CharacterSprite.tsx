@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
-import type { CharacterConfig, CharacterPlacement } from '../engine/types';
+import type { CharacterConfig, CharacterPlacement, WearableOverlay } from '../engine/types';
 import { resolveAsset } from '../engine/assetResolver';
+
+interface EquippedOverlay {
+  itemId: string;
+  overlay: WearableOverlay;
+}
 
 interface CharacterSpriteProps {
   config: CharacterConfig;
@@ -10,6 +15,7 @@ interface CharacterSpriteProps {
   scaleY: number;
   cursor?: string;
   onObjectClick?: (objectId: string) => void;
+  equippedOverlays?: EquippedOverlay[];
 }
 
 export function CharacterSprite({
@@ -20,6 +26,7 @@ export function CharacterSprite({
   scaleY,
   cursor,
   onObjectClick,
+  equippedOverlays,
 }: CharacterSpriteProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -111,10 +118,34 @@ export function CharacterSprite({
     zIndex: 4,
   } : null;
 
+  const overlayElements = (equippedOverlays ?? []).map(({ itemId, overlay }) => {
+    const oScale = (overlay.scale ?? 1) * scale;
+    const oW = overlay.frame_width * oScale;
+    const oH = overlay.frame_height * oScale;
+    const oLeft = screenX - (renderW / 2) + (overlay.offset_x * scale);
+    const oTop = screenY - renderH + (overlay.offset_y * scale);
+    const overlayStyle: CSSProperties = {
+      position: 'absolute',
+      left: `${oLeft}px`,
+      top: `${oTop}px`,
+      width: `${oW}px`,
+      height: `${oH}px`,
+      backgroundImage: `url(${resolveAsset(scenarioId, overlay.sprite_file)})`,
+      backgroundSize: `${oW}px ${oH}px`,
+      backgroundRepeat: 'no-repeat',
+      imageRendering: 'pixelated',
+      pointerEvents: 'none',
+      zIndex: 6,
+      transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
+    };
+    return <div key={itemId} style={overlayStyle} />;
+  });
+
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
       <div data-object-hotspot style={style} onClick={handleClick} />
+      {overlayElements}
     </>
   );
 }

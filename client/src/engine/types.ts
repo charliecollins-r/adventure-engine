@@ -175,6 +175,17 @@ export interface ItemExamine {
   then: Effect[];
 }
 
+export interface WearableOverlay {
+  slot: string;
+  sprite_file: string;
+  frame_width: number;
+  frame_height: number;
+  offset_x: number;
+  offset_y: number;
+  scale?: number;
+  auto_equip?: boolean;
+}
+
 export interface Item {
   id: string;
   name: string;
@@ -182,6 +193,7 @@ export interface Item {
   icon: string;
   icon_file?: string;
   examine: ItemExamine[];
+  wearable?: WearableOverlay;
 }
 
 export interface Combination {

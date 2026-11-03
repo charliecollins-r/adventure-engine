@@ -699,8 +699,8 @@
         }
       ],
       "character": {
-        "x": 481,
-        "y": 581,
+        "x": 478,
+        "y": 563,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self",
@@ -709,7 +709,7 @@
           "height": 12,
           "color": "rgba(0,0,0,0.7)",
           "opacity": 0.85,
-          "offset_y": 2
+          "offset_y": -2
         }
       },
       "ambient_lighting": {
@@ -4017,7 +4017,17 @@
           ]
         }
       ],
-      "icon_file": "items/emergency_suit_helmet.png"
+      "icon_file": "items/emergency_suit_helmet.png",
+      "wearable": {
+        "slot": "head",
+        "sprite_file": "sprites/helmet_overlay.png",
+        "frame_width": 80,
+        "frame_height": 90,
+        "offset_x": 110,
+        "offset_y": 10,
+        "scale": 1,
+        "auto_equip": true
+      }
     },
     {
       "id": "ventilation_map",
@@ -5468,12 +5478,12 @@
       "name": "Shadow Cat",
       "description": "A small black cat with glowing purple-amber eyes. It shouldn't be here. Nothing like this should exist on an alien harvester ship.",
       "position": {
-        "x": 654,
-        "y": 583
+        "x": 724,
+        "y": 641
       },
       "size": {
-        "width": 63,
-        "height": 100
+        "width": 27,
+        "height": 46
       },
       "visual": {
         "color": "transparent",
@@ -5487,6 +5497,13 @@
         "rows": 1,
         "frame_rate": 2,
         "scale": 0.1
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": -2,
+        "opacity": 1,
+        "width": 60,
+        "height": 8
       },
       "initial_state": "default",
       "initially_visible": false,
@@ -19068,12 +19085,12 @@
       "name": "Drag Marks",
       "description": "Deep scratches and dark stains on the lab floor — something was dragged across the processing area recently.",
       "position": {
-        "x": 350,
-        "y": 580
+        "x": 520,
+        "y": 544
       },
       "size": {
         "width": 170,
-        "height": 130
+        "height": 116
       },
       "visual": {
         "color": "#3a1a1a",
@@ -19127,8 +19144,8 @@
         "y": 464
       },
       "size": {
-        "width": 106,
-        "height": 102
+        "width": 129,
+        "height": 176
       },
       "visual": {
         "color": "#2a1a1a",
@@ -19139,9 +19156,9 @@
         "file": "sprites/emergency_panel.png",
         "frame_width": 561,
         "frame_height": 573,
-        "columns": 2,
+        "columns": 1,
         "rows": 1,
-        "frame_rate": 2,
+        "frame_rate": 0,
         "scale": 0.23
       },
       "initial_state": "default",
@@ -19200,12 +19217,12 @@
       "name": "Organic Wall Growth",
       "description": "A patch of bioluminescent growth that has spread across the lab wall since you were last here.",
       "position": {
-        "x": 600,
-        "y": 250
+        "x": 465,
+        "y": 150
       },
       "size": {
-        "width": 100,
-        "height": 90
+        "width": 104,
+        "height": 128
       },
       "visual": {
         "color": "#1a3a1a",
@@ -20252,12 +20269,12 @@
       "name": "Ventilation Grate",
       "description": "A heavy metal grate bolted to the floor. Warm air pulses up through the slats in rhythmic gusts.",
       "position": {
-        "x": 60,
-        "y": 330
+        "x": 480,
+        "y": 592
       },
       "size": {
-        "width": 116,
-        "height": 106
+        "width": 90,
+        "height": 73
       },
       "visual": {
         "color": "rgba(100, 80, 60, 0.3)",
@@ -26373,6 +26390,10 @@
               "type": "set_animation",
               "object": "emergency_cabinet",
               "value": ""
+            },
+            {
+              "type": "hide_object",
+              "object": "emergency_cabinet"
             }
           ]
         },

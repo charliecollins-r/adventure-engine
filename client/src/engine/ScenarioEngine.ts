@@ -31,6 +31,7 @@ export class ScenarioEngine {
   private _pendingSounds: string[];
   private _dialoguePrompt: string | null;
   private _dialogueChoices: DialogueChoice[];
+  private equippedItems: Map<string, string>;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -54,6 +55,7 @@ export class ScenarioEngine {
     this._pendingSounds = [];
     this._dialoguePrompt = null;
     this._dialogueChoices = [];
+    this.equippedItems = new Map();
 
     this.objectIndex = new Map();
     for (const obj of scenario.objects) {
@@ -141,6 +143,21 @@ export class ScenarioEngine {
 
   getInventoryIds(): string[] {
     return [...this.inventory];
+  }
+
+  getEquippedItems(): Map<string, string> {
+    return new Map(this.equippedItems);
+  }
+
+  getEquippedOverlays(): { itemId: string; overlay: import('./types').WearableOverlay }[] {
+    const overlays: { itemId: string; overlay: import('./types').WearableOverlay }[] = [];
+    for (const [, itemId] of this.equippedItems) {
+      const item = this.itemIndex.get(itemId);
+      if (item?.wearable) {
+        overlays.push({ itemId, overlay: item.wearable });
+      }
+    }
+    return overlays;
   }
 
   getFlags(): Readonly<Record<string, string>> {
@@ -538,12 +555,42 @@ export class ScenarioEngine {
         case 'add_item':
           if (e.item && !this.inventory.includes(e.item)) {
             this.inventory.push(e.item);
+            const itemDef = this.itemIndex.get(e.item);
+            if (itemDef?.wearable?.auto_equip) {
+              this.equippedItems.set(itemDef.wearable.slot, e.item);
+            }
           }
           break;
 
         case 'remove_item':
           if (e.item) {
             this.inventory = this.inventory.filter(id => id !== e.item);
+            for (const [slot, itemId] of this.equippedItems) {
+              if (itemId === e.item) {
+                this.equippedItems.delete(slot);
+                break;
+              }
+            }
+          }
+          break;
+
+        case 'equip_item':
+          if (e.item && this.inventory.includes(e.item)) {
+            const eqItem = this.itemIndex.get(e.item);
+            if (eqItem?.wearable) {
+              this.equippedItems.set(eqItem.wearable.slot, e.item);
+            }
+          }
+          break;
+
+        case 'unequip_item':
+          if (e.item) {
+            for (const [slot, itemId] of this.equippedItems) {
+              if (itemId === e.item) {
+                this.equippedItems.delete(slot);
+                break;
+              }
+            }
           }
           break;
 
