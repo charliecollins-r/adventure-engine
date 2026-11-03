@@ -19533,6 +19533,15 @@
         "color": "#3a3a4a",
         "label": "Hatch"
       },
+      "sprite": {
+        "file": "sprites/maintenance_hatch.png",
+        "frame_width": 621,
+        "frame_height": 703,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.22
+      },
       "initial_state": "sealed",
       "initially_visible": true,
       "interactions": [
