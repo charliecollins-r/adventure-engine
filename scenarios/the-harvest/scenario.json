@@ -6257,7 +6257,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "flag_not",
@@ -6282,7 +6282,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "flag_is",
@@ -6293,7 +6293,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach toward the terminal's alien keypads, leaning in to get a closer look..."
+              "text": "You lean in to study the terminal's alien keypads up close..."
             },
             {
               "type": "set_view",
@@ -7319,7 +7319,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [],
           "then": [
             {
@@ -7805,7 +7805,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "flag_not",
@@ -7815,7 +7815,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You lean closer to the robot's specimen jars, studying the data plates. Alien script you can't read \u2014 but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The first four digits are identical. That's not a specimen ID \u2014 it's a section code. A code like that must open something on this ship. This could be the access code."
+              "text": "You lean closer to study the robot's specimen jars and data plates. Alien script you can't read \u2014 but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful."
             },
             {
               "type": "set_flag",
@@ -7829,7 +7829,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "flag_is",
@@ -7840,7 +7840,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code from the specimen plates. Best not to disturb the robot further."
+              "text": "You've already noted the section code from the specimen plates. The robot continues its methodical cataloguing, oblivious to your presence."
             }
           ]
         },
@@ -13080,7 +13080,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [],
           "then": [
             {
@@ -13370,12 +13370,12 @@
           "noise": 4
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [],
           "then": [
             {
               "type": "message",
-              "text": "You manipulate the holographic displays but can't read the annotations. The diagrams alone show component shapes and positions, but without translation you're guessing at the assembly order."
+              "text": "You study the holographic displays but can't read the annotations. The diagrams alone show component shapes and positions, but without translation you're guessing at the assembly order."
             }
           ],
           "noise": 4
@@ -18940,7 +18940,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "object_state",
@@ -19031,12 +19031,12 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [],
           "then": [
             {
               "type": "message",
-              "text": "You carefully examine the remains. The bones are old and dry \u2014 this escape attempt happened long before yours. Among the bones you find scraps of the same organic material your pod was made of. They broke out the same way you did. But they didn't get far enough."
+              "text": "You examine the remains carefully. The bones are old and dry \u2014 this escape attempt happened long before yours. Among the bones you find scraps of the same organic material your pod was made of. They broke free too. They just didn't make it."
             }
           ]
         },
@@ -22747,12 +22747,12 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [],
           "then": [
             {
               "type": "message",
-              "text": "You swipe through the holographic display. More species \u2014 dozens of them, each mapped in clinical detail. Your entry has a small symbol in the corner that matches the labels on the pods. A specimen number."
+              "text": "You study the holographic display. More species \u2014 dozens of them, each mapped in clinical detail. Your entry has a small symbol in the corner that matches the labels on the pods. A specimen number. You've been catalogued."
             }
           ]
         },
@@ -24442,7 +24442,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "has_item",
@@ -24516,7 +24516,7 @@
           ]
         },
         {
-          "verb": "hand",
+          "verb": "look",
           "when": [
             {
               "type": "has_item",
