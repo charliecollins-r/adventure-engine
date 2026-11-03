@@ -19494,13 +19494,13 @@
         }
       ],
       "sprite": {
-        "file": "sprites/old_remains.png",
-        "frame_width": 1255,
-        "frame_height": 661,
+        "file": "sprites/vent_old_remains.png",
+        "frame_width": 690,
+        "frame_height": 423,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.09
+        "scale": 0.16
       }
     },
     {
