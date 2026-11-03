@@ -111,13 +111,11 @@ const styles: Record<string, CSSProperties> = {
     padding: '0 4px',
   },
   inventoryTab: {
-    pointerEvents: 'auto' as const,
     padding: '3px 12px',
     fontSize: '11px',
     fontFamily: 'monospace',
-    backgroundColor: 'rgba(13, 13, 10, 0.6)',
+    backgroundColor: 'transparent',
     border: 'none',
-    borderRadius: '0 0 3px 3px',
     cursor: 'pointer',
     letterSpacing: '1px',
     transition: 'color 0.2s ease',
@@ -392,16 +390,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleObjectClick = useCallback(
     (objectId: string) => {
+      const invBefore = new Set(engine.getInventory().map((i) => i.id));
       if (selectedItem) {
         engine.interact(objectId, 'use_item', selectedItem);
         setSelectedItem(null);
       } else {
         engine.interact(objectId, activeVerb);
       }
+      const invAfter = new Set(engine.getInventory().map((i) => i.id));
+      const itemConsumed = [...invBefore].some((id) => !invAfter.has(id));
+      const itemTransformed = [...invAfter].some((id) => !invBefore.has(id));
+      if (itemConsumed || itemTransformed) {
+        const useSound = scenario.setting.sounds?.item_pickup;
+        if (useSound) playSound(useSound);
+      }
       playPendingSounds();
       bump();
     },
-    [engine, activeVerb, selectedItem, bump, playPendingSounds],
+    [engine, activeVerb, selectedItem, bump, playPendingSounds, playSound, scenario],
   );
 
   const handleEmptyClick = useCallback(() => {
@@ -663,47 +669,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onNavigateBack={handleNavigateBack}
         />
 
-        {/* Bottom HUD overlay */}
+        {/* Bottom HUD overlay — hint button only */}
         <div style={styles.bottomHud}>
-          {/* Collapsible inventory tray */}
-          <div
-            style={{
-              overflow: 'hidden',
-              maxHeight: inventoryOpen ? '54px' : '0',
-              transition: 'max-height 0.3s ease',
-              pointerEvents: 'auto' as const,
-              backgroundColor: 'rgba(13, 13, 10, 0.92)',
-              backdropFilter: 'blur(4px)',
-              borderTop: inventoryOpen ? '1px solid rgba(42, 32, 24, 0.4)' : 'none',
-            }}
-          >
-            <InventoryPanel
-              items={inventory}
-              selectedItem={selectedItem}
-              scenarioId={scenario.metadata.id}
-              onItemSelect={handleItemSelect}
-              onItemExamine={handleItemExamine}
-            />
-          </div>
-
-          {/* Tab row: inventory toggle + hint */}
           <div style={styles.tabRow}>
-            <button
-              style={{
-                ...styles.inventoryTab,
-                color: inventoryOpen ? '#c0a030' : '#5a4a30',
-              }}
-              onClick={() => setInventoryOpen((o) => !o)}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.color = '#c0a030';
-              }}
-              onMouseLeave={(e) => {
-                if (!inventoryOpen) (e.target as HTMLElement).style.color = '#5a4a30';
-              }}
-            >
-              {inventoryOpen ? '▾' : '▸'} Items
-              {inventory.length > 0 ? ` (${inventory.length})` : ''}
-            </button>
+            <div />
             <button
               style={{ ...styles.hintTab, color: '#5a4a30' }}
               onClick={handleHint}
@@ -723,19 +692,65 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} durationMs={fadeDurationMs} />}
       </div>
 
-      {/* Text feedback below viewport */}
-      {messages.length > 0 ? (
-        <div style={styles.messagePanel} onClick={handleDismiss}>
-          {messages.map((msg, i) => (
-            <p key={i} style={styles.messageText}>
-              {msg}
-            </p>
-          ))}
-          <div style={styles.dismissHint}>click to dismiss</div>
+      {/* Inventory + text feedback below viewport */}
+      <div style={{ width: '960px', backgroundColor: '#0d0d0a' }}>
+        {/* Inventory toggle tab */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0 4px',
+          borderTop: '1px solid #2a2018',
+        }}>
+          <button
+            style={{
+              ...styles.inventoryTab,
+              color: inventoryOpen ? '#c0a030' : '#5a4a30',
+            }}
+            onClick={() => setInventoryOpen((o) => !o)}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.color = '#c0a030';
+            }}
+            onMouseLeave={(e) => {
+              if (!inventoryOpen) (e.target as HTMLElement).style.color = '#5a4a30';
+            }}
+          >
+            {inventoryOpen ? '▾' : '▸'} Items
+            {inventory.length > 0 ? ` (${inventory.length})` : ''}
+          </button>
         </div>
-      ) : ambientText ? (
-        <div style={styles.ambientPanel}>{ambientText}</div>
-      ) : null}
+        {/* Collapsible inventory tray */}
+        <div
+          style={{
+            overflow: 'hidden',
+            maxHeight: inventoryOpen ? '54px' : '0',
+            transition: 'max-height 0.3s ease',
+            backgroundColor: '#0d0d0a',
+            borderBottom: inventoryOpen ? '1px solid rgba(42, 32, 24, 0.4)' : 'none',
+          }}
+        >
+          <InventoryPanel
+            items={inventory}
+            selectedItem={selectedItem}
+            scenarioId={scenario.metadata.id}
+            onItemSelect={handleItemSelect}
+            onItemExamine={handleItemExamine}
+          />
+        </div>
+        {/* Messages or ambient text */}
+        {messages.length > 0 ? (
+          <div style={{ ...styles.messagePanel, width: '100%' }} onClick={handleDismiss}>
+            {messages.map((msg, i) => (
+              <p key={i} style={styles.messageText}>
+                {msg}
+              </p>
+            ))}
+            <div style={styles.dismissHint}>click to dismiss</div>
+          </div>
+        ) : ambientText ? (
+          <div style={{ ...styles.ambientPanel, width: '100%' }}>{ambientText}</div>
+        ) : null}
+      </div>
 
       {/* Closeup overlay */}
       {closeupImage && (
