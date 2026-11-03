@@ -95,6 +95,9 @@
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   /* Hotspot boxes */
@@ -745,9 +748,11 @@ function loadView(viewId) {
   const view = scenario.views.find(v => v.id === viewId);
   if (!view) return;
 
-  // Background
+  // Background — respect background_fit from the view JSON (default: cover)
   const bgFile = view.background_file || `backgrounds/${view.background_key}.webp`;
-  document.getElementById('bgImage').src = `/scenarios/${scenarioId}/${bgFile}`;
+  const bgImg = document.getElementById('bgImage');
+  bgImg.src = `/scenarios/${scenarioId}/${bgFile}`;
+  bgImg.style.objectFit = view.background_fit || 'cover';
 
   // Objects
   objects = [];
