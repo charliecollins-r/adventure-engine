@@ -24962,7 +24962,7 @@
             {
               "type": "set_animation",
               "object": "fan_mechanism",
-              "animation": "none"
+              "value": ""
             }
           ]
         },
@@ -25701,7 +25701,7 @@
             {
               "type": "set_animation",
               "object": "emergency_cabinet",
-              "animation": "none"
+              "value": ""
             }
           ]
         },
