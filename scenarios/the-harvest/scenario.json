@@ -106,6 +106,26 @@
           "right"
         ],
         "loop": false
+      },
+      "idle_helmet": {
+        "file": "sprites/character_idle_helmet.png",
+        "columns": 2,
+        "rows": 2,
+        "frame_rate": 0,
+        "directions": [
+          "right",
+          "down"
+        ]
+      },
+      "walk_helmet": {
+        "file": "sprites/character_walk_helmet.png",
+        "columns": 4,
+        "rows": 2,
+        "frame_rate": 6,
+        "directions": [
+          "right",
+          "down"
+        ]
       }
     },
     "frame_width": 300,
@@ -4031,17 +4051,7 @@
           ]
         }
       ],
-      "icon_file": "items/emergency_suit_helmet.png",
-      "wearable": {
-        "slot": "head",
-        "sprite_file": "sprites/helmet_overlay.png",
-        "frame_width": 80,
-        "frame_height": 90,
-        "offset_x": 110,
-        "offset_y": 45,
-        "scale": 1,
-        "auto_equip": true
-      }
+      "icon_file": "items/emergency_suit_helmet.png"
     },
     {
       "id": "ventilation_map",
@@ -8554,6 +8564,10 @@
               "type": "set_flag",
               "flag": "emergency_helmet_taken",
               "value": "true"
+            },
+            {
+              "type": "set_character",
+              "sprite_set": "idle_helmet"
             }
           ]
         },
@@ -23977,12 +23991,12 @@
       "name": "Bio-Organic Keypad",
       "description": "A fleshy keypad next to the main display. Four input slots glow faintly, awaiting a code sequence.",
       "position": {
-        "x": 120,
-        "y": 340
+        "x": 23,
+        "y": 277
       },
       "size": {
-        "width": 160,
-        "height": 200
+        "width": 140,
+        "height": 256
       },
       "visual": {
         "color": "#3a4a5a",
@@ -24142,8 +24156,8 @@
       "name": "Override Lever",
       "description": "A heavy bio-mechanical lever behind a protective membrane. The main containment override.",
       "position": {
-        "x": 350,
-        "y": 280
+        "x": 803,
+        "y": 249
       },
       "size": {
         "width": 120,
@@ -24304,12 +24318,12 @@
       "name": "Key Card Drawer",
       "description": "A small drawer beneath the console, jammed partially open. Key cards glint inside.",
       "position": {
-        "x": 550,
-        "y": 430
+        "x": 904,
+        "y": -23
       },
       "size": {
-        "width": 150,
-        "height": 100
+        "width": 116,
+        "height": 171
       },
       "visual": {
         "color": "#3a3a3a",
@@ -24398,12 +24412,12 @@
       "name": "Surveillance Feeds",
       "description": "Multiple screens showing surveillance feeds from across the containment deck.",
       "position": {
-        "x": 500,
-        "y": 60
+        "x": 595,
+        "y": 328
       },
       "size": {
-        "width": 380,
-        "height": 280
+        "width": 208,
+        "height": 171
       },
       "visual": {
         "color": "#2a3a4a",
@@ -24493,12 +24507,12 @@
       "name": "System Status Display",
       "description": "A readout showing the current status of the containment deck's systems.",
       "position": {
-        "x": 60,
-        "y": 60
+        "x": 117,
+        "y": 149
       },
       "size": {
-        "width": 250,
-        "height": 220
+        "width": 249,
+        "height": 131
       },
       "visual": {
         "color": "#2a4a3a",
@@ -24571,12 +24585,12 @@
       "name": "Emergency Override",
       "description": "A red emergency button that appeared after the ship's processing terminal was accessed.",
       "position": {
-        "x": 82,
-        "y": 446
+        "x": 116,
+        "y": 505
       },
       "size": {
-        "width": 80,
-        "height": 90
+        "width": 69,
+        "height": 106
       },
       "visual": {
         "color": "rgba(200, 50, 50, 0.3)",
@@ -26448,6 +26462,10 @@
               "type": "set_flag",
               "flag": "emergency_helmet_taken",
               "value": "true"
+            },
+            {
+              "type": "set_character",
+              "sprite_set": "idle_helmet"
             },
             {
               "type": "set_animation",
