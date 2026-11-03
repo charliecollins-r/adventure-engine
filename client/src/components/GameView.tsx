@@ -87,6 +87,7 @@ function objectHotspotStyle(
     cursor,
     transition: 'border-color 0.15s ease',
     boxSizing: 'border-box',
+    outline: 'none',
   };
   if (debugMode) {
     base.border = `2px solid ${isNav ? 'rgba(220,50,50,0.7)' : 'rgba(192,160,48,0.4)'}`;

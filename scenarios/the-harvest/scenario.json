@@ -537,7 +537,14 @@
         "y": 594,
         "facing": "down",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -5950,12 +5957,12 @@
       "name": "Surgical Instrument Rack",
       "description": "A rack of alien surgical tools — curved bone-like instruments, probes, and extractors.",
       "position": {
-        "x": 604,
-        "y": 406
+        "x": 714,
+        "y": 448
       },
       "size": {
-        "width": 132,
-        "height": 63
+        "width": 37,
+        "height": 22
       },
       "visual": {
         "color": "#3a3a4a",
@@ -5970,6 +5977,13 @@
         "rows": 1,
         "frame_rate": 0,
         "scale": 0.03
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": -2,
+        "opacity": 0.7,
+        "width": 60,
+        "height": 10
       },
       "initial_state": "default",
       "initially_visible": true,

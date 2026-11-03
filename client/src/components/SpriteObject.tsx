@@ -67,6 +67,7 @@ export function SpriteObject({
     pointerEvents: 'auto',
     zIndex: 4,
     cursor,
+    outline: 'none',
   };
 
   const shColor = shadow?.color ?? 'rgba(0,0,0,0.5)';
