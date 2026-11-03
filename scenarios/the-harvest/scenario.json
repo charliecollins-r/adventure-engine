@@ -6227,7 +6227,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye — it's showing a startup sequence, a series of bio-organic buttons pressed in a specific order. Five steps, specific timing. You watch the loop repeat twice and commit the pattern to memory. This is some kind of activation procedure — the ship's crew trains its machines with these demonstration loops."
+              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye — a startup sequence, bio-organic buttons pressed in a specific order. Five steps, specific timing. You commit the pattern to memory and lean in closer..."
             },
             {
               "type": "play_sound",
@@ -6242,55 +6242,10 @@
               "type": "set_animation",
               "object": "lab_startup_display",
               "value": ""
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The main screen shows a detailed alien organism diagram with alien text annotations. Below it, three keypads with alien characters glow faintly. You lean in closer to examine the terminal..."
             },
             {
               "type": "set_view",
               "view": "act1_lab_terminal_closeup"
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You study the startup sequence carefully, memorizing the pattern of button presses. Five steps, specific order, specific timing. This is a console activation sequence — you're sure of it. The Choir trains its drones using these demonstration loops."
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_sequence_known",
-              "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "lab_startup_display",
-              "value": ""
             }
           ]
         },
