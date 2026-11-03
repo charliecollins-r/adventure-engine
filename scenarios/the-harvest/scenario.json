@@ -19246,12 +19246,12 @@
       },
       "sprite": {
         "file": "sprites/organic_growth.png",
-        "frame_width": 345,
-        "frame_height": 319,
+        "frame_width": 339,
+        "frame_height": 548,
         "columns": 4,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 0.3
+        "scale": 0.22
       },
       "initial_state": "default",
       "initially_visible": false,
