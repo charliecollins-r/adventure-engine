@@ -127,6 +127,7 @@
         "broken_pod",
         "pod_drainage_channel",
         "occupied_pods",
+        "platform_gap",
         "cataloguer_robot",
         "specimen_tag_hook",
         "walkway_railing",
@@ -3599,6 +3600,7 @@
     "pod_glass_taken": "false",
     "stasis_fluid_collected": "false",
     "specimen_tag_taken": "false",
+    "gap_crossed": "false",
     "lab_code_known": "false",
     "lab_accessed": "false",
     "surgical_probe_taken": "false",
@@ -7792,53 +7794,39 @@
           "when": [
             {
               "type": "flag_not",
-              "flag": "lab_code_known"
+              "flag": "gap_crossed"
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "A biomechanical spider-drone clings to the wall among the pods, methodically scanning and cataloguing specimens. Its amber jars hold preserved creatures. The data plates on each jar catch your eye — numerical readouts alongside alien script. The numbers might be readable...",
+              "text": "A biomechanical spider-drone clings to the far wall among the pods, methodically scanning specimens. Its amber jars hold preserved creatures — the data plates on each one catch your eye, numerical readouts alongside alien script. But it's on the other side of that gap in the walkway. You can't get close enough to read anything from here."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "lab_code_known"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Now that you're close, you can see the data plates clearly. Alien script you can't read — but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful.",
               "voice": "audio/voice/robot_look_first.mp3"
-            },
-            {
-              "type": "set_view",
-              "view": "act1_cataloguer_closeup"
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "lab_code_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The cataloguer robot continues its work, oblivious. You've already noted the section code from its specimen plates — 7-3-1-9."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_cataloguer_closeup"
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "flag_not",
-              "flag": "lab_code_known"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You lean closer to study the robot's specimen jars and data plates. Alien script you can't read — but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful."
             },
             {
               "type": "play_sound",
@@ -7859,15 +7847,29 @@
           "verb": "look",
           "when": [
             {
-              "type": "flag_is",
-              "flag": "lab_code_known",
-              "value": "true"
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "lab_code_known",
+                  "value": "true"
+                }
+              ]
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code from the specimen plates. The robot continues its methodical cataloguing, oblivious to your presence."
+              "text": "You've already noted the section code from the specimen plates — 7-3-1-9."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
             }
           ]
         },
@@ -23018,6 +23020,167 @@
         }
       ],
       "description": "The ventilation hatch you came through, in the ceiling above."
+    },
+    {
+      "id": "platform_gap",
+      "name": "Torn Railing",
+      "description": "A section of walkway railing has been torn away, leaving a gap over the drainage pit below. Organic conduits run along the ceiling above.",
+      "position": {
+        "x": 580,
+        "y": 400
+      },
+      "size": {
+        "width": 140,
+        "height": 200
+      },
+      "visual": {
+        "color": "rgba(80, 30, 30, 0.2)",
+        "label": "Gap"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The walkway railing is torn apart here — twisted metal and shredded organic cabling hanging over a gap. Below, the drainage pit drops into darkness. Above, thick conduits run along the ceiling toward the cataloguer's alcove. The gap is too wide to step across, but with the right tool you might be able to hook onto those overhead conduits and swing across."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ],
+          "response": "The gap in the walkway. You crossed it once — you can cross it again."
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You brace yourself and leap across the gap. For a moment you're airborne — then your feet hit the far edge. The surface is slick with drainage fluid. Your boots slide. Your hands claw at nothing. You fall backward into the drainage pit, tumbling through the dark until the impact drives the air from your lungs. The last thing you see is the amber fluid closing over your face."
+            },
+            {
+              "type": "game_over",
+              "title": "A Fatal Leap",
+              "message": "You tried to jump across the gap without any way to steady yourself. The wet surface offered no grip. Perhaps you should have found a tool to help you cross safely."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ],
+          "response": "You grab the overhead conduit and swing across the gap again. Easier the second time."
+        },
+        {
+          "verb": "use_item",
+          "item": "surgical_probe",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You extend the surgical probe upward and hook its curved tip around the overhead conduit. It holds. You grip the probe's handle with both hands, kick off the walkway edge, and swing across the gap. Your feet find solid metal on the other side. The conduit groans but supports your weight. You unhook the probe — still intact, still useful. Now you can reach the cataloguer robot and its specimen jars."
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "neural_tendril_sample",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You loop the neural tendril around the stub of torn railing on the far side. The organic fibers grip the metal like a living rope. You test it with your weight — it stretches but holds. You swing across the gap, feet landing on solid walkway. The tendril tightens its grip on the railing, forming a permanent handhold. Now you can reach the cataloguer and its specimen jars."
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "surgical_probe",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ],
+          "response": "You've already crossed the gap. The overhead conduits are within reach now."
+        },
+        {
+          "verb": "use_item",
+          "item": "neural_tendril_sample",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ],
+          "response": "You've already crossed the gap. No need for the tendril."
+        },
+        {
+          "verb": "move",
+          "response": "The gap is too wide to just walk across. You need a way to reach the other side safely."
+        },
+        {
+          "verb": "talk",
+          "response": "You stare into the drainage pit below. It doesn't answer. Neither does the gap."
+        }
+      ],
+      "hiding_spot": false
     },
     {
       "id": "walkway_railing",
