@@ -659,7 +659,10 @@ export class ScenarioEngine {
         }
 
         case 'play_sound':
-          if (e.sound) this._pendingSounds.push(e.sound);
+          if (e.sound) {
+            const resolved = this.scenario.setting.sounds?.[e.sound] ?? e.sound;
+            this._pendingSounds.push(resolved);
+          }
           break;
 
         case 'show_dialogue':

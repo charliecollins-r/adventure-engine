@@ -20,6 +20,8 @@ export interface SoundEffects {
   room_transition?: string;
   item_pickup?: string;
   intro_voice?: string;
+  discovery?: string;
+  [key: string]: string | undefined;
 }
 
 export interface LightSource {
