@@ -435,6 +435,8 @@
         "lab_startup_display",
         "anatomy_display",
         "restraint_straps",
+        "corridor_drag_marks",
+        "corridor_organic_growth",
         "nav_act1_processing_lab_to_act1_containment_corridor"
       ],
       "ambient_audio": "audio/ambient_lab.mp3",
@@ -607,9 +609,7 @@
       "objects": [
         "corridor_pipes",
         "floor_grating",
-        "corridor_drag_marks",
         "corridor_emergency_panel",
-        "corridor_organic_growth",
         "black_cat",
         "nav_act1_containment_corridor_to_act1_stasis_hold",
         "nav_act1_containment_corridor_to_act1_processing_lab",
@@ -5487,11 +5487,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A black cat sits perfectly still, watching you with luminous purple-amber eyes. Its fur shimmers faintly, as if dusted with starlight. How did it get here?"
+          "response": "A black cat sits perfectly still, watching you with luminous purple-amber eyes. Its fur shimmers faintly, as if dusted with starlight. How did it get here?",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You whisper to the cat. It blinks slowly — once, twice — then tilts its head as if considering whether you're worth its time."
+          "response": "You whisper to the cat. It blinks slowly — once, twice — then tilts its head as if considering whether you're worth its time.",
+          "then": []
         },
         {
           "verb": "hand",
@@ -5531,11 +5533,13 @@
               "value": "true"
             }
           ],
-          "response": "The cat is gone. Only the memory of its strange, knowing eyes remains."
+          "response": "The cat is gone. Only the memory of its strange, knowing eyes remains.",
+          "then": []
         },
         {
           "verb": "move",
-          "response": "The cat watches you approach, then vanishes into the shadows before you get close."
+          "response": "The cat watches you approach, then vanishes into the shadows before you get close.",
+          "then": []
         }
       ],
       "shadow": {
@@ -5790,7 +5794,8 @@
         },
         {
           "verb": "hand",
-          "response": "You tap on the nearest pod's surface. The amber fluid inside swirls briefly. The creature within doesn't stir."
+          "response": "You tap on the nearest pod's surface. The amber fluid inside swirls briefly. The creature within doesn't stir.",
+          "then": []
         },
         {
           "verb": "talk",
@@ -6382,7 +6387,8 @@
         },
         {
           "verb": "talk",
-          "response": "You speak to the screen. The alien characters flicker slightly, but the display doesn't respond to your voice. The Choir's systems don't understand your language."
+          "response": "You speak to the screen. The alien characters flicker slightly, but the display doesn't respond to your voice. The Choir's systems don't understand your language.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -6431,7 +6437,8 @@
               "value": "true"
             }
           ],
-          "response": "The keypad glows a steady green — access granted. The terminal is unlocked."
+          "response": "The keypad glows a steady green — access granted. The terminal is unlocked.",
+          "then": []
         },
         {
           "verb": "hand",
@@ -6509,11 +6516,13 @@
               "value": "true"
             }
           ],
-          "response": "The keypad is already showing green — the terminal is unlocked. No need to enter the code again."
+          "response": "The keypad is already showing green — the terminal is unlocked. No need to enter the code again.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The keypad doesn't respond to voice. It needs physical key presses — and the right code."
+          "response": "The keypad doesn't respond to voice. It needs physical key presses — and the right code.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -6579,11 +6588,13 @@
         },
         {
           "verb": "hand",
-          "response": "The monitor's surface is the same bioluminescent membrane as the main screen. Warm, slightly damp. You can't interact with it directly — the keypad controls what it displays."
+          "response": "The monitor's surface is the same bioluminescent membrane as the main screen. Warm, slightly damp. You can't interact with it directly — the keypad controls what it displays.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter at the status display. The alien characters don't change. The processing queue doesn't care about your feelings."
+          "response": "You mutter at the status display. The alien characters don't change. The processing queue doesn't care about your feelings.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -6640,11 +6651,13 @@
         },
         {
           "verb": "hand",
-          "response": "You can't interact with this display directly. The keypad controls all the terminal's screens."
+          "response": "You can't interact with this display directly. The keypad controls all the terminal's screens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "\"Seventeen species from Earth,\" you whisper. The registry scrolls on, indifferent to your horror."
+          "response": "\"Seventeen species from Earth,\" you whisper. The registry scrolls on, indifferent to your horror.",
+          "then": []
         },
         {
           "verb": "use_item",
@@ -7427,7 +7440,8 @@
         {
           "verb": "talk",
           "when": [],
-          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level."
+          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -8718,11 +8732,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Star Map."
+          "response": "You can't move the Star Map.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Star Map yields no response."
+          "response": "Talking to the Star Map yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -8786,15 +8802,18 @@
         },
         {
           "verb": "move",
-          "response": "The Console won't budge."
+          "response": "The Console won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Console. It accomplishes nothing."
+          "response": "You fiddle with the Console. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Console has nothing to say."
+          "response": "The Console has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -8845,15 +8864,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Throne."
+          "response": "You can't move the Throne.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Throne. It yields nothing useful."
+          "response": "You prod the Throne. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Throne. It doesn't answer."
+          "response": "You mutter something at the Throne. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -8894,15 +8916,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Reactor would accomplish nothing."
+          "response": "Moving the Reactor would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Reactor. No reaction."
+          "response": "You poke at the Reactor. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Reactor. Predictably, silence."
+          "response": "You address the Reactor. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -8988,11 +9013,13 @@
         },
         {
           "verb": "move",
-          "response": "The Panel is firmly in place."
+          "response": "The Panel is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Panel. It doesn't answer."
+          "response": "You mutter something at the Panel. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9052,15 +9079,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Coolant would accomplish nothing."
+          "response": "Moving the Coolant would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Coolant. No reaction."
+          "response": "You poke at the Coolant. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Coolant. Predictably, silence."
+          "response": "You address the Coolant. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9115,11 +9145,13 @@
         },
         {
           "verb": "move",
-          "response": "The Toggles is firmly in place."
+          "response": "The Toggles is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Toggles. It doesn't answer."
+          "response": "You mutter something at the Toggles. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9160,15 +9192,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Dish would accomplish nothing."
+          "response": "Moving the Dish would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Dish. No reaction."
+          "response": "You poke at the Dish. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Dish. Predictably, silence."
+          "response": "You address the Dish. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9228,15 +9263,18 @@
         },
         {
           "verb": "move",
-          "response": "The Recorder is firmly in place."
+          "response": "The Recorder is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Recorder. Nothing of interest."
+          "response": "You run your hands over the Recorder. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Recorder. Your words fall flat."
+          "response": "You speak to the Recorder. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9296,15 +9334,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Schematics. It doesn't move."
+          "response": "You strain against the Schematics. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Schematics. Nothing happens."
+          "response": "You touch the Schematics. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Schematics yields no response."
+          "response": "Talking to the Schematics yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9391,11 +9432,13 @@
         },
         {
           "verb": "move",
-          "response": "The Dial won't budge."
+          "response": "The Dial won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Dial. Your words fall flat."
+          "response": "You speak to the Dial. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9460,15 +9503,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Weapons. It doesn't move."
+          "response": "You strain against the Weapons. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Weapons. Nothing happens."
+          "response": "You touch the Weapons. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Weapons yields no response."
+          "response": "Talking to the Weapons yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9504,15 +9550,18 @@
         },
         {
           "verb": "move",
-          "response": "The Workbench won't budge."
+          "response": "The Workbench won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Workbench. It accomplishes nothing."
+          "response": "You fiddle with the Workbench. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Workbench has nothing to say."
+          "response": "The Workbench has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9548,15 +9597,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Gap."
+          "response": "You can't move the Gap.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Gap. It yields nothing useful."
+          "response": "You prod the Gap. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Gap. It doesn't answer."
+          "response": "You mutter something at the Gap. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9625,11 +9677,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Chamber would accomplish nothing."
+          "response": "Moving the Chamber would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Chamber has nothing to say."
+          "response": "The Chamber has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9679,11 +9733,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Dormant."
+          "response": "You can't move the Dormant.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Dormant yields no response."
+          "response": "Talking to the Dormant yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9740,15 +9796,18 @@
         },
         {
           "verb": "move",
-          "response": "The Patterns won't budge."
+          "response": "The Patterns won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Patterns. It accomplishes nothing."
+          "response": "You fiddle with the Patterns. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Patterns has nothing to say."
+          "response": "The Patterns has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9903,15 +9962,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Shuttle."
+          "response": "You can't move the Shuttle.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Shuttle. It yields nothing useful."
+          "response": "You prod the Shuttle. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Shuttle. It doesn't answer."
+          "response": "You mutter something at the Shuttle. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -9971,15 +10033,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Supplies would accomplish nothing."
+          "response": "Moving the Supplies would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Supplies. No reaction."
+          "response": "You poke at the Supplies. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Supplies. Predictably, silence."
+          "response": "You address the Supplies. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10040,11 +10105,13 @@
         },
         {
           "verb": "move",
-          "response": "The Launch is firmly in place."
+          "response": "The Launch is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Launch. It doesn't answer."
+          "response": "You mutter something at the Launch. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10109,15 +10176,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Harvest would accomplish nothing."
+          "response": "Moving the Harvest would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Harvest. No reaction."
+          "response": "You poke at the Harvest. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Harvest. Predictably, silence."
+          "response": "You address the Harvest. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10177,15 +10247,18 @@
         },
         {
           "verb": "move",
-          "response": "The Fibers is firmly in place."
+          "response": "The Fibers is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Fibers. Nothing of interest."
+          "response": "You run your hands over the Fibers. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Fibers. Your words fall flat."
+          "response": "You speak to the Fibers. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10235,11 +10308,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Hungry Plant. It doesn't move."
+          "response": "You strain against the Hungry Plant. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Hungry Plant. Predictably, silence."
+          "response": "You address the Hungry Plant. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10304,11 +10379,13 @@
         },
         {
           "verb": "move",
-          "response": "The Terminal is firmly in place."
+          "response": "The Terminal is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Terminal. It doesn't answer."
+          "response": "You mutter something at the Terminal. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10354,11 +10431,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Brain would accomplish nothing."
+          "response": "Moving the Brain would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Brain. No reaction."
+          "response": "You poke at the Brain. No reaction.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10428,11 +10507,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Drone."
+          "response": "You can't move the Drone.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Drone yields no response."
+          "response": "Talking to the Drone yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10473,15 +10554,18 @@
         },
         {
           "verb": "move",
-          "response": "The Catwalks won't budge."
+          "response": "The Catwalks won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Catwalks. It accomplishes nothing."
+          "response": "You fiddle with the Catwalks. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Catwalks has nothing to say."
+          "response": "The Catwalks has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10517,15 +10601,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Grinders."
+          "response": "You can't move the Grinders.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Grinders. It yields nothing useful."
+          "response": "You prod the Grinders. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Grinders. It doesn't answer."
+          "response": "You mutter something at the Grinders. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10566,15 +10653,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Instruments would accomplish nothing."
+          "response": "Moving the Instruments would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Instruments. No reaction."
+          "response": "You poke at the Instruments. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Instruments. Predictably, silence."
+          "response": "You address the Instruments. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10610,15 +10700,18 @@
         },
         {
           "verb": "move",
-          "response": "The Viewport is firmly in place."
+          "response": "The Viewport is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Viewport. Nothing of interest."
+          "response": "You run your hands over the Viewport. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Viewport. Your words fall flat."
+          "response": "You speak to the Viewport. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10683,15 +10776,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Dashboard. It doesn't move."
+          "response": "You strain against the Dashboard. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Dashboard. Nothing happens."
+          "response": "You touch the Dashboard. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Dashboard yields no response."
+          "response": "Talking to the Dashboard yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10751,15 +10847,18 @@
         },
         {
           "verb": "move",
-          "response": "The Kit won't budge."
+          "response": "The Kit won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Kit. It accomplishes nothing."
+          "response": "You fiddle with the Kit. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Kit has nothing to say."
+          "response": "The Kit has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10795,15 +10894,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Keepsakes."
+          "response": "You can't move the Keepsakes.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Keepsakes. It yields nothing useful."
+          "response": "You prod the Keepsakes. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Keepsakes. It doesn't answer."
+          "response": "You mutter something at the Keepsakes. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10839,15 +10941,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Wreckage would accomplish nothing."
+          "response": "Moving the Wreckage would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Wreckage. No reaction."
+          "response": "You poke at the Wreckage. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Wreckage. Predictably, silence."
+          "response": "You address the Wreckage. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -10912,15 +11017,18 @@
         },
         {
           "verb": "move",
-          "response": "The Minerals is firmly in place."
+          "response": "The Minerals is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Minerals. Nothing of interest."
+          "response": "You run your hands over the Minerals. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Minerals. Your words fall flat."
+          "response": "You speak to the Minerals. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11013,11 +11121,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Spire. It doesn't move."
+          "response": "You strain against the Spire. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Spire. Predictably, silence."
+          "response": "You address the Spire. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11087,15 +11197,18 @@
         },
         {
           "verb": "move",
-          "response": "The Belongings is firmly in place."
+          "response": "The Belongings is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Belongings. Nothing of interest."
+          "response": "You run your hands over the Belongings. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Belongings. Your words fall flat."
+          "response": "You speak to the Belongings. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11214,11 +11327,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Crate. It doesn't move."
+          "response": "You strain against the Crate. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Crate. Predictably, silence."
+          "response": "You address the Crate. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11254,15 +11369,18 @@
         },
         {
           "verb": "move",
-          "response": "The Remains is firmly in place."
+          "response": "The Remains is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Remains. Nothing of interest."
+          "response": "You run your hands over the Remains. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Remains. Your words fall flat."
+          "response": "You speak to the Remains. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11327,15 +11445,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Mushroom. It doesn't move."
+          "response": "You strain against the Mushroom. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Mushroom. Nothing happens."
+          "response": "You touch the Mushroom. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Mushroom yields no response."
+          "response": "Talking to the Mushroom yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11371,15 +11492,18 @@
         },
         {
           "verb": "move",
-          "response": "The Shelter won't budge."
+          "response": "The Shelter won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Shelter. It accomplishes nothing."
+          "response": "You fiddle with the Shelter. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Shelter has nothing to say."
+          "response": "The Shelter has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11435,15 +11559,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Echoes."
+          "response": "You can't move the Echoes.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Echoes. It yields nothing useful."
+          "response": "You prod the Echoes. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Echoes. It doesn't answer."
+          "response": "You mutter something at the Echoes. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11551,11 +11678,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Blast Door would accomplish nothing."
+          "response": "Moving the Blast Door would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Blast Door has nothing to say."
+          "response": "The Blast Door has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11643,15 +11772,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Weapons."
+          "response": "You can't move the Weapons.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Weapons. It yields nothing useful."
+          "response": "You prod the Weapons. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Weapons. It doesn't answer."
+          "response": "You mutter something at the Weapons. It doesn't answer.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11711,15 +11843,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Table would accomplish nothing."
+          "response": "Moving the Table would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Table. No reaction."
+          "response": "You poke at the Table. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Table. Predictably, silence."
+          "response": "You address the Table. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11779,15 +11914,18 @@
         },
         {
           "verb": "move",
-          "response": "The Locker is firmly in place."
+          "response": "The Locker is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Locker. Nothing of interest."
+          "response": "You run your hands over the Locker. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Locker. Your words fall flat."
+          "response": "You speak to the Locker. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11871,11 +12009,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Gate. It doesn't move."
+          "response": "You strain against the Gate. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Gate. Predictably, silence."
+          "response": "You address the Gate. Predictably, silence.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11916,15 +12056,18 @@
         },
         {
           "verb": "move",
-          "response": "The Vista is firmly in place."
+          "response": "The Vista is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Vista. Nothing of interest."
+          "response": "You run your hands over the Vista. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Vista. Your words fall flat."
+          "response": "You speak to the Vista. Your words fall flat.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -11960,15 +12103,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Dead Trees. It doesn't move."
+          "response": "You strain against the Dead Trees. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Dead Trees. Nothing happens."
+          "response": "You touch the Dead Trees. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Dead Trees yields no response."
+          "response": "Talking to the Dead Trees yields no response.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -12004,15 +12150,18 @@
         },
         {
           "verb": "move",
-          "response": "The Crystals won't budge."
+          "response": "The Crystals won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Crystals. It accomplishes nothing."
+          "response": "You fiddle with the Crystals. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Crystals has nothing to say."
+          "response": "The Crystals has nothing to say.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -12060,11 +12209,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Fountain."
+          "response": "You can't move the Fountain.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Fountain yields no response."
+          "response": "Talking to the Fountain yields no response.",
+          "then": []
         }
       ]
     },
@@ -12157,11 +12308,13 @@
         },
         {
           "verb": "move",
-          "response": "The Statue won't budge."
+          "response": "The Statue won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Statue. Your words fall flat."
+          "response": "You speak to the Statue. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -12211,11 +12364,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Table. It doesn't move."
+          "response": "You strain against the Table. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Table. Predictably, silence."
+          "response": "You address the Table. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -12265,11 +12420,13 @@
         },
         {
           "verb": "move",
-          "response": "The Vehicle is firmly in place."
+          "response": "The Vehicle is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Vehicle. It doesn't answer."
+          "response": "You mutter something at the Vehicle. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -12321,11 +12478,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Kiosk would accomplish nothing."
+          "response": "Moving the Kiosk would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Kiosk has nothing to say."
+          "response": "The Kiosk has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -12409,11 +12568,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Echo."
+          "response": "You can't move the Echo.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Echo. It yields nothing useful."
+          "response": "You prod the Echo. It yields nothing useful.",
+          "then": []
         }
       ]
     },
@@ -12449,15 +12610,18 @@
         },
         {
           "verb": "move",
-          "response": "The Archway won't budge."
+          "response": "The Archway won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Archway. It accomplishes nothing."
+          "response": "You fiddle with the Archway. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Archway has nothing to say."
+          "response": "The Archway has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -12510,15 +12674,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Spire."
+          "response": "You can't move the Spire.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Spire. It yields nothing useful."
+          "response": "You prod the Spire. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Spire. It doesn't answer."
+          "response": "You mutter something at the Spire. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -12590,11 +12757,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Crystal Stacks would accomplish nothing."
+          "response": "Moving the Crystal Stacks would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Crystal Stacks has nothing to say."
+          "response": "The Crystal Stacks has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -12662,11 +12831,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Reading Station."
+          "response": "You can't move the Reading Station.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Reading Station yields no response."
+          "response": "Talking to the Reading Station yields no response.",
+          "then": []
         }
       ]
     },
@@ -12726,11 +12897,13 @@
         },
         {
           "verb": "move",
-          "response": "The Index won't budge."
+          "response": "The Index won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Index. Your words fall flat."
+          "response": "You speak to the Index. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -12805,11 +12978,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Restricted. It doesn't move."
+          "response": "You strain against the Restricted. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Restricted. Predictably, silence."
+          "response": "You address the Restricted. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -12859,11 +13034,13 @@
         },
         {
           "verb": "move",
-          "response": "The Alcove is firmly in place."
+          "response": "The Alcove is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Alcove. It doesn't answer."
+          "response": "You mutter something at the Alcove. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -12964,11 +13141,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Tactical Table would accomplish nothing."
+          "response": "Moving the Tactical Table would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Tactical Table has nothing to say."
+          "response": "The Tactical Table has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13004,15 +13183,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Displays."
+          "response": "You can't move the Displays.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Displays. It yields nothing useful."
+          "response": "You prod the Displays. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Displays. It doesn't answer."
+          "response": "You mutter something at the Displays. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -13059,11 +13241,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Comms would accomplish nothing."
+          "response": "Moving the Comms would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Comms has nothing to say."
+          "response": "The Comms has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13119,15 +13303,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Plans."
+          "response": "You can't move the Plans.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Plans. It yields nothing useful."
+          "response": "You prod the Plans. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Plans. It doesn't answer."
+          "response": "You mutter something at the Plans. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -13177,11 +13364,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Locker would accomplish nothing."
+          "response": "Moving the Locker would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Locker has nothing to say."
+          "response": "The Locker has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13217,15 +13406,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Chair."
+          "response": "You can't move the Chair.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Chair. It yields nothing useful."
+          "response": "You prod the Chair. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Chair. It doesn't answer."
+          "response": "You mutter something at the Chair. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -13277,11 +13469,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Prototype would accomplish nothing."
+          "response": "Moving the Prototype would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Prototype has nothing to say."
+          "response": "The Prototype has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13349,11 +13543,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Workstation."
+          "response": "You can't move the Workstation.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Workstation yields no response."
+          "response": "Talking to the Workstation yields no response.",
+          "then": []
         }
       ]
     },
@@ -13409,15 +13605,18 @@
         },
         {
           "verb": "move",
-          "response": "The Schematics won't budge."
+          "response": "The Schematics won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Schematics. It accomplishes nothing."
+          "response": "You fiddle with the Schematics. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Schematics has nothing to say."
+          "response": "The Schematics has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13464,11 +13663,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Containment."
+          "response": "You can't move the Containment.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Containment yields no response."
+          "response": "Talking to the Containment yields no response.",
+          "then": []
         }
       ]
     },
@@ -13524,15 +13725,18 @@
         },
         {
           "verb": "move",
-          "response": "The Equipment won't budge."
+          "response": "The Equipment won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Equipment. It accomplishes nothing."
+          "response": "You fiddle with the Equipment. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Equipment has nothing to say."
+          "response": "The Equipment has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -13582,11 +13786,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Cabinet."
+          "response": "You can't move the Cabinet.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Cabinet yields no response."
+          "response": "Talking to the Cabinet yields no response.",
+          "then": []
         }
       ]
     },
@@ -13636,11 +13842,13 @@
         },
         {
           "verb": "move",
-          "response": "The Doorway won't budge."
+          "response": "The Doorway won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Doorway. Your words fall flat."
+          "response": "You speak to the Doorway. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -13676,15 +13884,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Toys. It doesn't move."
+          "response": "You strain against the Toys. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Toys. Nothing happens."
+          "response": "You touch the Toys. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Toys yields no response."
+          "response": "Talking to the Toys yields no response.",
+          "then": []
         }
       ]
     },
@@ -13740,11 +13951,13 @@
         },
         {
           "verb": "move",
-          "response": "The Luggage won't budge."
+          "response": "The Luggage won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Luggage. Your words fall flat."
+          "response": "You speak to the Luggage. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -13780,15 +13993,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Portraits. It doesn't move."
+          "response": "You strain against the Portraits. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Portraits. Nothing happens."
+          "response": "You touch the Portraits. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Portraits yields no response."
+          "response": "Talking to the Portraits yields no response.",
+          "then": []
         }
       ]
     },
@@ -13878,11 +14094,13 @@
         },
         {
           "verb": "move",
-          "response": "The Echo won't budge."
+          "response": "The Echo won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Echo. It accomplishes nothing."
+          "response": "You fiddle with the Echo. It accomplishes nothing.",
+          "then": []
         }
       ]
     },
@@ -13918,15 +14136,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Meal. It doesn't move."
+          "response": "You strain against the Meal. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Meal. Nothing happens."
+          "response": "You touch the Meal. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Meal yields no response."
+          "response": "Talking to the Meal yields no response.",
+          "then": []
         }
       ]
     },
@@ -13978,11 +14199,13 @@
         },
         {
           "verb": "move",
-          "response": "The Reactor won't budge."
+          "response": "The Reactor won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Reactor. Your words fall flat."
+          "response": "You speak to the Reactor. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -14051,11 +14274,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Power Panel. It doesn't move."
+          "response": "You strain against the Power Panel. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Power Panel. Predictably, silence."
+          "response": "You address the Power Panel. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -14116,11 +14341,13 @@
         },
         {
           "verb": "move",
-          "response": "The Backup is firmly in place."
+          "response": "The Backup is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Backup. It doesn't answer."
+          "response": "You mutter something at the Backup. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -14167,11 +14394,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Breach would accomplish nothing."
+          "response": "Moving the Breach would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Breach has nothing to say."
+          "response": "The Breach has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -14207,15 +14436,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Conduits."
+          "response": "You can't move the Conduits.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Conduits. It yields nothing useful."
+          "response": "You prod the Conduits. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Conduits. It doesn't answer."
+          "response": "You mutter something at the Conduits. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -14265,11 +14497,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Hatch would accomplish nothing."
+          "response": "Moving the Hatch would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Hatch has nothing to say."
+          "response": "The Hatch has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -14337,11 +14571,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Resonance Chamber."
+          "response": "You can't move the Resonance Chamber.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Resonance Chamber yields no response."
+          "response": "Talking to the Resonance Chamber yields no response.",
+          "then": []
         }
       ]
     },
@@ -14434,11 +14670,13 @@
         },
         {
           "verb": "move",
-          "response": "The Altar won't budge."
+          "response": "The Altar won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Altar. Your words fall flat."
+          "response": "You speak to the Altar. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -14494,15 +14732,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Murals. It doesn't move."
+          "response": "You strain against the Murals. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Murals. Nothing happens."
+          "response": "You touch the Murals. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Murals yields no response."
+          "response": "Talking to the Murals yields no response.",
+          "then": []
         }
       ]
     },
@@ -14538,15 +14779,18 @@
         },
         {
           "verb": "move",
-          "response": "The Offerings won't budge."
+          "response": "The Offerings won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Offerings. It accomplishes nothing."
+          "response": "You fiddle with the Offerings. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Offerings has nothing to say."
+          "response": "The Offerings has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -14582,15 +14826,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Crystal Walls."
+          "response": "You can't move the Crystal Walls.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Crystal Walls. It yields nothing useful."
+          "response": "You prod the Crystal Walls. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Crystal Walls. It doesn't answer."
+          "response": "You mutter something at the Crystal Walls. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -14640,11 +14887,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Alcove would accomplish nothing."
+          "response": "Moving the Alcove would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Alcove has nothing to say."
+          "response": "The Alcove has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -14720,11 +14969,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Rail Vehicle."
+          "response": "You can't move the Rail Vehicle.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Rail Vehicle yields no response."
+          "response": "Talking to the Rail Vehicle yields no response.",
+          "then": []
         }
       ]
     },
@@ -14780,11 +15031,13 @@
         },
         {
           "verb": "move",
-          "response": "The Platform won't budge."
+          "response": "The Platform won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Platform. Your words fall flat."
+          "response": "You speak to the Platform. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -14835,15 +15088,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Markings. It doesn't move."
+          "response": "You strain against the Markings. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Markings. Nothing happens."
+          "response": "You touch the Markings. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Markings yields no response."
+          "response": "Talking to the Markings yields no response.",
+          "then": []
         }
       ]
     },
@@ -14890,11 +15146,13 @@
         },
         {
           "verb": "move",
-          "response": "The Flooded won't budge."
+          "response": "The Flooded won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Flooded. Your words fall flat."
+          "response": "You speak to the Flooded. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -14952,11 +15210,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Controls. It doesn't move."
+          "response": "You strain against the Controls. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Controls. Predictably, silence."
+          "response": "You address the Controls. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -15006,11 +15266,13 @@
         },
         {
           "verb": "move",
-          "response": "The Tunnel is firmly in place."
+          "response": "The Tunnel is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Tunnel. It doesn't answer."
+          "response": "You mutter something at the Tunnel. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15082,11 +15344,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Boundary would accomplish nothing."
+          "response": "Moving the Boundary would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Boundary has nothing to say."
+          "response": "The Boundary has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -15136,11 +15400,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Ruins."
+          "response": "You can't move the Ruins.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Ruins yields no response."
+          "response": "Talking to the Ruins yields no response.",
+          "then": []
         }
       ]
     },
@@ -15198,11 +15464,13 @@
         },
         {
           "verb": "move",
-          "response": "The Past Echo won't budge."
+          "response": "The Past Echo won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Past Echo. Your words fall flat."
+          "response": "You speak to the Past Echo. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -15270,11 +15538,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Ghost. It doesn't move."
+          "response": "You strain against the Ghost. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Ghost. Nothing happens."
+          "response": "You touch the Ghost. Nothing happens.",
+          "then": []
         }
       ]
     },
@@ -15332,11 +15602,13 @@
         },
         {
           "verb": "move",
-          "response": "The Console is firmly in place."
+          "response": "The Console is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Console. It doesn't answer."
+          "response": "You mutter something at the Console. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15372,15 +15644,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Crack would accomplish nothing."
+          "response": "Moving the Crack would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Crack. No reaction."
+          "response": "You poke at the Crack. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Crack. Predictably, silence."
+          "response": "You address the Crack. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -15427,11 +15702,13 @@
         },
         {
           "verb": "move",
-          "response": "The Containment is firmly in place."
+          "response": "The Containment is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Containment. It doesn't answer."
+          "response": "You mutter something at the Containment. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15514,11 +15791,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Bio Lock would accomplish nothing."
+          "response": "Moving the Bio Lock would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Bio Lock has nothing to say."
+          "response": "The Bio Lock has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -15575,11 +15854,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Pedestal."
+          "response": "You can't move the Pedestal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Pedestal yields no response."
+          "response": "Talking to the Pedestal yields no response.",
+          "then": []
         }
       ]
     },
@@ -15637,15 +15918,18 @@
         },
         {
           "verb": "move",
-          "response": "The Barriers won't budge."
+          "response": "The Barriers won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Barriers. It accomplishes nothing."
+          "response": "You fiddle with the Barriers. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Barriers has nothing to say."
+          "response": "The Barriers has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -15681,15 +15965,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Vault Door."
+          "response": "You can't move the Vault Door.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Vault Door. It yields nothing useful."
+          "response": "You prod the Vault Door. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Vault Door. It doesn't answer."
+          "response": "You mutter something at the Vault Door. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15739,11 +16026,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Forced Open would accomplish nothing."
+          "response": "Moving the Forced Open would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Forced Open has nothing to say."
+          "response": "The Forced Open has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -15779,15 +16068,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Crystal Ground."
+          "response": "You can't move the Crystal Ground.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Crystal Ground. It yields nothing useful."
+          "response": "You prod the Crystal Ground. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Crystal Ground. It doesn't answer."
+          "response": "You mutter something at the Crystal Ground. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15837,11 +16129,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Frozen Trees would accomplish nothing."
+          "response": "Moving the Frozen Trees would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Frozen Trees has nothing to say."
+          "response": "The Frozen Trees has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -15877,15 +16171,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Energy Veins."
+          "response": "You can't move the Energy Veins.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Energy Veins. It yields nothing useful."
+          "response": "You prod the Energy Veins. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Energy Veins. It doesn't answer."
+          "response": "You mutter something at the Energy Veins. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -15921,15 +16218,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Nexus would accomplish nothing."
+          "response": "Moving the Nexus would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Nexus. No reaction."
+          "response": "You poke at the Nexus. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Nexus. Predictably, silence."
+          "response": "You address the Nexus. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -15982,15 +16282,18 @@
         },
         {
           "verb": "move",
-          "response": "The Crystals is firmly in place."
+          "response": "The Crystals is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Crystals. Nothing of interest."
+          "response": "You run your hands over the Crystals. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Crystals. Your words fall flat."
+          "response": "You speak to the Crystals. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -16026,15 +16329,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Distortion. It doesn't move."
+          "response": "You strain against the Distortion. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Distortion. Nothing happens."
+          "response": "You touch the Distortion. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Distortion yields no response."
+          "response": "Talking to the Distortion yields no response.",
+          "then": []
         }
       ]
     },
@@ -16085,11 +16391,13 @@
         },
         {
           "verb": "move",
-          "response": "The Entrance won't budge."
+          "response": "The Entrance won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Entrance. Your words fall flat."
+          "response": "You speak to the Entrance. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -16125,15 +16433,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Crystal Walls. It doesn't move."
+          "response": "You strain against the Crystal Walls. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Crystal Walls. Nothing happens."
+          "response": "You touch the Crystal Walls. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Crystal Walls yields no response."
+          "response": "Talking to the Crystal Walls yields no response.",
+          "then": []
         }
       ]
     },
@@ -16169,15 +16480,18 @@
         },
         {
           "verb": "move",
-          "response": "The Pulses won't budge."
+          "response": "The Pulses won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Pulses. It accomplishes nothing."
+          "response": "You fiddle with the Pulses. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Pulses has nothing to say."
+          "response": "The Pulses has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -16213,15 +16527,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Descent."
+          "response": "You can't move the Descent.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Descent. It yields nothing useful."
+          "response": "You prod the Descent. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Descent. It doesn't answer."
+          "response": "You mutter something at the Descent. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -16257,15 +16574,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Markings would accomplish nothing."
+          "response": "Moving the Markings would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Markings. No reaction."
+          "response": "You poke at the Markings. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Markings. Predictably, silence."
+          "response": "You address the Markings. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -16301,15 +16621,18 @@
         },
         {
           "verb": "move",
-          "response": "The Energy Rivers is firmly in place."
+          "response": "The Energy Rivers is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Energy Rivers. Nothing of interest."
+          "response": "You run your hands over the Energy Rivers. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Energy Rivers. Your words fall flat."
+          "response": "You speak to the Energy Rivers. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -16345,15 +16668,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Walkway. It doesn't move."
+          "response": "You strain against the Walkway. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Walkway. Nothing happens."
+          "response": "You touch the Walkway. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Walkway yields no response."
+          "response": "Talking to the Walkway yields no response.",
+          "then": []
         }
       ]
     },
@@ -16421,11 +16747,13 @@
         },
         {
           "verb": "move",
-          "response": "The Junction won't budge."
+          "response": "The Junction won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Junction. Your words fall flat."
+          "response": "You speak to the Junction. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -16497,11 +16825,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Energy Tap. It doesn't move."
+          "response": "You strain against the Energy Tap. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Energy Tap. Predictably, silence."
+          "response": "You address the Energy Tap. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -16537,15 +16867,18 @@
         },
         {
           "verb": "move",
-          "response": "The Heat is firmly in place."
+          "response": "The Heat is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Heat. Nothing of interest."
+          "response": "You run your hands over the Heat. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Heat. Your words fall flat."
+          "response": "You speak to the Heat. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -16602,15 +16935,18 @@
         },
         {
           "verb": "move",
-          "response": "The Apparatus won't budge."
+          "response": "The Apparatus won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Apparatus. It accomplishes nothing."
+          "response": "You fiddle with the Apparatus. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Apparatus has nothing to say."
+          "response": "The Apparatus has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -16646,15 +16982,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Beam."
+          "response": "You can't move the Beam.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Beam. It yields nothing useful."
+          "response": "You prod the Beam. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Beam. It doesn't answer."
+          "response": "You mutter something at the Beam. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -16704,11 +17043,13 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Crystal Cathedral would accomplish nothing."
+          "response": "Moving the Crystal Cathedral would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Crystal Cathedral has nothing to say."
+          "response": "The Crystal Cathedral has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -16744,15 +17085,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Base."
+          "response": "You can't move the Base.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Base. It yields nothing useful."
+          "response": "You prod the Base. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Base. It doesn't answer."
+          "response": "You mutter something at the Base. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -16788,15 +17132,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Weapon Slot would accomplish nothing."
+          "response": "Moving the Weapon Slot would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Weapon Slot. No reaction."
+          "response": "You poke at the Weapon Slot. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Weapon Slot. Predictably, silence."
+          "response": "You address the Weapon Slot. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -16860,11 +17207,13 @@
         },
         {
           "verb": "move",
-          "response": "The Choir Tech is firmly in place."
+          "response": "The Choir Tech is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Choir Tech. It doesn't answer."
+          "response": "You mutter something at the Choir Tech. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -16917,15 +17266,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Ancient Controls would accomplish nothing."
+          "response": "Moving the Ancient Controls would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Ancient Controls. No reaction."
+          "response": "You poke at the Ancient Controls. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Ancient Controls. Predictably, silence."
+          "response": "You address the Ancient Controls. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -16961,15 +17313,18 @@
         },
         {
           "verb": "move",
-          "response": "The Display is firmly in place."
+          "response": "The Display is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Display. Nothing of interest."
+          "response": "You run your hands over the Display. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Display. Your words fall flat."
+          "response": "You speak to the Display. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -17027,11 +17382,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Interface. It doesn't move."
+          "response": "You strain against the Interface. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Interface. Predictably, silence."
+          "response": "You address the Interface. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -17089,15 +17446,18 @@
         },
         {
           "verb": "move",
-          "response": "The Lock is firmly in place."
+          "response": "The Lock is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Lock. Nothing of interest."
+          "response": "You run your hands over the Lock. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Lock. Your words fall flat."
+          "response": "You speak to the Lock. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -17133,15 +17493,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Specimens. It doesn't move."
+          "response": "You strain against the Specimens. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Specimens. Nothing happens."
+          "response": "You touch the Specimens. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Specimens yields no response."
+          "response": "Talking to the Specimens yields no response.",
+          "then": []
         }
       ]
     },
@@ -17188,11 +17551,13 @@
         },
         {
           "verb": "move",
-          "response": "The Inhabitant won't budge."
+          "response": "The Inhabitant won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Inhabitant. It accomplishes nothing."
+          "response": "You fiddle with the Inhabitant. It accomplishes nothing.",
+          "then": []
         }
       ]
     },
@@ -17248,15 +17613,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Pedestal. It doesn't move."
+          "response": "You strain against the Pedestal. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Pedestal. Nothing happens."
+          "response": "You touch the Pedestal. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Pedestal yields no response."
+          "response": "Talking to the Pedestal yields no response.",
+          "then": []
         }
       ]
     },
@@ -17292,15 +17660,18 @@
         },
         {
           "verb": "move",
-          "response": "The Ancient won't budge."
+          "response": "The Ancient won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Ancient. It accomplishes nothing."
+          "response": "You fiddle with the Ancient. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Ancient has nothing to say."
+          "response": "The Ancient has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -17350,11 +17721,13 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Alcove."
+          "response": "You can't move the Alcove.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Alcove yields no response."
+          "response": "Talking to the Alcove yields no response.",
+          "then": []
         }
       ]
     },
@@ -17450,11 +17823,13 @@
         },
         {
           "verb": "move",
-          "response": "The Workbench won't budge."
+          "response": "The Workbench won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Workbench. Your words fall flat."
+          "response": "You speak to the Workbench. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -17504,11 +17879,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Armor. It doesn't move."
+          "response": "You strain against the Armor. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Armor. Predictably, silence."
+          "response": "You address the Armor. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -17569,11 +17946,13 @@
         },
         {
           "verb": "move",
-          "response": "The Supplies is firmly in place."
+          "response": "The Supplies is firmly in place.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Supplies. It doesn't answer."
+          "response": "You mutter something at the Supplies. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -17609,15 +17988,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Weapon Station would accomplish nothing."
+          "response": "Moving the Weapon Station would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Weapon Station. No reaction."
+          "response": "You poke at the Weapon Station. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Weapon Station. Predictably, silence."
+          "response": "You address the Weapon Station. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -17653,15 +18035,18 @@
         },
         {
           "verb": "move",
-          "response": "The Equipment is firmly in place."
+          "response": "The Equipment is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Equipment. Nothing of interest."
+          "response": "You run your hands over the Equipment. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Equipment. Your words fall flat."
+          "response": "You speak to the Equipment. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -17711,11 +18096,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Barricade. It doesn't move."
+          "response": "You strain against the Barricade. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Barricade. Predictably, silence."
+          "response": "You address the Barricade. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -17751,15 +18138,18 @@
         },
         {
           "verb": "move",
-          "response": "The Antenna is firmly in place."
+          "response": "The Antenna is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Antenna. Nothing of interest."
+          "response": "You run your hands over the Antenna. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Antenna. Your words fall flat."
+          "response": "You speak to the Antenna. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -17821,15 +18211,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Consoles. It doesn't move."
+          "response": "You strain against the Consoles. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Consoles. Nothing happens."
+          "response": "You touch the Consoles. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Consoles yields no response."
+          "response": "Talking to the Consoles yields no response.",
+          "then": []
         }
       ]
     },
@@ -17865,15 +18258,18 @@
         },
         {
           "verb": "move",
-          "response": "The Galaxy Map won't budge."
+          "response": "The Galaxy Map won't budge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You fiddle with the Galaxy Map. It accomplishes nothing."
+          "response": "You fiddle with the Galaxy Map. It accomplishes nothing.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The Galaxy Map has nothing to say."
+          "response": "The Galaxy Map has nothing to say.",
+          "then": []
         }
       ]
     },
@@ -17909,15 +18305,18 @@
         },
         {
           "verb": "move",
-          "response": "You can't move the Frequency."
+          "response": "You can't move the Frequency.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You prod the Frequency. It yields nothing useful."
+          "response": "You prod the Frequency. It yields nothing useful.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You mutter something at the Frequency. It doesn't answer."
+          "response": "You mutter something at the Frequency. It doesn't answer.",
+          "then": []
         }
       ]
     },
@@ -17953,15 +18352,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Power would accomplish nothing."
+          "response": "Moving the Power would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Power. No reaction."
+          "response": "You poke at the Power. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Power. Predictably, silence."
+          "response": "You address the Power. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -18052,11 +18454,13 @@
         },
         {
           "verb": "move",
-          "response": "The The Convergence is firmly in place."
+          "response": "The The Convergence is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the The Convergence. Nothing of interest."
+          "response": "You run your hands over the The Convergence. Nothing of interest.",
+          "then": []
         }
       ]
     },
@@ -18092,15 +18496,18 @@
         },
         {
           "verb": "move",
-          "response": "Moving the Patterns would accomplish nothing."
+          "response": "Moving the Patterns would accomplish nothing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You poke at the Patterns. No reaction."
+          "response": "You poke at the Patterns. No reaction.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Patterns. Predictably, silence."
+          "response": "You address the Patterns. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -18136,15 +18543,18 @@
         },
         {
           "verb": "move",
-          "response": "The Visions is firmly in place."
+          "response": "The Visions is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Visions. Nothing of interest."
+          "response": "You run your hands over the Visions. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Visions. Your words fall flat."
+          "response": "You speak to the Visions. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -18200,11 +18610,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Interface. It doesn't move."
+          "response": "You strain against the Interface. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Interface. Predictably, silence."
+          "response": "You address the Interface. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -18240,15 +18652,18 @@
         },
         {
           "verb": "move",
-          "response": "The Floor is firmly in place."
+          "response": "The Floor is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Floor. Nothing of interest."
+          "response": "You run your hands over the Floor. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Floor. Your words fall flat."
+          "response": "You speak to the Floor. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -18332,11 +18747,13 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Shaft. It doesn't move."
+          "response": "You strain against the Shaft. It doesn't move.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You address the Shaft. Predictably, silence."
+          "response": "You address the Shaft. Predictably, silence.",
+          "then": []
         }
       ]
     },
@@ -18372,15 +18789,18 @@
         },
         {
           "verb": "move",
-          "response": "The Ladder is firmly in place."
+          "response": "The Ladder is firmly in place.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hands over the Ladder. Nothing of interest."
+          "response": "You run your hands over the Ladder. Nothing of interest.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Ladder. Your words fall flat."
+          "response": "You speak to the Ladder. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -18416,15 +18836,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Collapsed. It doesn't move."
+          "response": "You strain against the Collapsed. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Collapsed. Nothing happens."
+          "response": "You touch the Collapsed. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Collapsed yields no response."
+          "response": "Talking to the Collapsed yields no response.",
+          "then": []
         }
       ]
     },
@@ -18471,11 +18894,13 @@
         },
         {
           "verb": "move",
-          "response": "The Gate won't budge."
+          "response": "The Gate won't budge.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You speak to the Gate. Your words fall flat."
+          "response": "You speak to the Gate. Your words fall flat.",
+          "then": []
         }
       ]
     },
@@ -18511,15 +18936,18 @@
         },
         {
           "verb": "move",
-          "response": "You strain against the Light. It doesn't move."
+          "response": "You strain against the Light. It doesn't move.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the Light. Nothing happens."
+          "response": "You touch the Light. Nothing happens.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Talking to the Light yields no response."
+          "response": "Talking to the Light yields no response.",
+          "then": []
         }
       ]
     },
@@ -18543,11 +18971,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "Organic conduits pulse with green fluid overhead. The ship is alive — these are its veins."
+          "response": "Organic conduits pulse with green fluid overhead. The ship is alive — these are its veins.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "The conduits are warm and faintly pulsing. You pull your hand back — the surface feels disturbingly like skin."
+          "response": "The conduits are warm and faintly pulsing. You pull your hand back — the surface feels disturbingly like skin.",
+          "then": []
         },
         {
           "verb": "move",
@@ -18591,11 +19021,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "Metal grating covers green-glowing tubes underneath. Something hums below, rhythmic and biological."
+          "response": "Metal grating covers green-glowing tubes underneath. Something hums below, rhythmic and biological.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "The grating is bolted down firmly. Through the gaps you can see bioluminescent fluid pumping through transparent tubes."
+          "response": "The grating is bolted down firmly. Through the gaps you can see bioluminescent fluid pumping through transparent tubes.",
+          "then": []
         },
         {
           "verb": "move",
@@ -18622,14 +19054,14 @@
     {
       "id": "corridor_drag_marks",
       "name": "Drag Marks",
-      "description": "Deep scratches and dark stains on the corridor floor — something was dragged through here recently.",
+      "description": "Deep scratches and dark stains on the lab floor — something was dragged across the processing area recently.",
       "position": {
-        "x": 336,
-        "y": 584
+        "x": 350,
+        "y": 580
       },
       "size": {
-        "width": 169,
-        "height": 136
+        "width": 170,
+        "height": 130
       },
       "visual": {
         "color": "#3a1a1a",
@@ -18653,7 +19085,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Deep gouges in the organic wall, the kind made by something clawing desperately as it was dragged. The stains beside them are dark and old — not blood, exactly, but something's vital fluid. The marks lead toward the left passage. Toward whatever lies beyond."
+              "text": "Deep gouges scored into the lab floor, the kind made by something clawing desperately as it was dragged toward the examination tables. The stains beside them are dark and old — not blood, exactly, but something's vital fluid. These weren't here before. Something was processed recently."
             }
           ]
         },
@@ -18663,13 +19095,14 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace the grooves with your fingers. Five parallel scratches — claws, or fingers, dragging against the wall. Whatever made these was strong. And terrified."
+              "text": "You trace the grooves with your fingers. Five parallel scratches — claws, or fingers, dragging across the floor. Whatever made these was strong. And terrified."
             }
           ]
         },
         {
           "verb": "talk",
-          "response": "There's nothing to say to claw marks. But you understand the message they left behind: don't get caught."
+          "response": "There's nothing to say to claw marks. But you understand the message they left behind: don't get caught.",
+          "then": []
         }
       ]
     },
@@ -18745,17 +19178,18 @@
         },
         {
           "verb": "talk",
-          "response": "You try speaking to the panel. It chirps once — voice commands might work, but not in any language you know."
+          "response": "You try speaking to the panel. It chirps once — voice commands might work, but not in any language you know.",
+          "then": []
         }
       ]
     },
     {
       "id": "corridor_organic_growth",
       "name": "Organic Wall Growth",
-      "description": "A patch of bioluminescent growth that has spread across the corridor wall since you were last here.",
+      "description": "A patch of bioluminescent growth that has spread across the lab wall since you were last here.",
       "position": {
-        "x": 315,
-        "y": 253
+        "x": 600,
+        "y": 250
       },
       "size": {
         "width": 100,
@@ -18783,7 +19217,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A patch of bioluminescent growth spreads across the wall like a living bruise — deep greens and purples pulsing faintly. It's not damage; it's the ship healing itself. The Choir's vessels are alive. Walls, floors, conduits — it's all one massive organism. You're not in a ship. You're inside something."
+              "text": "A patch of bioluminescent growth spreads across the lab wall like a living bruise — deep greens and purples pulsing faintly. It wasn't here before. The ship is healing itself where the wall was damaged. Walls, floors, conduits — it's all one massive organism. You're not in a ship. You're inside something."
             }
           ]
         },
@@ -18813,7 +19247,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The growth is warm and slightly damp. It contracts at your touch, bioluminescence brightening briefly. You could cut into it with the glass shard, but that might alert the ship's immune system — and by extension, whatever is patrolling these corridors. Better not."
+              "text": "The growth is warm and slightly damp. It contracts at your touch, bioluminescence brightening briefly. You could cut into it with the glass shard, but that might alert the ship's immune system — and by extension, whatever is patrolling the deck. Better not."
             },
             {
               "type": "add_noise",
@@ -18823,7 +19257,8 @@
         },
         {
           "verb": "talk",
-          "response": "You murmur to the organic growth. It pulses in response — or maybe that's just its natural rhythm. Hard to tell with a living ship."
+          "response": "You murmur to the organic growth. It pulses in response — or maybe that's just its natural rhythm. Hard to tell with a living ship.",
+          "then": []
         },
         {
           "verb": "use_item",
@@ -18919,11 +19354,13 @@
               "state": "open"
             }
           ],
-          "response": "The cabinet is open. Rows of bio-capsules in color-coded racks — but without knowing Choir chemistry, they're too dangerous to take."
+          "response": "The cabinet is open. Rows of bio-capsules in color-coded racks — but without knowing Choir chemistry, they're too dangerous to take.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "The cabinet doesn't respond to vocal commands. Choir security is tactile, not verbal."
+          "response": "The cabinet doesn't respond to vocal commands. Choir security is tactile, not verbal.",
+          "then": []
         }
       ]
     },
@@ -18968,7 +19405,8 @@
         },
         {
           "verb": "talk",
-          "response": "The fluid gurgles softly as it drains. The sound is uncomfortably like digestion."
+          "response": "The fluid gurgles softly as it drains. The sound is uncomfortably like digestion.",
+          "then": []
         }
       ]
     },
@@ -19013,7 +19451,8 @@
         },
         {
           "verb": "talk",
-          "response": "\"I'm sorry,\" you whisper to the bones. \"I'll make it. For both of us.\""
+          "response": "\"I'm sorry,\" you whisper to the bones. \"I'll make it. For both of us.\"",
+          "then": []
         }
       ],
       "sprite": {
@@ -19079,7 +19518,8 @@
         },
         {
           "verb": "talk",
-          "response": "You tap on the hatch. A hollow echo comes back. There's space behind it — part of the ship's maintenance network."
+          "response": "You tap on the hatch. A hollow echo comes back. There's space behind it — part of the ship's maintenance network.",
+          "then": []
         }
       ]
     },
@@ -19105,66 +19545,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A dark archway between the pod racks leads deeper into the vessel. Faint orange light flickers from beyond."
+          "response": "A dark archway between the pod racks leads deeper into the vessel. Faint orange light flickers from beyond.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
           "then": [
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_growth_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_organic_growth"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_growth_revealed",
-                  "value": "true"
-                }
-              ]
-            },
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_visited",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_drag_marks_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_drag_marks"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
-                }
-              ]
-            },
             {
               "type": "conditional_effect",
               "when": [
@@ -19245,7 +19632,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A passage at the far end of the feeding station. A faint chemical smell drifts from deeper within."
+          "response": "A passage at the far end of the feeding station. A faint chemical smell drifts from deeper within.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19310,70 +19698,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A large open archway at the back of the lab leads to the containment corridor. Orange light flickers beyond."
+          "response": "A large open archway at the back of the lab leads to the containment corridor. Orange light flickers beyond.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
           "then": [
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_growth_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_organic_growth"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_growth_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
-                }
-              ]
-            },
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_visited",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_drag_marks_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_drag_marks"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
-                }
-              ]
-            },
             {
               "type": "conditional_effect",
               "when": [
@@ -19454,7 +19785,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "Behind you, the corridor opens back into the vast stasis hold. Amber pod-light spills from the entrance."
+          "response": "Behind you, the corridor opens back into the vast stasis hold. Amber pod-light spills from the entrance.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19514,7 +19846,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A heavy armored door on the left wall. Through the small viewport, you can make out examination tables and specimen jars."
+          "response": "A heavy armored door on the left wall. Through the small viewport, you can make out examination tables and specimen jars.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19574,7 +19907,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The corridor stretches into darkness ahead. A purple glow pulses at the far end."
+          "response": "The corridor stretches into darkness ahead. A purple glow pulses at the far end.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19639,7 +19973,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A door with translucent panels on the right wall. Screens glow faintly beyond it."
+          "response": "A door with translucent panels on the right wall. Screens glow faintly beyond it.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19699,7 +20034,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The passage leads back to the feeding station. You can hear the hum of the energy barriers."
+          "response": "The passage leads back to the feeding station. You can hear the hum of the energy barriers.",
+          "then": []
         },
         {
           "verb": "move",
@@ -19764,70 +20100,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A dark passage on the far left leads back toward the containment corridor. The orange glow of its lights bleeds through."
+          "response": "A dark passage on the far left leads back toward the containment corridor. The orange glow of its lights bleeds through.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
           "then": [
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_growth_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_organic_growth"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_growth_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
-                }
-              ]
-            },
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_visited",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_drag_marks_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_drag_marks"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
-                }
-              ]
-            },
             {
               "type": "conditional_effect",
               "when": [
@@ -20049,70 +20328,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The shaft opening behind you leads back up toward the containment corridor."
+          "response": "The shaft opening behind you leads back up toward the containment corridor.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
           "then": [
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_growth_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_organic_growth"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_growth_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
-                }
-              ]
-            },
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_visited",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_drag_marks_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_drag_marks"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
-                }
-              ]
-            },
             {
               "type": "set_view",
               "view": "act1_containment_corridor"
@@ -20167,70 +20389,13 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The way back to the containment corridor, behind you."
+          "response": "The way back to the containment corridor, behind you.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
           "then": [
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_growth_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_organic_growth"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_growth_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "A patch of bioluminescent growth has spread across the corridor wall — green-gold tendrils pulsing faintly. The ship's biology is adapting to the damage."
-                }
-              ]
-            },
-            {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "corridor_visited",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "corridor_drag_marks_revealed"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "corridor_drag_marks"
-                },
-                {
-                  "type": "set_flag",
-                  "flag": "corridor_drag_marks_revealed",
-                  "value": "true"
-                },
-                {
-                  "type": "message",
-                  "text": "Something's changed. Fresh drag marks score the corridor floor — deep scratches and dark stains trailing toward the feeding station. These weren't here before."
-                }
-              ]
-            },
             {
               "type": "conditional_effect",
               "when": [
@@ -20311,7 +20476,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A heavy door on the right wall. Through its viewport you can see rows of specimen containers and data crystals."
+          "response": "A heavy door on the right wall. Through its viewport you can see rows of specimen containers and data crystals.",
+          "then": []
         },
         {
           "verb": "move",
@@ -20371,7 +20537,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "The heavy door leads back to the feeding station."
+          "response": "The heavy door leads back to the feeding station.",
+          "then": []
         },
         {
           "verb": "move",
@@ -20450,15 +20617,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Engineering."
+          "response": "A passage leading to Engineering.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -20498,15 +20668,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Communications Array."
+          "response": "A passage leading to Communications Array.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -20546,15 +20719,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Observation Deck."
+          "response": "A passage leading to Observation Deck.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -20594,15 +20770,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Navigation Bridge."
+          "response": "A passage leading to Navigation Bridge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -20642,15 +20821,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Waste Processing."
+          "response": "A passage leading to Waste Processing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -20846,15 +21028,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Navigation Bridge."
+          "response": "A passage leading to Navigation Bridge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -20894,15 +21079,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Data Core."
+          "response": "A passage leading to Data Core.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -20942,15 +21130,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Hive Quarters."
+          "response": "A passage leading to Hive Quarters.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -20990,15 +21181,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Shuttle Bay."
+          "response": "A passage leading to Shuttle Bay.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -21038,15 +21232,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Armory."
+          "response": "A passage leading to Armory.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -21086,15 +21283,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Communications Array."
+          "response": "A passage leading to Communications Array.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -21134,15 +21334,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Waste Processing."
+          "response": "A passage leading to Waste Processing.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -21182,15 +21385,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Engineering."
+          "response": "A passage leading to Engineering.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -21230,15 +21436,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Armory."
+          "response": "A passage leading to Armory.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -21278,15 +21487,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Data Core."
+          "response": "A passage leading to Data Core.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -21326,15 +21538,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Observation Deck."
+          "response": "A passage leading to Observation Deck.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -21374,15 +21589,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Communications Array."
+          "response": "A passage leading to Communications Array.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -21422,15 +21640,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Hydroponics Bay."
+          "response": "A passage leading to Hydroponics Bay.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -21470,15 +21691,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Engineering."
+          "response": "A passage leading to Engineering.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -21518,15 +21742,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Hive Quarters."
+          "response": "A passage leading to Hive Quarters.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -21566,15 +21793,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Navigation Bridge."
+          "response": "A passage leading to Navigation Bridge.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -21614,15 +21844,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Hydroponics Bay."
+          "response": "A passage leading to Hydroponics Bay.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -21662,15 +21895,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Shuttle Wreck Interior."
+          "response": "A passage leading to Shuttle Wreck Interior.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -21710,15 +21946,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Wasteland Path."
+          "response": "A passage leading to Wasteland Path.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -21758,15 +21997,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Crash Site."
+          "response": "A passage leading to Crash Site.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -21806,15 +22048,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Crash Site."
+          "response": "A passage leading to Crash Site.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -21854,15 +22099,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Siphon Tower."
+          "response": "A passage leading to Siphon Tower.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -21902,15 +22150,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Refugee Camp."
+          "response": "A passage leading to Refugee Camp.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -21950,15 +22201,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Fungal Grove."
+          "response": "A passage leading to Fungal Grove.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -21998,15 +22252,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Overlook."
+          "response": "A passage leading to Overlook.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -22046,15 +22303,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Wasteland Path."
+          "response": "A passage leading to Wasteland Path.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -22094,15 +22354,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Wasteland Path."
+          "response": "A passage leading to Wasteland Path.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -22142,15 +22405,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Echo Field."
+          "response": "A passage leading to Echo Field.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -22190,15 +22456,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Wasteland Path."
+          "response": "A passage leading to Wasteland Path.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -22238,15 +22507,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Buried Bunker."
+          "response": "A passage leading to Buried Bunker.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -22286,15 +22558,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Refugee Camp."
+          "response": "A passage leading to Refugee Camp.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -22334,15 +22609,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to City Gates."
+          "response": "A passage leading to City Gates.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -22382,15 +22660,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Fungal Grove."
+          "response": "A passage leading to Fungal Grove.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy."
+          "response": "Your fingers trace the passage edges. Organic ridges and cold alloy.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You call out. The passage swallows your voice."
+          "response": "You call out. The passage swallows your voice.",
+          "then": []
         }
       ]
     },
@@ -22430,15 +22711,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Echo Field."
+          "response": "A passage leading to Echo Field.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You run your hand along the passage walls. Cold metal."
+          "response": "You run your hand along the passage walls. Cold metal.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your words vanish into the passage ahead."
+          "response": "Your words vanish into the passage ahead.",
+          "then": []
         }
       ]
     },
@@ -22478,15 +22762,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Overlook."
+          "response": "A passage leading to Overlook.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You press against the passage frame. Solid and unyielding."
+          "response": "You press against the passage frame. Solid and unyielding.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice reverberates off the passage walls, then silence."
+          "response": "Your voice reverberates off the passage walls, then silence.",
+          "then": []
         }
       ]
     },
@@ -22526,15 +22813,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to Wasteland Path."
+          "response": "A passage leading to Wasteland Path.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You touch the corridor walls. They pulse faintly under your fingers."
+          "response": "You touch the corridor walls. They pulse faintly under your fingers.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "A faint echo returns from the depths of the corridor."
+          "response": "A faint echo returns from the depths of the corridor.",
+          "then": []
         }
       ]
     },
@@ -22574,15 +22864,18 @@
         },
         {
           "verb": "look",
-          "response": "A passage leading to City Gates."
+          "response": "A passage leading to City Gates.",
+          "then": []
         },
         {
           "verb": "hand",
-          "response": "You feel the walls of the corridor. Slightly damp, faintly warm."
+          "response": "You feel the walls of the corridor. Slightly damp, faintly warm.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "Your voice echoes briefly down the corridor."
+          "response": "Your voice echoes briefly down the corridor.",
+          "then": []
         }
       ]
     },
@@ -22606,7 +22899,8 @@
       "interactions": [
         {
           "verb": "look",
-          "response": "A narrow ventilation opening near the floor. You could squeeze through it."
+          "response": "A narrow ventilation opening near the floor. You could squeeze through it.",
+          "then": []
         },
         {
           "verb": "move",
@@ -23524,12 +23818,14 @@
         {
           "verb": "talk",
           "when": [],
-          "response": "\"7... 3... 1... 9?\" you mutter, trying to remember if those were the numbers on the specimen plates. You need to be sure before you try."
+          "response": "\"7... 3... 1... 9?\" you mutter, trying to remember if those were the numbers on the specimen plates. You need to be sure before you try.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
-          "response": "The keypad is embedded in the console's living surface. It can't be removed."
+          "response": "The keypad is embedded in the console's living surface. It can't be removed.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -23684,12 +23980,14 @@
         {
           "verb": "talk",
           "when": [],
-          "response": "\"Containment override,\" you read from the console label. \"One pull and every lock on this deck opens. No going back.\""
+          "response": "\"Containment override,\" you read from the console label. \"One pull and every lock on this deck opens. No going back.\"",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
-          "response": "The lever is anchored deep in the console's internal structure. It moves in one direction only — and that's a big decision."
+          "response": "The lever is anchored deep in the console's internal structure. It moves in one direction only — and that's a big decision.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -23761,17 +24059,20 @@
               "item": "containment_key_card"
             }
           ],
-          "response": "You already have a key card. The remaining ones are a different clearance level — too high for you."
+          "response": "You already have a key card. The remaining ones are a different clearance level — too high for you.",
+          "then": []
         },
         {
           "verb": "talk",
           "when": [],
-          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level. The lowest tier, if you're reading the hierarchy right."
+          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level. The lowest tier, if you're reading the hierarchy right.",
+          "then": []
         },
         {
           "verb": "move",
           "when": [],
-          "response": "The drawer slides on organic rails but won't detach from the console. It's grown into the structure."
+          "response": "The drawer slides on organic rails but won't detach from the console. It's grown into the structure.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -23859,12 +24160,14 @@
         {
           "verb": "hand",
           "when": [],
-          "response": "You tap the screens. They're organic display panels — warm to the touch, slightly yielding. The feeds flicker but don't change."
+          "response": "You tap the screens. They're organic display panels — warm to the touch, slightly yielding. The feeds flicker but don't change.",
+          "then": []
         },
         {
           "verb": "talk",
           "when": [],
-          "response": "\"Show me where it is,\" you whisper to the screens. They don't respond to voice commands. This is a security console, not a personal assistant."
+          "response": "\"Show me where it is,\" you whisper to the screens. They don't respond to voice commands. This is a security console, not a personal assistant.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -23897,7 +24200,8 @@
               "state": "locked"
             }
           ],
-          "response": "The status display is dark — the console needs power before it will show anything."
+          "response": "The status display is dark — the console needs power before it will show anything.",
+          "then": []
         },
         {
           "verb": "look",
@@ -23928,17 +24232,20 @@
               "value": "true"
             }
           ],
-          "response": "The status display shows all containment locks DISENGAGED. Red warning symbols pulse across the map. You've opened everything."
+          "response": "The status display shows all containment locks DISENGAGED. Red warning symbols pulse across the map. You've opened everything.",
+          "then": []
         },
         {
           "verb": "hand",
           "when": [],
-          "response": "The display is a projection surface — your hand passes through the holographic readouts, disrupting them momentarily."
+          "response": "The display is a projection surface — your hand passes through the holographic readouts, disrupting them momentarily.",
+          "then": []
         },
         {
           "verb": "talk",
           "when": [],
-          "response": "You read the alien symbols aloud, trying to sound out the Choir's language. It sounds like grinding stones. Nothing responds."
+          "response": "You read the alien symbols aloud, trying to sound out the Choir's language. It sounds like grinding stones. Nothing responds.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -25658,12 +25965,12 @@
       "name": "Emergency Equipment Cabinet",
       "description": "A wall-mounted cabinet with a cracked glass front, marked with alien safety symbols.",
       "position": {
-        "x": 501,
-        "y": 511
+        "x": 333,
+        "y": 550
       },
       "size": {
-        "width": 118,
-        "height": 132
+        "width": 83,
+        "height": 124
       },
       "visual": {
         "color": "rgba(200, 100, 50, 0.3)",
@@ -25787,6 +26094,13 @@
         "rows": 1,
         "frame_rate": 0,
         "scale": 0.12
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": 2,
+        "opacity": 1,
+        "width": 60,
+        "height": 10
       }
     }
   ],
