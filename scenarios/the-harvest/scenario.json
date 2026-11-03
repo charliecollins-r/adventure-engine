@@ -19228,6 +19228,11 @@
               "view": "act1_morgue"
             },
             {
+              "type": "set_flag",
+              "flag": "morgue_visited",
+              "value": "true"
+            },
+            {
               "type": "message",
               "text": "You duck through the low passage. The air grows colder and the chemical smell intensifies."
             }
@@ -19552,6 +19557,11 @@
               "view": "act1_feeding_station"
             },
             {
+              "type": "set_flag",
+              "flag": "feeding_station_visited",
+              "value": "true"
+            },
+            {
               "type": "message",
               "text": "You walk deeper into the organic corridor. The purple glow intensifies as you reach the feeding station."
             }
@@ -19670,6 +19680,11 @@
             {
               "type": "set_view",
               "view": "act1_feeding_station"
+            },
+            {
+              "type": "set_flag",
+              "flag": "feeding_station_visited",
+              "value": "true"
             },
             {
               "type": "message",
@@ -20337,6 +20352,11 @@
             {
               "type": "set_view",
               "view": "act1_feeding_station"
+            },
+            {
+              "type": "set_flag",
+              "flag": "feeding_station_visited",
+              "value": "true"
             },
             {
               "type": "message",
