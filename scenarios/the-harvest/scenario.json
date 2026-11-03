@@ -18707,8 +18707,8 @@
       },
       "sprite": {
         "file": "sprites/emergency_panel.png",
-        "frame_width": 448,
-        "frame_height": 567,
+        "frame_width": 444,
+        "frame_height": 557,
         "columns": 2,
         "rows": 1,
         "frame_rate": 1,
