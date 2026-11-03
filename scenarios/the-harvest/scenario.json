@@ -4038,7 +4038,7 @@
         "frame_width": 80,
         "frame_height": 90,
         "offset_x": 110,
-        "offset_y": 10,
+        "offset_y": 45,
         "scale": 1,
         "auto_equip": true
       }
