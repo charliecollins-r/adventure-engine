@@ -6963,12 +6963,12 @@
       },
       "sprite": {
         "file": "sprites/nutrient_dispenser.png",
-        "frame_width": 921,
+        "frame_width": 434,
         "frame_height": 747,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.10
+        "scale": 0.12
       },
       "initial_state": "default",
       "initially_visible": true,
