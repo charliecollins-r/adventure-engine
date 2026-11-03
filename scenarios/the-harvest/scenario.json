@@ -1052,7 +1052,14 @@
         "y": 595,
         "facing": "up",
         "sprite_set": "idle",
-        "object_id": "goblin_self"
+        "object_id": "goblin_self",
+        "shadow": {
+          "width": 60,
+          "height": 12,
+          "color": "rgba(0,0,0,0.7)",
+          "opacity": 0.85,
+          "offset_y": 2
+        }
       },
       "ambient_lighting": {
         "lights": [
@@ -19453,12 +19460,12 @@
       "name": "Small Bones",
       "description": "The scattered remains of a small creature that didn't make it through the ventilation shaft.",
       "position": {
-        "x": 311,
-        "y": 546
+        "x": 682,
+        "y": 625
       },
       "size": {
-        "width": 112,
-        "height": 90
+        "width": 113,
+        "height": 79
       },
       "visual": {
         "color": "#4a4a3a",
@@ -24617,12 +24624,12 @@
       "name": "Shaft Ahead",
       "description": "The ventilation shaft continues forward into branching darkness.",
       "position": {
-        "x": 380,
-        "y": 16
+        "x": 427,
+        "y": 153
       },
       "size": {
-        "width": 200,
-        "height": 140
+        "width": 244,
+        "height": 305
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.2)",
