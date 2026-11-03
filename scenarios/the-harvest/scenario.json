@@ -3800,6 +3800,9 @@
     "watcher_active": "false",
     "weapon_vault_discovered": "false",
     "corridor_visited": "false",
+    "lab_visited": "false",
+    "lab_drag_marks_revealed": "false",
+    "lab_growth_revealed": "false",
     "cat_petted": "false",
     "dead_goblin_seen": "false",
     "prisoner_spoken": "false",
@@ -19129,7 +19132,7 @@
         "frame_height": 573,
         "columns": 2,
         "rows": 1,
-        "frame_rate": 1,
+        "frame_rate": 2,
         "scale": 0.23
       },
       "initial_state": "default",
@@ -19860,6 +19863,76 @@
             {
               "type": "message",
               "text": "The heavy door grinds open. The stench of preservative chemicals hits you immediately."
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "lab_visited",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "lab_drag_marks_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_drag_marks"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "lab_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "Something's changed. Fresh drag marks score the lab floor — deep scratches and dark stains trailing toward the examination tables. These weren't here before. Something was processed while you were gone."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "lab_drag_marks_revealed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "lab_growth_revealed"
+                }
+              ],
+              "then": [
+                {
+                  "type": "show_object",
+                  "object": "corridor_organic_growth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "lab_growth_revealed",
+                  "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "lab_visited"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "lab_visited",
+                  "value": "true"
+                }
+              ]
             }
           ]
         },
