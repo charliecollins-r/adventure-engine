@@ -341,8 +341,7 @@
         "specimen_tank_left",
         "specimen_tank_center",
         "specimen_tank_right",
-        "specimen_data_plates",
-        "cataloguer_mechanism"
+        "specimen_data_plates"
       ],
       "background_key": "act1_cataloguer_closeup",
       "background_file": "closeups/cataloguer_specimens.webp",
@@ -8121,58 +8120,6 @@
             {
               "type": "message",
               "text": "You read the numbers aloud: \"Seven... three... one... nine.\" Your voice sounds small against the hum of the specimen tanks. The Ammonite's tentacles stir faintly in its fluid. Even it seems to be listening."
-            }
-          ]
-        }
-      ],
-      "hiding_spot": false
-    },
-    {
-      "id": "cataloguer_mechanism",
-      "name": "Specimen Terminal",
-      "description": "A bio-organic keyboard and control terminal beneath the specimen tanks, its keys inscribed with alien characters.",
-      "position": {
-        "x": 109,
-        "y": 462
-      },
-      "size": {
-        "width": 789,
-        "height": 113
-      },
-      "visual": {
-        "color": "rgba(100, 160, 80, 0.15)",
-        "label": "Terminal"
-      },
-      "initial_state": "active",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A bio-organic keyboard sits below the specimen tanks — its keys inscribed with alien characters that match the glyphs on the data displays above. Small monitors flank the keyboard, showing specimen cross-sections and scrolling biological data. The characters are different from the ones on the data plates — more like operational commands than specimen labels."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You press one of the alien keys experimentally. It yields like cartilage, then springs back. The display above flickers — a new specimen record cycles into view, then returns to its default. You don't know the commands, but the keyboard is definitely functional. The Choir's drones use these to manage the collection."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You speak to the terminal. A small light on the keyboard blinks once — voice input detected — but nothing happens. The system expects Choir command tones, not your voice. You'd need to know their language to operate this remotely."
             }
           ]
         }
