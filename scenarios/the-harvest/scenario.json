@@ -6932,7 +6932,7 @@
         "columns": 2,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 0.19
+        "scale": 0.05
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -19460,12 +19460,12 @@
       "name": "Small Bones",
       "description": "The scattered remains of a small creature that didn't make it through the ventilation shaft.",
       "position": {
-        "x": 682,
-        "y": 625
+        "x": 672,
+        "y": 629
       },
       "size": {
-        "width": 113,
-        "height": 79
+        "width": 110,
+        "height": 90
       },
       "visual": {
         "color": "#4a4a3a",
@@ -19508,6 +19508,13 @@
         "rows": 1,
         "frame_rate": 0,
         "scale": 0.16
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": 2,
+        "opacity": 0.7,
+        "width": 60,
+        "height": 10
       }
     },
     {
@@ -20430,8 +20437,8 @@
         "y": 650
       },
       "size": {
-        "width": 360,
-        "height": 60
+        "width": 387,
+        "height": 63
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -24624,12 +24631,12 @@
       "name": "Shaft Ahead",
       "description": "The ventilation shaft continues forward into branching darkness.",
       "position": {
-        "x": 427,
-        "y": 153
+        "x": 416,
+        "y": 163
       },
       "size": {
-        "width": 244,
-        "height": 305
+        "width": 259,
+        "height": 312
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.2)",
