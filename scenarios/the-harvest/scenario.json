@@ -7443,6 +7443,15 @@
         "label": "Drawer",
         "animation": ""
       },
+      "sprite": {
+        "file": "sprites/key_card_drawer.png",
+        "frame_width": 643,
+        "frame_height": 714,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.1
+      },
       "initial_state": "default",
       "initially_visible": true,
       "interactions": [
@@ -24268,6 +24277,15 @@
         "color": "#3a3a3a",
         "label": "Drawer",
         "animation": "glimmer"
+      },
+      "sprite": {
+        "file": "sprites/key_card_drawer.png",
+        "frame_width": 643,
+        "frame_height": 714,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.18
       },
       "initial_state": "default",
       "initially_visible": true,
