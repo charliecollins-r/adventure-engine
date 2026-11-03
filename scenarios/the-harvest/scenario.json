@@ -1586,11 +1586,11 @@
         "sprite_set": "idle",
         "object_id": "goblin_self",
         "shadow": {
-          "width": 60,
+          "width": 59,
           "height": 12,
           "color": "rgba(0,0,0,0.7)",
           "opacity": 0.85,
-          "offset_y": 2
+          "offset_y": -7
         }
       },
       "ambient_lighting": {
@@ -7445,12 +7445,20 @@
       "name": "Security Drawer",
       "description": "A drawer beneath the security console, partially jammed open.",
       "position": {
-        "x": 887,
-        "y": 328
+        "x": 846,
+        "y": 543
       },
       "size": {
+        "width": 64,
+        "height": 95
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": -9,
+        "opacity": 1,
         "width": 73,
-        "height": 67
+        "height": 24,
+        "skew_x": -2
       },
       "visual": {
         "color": "#3a3a3a",
@@ -26357,8 +26365,15 @@
       "name": "Emergency Equipment Cabinet",
       "description": "A wall-mounted cabinet with a cracked glass front, marked with alien safety symbols.",
       "position": {
-        "x": 333,
-        "y": 550
+        "x": 332,
+        "y": 557
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": -16,
+        "opacity": 1,
+        "width": 115,
+        "height": 19
       },
       "size": {
         "width": 83,
