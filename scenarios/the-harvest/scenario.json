@@ -5796,12 +5796,12 @@
       "name": "Specimen Tag",
       "description": "A small tag hanging from your pod's frame, inscribed with alien notation.",
       "position": {
-        "x": 303,
-        "y": 562
+        "x": 311,
+        "y": 561
       },
       "size": {
-        "width": 47,
-        "height": 54
+        "width": 10,
+        "height": 34
       },
       "sprite": {
         "file": "sprites/specimen_tag.png",
@@ -7726,8 +7726,8 @@
         "y": 480
       },
       "size": {
-        "width": 81,
-        "height": 197
+        "width": 68,
+        "height": 150
       },
       "visual": {
         "color": "#4a6a3a",
