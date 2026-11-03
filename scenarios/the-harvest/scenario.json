@@ -5697,7 +5697,7 @@
             {
               "type": "set_animation",
               "object": "pod_drainage_channel",
-              "animation": null
+              "value": ""
             }
           ]
         },
@@ -6004,7 +6004,7 @@
             {
               "type": "set_animation",
               "object": "instrument_rack",
-              "animation": null
+              "value": ""
             },
             {
               "type": "set_flag",
@@ -6109,7 +6109,7 @@
             {
               "type": "set_animation",
               "object": "sample_jars",
-              "animation": null
+              "value": ""
             }
           ]
         },
@@ -6974,7 +6974,7 @@
             {
               "type": "set_animation",
               "object": "nutrient_dispenser",
-              "animation": null
+              "value": ""
             },
             {
               "type": "set_flag",
@@ -7180,7 +7180,7 @@
             {
               "type": "set_animation",
               "object": "wall_scratches",
-              "animation": null
+              "value": ""
             },
             {
               "type": "set_flag",
