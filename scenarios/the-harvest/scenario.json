@@ -871,7 +871,6 @@
         "energy_barrier_enclosures",
         "caged_prisoner",
         "enclosure_monitors",
-        "feeding_chair",
         "nav_act1_feeding_station_to_act1_morgue",
         "nav_act1_feeding_station_to_act1_containment_corridor",
         "nav_act1_feeding_station_to_act1_specimen_archive"
@@ -23057,57 +23056,6 @@
             {
               "type": "message",
               "text": "You tap one of the screens. It cycles through data — weight, metabolism, aggression index. The middle enclosure's occupant is flagged as 'sapient, cooperative.' That creature can think. It might be able to help."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "feeding_chair",
-      "name": "Feeding Chair",
-      "description": "A reclining seat next to the nutrient dispensing trough.",
-      "position": {
-        "x": 833,
-        "y": 8
-      },
-      "size": {
-        "width": 127,
-        "height": 628
-      },
-      "visual": {
-        "color": "#3a2a2a",
-        "label": "Chair"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A reclining seat next to the dispensing trough. Restraint grooves on the armrests suggest the 'feeding' wasn't voluntary. A tube hangs from above, aimed at where a seated creature's mouth would be. The Choir didn't just cage their specimens — they force-fed them."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You sit down experimentally. The chair hums and adjusts to your body. A tendril extends from the tube, reaching toward your mouth — you leap out before it connects. The chair powers down with a disappointed whir."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "\"Not hungry,\" you tell the chair firmly. The feeding tube retracts slightly. You're not sure if it understood or just lost interest."
             }
           ]
         }
