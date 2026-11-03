@@ -7034,15 +7034,6 @@
               "item": "nutrient_paste_tube"
             },
             {
-              "type": "hide_object",
-              "object": "nutrient_dispenser"
-            },
-            {
-              "type": "set_animation",
-              "object": "nutrient_dispenser",
-              "value": ""
-            },
-            {
               "type": "set_flag",
               "flag": "nutrient_paste_taken",
               "value": "true"
