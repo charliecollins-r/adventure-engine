@@ -5693,6 +5693,15 @@
         "width": 47,
         "height": 54
       },
+      "sprite": {
+        "file": "sprites/specimen_tag.png",
+        "frame_width": 48,
+        "frame_height": 72,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 1.5,
+        "scale": 0.7
+      },
       "visual": {
         "color": "#8a6a2a",
         "label": "Tag"
@@ -5728,6 +5737,10 @@
             {
               "type": "add_item",
               "item": "specimen_tag"
+            },
+            {
+              "type": "hide_object",
+              "object": "specimen_tag_hook"
             },
             {
               "type": "set_flag",
@@ -5897,6 +5910,11 @@
             {
               "type": "add_item",
               "item": "surgical_probe"
+            },
+            {
+              "type": "set_animation",
+              "object": "instrument_rack",
+              "animation": null
             },
             {
               "type": "set_flag",
@@ -6816,6 +6834,11 @@
               "item": "nutrient_paste_tube"
             },
             {
+              "type": "set_animation",
+              "object": "nutrient_dispenser",
+              "animation": null
+            },
+            {
               "type": "set_flag",
               "flag": "nutrient_paste_taken",
               "value": "true"
@@ -7015,6 +7038,11 @@
             {
               "type": "add_item",
               "item": "ventilation_map"
+            },
+            {
+              "type": "set_animation",
+              "object": "wall_scratches",
+              "animation": null
             },
             {
               "type": "set_flag",
@@ -7296,6 +7324,15 @@
         "width": 50,
         "height": 70
       },
+      "sprite": {
+        "file": "sprites/personal_log_crystal.png",
+        "frame_width": 32,
+        "frame_height": 64,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.8
+      },
       "visual": {
         "color": "#5a6a7a",
         "label": "Crystal",
@@ -7330,6 +7367,10 @@
             {
               "type": "add_item",
               "item": "data_crystal_personal_log"
+            },
+            {
+              "type": "hide_object",
+              "object": "personal_log_crystal"
             },
             {
               "type": "set_flag",
