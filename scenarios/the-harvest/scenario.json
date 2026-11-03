@@ -61,7 +61,7 @@
     },
     "ambient_audio": "audio/haunted.wav",
     "intro_text": [
-      "You remember fragments.\nA world with two suns. Fields of amber grain.\nFaces you can no longer name.",
+      "You remember fragments.\nA world with... two suns? Or was it one?. Fields of amber grain.\nFaces you can no longer name.",
       "Then the sky split open.\nSomething vast descended \u2014 a living ship,\nall tendrils and bioluminescent veins.\nIt took everything.",
       "You were catalogued.\nWeighed. Measured. Filed away in a pod\nof warm amber fluid alongside\nhundreds of other specimens.",
       "You don't know how long you slept.\nDays. Months. Years.\nThe ship hums around you \u2014\na heartbeat that is not your own.",
@@ -168,7 +168,7 @@
           ]
         },
         {
-          "text": "The amber fluid pooling beneath the drainage channel could be useful, but you need a container. The processing lab down the corridor might have something \u2014 sample jars, perhaps.",
+          "text": "The amber fluid pooling beneath the drainage channel could be useful, but you need a container. There must be other rooms on this ship \u2014 one of them might have something you could use \u2014 sample jars, perhaps.",
           "when": [
             {
               "type": "has_item",
@@ -632,7 +632,7 @@
           ]
         },
         {
-          "text": "The processing lab to the left might have tools and information. The security hub could give you control over the ship's systems.",
+          "text": "The passage to the left might have tools and information. The passage to the right could give you control over the ship's systems.",
           "when": [
             {
               "type": "flag_is",
@@ -647,7 +647,7 @@
           ]
         },
         {
-          "text": "You've accessed security. The feeding station deeper in the ship connects to more areas worth exploring.",
+          "text": "You've accessed security. The passage straight ahead leads deeper into the ship and connects to more areas worth exploring.",
           "when": [
             {
               "type": "flag_is",
@@ -792,11 +792,11 @@
       "room_animation": "breathe",
       "hints": [
         {
-          "text": "A grim place. The Choir dispose of failed specimens here. Search the room \u2014 even in death, there may be something useful.",
+          "text": "A grim place. The ship's crew dispose of failed specimens here. Search the room \u2014 even in death, there may be something useful.",
           "when": []
         },
         {
-          "text": "A severed neural tendril lies near one of the slabs. Choir neural tissue could have applications elsewhere.",
+          "text": "A severed neural tendril lies near one of the slabs. Alien neural tissue could have applications elsewhere.",
           "when": [
             {
               "type": "not_has_item",
@@ -4035,7 +4035,7 @@
     {
       "id": "severed_neural_tendril",
       "name": "Severed Neural Tendril",
-      "description": "A section of neural interface tendril, severed from a Choir dormancy alcove.",
+      "description": "A section of neural interface tendril, severed from a alien dormancy alcove.",
       "icon": "tendril",
       "examine": [
         {
@@ -5921,7 +5921,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Two examination tables dominate the room. The restraints are sized for creatures far larger than you \u2014 thick organic clamps that would hold a Choir member. Drainage channels lead to floor grates. Residue stains tell stories you don't want to hear. These tables have seen a lot of use."
+              "text": "Two examination tables dominate the room. The restraints are sized for creatures far larger than you \u2014 thick organic clamps that would hold something much larger than you. Drainage channels lead to floor grates. Residue stains tell stories you don't want to hear. These tables have seen a lot of use."
             }
           ]
         },
@@ -6021,7 +6021,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Surgical instruments arranged with obsessive precision. They look grown rather than forged \u2014 smooth bone-like material, organic curves, needle-fine tips. Most are sized for Choir hands: too large for you to wield. But a smaller probe near the bottom of the rack looks manageable."
+              "text": "Surgical instruments arranged with obsessive precision. They look grown rather than forged \u2014 smooth bone-like material, organic curves, needle-fine tips. Most are sized for hands far larger than yours: too large for you to wield. But a smaller probe near the bottom of the rack looks manageable."
             }
           ]
         },
@@ -6222,7 +6222,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye \u2014 it's showing a startup sequence, a series of bio-organic buttons pressed in a specific order. Five steps, specific timing. You watch the loop repeat twice and commit the pattern to memory. This is the security console activation procedure \u2014 the Choir trains its drones with these demonstration loops."
+              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye \u2014 it's showing a startup sequence, a series of bio-organic buttons pressed in a specific order. Five steps, specific timing. You watch the loop repeat twice and commit the pattern to memory. This is some kind of activation procedure \u2014 the ship's crew trains its machines with these demonstration loops."
             },
             {
               "type": "set_flag",
@@ -6267,7 +6267,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You study the startup sequence carefully, memorizing the pattern of button presses. Five steps, specific order, specific timing. This is the security hub's console sequence \u2014 you're sure of it. The Choir trains its drones using these demonstration loops."
+              "text": "You study the startup sequence carefully, memorizing the pattern of button presses. Five steps, specific order, specific timing. This is a console activation sequence \u2014 you're sure of it. The Choir trains its drones using these demonstration loops."
             },
             {
               "type": "set_flag",
@@ -6329,12 +6329,12 @@
       "name": "Main Display",
       "description": "A large green screen showing a detailed alien organism diagram with alien text annotations.",
       "position": {
-        "x": 84,
+        "x": 175,
         "y": 32
       },
       "size": {
-        "width": 784,
-        "height": 442
+        "width": 602,
+        "height": 440
       },
       "visual": {
         "color": "rgba(60, 200, 140, 0.1)",
@@ -6421,12 +6421,12 @@
       "name": "Alien Keypad",
       "description": "A small keypad with alien characters etched into bio-organic keys.",
       "position": {
-        "x": 217,
-        "y": 530
+        "x": 301,
+        "y": 470
       },
       "size": {
-        "width": 153,
-        "height": 137
+        "width": 124,
+        "height": 82
       },
       "visual": {
         "color": "rgba(60, 200, 140, 0.15)",
@@ -6548,12 +6548,12 @@
       "name": "Processing Status",
       "description": "A small monitor showing processing status data and system diagnostics.",
       "position": {
-        "x": 386,
-        "y": 522
+        "x": 425,
+        "y": 468
       },
       "size": {
-        "width": 177,
-        "height": 145
+        "width": 92,
+        "height": 89
       },
       "visual": {
         "color": "rgba(60, 200, 140, 0.1)",
@@ -6614,12 +6614,12 @@
       "name": "Specimen Registry",
       "description": "A small monitor showing specimen classification records and biological data.",
       "position": {
-        "x": 587,
-        "y": 522
+        "x": 516,
+        "y": 470
       },
       "size": {
-        "width": 185,
-        "height": 145
+        "width": 124,
+        "height": 77
       },
       "visual": {
         "color": "rgba(60, 200, 140, 0.1)",
@@ -6783,7 +6783,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A slab designed for dissection. Drainage channels lead to the recycling vats. Overhead, articulated lighting rigs are frozen mid-position, aimed at where a specimen's torso would be. The slab is clean \u2014 recently used and cleaned. The Choir is thorough."
+              "text": "A slab designed for dissection. Drainage channels lead to the recycling vats. Overhead, articulated lighting rigs are frozen mid-position, aimed at where a specimen's torso would be. The slab is clean \u2014 recently used and cleaned. Whoever runs this place is thorough."
             }
           ]
         },
@@ -6885,7 +6885,7 @@
     {
       "id": "neural_tendril_sample",
       "name": "Severed Neural Tendril",
-      "description": "A neural connection tendril, severed during the struggle that damaged the security hub.",
+      "description": "A neural connection tendril, severed during whatever struggle damaged this section of the ship.",
       "position": {
         "x": 805,
         "y": 423
@@ -6917,7 +6917,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A length of neural tendril, the kind the Choir use to interface with the ship's systems. This one is severed \u2014 torn during whatever struggle damaged the security hub. The cut end still pulses faintly with residual bio-electricity. It's gross. It might also be useful."
+              "text": "A length of neural tendril, severed from something. The cut end still pulses faintly with residual bio-electricity. This one is severed \u2014 torn during whatever struggle damaged the security hub. The cut end still pulses faintly with residual bio-electricity. It's gross. It might also be useful."
             }
           ]
         },
@@ -6932,7 +6932,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You pick up the tendril, suppressing a shudder. It's warm and slightly damp, like holding a severed worm. The bio-electricity makes your fingers tingle. Choir technology interfaces through these \u2014 plug this into the right port and you might be able to access systems keyed to their biology."
+              "text": "You pick up the tendril, suppressing a shudder. It's warm and slightly damp, like holding a severed worm. The bio-electricity makes your fingers tingle. The ship's technology seems to interface through things like these \u2014 plug this into the right port and you might be able to access systems keyed to their biology."
             },
             {
               "type": "add_item",
@@ -7027,7 +7027,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You collect a tube's worth of nutrient paste from the dispenser output. It's disgusting, but the Choir drones are attracted to it \u2014 it could serve as a distraction if you need one."
+              "text": "You collect a tube's worth of nutrient paste from the dispenser output. It's disgusting, but grey slurry that smells like metal and algae. But you pocket a tube of it anyway. On a ship full of things that want to process you, having something foul-smelling could come in handy."
             },
             {
               "type": "add_item",
@@ -7294,7 +7294,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The main security console \u2014 bio-organic buttons arranged in a semicircle around a central display. Surveillance feeds from across the containment deck flicker on damaged screens. One screen clearly shows a tall, methodical figure moving through corridors. The Curator, making its rounds. The console is in standby mode, awaiting an activation sequence."
+              "text": "The main security console \u2014 bio-organic buttons arranged in a semicircle around a central display. Surveillance feeds from across the containment deck flicker on damaged screens. One screen clearly shows a tall, methodical figure moving through corridors. Some kind of overseer, making its rounds. The console is in standby mode, awaiting an activation sequence."
             }
           ]
         },
@@ -7815,7 +7815,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You lean closer to the robot's specimen jars, studying the data plates. Alien script you can't read \u2014 but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The first four digits are identical. That's not a specimen ID \u2014 it's a section code. The processing lab door has a keypad. This could be the access code."
+              "text": "You lean closer to the robot's specimen jars, studying the data plates. Alien script you can't read \u2014 but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The first four digits are identical. That's not a specimen ID \u2014 it's a section code. A code like that must open something on this ship. This could be the access code."
             },
             {
               "type": "set_flag",
@@ -8081,7 +8081,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace your finger along the numbers on each screen: 7319-101... 7319-102... 7319-103. The first four digits repeat on every display \u2014 that's not a specimen ID, it's a section code. 7-3-1-9. The processing lab had a terminal with a keypad. This could be the access code you need."
+              "text": "You trace your finger along the numbers on each screen: 7319-101... 7319-102... 7319-103. The first four digits repeat on every display \u2014 that's not a specimen ID, it's a section code. 7-3-1-9. A code that repeats on every specimen. Worth remembering \u2014 it must unlock something on this ship."
             },
             {
               "type": "set_flag",
@@ -8262,7 +8262,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hold the neural tendril up to the holographic display. The tendril twitches \u2014 still faintly alive \u2014 and the display responds, reconfiguring around this new biological input. The star map zooms in, planet after planet flickering past, until it locks on a single system. A red dwarf star with three rocky planets. The Convergence's next destination. Your home system. They're heading for Earth. The tendril goes dark in your hand, spent. But you've learned what you needed to know."
+              "text": "You hold the neural tendril up to the holographic display. The tendril twitches \u2014 still faintly alive \u2014 and the display responds, reconfiguring around this new biological input. The star map zooms in, planet after planet flickering past, until it locks on a single system. A single yellow star. Eight planets. Third from the sun. The Convergence's next destination. Your home system. They're heading for Earth. The tendril goes dark in your hand, spent. But you've learned what you needed to know."
             },
             {
               "type": "set_flag",
@@ -8353,7 +8353,7 @@
     {
       "id": "empty_docking_clamps",
       "name": "Empty Docking Clamps",
-      "description": "Heavy mechanical clamps where your ship, the Outrider, was once docked. The clamps are open and empty.",
+      "description": "Heavy mechanical clamps Something was docked here \u2014 the outline in the wear pattern looks familiar. The clamps are open and empty.",
       "position": {
         "x": 683,
         "y": 0
@@ -8375,7 +8375,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The docking clamps are open, still showing the outline of your ship's hull in wear patterns. The Outrider \u2014 your ship, your home, your way out \u2014 was jettisoned. Probably automated: the Choir don't want escape vehicles lying around for specimens to find. Your ship is gone. You're not leaving this way."
+              "text": "The docking clamps are open, still showing the outline of your ship's hull in wear patterns. The docking clamps are open, still showing the outline of a ship's hull in wear patterns. Something about the shape tugs at your memory \u2014 your ship? A name surfaces: Outrider. Your ship. Your way out. Jettisoned. Probably automated: the Choir don't want escape vehicles lying around for specimens to find. Your ship is gone. You're not leaving this way."
             },
             {
               "type": "set_flag",
@@ -8420,7 +8420,7 @@
     {
       "id": "suit_locker",
       "name": "Emergency Suit Locker",
-      "description": "A locker containing alien emergency space suits, designed for Choir physiology.",
+      "description": "A locker containing alien emergency space suits, designed for the crew's physiology.",
       "position": {
         "x": 744,
         "y": 191
@@ -8447,7 +8447,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Emergency suit locker, cracked open from whatever impact rocked the ship. The suits inside are designed for Choir physiology. You already have the helmet from the security hub \u2014 the only piece that fits you."
+              "text": "Emergency suit locker, cracked open from whatever impact rocked the ship. The suits inside are designed for the crew's physiology. You already have the helmet from the security hub \u2014 the only piece that fits you."
             }
           ]
         },
@@ -8462,7 +8462,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Emergency suit locker \u2014 standard safety equipment near an airlock. The suits inside are sized for the Choir: far too large for you. But the helmets..."
+              "text": "Emergency suit locker \u2014 standard safety equipment near an airlock. The suits inside are sized for the ship's crew: far too large for you. But the helmets..."
             }
           ]
         },
@@ -18686,7 +18686,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Deep gouges in the organic wall, the kind made by something clawing desperately as it was dragged. The stains beside them are dark and old \u2014 not blood, exactly, but something's vital fluid. The marks lead toward the left passage. Toward the processing lab."
+              "text": "Deep gouges in the organic wall, the kind made by something clawing desperately as it was dragged. The stains beside them are dark and old \u2014 not blood, exactly, but something's vital fluid. The marks lead toward the left passage. Toward whatever lies beyond."
             }
           ]
         },
@@ -18762,7 +18762,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The panel still pulses red, but now you can read some of the symbols thanks to the security console's translation overlays. 'Containment Deck 7 \u2014 Multiple Breach Events.' Your escape triggered a cascade of alerts. The Curator is listed as active and patrolling."
+              "text": "The panel still pulses red, but now you can read some of the symbols thanks to the security console's translation overlays. 'Containment Deck 7 \u2014 Multiple Breach Events.' Your escape triggered a cascade of alerts. One entry keeps repeating with a moving indicator \u2014 something is actively patrolling the deck."
             }
           ]
         },
@@ -18846,7 +18846,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The growth is warm and slightly damp. It contracts at your touch, bioluminescence brightening briefly. You could cut into it with the glass shard, but that might alert the ship's immune system \u2014 and by extension, the Curator. Better not."
+              "text": "The growth is warm and slightly damp. It contracts at your touch, bioluminescence brightening briefly. You could cut into it with the glass shard, but that might alert the ship's immune system \u2014 and by extension, whatever is patrolling these corridors. Better not."
             },
             {
               "type": "add_noise",
@@ -23566,7 +23566,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A heavy lever behind a thick bio-organic membrane \u2014 the main containment override control. The membrane is sealed tight; it won't open until the console is active. Even then, pulling this lever will be loud. Very loud. The Curator will notice."
+              "text": "A heavy lever behind a thick bio-organic membrane \u2014 the main containment override control. The membrane is sealed tight; it won't open until the console is active. Even then, pulling this lever will be loud. Very loud. Whatever is patrolling this deck will notice."
             }
           ]
         },
