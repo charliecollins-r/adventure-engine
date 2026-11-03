@@ -6023,6 +6023,10 @@
               "item": "surgical_probe"
             },
             {
+              "type": "hide_object",
+              "object": "instrument_rack"
+            },
+            {
               "type": "set_animation",
               "object": "instrument_rack",
               "value": ""
@@ -6902,6 +6906,10 @@
               "item": "severed_neural_tendril"
             },
             {
+              "type": "hide_object",
+              "object": "neural_tendril_sample"
+            },
+            {
               "type": "set_flag",
               "flag": "neural_tendril_taken",
               "value": "true"
@@ -6991,6 +6999,10 @@
             {
               "type": "add_item",
               "item": "nutrient_paste_tube"
+            },
+            {
+              "type": "hide_object",
+              "object": "nutrient_dispenser"
             },
             {
               "type": "set_animation",
