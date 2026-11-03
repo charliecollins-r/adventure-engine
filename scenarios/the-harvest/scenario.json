@@ -7455,20 +7455,12 @@
       "name": "Security Drawer",
       "description": "A drawer beneath the security console, partially jammed open.",
       "position": {
-        "x": 846,
-        "y": 543
+        "x": 887,
+        "y": 328
       },
       "size": {
         "width": 64,
         "height": 95
-      },
-      "shadow": {
-        "offset_x": 0,
-        "offset_y": -9,
-        "opacity": 1,
-        "width": 73,
-        "height": 24,
-        "skew_x": -2
       },
       "visual": {
         "color": "#3a3a3a",
