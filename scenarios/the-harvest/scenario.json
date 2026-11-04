@@ -23176,21 +23176,7 @@
               "flag": "gap_crossed"
             }
           ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You extend the surgical probe upward and hook its curved tip around the overhead conduit. It holds. You grip the probe's handle with both hands, kick off the walkway edge, and swing across the gap. Your feet find solid metal on the other side. The conduit groans but supports your weight. You unhook the probe — still intact, still useful. Now you can reach the cataloguer robot and its specimen jars."
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "gap_crossed",
-              "value": "true"
-            }
-          ]
+          "response": "The surgical probe is sharp, but it's a delicate instrument — not a grappling hook. You need something longer, something you could throw across and hold onto."
         },
         {
           "verb": "use_item",
