@@ -23194,7 +23194,7 @@
         },
         {
           "verb": "use_item",
-          "item": "neural_tendril_sample",
+          "item": "severed_neural_tendril",
           "when": [
             {
               "type": "flag_not",
@@ -23231,7 +23231,7 @@
         },
         {
           "verb": "use_item",
-          "item": "neural_tendril_sample",
+          "item": "severed_neural_tendril",
           "when": [
             {
               "type": "flag_is",
