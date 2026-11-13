@@ -17,6 +17,12 @@
  *   --threshold N    Color distance threshold for chroma removal (default: 80)
  *   --color R,G,B    Chroma key color (default: 0,0,255 = blue)
  *   --info           Print frame dimensions and exit (no output file)
+ *   --no-despill     Skip edge despill (by default, opaque pixels within 2px of
+ *                    the removed background have their blue cast neutralised,
+ *                    which removes the purple/blue fringe left by anti-aliasing)
+ *
+ * WebP input: node-canvas may not decode WebP. Convert first:
+ *   convert input.webp input.png
  */
 
 import { createCanvas, loadImage } from 'canvas';
@@ -41,6 +47,7 @@ const rows = parseInt(getArg('--rows', '1'), 10);
 const padding = parseInt(getArg('--padding', '2'), 10);
 const threshold = parseInt(getArg('--threshold', '80'), 10);
 const infoOnly = hasFlag('--info');
+const despill = !hasFlag('--no-despill');
 const outFile = getArg('--out', inputFile.replace(extname(inputFile), '_processed.png'));
 
 const chromaStr = getArg('--color', '0,0,255');
@@ -145,6 +152,8 @@ async function main() {
       }
     }
 
+    if (despill) despillEdges(frameData, fb.contentW, fb.contentH);
+
     frameCtx.putImageData(frameData, 0, 0);
     outCtx.drawImage(frameCanvas, destX, destY);
   }
@@ -162,6 +171,32 @@ async function main() {
     frame_rate: 2,
     scale: 1.0,
   }, null, 2));
+}
+
+// Neutralise the chroma colour bleeding into anti-aliased edge pixels.
+// Only pixels within `radius` of a transparent pixel are touched, so blue
+// that is genuinely part of the artwork's interior is preserved.
+function despillEdges(imageData, w, h, radius = 2) {
+  const d = imageData.data;
+  const nearEdge = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      if (d[(y * w + x) * 4 + 3] !== 0) continue;
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && ny >= 0 && nx < w && ny < h) nearEdge[ny * w + nx] = 1;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < w * h; i++) {
+    const o = i * 4;
+    if (!nearEdge[i] || d[o + 3] === 0) continue;
+    const r = d[o], g = d[o + 1], b = d[o + 2];
+    const cap = Math.max(r, g);
+    if (b > cap) d[o + 2] = cap;
+  }
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

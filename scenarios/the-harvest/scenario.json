@@ -148,6 +148,7 @@
         "pod_drainage_channel",
         "occupied_pods",
         "platform_gap",
+        "gap_grappling_line",
         "cataloguer_robot",
         "specimen_tag_hook",
         "walkway_railing",
@@ -233,7 +234,21 @@
           ]
         },
         {
-          "text": "You've gathered what you can here. The cataloguer robot on the wall might be worth investigating, and the archway leads deeper into the ship.",
+          "text": "The cataloguer robot is across a torn gap in the walkway, and jumping it would be suicide. The far railing looks solid, though. A hook on a long, strong line might catch it.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "pod_glass_shard"
+            },
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You've gathered what you can here, and the cataloguer has given up its code. The archway leads deeper into the ship.",
           "when": [
             {
               "type": "has_item",
@@ -246,6 +261,67 @@
             {
               "type": "has_item",
               "item": "specimen_tag"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "You have part of a way across. A line alone won't catch, and a hook alone won't hold you. Try combining them: select one item in your inventory, then click the other.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "grappling_line"
+            },
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "has_item",
+                  "item": "restraint_strap"
+                },
+                {
+                  "type": "has_item",
+                  "item": "carcass_hook"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Your grappling line is ready. Select it in your inventory and use it on the gap.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "grappling_line"
+            }
+          ]
+        },
+        {
+          "text": "You're across. Get a closer LOOK at the cataloguer robot and its specimen jars.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known",
+              "value": "true"
             }
           ]
         }
@@ -560,6 +636,29 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "text": "Those restraint straps held creatures far bigger than you, so they'd hold your weight easily. Your hands can't tear them, but something made to cut this ship's materials might.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "default"
+            },
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "grappling_line"
+            }
+          ]
         }
       ],
       "character": {
@@ -806,6 +905,7 @@
         "morgue_chemical_cabinet",
         "morgue_drain_channel",
         "dead_goblin",
+        "morgue_carcass_hook",
         "nav_act1_morgue_to_act1_feeding_station"
       ],
       "background_key": "act1_morgue",
@@ -820,17 +920,49 @@
           "text": "A severed neural tendril lies near one of the slabs. Alien neural tissue could have applications elsewhere.",
           "when": [
             {
-              "type": "not_has_item",
-              "item": "severed_neural_tendril"
+              "type": "flag_not",
+              "flag": "neural_tendril_taken",
+              "value": "true"
             }
           ]
         },
         {
-          "text": "You've taken the neural tendril. The recycling vats and drawers tell a grim story, but you've found what's useful here.",
+          "text": "You've found what's useful here. The recycling vats and drawers tell a grim story.",
           "when": [
             {
-              "type": "has_item",
-              "item": "severed_neural_tendril"
+              "type": "flag_is",
+              "flag": "neural_tendril_taken",
+              "value": "true"
+            },
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "carcass_hook_taken",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "A barbed carcass hook is jammed into the lip of an open drawer. It's made to catch and hold. That could be useful somewhere with a gap to cross.",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "carcass_hook_taken",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
             }
           ]
         }
@@ -3845,7 +3977,9 @@
     "prisoner_spoken": "false",
     "prisoner_bond": "none",
     "airlock_hinted": "false",
-    "choir_nature_known": "false"
+    "choir_nature_known": "false",
+    "restraint_strap_cut": "false",
+    "carcass_hook_taken": "false"
   },
   "items": [
     {
@@ -4075,7 +4209,7 @@
     {
       "id": "severed_neural_tendril",
       "name": "Severed Neural Tendril",
-      "description": "A section of neural interface tendril, severed from a alien dormancy alcove.",
+      "description": "A section of neural interface tendril, severed from an alien dormancy alcove.",
       "icon": "tendril",
       "examine": [
         {
@@ -5253,9 +5387,75 @@
           "response": "The chip is warm in your palm. The bioluminescent veins pulse faster when you touch it, as if it's trying to read you. It can't — you're the wrong species — but the stored clearance might still work on Choir systems."
         }
       ]
+    },
+    {
+      "id": "restraint_strap",
+      "name": "Restraint Strap",
+      "description": "A long restraint strap cut from a processing-lab table. Bioengineered, and tougher than any rope.",
+      "icon": "strap",
+      "icon_file": "items/restraint_strap.png",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Thick, leathery, unnervingly warm. Long enough to span a good distance, and strong enough to hold something many times your weight. It was made to. On its own, though, there's nothing to anchor it with."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "carcass_hook",
+      "name": "Carcass Hook",
+      "description": "A barbed bio-metal hook from the morgue, made for dragging bodies out of drawers.",
+      "icon": "hook",
+      "icon_file": "items/carcass_hook.png",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Heavy and curved like a talon, with a backward barb at the tip and a thick eyelet at the top. Throw it at anything with an edge and it would bite and hold. Shame there's nothing tied to it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grappling_line",
+      "name": "Grappling Line",
+      "description": "A carcass hook knotted to a length of restraint strap. Crude, but it will hold.",
+      "icon": "hook",
+      "icon_file": "items/grappling_line.png",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The strap is cinched through the hook's eyelet with the tightest knot you know. Throw the hook, let the barb bite, and the line will take your weight. Built from the tools of your captors."
+            }
+          ]
+        }
+      ]
     }
   ],
   "combinations": [
+    {
+      "items": [
+        "restraint_strap",
+        "carcass_hook"
+      ],
+      "result": "grappling_line",
+      "consumes": true,
+      "message": "You thread the strap through the hook's eyelet, cinch it tight, then haul on it with all your weight. It holds. A grappling line, built from the tools of your captors."
+    },
     {
       "items": [
         "pod_glass_shard",
@@ -5588,14 +5788,7 @@
           "response": "The cat watches you approach, then vanishes into the shadows before you get close.",
           "then": []
         }
-      ],
-      "shadow": {
-        "offset_x": 0,
-        "offset_y": -7,
-        "opacity": 0.83,
-        "width": 60,
-        "height": 8
-      }
+      ]
     },
     {
       "id": "broken_pod",
@@ -23094,7 +23287,7 @@
     {
       "id": "platform_gap",
       "name": "Torn Railing",
-      "description": "A section of walkway railing has been torn away, leaving a gap over the drainage pit below. Organic conduits run along the ceiling above.",
+      "description": "A section of walkway railing has been torn away, leaving a gap over the drainage pit. The cataloguer's platform has a solid railing on the far side.",
       "position": {
         "x": 580,
         "y": 400
@@ -23115,13 +23308,14 @@
           "when": [
             {
               "type": "flag_not",
-              "flag": "gap_crossed"
+              "flag": "gap_crossed",
+              "value": "true"
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "The walkway railing is torn apart here — twisted metal and shredded organic cabling hanging over a gap. Below, the drainage pit drops into darkness. Above, thick conduits run along the ceiling toward the cataloguer's alcove. The gap is too wide to step across, but with the right tool you might be able to hook onto those overhead conduits and swing across."
+              "text": "The walkway railing is torn apart here, twisted metal and shredded cabling hanging over a gap. Below, the drainage pit drops into darkness. The far side, where the cataloguer works, still has a solid railing. Too wide to jump. But if you could throw something across that would catch on that railing, and keep hold of the other end..."
             }
           ]
         },
@@ -23134,14 +23328,16 @@
               "value": "true"
             }
           ],
-          "response": "The gap in the walkway. You crossed it once — you can cross it again."
+          "response": "Your grappling line spans the gap, the hook bitten deep into the far railing. You can cross whenever you need to.",
+          "then": []
         },
         {
           "verb": "hand",
           "when": [
             {
               "type": "flag_not",
-              "flag": "gap_crossed"
+              "flag": "gap_crossed",
+              "value": "true"
             }
           ],
           "then": [
@@ -23165,67 +23361,97 @@
               "value": "true"
             }
           ],
-          "response": "You grab the overhead conduit and swing across the gap again. Easier the second time."
+          "response": "You go hand over hand along your line above the pit. Easier the second time.",
+          "then": []
         },
         {
           "verb": "use_item",
-          "item": "surgical_probe",
+          "item": "grappling_line",
           "when": [
             {
               "type": "flag_not",
-              "flag": "gap_crossed"
-            }
-          ],
-          "response": "The surgical probe is sharp, but it's a delicate instrument — not a grappling hook. You need something longer, something you could throw across and hold onto."
-        },
-        {
-          "verb": "use_item",
-          "item": "severed_neural_tendril",
-          "when": [
-            {
-              "type": "flag_not",
-              "flag": "gap_crossed"
+              "flag": "gap_crossed",
+              "value": "true"
             }
           ],
           "then": [
             {
               "type": "message",
-              "text": "You loop the neural tendril around the stub of torn railing on the far side. The organic fibers grip the metal like a living rope. You test it with your weight — it stretches but holds. You swing across the gap, feet landing on solid walkway. The tendril tightens its grip on the railing, forming a permanent handhold. Now you can reach the cataloguer and its specimen jars."
+              "text": "You swing the hook in a widening circle and let it fly. It clangs off the far railing and slides, then the barb bites. You haul until the line is taut and lash your end to the torn stump of railing on this side. Then, hand over hand with your legs hooked over the strap, you shimmy across the pit. The strap creaks. Fluid drips somewhere far below. Then there's metal under your boots. You're across, and the cataloguer is within reach."
             },
             {
-              "type": "play_sound",
-              "sound": "discovery"
+              "type": "remove_item",
+              "item": "grappling_line"
             },
             {
               "type": "set_flag",
               "flag": "gap_crossed",
               "value": "true"
+            },
+            {
+              "type": "show_object",
+              "object": "gap_grappling_line"
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
             }
           ]
         },
         {
           "verb": "use_item",
-          "item": "surgical_probe",
+          "item": "restraint_strap",
           "when": [
             {
-              "type": "flag_is",
+              "type": "flag_not",
               "flag": "gap_crossed",
               "value": "true"
             }
           ],
-          "response": "You've already crossed the gap. The overhead conduits are within reach now."
+          "then": [
+            {
+              "type": "message",
+              "text": "You could tie one end here, but the other end needs something to catch on across the gap. Thrown loose, the strap would just flop into the pit."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "carcass_hook",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You could throw the hook across, but then what? With nothing tied to it, you'd just be throwing away a perfectly good hook."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "pod_glass_shard",
+          "when": [],
+          "response": "The shard is sharp, but sharp won't get you across. You need something that can reach the far railing and hold on.",
+          "then": []
+        },
+        {
+          "verb": "use_item",
+          "item": "surgical_probe",
+          "when": [],
+          "response": "The surgical probe is a delicate instrument, not a grappling hook.",
+          "then": []
         },
         {
           "verb": "use_item",
           "item": "severed_neural_tendril",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "gap_crossed",
-              "value": "true"
-            }
-          ],
-          "response": "You've already crossed the gap. No need for the tendril."
+          "when": [],
+          "response": "The tendril is barely a foot long and slick with fluid. You'd need something much longer, and something to catch on the far railing.",
+          "then": []
         },
         {
           "verb": "move",
@@ -23353,23 +23579,157 @@
       "interactions": [
         {
           "verb": "look",
-          "when": [],
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "default"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "Thick straps bolted to the examination table, worn smooth by years of struggling. The buckles are sized for something much larger than you — but smaller buckle holes have been punched in recently. Your size."
+              "text": "Thick straps bolted to the examination table, worn smooth by years of struggling. The buckles are sized for something much larger than you, but smaller buckle holes have been punched in recently. Your size. Whatever these are made of, they were built to take a lot of weight."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "cut"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "One strap hangs severed where you cut it free. The rest wait for their next occupant."
             }
           ]
         },
         {
           "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "default"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You test the straps. They're impossibly strong. Whatever was held here fought hard and long, and still couldn't break free. You'll never tear one loose by hand. You'd need something that can cut this material."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "cut"
+            }
+          ],
+          "response": "You've already cut a strap free. One is all you need.",
+          "then": []
+        },
+        {
+          "verb": "use_item",
+          "item": "surgical_probe",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "default"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You slide the probe's needle-fine edge under a strap where it meets the bolt. Choir tools for Choir flesh: the bio-material parts like wet paper. A few careful strokes and a long strap comes free, buckle and all. It was sized for something twice your height, so there's plenty of length. And it's strong enough to hold your weight."
+            },
+            {
+              "type": "add_item",
+              "item": "restraint_strap"
+            },
+            {
+              "type": "set_state",
+              "object": "restraint_straps",
+              "state": "cut"
+            },
+            {
+              "type": "set_flag",
+              "flag": "restraint_strap_cut",
+              "value": "true"
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "surgical_probe",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "cut"
+            }
+          ],
+          "response": "You've already cut a strap free. One is all you need.",
+          "then": []
+        },
+        {
+          "verb": "use_item",
+          "item": "pod_glass_shard",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "default"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You saw at a strap with the glass shard. The edge skates across the surface without leaving a mark, as if the material was made to resist exactly this. You need a proper cutting tool, something made for this ship's materials."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "pod_glass_shard",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "restraint_straps",
+              "state": "cut"
+            }
+          ],
+          "response": "You've already cut a strap free.",
+          "then": []
+        },
+        {
+          "verb": "talk",
           "when": [],
           "then": [
             {
               "type": "message",
-              "text": "You test the straps. They're impossibly strong — some kind of bioengineered material. Whatever was held here fought hard and long, and still couldn't break free."
+              "text": "\"Who did they keep here?\" you whisper. The worn leather doesn't say. The punched holes in your size say enough."
             }
           ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "response": "The straps are bolted to the table. You'd have to cut one free.",
+          "then": []
         }
       ]
     },
@@ -26501,14 +26861,153 @@
         "rows": 1,
         "frame_rate": 0,
         "scale": 0.12
-      },
-      "shadow": {
-        "offset_x": 0,
-        "offset_y": 2,
-        "opacity": 1,
-        "width": 60,
-        "height": 10
       }
+    },
+    {
+      "id": "morgue_carcass_hook",
+      "name": "Carcass Hook",
+      "description": "A barbed bio-metal hook jammed into the lip of an open drawer.",
+      "position": {
+        "x": 300,
+        "y": 395
+      },
+      "size": {
+        "width": 33,
+        "height": 60
+      },
+      "visual": {
+        "color": "#5a5a4a",
+        "label": "Hook",
+        "animation": "glimmer"
+      },
+      "sprite": {
+        "file": "sprites/carcass_hook.png",
+        "frame_width": 416,
+        "frame_height": 748,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.08
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A heavy carcass hook, sunk into the lip of an open drawer. The Choir must use these to drag bodies out for processing. The tip is barbed and crusted with something dark. Barbed things catch, and they hold."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "carcass_hook_taken",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You work the hook free of the drawer with a wet creak. It's heavier than it looks and curved like a talon, with a thick eyelet at the top. The kind of thing you'd tie a line to."
+            },
+            {
+              "type": "add_item",
+              "item": "carcass_hook"
+            },
+            {
+              "type": "set_flag",
+              "flag": "carcass_hook_taken",
+              "value": "true"
+            },
+            {
+              "type": "hide_object",
+              "object": "morgue_carcass_hook"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You eye the hook and the drawer it's buried in. \"Not me,\" you mutter. \"Not today.\""
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "response": "It's jammed fast in the drawer lip. You'd have to pull it free by hand.",
+          "then": []
+        }
+      ]
+    },
+    {
+      "id": "gap_grappling_line",
+      "name": "Your Grappling Line",
+      "description": "Your grappling line, hooked onto the far railing and spanning the gap.",
+      "position": {
+        "x": 594,
+        "y": 621
+      },
+      "size": {
+        "width": 112,
+        "height": 99
+      },
+      "visual": {
+        "color": "#6a5a3a",
+        "label": "Line"
+      },
+      "sprite": {
+        "file": "sprites/grappling_line_rigged.png",
+        "frame_width": 224,
+        "frame_height": 148,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.5
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your line is still there, the hook bitten deep into the far railing. You can cross whenever you need to."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You give the line a tug. Rock solid. Better to leave it rigged in case you need to cross again."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Good hook,\" you tell it. It's the nicest thing anyone's said on this ship."
+            }
+          ]
+        }
+      ]
     }
   ],
   "puzzle_widgets": [
