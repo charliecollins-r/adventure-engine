@@ -179,49 +179,61 @@ Wait — checking: the probe is NOT consumed in any current interaction. It's us
 
 ## Background Image Prompts (Gemini)
 
-### Vent Junction (act1_vent_junction)
+These prompts are matched to the current hotspot layout in `scenario.json` (positions are given as fractions of the frame), and they reuse the look of the existing Vent Entry background. **Attach `backgrounds/act1_ventilation_shaft.webp` as a reference image** in Gemini with each prompt so the palette and tube construction match. Save each result as the filename shown, keeping a 16:9 aspect ratio (1376×768 or 1920×1080 both work).
+
+### Vent Junction — `backgrounds/act1_vent_junction.webp`
 ```
 2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
 
-Interior of an alien spaceship ventilation shaft T-junction. The walls are dark bio-organic metal — ribbed like the inside of a throat, glistening with moisture. The shaft splits LEFT and RIGHT. Red emergency strip-lights line the floor. The left tunnel has a faint yellow-green haze drifting from it. The right tunnel is narrower, darker, partially blocked by debris. Crude scratch marks cover the wall at the junction — arrows and symbols scratched by claws. Overhead pipes drip condensation. The atmosphere is claustrophobic, oppressive. Warm color palette: deep reds, dark purples, sickly greens in the left tunnel.
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
 
-Low camera angle looking UP from knee-height — you are a small creature standing at the junction, tunnels stretching away at eye level in both directions. Saturated colors despite the dark mood — rich crimson emergency lights, deep purple shadows, poisonous yellow-green haze. No text, no UI elements, no characters.
+A T-junction where the tube ends at a curved ribbed back wall and splits into two side tunnels. LEFT side tunnel: a round dark opening on the left wall occupying the left fifth of the frame, from about 30% to 70% down, with a faint sickly yellow-green haze drifting out of it. RIGHT side tunnel: a matching but narrower, darker opening on the right wall in the right fifth of the frame at the same height, its mouth partly choked with fallen debris, no light inside. CENTER of the back wall (the middle third of the frame, upper half): a cluster of crude claw-scratched marks, arrows and symbols gouged by a previous escapee. A band of dripping overhead pipes runs across the very top of the frame. The tube floor in the lower center is open and clear, slightly damp, with a few drifting dust motes showing air currents.
+
+Low camera angle looking UP from knee-height, standing at the junction with the back wall straight ahead and the two tunnel mouths on either side. Saturated colors despite the dark mood — crimson emergency light, poisonous yellow-green glow spilling from the left tunnel, deep purple-black shadow in the right tunnel. No text, no UI elements, no people, no living creatures.
 ```
 
-### Gas Leak Chamber (act1_vent_gas_chamber)  
-```
-2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
-
-Interior of an alien spaceship ventilation shaft filled with toxic yellow-green gas. The gas billows from a cracked bio-organic pipe on the left wall, the pipe's dark flesh split open and leaking luminous vapor. The vent tunnel continues forward into the haze. On the right side, the skeletal remains of a large alien creature slumped against the wall, partially dissolved by the gas. Emergency red lights barely penetrate the toxic fog, creating an eerie orange-green glow where the colors mix. The floor is wet with condensation from the chemical reaction. Visibility is low — the far end of the tunnel fades into poisonous murk.
-
-Low camera angle looking UP from knee-height — the gas hangs at chest level for a standing human, but fills the view for our small protagonist. Saturated colors despite the dark mood — vivid yellow-green gas clouds, deep red emergency lights creating orange halos in the haze, dark purple shadows on the bio-organic walls. No text, no UI elements, no characters.
-```
-
-### Fan Room (act1_vent_fan_room)
+### Gas-Filled Passage — `backgrounds/act1_vent_gas_chamber.webp`
 ```
 2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
 
-Interior of an alien spaceship ventilation shaft with a MASSIVE industrial fan blocking the passage. The fan fills the entire tunnel cross-section — five dark metal blades radiating from a central hub. The blades are a blur of motion (painted with motion streaks). On the right wall, the fan's drive mechanism is exposed — bio-organic muscle tissue wrapped around a metal axle, pulsing with effort, with a narrow gap visible in the housing. Red emergency lights cast dramatic shadows that strobe as the blades pass. Wind effect visible — dust and particles streaming toward the viewer. The tunnel continues beyond the fan, visible through the blur of the blades. The bio-organic walls vibrate from the fan's force.
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
 
-Low camera angle looking UP from knee-height — the fan is enormous from this perspective, filling the tunnel like a wall of spinning death. Saturated colors despite the dark mood — deep crimson emergency lights, dark iron blade metal with gleaming edges, warm brown-purple of the bio-organic mechanism housing. No text, no UI elements, no characters.
+A straight stretch of the tube flooded with toxic yellow-green gas. The tunnel recedes straight ahead to a vanishing point HIGH in the frame (upper center, about 15% down), fading into thick glowing murk. LEFT wall (left quarter of the frame, from about 20% to 70% down): a thick bio-organic pipe split open lengthwise like torn flesh, venting luminous yellow-green vapor that billows across the scene. RIGHT side, lower middle (from about 60% to 85% across, 40% to 75% down): the slumped, partially dissolved skeletal remains of a large alien creature lying against the tube wall, bones stained yellow by the gas. The floor in the lower center is clear and wet with chemical condensation. Red emergency strips glow orange where they shine through the green fog.
+
+Low camera angle looking UP from knee-height down the length of the gassed tunnel. Saturated colors despite the dark mood — vivid yellow-green gas clouds, red emergency light turning to orange halos inside the haze, deep purple shadows on the ribbed walls. No text, no UI elements, no people, no living creatures (the skeletal remains described above are part of the scenery).
 ```
 
-### Collapsed Section (act1_vent_collapsed)
-```
-2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
-
-Interior of a collapsed alien spaceship ventilation shaft — a dead end. Ceiling panels and bio-organic wall material have caved in, creating a wall of rubble blocking the tunnel. The organic ship material has grown OVER the rubble like scar tissue — this collapse happened long ago and the living ship partially healed around it. Propped against the rubble sits the SKELETON of a large alien creature (Choir species — tall, angular bones, elongated skull), holding a faintly glowing datapad in its bony hands. The blue-white glow of the datapad screen illuminates the skeleton's face. Scratch marks on the walls near the skeleton — final desperate markings. One dim emergency light still works, casting deep red shadows.
-
-Low camera angle looking UP from knee-height — the skeleton towers even while seated, emphasizing the alien scale. Saturated colors despite the dark mood — the cool blue-white glow of the datapad contrasting with warm red emergency light and deep purple shadows in the collapsed rubble. No text, no UI elements, no characters.
-```
-
-### Exit Passage (act1_vent_exit)
+### Fan Chamber — `backgrounds/act1_vent_fan_room.webp`
 ```
 2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
 
-Interior of an alien spaceship ventilation shaft opening into a larger space. The vent tunnel slopes downward toward a rectangular hatch opening in the floor, through which you can see the ceiling of a large chamber below (the airlock bay). Through a crack in the vent wall on the left, STARS are visible — pinpoints of light in the black void of space, the first view of the outside. The crack lets in cool blue starlight that cuts across the warm red emergency lighting. The hatch opening below shows industrial docking equipment and the curved interior hull. The vent walls here are cleaner — less organic growth, more maintained metal, as this section connects to operational areas.
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
 
-Low camera angle looking DOWN toward the hatch opening — the stars visible through the wall crack create a moment of wonder after the claustrophobic maze. Saturated colors despite the dark mood — cool blue starlight mixing with warm red emergency strips, silver-gray metal of the cleaner vent section, deep purple shadows. No text, no UI elements, no characters.
+The tube is completely blocked by a MASSIVE ventilation fan facing the viewer. The fan disc is centered horizontally and spans from about 20% to 80% across the frame and from about 10% to 75% down: five broad dark iron blades on a central hub, painted as a motion blur with curved speed streaks, a heavy circular housing ring fused into the ribbed walls. The tunnel beyond is only hinted at through the blur. RIGHT wall (right fifth of the frame, from about 30% to 65% down): the fan's exposed drive mechanism, bio-organic muscle tissue wrapped around a metal axle, glistening and straining, with a clearly visible narrow gap in its housing. The tube floor in front of the fan (bottom quarter of the frame) is open, with dust and debris streaking toward the viewer in the wind. Red emergency light from above casts blade shadows across the walls.
+
+Low camera angle looking UP from knee-height — the fan looms like a spinning wall. Saturated colors despite the dark mood — deep crimson emergency light, dark iron blades with bright gleaming edges, warm brown-purple muscle tissue on the mechanism. No text, no UI elements, no people, no living creatures.
+```
+
+### Collapsed Section — `backgrounds/act1_vent_collapsed.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
+
+A dead end. The tube ahead has caved in: a wall of fallen ceiling ribs, broken panels and rubble fills the middle of the frame (from about 30% to 75% across, 15% to 65% down), with the ship's living bio-material grown OVER the rubble like old scar tissue, showing the collapse happened long ago. Seated on the floor and propped against the right side of the rubble (from about 57% to 77% across, 35% to 75% down) is the SKELETON of a tall alien crew member: long angular limbs, elongated skull, far larger than a human. In its bony hands it holds a small datapad whose cold blue-white screen glow lights its skull and ribs. LEFT wall (from about 10% to 30% across, 40% to 70% down): desperate claw-scratch marks. One weak red emergency light remains, low on the left. The floor in the lower center is clear.
+
+Low camera angle looking UP from knee-height — the seated skeleton still towers over the viewer. Saturated colors despite the dark mood — cool blue-white datapad glow against warm red emergency light, deep purple shadows in the rubble. No text, no UI elements, no people, no living creatures (the skeleton described above is part of the scenery).
+```
+
+### Exit Passage — `backgrounds/act1_vent_exit.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
+
+The last stretch of the tube, cleaner and more maintained: smoother grey-silver metal bands begin to replace the organic ribs. LEFT wall (from about 5% to 25% across, 20% to 63% down): a jagged crack through the hull wall showing deep black space full of bright stars, letting in a shaft of cool blue starlight across the tube. CENTER of the floor, in the lower middle of the frame (from about 36% to 64% across, 62% to 90% down): a rectangular hatch opening in the tube floor, glowing warm amber from the large chamber below, through which you can glimpse the top of docking clamps and the curved hull of an airlock bay. Clear flat floor surrounds the hatch, especially just beyond it in the middle of the frame. The tube continues out of frame behind the viewer.
+
+Low camera angle from knee-height looking slightly DOWN toward the hatch opening, with the star crack to the left — a moment of wonder after the claustrophobic maze. Saturated colors despite the dark mood — cool blue starlight cutting across warm red emergency strips and the amber glow rising from the hatch, silver-grey metal, deep purple shadows. No text, no UI elements, no people, no living creatures.
 ```
 
 ## Implementation Notes
