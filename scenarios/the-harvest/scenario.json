@@ -1326,7 +1326,9 @@
               50,
               50
             ],
-            "alpha": 0.08
+            "alpha": 0.08,
+            "pulse_speed": 0,
+            "pulse_amount": 0
           }
         ]
       },
@@ -1411,7 +1413,9 @@
               50,
               50
             ],
-            "alpha": 0.1
+            "alpha": 0.1,
+            "pulse_speed": 0,
+            "pulse_amount": 0
           }
         ]
       },
@@ -1481,7 +1485,9 @@
               40,
               40
             ],
-            "alpha": 0.1
+            "alpha": 0.1,
+            "pulse_speed": 0,
+            "pulse_amount": 0
           }
         ],
         "flicker": true
@@ -1573,7 +1579,9 @@
               50,
               50
             ],
-            "alpha": 0.08
+            "alpha": 0.08,
+            "pulse_speed": 0,
+            "pulse_amount": 0
           }
         ]
       },
@@ -1649,7 +1657,9 @@
               180,
               150
             ],
-            "alpha": 0.1
+            "alpha": 0.1,
+            "pulse_speed": 0,
+            "pulse_amount": 0
           }
         ]
       },
@@ -23313,7 +23323,7 @@
       },
       "size": {
         "width": 503,
-        "height": 72
+        "height": 70
       },
       "visual": {
         "color": "rgba(70, 130, 180, 0.25)",
@@ -24736,8 +24746,8 @@
       "name": "Key Card Drawer",
       "description": "A small drawer beneath the console, jammed partially open. Key cards glint inside.",
       "position": {
-        "x": 904,
-        "y": -23
+        "x": 690,
+        "y": 700
       },
       "size": {
         "width": 116,
@@ -26101,6 +26111,7 @@
         },
         {
           "verb": "use_item",
+          "item": "surgical_probe",
           "when": [
             {
               "type": "has_item",
@@ -26140,6 +26151,92 @@
         },
         {
           "verb": "use_item",
+          "item": "pod_glass_shard",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "specimen_tag",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "severed_neural_tendril",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "containment_key_card",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "crew_datapad",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "vent_fan",
+              "state": "spinning"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "That won't fit in the mechanism gap. You need something long, thin, and sturdy enough to jam the gears."
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "choir_access_chip",
           "when": [
             {
               "type": "object_state",

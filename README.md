@@ -237,10 +237,12 @@ All sprites (character and object) support JSON-configurable shadows with offset
 Per-view hint arrays in the scenario JSON. The engine evaluates conditions and returns the most specific matching hint. A floating "?" button shows hints as a message overlay. Players can never softlock — hints always point toward the next step.
 
 ### Developer Tools
-Two built-in tools for scenario authors:
+Built-in tools for scenario authors:
 
 - **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view with metadata badges), Objects (position/size/visibility/state inspector), Character (live sprite animation preview), Sprites (browse all sprite sheets), Export (copy-to-clipboard position data). Auto-enables debug hitbox overlays and skips intro.
 - **Visual Editor** (`/editor.html`) — standalone visual editor with actual animated sprite rendering. Drag/resize hotspot boxes, position character and object sprites, adjust shadow properties with real-time sliders, toggle overlays, and export changes in 3 formats.
+- **Scenario validator** (`node tools/validate-scenario.mjs <scenario.json>`) — catches what parses fine but silently breaks play: duplicate keys, `use_item` with no item, object IDs used as item IDs, dangling references, malformed lights, missing assets, off-screen pickups.
+- **Soft-lock search** (`node tools/softlock-search.mjs <scenario.json> --goal <expr>`) — explores every reachable game state with the real engine and reports any state from which the goal can no longer be reached, plus deaths and the shortest win.
 
 <p align="center">
   <img src="docs/images/screenshot-dev-panel.png" width="400" alt="Dev Panel — Views tab" />

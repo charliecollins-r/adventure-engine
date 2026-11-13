@@ -1303,7 +1303,18 @@ Noise is a global value (0-100) that tracks how much sound the player makes. Use
 
 ## Developer Tools
 
-Two tools help you visually verify and fine-tune your scenario during development.
+Two tools help you visually verify and fine-tune your scenario during development, and two command-line checks prove it's playable:
+
+```bash
+# Lint: duplicate keys, use_item without item, wrong IDs, missing files, off-screen pickups
+node tools/validate-scenario.mjs scenarios/my-scenario/scenario.json
+
+# Prove there is no soft-lock: explores every reachable state with the real engine
+node tools/softlock-search.mjs scenarios/my-scenario/scenario.json --goal "flag:escaped=true"
+#   goal forms: state:<obj>=<v> | state:<obj>!=<v> | flag:<f>=<v> | item:<id> | view:<prefix>
+```
+
+Run both before you share a scenario. The validator takes a second. The search takes seconds for a small scenario and can take tens of minutes for a large one like The Harvest's Act 1.
 
 ### In-Game Dev Panel (`?dev`)
 

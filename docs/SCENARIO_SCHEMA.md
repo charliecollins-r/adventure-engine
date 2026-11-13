@@ -418,6 +418,8 @@ Because consumption is per-interaction, **the same item can be a reusable tool i
 
 And a consuming combination feeding a consuming use: `restraint_strap` + `carcass_hook` → `grappling_line` (`"consumes": true`), then `use_item grappling_line` on the gap removes the line because it stays rigged across the gap (a hidden world object is shown to depict it).
 
+**Tooling.** `node tools/validate-scenario.mjs <scenario.json>` catches bad item/object IDs and `use_item` interactions missing their `item`. `node tools/softlock-search.mjs <scenario.json> --goal <expr>` exhaustively checks that no reachable state is unwinnable.
+
 **Soft-lock rule.** Every `remove_item` (and every `"consumes": true`) is a promise that the item is not needed again on any path. Before adding one, search the scenario for every `has_item`, `use_item`, and combination that references the item, and confirm none of them is required after this point. If it might be, keep the item, or give the player a second source. See Validation Rules → Reachability.
 
 ---

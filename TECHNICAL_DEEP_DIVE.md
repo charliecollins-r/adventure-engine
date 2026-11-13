@@ -321,6 +321,10 @@ Two engine behaviours scenario tooling must mirror exactly:
 - **Visibility defaults to visible.** The constructor copies `initially_visible` as-is, so an object without the field stores `undefined`, and `getVisibleObjects()` hides only objects whose visibility is strictly `false`.
 - **First match wins.** `findMatchingInteraction` returns the first interaction whose verb (and item) match and whose `when` passes, so flags read by an earlier, purely cosmetic interaction still decide whether a later, substantive one fires.
 
+### Scenario Validator (`tools/validate-scenario.mjs`)
+
+Static checks for mistakes that parse fine but silently break play. It scans for duplicate keys with its own tokenizer, because `JSON.parse` keeps the last duplicate. It also flags `use_item` interactions with no `item` (because of the first-match rule above they can never fire), object IDs used where item IDs belong, unknown item/object/view references, ambient lights missing numeric fields, missing asset files, and off-canvas hotspots and sprite anchors. `--views <prefix>` scopes the object checks to one act.
+
 ### Soft-Lock Search (`tools/softlock-search.mjs`)
 
 Bundles this engine with esbuild and runs a breadth-first search over every reachable game state, using the real `interact` / `combineItems` / `selectDialogueChoice` / `navigateBack` methods. To keep the state space tractable it tracks only the goal's **cone of influence**: starting from the goal variable, it repeatedly adds every flag, object state, item and visibility read by an interaction group that writes a cone variable or changes the view. Interactions that only touch out-of-cone variables (lore flags, flavour text) are skipped. That projection is sound for reachability, because dropped variables can't change which goal-relevant effects fire. It then computes reverse reachability from goal states and reports every reachable non-terminal state that can no longer win, plus the action that doomed it and a path to it.
