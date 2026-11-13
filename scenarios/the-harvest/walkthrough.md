@@ -8,16 +8,17 @@
 
 If you just want to get through it, here's the cheat sheet:
 
-1. **Stasis Hold** — HAND everything: broken pod (glass shard), tag hook (specimen tag), cataloguer robot (learn code **7319**). Pet the cat in the corridor (cat hair).
-2. **Processing Lab** — HAND the sample jars (empty jar) and instrument rack (surgical probe). LOOK at the lab screens (security sequence). HAND the lab terminal keypad with the code to unlock it.
-3. **Go back to Stasis Hold** — USE the empty jar on the drainage channel (stasis fluid vial).
-4. **Security Hub** — HAND the console, which takes you to the closeup. HAND the keypad (enters code + sequence to activate). HAND the lever (override all locks, +20 noise). HAND the drawer (key card). HAND the emergency cabinet (helmet).
-5. **Feeding Station** — HAND the dispenser (nutrient paste). TALK to the prisoner (choose your dialogue).
-6. **Morgue** — HAND the neural tendril.
-7. **Specimen Archive** — HAND the misplaced crystal. USE it on the reading device. LOOK at the holographic display.
-8. **Back to Corridor** — The vent grate is now unlocked. Go through.
-9. **Vent Maze** — HAND wall scratches (map). Go LEFT at junction. You need the helmet for the gas and the probe to jam the fan.
-10. **Airlock Bay** — USE the key card on the override panel. LOOK at the viewport.
+1. **Stasis Hold** — HAND the broken pod (glass shard) and the tag hook (specimen tag). The cataloguer robot holds code **7319**, but it's across a gap in the walkway. Don't jump; HAND on the gap kills you. Pet the cat in the corridor (cat hair).
+2. **Processing Lab** — HAND the sample jars (empty jar) and the instrument rack (surgical probe). USE the probe ON the restraint straps (restraint strap; you keep the probe). LOOK at the lab screens (security sequence).
+3. **Morgue** (Corridor → Feeding Station → left) — HAND the carcass hook jammed in the open drawer (and the neural tendril, for lore).
+4. **Combine** the restraint strap and the carcass hook in your inventory (click one, then the other) → **grappling line**.
+5. **Back to Stasis Hold** — USE the grappling line ON the gap, then LOOK (or HAND) the cataloguer robot to learn **7319**. USE the empty jar ON the drainage channel (stasis fluid vial).
+6. **Security Hub** — HAND the console, which opens the closeup. HAND the keypad (code + sequence activate it), HAND the lever (override all locks, +20 noise), HAND the drawer (key card). Back in the room, HAND the emergency cabinet (helmet).
+7. **Feeding Station** — HAND the dispenser (nutrient paste). TALK to the prisoner (choose your dialogue).
+8. **Specimen Archive** — HAND the misplaced crystal. USE it on the reading device. LOOK at the holographic display.
+9. **Back to Corridor** — The vent grate is now unlocked. Go through.
+10. **Vent Maze** — HAND the wall scratches (map). Go LEFT at the junction. You need the helmet for the gas and the probe to jam the fan.
+11. **Airlock Bay** — USE the key card on the override panel. LOOK at the viewport.
 
 That's Act 1. Read on for details, optional content, item uses, and how not to die.
 
@@ -122,7 +123,11 @@ The dev panel is your best friend when you can't figure out what's clickable.
 Here's what unlocks what — the dependency tree for Act 1:
 
 ```
-HAND Cataloguer Robot (Stasis Hold)
+USE Surgical Probe ON Restraint Straps (Processing Lab) ─► Restraint Strap
+HAND Carcass Hook (Morgue, open drawer) ─────────────────► Carcass Hook
+  └─► COMBINE strap + hook ─► Grappling Line
+       └─► USE Grappling Line ON walkway gap (Stasis Hold) ─► gap crossed
+            └─► LOOK / HAND Cataloguer Robot
   └─► learn code 7319
        └─► HAND Lab Terminal Keypad (Processing Lab closeup)
             └─► terminal unlocked
@@ -169,9 +174,9 @@ You wake up cold, confused, and surrounded by alien specimen pods. Time to scave
 **Pick up three items:**
 - **HAND the Broken Pod** — Snap off a shard of razor-sharp pod glass. *(Gets: pod glass shard)*
 - **HAND the Specimen Tag Hook** — Tear off your identification tag. *(Gets: specimen tag)*
-- **HAND the Cataloguer Robot** — This takes you to a closeup view of the spider-legged drone's specimen jars. **HAND the data plates** — every plate shares the same section code: **7-3-1-9**. Memorize this. *(Sets: lab_code_known)*
+- **LOOK at the Torn Railing (the gap)** — The cataloguer robot, which holds the code you need, is across a gap in the walkway over the drainage pit. The far side has a solid railing. *Don't HAND the gap: you jump, slip, and die.*
 
-> **Don't miss this**: LOOKing at the cataloguer only hints at the codes. You have to HAND it (lean in, study the plates) to actually learn the code.
+> **Come back later**: you'll need a **grappling line** to cross (see the Processing Lab and Morgue). Once across, **LOOK or HAND the Cataloguer Robot**. It takes you to a closeup of its specimen jars and every data plate shares the section code **7-3-1-9**. *(Sets: gap_crossed, then lab_code_known)*
 
 **Don't grab the drainage channel yet** — you need an empty jar from the Processing Lab first. You'll come back for it.
 
@@ -201,6 +206,7 @@ Two items and two key knowledge flags here.
 
 - **HAND the Sample Jars** — Grab an empty specimen jar from the rack. You'll need this to collect stasis fluid. *(Gets: empty sample jar)*
 - **HAND the Instrument Rack** — Take the surgical probe — a thin, flexible instrument. This is your most important tool. *(Gets: surgical probe)*
+- **USE the Surgical Probe ON the Restraint Straps** — The straps are far too strong to tear (HAND tells you so) and your glass shard just skates off them, but a Choir instrument cuts Choir material cleanly. You get a long strap and **keep the probe**. *(Gets: restraint strap; Sets: restraint_strap_cut)*
 - **LOOK at the Lab Startup Display** — Watch the screens cycle through routines. You spot a security system startup sequence — a five-button pattern. *(Sets: security_sequence_known)*
 
 The lab display also takes you to a **Lab Terminal closeup** with a keypad:
@@ -251,7 +257,12 @@ Head to the **Morgue** (left passage).
 
 ### 6. Morgue
 
-- **HAND the Neural Tendril Sample** — Pick up a severed length of bio-electric neural tendril. Warm and slightly damp. *(Gets: severed neural tendril)*
+- **HAND the Carcass Hook** — A barbed bio-metal hook jammed into the lip of the open drawer at upper left. The Choir use them to drag bodies out. It has an eyelet at the top, perfect for tying a line to. *(Gets: carcass hook)*
+- **HAND the Neural Tendril Sample** — Pick up a severed length of bio-electric neural tendril. Warm and slightly damp. *(Gets: severed neural tendril; optional lore)*
+
+**Make the grappling line:** open your inventory, click the **Restraint Strap**, then click the **Carcass Hook**. You knot the strap through the hook's eyelet. *(Gets: grappling line; uses up strap and hook)*
+
+Then head back to the **Stasis Hold** and **USE the Grappling Line ON the gap**. The hook bites the far railing, you shimmy across, and the line stays rigged there. Now LOOK at the cataloguer for code 7319.
 - **LOOK at the Dead Goblin** — A creature like you, dead in a drawer. Surgical marks everywhere. You're not the first. *(Sets: dead_goblin_seen)*
 
 **Also here**: Morgue drawers, autopsy slab, recycling vats, chemical cabinet — all with LOOK flavor text that builds the horror.
@@ -340,10 +351,11 @@ Congratulations — you've escaped the containment deck. Act 2 begins.
 
 ---
 
-## Where You Can Die (3 Deaths)
+## Where You Can Die (4 Deaths)
 
 | Location | How You Die | How to Survive |
 |----------|------------|----------------|
+| Stasis Hold | HAND the walkway gap (you try to jump it) | Cross with the Grappling Line instead |
 | Gas-Filled Passage | MOVE forward or touch anything without helmet | Get the Emergency Suit Helmet from the Security Hub cabinet BEFORE entering the vents |
 | Gas-Filled Passage | Going back through the gas without helmet (same check) | Same — have the helmet |
 | Fan Chamber | MOVE into the spinning fan before jamming it | USE the Surgical Probe on the Fan Mechanism first |
@@ -394,7 +406,7 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 
 ---
 
-## Item Checklist (12 Total)
+## Item Checklist (15 Total)
 
 | # | Item | Where | How | Required? |
 |---|------|-------|-----|-----------|
@@ -410,10 +422,13 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 | 10 | Data Crystal | Specimen Archive | HAND Misplaced Crystal | Optional (lore use) |
 | 11 | Ventilation Map | Vent Entry | HAND Wall Scratches | Recommended (maze navigation) |
 | 12 | Cat Hair | Corridor | HAND Black Cat | Optional (lore use) |
+| 13 | Restraint Strap | Processing Lab | USE surgical probe ON Restraint Straps | **Yes** (grappling line) |
+| 14 | Carcass Hook | Morgue | HAND Carcass Hook (open drawer) | **Yes** (grappling line) |
+| 15 | Grappling Line | Inventory | COMBINE strap + hook | **Yes** (cross the gap; consumed) |
 | — | Crew Datapad *(opt.)* | Collapsed Section | HAND Skeleton | Optional (Act 2 lore) |
 | — | Choir Access Chip *(opt.)* | Collapsed Section | HAND Skeleton again | Optional (Act 2 shortcut) |
 
-> **Minimum required items**: Surgical Probe, Containment Key Card, Emergency Suit Helmet. Everything else is for lore, world-building, or Act 2 advantages.
+> **Minimum required items**: Surgical Probe, Restraint Strap + Carcass Hook (→ Grappling Line), Containment Key Card, Emergency Suit Helmet. Everything else is for lore, world-building, or Act 2 advantages.
 
 ---
 
@@ -421,7 +436,10 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 
 | Flag | How to Get It | What It Does |
 |------|-------------|-------------|
-| `lab_code_known` | HAND Cataloguer data plates | Needed for lab terminal keypad |
+| `gap_crossed` | USE Grappling Line ON the gap | Lets you reach the cataloguer robot |
+| `lab_code_known` | LOOK/HAND Cataloguer Robot (after crossing) | Needed for the lab terminal and security keypads |
+| `restraint_strap_cut` | USE surgical probe ON Restraint Straps | Strap obtained |
+| `carcass_hook_taken` | HAND Carcass Hook (Morgue) | Hook obtained |
 | `security_sequence_known` | LOOK Lab Startup Display | Needed for security console keypad |
 | `terminal_unlocked` | HAND Lab Terminal Keypad (with code) | Opens lab data screens |
 | `security_hub_accessed` | HAND Security Keypad (with code + sequence) | Activates console |
@@ -444,7 +462,10 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 ## Common Stuck Points
 
 **"The security console won't activate"**
-You need TWO things: the code 7319 (HAND the cataloguer's data plates in Stasis Hold) AND the security sequence (LOOK at the lab screens in Processing Lab). The console closeup keypad checks for both.
+You need TWO things: the code 7319 (cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot) AND the security sequence (LOOK at the lab screens in Processing Lab). The console closeup keypad checks for both.
+
+**"How do I reach the cataloguer robot / get across the gap?"**
+Don't jump (HAND kills you). Build a grappling line: cut a restraint strap free in the Processing Lab with the surgical probe, pull the carcass hook out of the open morgue drawer, then combine them in your inventory (click one, then the other). USE the line on the gap.
 
 **"How do I get stasis fluid?"**
 You can't just HAND the drainage channel. First grab an empty jar from the Processing Lab (HAND the sample jars), then come back and USE the jar on the drainage channel.

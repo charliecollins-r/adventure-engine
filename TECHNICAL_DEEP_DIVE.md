@@ -312,6 +312,23 @@ This recursion is safe because all three eventually reach leaf effects (`message
 - The engine re-checks win/lose conditions after each delayed batch
 - There is currently no mechanism to cancel scheduled delays (e.g., on game restart)
 
+### Item Consumption Is Never Implicit
+
+`interact(objectId, 'use_item', itemId)` only selects and runs an interaction; it never touches the inventory on its own. An item leaves the inventory only through a `remove_item` / `transform_item` effect, or through `combineItems()` when the combination has `consumes: true` (which filters *both* inputs out, then pushes `result` if it isn't already held). This is why one item can be a kept tool in one interaction and a spent ingredient in another. Schema-level guidance: [SCENARIO_SCHEMA.md → Item Consumption](docs/SCENARIO_SCHEMA.md#item-consumption-tools-vs-ingredients).
+
+Two engine behaviours scenario tooling must mirror exactly:
+
+- **Visibility defaults to visible.** The constructor copies `initially_visible` as-is, so an object without the field stores `undefined`, and `getVisibleObjects()` hides only objects whose visibility is strictly `false`.
+- **First match wins.** `findMatchingInteraction` returns the first interaction whose verb (and item) match and whose `when` passes, so flags read by an earlier, purely cosmetic interaction still decide whether a later, substantive one fires.
+
+### Soft-Lock Search (`tools/softlock-search.mjs`)
+
+Bundles this engine with esbuild and runs a breadth-first search over every reachable game state, using the real `interact` / `combineItems` / `selectDialogueChoice` / `navigateBack` methods. To keep the state space tractable it tracks only the goal's **cone of influence**: starting from the goal variable, it repeatedly adds every flag, object state, item and visibility read by an interaction group that writes a cone variable or changes the view. Interactions that only touch out-of-cone variables (lore flags, flavour text) are skipped. That projection is sound for reachability, because dropped variables can't change which goal-relevant effects fire. It then computes reverse reachability from goal states and reports every reachable non-terminal state that can no longer win, plus the action that doomed it and a path to it.
+
+```bash
+node tools/softlock-search.mjs scenarios/the-harvest/scenario.json --views act1 --goal "state:airlock_override_panel!=locked"
+```
+
 ---
 
 ## Interaction Resolution

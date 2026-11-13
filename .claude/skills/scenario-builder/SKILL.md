@@ -127,39 +127,38 @@ no characters.
 - **Animated objects** in the world (NPCs, machines, creatures)
 - Characters need: idle pose (1-2 frames), walk cycle (4 frames), and any special animations
 
+### Style: Pixel Art, Not Painted
+
+Backgrounds are painted gouache. **Sprites and inventory icons are VGA pixel art** at the same fidelity as the player character: visible pixels, limited palette, crisp dark outlines. The most common reason art gets rejected is "too painterly". The full prompt template, the exact prompts that shipped, and the fix-up recipe for painterly results are in **`docs/ART_GUIDE.md`**. Read it before generating any sprite.
+
 ### Blue Chroma-Key Workflow
 
-When generating sprite frames with AI tools, use a solid blue background for easy transparency extraction.
-
-**Step 1 — Generate frames with blue background:**
-Add to your AI image prompt:
+**Step 1 — Generate on pure blue.** End every sprite/item prompt with:
 ```
-solid blue (#0066FF) background, no shadows on the background, full body visible,
-centered in frame
+One isolated object centered in a square frame with a generous empty margin. Flat solid pure blue (#0000FF) background, no cast shadow, no floor, no text, no other objects. Absolutely no blue tones anywhere on the object itself.
 ```
+(The engine draws its own shadows, so painted shadows double up and break the key. If the object itself must be blue, generate on green #00FF00 and pass `--color 0,255,0`.)
 
-**Step 2 — Remove the blue background:**
+**Step 2 — Key, despill, trim** with the repo tool:
 ```bash
-# Basic removal (works for most sprites)
-convert input.png -fuzz 5% -transparent "rgb(0,102,255)" output.png
-
-# For sprites with enclosed blue areas (between legs, under arms):
-# Multi-pass approach — flood-fill from edges first, then clean remaining blue
-convert input.png \
-  -fill none -fuzz 22% -draw "color 0,0 floodfill" \
-  -fuzz 8% -transparent "rgb(0,102,255)" \
-  -fuzz 8% -transparent "rgb(0,90,230)" \
-  -fuzz 8% -transparent "rgb(0,110,255)" \
-  output.png
+convert input.webp input.png      # node-canvas may not decode WebP
+node tools/process-chromakey-sprite.mjs input.png --cols 1 --padding 0 --threshold 110 --out sprites/thing.png
+# --cols N for an N-frame horizontal strip. Despill is on by default: it neutralises the
+# blue cast on anti-aliased edge pixels (otherwise you get a purple fringe).
 ```
 
-**Why `#0066FF`?** Pure blue has zero overlap with natural character colors (skin, earth tones, greens, browns). A 5% fuzz tolerance cleanly removes it without affecting character edges. Grey/checkered backgrounds are much harder to remove because grey overlaps with shadows.
-
-**Step 3 — Verify transparency:**
+**Step 3 — Verify on dark AND light backdrops:**
 ```bash
-# Composite onto black to verify blue is actually gone (not just invisible on white)
-convert output.png -background black -flatten verify.png
+convert sprites/thing.png -background black -flatten /tmp/dark.png
+convert sprites/thing.png -background white -flatten /tmp/light.png
 ```
+Look for fringe, holes keyed through the object, stray specks, and enclosed gaps (an eyelet, between rope loops) that stayed blue.
+
+**Step 4 — Size and place** (details in `docs/ART_GUIDE.md`):
+- `scale = desired_screen_height / frame_height`. The viewport is 960×540; the player figure is about 97px tall on screen. Hand-held pickups are 15–35px.
+- Sprite `position` is the **bottom-center** in 960×720 space (plain hotspots use top-left). Rest it on a surface that matches the object's description.
+- Inventory icon: 326×273 transparent PNG, object fitted into 240×230 and centered. Crafted items get their own combined icon.
+- Screenshot it in the running game (`?dev`) next to the character before you call it done.
 
 ### Sprite Sheet Layout
 

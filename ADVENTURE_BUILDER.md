@@ -54,9 +54,13 @@ scenarios/my-scenario/
 │   └── safe_interior.webp #   Any resolution, shown in framed overlay
 ├── audio/                 # Ambient audio tracks (optional)
 │   └── rain_loop.mp3      #   MP3/WAV/OGG supported, loops automatically
+├── sprites/               # Character + object sprite sheets, transparent PNG (optional)
+│   └── rusty_key.png      #   pixel-art world sprite, bottom-center anchored
 └── items/                 # Item icons for inventory panel (optional)
-    └── rusty_key.png
+    └── rusty_key.png      #   326x273 transparent PNG
 ```
+
+Making the art (prompts, blue-screen keying, sizing, placement, icons, checking it in-game) is covered step by step in **[docs/ART_GUIDE.md](docs/ART_GUIDE.md)**. Backgrounds are painted; sprites and icons are pixel art that matches the player character.
 
 The engine discovers your scenario by its folder name and reads `scenario.json` from it. No build step, no compilation. Edit JSON → refresh browser → see changes.
 
@@ -872,7 +876,20 @@ Items are objects the player carries. They appear in the inventory panel at the 
 | `name` | string | Yes | Display name in the inventory panel. |
 | `description` | string | Yes | Shown on hover. |
 | `icon` | string | No | Icon key. Falls back to first 3 characters of name. |
+| `icon_file` | string | No | Inventory icon image, e.g. `"items/pen_knife.png"`. 326×273 transparent PNG, object centered. See [docs/ART_GUIDE.md](docs/ART_GUIDE.md#inventory-icons). |
 | `examine` | interaction[] | No | Interactions when examining this item from inventory. Same format as object interactions. |
+
+> **Item ID ≠ object ID.** A world object that yields an item is a separate record from the item. `neural_tendril_sample` (lying in the morgue) gives `severed_neural_tendril` (in your inventory). `use_item`, `has_item`, and combinations take the **item** ID. Using the object ID fails silently: the interaction never matches.
+
+### Tools vs. Ingredients (Item Consumption)
+
+The engine never removes an item by itself. You decide, per interaction:
+
+- **Keep it (a tool):** a `use_item` interaction without `remove_item`. The item stays in inventory and can be used again elsewhere.
+- **Use it up (an ingredient):** add `{ "type": "remove_item", "item": "..." }` to that interaction's `then`.
+- **Combinations:** `"consumes": true` removes both inputs; `false` keeps them.
+
+The same item can be both. In The Harvest, the surgical probe cuts a restraint strap free in the lab and is **kept**, then is jammed into a fan in the vents and **consumed**. Before you write a `remove_item`, check that nothing later still needs the item. That's the most common way to soft-lock a player. Full reference: [SCENARIO_SCHEMA.md → Item Consumption](docs/SCENARIO_SCHEMA.md#item-consumption-tools-vs-ingredients).
 
 ### Dual-Purpose Items
 
@@ -918,6 +935,10 @@ Define how inventory items can be crafted together:
 | `conditions` | condition[] | No | Extra conditions required (e.g., must be at a workbench). |
 
 To combine items, the player clicks one item in inventory, then clicks the other. Order doesn't matter — A+B equals B+A.
+
+Players often don't think to combine, so **teach it with a hint**. A view hint that fires when the player holds one part, e.g. *"A line alone won't catch, and a hook alone won't hold you. Try combining them: select one item in your inventory, then click the other."*, and specific failure messages when they try to use a single part on the target. Give the crafted result its own icon that shows both parts, so the change is visible in the inventory bar.
+
+Worked example (The Harvest): `restraint_strap` + `carcass_hook` → `grappling_line` (`consumes: true`), used on the walkway gap.
 
 ---
 
@@ -1492,18 +1513,20 @@ Character and object sprites use **sprite sheets** — a single PNG with animati
 
 #### AI Image Generation Workflow
 
-When generating sprite frames with AI tools (Gemini, DALL-E, etc.), use a **solid blue chroma-key background** (`#0066FF`) for easy transparency extraction:
+When generating sprite frames with AI tools (Gemini, DALL-E, etc.), generate on a **flat pure blue (`#0000FF`) background** and key it out with the repo tool:
 
-1. **Generate frames** with the prompt directive: *"solid blue (#0066FF) background, no shadows on the background"*
-2. **Remove the blue background** using ImageMagick chroma key:
+1. **Prompt** for VGA pixel art matching your character's fidelity (not painterly), ending with: *"Flat solid pure blue (#0000FF) background, no cast shadow, no floor, no text. Absolutely no blue tones anywhere on the object itself."*
+2. **Key, despill and trim:**
    ```bash
-   convert input.png -fuzz 5% -transparent "rgb(0,102,255)" output.png
+   convert input.webp input.png   # if the generator gave you WebP
+   node tools/process-chromakey-sprite.mjs input.png --cols 4 --padding 0 --threshold 110 --out sprites/walk.png
    ```
-3. **Assemble into a sprite sheet** — tile frames left-to-right for each direction row
+   `--cols` is the number of frames in the strip. The tool removes the background, neutralises blue fringe on edges, crops every frame to the same tight size, and prints the `sprite` JSON block to paste.
+3. **Check** the result on dark and light backdrops (`convert out.png -background black -flatten check.png`).
 
-**Why `#0066FF`?** Pure blue has zero overlap with natural character colors (skin tones, earth tones, greens, browns). A 5% fuzz tolerance cleanly keys out the blue without affecting character edges. Grey checkerboard backgrounds are much harder to remove because grey overlaps with shadows and muted clothing colors.
+**Why pure blue?** It barely overlaps skin, earth tones, rust, bone, or greens. Grey or checkerboard backgrounds are much harder to remove because grey overlaps shadows. If your object is blue, use green (`#00FF00`, `--color 0,255,0`).
 
-**Alternative backgrounds**: Any saturated primary color works (`#FF0000` red, `#00FF00` green) — pick one that contrasts with your character's dominant colors. Blue works best for most fantasy/adventure characters.
+The complete guide, with prompt templates, the prompts that shipped, sizing, placement, icons and in-game verification, is **[docs/ART_GUIDE.md](docs/ART_GUIDE.md)**.
 
 #### Sprite Sheet Layout
 

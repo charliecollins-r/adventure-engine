@@ -62,9 +62,11 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — full JSON reference
 │   ├── ARCHITECTURE.md               ← Engine internals (diagrams, data flow)
 │   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
+│   ├── ART_GUIDE.md                  ← HOW TO MAKE ART: prompts, chroma-key, sizing, placement, verification
 │   └── images/                       ← Screenshots for README
 ├── tools/
 │   ├── splice-sprites.mjs            ← Node.js sprite sheet splicing utility
+│   ├── process-chromakey-sprite.mjs  ← Blue-screen key + edge despill + trim for generated sprites
 │   └── generate-voiceover.mjs        ← ElevenLabs TTS batch generator for scenario narration
 ├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
 ├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)
@@ -86,7 +88,11 @@ When you contribute to this project, follow these rules:
 7. **Never let docs drift from reality** — if you see something outdated, fix it
 8. **Everything must be schema-driven** — never hardcode scenario-specific behavior in the engine. All game logic comes from the JSON. A third-party dev must be able to create a complete scenario package without writing code.
 9. **Maintain hotspot positioning accuracy** — when adding or modifying object positions in any scenario JSON: (a) check the actual background image dimensions, (b) apply the correct conversion formula (`json_x = img_x × (960/IMG_W)`, `json_y = img_y × (720/IMG_H)`), (c) validate bounds (`x+w ≤ 960`, `y+h ≤ 720`), (d) verify with debug mode when possible. Position is **top-left corner** of the hotspot box. See ADVENTURE_BUILDER.md "Coordinate System" for the full guide.
-10. **Always trim processed sprite PNGs** — when processing chroma-key sprites: (a) convert webp→png with ImageMagick if needed, (b) run through `tools/process-chromakey-sprite.mjs` with `--padding 0` for tight cropping, (c) for single-frame sprites, additionally run `convert sprite.png -trim +repage sprite.png` to remove any remaining transparent border, (d) update frame_width/frame_height in the JSON to match the trimmed dimensions. Tight bounds ensure proper shadow rendering. Never use padding > 0 unless there's a specific reason.
+10. **Always trim processed sprite PNGs** — when processing chroma-key sprites: (a) convert webp→png with ImageMagick (`convert in.webp in.png`; node-canvas may not read WebP), (b) run through `tools/process-chromakey-sprite.mjs` with `--padding 0 --threshold 110` (despill is on by default and removes blue/purple edge fringe), (c) for single-frame sprites, additionally run `convert sprite.png -trim +repage sprite.png` to remove any remaining transparent border, (d) update frame_width/frame_height in the JSON to match the trimmed dimensions, (e) check the result composited on both a dark and a light backdrop. Tight bounds ensure proper shadow rendering. Never use padding > 0 unless there's a specific reason.
+11. **Art follows `docs/ART_GUIDE.md`** — backgrounds are painterly gouache; sprites and item icons are **VGA pixel art matching the player character's fidelity** (the most common rejection is "too painterly"). Use the guide's prompt template (pure #0000FF background, no blue in the object, no cast shadow), size with `scale = desired_screen_px / frame_height`, remember sprite `position` is **bottom-center** (plain hotspots are top-left), give crafted items their own combined icon, and screenshot the result in the running game next to the character before calling it done.
+12. **Schema first** — every new capability starts in `docs/SCENARIO_SCHEMA.md` and `client/src/engine/types.ts`, then the engine, then scenario JSON. If something can already be expressed in the schema (it usually can), use it instead of adding engine code. Item IDs are not object IDs: `use_item`/`has_item`/`combinations` take the **item** ID (`severed_neural_tendril`), never the world object that yields it (`neural_tendril_sample`). Item consumption is always explicit (`remove_item`, `consumes: true`); see "Item Consumption" in the schema doc.
+13. **No soft-locks** — before adding any `remove_item`, `consumes: true`, irreversible `set_state`, or one-shot dialogue choice, check every place that item/flag/state is required later. Re-run the state-space soft-lock search (see "Soft-lock analysis" below) after puzzle changes.
+14. **Never hand-edit duplicate keys into JSON** — when applying editor exports, replace an existing `shadow`/`sprite` block instead of adding a second one. Duplicate keys parse without error and the *last* one silently wins.
 
 ---
 
@@ -252,6 +258,7 @@ All generated images target the **1990s Sierra On-Line King's Quest V / King's Q
 - 16:9 aspect ratio, 1920x1080
 - Low camera angle (viewed by a small goblin creature at knee-height)
 - Saturated colors even in dark scenes — shadows have visible blue/purple color
+- **Sprites and inventory icons are different**: VGA pixel art (visible pixels, limited palette, dark outlines) matching the player character, NOT painterly. Full prompt templates, processing, sizing and placement rules: **`docs/ART_GUIDE.md`**
 - Shared color palette per scenario anchored across all views
 
 ### Gemini Prompt Formula
@@ -307,7 +314,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Object sprite system**: `SpriteObject` component renders animated sprite sheets on world objects. Defined via `sprite` field in object JSON: `{ file, frame_width, frame_height, columns, rows, frame_rate, scale }`. Uses CSS background-position with requestAnimationFrame. Bottom-center anchored at z-index 4. First uses: caged_prisoner (pacing animation), holographic_display (spinning planets).
 - **Room name labels**: Bottom-right of viewport shows the current view's `name` field subtly in gold. Bottom at 26px to avoid overlapping the hint "?" button.
 - **Back navigation button**: Views with `back_label` show a "Back to X" button at top-left. Only on closeup-style sub-views, not on main rooms.
-- **Act 1 fully solvable**: 14 rooms navigable (9 main + 1 cataloguer closeup + 1 security closeup + 3 vent maze rooms accessible without items), 12 collectible items (including 2 optional: crew_datapad and choir_access_chip in vent dead end), all key flags settable, all 4 dialogue branches functional, 3 lethal hazards with fair warnings. Walkthrough at `scenarios/the-harvest/walkthrough.md` with ASCII deck map, critical path table, and room-by-room guide.
+- **Act 1 fully solvable**: 14 rooms navigable (9 main + 1 cataloguer closeup + 1 security closeup + 3 vent maze rooms accessible without items), 15 collectible/craftable items (12 original + restraint strap, carcass hook, grappling line) (including 2 optional: crew_datapad and choir_access_chip in vent dead end), all key flags settable, all 4 dialogue branches functional, 3 lethal hazards with fair warnings. Walkthrough at `scenarios/the-harvest/walkthrough.md` with ASCII deck map, critical path table, and room-by-room guide.
 - **Interactive scenario map**: Published artifact at claude.ai showing Act 1 room graph, item locations, puzzle chains, and 30-step walkthrough. Keep this updated when rooms, items, or puzzles change. Data extracted from scenario JSON.
 - **Cataloguer robot closeup**: Spider-legged drone in Stasis Hold with static sprite (frame_rate=0). Looking or touching navigates to `act1_cataloguer_closeup` sub-view — a full interactive view using the specimen image as background with `back_label: "Stasis Hold"`. Five interactive objects (3 specimen tanks, data plates, cataloguer mechanism) with look/hand/talk responses. Data plates interaction discovers section code 7319 (sets `lab_code_known`). Sub-views support all 4 verbs, unlike the old `show_closeup` overlay which was hand-only. Character override only applies when the current view has a `character` placement — views without one (like closeup sub-views) show no character sprite.
 - **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
@@ -330,6 +337,9 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Security console closeup**: `act1_security_closeup` sub-view with 5 objects: bio-organic keypad (requires code 7319 from data plates), override lever (requires active console, triggers containment lock override + 20 noise), key card drawer (moved from main security hub view), surveillance feeds (shows Curator patrol when active), system status display. Multi-step puzzle replaces old 3-click console solve. `back_label: "Security Hub"`.
 - **Item use overhaul (Act 1)**: 7 new use_item interactions give previously unused items purpose: glass shard + organic growth (reveals scratched message from previous prisoner), stasis fluid vial + reading device (enhances reader), specimen tag + reader (reveals species classification), nutrient paste + prisoner (feeds prisoner, strengthens bond), neural tendril + holographic display (reveals Convergence heading to Earth), cat hair + examination tables (DNA analysis reveals cat was processed), surgical probe + keypad/lever (flavor interactions with noise). Fixed missing `has_item` conditions on reading_device and airlock_override_panel.
 - **Hitbox fixes**: corridor_pipes width 965→960, personal_log_crystal 20x53→50x70, broken_pod repositioned to (160,560) with size 150x100.
+- **Grappling-line gap puzzle (soft-lock fix)**: The Stasis Hold walkway gap guards the cataloguer robot (section code 7319 → security keypad → vent). Its only solution used to be the neural tendril, which the holographic display consumes — visiting the Archive first soft-locked Act 1. Now: USE surgical probe ON restraint straps (Processing Lab; probe kept, shard fails with a hint) → Restraint Strap; HAND the carcass hook in the morgue's open drawer (`morgue_carcass_hook`) → Carcass Hook; COMBINE → Grappling Line (`consumes: true`, Act 1's first combination); USE line ON `platform_gap` → `gap_crossed`, line consumed, hidden `gap_grappling_line` object shown (procedural strap sprite drawn between the two painted railing stubs). Specific rejections for strap-only, hook-only, probe, tendril, shard; HAND still kills. Stasis/lab/morgue hints teach combining. New art: `items/restraint_strap.png`, `items/carcass_hook.png`, `items/grappling_line.png`, `sprites/carcass_hook.png`, `sprites/grappling_line_rigged.png`.
+- **Duplicate-key cleanup**: `black_cat` and `emergency_cabinet` had two `shadow` blocks each (older value silently winning over the latest editor export). Removed the stale ones; scenario.json is now canonical `json.dumps(indent=2)` format, so scripted edits produce minimal diffs.
+- **Art guide**: `docs/ART_GUIDE.md` — two-style rule (painted backgrounds, pixel-art sprites), prompt template + the exact prompts that shipped, chroma pipeline (now with despill), sizing table measured from Act 1, anchoring rules, icon canvas spec, procedural composite sprites, Playwright verification recipe.
 - **Sprite stubs**: 1 object has sprite config stub awaiting art: vent_maintenance_hatch. Previously 10 — now resolved: instrument_rack, corridor_emergency_panel, corridor_drag_marks, corridor_organic_growth, neural_tendril_sample, vent_old_remains, nutrient_dispenser all have chroma-keyed art; specimen_tag_hook and personal_log_crystal have procedural placeholder sprites (4-frame animated, generated via node-canvas). Both collectibles now hide on pickup via `hide_object` effect.
 
 ---
@@ -349,6 +359,15 @@ cd server && mvn spring-boot:run
 # Type check
 cd client && npx tsc --noEmit
 ```
+
+### Soft-lock analysis
+```bash
+# Exhaustive state-space search with the real engine (cone-of-influence reduced).
+# Reports soft-locked states, the action that doomed them, the shortest win, and reachable deaths.
+node --max-old-space-size=6000 tools/softlock-search.mjs scenarios/the-harvest/scenario.json \
+  --views act1 --goal "state:airlock_override_panel!=locked"
+```
+Run it after any change that adds `remove_item`, `consumes: true`, irreversible `set_state`/`hide_object`, gated navigation, or dialogue choices.
 
 ---
 

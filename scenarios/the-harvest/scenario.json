@@ -8117,6 +8117,86 @@
           ]
         },
         {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "gap_crossed"
+            }
+          ],
+          "response": "You stretch toward the cataloguer, but it's on the far side of the gap in the walkway. Out of reach until you find a way across.",
+          "then": []
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "lab_code_known"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Now that you're close, you can see the data plates clearly. Alien script you can't read — but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful.",
+              "voice": "audio/voice/robot_look_first.mp3"
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "lab_code_known",
+              "value": "true"
+            },
+            {
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_is",
+                  "flag": "lab_code_known",
+                  "value": "true"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You've already noted the section code from the specimen plates — 7-3-1-9."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_cataloguer_closeup"
+            }
+          ]
+        },
+        {
           "verb": "talk",
           "when": [],
           "then": [

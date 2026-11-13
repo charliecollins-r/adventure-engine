@@ -15,7 +15,7 @@
 5. [Setting & Views](#setting--views)
 6. [Flags](#flags)
 7. [Items](#items)
-8. [Combinations](#combinations)
+8. [Combinations](#combinations) · [Item Consumption](#item-consumption-tools-vs-ingredients)
 9. [Objects](#objects)
 10. [Interaction Verbs](#interaction-verbs)
 11. [Conditions](#conditions)
@@ -319,7 +319,10 @@ Inventory items the player can collect, examine, use, and combine.
 | `name` | string | yes | Display name in inventory. |
 | `description` | string | yes | Short description shown on hover. |
 | `icon` | string | no | Icon key for rendering. Falls back to first 3 chars of name. |
+| `icon_file` | string | no | Path to an inventory icon image, relative to the scenario folder (e.g. `"items/carcass_hook.png"`). Overrides `icon`. Convention: 326×273 transparent PNG, object centered; rendered 28px tall. See [ART_GUIDE.md](ART_GUIDE.md#inventory-icons). |
 | `examine` | interaction[] | no | Interactions when examining this item in inventory. Same format as object interactions. |
+
+An item ID is **not** an object ID. When a world object yields an item, they are separate records: `neural_tendril_sample` (the thing lying in the morgue) gives `severed_neural_tendril` (the thing in your pocket). `use_item` interactions, `has_item` conditions, and `combinations` must always reference the **item** ID. Mixing them up fails silently (the interaction just never matches).
 
 ### Key Design Point: Dual-Purpose Items
 
@@ -379,6 +382,43 @@ Define how inventory items can be merged together.
 Order of `items` doesn't matter — combining A+B is the same as B+A.
 
 The `conditions` field lets you gate combinations: maybe you can only combine items after reading instructions, or only while at a specific view (workbench closeup).
+
+---
+
+## Item Consumption (Tools vs. Ingredients)
+
+The engine **never removes an item on its own**. Whether an item survives a use is always the author's explicit choice:
+
+| Situation | How the item is consumed | How it is kept |
+|-----------|--------------------------|----------------|
+| Using an item on a world object (`use_item`) | Add `{ "type": "remove_item", "item": "..." }` to that interaction's `then` | Omit `remove_item`; the item stays in inventory |
+| Combining two items | `"consumes": true` removes **both** inputs | `"consumes": false` keeps both (tool-style crafting) |
+| Turning one item into another | `{ "type": "transform_item", "item": "old", "into": "new" }` | — |
+
+Because consumption is per-interaction, **the same item can be a reusable tool in one place and a spent ingredient in another.** The Harvest's surgical probe is the reference example:
+
+```json
+// Processing Lab — the probe cuts a restraint strap free. The probe is KEPT.
+{ "verb": "use_item", "item": "surgical_probe",
+  "when": [{ "type": "object_state", "object": "restraint_straps", "state": "default" }],
+  "then": [
+    { "type": "message", "text": "Choir tools for Choir flesh: the strap parts like wet paper..." },
+    { "type": "add_item", "item": "restraint_strap" },
+    { "type": "set_state", "object": "restraint_straps", "state": "cut" }
+  ] }
+
+// Fan Chamber — the probe is jammed into the fan's gears. The probe is CONSUMED.
+{ "verb": "use_item", "item": "surgical_probe", "when": [...],
+  "then": [
+    { "type": "message", "text": "You jam the probe into the gears..." },
+    { "type": "remove_item", "item": "surgical_probe" },
+    { "type": "set_state", "object": "vent_fan", "state": "jammed" }
+  ] }
+```
+
+And a consuming combination feeding a consuming use: `restraint_strap` + `carcass_hook` → `grappling_line` (`"consumes": true`), then `use_item grappling_line` on the gap removes the line because it stays rigged across the gap (a hidden world object is shown to depict it).
+
+**Soft-lock rule.** Every `remove_item` (and every `"consumes": true`) is a promise that the item is not needed again on any path. Before adding one, search the scenario for every `has_item`, `use_item`, and combination that references the item, and confirm none of them is required after this point. If it might be, keep the item, or give the player a second source. See Validation Rules → Reachability.
 
 ---
 

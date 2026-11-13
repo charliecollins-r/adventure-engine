@@ -279,6 +279,10 @@ All background art follows the **Sierra King's Quest V/VI aesthetic** — 2D gou
 
 The player character is a bearded human in a green tunic, rendered as a pixel-art sprite sheet. Backgrounds are painted from a low camera angle, looking UP at furniture and architecture.
 
+**Two styles, on purpose.** Backgrounds are painted; everything layered on top of them (props, pickups, inventory icons) is **VGA pixel art** at the same fidelity as the character, so nothing looks pasted in. Art is generated with Google Gemini on a pure-blue (`#0000FF`) background, keyed out with `tools/process-chromakey-sprite.mjs` (with edge despill), then sized, anchored, and checked in the running game.
+
+**→ [docs/ART_GUIDE.md](docs/ART_GUIDE.md)** has everything an author or AI agent needs to produce matching art: the prompt template and the exact prompts that shipped, the processing pipeline, a sizing table measured from Act 1, anchoring and placement rules, the inventory icon spec, procedural composite sprites, and a Playwright verification recipe.
+
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_specimen_archive.webp" width="400" alt="Specimen Archive" />
   <img src="scenarios/the-harvest/backgrounds/act1_feeding_station.webp" width="400" alt="Feeding Station" />
@@ -297,6 +301,7 @@ The player character is a bearded human in a green tunic, rendered as a pixel-ar
 | [**TECHNICAL_DEEP_DIVE.md**](TECHNICAL_DEEP_DIVE.md) | Engine internals and architecture — how the engine works under the hood |
 | [**docs/SCENARIO_SCHEMA.md**](docs/SCENARIO_SCHEMA.md) | Complete JSON schema reference (1700+ lines, 30 design patterns) |
 | [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) | ScenarioEngine class walkthrough, condition/effect system, rendering pipeline |
+| [**docs/ART_GUIDE.md**](docs/ART_GUIDE.md) | Generating, processing, sizing and placing art: prompts, chroma key, icons, verification |
 | [**CLAUDE.md**](CLAUDE.md) | Project context and conventions for AI agents contributing to this repo |
 
 ---
@@ -339,6 +344,7 @@ adventure-engine/
 |
 +-- docs/                             Engine-level documentation
 |   +-- ARCHITECTURE.md               Engine internals deep dive
+|   +-- ART_GUIDE.md                  Art prompts, chroma key, sizing, placement, verification
 |   +-- SCENARIO_SCHEMA.md            THE schema spec (1700+ lines, 30 design patterns)
 |   +-- SPATIAL_MOVEMENT_DESIGN.md    Future: click-to-move system
 |   +-- images/                       Screenshots and diagrams
