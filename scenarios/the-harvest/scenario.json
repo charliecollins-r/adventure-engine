@@ -1455,8 +1455,8 @@
         "nav_act1_vent_fan_to_act1_vent_gas_chamber"
       ],
       "character": {
-        "x": 480,
-        "y": 560,
+        "x": 400,
+        "y": 620,
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -1549,8 +1549,8 @@
         "nav_act1_vent_collapsed_to_act1_vent_junction"
       ],
       "character": {
-        "x": 480,
-        "y": 560,
+        "x": 400,
+        "y": 600,
         "facing": "right",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -1627,8 +1627,8 @@
         "nav_act1_vent_exit_to_act1_vent_fan_room"
       ],
       "character": {
-        "x": 480,
-        "y": 460,
+        "x": 270,
+        "y": 693,
         "facing": "down",
         "sprite_set": "idle",
         "object_id": "goblin_self"
@@ -1636,8 +1636,8 @@
       "ambient_lighting": {
         "lights": [
           {
-            "x": 0.15,
-            "y": 0.4,
+            "x": 0.24,
+            "y": 0.3,
             "radius": 0.4,
             "color": [
               100,
@@ -1649,8 +1649,8 @@
             "pulse_amount": 0.03
           },
           {
-            "x": 0.5,
-            "y": 0.7,
+            "x": 0.52,
+            "y": 0.73,
             "radius": 0.3,
             "color": [
               200,
@@ -25416,12 +25416,12 @@
       "name": "Left Tunnel",
       "description": "The left branch of the junction. A faint yellow-green haze drifts from it.",
       "position": {
-        "x": 20,
-        "y": 200
+        "x": 95,
+        "y": 187
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 205,
+        "height": 347
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.2)",
@@ -25500,12 +25500,12 @@
       "name": "Right Tunnel",
       "description": "The right branch of the junction. Darker and narrower than the left.",
       "position": {
-        "x": 760,
-        "y": 200
+        "x": 670,
+        "y": 187
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 220,
+        "height": 347
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.2)",
@@ -25717,12 +25717,12 @@
       "name": "Dissolved Remains",
       "description": "The partially dissolved remains of a large creature.",
       "position": {
-        "x": 600,
-        "y": 300
+        "x": 520,
+        "y": 370
       },
       "size": {
-        "width": 200,
-        "height": 250
+        "width": 290,
+        "height": 340
       },
       "visual": {
         "color": "rgba(160, 140, 80, 0.3)",
@@ -25791,12 +25791,12 @@
       "name": "Tunnel Ahead",
       "description": "The tunnel continues through the gas toward a distant mechanical sound.",
       "position": {
-        "x": 350,
-        "y": 30
+        "x": 390,
+        "y": 160
       },
       "size": {
-        "width": 260,
-        "height": 150
+        "width": 200,
+        "height": 200
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.2)",
@@ -25964,12 +25964,12 @@
       "name": "Ventilation Fan",
       "description": "A massive ventilation fan blocks the entire passage.",
       "position": {
-        "x": 200,
-        "y": 80
+        "x": 270,
+        "y": 93
       },
       "size": {
-        "width": 560,
-        "height": 450
+        "width": 430,
+        "height": 533
       },
       "visual": {
         "color": "rgba(120, 100, 100, 0.3)",
@@ -26121,12 +26121,12 @@
       "name": "Fan Mechanism",
       "description": "The fan's exposed drive mechanism on the wall.",
       "position": {
-        "x": 760,
-        "y": 200
+        "x": 735,
+        "y": 220
       },
       "size": {
-        "width": 180,
-        "height": 250
+        "width": 165,
+        "height": 293
       },
       "visual": {
         "color": "rgba(180, 140, 100, 0.3)",
@@ -26504,12 +26504,12 @@
       "name": "Skeletal Figure",
       "description": "The skeleton of a large alien creature propped against the rubble.",
       "position": {
-        "x": 550,
-        "y": 250
+        "x": 515,
+        "y": 160
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 285,
+        "height": 480
       },
       "visual": {
         "color": "rgba(200, 200, 180, 0.3)",
@@ -26673,12 +26673,12 @@
       "name": "Wall Scratches",
       "description": "Scratch marks on the walls near the skeleton.",
       "position": {
-        "x": 100,
-        "y": 300
+        "x": 110,
+        "y": 200
       },
       "size": {
-        "width": 180,
-        "height": 200
+        "width": 110,
+        "height": 240
       },
       "visual": {
         "color": "rgba(200, 160, 100, 0.25)",
@@ -26806,12 +26806,12 @@
       "name": "Crack in Wall",
       "description": "A crack in the vent wall revealing the void of space.",
       "position": {
-        "x": 50,
-        "y": 150
+        "x": 165,
+        "y": 10
       },
       "size": {
-        "width": 200,
-        "height": 300
+        "width": 140,
+        "height": 380
       },
       "visual": {
         "color": "rgba(100, 150, 220, 0.25)",
@@ -26855,12 +26855,12 @@
       "name": "Exit Hatch",
       "description": "The vent shaft opens into a larger chamber below.",
       "position": {
-        "x": 350,
-        "y": 450
+        "x": 315,
+        "y": 420
       },
       "size": {
-        "width": 260,
-        "height": 200
+        "width": 400,
+        "height": 213
       },
       "visual": {
         "color": "rgba(100, 130, 200, 0.25)",
