@@ -4,7 +4,7 @@
 
 The vents between the Containment Corridor and the Airlock Bay are a **King's Quest–style labyrinth**: a grid of near-identical tunnel screens where it is genuinely possible to get lost, with five painted landmark rooms (Junction, Gas Chamber, Fan Chamber, Collapsed Section, Exit Passage) placed inside it. The scratched **ventilation map** found at the Vent Entry is the way through. Preparation (map, helmet, probe) is rewarded; wandering costs time, never progress. There are no new deaths, and every passage is two-way, so getting lost can't soft-lock the game.
 
-> **v2 (current).** v1 was a single fork (Junction → Gas or Collapsed), which wasn't really a maze. v2 keeps the v1 special rooms and their puzzles; only the routing between them changes.
+> **v2 (current, implemented).** v1 was a single fork (Junction → Gas or Collapsed), which wasn't really a maze. v2 keeps the v1 special rooms and their puzzles; only the routing between them changes.
 
 ## Navigation Convention (fixed compass, like KQ1 / KQ6's catacombs)
 
@@ -344,6 +344,27 @@ EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING
 
 Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. Low camera angle from knee-height. Saturated colors despite the dark mood — crimson emergency light, rust and oxblood ribs, deep purple-black shadows inside openings. No text, no UI elements, no people, no creatures.
 ```
+
+## v2 Implementation (done)
+
+- **Frames:** `backgrounds/act1_vent_maze_{lf,lt,de}.webp` (generated as edits of the junction art), plus `act1_vent_maze_{rf,rt}.webp`, which are horizontal mirrors of LF and LT.
+- **Views:** `act1_vent_maze_<cell>` for cells a–n (lower case; no `j`, which is the junction). All are named "Air Ducts" so the room label gives nothing away.
+- **Each cell** has:
+  - `flicker` room animation;
+  - red ceiling and floor lights, plus a teal glow in the forward tunnel when the cell has a north exit;
+  - the character at `(560,650)` (`(400,650)` on mirrored frames, `(480,650)` in the dead end), facing up.
+- **Nav objects:** `nav_vent_maze_<cell>_<north|south|east|west>`, using the standard boxes from the Navigation Convention. The north box shifts to `(360,210)` on mirrored frames. The south strip is `(150,660)` 660×60.
+- **Dead end `l`:** has `vent_maze_sealed_grate`.
+- **Special rooms re-routed:**
+  - Junction west → cell `a`; junction east → cell `g`;
+  - Gas Chamber south → cell `f`;
+  - Collapsed Section south → cell `i`.
+- **Map:** LOOKing at `ventilation_map` shows `closeups/vent_map.webp`. It is drawn by `scenarios/the-harvest/scripts/draw_vent_map.py` (Python 3 + Pillow + NumPy) from the same grid as the table above. If the layout changes, edit the `CELLS` and `ROUTE` tables in that script and re-run `python3 scripts/draw_vent_map.py closeups/vent_map.webp` from the scenario folder.
+- **Hints:** in every cell, the map hint names the direction of a shortest path to the Gas Chamber.
+- **Verified:**
+  - `validate-scenario.mjs`: clean except two known missing assets;
+  - `softlock-search.mjs`: 15,287 states, 0 soft-locks, and the shortest win goes junction → W → N×4 → gas;
+  - browser walk of the west route, the C–D loop, the dead end, the east arm to the Collapsed Section, and the east route to the gas.
 
 ## Implementation Notes
 

@@ -17,7 +17,7 @@ If you just want to get through it, here's the cheat sheet:
 7. **Feeding Station** — HAND the dispenser (nutrient paste). TALK to the prisoner (choose your dialogue).
 8. **Specimen Archive** — HAND the misplaced crystal. USE it on the reading device. LOOK at the holographic display.
 9. **Back to Corridor** — The vent grate is now unlocked. Go through.
-10. **Vent Maze** — HAND the wall scratches (map). Go LEFT at the junction. You need the helmet for the gas and the probe to jam the fan.
+10. **Vent Maze** — HAND the wall scratches (map), then LOOK at the map in your inventory. From the junction go **WEST** (left), then **straight ahead four times** to the gas chamber. You need the helmet for the gas and the probe to jam the fan.
 11. **Airlock Bay** — USE the key card on the override panel. LOOK at the viewport.
 
 That's Act 1. Read on for details, optional content, item uses, and how not to die.
@@ -288,7 +288,7 @@ Return to Corridor. The **floor vent** is now unlocked (you overrode security ea
 
 ### 8. Ventilation Shaft Entry
 
-- **HAND the Wall Scratches** — Trace a map scratched by a previous escapee. Shows a junction: LEFT (helmet symbol) leads to the airlock, RIGHT is a dead end. *(Gets: ventilation map)*
+- **HAND the Wall Scratches** — Trace a map scratched by a previous escapee. *(Gets: ventilation map)* LOOK at the map in your inventory to see it: the whole duct maze, north at the top, with arrows along the route out.
 
 **Also here**: Old Remains (bones of whoever scratched the map), Maintenance Hatch.
 
@@ -296,14 +296,26 @@ Continue forward to the **Vent Junction**.
 
 ---
 
-### 9. Vent Junction
+### 9. Vent Junction and the Air Ducts (the maze)
 
-A T-intersection. If you have the map, LOOK at the junction markings for directions.
+The junction is the entrance to a maze of near-identical ducts, KQ-style. **The camera always faces north**: the left opening is west, the right opening is east, straight ahead is north, and the bottom edge of the screen takes you back south. That's why the map (drawn north-up) matches the screens exactly.
 
-- **LEFT** = correct path (through gas chamber + fan room → airlock)
-- **RIGHT** = dead end with optional loot (see Optional Content below)
+- **The way through:** from the junction go **WEST** (left tunnel), then **straight ahead** ×4 to reach the Gas-Filled Passage.
+- **Ways to get lost:**
+  - A loop. Taking the left opening one screen into the west route sends you round in a circle back onto it.
+  - The east tunnel. It winds the long way round and also reaches the gas, but it's longer. Along it is a plain dead end (a sealed grate) and the side branch to the Collapsed Section, the optional reward room (see Optional Content).
+- **Stuck?** The ? hint in every duct screen tells you which way your map points from there, once you have the map.
 
-**Go LEFT** into the Gas Chamber.
+```
+        EXIT
+        FAN ☠
+        GAS ☠
+         F ───── N       L (dead end)
+ D ───── E       M ───── K       COLL ✦
+ C ───── B               H ───── I
+         A ───── J ───── G
+               ENTRY
+```
 
 ---
 
@@ -366,9 +378,9 @@ There are no other deaths in Act 1. You cannot softlock yourself. That's verifie
 
 ## Optional Content
 
-### Vent Maze — Collapsed Section (Right at Junction)
+### Vent Maze — Collapsed Section (east side of the maze)
 
-If you go RIGHT at the vent junction instead of left, you reach a dead-end room with a Choir engineer skeleton. Two hidden items here:
+From the junction go EAST (right), straight ahead once, then right, then straight ahead: a dead-end room with a Choir engineer skeleton (the X on your map). Two hidden items here:
 
 1. **HAND the Skeleton** — Take the **Crew Datapad** from their grip. Contains Act 2 lore about the Choir's internal hierarchy. *(Gets: crew datapad)*
 2. **HAND the Skeleton again** — Search deeper. Find a **Choir Access Chip** hidden in a uniform pocket. *(Gets: choir access chip)*

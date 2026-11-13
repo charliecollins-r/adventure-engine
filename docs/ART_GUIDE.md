@@ -248,6 +248,16 @@ Example: `sprites/grappling_line_rigged.png` in The Harvest. A strap drawn as a 
 
 ---
 
+## Repeated Frames (Mazes and Corridors)
+
+When many screens must look interchangeable (a maze, a long corridor), consistency matters more than variety:
+
+1. **Generate one hero frame first** (The Harvest's vent junction). Then make every variant as an **edit of that image**: attach it as the reference and say *"Keep EVERYTHING identical: camera position and height, room shape, ceiling lights, floor pipes, palette, brushwork. Change ONLY: 1) … 2) … 3) …"*. Edits keep the camera and lighting locked far better than fresh prompts.
+2. **Ask for anonymity explicitly.** *"No scratched symbols, writing, debris or unique landmarks; indistinguishable from other generic screens."* Reject any result with a landmark, because landmarks defeat a maze.
+3. **Mirror instead of generating** the right-handed versions of left-handed frames (`PIL.ImageOps.mirror` or `convert in.webp -flop out.webp`). Avoid text or numbers in frames you'll mirror.
+4. **Mirror the hotspots too:** a box at `x..x+w` becomes `960−x−w..960−x`.
+5. **Draw information-bearing images procedurally.** The vent map has to match the real layout exactly, so it's generated from the grid data (`scenarios/the-harvest/scripts/draw_vent_map.py`): multi-scale noise for rusted metal, riveted border, engraved strokes (a dark offset line under a light line, with jitter) for passages, and simple glyphs for landmarks. An AI image will not match a specific graph.
+
 ## Verifying In-Game
 
 Do not report art as placed until you've seen it in the running game.

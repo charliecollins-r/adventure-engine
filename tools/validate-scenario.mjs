@@ -16,6 +16,7 @@
  *   - plain hotspots outside the 960x720 space; sprite anchors outside it
  *   - items that are used/required but never granted by anything
  *   - flags read by conditions but never set and not initialised
+ *   - unconditional hints placed after conditional ones (getHint returns the LAST match)
  *
  * --views limits object/interaction checks to views whose id starts with the prefix
  * (useful while later acts are still stubs).
@@ -105,6 +106,10 @@ for (const v of scopeViews) {
     for (const k of ['x', 'y', 'radius', 'pulse_speed', 'pulse_amount', 'alpha']) if (typeof l[k] !== 'number') errors.push(`view ${v.id}: ambient light #${i} missing numeric "${k}"`);
   });
   for (const h of v.hints || []) conds(h.when, `view ${v.id} hint`);
+  (v.hints || []).forEach((h, i, hs) => {
+    const unconditional = !h.when || h.when.length === 0;
+    if (unconditional && hs.slice(0, i).some(x => x.when && x.when.length)) warnings.push(`view ${v.id}: unconditional hint #${i} comes after conditional ones; the engine shows the LAST matching hint, so it masks them. Move it first.`);
+  });
 }
 for (const o of s.objects) {
   if (!scopeObjs.has(o.id)) continue;

@@ -1184,6 +1184,10 @@
       "room_animation": "flicker",
       "hints": [
         {
+          "when": [],
+          "text": "The ventilation shaft branches ahead. This was someone else's escape route before yours."
+        },
+        {
           "when": [
             {
               "type": "not_has_item",
@@ -1199,11 +1203,7 @@
               "item": "ventilation_map"
             }
           ],
-          "text": "Your map shows the way through the maze ahead. The left path at the junction is marked as correct."
-        },
-        {
-          "when": [],
-          "text": "The ventilation shaft branches ahead. This was someone else's escape route before yours."
+          "text": "Your map shows the duct maze ahead. Read it (look at it in your inventory): from the junction it's WEST, then straight north."
         }
       ],
       "character": {
@@ -1334,6 +1334,10 @@
       },
       "hints": [
         {
+          "when": [],
+          "text": "Two ways into the ducts. Beyond this junction they all look alike. A map would help, and the air currents might give you a clue."
+        },
+        {
           "when": [
             {
               "type": "not_has_item",
@@ -1349,13 +1353,999 @@
               "item": "ventilation_map"
             }
           ],
-          "text": "Your map says LEFT is the way. The helmet symbol means you'll need protection."
-        },
-        {
-          "when": [],
-          "text": "Two paths. One is correct. The air currents might give you a clue."
+          "text": "Your map says WEST (the left tunnel), then straight north. The skull scratched near the end means bad air: have the helmet."
         }
       ]
+    },
+    {
+      "id": "act1_vent_maze_a",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_a",
+      "background_file": "backgrounds/act1_vent_maze_rf.webp",
+      "objects": [
+        "nav_vent_maze_a_north",
+        "nav_vent_maze_a_east"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_b",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_b",
+      "background_file": "backgrounds/act1_vent_maze_lf.webp",
+      "objects": [
+        "nav_vent_maze_b_north",
+        "nav_vent_maze_b_west",
+        "nav_vent_maze_b_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_c",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_c",
+      "background_file": "backgrounds/act1_vent_maze_rf.webp",
+      "objects": [
+        "nav_vent_maze_c_north",
+        "nav_vent_maze_c_east"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_d",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_d",
+      "background_file": "backgrounds/act1_vent_maze_rt.webp",
+      "objects": [
+        "nav_vent_maze_d_east",
+        "nav_vent_maze_d_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go right (east). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_e",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_e",
+      "background_file": "backgrounds/act1_vent_maze_lf.webp",
+      "objects": [
+        "nav_vent_maze_e_north",
+        "nav_vent_maze_e_west",
+        "nav_vent_maze_e_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_f",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_f",
+      "background_file": "backgrounds/act1_vent_maze_rf.webp",
+      "objects": [
+        "nav_vent_maze_f_north",
+        "nav_vent_maze_f_east",
+        "nav_vent_maze_f_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_g",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_g",
+      "background_file": "backgrounds/act1_vent_maze_lf.webp",
+      "objects": [
+        "nav_vent_maze_g_north",
+        "nav_vent_maze_g_west"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_h",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_h",
+      "background_file": "backgrounds/act1_vent_maze_rf.webp",
+      "objects": [
+        "nav_vent_maze_h_north",
+        "nav_vent_maze_h_east",
+        "nav_vent_maze_h_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_i",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_i",
+      "background_file": "backgrounds/act1_vent_maze_lf.webp",
+      "objects": [
+        "nav_vent_maze_i_north",
+        "nav_vent_maze_i_west"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go left (west). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_k",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_k",
+      "background_file": "backgrounds/act1_vent_maze_lf.webp",
+      "objects": [
+        "nav_vent_maze_k_north",
+        "nav_vent_maze_k_west",
+        "nav_vent_maze_k_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go left (west). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_l",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_l",
+      "background_file": "backgrounds/act1_vent_maze_de.webp",
+      "objects": [
+        "nav_vent_maze_l_south",
+        "vent_maze_sealed_grate"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go back (south). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 480,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_m",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_m",
+      "background_file": "backgrounds/act1_vent_maze_rf.webp",
+      "objects": [
+        "nav_vent_maze_m_north",
+        "nav_vent_maze_m_east"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go straight ahead (north). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 400,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.47,
+            "radius": 0.13,
+            "color": [
+              60,
+              170,
+              150
+            ],
+            "pulse_speed": 0.25,
+            "pulse_amount": 0.2,
+            "alpha": 0.12,
+            "phase": 0.6
+          }
+        ],
+        "flicker": true
+      }
+    },
+    {
+      "id": "act1_vent_maze_n",
+      "name": "Air Ducts",
+      "background_key": "act1_vent_maze_n",
+      "background_file": "backgrounds/act1_vent_maze_lt.webp",
+      "objects": [
+        "nav_vent_maze_n_west",
+        "nav_vent_maze_n_south"
+      ],
+      "room_animation": "flicker",
+      "hints": [
+        {
+          "text": "These ducts all look the same. Without something to map them with, it would be easy to go in circles.",
+          "when": []
+        },
+        {
+          "text": "Your scratched map says: from here, go left (west). The skull marks the gas, so have the helmet before you go that far.",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "ventilation_map"
+            }
+          ]
+        }
+      ],
+      "character": {
+        "x": 560,
+        "y": 650,
+        "facing": "up",
+        "sprite_set": "idle",
+        "object_id": "goblin_self"
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.12,
+            "radius": 0.45,
+            "color": [
+              200,
+              50,
+              50
+            ],
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.15,
+            "alpha": 0.14
+          },
+          {
+            "x": 0.5,
+            "y": 0.92,
+            "radius": 0.3,
+            "color": [
+              180,
+              40,
+              40
+            ],
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.1,
+            "alpha": 0.08,
+            "phase": 1.2
+          }
+        ],
+        "flicker": true
+      }
     },
     {
       "id": "act1_vent_gas_chamber",
@@ -1421,6 +2411,10 @@
       },
       "hints": [
         {
+          "when": [],
+          "text": "This section is filled with toxic gas from a cracked bio-organic pipe."
+        },
+        {
           "when": [
             {
               "type": "not_has_item",
@@ -1437,10 +2431,6 @@
             }
           ],
           "text": "The helmet should protect you from the gas. Press forward."
-        },
-        {
-          "when": [],
-          "text": "This section is filled with toxic gas from a cracked bio-organic pipe."
         }
       ]
     },
@@ -1494,6 +2484,10 @@
       },
       "hints": [
         {
+          "when": [],
+          "text": "A massive fan blocks the passage. Its mechanism is exposed on the wall."
+        },
+        {
           "when": [
             {
               "type": "object_state",
@@ -1530,10 +2524,6 @@
             }
           ],
           "text": "The fan is stopped. You can squeeze through the blades now."
-        },
-        {
-          "when": [],
-          "text": "A massive fan blocks the passage. Its mechanism is exposed on the wall."
         }
       ]
     },
@@ -1587,6 +2577,10 @@
       },
       "hints": [
         {
+          "when": [],
+          "text": "A dead end, but not a wasted trip. The skeleton tells a story."
+        },
+        {
           "when": [
             {
               "type": "object_state",
@@ -1595,10 +2589,6 @@
             }
           ],
           "text": "The skeleton is holding something. It still glows faintly."
-        },
-        {
-          "when": [],
-          "text": "A dead end, but not a wasted trip. The skeleton tells a story."
         },
         {
           "when": [
@@ -4225,7 +5215,7 @@
     {
       "id": "ventilation_map",
       "name": "Ventilation Map",
-      "description": "Scratches in the vent shaft walls that form a crude map. You traced them onto a flat surface.",
+      "description": "A scratched metal plate mapping the ventilation ducts, north at the top. Look at it to read it.",
       "icon": "map",
       "examine": [
         {
@@ -4233,8 +5223,12 @@
           "when": [],
           "then": [
             {
+              "type": "show_closeup",
+              "image": "closeups/vent_map.webp"
+            },
+            {
               "type": "message",
-              "text": "Someone — or something — scratched a map of the ventilation system into the shaft walls. Previous escape attempts. The map shows branching paths between containment sections, and marks dead ends with deep gouges. One path leads to the operational decks."
+              "text": "A scratched map of the ducts, north at the top. From the junction, arrows run WEST, then straight NORTH past a skull, a fan, and a box: the way out. A loop of ducts hangs off to the west, a long way round winds through the east, a deep X marks the end of one eastern branch, and three gouged bars mark a dead end."
             }
           ]
         }
@@ -7499,7 +8493,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace the scratch-map with your fingers, memorizing the layout. A junction ahead splits two ways: LEFT is marked with a helmet symbol and leads eventually to the airlock. RIGHT is gouged with warning marks — a dead end. Whoever made this got further than the Choir expected."
+              "text": "You trace the scratch-map with your fingers, memorizing it. Past a junction the ducts become a whole maze, drawn north-up: from the junction, arrows run WEST, then straight NORTH past a scratched skull and a fan to a way out. A long route winds round through the east, with a deep X at the end of one branch. Whoever made this got further than the Choir expected."
             },
             {
               "type": "add_item",
@@ -25287,7 +26281,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Cross-referencing with your map: the LEFT tunnel is marked with a small helmet symbol — hazardous but the correct path toward the airlock. The RIGHT tunnel is scored with deep warning gouges — a dead end. The mapmaker was thorough."
+              "text": "Cross-referencing with your map: these are the same marks. WEST, the left tunnel, carries the arrows, then the route runs straight north toward the skull (bad air: you'll want protection). EAST, the right tunnel, winds the long way round through the ducts, past a branch gouged with an X. The mapmaker was thorough."
             }
           ]
         },
@@ -25385,7 +26379,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The air behaves differently at the junction. From the LEFT, warm air carries a sharp chemical smell — acrid, metallic, wrong. From the RIGHT, the air is stale and dead — no circulation, as if the tunnel ends."
+              "text": "The air behaves differently at the junction. From the LEFT, warm air carries a sharp chemical smell: acrid, metallic, wrong. From the RIGHT, the air is stale and slow, as if it has wandered a long way to get here."
             }
           ]
         },
@@ -25413,7 +26407,7 @@
     },
     {
       "id": "nav_act1_vent_junction_to_act1_vent_gas_chamber",
-      "name": "Left Tunnel",
+      "name": "West Duct",
       "description": "The left branch of the junction. A faint yellow-green haze drifts from it.",
       "position": {
         "x": 95,
@@ -25440,7 +26434,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The left tunnel stretches into a yellowish haze. Something chemical hangs in the air. It could be dangerous… or it could be nothing."
+              "text": "The left tunnel. A faint yellowish haze curls out of it, and the air from it smells sharp and chemical."
             }
           ]
         },
@@ -25455,7 +26449,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your map marks this as the correct path. The helmet symbol means you'll need protection. The chemical haze confirms it — toxic gas ahead."
+              "text": "Your map marks WEST, this way, as the route: straight on north after it, toward a scratched skull. The skull means the air goes bad. You'll want protection."
             }
           ]
         },
@@ -25465,11 +26459,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber"
+              "view": "act1_vent_maze_a"
             },
             {
               "type": "message",
-              "text": "You crawl into the left tunnel. The air grows warmer, sharper. A yellow-green haze thickens around you."
+              "text": "You crawl into the left tunnel. It opens into more ducts, ribbed and red and all alike. Somewhere ahead, the air has a faint chemical tang."
             }
           ]
         },
@@ -25497,7 +26491,7 @@
     },
     {
       "id": "nav_act1_vent_junction_to_act1_vent_collapsed",
-      "name": "Right Tunnel",
+      "name": "East Duct",
       "description": "The right branch of the junction. Darker and narrower than the left.",
       "position": {
         "x": 670,
@@ -25524,7 +26518,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The right tunnel is narrower and darker. The air from it is completely still."
+              "text": "The right tunnel is darker. The air from it is stale and still."
             }
           ]
         },
@@ -25539,7 +26533,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your map marks this tunnel with deep warning gouges. Dead end. But someone made it that far… there might be something worth finding."
+              "text": "Your map shows the EAST ducts winding the long way round. Off to one side an X is gouged deep: something there, at the end of a branch."
             }
           ]
         },
@@ -25549,11 +26543,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_collapsed"
+              "view": "act1_vent_maze_g"
             },
             {
               "type": "message",
-              "text": "You squeeze into the narrower right tunnel. The walls close in. The air is stale and dead."
+              "text": "You squeeze into the right tunnel. It branches almost at once into ducts that all look the same."
             }
           ]
         },
@@ -25897,7 +26891,7 @@
     },
     {
       "id": "nav_act1_vent_gas_to_act1_vent_junction",
-      "name": "Back to Junction",
+      "name": "Back to the Ducts",
       "description": "The tunnel back to the junction.",
       "position": {
         "x": 350,
@@ -25919,7 +26913,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The tunnel back to the junction. The air is cleaner that direction."
+              "text": "The duct back the way you came. The air is cleaner in that direction."
             }
           ]
         },
@@ -25929,11 +26923,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_maze_f"
             },
             {
               "type": "message",
-              "text": "You retreat from the gas back to the junction. The air clears as you crawl."
+              "text": "You retreat from the gas, back into the ducts. The air clears as you crawl."
             }
           ]
         },
@@ -26711,7 +27705,7 @@
           "then": [
             {
               "type": "message",
-              "text": "These match the warning marks on your map. Whoever scratched the map in the entry shaft came here first, found the dead end, then went back and left warnings for the next escape attempt. The mapmaker and this skeleton might not be the same person."
+              "text": "These match the X gouged on your map. Whoever scratched the map in the entry shaft came this way first, found the dead end, then went back and marked it for the next escape attempt. The mapmaker and this skeleton might not be the same person."
             }
           ]
         },
@@ -26739,7 +27733,7 @@
     },
     {
       "id": "nav_act1_vent_collapsed_to_act1_vent_junction",
-      "name": "Back to Junction",
+      "name": "Back to the Ducts",
       "description": "The tunnel back to the junction.",
       "position": {
         "x": 350,
@@ -26761,7 +27755,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The tunnel back to the junction. Nothing more to find here."
+              "text": "The duct back the way you came."
             }
           ]
         },
@@ -26771,11 +27765,11 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_maze_i"
             },
             {
               "type": "message",
-              "text": "You crawl back to the junction. The dead end yields nothing more — except the datapad, if you took it."
+              "text": "You back out of the dead end and into the ducts again."
             }
           ]
         },
@@ -27269,6 +28263,1923 @@
             {
               "type": "message",
               "text": "\"Good hook,\" you tell it. It's the nicest thing anyone's said on this ship."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_a_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 360,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_b"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_a_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_junction"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_b_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 380,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_e"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_b_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_c"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_b_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_a"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_c_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 360,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_d"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_c_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_b"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_d_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_e"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_d_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_c"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_e_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 380,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_f"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_e_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_d"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_e_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_b"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_f_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 360,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_gas_chamber"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_f_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_n"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_f_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_e"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_g_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 380,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_h"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_g_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_junction"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_h_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 360,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_k"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_h_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_i"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_h_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_g"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_i_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 380,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_collapsed"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_i_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_h"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_k_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 380,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_l"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_k_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_m"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_k_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_h"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_l_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_k"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vent_maze_sealed_grate",
+      "name": "Sealed Grate",
+      "description": "A heavy grate bolted over a sealed vent.",
+      "position": {
+        "x": 395,
+        "y": 220
+      },
+      "size": {
+        "width": 175,
+        "height": 253
+      },
+      "visual": {
+        "color": "rgba(120, 100, 80, 0.2)",
+        "label": "Grate"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A heavy grate, rusted solid over a sealed vent. Old claw marks score the wall beside it: something else ended up here, and tried to get out. Dead end."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You rattle the grate. It doesn't move a hair. Whoever left those claw marks had the same luck."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Wrong way,\" you tell yourself. The duct agrees."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "response": "It's bolted shut. You'll have to go back.",
+          "then": []
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_m_north",
+      "name": "Duct (straight ahead)",
+      "description": "A duct leading north.",
+      "position": {
+        "x": 360,
+        "y": 210
+      },
+      "size": {
+        "width": 220,
+        "height": 255
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↑ Ahead",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_n"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_m_east",
+      "name": "Duct (right)",
+      "description": "A duct leading east.",
+      "position": {
+        "x": 660,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "Right →",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the right wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_k"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_n_west",
+      "name": "Duct (left)",
+      "description": "A duct leading west.",
+      "position": {
+        "x": 95,
+        "y": 187
+      },
+      "size": {
+        "width": 205,
+        "height": 347
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "← Left",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A side duct opens in the left wall, round and black."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_f"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav_vent_maze_n_south",
+      "name": "Duct (back)",
+      "description": "A duct leading south.",
+      "position": {
+        "x": 150,
+        "y": 660
+      },
+      "size": {
+        "width": 660,
+        "height": 60
+      },
+      "visual": {
+        "color": "rgba(100, 130, 200, 0.2)",
+        "label": "↓ Back",
+        "nav": true
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The duct behind you. Every stretch of this place looks the same from here."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_vent_maze_m"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Cold ribbed metal, slick with condensation. It hums faintly under your palm."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your whisper runs away down the duct and comes back as a dozen whispers. None of them helpful."
             }
           ]
         }

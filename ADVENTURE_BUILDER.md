@@ -1005,6 +1005,17 @@ Design your navigation around hubs (rooms with multiple exits) and spokes (dead 
                               (dead end)
 ```
 
+### Mazes (King's Quest–Style)
+
+A maze is just many views that **share background files**. Nothing in the engine is maze-specific. The Harvest's vent maze is the reference implementation (`scenarios/the-harvest/vent-maze-design.md`):
+
+- **Fixed compass.** The camera always faces north. The left opening is west, the right is east, the tunnel straight ahead is north, and a strip along the bottom edge goes back south. Walking west lands you in the next cell still facing north, so the passage you came through is now on your right. Draw the in-game map north-up and it matches the screens one-to-one.
+- **Few frames, many cells.** Classify each cell by which of N/W/E it shows: left + forward, right + forward, left turn, right turn, dead end, and so on. Generate one frame per class, mirror the left-handed ones for the right-handed classes, and point every cell's `background_file` at its class frame. South needs no art; it's behind the viewer.
+- **Standard hotspots.** Use the same nav boxes in every cell (same left-opening box, same forward box) so the frames and hotspots always agree.
+- **Keep cells anonymous.** Give every generic cell the same `name`, so the room label doesn't give the position away, and no unique decoration. Put the memorable things in a few hand-painted landmark rooms inside the grid.
+- **Make the map the key.** Give the player a map item whose examine shows a `show_closeup` image of the grid, and add a per-cell hint that only fires `has_item` map and names the right direction from that cell.
+- **Fairness.** Make every passage two-way, and have nothing in a generic cell consume or block. Getting lost should cost time, never progress. Then prove it with `tools/softlock-search.mjs`.
+
 ### Locked Navigation
 
 Gate nav with conditions to create locked doors:
@@ -1255,7 +1266,7 @@ Progressive hint system. Each view has a `hints` array of context-sensitive guid
 ```
 
 **Design tips:**
-- Empty `when: []` means the hint is always active (good for a first/fallback hint)
+- Empty `when: []` means the hint is always active. Put it **first**, as the fallback. Placed later, it matches every time and masks every hint before it, because the last match wins. `tools/validate-scenario.mjs` warns about this.
 - Each hint's conditions should be a superset of the previous, so the last match is the most specific
 - Guide the player toward the **next action** — what to look at, where to go, what to try
 - Keep the tone atmospheric and in-character, not "game guide" voice
