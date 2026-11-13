@@ -2,50 +2,110 @@
 
 ## Overview
 
-The single `act1_ventilation_shaft` room becomes a **6-room maze** between the corridor and the airlock bay. The maze rewards preparation (getting the map and helmet beforehand) and punishes blind rushing with fair-but-lethal hazards.
+The vents between the Containment Corridor and the Airlock Bay are a **King's Quest–style labyrinth**: a grid of near-identical tunnel screens where it is genuinely possible to get lost, with five painted landmark rooms (Junction, Gas Chamber, Fan Chamber, Collapsed Section, Exit Passage) placed inside it. The scratched **ventilation map** found at the Vent Entry is the way through. Preparation (map, helmet, probe) is rewarded; wandering costs time, never progress. There are no new deaths, and every passage is two-way, so getting lost can't soft-lock the game.
 
-## Maze Graph
+> **v2 (current).** v1 was a single fork (Junction → Gas or Collapsed), which wasn't really a maze. v2 keeps the v1 special rooms and their puzzles; only the routing between them changes.
+
+## Navigation Convention (fixed compass, like KQ1 / KQ6's catacombs)
+
+The camera **always faces north**. Inside every maze screen:
+
+| Screen position | Compass | Nav hotspot (960×720 JSON space) |
+|-----------------|---------|----------------------------------|
+| Tunnel continuing straight ahead (center) | **North** | `(390,160)` 200×260 |
+| Round opening in the left wall | **West** | `(95,187)` 205×347 (same as the Junction's left opening) |
+| Round opening in the right wall | **East** | `(670,187)` 220×347 (same as the Junction's right opening) |
+| Bottom edge (behind the viewer, not painted) | **South** | `(300,640)` 360×70 |
+
+Walking west through the left opening puts you in the next cell **still facing north**, so the passage you came through is now on your right. That's the classic KQ rule, and it means the in-game map (drawn north-up) matches the screens exactly: forward on screen = up on the map. Every connection is two-way: if a cell has a West opening, its western neighbour has an East opening.
+
+Character standing spot in every generic cell: `(480, 600)`, facing up.
+
+## Maze Graph (v2)
 
 ```
-                    Containment Corridor
-                          │ (vent_cover, gated by security_locks_overridden)
-                          ▼
-                   ┌─────────────┐
-                   │  VENT ENTRY │  ← wall scratches (ventilation_map)
-                   │  (existing) │  ← vent_old_remains, maintenance_hatch
-                   └──────┬──────┘
-                          │ (forward/up)
-                          ▼
-                   ┌─────────────┐
-                   │  JUNCTION   │  ← T-junction, LEFT or RIGHT
-                   └──┬──────┬───┘
-            LEFT ◄────┘      └────► RIGHT
-                 ▼                    ▼
-        ┌────────────┐       ┌────────────────┐
-        │  GAS LEAK  │       │ COLLAPSED      │
-        │  CHAMBER   │       │ SECTION        │
-        │  ☠ hazard  │       │ (dead end +    │
-        │  (helmet)  │       │  lore/item)    │
-        └─────┬──────┘       └────────────────┘
-              │ (forward)
-              ▼
-        ┌────────────┐
-        │  FAN ROOM  │
-        │  ☠ hazard  │
-        │  (probe)   │
-        └─────┬──────┘
-              │ (forward)
-              ▼
-        ┌────────────┐
-        │   EXIT     │
-        │  PASSAGE   │
-        └─────┬──────┘
-              │
-              ▼
-          Airlock Bay
+          x=0       x=1       x=2       x=3       x=4
+   y=7              EXIT ─► hatch down to Airlock Bay
+                     │
+   y=6              FAN ☠  (jam with surgical probe)
+                     │
+   y=5              GAS ☠  (helmet required to go north)
+                     │
+   y=4               F ─────── N         L  (dead end)
+                     │         │         │
+   y=3     D ─────── E         M ─────── K        COLL ✦ (skeleton: datapad, access chip)
+           │         │                   │         │
+   y=2     C ─────── B                   H ─────── I
+                     │                   │
+   y=1               A ─────── J ─────── G
+                               │      (J = Junction, painted landmark)
+   y=0                       ENTRY  (Vent Entry: wall scratches → ventilation map)
+                               │
+                       Containment Corridor (vent cover)
 ```
 
-## Room Details
+**Correct route (what the map shows):** Junction → **W** → N → N → N → N → Gas Chamber → N → Fan → N → Exit. That's 5 moves from the Junction to the gas.
+
+**Ways to get lost:**
+- **The C–D loop.** From B, going west leads round C → D → E and back onto the true path. It looks like progress but goes in a circle.
+- **The long east arm.** Junction → E → G → H → K → M → N → F also reaches the gas, but it takes 7 moves and passes two traps:
+  - the side branch H → I → **Collapsed Section**, the optional reward (crew datapad and Choir access chip);
+  - **L**, a plain dead end north of K.
+- Repetition does the rest. 13 generic cells share 5 frames.
+
+### Cells
+
+| Cell | Grid | Openings | Frame | Notes |
+|------|------|----------|-------|-------|
+| ENTRY | (2,0) | N, S→corridor | `act1_ventilation_shaft.webp` (existing) | Map pickup |
+| J | (2,1) | W, E, S | `act1_vent_junction.webp` (special) | Scratched symbols; map marks WEST |
+| A | (1,1) | N, E | right + forward (RF) | |
+| B | (1,2) | N, W, S | left + forward (LF) | Loop entrance |
+| C | (0,2) | N, E | RF | Loop |
+| D | (0,3) | E, S | right turn (RT) | Loop |
+| E | (1,3) | N, W, S | LF | Loop rejoins |
+| F | (1,4) | N, E, S | RF | East arm rejoins |
+| GAS | (1,5) | N, S | `act1_vent_gas_chamber.webp` (special) | North without helmet = death (existing) |
+| FAN | (1,6) | N (blocked by fan), S | `act1_vent_fan_room.webp` (special) | Jam with probe (existing) |
+| EXIT | (1,7) | hatch, S | `act1_vent_exit.webp` (special) | Hatch → Airlock Bay |
+| G | (3,1) | N, W | LF | |
+| H | (3,2) | N, E, S | RF | Branch to the reward |
+| I | (4,2) | N, W | LF | |
+| COLL | (4,3) | S | `act1_vent_collapsed.webp` (special) | Optional reward |
+| K | (3,3) | N, W, S | LF | |
+| L | (3,4) | S | dead end (DE) | |
+| M | (2,3) | N, E | RF | |
+| N | (2,4) | W, S | left turn (LT) | |
+
+**Frames needed:** LF ×5, RF ×5, LT ×1, RT ×1, DE ×1. We generate **three images** (LF, LT, DE); RF and RT are horizontal mirrors of LF and LT (`convert lf.webp -flop rf.webp`). A plain straight tunnel (ST) is optional, for future layouts.
+
+### The map
+
+`ventilation_map` (from the Vent Entry's wall scratches) becomes essential. LOOKing at it in inventory shows a `show_closeup` of the map, rendered procedurally from the grid above so it is accurate by construction: crude claw-scratched lines on a metal plate, north-up, with the Junction's symbol, a skull over the gas, a fan glyph, an X where the skeleton lies, and arrows along the true route. The Junction markings and per-cell hints also read the map. Without it, a cell's hint is "These tunnels all look the same. Something to map them with would help." With it, the hint says "Your map says: go west / north / east from here."
+
+### Room names
+
+Every generic cell shows the same room label ("Air Ducts") so the player can't use labels to orient. Special rooms keep their own names.
+
+### Soft-lock and fairness
+
+- All edges are bidirectional, and nothing in the generic cells consumes or blocks. The worst outcome of being lost is wasted time.
+- The deaths are unchanged (gas without helmet ×2, fan). The maze adds none.
+- After implementation, re-run `tools/validate-scenario.mjs` and `tools/softlock-search.mjs` (goal `state:airlock_override_panel!=locked`).
+
+### Special-room art review (backgrounds delivered)
+
+All five painted rooms match the shared tube style and their brief. Their hotspots were refit to the art and checked in-game:
+
+- **Junction:** side openings moved inward onto the painted tunnel mouths.
+- **Gas Chamber:** forward nav moved from the ceiling onto the tunnel's vanishing point; corpse box enlarged to cover the skeleton's legs.
+- **Fan Chamber:** fan box tightened to the disc, mechanism box fitted, and the character moved left so he isn't in front of the hub.
+- **Collapsed Section:** skeleton box covers skull to feet, scratches box moved up onto the painted marks, and the character stands left of the skeleton's feet.
+- **Exit Passage:** crack and hatch boxes fitted, the character moved out of the hatch onto the floor at lower left, and the starlight and hatch-glow lights moved onto the crack and hatch.
+
+## Room Details (v1 puzzle content, still current)
+
+> Navigation targets mentioned below are from v1. **Routing now follows the v2 Maze Graph above**; puzzles, objects and text in the special rooms are unchanged.
 
 ### 1. Vent Entry (`act1_ventilation_shaft` — repurposed)
 **Existing room**, minimally changed. Remove the direct nav to airlock. Add nav forward to Junction.
@@ -234,6 +294,55 @@ Same environment as the attached reference image: the interior of a cylindrical 
 The last stretch of the tube, cleaner and more maintained: smoother grey-silver metal bands begin to replace the organic ribs. LEFT wall (from about 5% to 25% across, 20% to 63% down): a jagged crack through the hull wall showing deep black space full of bright stars, letting in a shaft of cool blue starlight across the tube. CENTER of the floor, in the lower middle of the frame (from about 36% to 64% across, 62% to 90% down): a rectangular hatch opening in the tube floor, glowing warm amber from the large chamber below, through which you can glimpse the top of docking clamps and the curved hull of an airlock bay. Clear flat floor surrounds the hatch, especially just beyond it in the middle of the frame. The tube continues out of frame behind the viewer.
 
 Low camera angle from knee-height looking slightly DOWN toward the hatch opening, with the star crack to the left — a moment of wonder after the claustrophobic maze. Saturated colors despite the dark mood — cool blue starlight cutting across warm red emergency strips and the amber glow rising from the hatch, silver-grey metal, deep purple shadows. No text, no UI elements, no people, no living creatures.
+```
+
+## Maze Frame Prompts (Gemini / Nano Banana)
+
+These are **edits of the Junction background**, so every generic screen shares its exact camera, geometry, and lighting. Cuts between screens should feel seamless, and the side openings land on the same nav hotspots. **Attach `backgrounds/act1_vent_junction.webp` as the reference image** for each. Generate LF, LT and DE (ST is optional); RF and RT are made by mirroring (`convert act1_vent_maze_lf.webp -flop act1_vent_maze_rf.webp`), so avoid anything that reads wrong when flipped (text, numbers).
+
+Acceptance checks for each frame:
+- Openings sit where the nav hotspots are: left opening about 10–31% across and 25–74% down; forward tunnel centered at about 40–62% across and 22–58% down.
+- The floor in the lower center is clear for the character.
+- The frame is anonymous. If Gemini adds a landmark (a skeleton, writing, a glowing panel), regenerate. Landmarks defeat the maze.
+
+### Left + Forward (LF) — `backgrounds/act1_vent_maze_lf.webp` · mirror → `act1_vent_maze_rf.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING identical — the exact camera position and height, the ribbed oxblood-and-rust chamber shape, the curved ceiling with its row of glowing red strip lights and dripping overhead pipe, the rusty floor pipes curving in at the bottom-left and bottom-right corners, the open damp floor in the center, the brushwork, palette and lighting — and change ONLY the following:
+1) The flat back wall in the center (where the scratched symbols are) is replaced by the dark round mouth of a tunnel continuing STRAIGHT AHEAD, receding into darkness with a faint teal-green glow far away; the mouth spans the middle of the frame from about 40% to 62% across and 22% to 58% down. 2) The round opening in the LEFT wall stays exactly where it is, but its inside is plain darkness (no yellow-green haze). 3) The RIGHT wall where the right-hand opening was is now solid curved ribbed wall, continuous with the rest of the chamber — no opening at all.
+
+Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. Low camera angle from knee-height. Saturated colors despite the dark mood — crimson emergency light, rust and oxblood ribs, deep purple-black shadows inside openings. No text, no UI elements, no people, no creatures.
+```
+
+### Left turn (LT) — `backgrounds/act1_vent_maze_lt.webp` · mirror → `act1_vent_maze_rt.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING identical — the exact camera position and height, the ribbed oxblood-and-rust chamber shape, the curved ceiling with its row of glowing red strip lights and dripping overhead pipe, the rusty floor pipes curving in at the bottom-left and bottom-right corners, the open damp floor in the center, the brushwork, palette and lighting — and change ONLY the following:
+1) The flat back wall in the center becomes plain, unmarked ribbed wall (remove all scratched symbols and arrows) — no way forward. 2) The round opening in the LEFT wall stays exactly where it is, but its inside is plain darkness (no yellow-green haze). 3) The RIGHT wall where the right-hand opening was is now solid curved ribbed wall, continuous with the rest of the chamber — no opening at all.
+
+Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. Low camera angle from knee-height. Saturated colors despite the dark mood — crimson emergency light, rust and oxblood ribs, deep purple-black shadows inside openings. No text, no UI elements, no people, no creatures.
+```
+
+### Dead end (DE) — `backgrounds/act1_vent_maze_de.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING identical — the exact camera position and height, the ribbed oxblood-and-rust chamber shape, the curved ceiling with its row of glowing red strip lights and dripping overhead pipe, the rusty floor pipes curving in at the bottom-left and bottom-right corners, the open damp floor in the center, the brushwork, palette and lighting — and change ONLY the following:
+1) The flat back wall in the center becomes plain, unmarked ribbed wall with a heavy rusted grate bolted over a small sealed vent in its middle — no way forward. 2) BOTH round side openings are gone: the left and right walls are solid curved ribbed wall, continuous with the rest of the chamber. The space should feel like a sealed, airless dead end, with a few old claw scratches low on the left wall from something that tried to get out.
+
+Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. Low camera angle from knee-height. Saturated colors despite the dark mood — crimson emergency light, rust and oxblood ribs, deep purple-black shadows inside openings. No text, no UI elements, no people, no creatures.
+```
+
+### Optional: Straight (ST) — `backgrounds/act1_vent_maze_st.webp`
+```
+2D gouache illustration, game background art in the style of 1990s Sierra On-Line King's Quest V and King's Quest VI. Visible brushstrokes, soft color gradients, NOT photorealistic, NOT 3D rendered. 16:9 aspect ratio, 1920x1080.
+
+EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING identical — the exact camera position and height, the ribbed oxblood-and-rust chamber shape, the curved ceiling with its row of glowing red strip lights and dripping overhead pipe, the rusty floor pipes curving in at the bottom-left and bottom-right corners, the open damp floor in the center, the brushwork, palette and lighting — and change ONLY the following:
+1) The flat back wall in the center is replaced by the dark round mouth of a tunnel continuing STRAIGHT AHEAD, receding into darkness with a faint teal-green glow far away; the mouth spans the middle of the frame from about 40% to 62% across and 22% to 58% down. 2) BOTH round side openings are gone: the left and right walls are solid curved ribbed wall.
+
+Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. Low camera angle from knee-height. Saturated colors despite the dark mood — crimson emergency light, rust and oxblood ribs, deep purple-black shadows inside openings. No text, no UI elements, no people, no creatures.
 ```
 
 ## Implementation Notes
