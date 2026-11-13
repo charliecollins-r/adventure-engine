@@ -1889,6 +1889,31 @@
               "item": "containment_key_card"
             }
           ]
+        },
+        {
+          "text": "The keypad needs two things: the four-digit section code from the cataloguer robot's specimen plates in the Stasis Hold, and the startup sequence from the Processing Lab screens.",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "flag_not",
+                  "flag": "lab_code_known",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "security_sequence_known",
+                  "value": "true"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -24476,7 +24501,13 @@
             },
             {
               "type": "flag_not",
-              "flag": "security_sequence_known"
+              "flag": "lab_code_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known",
+              "value": "true"
             }
           ],
           "then": [
@@ -24497,6 +24528,63 @@
               "type": "object_state",
               "object": "sec_closeup_keypad",
               "state": "locked"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You know the startup pattern from the lab screens, but the keypad won't take it. It wants a four-digit section code first, and you don't have one. Somewhere on this deck, things are stamped with section numbers. The cataloguer robot's specimen jars had data plates..."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You punch in the section code from the specimen plates: 7-3-1-9. The keypad pulses amber and holds, waiting for something more. An activation pattern, maybe. You don't know it. The startup screens in the processing lab cycled through some kind of routine..."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lab_code_known",
+              "value": "true"
             },
             {
               "type": "flag_is",

@@ -11,6 +11,7 @@
  *   --views <prefix>   Only explore views whose id starts with this (default: all)
  *   --goal <expr>      state:<obj>=<v> | state:<obj>!=<v> | flag:<f>=<v> | item:<id> | view:<prefix>
  *   --max <n>          State cap (default 2,000,000)
+ *   --verbose          Print the cone-of-influence variables
  *
  * Soundness: only variables in the goal's "cone of influence" are tracked — flags,
  * object states, item possession and object visibility that (transitively) gate an
@@ -34,6 +35,7 @@ if (!scenarioPath || scenarioPath.startsWith('--')) { console.log('Usage: node t
 const viewPrefix = arg('--views', '');
 const goalExpr = arg('--goal');
 const MAX = +arg('--max', 2000000);
+const verbose = args.includes('--verbose');
 if (!goalExpr) { console.error('--goal is required'); process.exit(1); }
 
 // ---- bundle the real engine --------------------------------------------
@@ -44,6 +46,7 @@ esbuild.buildSync({ entryPoints: [join(root, 'client/src/engine/ScenarioEngine.t
 const { ScenarioEngine } = createRequire(out)(out);
 
 const scenario = JSON.parse(readFileSync(scenarioPath, 'utf8'));
+const base0Phase = scenario.phases?.[0]?.id;
 const inScope = v => v.startsWith(viewPrefix);
 const scopeViews = scenario.views.filter(v => inScope(v.id));
 const scopeObjs = new Set(scopeViews.flatMap(v => v.objects));
@@ -102,6 +105,26 @@ for (const c of scenario.combinations || []) {
   const r = new Set(c.items.map(i => 'item:' + i)); condReads(c.conditions, r);
   groups.set('+' + c.items.join('+'), { r, w });
 }
+// Items that can actually be obtained within scope; groups that need anything else can never fire.
+const obtainable = new Set();
+{
+  const grants = es => { const out = []; for (const e of es || []) { if (e.type === 'add_item') out.push(e.item); if (e.type === 'transform_item') out.push(e.into); out.push(...grants(e.then), ...grants(e.else), ...grants(e.effects)); for (const ch of e.choices || []) out.push(...grants(ch.then)); } return out; };
+  const sources = [];
+  for (const o of scenario.objects) if (scopeObjs.has(o.id)) for (const it of o.interactions || []) sources.push([it.item, grants(it.then)]);
+  for (const it of scenario.items) for (const x of it.examine || []) sources.push([it.id, grants(x.then)]);
+  for (const ph of scenario.phases || []) if (ph.id === base0Phase) sources.push([null, grants(ph.on_enter)]);
+  let more = true;
+  while (more) {
+    more = false;
+    for (const [need, out] of sources) if (!need || obtainable.has(need)) for (const i of out) if (!obtainable.has(i)) { obtainable.add(i); more = true; }
+    for (const c of scenario.combinations || []) if (c.items.every(i => obtainable.has(i)) && !obtainable.has(c.result)) { obtainable.add(c.result); more = true; }
+  }
+}
+for (const [k] of [...groups]) {
+  if (k.startsWith('+')) { if (!k.slice(1).split('+').every(i => obtainable.has(i))) groups.delete(k); continue; }
+  const m = k.split('|'); if (m[1] === 'use_item' && !obtainable.has(m[2])) groups.delete(k);
+  if (k.startsWith('#') && !obtainable.has(k.slice(1))) groups.delete(k);
+}
 const cone = new Set(goalVars);
 const relevant = new Set();
 let grew = true;
@@ -109,7 +132,7 @@ while (grew) {
   grew = false;
   for (const [k, g] of groups) {
     if (relevant.has(k)) continue;
-    if ([...g.w].some(x => cone.has(x) || x === 'view' || x === 'dialogue')) {
+    if ([...g.w].some(x => cone.has(x) || x === 'view')) {
       relevant.add(k); grew = true;
       for (const x of g.r) cone.add(x);
     }
@@ -119,6 +142,7 @@ const coneFlags = [...cone].filter(x => x.startsWith('flag:')).map(x => x.slice(
 const coneStates = [...cone].filter(x => x.startsWith('state:')).map(x => x.slice(6));
 const coneItems = new Set([...cone].filter(x => x.startsWith('item:')).map(x => x.slice(5)));
 const coneVis = [...cone].filter(x => x.startsWith('vis:')).map(x => x.slice(4));
+if (verbose) console.log('cone:', [...cone].sort().join(' '), '\nobtainable items:', [...obtainable].sort().join(' '));
 console.log(`cone of influence: ${coneFlags.length} flags, ${coneStates.length} object states, ${coneItems.size} items, ${coneVis.length} visibilities; ${relevant.size}/${groups.size} interaction groups relevant`);
 
 // ---- compact state <-> engine ------------------------------------------
@@ -162,10 +186,12 @@ function actions(e) {
 
 // ---- breadth-first search -------------------------------------------------
 const keys = [encode(base)], parent = [-1], via = [''], succ = [[]], terminal = [0];
+let expanded = 0; // states [0, expanded) have had all their successors generated
 const index = new Map([[keys[0], 0]]);
 const deaths = new Map(); let capped = false;
 for (let qi = 0; qi < keys.length; qi++) {
-  if (keys.length > MAX) { capped = true; break; }
+  if (keys.length > MAX) { capped = true; expanded = qi; break; }
+  expanded = qi + 1;
   if (terminal[qi]) continue;
   for (const [label, fn] of actions(decode(keys[qi]))) {
     const c = decode(keys[qi]);
@@ -185,11 +211,20 @@ const pred = keys.map(() => []); succ.forEach((s, i) => s.forEach(j => pred[j].p
 const win = new Uint8Array(keys.length); const stack = [...goals]; goals.forEach(g => { win[g] = 1; });
 while (stack.length) { const n = stack.pop(); for (const p of pred[n]) if (!win[p]) { win[p] = 1; stack.push(p); } }
 const path = i => { const p = []; while (i > 0) { p.push(via[i]); i = parent[i]; } return p.reverse(); };
-const locked = keys.map((_, i) => i).filter(i => !win[i] && !terminal[i]);
+// A state is soft-locked only if it was fully expanded and cannot reach a goal. Unexpanded frontier
+// states (when capped) are unknown, and their ancestors may be judged too pessimistically, so a
+// capped run reports only states whose entire forward closure was expanded.
+let locked = keys.map((_, i) => i).filter(i => i < expanded && !win[i] && !terminal[i]);
+if (capped) {
+  const touchesFrontier = new Uint8Array(keys.length); const st2 = [];
+  for (let i = expanded; i < keys.length; i++) { touchesFrontier[i] = 1; st2.push(i); }
+  while (st2.length) { const n = st2.pop(); for (const p of pred[n]) if (!touchesFrontier[p]) { touchesFrontier[p] = 1; st2.push(p); } }
+  locked = locked.filter(i => !touchesFrontier[i]);
+}
 
 console.log(`\nexplored ${keys.length} states ${capped ? '(CAPPED — results are a lower bound)' : '(exhaustive)'}; ${goals.length} reach the goal`);
 console.log(`start state can win: ${!!win[0] ? 'YES' : 'NO'}`);
-console.log(`SOFT-LOCKED states: ${locked.length}`);
+console.log(`SOFT-LOCKED states: ${locked.length}${capped ? ' (only states whose whole future was explored are counted)' : ''}`);
 const doom = new Map();
 for (const i of locked) if (parent[i] >= 0 && win[parent[i]] && !doom.has(via[i])) doom.set(via[i], i);
 for (const [a, i] of doom) console.log(`\n  ✗ dooming action: ${a}\n    reachable via: ${path(i).join(' → ')}`);

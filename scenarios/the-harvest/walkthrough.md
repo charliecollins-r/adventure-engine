@@ -360,7 +360,7 @@ Congratulations — you've escaped the containment deck. Act 2 begins.
 | Gas-Filled Passage | Going back through the gas without helmet (same check) | Same — have the helmet |
 | Fan Chamber | MOVE into the spinning fan before jamming it | USE the Surgical Probe on the Fan Mechanism first |
 
-There are no other deaths in Act 1. You cannot softlock yourself — every item and flag is obtainable regardless of order (except the stasis fluid, which requires the empty jar).
+There are no other deaths in Act 1. You cannot softlock yourself. That's verified by an exhaustive search over every reachable game state with the real engine (`tools/softlock-search.mjs`): every reachable state can still finish the act. Order is flexible; the strap and hook can be collected in either order, and the stasis fluid just needs the empty jar first.
 
 ---
 
