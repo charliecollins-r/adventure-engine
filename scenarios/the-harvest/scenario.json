@@ -2792,7 +2792,7 @@
         "sec_closeup_override_button"
       ],
       "background_key": "act1_security_closeup",
-      "background_file": "closeups/security_console.webp",
+      "background_file": "closeups/security_closeup.webp",
       "background_fit": "contain",
       "back_label": "Security Hub",
       "hints": [
@@ -25343,12 +25343,12 @@
       "name": "Surveillance Feeds",
       "description": "Multiple screens showing surveillance feeds from across the containment deck.",
       "position": {
-        "x": 595,
-        "y": 328
+        "x": 632,
+        "y": 76
       },
       "size": {
-        "width": 208,
-        "height": 171
+        "width": 218,
+        "height": 222
       },
       "visual": {
         "color": "#2a3a4a",
@@ -25417,12 +25417,12 @@
       "name": "System Status Display",
       "description": "A readout showing the current status of the containment deck's systems.",
       "position": {
-        "x": 117,
-        "y": 149
+        "x": 132,
+        "y": 100
       },
       "size": {
-        "width": 249,
-        "height": 131
+        "width": 202,
+        "height": 200
       },
       "visual": {
         "color": "#2a4a3a",
@@ -25442,7 +25442,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The status display comes alive with alien readouts. You can parse the basics: containment locks ENGAGED across all sections. Ventilation grates SEALED. Specimen counts for each cell. And a deck map — the full layout of this level. You memorize the important bits: the ventilation shaft connects the corridor to the airlock bay. If you could get the vent grate open... One line blinks beside a red cross: EMERGENCY OVERRIDE — NOT ARMED."
+              "text": "The status screen glows alarm-red, rings of light pulsing around a sensor like an eye. Alien readouts scroll across it. You can parse the basics: containment locks ENGAGED across all sections. Ventilation grates SEALED. Specimen counts for each cell. And a deck map — the full layout of this level. You memorize the important bits: the ventilation shaft connects the corridor to the airlock bay. If you could get the vent grate open... One line blinks beside a red cross: EMERGENCY OVERRIDE — NOT ARMED."
             }
           ]
         },
@@ -25478,12 +25478,12 @@
       "name": "Emergency Override (dark)",
       "description": "A red emergency override button. Its light is dead.",
       "position": {
-        "x": 116,
-        "y": 505
+        "x": 118,
+        "y": 668
       },
       "size": {
         "width": 69,
-        "height": 106
+        "height": 80
       },
       "visual": {
         "color": "rgba(200, 50, 50, 0.3)",
@@ -25539,12 +25539,12 @@
       "name": "Emergency Override",
       "description": "A red emergency button that appeared after the ship's processing terminal was accessed.",
       "position": {
-        "x": 116,
-        "y": 505
+        "x": 118,
+        "y": 668
       },
       "size": {
         "width": 69,
-        "height": 106
+        "height": 80
       },
       "visual": {
         "color": "rgba(200, 50, 50, 0.3)",

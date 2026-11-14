@@ -116,6 +116,12 @@ For a creature or machine that should feel alive but stay in place, don't ask fo
 
 **Dark or bluish subjects need a green key.** A black cat's fur has blue and violet highlights that a blue key would punch holes in. Generate on `#00FF00`, add "no green tones anywhere on the subject", and key green. The cat sheet is `sprites/black-cat.png`: 10 frames of 119×184 at scale 0.19, about 35px tall in the corridor.
 
+### Close-ups from art you already have (the security console)
+
+A close-up doesn't always need a new painting. The room's own background already shows what's behind the object, and a close-up is just a zoom. The security close-up is the Security Hub background cropped to the wall of screens behind the console, scaled to 1920×1080, blurred slightly and darkened (depth of field), with the console's detailed art chroma-keyed and laid across the bottom on a soft drop shadow (`scenarios/the-harvest/scripts/compose_security_closeup.py`). The painted wall screens then become hotspots (surveillance feeds, status screen) for free, and the close-up matches the room exactly because it *is* the room.
+
+Pass `--cols 1` when keying a single wide image with `tools/process-chromakey-sprite.mjs`; without it the image is treated as several frames and cropped per frame, which leaves vertical seams.
+
 ### Idle animations for the player character
 
 The same method works on the player, with two extra rules, because a person's colours and proportions are much easier to spoil than a cat's:
