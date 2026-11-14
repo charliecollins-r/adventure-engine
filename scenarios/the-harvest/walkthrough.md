@@ -8,11 +8,11 @@
 
 If you just want to get through it, here's the cheat sheet:
 
-1. **Stasis Hold** — HAND the broken pod (glass shard) and the tag hook (specimen tag). The cataloguer robot holds code **7319**, but it's across a gap in the walkway. Don't jump; HAND on the gap kills you. Pet the cat in the corridor (cat hair).
+1. **Stasis Hold** — HAND the broken pod (glass shard) and the tag hook (specimen tag). The cataloguer robot's specimen displays hold the **four-glyph code**, but they're across a gap in the walkway. Don't jump; HAND on the gap kills you. Pet the cat in the corridor (cat hair).
 2. **Processing Lab** — HAND the sample jars (empty jar) and the instrument rack (surgical probe). USE the probe ON the restraint straps (restraint strap; you keep the probe). LOOK at the lab screens (security sequence).
 3. **Morgue** (Corridor → Feeding Station → left) — HAND the carcass hook jammed in the open drawer (and the neural tendril, for lore).
 4. **Combine** the restraint strap and the carcass hook in your inventory (click one, then the other) → **grappling line**.
-5. **Back to Stasis Hold** — USE the grappling line ON the gap, then LOOK (or HAND) the cataloguer robot to learn **7319**. USE the empty jar ON the drainage channel (stasis fluid vial).
+5. **Back to Stasis Hold** — USE the grappling line ON the gap, then LOOK (or HAND) the cataloguer robot to learn the code: **fern, double curl, sprouting snake, thorny branch**. USE the empty jar ON the drainage channel (stasis fluid vial).
 6. **Security Hub** — HAND the console, which opens the closeup. HAND the keypad (code + sequence activate it), HAND the lever (override all locks, +20 noise), HAND the drawer (key card). Back in the room, HAND the emergency cabinet (helmet).
 7. **Feeding Station** — HAND the dispenser (nutrient paste). TALK to the prisoner (choose your dialogue).
 8. **Specimen Archive** — HAND the misplaced crystal. USE it on the reading device. LOOK at the holographic display.
@@ -52,7 +52,7 @@ The dev panel is your best friend when you can't figure out what's clickable.
 ```
                     ┌──────────────┐
                     │ STASIS HOLD  │ ← START
-                    │  ◆◆◆ ✦ 🐈    │   (3 items + code 7319)
+                    │  ◆◆◆ ✦ 🐈    │   (3 items + glyph code)
                     └──────┬───────┘
                            │ Dark Archway
                     ┌──────┴───────┐
@@ -128,7 +128,7 @@ HAND Carcass Hook (Morgue, open drawer) ─────────────�
   └─► COMBINE strap + hook ─► Grappling Line
        └─► USE Grappling Line ON walkway gap (Stasis Hold) ─► gap crossed
             └─► LOOK / HAND Cataloguer Robot
-  └─► learn code 7319
+  └─► learn the four-glyph code
        └─► HAND Lab Terminal Keypad (Processing Lab closeup)
             └─► terminal unlocked
                  └─► LOOK terminal data screens (optional lore)
@@ -176,7 +176,7 @@ You wake up cold, confused, and surrounded by alien specimen pods. Time to scave
 - **HAND the Specimen Tag Hook** — Tear off your identification tag. *(Gets: specimen tag)*
 - **LOOK at the Torn Railing (the gap)** — The cataloguer robot, which holds the code you need, is across a gap in the walkway over the drainage pit. The far side has a solid railing. *Don't HAND the gap: you jump, slip, and die.*
 
-> **Come back later**: you'll need a **grappling line** to cross (see the Processing Lab and Morgue). Once across, **LOOK or HAND the Cataloguer Robot**. It takes you to a closeup of its specimen jars and every data plate shares the section code **7-3-1-9**. *(Sets: gap_crossed, then lab_code_known)*
+> **Come back later**: you'll need a **grappling line** to cross (see the Processing Lab and Morgue). Once across, **LOOK or HAND the Cataloguer Robot**. It takes you to a closeup of its specimen jars and every specimen display shows the same four characters in the same order: **fern, double curl, sprouting snake, thorny branch**. *(Sets: gap_crossed, then lab_code_known)*
 
 **Don't grab the drainage channel yet** — you need an empty jar from the Processing Lab first. You'll come back for it.
 
@@ -210,7 +210,7 @@ Two items and two key knowledge flags here.
 - **LOOK at the Lab Startup Display** — Watch the screens cycle through routines. You spot a security system startup sequence — a five-button pattern. *(Sets: security_sequence_known)*
 
 The lab display also takes you to a **Lab Terminal closeup** with a keypad:
-- **HAND the Lab Terminal Keypad** (requires knowing code 7319) — Enter the code. Terminal unlocks, giving you access to processing data on the side screens. *(Sets: terminal_unlocked)*
+- **HAND the Lab Terminal Keypad** — A keypad overlay opens: eight keys etched with alien glyphs, four display slots. Press the four characters from the specimen displays in order (**fern, double curl, sprouting snake, thorny branch**). Wrong entries buzz and add a little noise; every 6th wrong try sets off a louder alarm (+8 noise). Brute force is possible but miserable (4,096 codes). The terminal unlocks *(Sets: terminal_unlocked)*, the side screens open up, and **the Security Console gains a red Emergency Override button**: a shortcut that overrides every lock without the keypad sequence or the lever.
 - **LOOK the data screens** — Optional but reveals integration schedules and Earth specimen records.
 - **USE specimen tag ON right data screen** — Your tag ID pulls up your full record. *(Sets: full_record_known)*
 
@@ -226,7 +226,8 @@ Return to the Corridor and head to the **Security Hub** (right door).
 The security hub has the console, an emergency cabinet, and a key card drawer. HANDing the console takes you to the **Security Console closeup** view.
 
 **In the closeup:**
-- **HAND the Keypad** (requires both code 7319 AND security sequence) — The console activates. *(Sets: security_hub_accessed)*
+- **HAND the Keypad** — The same glyph keypad opens. Enter **fern, double curl, sprouting snake, thorny branch**. If you also know the startup sequence from the lab screens, the console activates *(Sets: security_hub_accessed)*; if not, it holds your code and waits for the pattern. Wrong entries cost more noise here, and every 4th wrong try trips an alarm (+15).
+- **Shortcut:** if you unlocked the lab terminal, LOOK at the console: a red **Emergency Override** button has appeared. HAND it to override every lock at once *(Sets: security_locks_overridden)*.
 - **HAND the Override Lever** (requires console active) — Pull it. Every containment lock on the deck clicks open. The Curator *will* notice. *(Sets: security_locks_overridden; +20 noise)*
 - **HAND the Drawer** — Pull out a bio-organic key card. *(Gets: containment key card)*
 
@@ -235,7 +236,7 @@ Use "Back to Security Hub" to return to the main view.
 **Back in the main Security Hub:**
 - **HAND the Emergency Equipment Cabinet** — Smash the cracked glass, grab an oversized alien helmet. The atmosphere seals still work. You'll need this for the vent maze gas. *(Gets: emergency suit helmet)*
 
-> **Puzzle chain recap**: Cataloguer (code 7319) + Lab screens (security sequence) → Security keypad → Override lever → Vent grate opens. If you skipped either knowledge step, the keypad just beeps and adds noise.
+> **Puzzle chain recap**: Cross the gap → glyph code from the specimen displays. Then either **(a)** glyph code + lab-screen startup sequence → Security keypad → Override lever, or **(b)** glyph code → Lab terminal → Emergency Override button. Either way the vent grate opens. You can try to brute-force the keypads instead of crossing the gap, but it's noisy and slow.
 
 Head to the **Feeding Station** (corridor, far end).
 
@@ -262,7 +263,7 @@ Head to the **Morgue** (left passage).
 
 **Make the grappling line:** open your inventory, click the **Restraint Strap**, then click the **Carcass Hook**. You knot the strap through the hook's eyelet. *(Gets: grappling line; uses up strap and hook)*
 
-Then head back to the **Stasis Hold** and **USE the Grappling Line ON the gap**. The hook bites the far railing, you shimmy across, and the line stays rigged there. Now LOOK at the cataloguer for code 7319.
+Then head back to the **Stasis Hold** and **USE the Grappling Line ON the gap**. The hook bites the far railing, you shimmy across, and the line stays rigged there. Now LOOK at the cataloguer for the four-glyph code.
 - **LOOK at the Dead Goblin** — A creature like you, dead in a drawer. Surgical marks everywhere. You're not the first. *(Sets: dead_goblin_seen)*
 
 **Also here**: Morgue drawers, autopsy slab, recycling vats, chemical cabinet — all with LOOK flavor text that builds the horror.
@@ -449,7 +450,8 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 | Flag | How to Get It | What It Does |
 |------|-------------|-------------|
 | `gap_crossed` | USE Grappling Line ON the gap | Lets you reach the cataloguer robot |
-| `lab_code_known` | LOOK/HAND Cataloguer Robot (after crossing) | Needed for the lab terminal and security keypads |
+| `lab_code_known` | LOOK/HAND Cataloguer Robot (after crossing) | You've seen the glyph code (fern, double curl, sprouting snake, thorny branch); used by hints |
+| `security_code_entered` | Enter the glyph code on the security keypad | Console waits for the startup sequence |
 | `restraint_strap_cut` | USE surgical probe ON Restraint Straps | Strap obtained |
 | `carcass_hook_taken` | HAND Carcass Hook (Morgue) | Hook obtained |
 | `security_sequence_known` | LOOK Lab Startup Display | Needed for security console keypad |
@@ -474,7 +476,7 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 ## Common Stuck Points
 
 **"The security console won't activate"**
-You need TWO things: the code 7319 (cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot) AND the security sequence (LOOK at the lab screens in Processing Lab). The console closeup keypad checks for both.
+You need the four-glyph code (fern, double curl, sprouting snake, thorny branch; cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot) AND the security sequence (LOOK at the lab screens in Processing Lab). Or skip the sequence: unlock the lab terminal with the code, then press the red Emergency Override button that appears on the console.
 
 **"How do I reach the cataloguer robot / get across the gap?"**
 Don't jump (HAND kills you). Build a grappling line: cut a restraint strap free in the Processing Lab with the surgical probe, pull the carcass hook out of the open morgue drawer, then combine them in your inventory (click one, then the other). USE the line on the gap.

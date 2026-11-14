@@ -321,6 +321,21 @@ Two engine behaviours scenario tooling must mirror exactly:
 - **Visibility defaults to visible.** The constructor copies `initially_visible` as-is, so an object without the field stores `undefined`, and `getVisibleObjects()` hides only objects whose visibility is strictly `false`.
 - **First match wins.** `findMatchingInteraction` returns the first interaction whose verb (and item) match and whose `when` passes, so flags read by an earlier, purely cosmetic interaction still decide whether a later, substantive one fires.
 
+### Puzzle Widgets (keypad overlay)
+
+Engine state: `_activeWidgetId`, `widgetAttempts: Record<id, number>`, `solvedWidgets: Record<id, boolean>`.
+
+- **`open_widget`** sets `_activeWidgetId`.
+- **`getActiveWidget()`** returns the widget definition, and `ScenarioPlayer` renders `KeypadWidget` for it.
+- **The component** keeps the in-progress entry locally, and calls `pressWidgetKey()` per key, which applies `noise_per_interaction`.
+- **`submitWidget(entry)`** runs when the entry reaches `code_length`:
+  - **Correct:** clears `_activeWidgetId`, marks the widget solved, runs `on_solve`, and puts its messages in `_messages`.
+  - **Wrong:** runs `on_fail`, increments the attempt count, runs `on_max_fail` every `max_attempts` and resets the count, and returns the next `fail_text` line for in-widget feedback.
+- **`closeWidget()`** dismisses without side effects.
+- **`widget_solved`** reads `solvedWidgets`.
+
+The soft-lock search models an open widget with three actions: the correct entry, one wrong entry, and close.
+
 ### Scenario Validator (`tools/validate-scenario.mjs`)
 
 Static checks for mistakes that parse fine but silently break play. It scans for duplicate keys with its own tokenizer, because `JSON.parse` keeps the last duplicate. It also flags `use_item` interactions with no `item` (because of the first-match rule above they can never fire), object IDs used where item IDs belong, unknown item/object/view references, ambient lights missing numeric fields, missing asset files, and off-canvas hotspots and sprite anchors. `--views <prefix>` scopes the object checks to one act.
@@ -955,7 +970,7 @@ All 20+ effect types have implementations. Remaining no-ops:
 | System | Used By | Priority | Notes |
 |--------|---------|----------|-------|
 | Events system | 13/13 | HIGH | Timed/conditional narrative beats |
-| Puzzle widgets | 13/13 | HIGH | Keypads, dials, sliders, etc. |
+| Puzzle widgets | 13/13 | HIGH | `keypad` overlay implemented (`KeypadWidget.tsx`, `open_widget`, `widget_solved`); dials, toggles and sequence puzzles still TODO |
 | Killer AI | 13/13 | MEDIUM | Patrol, detection, search, personality |
 | Hints | defined | LOW | Progressive help system |
 | `time_after` condition | 13/13 | HIGH (with events) | Needs game clock |

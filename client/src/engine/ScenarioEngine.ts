@@ -10,6 +10,8 @@ import type {
   GameOverResult,
   CharacterPlacement,
   DialogueChoice,
+  PuzzleWidget,
+  WidgetSubmitResult,
 } from './types';
 
 export class ScenarioEngine {
@@ -31,6 +33,9 @@ export class ScenarioEngine {
   private _pendingSounds: string[];
   private _dialoguePrompt: string | null;
   private _dialogueChoices: DialogueChoice[];
+  private _activeWidgetId: string | null;
+  private widgetAttempts: Record<string, number>;
+  private solvedWidgets: Record<string, boolean>;
   private equippedItems: Map<string, string>;
 
   private objectIndex: Map<string, ScenarioObject>;
@@ -55,6 +60,9 @@ export class ScenarioEngine {
     this._pendingSounds = [];
     this._dialoguePrompt = null;
     this._dialogueChoices = [];
+    this._activeWidgetId = null;
+    this.widgetAttempts = {};
+    this.solvedWidgets = {};
     this.equippedItems = new Map();
 
     this.objectIndex = new Map();
@@ -431,6 +439,60 @@ export class ScenarioEngine {
     this._dialogueChoices = [];
   }
 
+  getActiveWidget(): PuzzleWidget | null {
+    if (!this._activeWidgetId) return null;
+    return this.scenario.puzzle_widgets?.find(w => w.id === this._activeWidgetId) ?? null;
+  }
+
+  isWidgetSolved(widgetId: string): boolean {
+    return !!this.solvedWidgets[widgetId];
+  }
+
+  closeWidget(): void {
+    this._activeWidgetId = null;
+  }
+
+  /** One key press on the active widget: only adds the widget's noise_per_interaction. */
+  pressWidgetKey(): void {
+    const w = this.getActiveWidget();
+    if (w?.noise_per_interaction) this._noiseLevel = Math.min(100, this._noiseLevel + w.noise_per_interaction);
+  }
+
+  /**
+   * Submit an entry (key values in order) to the active keypad widget.
+   * Correct: closes the widget, marks it solved, runs on_solve (messages go to the message panel).
+   * Wrong: widget stays open, runs on_fail, returns in-widget feedback; every max_attempts wrong
+   * entries runs on_max_fail and resets the counter (never a permanent lock).
+   */
+  submitWidget(entry: string[]): WidgetSubmitResult {
+    const w = this.getActiveWidget();
+    if (!w || this._gameOver) return { solved: false, feedback: null, messages: [] };
+    const sol = w.config.solution;
+    const expected = typeof sol === 'string' ? sol.split('') : (sol ?? []).map(String);
+    this._messages = [];
+    if (entry.length === expected.length && entry.every((v, i) => v === expected[i])) {
+      this._activeWidgetId = null;
+      this.solvedWidgets[w.id] = true;
+      const messages = this.applyEffects(w.on_solve ?? []);
+      this._messages = messages;
+      this.checkGameEndConditions();
+      return { solved: true, feedback: null, messages };
+    }
+    const n = (this.widgetAttempts[w.id] ?? 0) + 1;
+    const texts = w.config.fail_text ?? [];
+    const feedback = texts.length ? texts[(n - 1) % texts.length] : null;
+    const messages = this.applyEffects(w.on_fail ?? []);
+    if (w.max_attempts && n >= w.max_attempts) {
+      messages.push(...this.applyEffects(w.on_max_fail ?? []));
+      this.widgetAttempts[w.id] = 0;
+    } else {
+      this.widgetAttempts[w.id] = n;
+    }
+    this._messages = messages;
+    this.checkGameEndConditions();
+    return { solved: false, feedback, messages };
+  }
+
   getPendingSounds(): string[] {
     return this._pendingSounds;
   }
@@ -514,6 +576,8 @@ export class ScenarioEngine {
         return this.inventory.length >= (c.count ?? 0);
       case 'killer_is':
         return false;
+      case 'widget_solved':
+        return !!(c.widget && this.solvedWidgets[c.widget]);
       default:
         return true;
     }
@@ -716,6 +780,12 @@ export class ScenarioEngine {
           if (e.prompt && e.choices) {
             this._dialoguePrompt = e.prompt;
             this._dialogueChoices = e.choices;
+          }
+          break;
+
+        case 'open_widget':
+          if (e.widget && this.scenario.puzzle_widgets?.some(w => w.id === e.widget)) {
+            this._activeWidgetId = e.widget;
           }
           break;
 

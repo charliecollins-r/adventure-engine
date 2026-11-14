@@ -715,6 +715,7 @@ Conditions gate when interactions, events, and phase transitions fire.
 | `is_hiding` | — | Player is currently in a hiding spot |
 | `not_hiding` | — | Player is NOT hiding |
 | `killer_is` | `state` | Killer AI is in this state |
+| `widget_solved` | `widget` | The puzzle widget with this id has been solved |
 | `view_is` | `view` | Player is on this view |
 
 ### Composite Conditions
@@ -768,6 +769,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"` |
 | `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks to dismiss. |
 | `show_dialogue` | `prompt`, `choices` | Show a dialogue choice overlay. `prompt` is the situation text. `choices` is an array of `{label, when?, then}` objects — each choice has display text, optional conditions (hidden if not met), and effects to apply when selected. See Dialogue Choices section. |
+| `open_widget` | `widget` | Open an overlay puzzle widget (e.g. a `keypad`) by id. See Puzzle Widgets → Overlay Widgets. |
 | `set_view` | `view` | Switch to a different view (closeup or back to main). |
 | `play_sound` | `sound` | Play a named sound effect (from a standard library). |
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |
@@ -845,6 +847,90 @@ Each choice has a `label` (the text shown to the player), optional `when` condit
 For interactions more complex than "click → result" — things with their own UI like combination locks, keypads, toggle panels.
 
 Puzzle widgets are pre-built client components. The JSON configures them.
+
+> **Implementation status.** `keypad` is implemented as an **overlay** widget, opened with the `open_widget` effect. The other widget types below are specified but not yet rendered by the engine.
+
+### Overlay Widgets (implemented: `keypad`)
+
+An overlay widget is a modal panel the player opens by interacting with a world object, like a closeup but with its own controls. It doesn't need a position. The object's interaction opens it:
+
+```json
+"puzzle_widgets": [
+  {
+    "id": "lab_terminal_lock",
+    "widget_type": "keypad",
+    "presentation": "overlay",
+    "config": {
+      "title": "Terminal Access",
+      "prompt": "Four characters. The keys are warm under your fingers.",
+      "columns": 4,
+      "keys": [
+        { "value": "fern",   "image": "ui/glyph_fern.png",   "label": "Fern" },
+        { "value": "spiral", "image": "ui/glyph_spiral.png", "label": "Spiral" },
+        { "value": "curl",   "image": "ui/glyph_curl.png",   "label": "Double curl" }
+      ],
+      "code_length": 4,
+      "solution": ["fern", "curl", "sprout", "thorn"],
+      "fail_text": ["The keys flash red.", "A harsh buzz. Wrong."]
+    },
+    "on_solve": [
+      { "type": "set_flag", "flag": "terminal_unlocked", "value": "true" },
+      { "type": "message", "text": "The keypad flashes green. ACCESS GRANTED." }
+    ],
+    "on_fail": [ { "type": "add_noise", "amount": 2 } ],
+    "max_attempts": 5,
+    "on_max_fail": [ { "type": "add_noise", "amount": 10 }, { "type": "message", "text": "A security tone sounds down the corridor." } ]
+  }
+]
+```
+
+```json
+// On the world object:
+{ "verb": "hand", "when": [ { "type": "flag_not", "flag": "terminal_unlocked" } ],
+  "then": [ { "type": "open_widget", "widget": "lab_terminal_lock" } ] }
+```
+
+**How it plays:**
+- The player presses keys and the display fills slot by slot (showing each key's image, or its label if there is no image).
+- When `code_length` keys are entered, the code is submitted automatically.
+- **Correct:** the widget closes, the engine marks it solved (see the `widget_solved` condition), and `on_solve` runs. Its messages show in the normal message panel.
+- **Wrong:** the entry clears, one `fail_text` line is shown inside the widget (they cycle in order), and `on_fail` runs. The widget stays open so the player can try again.
+- **Too many wrong tries:** every `max_attempts` wrong entries, `on_max_fail` runs and the counter resets. **The widget never locks permanently**, because a permanent lock would be a soft-lock.
+- **Each key press** adds `noise_per_interaction`, if it's set.
+- **Closing:** the player can close the widget at any time (Close button or Escape) without consequence.
+
+The solution lives in the player's head, not in a flag. Anyone who knows the code can enter it, and brute force is possible but costly: 8 keys and 4 positions is 4,096 codes. Gate *access* to the code (the clue) behind your puzzle, not the keypad itself.
+
+#### `keypad` config (overlay)
+
+| Config Field | Type | Required | Description |
+|-------------|------|----------|-------------|
+| `keys` | `(string \| {value, label?, image?})[]` | yes | Keys in display order. A plain string is both value and label. `image` is a path relative to the scenario folder (transparent PNG; rendered about 56px). |
+| `solution` | `string[]` or `string` | yes | Key **values** in order. A string is split into characters (for digit keypads like `"7319"`). |
+| `code_length` | number | no | Keys per attempt. Default: length of `solution`. |
+| `columns` | number | no | Key grid columns. Default 4. |
+| `title` | string | no | Panel heading. |
+| `prompt` | string | no | Line of flavour text under the title. |
+| `fail_text` | string[] | no | In-widget feedback for wrong entries, cycled in order. |
+
+#### Overlay widget fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `presentation` | `"overlay"` | yes | Modal panel opened by `open_widget`. |
+| `on_solve` | effect[] | yes | Runs once, when the correct code is entered. |
+| `on_fail` | effect[] | no | Runs on every wrong entry. |
+| `max_attempts` | number | no | Run `on_max_fail` every N wrong entries (the counter then resets). |
+| `on_max_fail` | effect[] | no | See above. |
+| `noise_per_interaction` | number | no | Noise per key press. |
+
+**Related effect and condition:**
+- `{ "type": "open_widget", "widget": "<id>" }` opens the widget.
+- `{ "type": "widget_solved", "widget": "<id>" }` is true once the widget has been solved.
+
+Use the condition (or a flag set in `on_solve`) to swap the object's interaction to a "already unlocked" message, so a solved widget isn't reopened.
+
+### Inline Widgets (specified, not yet implemented)
 
 ```json
 "puzzle_widgets": [
@@ -947,7 +1033,7 @@ Arrange tiles in correct order by sliding.
 | `on_solve` | effect[] | yes | Effects when puzzle is solved. |
 | `on_fail` | effect[] | no | Effects on wrong answer. |
 | `noise_per_interaction` | number | no | Noise per dial turn / button press / toggle. |
-| `max_attempts` | number | no | Fail after N wrong attempts (triggers `on_max_fail`). |
+| `max_attempts` | number | no | Every N wrong attempts, `on_max_fail` runs and the counter resets (never a permanent lock). |
 | `on_max_fail` | effect[] | no | Effects when max attempts exceeded. |
 
 ---

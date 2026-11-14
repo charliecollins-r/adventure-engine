@@ -224,6 +224,9 @@ Animated sprite sheets on world objects — pacing prisoners, spinning holograms
 ### Closeup Overlays
 Detail images displayed in a dismissable framed overlay for examining objects up close. The cataloguer robot in The Harvest shows a three-tank specimen closeup with data plates revealing the section code needed for the processing lab keypad.
 
+### Puzzle Widgets
+Keypads that open as an overlay from any object: text or image keys (The Harvest uses alien glyphs), auto-submit, in-widget feedback for wrong entries, noise for guessing, and solve and fail effects. All of it is configured in JSON via `puzzle_widgets` and the `open_widget` effect.
+
 ### Dialogue Choices
 Branching conversation system via `show_dialogue` effect. Each choice has a label, optional visibility conditions, and its own chain of effects. The prisoner in The Harvest's feeding station offers 4 dialogue paths that set different `prisoner_bond` values affecting all subsequent interactions.
 

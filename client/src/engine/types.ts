@@ -92,6 +92,7 @@ export interface Condition {
   threshold?: number;
   count?: number;
   conditions?: Condition[];
+  widget?: string;
 }
 
 export interface DialogueChoice {
@@ -133,6 +134,7 @@ export interface Effect {
   choices?: DialogueChoice[];
   sound?: string;
   voice?: string;
+  widget?: string;
 }
 
 export interface Interaction {
@@ -205,22 +207,45 @@ export interface Combination {
   conditions?: Condition[];
 }
 
+export interface KeypadKey {
+  value: string;
+  label?: string;
+  image?: string;
+}
+
 export interface PuzzleWidgetConfig {
   positions?: string[];
-  solution?: string;
+  solution?: string | string[] | number[] | boolean[] | null;
   initial_position?: string;
+  keys?: (string | KeypadKey)[];
+  code_length?: number;
+  columns?: number;
+  title?: string;
+  prompt?: string;
+  fail_text?: string[];
   [key: string]: unknown;
 }
 
 export interface PuzzleWidget {
   id: string;
   widget_type: string;
-  position: Position;
-  size: Size;
-  view: string;
-  initially_visible: boolean;
+  presentation?: 'overlay' | 'inline';
+  position?: Position;
+  size?: Size;
+  view?: string;
+  initially_visible?: boolean;
   config: PuzzleWidgetConfig;
   on_solve: Effect[];
+  on_fail?: Effect[];
+  max_attempts?: number;
+  on_max_fail?: Effect[];
+  noise_per_interaction?: number;
+}
+
+export interface WidgetSubmitResult {
+  solved: boolean;
+  feedback: string | null;
+  messages: string[];
 }
 
 export interface KillerOverrides {

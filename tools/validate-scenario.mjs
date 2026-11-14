@@ -65,8 +65,10 @@ const s = JSON.parse(raw);
 const itemIds = new Set(s.items.map(x => x.id));
 const objIds = new Set(s.objects.map(x => x.id));
 const viewIds = new Set(s.views.map(x => x.id));
+const widgetIds = new Set((s.puzzle_widgets || []).map(w => w.id));
 const scopeViews = s.views.filter(v => v.id.startsWith(prefix));
 const scopeObjs = new Set(scopeViews.flatMap(v => v.objects));
+const openedWidgets = new Set();
 const granted = new Set(), required = new Set(), flagsSet = new Set(Object.keys(s.flags || {})), flagsRead = new Map();
 const where = (o, it) => `${o}${it ? ` [${it.verb}${it.item ? ' ' + it.item : ''}]` : ''}`;
 
@@ -78,6 +80,7 @@ function conds(cs, ctx) {
   for (const c of cs || []) {
     if (['has_item', 'not_has_item', 'item_count'].includes(c.type)) { checkItem(c.item, ctx); if (c.type === 'has_item') required.add(c.item); }
     if (c.type === 'object_state' && !objIds.has(c.object)) errors.push(`${ctx}: condition on unknown object "${c.object}"`);
+    if (c.type === 'widget_solved' && !widgetIds.has(c.widget)) errors.push(`${ctx}: widget_solved on unknown widget "${c.widget}"`);
     if (c.type === 'view_is' && !viewIds.has(c.view)) errors.push(`${ctx}: condition on unknown view "${c.view}"`);
     if (c.type === 'flag_is' || c.type === 'flag_not') { if (!flagsRead.has(c.flag)) flagsRead.set(c.flag, ctx); }
     conds(c.conditions, ctx);
@@ -91,6 +94,7 @@ function effs(es, ctx) {
     if (['set_state', 'show_object', 'hide_object', 'set_animation'].includes(e.type) && !objIds.has(e.object)) errors.push(`${ctx}: effect "${e.type}" on unknown object "${e.object}"`);
     if (e.type === 'set_view' && !viewIds.has(e.view)) errors.push(`${ctx}: set_view to unknown view "${e.view}"`);
     if (e.type === 'set_flag') flagsSet.add(e.flag);
+    if (e.type === 'open_widget') { if (!widgetIds.has(e.widget)) errors.push(`${ctx}: open_widget for unknown widget "${e.widget}"`); else openedWidgets.add(e.widget); }
     if (e.type === 'show_closeup' && e.image && !existsSync(join(dir, e.image))) errors.push(`${ctx}: closeup image missing: ${e.image}`);
     conds(e.when, ctx); effs(e.then, ctx); effs(e.else, ctx); effs(e.effects, ctx);
     for (const ch of e.choices || []) { conds(ch.when, ctx); effs(ch.then, ctx); }
@@ -128,6 +132,21 @@ for (const o of s.objects) {
 for (const it of s.items) {
   asset(it.icon_file, `item ${it.id} icon`);
   for (const x of it.examine || []) { conds(x.when, `item ${it.id}`); effs(x.then, `item ${it.id}`); }
+}
+for (const w of s.puzzle_widgets || []) {
+  const ctx = `widget ${w.id}`;
+  if (prefix && !openedWidgets.has(w.id) && !(w.view || '').startsWith(prefix)) continue;
+  for (const k of ['on_solve', 'on_fail', 'on_max_fail']) effs(w[k], ctx);
+  if (w.presentation === 'overlay' && w.widget_type === 'keypad') {
+    const keys = (w.config?.keys || []).map(k => (typeof k === 'string' ? { value: k } : k));
+    const values = new Set(keys.map(k => k.value));
+    const sol = typeof w.config?.solution === 'string' ? w.config.solution.split('') : (w.config?.solution || []).map(String);
+    if (!sol.length) errors.push(`${ctx}: keypad has no solution`);
+    for (const v of sol) if (!values.has(v)) errors.push(`${ctx}: solution value "${v}" is not one of the keys`);
+    if (w.config?.code_length && w.config.code_length !== sol.length) errors.push(`${ctx}: code_length ${w.config.code_length} != solution length ${sol.length}`);
+    if (values.size !== keys.length) errors.push(`${ctx}: duplicate key values`);
+    for (const k of keys) asset(k.image, `${ctx} key ${k.value}`);
+  }
 }
 for (const c of s.combinations || []) {
   const ctx = `combination ${c.items.join('+')}`;

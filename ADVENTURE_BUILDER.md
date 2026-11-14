@@ -1217,9 +1217,38 @@ Multiple win/lose conditions give players different endings. The engine checks t
 
 ## Advanced Features
 
-### Puzzle Widgets *(Planned)*
+### Puzzle Widgets: Keypads *(implemented)*
 
-Pre-built UI overlays for complex puzzles — combination locks, keypads, toggle panels, dials, sequence puzzles. Define them in `puzzle_widgets[]` with a type and configuration. See [SCENARIO_SCHEMA.md](docs/SCENARIO_SCHEMA.md) for the full widget type reference.
+A keypad is a modal panel the player opens from a world object. They press keys, the display fills, and the code submits itself. Keys can be text (`"7"`) or images (alien glyphs).
+
+```json
+"puzzle_widgets": [{
+  "id": "vault_lock", "widget_type": "keypad", "presentation": "overlay",
+  "config": {
+    "title": "Vault", "prompt": "Four symbols.", "columns": 4,
+    "keys": [ { "value": "sun", "image": "ui/glyph_sun.png" }, { "value": "moon", "image": "ui/glyph_moon.png" } ],
+    "solution": ["sun", "moon", "moon", "sun"],
+    "fail_text": ["Click. Nothing.", "The symbols dim. Wrong."]
+  },
+  "on_solve": [ { "type": "set_flag", "flag": "vault_open", "value": "true" }, { "type": "message", "text": "The vault sighs open." } ],
+  "on_fail":  [ { "type": "add_noise", "amount": 2 } ],
+  "max_attempts": 5, "on_max_fail": [ { "type": "add_noise", "amount": 10 } ]
+}]
+```
+
+```json
+// The object that opens it:
+{ "verb": "hand", "when": [ { "type": "flag_not", "flag": "vault_open" } ],
+  "then": [ { "type": "open_widget", "widget": "vault_lock" } ] }
+```
+
+Design notes:
+- **The solution is knowledge, not a flag.** Anyone who knows the code can enter it. Hide the *clue* behind your puzzle (The Harvest puts the glyphs on displays across a gap), and let wrong guesses cost something (noise) so brute force is possible but unattractive.
+- **`max_attempts` never locks.** It just fires `on_max_fail` and resets the count, so a keypad can't soft-lock the game.
+- **Make the right keys indistinguishable from the decoys.** If your code glyphs come from painted art, render every key through the same pipeline. See `scenarios/the-harvest/scripts/extract_glyphs.py`.
+- **After solving**, switch the object's interaction with a flag set in `on_solve`, or with the `widget_solved` condition.
+
+Full reference: [SCENARIO_SCHEMA.md → Puzzle Widgets](docs/SCENARIO_SCHEMA.md#puzzle-widgets). Dials, combination locks, toggle panels and sequence puzzles are specified there but not implemented yet.
 
 ### Killer AI *(Planned)*
 

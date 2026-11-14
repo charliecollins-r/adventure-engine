@@ -20,6 +20,11 @@
  * change whether the goal is reachable, so it is dropped from the state and those
  * actions are skipped. Deaths (game_over) are terminal and reported separately;
  * they are not soft-locks.
+ *
+ * Puzzle widgets (open_widget): while one is open the search tries the correct code, one
+ * wrong code, and closing it. The search knows every solution, so it can't tell whether a
+ * code is *discoverable* by the player; it only proves no state is mechanically unwinnable.
+ * Attempt counters are not tracked (on_max_fail never locks a widget).
  */
 import { readFileSync, mkdtempSync, writeFileSync } from 'fs';
 import { createRequire } from 'module';
@@ -64,11 +69,15 @@ else {
 }
 
 // ---- cone of influence ---------------------------------------------------
+const WIDGETS = Object.fromEntries((scenario.puzzle_widgets || []).map(w => [w.id, w]));
+const openWidgetSeen = new Set();
+const widgetSolution = w => { const s = w.config?.solution; return typeof s === 'string' ? s.split('') : (s || []).map(String); };
 function condReads(cs, r) {
   for (const c of cs || []) {
     if (c.type === 'flag_is' || c.type === 'flag_not') r.add('flag:' + c.flag);
     else if (c.type === 'object_state') r.add('state:' + c.object);
     else if (c.type === 'has_item' || c.type === 'not_has_item' || c.type === 'item_count') r.add('item:' + c.item);
+    else if (c.type === 'widget_solved') r.add('wsolved:' + c.widget);
     condReads(c.conditions, r);
   }
 }
@@ -83,6 +92,17 @@ function effRW(es, r, w) {
       case 'set_view': w.add('view'); break;
       case 'game_over': w.add('gameover'); break;
       case 'show_dialogue': w.add('dialogue'); break;
+      case 'open_widget': {
+        // Opening a widget can lead to its solve/fail effects, so they count as this group's effects.
+        const wd = WIDGETS[e.widget];
+        if (wd && !openWidgetSeen.has(e.widget)) {
+          openWidgetSeen.add(e.widget);
+          w.add('wsolved:' + e.widget);
+          for (const k of ['on_solve', 'on_fail', 'on_max_fail']) effRW(wd[k], r, w);
+          openWidgetSeen.delete(e.widget);
+        }
+        break;
+      }
     }
     condReads(e.when, r); effRW(e.then, r, w); effRW(e.else, r, w); effRW(e.effects, r, w);
     for (const ch of e.choices || []) { condReads(ch.when, r); effRW(ch.then, r, w); }
@@ -152,9 +172,10 @@ const encode = e => JSON.stringify([
   e._currentViewId, e.viewHistory.at(-1) || '',
   coneFlags.map(f => e.flags[f] ?? ''), coneStates.map(s => e.objectStates[s] ?? ''), coneVis.map(v => (e.objectVisibility[v] === false ? 0 : 1)),
   e.inventory.filter(i => coneItems.has(i)).sort(), e._dialoguePrompt ? [e._dialoguePrompt, e._dialogueChoices] : 0,
+  e._activeWidgetId || 0, Object.keys(e.solvedWidgets || {}).filter(k => e.solvedWidgets[k]).sort(),
 ]);
 function decode(k) {
-  const [view, back, f, s, v, inv, dlg] = JSON.parse(k);
+  const [view, back, f, s, v, inv, dlg, aw, solved] = JSON.parse(k);
   const e = Object.create(ScenarioEngine.prototype);
   Object.assign(e, base);
   const b = JSON.parse(baseSnap);
@@ -162,10 +183,19 @@ function decode(k) {
   coneFlags.forEach((n, i) => { e.flags[n] = f[i]; }); coneStates.forEach((n, i) => { e.objectStates[n] = s[i]; }); coneVis.forEach((n, i) => { e.objectVisibility[n] = !!v[i]; });
   Object.assign(e, { _currentViewId: view, viewHistory: back ? [back] : [], inventory: [...inv], objectAnimations: {}, _gameOver: null, _messages: [], _pendingSounds: [], _noiseLevel: 0, _characterOverride: null, equippedItems: new Map() });
   e._dialoguePrompt = dlg ? dlg[0] : null; e._dialogueChoices = dlg ? dlg[1] : [];
+  e._activeWidgetId = aw || null; e.widgetAttempts = {}; e.solvedWidgets = Object.fromEntries((solved || []).map(id => [id, true]));
   return e;
 }
 function actions(e) {
   const out = [];
+  if (e._activeWidgetId) {
+    // The player either knows the code or doesn't: try the solution, one wrong entry, and walking away.
+    const w = WIDGETS[e._activeWidgetId]; const sol = widgetSolution(w);
+    out.push([`ENTER ${w.id} = ${sol.join(',')}`, x => x.submitWidget(sol)]);
+    out.push([`ENTER ${w.id} = (wrong)`, x => x.submitWidget(sol.map((_, i) => (i === 0 ? '__wrong__' : sol[i])))]);
+    out.push([`CLOSE ${w.id}`, x => x.closeWidget()]);
+    return out;
+  }
   if (e._dialoguePrompt) {
     e._dialogueChoices.forEach((ch, i) => out.push([`CHOOSE "${ch.label}"`, x => x.selectDialogueChoice(i)]));
     out.push(['DISMISS dialogue', x => x.dismissDialogue()]);

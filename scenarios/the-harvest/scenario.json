@@ -455,7 +455,7 @@
           ]
         },
         {
-          "text": "You've already noted the section code: 7-3-1-9. The terminal keypad in the processing lab might accept it.",
+          "text": "You've memorized the four characters: a fern, a double curl, a sprouting snake, a thorny branch. The keypads on this ship are etched with the same script.",
           "when": [
             {
               "type": "flag_is",
@@ -482,7 +482,7 @@
       "back_label": "Processing Lab",
       "hints": [
         {
-          "text": "The terminal has alien keypads. If you had an access code, you might be able to enter it here.",
+          "text": "The terminal keypad wants four alien characters in the right order. Guessing would take forever. Look for somewhere the same characters appear in a fixed order.",
           "when": [
             {
               "type": "flag_not",
@@ -491,7 +491,7 @@
           ]
         },
         {
-          "text": "You know the code 7-3-1-9 from the specimen data plates. Try entering it on the keypad.",
+          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch.",
           "when": [
             {
               "type": "all_of",
@@ -605,7 +605,7 @@
           ]
         },
         {
-          "text": "Look at the lab data screens again for a closer view of the terminal. If you have a section code, you might be able to unlock restricted data.",
+          "text": "Look at the lab data screens again for a closer view of the terminal. Its keypad wants four alien characters in the right order.",
           "when": [
             {
               "type": "has_item",
@@ -2824,7 +2824,7 @@
       "back_label": "Security Hub",
       "hints": [
         {
-          "text": "The security console needs a code to activate. Have you checked the specimen data plates in the stasis hold?",
+          "text": "The keypad wants four alien characters in the right order. The specimen displays in the Stasis Hold carry four characters that never change, but the cataloguer robot is across a gap.",
           "when": [
             {
               "type": "object_state",
@@ -2838,7 +2838,7 @@
           ]
         },
         {
-          "text": "You know the code is 7-3-1-9 from the data plates. Try entering it on the keypad.",
+          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch.",
           "when": [
             {
               "type": "object_state",
@@ -2881,7 +2881,7 @@
           ]
         },
         {
-          "text": "The keypad needs two things: the four-digit section code from the cataloguer robot's specimen plates in the Stasis Hold, and the startup sequence from the Processing Lab screens.",
+          "text": "The console needs two things: the four characters from the specimen displays in the Stasis Hold, and the startup sequence from the Processing Lab screens.",
           "when": [
             {
               "type": "object_state",
@@ -5004,7 +5004,8 @@
     "airlock_hinted": "false",
     "choir_nature_known": "false",
     "restraint_strap_cut": "false",
-    "carcass_hook_taken": "false"
+    "carcass_hook_taken": "false",
+    "security_code_entered": "false"
   },
   "items": [
     {
@@ -7693,7 +7694,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A small keypad with alien characters etched into each key — the characters match the ones you've seen on specimen data plates throughout the ship. Some keys have numerical notations beneath the alien glyphs. This keypad accepts access codes."
+              "text": "A small keypad of eight bio-organic keys, each etched with a flowing alien character. The same kind of script you've seen on displays and labels around the ship. It wants four characters, in the right order."
             }
           ]
         },
@@ -7713,66 +7714,15 @@
           "verb": "hand",
           "when": [
             {
-              "type": "all_of",
-              "conditions": [
-                {
-                  "type": "flag_not",
-                  "flag": "terminal_unlocked"
-                },
-                {
-                  "type": "flag_is",
-                  "flag": "lab_code_known",
-                  "value": "true"
-                }
-              ]
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You press the keys matching the sequence from the specimen data plates: 7... 3... 1... 9. Each key yields like warm cartilage. The keypad flashes green — ACCESS GRANTED. The main screen flickers and begins cycling through restricted processing records. You've unlocked the terminal."
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
+              "type": "flag_not",
               "flag": "terminal_unlocked",
               "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "lab_terminal_keypad",
-              "value": ""
-            },
-            {
-              "type": "add_noise",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "all_of",
-              "conditions": [
-                {
-                  "type": "flag_not",
-                  "flag": "terminal_unlocked"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "lab_code_known"
-                }
-              ]
             }
           ],
           "then": [
             {
-              "type": "message",
-              "text": "You press a few keys experimentally. The alien characters mean nothing to you — you'd need an access code to get anywhere with this. The data plates on the specimen tanks might have section codes you could use."
+              "type": "open_widget",
+              "widget": "lab_terminal_lock"
             }
           ]
         },
@@ -9097,7 +9047,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the data plates clearly. Alien script you can't read — but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful.",
+              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, a thorny branch. A section code, probably. That could be useful.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -9137,7 +9087,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code from the specimen plates — 7-3-1-9."
+              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch."
             },
             {
               "type": "set_view",
@@ -9177,7 +9127,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the data plates clearly. Alien script you can't read — but the numbers are universal. Each jar is labeled with a code: 7319-101, 7319-102, 7319-103. The prefix is the same across all three. Section code 7319. That could be useful.",
+              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, a thorny branch. A section code, probably. That could be useful.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -9217,7 +9167,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code from the specimen plates — 7-3-1-9."
+              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch."
             },
             {
               "type": "set_view",
@@ -9270,7 +9220,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The Velith Ammonite floats in the amber fluid — part octopus, part nautilus, with a coiled ridged shell and dozens of sinuous arms. Its skin shifts color even in preservation, iridescent patterns rippling across the surface. The green display below scrolls alien glyphs alongside a specimen number: 7319-101."
+              "text": "The Velith Ammonite floats in the amber fluid — part octopus, part nautilus, with a coiled ridged shell and dozens of sinuous arms. Its skin shifts color even in preservation, iridescent patterns rippling across the surface. The green display below scrolls alien glyphs alongside a specimen number."
             }
           ]
         },
@@ -9322,7 +9272,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The Kethrani Weaver fills the center tank — eight jointed legs spread wide, a segmented carapace with chitinous ridges, and mandibles that could crush bone. It's bigger than you are. The green display below scrolls alien glyphs alongside a specimen number: 7319-102. Whatever world this came from, you're glad you weren't there."
+              "text": "The Kethrani Weaver fills the center tank — eight jointed legs spread wide, a segmented carapace with chitinous ridges, and mandibles that could crush bone. It's bigger than you are. The green display below scrolls alien glyphs alongside a specimen number. Whatever world this came from, you're glad you weren't there."
             }
           ]
         },
@@ -9374,7 +9324,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Not an animal — a plant. Or something that blurs the line. The Neural Orchid has layered petals in deep burgundy, and thick root tendrils that curl through the amber fluid like searching fingers. The green display reads: 7319-103. A botanical specimen from some alien world, preserved perfectly. The petals seem to open slightly as you watch."
+              "text": "Not an animal — a plant. Or something that blurs the line. The Neural Orchid has layered petals in deep burgundy, and thick root tendrils that curl through the amber fluid like searching fingers. The green display scrolls a specimen number. A botanical specimen from some alien world, preserved perfectly. The petals seem to open slightly as you watch."
             }
           ]
         },
@@ -9431,7 +9381,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each tank has a teal display screen at its base, scrolling alien glyphs you can't decipher — biological classifications, feeding schedules, who knows. But alongside the glyphs, numbers. Universal, unmistakable numbers. The screens read: 7319-101, 7319-102, 7319-103. The first four digits are the same on every display."
+              "text": "Each tank has a big teal display at its base, and all three show the same four alien characters in the same order: a fern, a double curl, a sprouting snake, a thorny branch. The specimen names differ from tank to tank, but these four never change. Not a name. A section mark. A code, probably. You commit the shapes to memory."
             }
           ]
         },
@@ -9447,7 +9397,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The specimen displays still scroll their alien data alongside the numbers: 7319-101, 7319-102, 7319-103. You've already memorized the section code: 7-3-1-9."
+              "text": "The same four characters on every display: a fern, a double curl, a sprouting snake, a thorny branch. You have them memorized."
             }
           ]
         },
@@ -9462,7 +9412,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace your finger along the numbers on each screen: 7319-101... 7319-102... 7319-103. The first four digits repeat on every display — that's not a specimen ID, it's a section code. 7-3-1-9. A code that repeats on every specimen. Worth remembering — it must unlock something on this ship."
+              "text": "You trace each character with a fingertip so you won't forget the shapes or the order: a fern, a double curl, a sprouting snake, a thorny branch. The same four on every tank. It must unlock something on this ship."
             },
             {
               "type": "play_sound",
@@ -9487,7 +9437,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already noted the section code: 7-3-1-9. The displays continue scrolling their alien data, but you've got what you need."
+              "text": "You've already got them: a fern, a double curl, a sprouting snake, a thorny branch."
             }
           ]
         },
@@ -25465,7 +25415,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A bio-organic keypad with four input slots, each glowing a dull amber. The symbols on each key resemble numbers — or what passes for numbers in the Choir's notation. You'd need a specific four-digit code to activate this console."
+              "text": "A bio-organic keypad with four input slots glowing a dull amber. Its eight keys are etched with the same flowing alien script you've seen around the ship. It wants four characters in the right order, and maybe more after that."
             }
           ]
         },
@@ -25482,138 +25432,6 @@
             {
               "type": "message",
               "text": "The keypad glows green — code accepted. The console is active and ready for commands."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_not",
-              "flag": "lab_code_known",
-              "value": "true"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You press buttons at random. The keypad flashes red and emits a harsh buzz — wrong code. The ship's security system logs the failed attempt. You'd better find the right code before you trigger a lockout."
-            },
-            {
-              "type": "add_noise",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_not",
-              "flag": "lab_code_known",
-              "value": "true"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You know the startup pattern from the lab screens, but the keypad won't take it. It wants a four-digit section code first, and you don't have one. Somewhere on this deck, things are stamped with section numbers. The cataloguer robot's specimen jars had data plates..."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_is",
-              "flag": "lab_code_known",
-              "value": "true"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You punch in the section code from the specimen plates: 7-3-1-9. The keypad pulses amber and holds, waiting for something more. An activation pattern, maybe. You don't know it. The startup screens in the processing lab cycled through some kind of routine..."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_is",
-              "flag": "lab_code_known",
-              "value": "true"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You enter the code from the specimen data plates: 7-3-1-9. The keypad pulses green. The console hums to life — screens sharpen, surveillance feeds stabilize. But the main override controls are still locked behind a physical lever. One step at a time."
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_hub_accessed",
-              "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "sec_closeup_keypad",
-              "value": ""
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_lever",
-              "state": "ready"
             }
           ]
         },
@@ -25656,6 +25474,115 @@
           "verb": "move",
           "when": [],
           "response": "The keypad is embedded in the console's living surface. It can't be removed.",
+          "then": []
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_code_entered",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The keypad still holds your four characters. You add the five-step startup pattern from the lab screens. The console hums to life. Screens sharpen, surveillance feeds stabilize. The main override is still locked behind a physical lever."
+            },
+            {
+              "type": "set_state",
+              "object": "sec_closeup_keypad",
+              "state": "unlocked"
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "sec_closeup_keypad",
+              "value": ""
+            },
+            {
+              "type": "set_state",
+              "object": "sec_closeup_lever",
+              "state": "ready"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_code_entered",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The keypad still holds your four characters, pulsing amber, waiting for an activation pattern you don't know. The startup screens in the processing lab cycled through some kind of routine..."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "locked"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_code_entered",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "open_widget",
+              "widget": "security_console_lock"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "sec_closeup_keypad",
+              "state": "unlocked"
+            }
+          ],
+          "response": "The keypad glows a steady green. The console is already active.",
           "then": []
         }
       ],
@@ -30188,54 +30115,245 @@
   ],
   "puzzle_widgets": [
     {
-      "id": "lab_access_keypad",
+      "id": "lab_terminal_lock",
       "widget_type": "keypad",
-      "position": {
-        "x": 420,
-        "y": 310
-      },
-      "size": {
-        "width": 70,
-        "height": 90
-      },
-      "view": "act1_processing_lab",
-      "initially_visible": true,
+      "presentation": "overlay",
       "config": {
+        "title": "Terminal Access",
+        "prompt": "Eight keys etched with alien characters. The display wants four of them.",
+        "columns": 4,
+        "keys": [
+          {
+            "value": "thorn",
+            "image": "ui/glyph_thorn.png",
+            "label": "Thorny branch"
+          },
+          {
+            "value": "spiral",
+            "image": "ui/glyph_spiral.png",
+            "label": "Spiral"
+          },
+          {
+            "value": "fern",
+            "image": "ui/glyph_fern.png",
+            "label": "Fern"
+          },
+          {
+            "value": "eyehook",
+            "image": "ui/glyph_eyehook.png",
+            "label": "Eye and hook"
+          },
+          {
+            "value": "curl",
+            "image": "ui/glyph_curl.png",
+            "label": "Double curl"
+          },
+          {
+            "value": "trident",
+            "image": "ui/glyph_trident.png",
+            "label": "Trident"
+          },
+          {
+            "value": "sprout",
+            "image": "ui/glyph_sprout.png",
+            "label": "Sprouting snake"
+          },
+          {
+            "value": "twinbranch",
+            "image": "ui/glyph_twinbranch.png",
+            "label": "Forked branch"
+          }
+        ],
         "code_length": 4,
-        "solution": "3917",
-        "display_chars": 4
+        "solution": [
+          "fern",
+          "curl",
+          "sprout",
+          "thorn"
+        ],
+        "fail_text": [
+          "The display flashes red. A dry, disapproving buzz.",
+          "Red again. The terminal hums, unimpressed.",
+          "Wrong. These characters are the same flowing script you've seen on the ship's labels and displays. Somewhere, four of them are written down in order.",
+          "Nothing. Guessing could take you all day. There must be a record of the right four characters somewhere on this deck."
+        ]
       },
       "on_solve": [
         {
-          "type": "set_state",
-          "object": "lab_door",
-          "state": "unlocked"
-        },
-        {
-          "type": "set_flag",
-          "flag": "lab_accessible",
-          "value": "true"
-        },
-        {
           "type": "message",
-          "text": "The bio-organic keypad pulses green. The lab door hisses open, releasing a waft of chemical-laced air."
+          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, the thorny branch. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers and begins to change."
         },
         {
           "type": "play_sound",
-          "sound": "door_hiss"
+          "sound": "discovery"
+        },
+        {
+          "type": "set_flag",
+          "flag": "terminal_unlocked",
+          "value": "true"
+        },
+        {
+          "type": "set_animation",
+          "object": "lab_terminal_keypad",
+          "value": ""
+        },
+        {
+          "type": "add_noise",
+          "amount": 5
         }
       ],
       "on_fail": [
         {
           "type": "add_noise",
-          "amount": 5
-        },
-        {
-          "type": "message",
-          "text": "The keypad pulses red. A low warning tone sounds."
+          "amount": 1
         }
       ],
-      "noise_per_interaction": 2
+      "max_attempts": 6,
+      "on_max_fail": [
+        {
+          "type": "message",
+          "text": "The keypad flushes an angry crimson and freezes for a long moment. Somewhere down the corridor, a security tone sounds. Guessing is getting loud."
+        },
+        {
+          "type": "add_noise",
+          "amount": 8
+        }
+      ]
+    },
+    {
+      "id": "security_console_lock",
+      "widget_type": "keypad",
+      "presentation": "overlay",
+      "config": {
+        "title": "Security Console",
+        "prompt": "A bio-organic keypad. Four input slots glow a dull amber.",
+        "columns": 4,
+        "keys": [
+          {
+            "value": "thorn",
+            "image": "ui/glyph_thorn.png",
+            "label": "Thorny branch"
+          },
+          {
+            "value": "spiral",
+            "image": "ui/glyph_spiral.png",
+            "label": "Spiral"
+          },
+          {
+            "value": "fern",
+            "image": "ui/glyph_fern.png",
+            "label": "Fern"
+          },
+          {
+            "value": "eyehook",
+            "image": "ui/glyph_eyehook.png",
+            "label": "Eye and hook"
+          },
+          {
+            "value": "curl",
+            "image": "ui/glyph_curl.png",
+            "label": "Double curl"
+          },
+          {
+            "value": "trident",
+            "image": "ui/glyph_trident.png",
+            "label": "Trident"
+          },
+          {
+            "value": "sprout",
+            "image": "ui/glyph_sprout.png",
+            "label": "Sprouting snake"
+          },
+          {
+            "value": "twinbranch",
+            "image": "ui/glyph_twinbranch.png",
+            "label": "Forked branch"
+          }
+        ],
+        "code_length": 4,
+        "solution": [
+          "fern",
+          "curl",
+          "sprout",
+          "thorn"
+        ],
+        "fail_text": [
+          "The slots flash red. The console logs the failed attempt.",
+          "Red. A soft chime somewhere deeper in the system, like a note being taken.",
+          "Wrong. The characters on these keys match the script on labels around the ship. Somewhere, four of them are written down in order.",
+          "Rejected again. Keep guessing and something is going to notice."
+        ]
+      },
+      "on_solve": [
+        {
+          "type": "set_flag",
+          "flag": "security_code_entered",
+          "value": "true"
+        },
+        {
+          "type": "conditional_effect",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_sequence_known",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The fourth character lands and the slots pulse green. Then you finish it the way the lab screens showed you: the five-step startup pattern. The console hums to life. Screens sharpen, surveillance feeds stabilize. The main override is still locked behind a physical lever. One step at a time."
+            },
+            {
+              "type": "set_state",
+              "object": "sec_closeup_keypad",
+              "state": "unlocked"
+            },
+            {
+              "type": "play_sound",
+              "sound": "discovery"
+            },
+            {
+              "type": "set_flag",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "sec_closeup_keypad",
+              "value": ""
+            },
+            {
+              "type": "set_state",
+              "object": "sec_closeup_lever",
+              "state": "ready"
+            }
+          ],
+          "else": [
+            {
+              "type": "message",
+              "text": "The four characters glow green, one after another, and the keypad holds there, pulsing amber. Waiting for something more. An activation pattern, maybe. You don't know it. The startup screens in the processing lab were cycling through some kind of routine..."
+            }
+          ]
+        }
+      ],
+      "on_fail": [
+        {
+          "type": "add_noise",
+          "amount": 2
+        }
+      ],
+      "max_attempts": 4,
+      "on_max_fail": [
+        {
+          "type": "message",
+          "text": "An alarm chirps three times and falls silent. On the surveillance feed, something tall pauses mid-stride and turns its head. Guessing is drawing attention."
+        },
+        {
+          "type": "add_noise",
+          "amount": 15
+        }
+      ]
     },
     {
       "id": "security_console_hack",

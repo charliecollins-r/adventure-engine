@@ -8,6 +8,7 @@ import { InventoryPanel } from './InventoryPanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
 import { DialogueOverlay } from './DialogueOverlay';
+import { KeypadWidget } from './KeypadWidget';
 import { EyeOpenTransition } from './EyeOpenTransition';
 import { DevPanel } from './DevPanel';
 
@@ -559,12 +560,25 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     [engine, bump, playPendingSounds],
   );
 
+  const handleWidgetKey = useCallback(() => { engine.pressWidgetKey(); }, [engine]);
+  const handleWidgetSubmit = useCallback(
+    (entry: string[]) => {
+      const result = engine.submitWidget(entry);
+      playPendingSounds();
+      bump();
+      return result;
+    },
+    [engine, bump, playPendingSounds],
+  );
+  const handleWidgetClose = useCallback(() => { engine.closeWidget(); bump(); }, [engine, bump]);
+
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
   const gameOverResult = engine.getGameOverResult();
   const closeupImage = engine.getCloseupImage();
   const dialogue = engine.getDialogue();
+  const activeWidget = engine.getActiveWidget();
   const ambientText = scenario.setting.ambient_text;
 
   const handleCloseupDismiss = useCallback(() => {
@@ -766,6 +780,18 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           prompt={dialogue.prompt}
           choices={dialogue.choices}
           onSelect={handleDialogueSelect}
+        />
+      )}
+
+      {/* Puzzle widget overlay (keypad) */}
+      {activeWidget && activeWidget.widget_type === 'keypad' && (
+        <KeypadWidget
+          key={activeWidget.id}
+          widget={activeWidget}
+          scenarioId={scenario.metadata.id}
+          onKeyPress={handleWidgetKey}
+          onSubmit={handleWidgetSubmit}
+          onClose={handleWidgetClose}
         />
       )}
 
