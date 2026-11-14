@@ -104,6 +104,18 @@ Tip: say "the same [object]" and paste the original subject description again, s
 
 Ask for a horizontal strip: *"N frames in a single horizontal row, evenly spaced, identical size and position in each frame, only [the moving part] changes"*. Then process with `--cols N`. Check that the object doesn't drift between frames: the corridor emergency panel jittered because its two frames were 96px apart horizontally. Fix drift by cropping per frame or keeping a single frame.
 
+### Idle animations: one frame plus edits (the black cat)
+
+For a creature or machine that should feel alive but stay in place, don't ask for a multi-frame strip; poses drift between frames, and the old cat even switched from sitting to standing. Instead:
+
+1. **Generate one base frame.**
+2. **Generate each motion as an EDIT of the base:** "Keep EVERYTHING identical … change ONLY: the eyes are closed in a slow blink." One small change per edit: a blink, an ear twitch, a tail flick.
+3. **Attach the base to every edit, not the previous result.** If Gemini chains edits (the ear frame came back with the blink's closed eyes), you don't need to regenerate. Because the frames are pixel-aligned, transplant just the changed region (the ear box, the tail box) from the edit onto the base. Diff the frames first to find the regions.
+4. **Key all frames with ONE shared crop** (the union bounding box). Cropping each frame separately shifts the content between frames and makes the sprite jitter.
+5. **Order the sheet for natural rhythm.** Repeat the base frame and drop in each motion once: `base, base, base, ear, base, base, blink, base, base, tail` at 2 fps is a calm 5-second loop with occasional life.
+
+**Dark or bluish subjects need a green key.** A black cat's fur has blue and violet highlights that a blue key would punch holes in. Generate on `#00FF00`, add "no green tones anywhere on the subject", and key green. The cat sheet is `sprites/black-cat.png`: 10 frames of 119×184 at scale 0.19, about 35px tall in the corridor.
+
 ### When a result is too painterly
 
 Re-prompt first. If the shape is right but the rendering is too smooth, quantize it:

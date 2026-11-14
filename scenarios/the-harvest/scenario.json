@@ -6745,12 +6745,12 @@
       },
       "sprite": {
         "file": "sprites/black-cat.png",
-        "frame_width": 266,
-        "frame_height": 342,
-        "columns": 4,
+        "frame_width": 119,
+        "frame_height": 184,
+        "columns": 10,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 0.1
+        "scale": 0.19
       },
       "shadow": {
         "offset_x": 0,
