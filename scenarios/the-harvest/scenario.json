@@ -510,7 +510,7 @@
           ]
         },
         {
-          "text": "You've unlocked the terminal. Check all the readouts — there might be more to learn.",
+          "text": "You've unlocked the terminal, and it armed the emergency override at the security console.",
           "when": [
             {
               "type": "flag_is",
@@ -572,68 +572,15 @@
           ]
         },
         {
-          "text": "The lab data screens are still active. Look at them closely — they might contain security codes or ship layout data.",
+          "text": "The data screens on the wall lead to a terminal with an alien keypad. It wants four characters in the right order.",
           "when": [
             {
               "type": "has_item",
               "item": "surgical_probe"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ]
-        },
-        {
-          "text": "You've found a security access sequence in the lab data. Head to the security hub in the corridor to use it.",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "surgical_probe"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_hub_accessed",
-              "value": "true"
-            }
-          ]
-        },
-        {
-          "text": "Look at the lab data screens again for a closer view of the terminal. Its keypad wants four alien characters in the right order.",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "surgical_probe"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
             },
             {
               "type": "flag_not",
               "flag": "terminal_unlocked"
-            }
-          ]
-        },
-        {
-          "text": "You've unlocked the lab terminal and discovered the Convergence's harvesting route. Continue exploring the ship.",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "terminal_unlocked",
-              "value": "true"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_hub_accessed",
-              "value": "true"
             }
           ]
         },
@@ -657,6 +604,35 @@
             {
               "type": "not_has_item",
               "item": "grappling_line"
+            }
+          ]
+        },
+        {
+          "text": "The terminal armed the emergency override at the security console. The Security Hub is off the corridor.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden"
+            }
+          ]
+        },
+        {
+          "text": "You've unlocked the lab terminal and opened the deck's locks. Continue exploring the ship.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
             }
           ]
         }
@@ -2676,56 +2652,55 @@
       "room_animation": "scan",
       "hints": [
         {
-          "text": "The security console is dark. You need an access sequence to activate it — perhaps the processing lab has one.",
+          "text": "The deck's security station. The console and the drawer unit on the wall are worth a closer look.",
+          "when": []
+        },
+        {
+          "text": "The console's emergency override is dead. Something elsewhere on the deck must arm it — maybe the terminal in the Processing Lab.",
           "when": [
             {
               "type": "flag_not",
-              "flag": "security_sequence_known",
-              "value": "true"
+              "flag": "terminal_unlocked"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden"
             }
           ]
         },
         {
-          "text": "You know the access sequence from the lab. Use it on the security console to bring the system online.",
+          "text": "The lab terminal armed the emergency override. Look closely at the console and press it.",
           "when": [
             {
               "type": "flag_is",
-              "flag": "security_sequence_known",
+              "flag": "terminal_unlocked",
               "value": "true"
             },
             {
               "type": "flag_not",
-              "flag": "security_hub_accessed",
-              "value": "true"
+              "flag": "security_locks_overridden"
             }
           ]
         },
         {
-          "text": "The console is active. Try overriding the containment locks to open more of the ship. Also check the drawer for useful items.",
+          "text": "The drawer unit on the wall is jammed half-open, and there are key cards inside.",
           "when": [
             {
-              "type": "flag_is",
-              "flag": "security_hub_accessed",
-              "value": "true"
-            },
-            {
-              "type": "flag_not",
-              "flag": "containment_key_obtained",
-              "value": "true"
+              "type": "not_has_item",
+              "item": "containment_key_card"
             }
           ]
         },
         {
-          "text": "You have the key card and the locks are overridden. The rest of the containment deck should be accessible now.",
+          "text": "You have the key card and the locks are open. The vent in the corridor floor leads toward the airlock bay.",
           "when": [
             {
-              "type": "flag_is",
-              "flag": "security_hub_accessed",
-              "value": "true"
+              "type": "has_item",
+              "item": "containment_key_card"
             },
             {
               "type": "flag_is",
-              "flag": "containment_key_obtained",
+              "flag": "security_locks_overridden",
               "value": "true"
             }
           ]
@@ -2811,11 +2786,9 @@
       "id": "act1_security_closeup",
       "name": "Security Console — Close-up",
       "objects": [
-        "sec_closeup_keypad",
-        "sec_closeup_lever",
-        "sec_closeup_drawer",
         "sec_closeup_monitor",
         "sec_closeup_status",
+        "sec_closeup_override_button_dark",
         "sec_closeup_override_button"
       ],
       "background_key": "act1_security_closeup",
@@ -2824,41 +2797,15 @@
       "back_label": "Security Hub",
       "hints": [
         {
-          "text": "The keypad wants four alien characters in the right order. The specimen displays in the Stasis Hold carry four characters that never change, but the cataloguer robot is across a gap.",
+          "text": "The emergency override button is the control that matters here.",
+          "when": []
+        },
+        {
+          "text": "The override button is dead. Something has to arm it — the Processing Lab terminal is wired into the same network.",
           "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
             {
               "type": "flag_not",
-              "flag": "security_sequence_known"
-            }
-          ]
-        },
-        {
-          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch.",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ]
-        },
-        {
-          "text": "The console is active. Check the override lever — it controls the containment locks for the entire deck.",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
+              "flag": "terminal_unlocked"
             },
             {
               "type": "flag_not",
@@ -2867,7 +2814,21 @@
           ]
         },
         {
-          "text": "All locks are overridden. Don't forget the key card in the drawer — and check the surveillance feeds.",
+          "text": "The override is armed. Press the red button.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "terminal_unlocked",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden"
+            }
+          ]
+        },
+        {
+          "text": "The deck's locks are open, including the vent grate in the corridor floor. Don't forget the key cards in the drawer unit on the Security Hub wall.",
           "when": [
             {
               "type": "flag_is",
@@ -2881,27 +2842,16 @@
           ]
         },
         {
-          "text": "The console needs two things: the four characters from the specimen displays in the Stasis Hold, and the startup sequence from the Processing Lab screens.",
+          "text": "The deck's locks are open, including the vent grate in the corridor floor.",
           "when": [
             {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
             },
             {
-              "type": "any_of",
-              "conditions": [
-                {
-                  "type": "flag_not",
-                  "flag": "lab_code_known",
-                  "value": "true"
-                },
-                {
-                  "type": "flag_not",
-                  "flag": "security_sequence_known",
-                  "value": "true"
-                }
-              ]
+              "type": "has_item",
+              "item": "containment_key_card"
             }
           ]
         }
@@ -4984,7 +4934,6 @@
     "residential_echo_helped": "false",
     "resonance_activated": "false",
     "security_hacked": "false",
-    "security_sequence_known": "false",
     "shaft_open": "false",
     "shuttle_ready": "false",
     "spire_accessed": "false",
@@ -5004,8 +4953,7 @@
     "airlock_hinted": "false",
     "choir_nature_known": "false",
     "restraint_strap_cut": "false",
-    "carcass_hook_taken": "false",
-    "security_code_entered": "false"
+    "carcass_hook_taken": "false"
   },
   "items": [
     {
@@ -7492,50 +7440,16 @@
       "interactions": [
         {
           "verb": "look",
-          "when": [
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known"
-            }
-          ],
+          "when": [],
           "then": [
             {
               "type": "message",
-              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. One screen catches your eye — a startup sequence, bio-organic buttons pressed in a specific order. Five steps, specific timing. You commit the pattern to memory and lean in closer..."
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_sequence_known",
-              "value": "true"
+              "text": "The screens cycle through processing routines: intake, classification, preservation, disposal. Below them sits a terminal with a small alien keypad. You lean in closer..."
             },
             {
               "type": "set_animation",
               "object": "lab_startup_display",
               "value": ""
-            },
-            {
-              "type": "set_view",
-              "view": "act1_lab_terminal_closeup"
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You lean in to study the terminal's alien keypads up close..."
             },
             {
               "type": "set_view",
@@ -7616,7 +7530,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screen has changed — it now cycles through specimen processing records. You recognize some of the organism silhouettes from the stasis hold tanks. Each record shows intake data, biological classification, and... a schedule. Processing dates. Future dates. The ship is still collecting. Still processing. Still on its route. And according to this schedule, the next harvesting stop is a planet in a system with a single yellow star. Eight planets. Third from the sun. Earth. Your home. The Convergence is heading for Earth."
+              "text": "The screen has changed — it now cycles through specimen processing records. You recognize some of the organism silhouettes from the stasis hold tanks. Each record shows intake data, biological classification, and... a schedule. Processing dates. Future dates. The ship is still collecting. Still processing. Still on its route. And according to this schedule, the next harvesting stop is a planet in a system with a single yellow star. Eight planets. Third from the sun. Earth. Your home. The Convergence is heading for Earth. Along the bottom of the screen, red script still crawls beside a cross symbol: the emergency override at the security console is armed."
             },
             {
               "type": "play_sound",
@@ -7641,7 +7555,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The processing records continue cycling. Earth is on the harvesting schedule. You need to find a way to stop this ship — or at least warn someone — before it reaches your world."
+              "text": "The processing records continue cycling. Earth is on the harvesting schedule. You need to find a way to stop this ship — or at least warn someone — before it reaches your world. Along the bottom of the screen, red script still crawls beside a cross symbol: the emergency override at the security console is armed."
             }
           ]
         },
@@ -8516,20 +8430,9 @@
               "text": "You lean in to examine the security console up close..."
             },
             {
-              "type": "conditional_effect",
-              "when": [
-                {
-                  "type": "flag_is",
-                  "flag": "terminal_unlocked",
-                  "value": "true"
-                }
-              ],
-              "then": [
-                {
-                  "type": "show_object",
-                  "object": "sec_closeup_override_button"
-                }
-              ]
+              "type": "set_flag",
+              "flag": "security_hub_accessed",
+              "value": "true"
             },
             {
               "type": "set_view",
@@ -8625,7 +8528,7 @@
     {
       "id": "key_card_drawer",
       "name": "Security Drawer",
-      "description": "A drawer beneath the security console, partially jammed open.",
+      "description": "A drawer unit grown into the wall beside the security console, jammed half-open.",
       "position": {
         "x": 887,
         "y": 328
@@ -8653,28 +8556,80 @@
       "interactions": [
         {
           "verb": "look",
-          "when": [],
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "containment_key_card"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "A drawer beneath the security console, jammed partially open. You can see key cards inside — but you'd need to get closer to the console to reach them properly."
+              "text": "A drawer unit grown into the wall beside the console, jammed half-open — probably from whatever fight happened here. Inside, bio-organic key cards in various shades pulse faintly with embedded circuitry. Access cards for different sections of the containment deck."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "containment_key_card"
+            }
+          ],
+          "response": "The cards left in the drawer are a higher clearance level. Too high for you.",
+          "then": []
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "not_has_item",
+              "item": "containment_key_card"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You work your fingers into the jammed drawer and pull out a key card. It pulses like a heartbeat in your palm: bio-organic circuitry embedded in compressed cartilage. This should open any standard containment door on the ship."
+            },
+            {
+              "type": "add_item",
+              "item": "containment_key_card"
+            },
+            {
+              "type": "set_flag",
+              "flag": "containment_key_obtained",
+              "value": "true"
+            },
+            {
+              "type": "set_animation",
+              "object": "key_card_drawer",
+              "value": ""
             }
           ]
         },
         {
           "verb": "hand",
-          "when": [],
-          "then": [
+          "when": [
             {
-              "type": "message",
-              "text": "You reach for the drawer, but the angle is awkward from here. You need to get up close to the console itself — lean over it and look properly."
+              "type": "has_item",
+              "item": "containment_key_card"
             }
-          ]
+          ],
+          "response": "You already have a key card. The remaining ones are a different clearance level — too high for you.",
+          "then": []
         },
         {
           "verb": "talk",
           "when": [],
-          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level.",
+          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level. The lowest tier, if you're reading the hierarchy right.",
+          "then": []
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "response": "The drawer slides on organic rails but won't come out of the console. It's grown into the structure.",
           "then": []
         }
       ],
@@ -25384,467 +25339,6 @@
       ]
     },
     {
-      "id": "sec_closeup_keypad",
-      "name": "Bio-Organic Keypad",
-      "description": "A fleshy keypad next to the main display. Four input slots glow faintly, awaiting a code sequence.",
-      "position": {
-        "x": 23,
-        "y": 277
-      },
-      "size": {
-        "width": 140,
-        "height": 256
-      },
-      "visual": {
-        "color": "#3a4a5a",
-        "label": "Keypad",
-        "animation": "pulse"
-      },
-      "initial_state": "locked",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "A bio-organic keypad with four input slots glowing a dull amber. Its eight keys are etched with the same flowing alien script you've seen around the ship. It wants four characters in the right order, and maybe more after that."
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The keypad glows green — code accepted. The console is active and ready for commands."
-            }
-          ]
-        },
-        {
-          "verb": "use_item",
-          "item": "surgical_probe",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "surgical_probe"
-            },
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You try to pry open the keypad with the surgical probe, hoping to bypass it. The probe slides into a seam — and the keypad's bio-organic membrane clamps down on it. The ship's immune system treats the probe as an intrusion. You yank it free before the membrane dissolves it. Brute force won't work here. You need the code."
-            },
-            {
-              "type": "add_noise",
-              "amount": 3
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "response": "\"7... 3... 1... 9?\" you mutter, trying to remember if those were the numbers on the specimen plates. You need to be sure before you try.",
-          "then": []
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "response": "The keypad is embedded in the console's living surface. It can't be removed.",
-          "then": []
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_code_entered",
-              "value": "true"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The keypad still holds your four characters. You add the five-step startup pattern from the lab screens. The console hums to life. Screens sharpen, surveillance feeds stabilize. The main override is still locked behind a physical lever."
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_hub_accessed",
-              "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "sec_closeup_keypad",
-              "value": ""
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_lever",
-              "state": "ready"
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_is",
-              "flag": "security_code_entered",
-              "value": "true"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The keypad still holds your four characters, pulsing amber, waiting for an activation pattern you don't know. The startup screens in the processing lab cycled through some kind of routine..."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_code_entered",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "open_widget",
-              "widget": "security_console_lock"
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            }
-          ],
-          "response": "The keypad glows a steady green. The console is already active.",
-          "then": []
-        }
-      ],
-      "hiding_spot": false
-    },
-    {
-      "id": "sec_closeup_lever",
-      "name": "Override Lever",
-      "description": "A heavy bio-mechanical lever behind a protective membrane. The main containment override.",
-      "position": {
-        "x": 803,
-        "y": 249
-      },
-      "size": {
-        "width": 120,
-        "height": 280
-      },
-      "visual": {
-        "color": "#5a3a3a",
-        "label": "Lever"
-      },
-      "initial_state": "locked",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_lever",
-              "state": "locked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "A heavy lever behind a thick bio-organic membrane — the main containment override control. The membrane is sealed tight; it won't open until the console is active. Even then, pulling this lever will be loud. Very loud. Whatever is patrolling this deck will notice."
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_lever",
-              "state": "ready"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The membrane has retracted. The lever is exposed — a thick organic handle connected to the ship's containment lock system. Pulling it will override every containment lock on this deck. Including the ventilation shaft grate in the corridor."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_lever",
-              "state": "locked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You push against the membrane. It's rubbery and warm, giving slightly under your hands but refusing to tear. The lever behind it is tantalizingly close. You need to activate the console first — the membrane retracts when the system is online."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_lever",
-              "state": "ready"
-            },
-            {
-              "type": "flag_not",
-              "flag": "security_locks_overridden"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You grab the lever with both hands and pull. It resists — then gives with a wet, organic crack. Across the deck, you hear the deep thunk of containment locks disengaging. Every secured door, every grated vent, every sealed passage on this level just opened. The surveillance feeds show the Curator pausing mid-stride, head tilting. It knows. You've just made a lot of noise — but you've also opened every path forward."
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_lever",
-              "state": "pulled"
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_locks_overridden",
-              "value": "true"
-            },
-            {
-              "type": "set_flag",
-              "flag": "ship_layout_known",
-              "value": "true"
-            },
-            {
-              "type": "add_noise",
-              "amount": 20
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "security_locks_overridden",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The lever is locked in the pulled position. All containment locks on this deck are open. There's no putting them back."
-            }
-          ]
-        },
-        {
-          "verb": "use_item",
-          "item": "surgical_probe",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "surgical_probe"
-            },
-            {
-              "type": "object_state",
-              "object": "sec_closeup_lever",
-              "state": "locked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You try to cut through the membrane with the surgical probe. The tip pierces the surface, but the membrane heals almost instantly — the ship's regeneration is too fast. You need to get the console active so the membrane retracts on its own."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "response": "\"Containment override,\" you read from the console label. \"One pull and every lock on this deck opens. No going back.\"",
-          "then": []
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "response": "The lever is anchored deep in the console's internal structure. It moves in one direction only — and that's a big decision.",
-          "then": []
-        }
-      ],
-      "hiding_spot": false
-    },
-    {
-      "id": "sec_closeup_drawer",
-      "name": "Key Card Drawer",
-      "description": "A small drawer beneath the console, jammed partially open. Key cards glint inside.",
-      "position": {
-        "x": 690,
-        "y": 700
-      },
-      "size": {
-        "width": 116,
-        "height": 171
-      },
-      "visual": {
-        "color": "#3a3a3a",
-        "label": "Drawer",
-        "animation": "glimmer"
-      },
-      "sprite": {
-        "file": "sprites/key_card_drawer.png",
-        "frame_width": 643,
-        "frame_height": 714,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.18
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A drawer jammed half-open — probably from whatever fight happened here. Inside, you can see bio-organic key cards in various shades, each pulsing faintly with embedded circuitry. These are access cards for different sections of the containment deck."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "not_has_item",
-              "item": "containment_key_card"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You pull out a key card — it pulses like a heartbeat in your palm. Bio-organic circuitry embedded in compressed cartilage. This should open any standard containment door on the ship."
-            },
-            {
-              "type": "add_item",
-              "item": "containment_key_card"
-            },
-            {
-              "type": "set_flag",
-              "flag": "containment_key_obtained",
-              "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "sec_closeup_drawer",
-              "value": ""
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "containment_key_card"
-            }
-          ],
-          "response": "You already have a key card. The remaining ones are a different clearance level — too high for you.",
-          "then": []
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "response": "A faint label above the drawer slot — three alien glyphs and what looks like a security clearance level. The lowest tier, if you're reading the hierarchy right.",
-          "then": []
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "response": "The drawer slides on organic rails but won't detach from the console. It's grown into the structure.",
-          "then": []
-        }
-      ],
-      "hiding_spot": false
-    },
-    {
       "id": "sec_closeup_monitor",
       "name": "Surveillance Feeds",
       "description": "Multiple screens showing surveillance feeds from across the containment deck.",
@@ -25867,27 +25361,6 @@
           "verb": "look",
           "when": [
             {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The surveillance screens show mostly static — the console needs to be activated before they'll show anything useful. You can make out flickering shapes behind the noise, but nothing clear."
-            }
-          ]
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            },
-            {
               "type": "flag_not",
               "flag": "curator_location_known"
             }
@@ -25895,7 +25368,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The feeds sharpen with the console active. You see: the corridor, empty. The feeding station, cages glowing. The processing lab, dark. And there — a tall figure moving with mechanical precision through a distant passageway. The Curator, making its rounds. It's methodical, predictable. You could time your movements around its patrol pattern."
+              "text": "The feeds flicker from camera to camera. You see: the corridor, empty. The feeding station, cages glowing. The processing lab, dark. And there — a tall figure moving with mechanical precision through a distant passageway. The Curator, making its rounds. It's methodical, predictable. You could time your movements around its patrol pattern."
             },
             {
               "type": "play_sound",
@@ -25962,23 +25435,6 @@
           "verb": "look",
           "when": [
             {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "locked"
-            }
-          ],
-          "response": "The status display is dark — the console needs power before it will show anything.",
-          "then": []
-        },
-        {
-          "verb": "look",
-          "when": [
-            {
-              "type": "object_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            },
-            {
               "type": "flag_not",
               "flag": "security_locks_overridden"
             }
@@ -25986,7 +25442,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The status display comes alive with alien readouts. You can parse the basics: containment locks ENGAGED across all sections. Ventilation grates SEALED. Specimen counts for each cell. And a deck map — the full layout of this level. You memorize the important bits: the ventilation shaft connects the corridor to the airlock bay. If you could get the vent grate open..."
+              "text": "The status display comes alive with alien readouts. You can parse the basics: containment locks ENGAGED across all sections. Ventilation grates SEALED. Specimen counts for each cell. And a deck map — the full layout of this level. You memorize the important bits: the ventilation shaft connects the corridor to the airlock bay. If you could get the vent grate open... One line blinks beside a red cross: EMERGENCY OVERRIDE — NOT ARMED."
             }
           ]
         },
@@ -26012,6 +25468,67 @@
           "verb": "talk",
           "when": [],
           "response": "You read the alien symbols aloud, trying to sound out the Choir's language. It sounds like grinding stones. Nothing responds.",
+          "then": []
+        }
+      ],
+      "hiding_spot": false
+    },
+    {
+      "id": "sec_closeup_override_button_dark",
+      "name": "Emergency Override (dark)",
+      "description": "A red emergency override button. Its light is dead.",
+      "position": {
+        "x": 116,
+        "y": 505
+      },
+      "size": {
+        "width": 69,
+        "height": 106
+      },
+      "visual": {
+        "color": "rgba(200, 50, 50, 0.3)",
+        "label": "Override"
+      },
+      "sprite": {
+        "file": "sprites/override_button_dark.png",
+        "frame_width": 99,
+        "frame_height": 114,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.7
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A red emergency button under a cracked cowl, its light dead. Alien script curls around it, and a cross symbol: some kind of containment override. It isn't broken, just unarmed. Something elsewhere on the ship's network has to wake it."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You press it. It sinks in limply and springs back. Nothing. The override is waiting to be armed — from some other system on this deck."
+            },
+            {
+              "type": "add_noise",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "response": "It's a button. It doesn't talk back — and right now it doesn't even light up.",
           "then": []
         }
       ],
@@ -26051,7 +25568,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A red emergency override button — it wasn't glowing before. Accessing the processing terminal must have activated emergency protocols across the ship's network. The medic cross symbol suggests this is a containment safety override. Press it to disengage the deck's containment locks."
+              "text": "The red emergency override button is glowing now. Unlocking the processing terminal armed the ship's emergency protocols. The medic cross marks it as a containment safety override. Pressing it will release every containment lock on this deck — including the vent grate in the corridor floor."
             }
           ]
         },
@@ -30181,7 +29698,7 @@
       "on_solve": [
         {
           "type": "message",
-          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, the thorny branch. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers and begins to change."
+          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, the thorny branch. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers, and a line of red script crawls across the bottom of it, over and over. You can't read it, but you know the cross symbol beside it from the security console: the emergency containment override. It's armed now."
         },
         {
           "type": "play_sound",
@@ -30200,6 +29717,14 @@
         {
           "type": "add_noise",
           "amount": 5
+        },
+        {
+          "type": "hide_object",
+          "object": "sec_closeup_override_button_dark"
+        },
+        {
+          "type": "show_object",
+          "object": "sec_closeup_override_button"
         }
       ],
       "on_fail": [
@@ -30217,141 +29742,6 @@
         {
           "type": "add_noise",
           "amount": 8
-        }
-      ]
-    },
-    {
-      "id": "security_console_lock",
-      "widget_type": "keypad",
-      "presentation": "overlay",
-      "config": {
-        "title": "Security Console",
-        "prompt": "A bio-organic keypad. Four input slots glow a dull amber.",
-        "columns": 4,
-        "keys": [
-          {
-            "value": "thorn",
-            "image": "ui/glyph_thorn.png",
-            "label": "Thorny branch"
-          },
-          {
-            "value": "spiral",
-            "image": "ui/glyph_spiral.png",
-            "label": "Spiral"
-          },
-          {
-            "value": "fern",
-            "image": "ui/glyph_fern.png",
-            "label": "Fern"
-          },
-          {
-            "value": "eyehook",
-            "image": "ui/glyph_eyehook.png",
-            "label": "Eye and hook"
-          },
-          {
-            "value": "curl",
-            "image": "ui/glyph_curl.png",
-            "label": "Double curl"
-          },
-          {
-            "value": "trident",
-            "image": "ui/glyph_trident.png",
-            "label": "Trident"
-          },
-          {
-            "value": "sprout",
-            "image": "ui/glyph_sprout.png",
-            "label": "Sprouting snake"
-          },
-          {
-            "value": "twinbranch",
-            "image": "ui/glyph_twinbranch.png",
-            "label": "Forked branch"
-          }
-        ],
-        "code_length": 4,
-        "solution": [
-          "fern",
-          "curl",
-          "sprout",
-          "thorn"
-        ],
-        "fail_text": [
-          "The slots flash red. The console logs the failed attempt.",
-          "Red. A soft chime somewhere deeper in the system, like a note being taken.",
-          "Wrong. The characters on these keys match the script on labels around the ship. Somewhere, four of them are written down in order.",
-          "Rejected again. Keep guessing and something is going to notice."
-        ]
-      },
-      "on_solve": [
-        {
-          "type": "set_flag",
-          "flag": "security_code_entered",
-          "value": "true"
-        },
-        {
-          "type": "conditional_effect",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "security_sequence_known",
-              "value": "true"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "The fourth character lands and the slots pulse green. Then you finish it the way the lab screens showed you: the five-step startup pattern. The console hums to life. Screens sharpen, surveillance feeds stabilize. The main override is still locked behind a physical lever. One step at a time."
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_keypad",
-              "state": "unlocked"
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "security_hub_accessed",
-              "value": "true"
-            },
-            {
-              "type": "set_animation",
-              "object": "sec_closeup_keypad",
-              "value": ""
-            },
-            {
-              "type": "set_state",
-              "object": "sec_closeup_lever",
-              "state": "ready"
-            }
-          ],
-          "else": [
-            {
-              "type": "message",
-              "text": "The four characters glow green, one after another, and the keypad holds there, pulsing amber. Waiting for something more. An activation pattern, maybe. You don't know it. The startup screens in the processing lab were cycling through some kind of routine..."
-            }
-          ]
-        }
-      ],
-      "on_fail": [
-        {
-          "type": "add_noise",
-          "amount": 2
-        }
-      ],
-      "max_attempts": 4,
-      "on_max_fail": [
-        {
-          "type": "message",
-          "text": "An alarm chirps three times and falls silent. On the surveillance feed, something tall pauses mid-stride and turns its head. Guessing is drawing attention."
-        },
-        {
-          "type": "add_noise",
-          "amount": 15
         }
       ]
     },

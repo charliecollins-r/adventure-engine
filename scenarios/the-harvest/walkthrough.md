@@ -129,15 +129,9 @@ HAND Carcass Hook (Morgue, open drawer) ─────────────�
        └─► USE Grappling Line ON walkway gap (Stasis Hold) ─► gap crossed
             └─► LOOK / HAND Cataloguer Robot
   └─► learn the four-glyph code
-       └─► HAND Lab Terminal Keypad (Processing Lab closeup)
-            └─► terminal unlocked
-                 └─► LOOK terminal data screens (optional lore)
-
-LOOK Lab Screens (Processing Lab)
-  └─► learn security sequence
-       └─► HAND Security Keypad (Security Hub closeup)
-            └─► console activated
-                 └─► HAND Override Lever (Security Hub closeup)
+       └─► HAND Lab Terminal Keypad (Processing Lab closeup), enter the code
+            └─► terminal unlocked, emergency override ARMED
+                 └─► HAND red Override Button (Security Hub closeup)
                       └─► security_locks_overridden (+20 noise)
                            └─► Corridor floor vent opens
                                 └─► Ventilation maze accessible
@@ -157,7 +151,7 @@ HAND Instrument Rack (Processing Lab)
             └─► fan jammed (probe consumed!)
                  └─► path to Exit Passage
 
-HAND Key Card Drawer (Security Hub closeup)
+HAND Key Card Drawer (Security Hub wall)
   └─► containment key card
        └─► USE card ON Airlock Override Panel
             └─► airlock controls open
@@ -207,10 +201,8 @@ Two items and two key knowledge flags here.
 - **HAND the Sample Jars** — Grab an empty specimen jar from the rack. You'll need this to collect stasis fluid. *(Gets: empty sample jar)*
 - **HAND the Instrument Rack** — Take the surgical probe — a thin, flexible instrument. This is your most important tool. *(Gets: surgical probe)*
 - **USE the Surgical Probe ON the Restraint Straps** — The straps are far too strong to tear (HAND tells you so) and your glass shard just skates off them, but a Choir instrument cuts Choir material cleanly. You get a long strap and **keep the probe**. *(Gets: restraint strap; Sets: restraint_strap_cut)*
-- **LOOK at the Lab Startup Display** — Watch the screens cycle through routines. You spot a security system startup sequence — a five-button pattern. *(Sets: security_sequence_known)*
-
-The lab display also takes you to a **Lab Terminal closeup** with a keypad:
-- **HAND the Lab Terminal Keypad** — A keypad overlay opens: eight keys etched with alien glyphs, four display slots. Press the four characters from the specimen displays in order (**fern, double curl, sprouting snake, thorny branch**). Wrong entries buzz and add a little noise; every 6th wrong try sets off a louder alarm (+8 noise). Brute force is possible but miserable (4,096 codes). The terminal unlocks *(Sets: terminal_unlocked)*, the side screens open up, and **the Security Console gains a red Emergency Override button**: a shortcut that overrides every lock without the keypad sequence or the lever.
+- **LOOK at the Lab Data Screens** — The screens cycle through processing routines, and you lean in to the **Lab Terminal closeup** with its keypad:
+- **HAND the Lab Terminal Keypad** — A keypad overlay opens: eight keys etched with alien glyphs, four display slots. Press the four characters from the specimen displays in order (**fern, double curl, sprouting snake, thorny branch**). Wrong entries buzz and add a little noise; every 6th wrong try sets off a louder alarm (+8 noise). Brute force is possible but miserable (4,096 codes). The terminal unlocks *(Sets: terminal_unlocked)*, the side screens open up, and a line of red script reports that **the emergency override at the Security Console is now armed**.
 - **LOOK the data screens** — Optional but reveals integration schedules and Earth specimen records.
 - **USE specimen tag ON right data screen** — Your tag ID pulls up your full record. *(Sets: full_record_known)*
 
@@ -223,20 +215,21 @@ Return to the Corridor and head to the **Security Hub** (right door).
 
 ### 4. Security Hub
 
-The security hub has the console, an emergency cabinet, and a key card drawer. HANDing the console takes you to the **Security Console closeup** view.
+The security hub has the console, an emergency cabinet, and a key card drawer unit on the right wall.
+
+- **HAND the Key Card Drawer** — Pull a bio-organic key card out of the jammed drawer. You need it for the airlock at the end of the act. *(Gets: containment key card)*
+- **LOOK at the console** — Opens the **Security Console closeup**. *(Sets: security_hub_accessed)*
 
 **In the closeup:**
-- **HAND the Keypad** — The same glyph keypad opens. Enter **fern, double curl, sprouting snake, thorny branch**. If you also know the startup sequence from the lab screens, the console activates *(Sets: security_hub_accessed)*; if not, it holds your code and waits for the pattern. Wrong entries cost more noise here, and every 4th wrong try trips an alarm (+15).
-- **Shortcut:** if you unlocked the lab terminal, LOOK at the console: a red **Emergency Override** button has appeared. HAND it to override every lock at once *(Sets: security_locks_overridden)*.
-- **HAND the Override Lever** (requires console active) — Pull it. Every containment lock on the deck clicks open. The Curator *will* notice. *(Sets: security_locks_overridden; +20 noise)*
-- **HAND the Drawer** — Pull out a bio-organic key card. *(Gets: containment key card)*
+- **The red Emergency Override button** is dark until you unlock the lab terminal. Pressing it before then does nothing. Once it's armed (glowing), HAND it: every containment lock on the deck clicks open, including the corridor floor vent. The Curator *will* notice. *(Sets: security_locks_overridden; +20 noise)*
+- **LOOK at the surveillance feeds** — shows the Curator's patrol. *(Sets: curator_location_known)*
 
 Use "Back to Security Hub" to return to the main view.
 
-**Back in the main Security Hub:**
+**Also in the main Security Hub:**
 - **HAND the Emergency Equipment Cabinet** — Smash the cracked glass, grab an oversized alien helmet. The atmosphere seals still work. You'll need this for the vent maze gas. *(Gets: emergency suit helmet)*
 
-> **Puzzle chain recap**: Cross the gap → glyph code from the specimen displays. Then either **(a)** glyph code + lab-screen startup sequence → Security keypad → Override lever, or **(b)** glyph code → Lab terminal → Emergency Override button. Either way the vent grate opens. You can try to brute-force the keypads instead of crossing the gap, but it's noisy and slow.
+> **Puzzle chain recap**: Cross the gap → glyph code from the specimen displays → Lab terminal → Emergency Override button armed → press it → the vent grate opens. You can try to brute-force the lab keypad instead of crossing the gap, but it's noisy and slow.
 
 Head to the **Feeding Station** (corridor, far end).
 
@@ -451,13 +444,11 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 |------|-------------|-------------|
 | `gap_crossed` | USE Grappling Line ON the gap | Lets you reach the cataloguer robot |
 | `lab_code_known` | LOOK/HAND Cataloguer Robot (after crossing) | You've seen the glyph code (fern, double curl, sprouting snake, thorny branch); used by hints |
-| `security_code_entered` | Enter the glyph code on the security keypad | Console waits for the startup sequence |
 | `restraint_strap_cut` | USE surgical probe ON Restraint Straps | Strap obtained |
 | `carcass_hook_taken` | HAND Carcass Hook (Morgue) | Hook obtained |
-| `security_sequence_known` | LOOK Lab Startup Display | Needed for security console keypad |
-| `terminal_unlocked` | HAND Lab Terminal Keypad (with code) | Opens lab data screens |
-| `security_hub_accessed` | HAND Security Keypad (with code + sequence) | Activates console |
-| `security_locks_overridden` | HAND Override Lever | **Opens vent grate + all doors** |
+| `terminal_unlocked` | HAND Lab Terminal Keypad (with code) | Opens lab data screens; arms the Emergency Override button |
+| `security_hub_accessed` | LOOK Security Console (opens the closeup) | Corridor panel becomes readable; hints |
+| `security_locks_overridden` | HAND the armed Emergency Override button | **Opens vent grate + all doors** |
 | `ventilation_map_found` | HAND Wall Scratches | Shows maze directions |
 | `fan_jammed` | USE probe ON Fan Mechanism | Opens path through fan |
 | `dead_goblin_seen` | LOOK Dead Goblin (Morgue) | Story flag |
@@ -475,8 +466,8 @@ The `prisoner_bond` value carries into Act 2 and affects all future interactions
 
 ## Common Stuck Points
 
-**"The security console won't activate"**
-You need the four-glyph code (fern, double curl, sprouting snake, thorny branch; cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot) AND the security sequence (LOOK at the lab screens in Processing Lab). Or skip the sequence: unlock the lab terminal with the code, then press the red Emergency Override button that appears on the console.
+**"The override button on the security console does nothing"**
+It's dark because nothing has armed it. Get the four-glyph code (fern, double curl, sprouting snake, thorny branch: cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot), enter it on the lab terminal keypad in the Processing Lab, then come back and press the now-glowing button.
 
 **"How do I reach the cataloguer robot / get across the gap?"**
 Don't jump (HAND kills you). Build a grappling line: cut a restraint strap free in the Processing Lab with the surgical probe, pull the carcass hook out of the open morgue drawer, then combine them in your inventory (click one, then the other). USE the line on the gap.
@@ -491,7 +482,7 @@ Click an item in your inventory tray at the bottom — it highlights with a gold
 They're off the Feeding Station, not the Corridor. Corridor → far end → Feeding Station → left for Morgue, right for Archive.
 
 **"I can't get into the vents"**
-The vent grate in the corridor floor is locked until you pull the override lever in the Security Hub closeup. Override security first.
+The vent grate in the corridor floor is locked until you press the armed Emergency Override button in the Security Hub closeup. Arm it from the lab terminal first.
 
 **"Which way at the vent junction?"**
 LEFT leads to the airlock (through gas + fan). RIGHT is a dead end with optional loot. The ventilation map (from wall scratches) tells you this if you LOOK at the junction markings.
