@@ -110,6 +110,20 @@ rain on the windows catching green-blue reflections. No text, no UI elements,
 no characters.
 ```
 
+### Rooms That Belong Together (the vent-maze recipe)
+
+When several screens must read as one place (a maze, corridor runs, decks of a ship), follow **`docs/ART_GUIDE.md` → "Case Study: The Vent Maze"**. Every vent screen in The Harvest worked first try with it:
+
+1. **Anchor to one approved background.** Attach it as a reference image to every prompt, and describe it literally in a style paragraph (geometry, materials, named colors, light sources, signature details).
+2. **Place features by their hotspots, as frame fractions.** `x/960`, `y/720` become "from about 20% to 70% down". Do this for every object, every exit, and the clear floor where the character stands.
+3. **Replace "no characters"** with "no people, no living creatures (the remains described above are part of the scenery)". Otherwise skeletons and corpses vanish.
+4. **Preview the raw image against the hotspots** with `node tools/preview-hotspots.mjs <scenario.json> <view> --image new.webp`. Refit the boxes, move the character off holes and focal points, and move the lights onto painted light sources.
+5. **Make interchangeable screens as numbered EDITS of one hero frame:** "Keep EVERYTHING identical … change ONLY: 1) 2) 3)", plus "anonymous, no landmarks". Never fresh prompts.
+6. **Mirror right-handed variants** (`ImageOps.mirror`), and mirror their hotspots: `x → 960−x−w`.
+7. **Reuse one hotspot geometry** in every generic screen.
+8. **Design the layout around the frame classes you have art for**, and generate cells, maps and hints from data. Reference scripts: `scenarios/the-harvest/scripts/build_vent_maze.py`, `draw_vent_map.py`.
+9. **Verify** with `tools/validate-scenario.mjs`, `tools/softlock-search.mjs`, and a browser walk with screenshots.
+
 ### Image Format
 
 - Save as `.webp` (preferred, smaller files) or `.png`

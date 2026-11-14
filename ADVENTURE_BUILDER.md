@@ -1014,6 +1014,7 @@ A maze is just many views that **share background files**. Nothing in the engine
 - **Standard hotspots.** Use the same nav boxes in every cell (same left-opening box, same forward box) so the frames and hotspots always agree.
 - **Keep cells anonymous.** Give every generic cell the same `name`, so the room label doesn't give the position away, and no unique decoration. Put the memorable things in a few hand-painted landmark rooms inside the grid.
 - **Make the map the key.** Give the player a map item whose examine shows a `show_closeup` image of the grid, and add a per-cell hint that only fires `has_item` map and names the right direction from that cell.
+- **Art.** Make the generic frames as edits of one "hero" frame, mirror for the right-handed variants, and preview each against the shared hotspot boxes with `tools/preview-hotspots.mjs --image`. The full step-by-step recipe, with prompts, is in [docs/ART_GUIDE.md → Case Study: The Vent Maze](docs/ART_GUIDE.md#case-study-the-vent-maze-rooms-that-belong-together).
 - **Fairness.** Make every passage two-way, and have nothing in a generic cell consume or block. Getting lost should cost time, never progress. Then prove it with `tools/softlock-search.mjs`.
 
 ### Locked Navigation

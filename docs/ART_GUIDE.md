@@ -22,8 +22,9 @@ The single most common rejection in review was *"too painterly"* or *"too high f
 5. [Placement](#placement)
 6. [Inventory Icons](#inventory-icons)
 7. [Composite and Procedural Sprites](#composite-and-procedural-sprites)
-8. [Verifying In-Game](#verifying-in-game)
-9. [Checklist](#checklist)
+8. [Case Study: The Vent Maze](#case-study-the-vent-maze-rooms-that-belong-together): how to make a set of rooms that belong together
+9. [Verifying In-Game](#verifying-in-game)
+10. [Checklist](#checklist)
 
 ---
 
@@ -248,23 +249,162 @@ Example: `sprites/grappling_line_rigged.png` in The Harvest. A strap drawn as a 
 
 ---
 
-## Repeated Frames (Mazes and Corridors)
+## Case Study: The Vent Maze (Rooms That Belong Together)
 
-When many screens must look interchangeable (a maze, a long corridor), consistency matters more than variety:
+<p align="center"><img src="images/vent-maze-rooms.webp" width="900" alt="The Harvest vent maze: entry, junction, three generic duct frames, gas passage, fan chamber, collapsed section, exit passage" /></p>
 
-1. **Generate one hero frame first** (The Harvest's vent junction). Then make every variant as an **edit of that image**: attach it as the reference and say *"Keep EVERYTHING identical: camera position and height, room shape, ceiling lights, floor pipes, palette, brushwork. Change ONLY: 1) … 2) … 3) …"*. Edits keep the camera and lighting locked far better than fresh prompts.
-2. **Ask for anonymity explicitly.** *"No scratched symbols, writing, debris or unique landmarks; indistinguishable from other generic screens."* Reject any result with a landmark, because landmarks defeat a maze.
-3. **Mirror instead of generating** the right-handed versions of left-handed frames (`PIL.ImageOps.mirror` or `convert in.webp -flop out.webp`). Avoid text or numbers in frames you'll mirror.
-4. **Mirror the hotspots too:** a box at `x..x+w` becomes `960−x−w..960−x`.
-5. **Draw information-bearing images procedurally.** The vent map has to match the real layout exactly, so it's generated from the grid data (`scenarios/the-harvest/scripts/draw_vent_map.py`): multi-scale noise for rusted metal, riveted border, engraved strokes (a dark offset line under a light line, with jitter) for passages, and simple glyphs for landmarks. An AI image will not match a specific graph.
+These nine screens (and the 13 maze cells built from them) came out right on the **first Gemini attempt each**, slotted onto existing hotspots with small nudges, and read as one continuous place. Nothing about it was luck. This is the exact recipe. Use it for any set of rooms that must feel like the same building: a maze, a corridor run, the decks of a ship, the floors of a tower.
+
+The prompts that shipped are in `scenarios/the-harvest/vent-maze-design.md`, sections "Background Image Prompts" and "Maze Frame Prompts".
+
+### Step 1: Anchor everything to one approved image
+
+Pick an existing background the user already loves (here, `act1_ventilation_shaft.webp`). **Attach it to every prompt as a reference image**, and also describe its look in words, so the model has two anchors:
+
+```
+Same environment as the attached reference image: the interior of a cylindrical alien ventilation tube built from concentric ribbed bands of grown bio-metal, oxblood and rust-red with dark umber gaps between the ribs, glowing red emergency strip lights set into the ribs, thick pipes running along the floor edges, faint teal-green light in the far distance, deep shadowy vignette at the frame edges, claw-scratch marks gouged into the ribs. Keep the same brushwork, palette and lighting as the reference.
+```
+
+To write that paragraph, **look at the reference image and name what you actually see**: its geometry, materials, the palette as named colors, the light sources and where they sit, and its signature details. A generic "sci-fi vent" description drifts; a literal description of the reference doesn't. Put the paragraph between the standard opening and closing of the background prompt formula.
+
+### Step 2: Write the composition from the hotspots, not the other way round
+
+The rooms already had hotspots, so every prompt placed each feature where its hotspot already sat, expressed as **fractions of the frame**:
+
+```
+fraction_across = json_x / 960        fraction_down = json_y / 720
+```
+
+`gas_source` at (80,150) 200×350 became *"LEFT wall (left quarter of the frame, from about 20% to 70% down): a thick bio-organic pipe split open lengthwise…"*. Do this for every interactive object, every exit, and **the floor where the character stands** (*"the floor in the lower center is clear"*). Image models follow "from about A% to B% across, C% to D% down" well; they ignore pixel coordinates. Also state the vanishing point and camera ("tunnel recedes to a vanishing point HIGH in the frame, about 15% down"), because that decides where "forward" lands.
+
+### Step 3: Dodge the "no characters" trap
+
+The standard closing says "no characters". Gemini will then quietly drop skeletons and corpses that the scene needs. Replace it with:
+
+```
+No text, no UI elements, no people, no living creatures (the skeletal remains described above are part of the scenery).
+```
+
+### Step 4: Review the raw image against the hotspots before installing it
+
+```bash
+node tools/preview-hotspots.mjs scenarios/the-harvest/scenario.json act1_vent_gas_chamber \
+  --image ~/Downloads/gas.webp --out /tmp/gas_preview.png
+```
+
+The preview draws the image at the game's 960×540 viewport with every hotspot, sprite anchor, and the character's footprint on top. Then refit to the painting. These are the vent-room fixes, all small:
+
+- **Nudge boxes onto painted features.** The junction's side exits moved inward onto the painted tunnel mouths, and the skeleton box grew to cover skull to feet.
+- **Move exits onto what reads as the way forward.** The gas room's forward exit was on the ceiling; it moved to the tunnel's vanishing point.
+- **Get the character off hazards and focal points.** In the Exit Passage the character was standing in the hatch hole, so he moved to open floor at lower left. In the fan room he moved left of the hub.
+- **Move `ambient_lighting` lights onto painted light sources.** Light `x`/`y` are 0–1 fractions, the same numbers as Step 2. The starlight moved onto the hull crack and the warm glow onto the hatch.
+
+Then screenshot the room in the running game (Step 10) before calling it done.
+
+### Step 5: Generic frames are EDITS of a hero frame, never fresh prompts
+
+For screens that must be interchangeable, pick one **hero frame** (here, the junction) and make every variant by **editing it**. Attach the hero as the reference, and use this pattern:
+
+```
+EDIT the attached reference image (the vent T-junction chamber). Keep EVERYTHING identical — the exact camera position and height, the ribbed oxblood-and-rust chamber shape, the curved ceiling with its row of glowing red strip lights and dripping overhead pipe, the rusty floor pipes curving in at the bottom-left and bottom-right corners, the open damp floor in the center, the brushwork, palette and lighting — and change ONLY the following:
+1) The flat back wall in the center … is replaced by the dark round mouth of a tunnel continuing STRAIGHT AHEAD … from about 40% to 62% across and 22% to 58% down.
+2) The round opening in the LEFT wall stays exactly where it is, but its inside is plain darkness (no yellow-green haze).
+3) The RIGHT wall where the right-hand opening was is now solid curved ribbed wall … no opening at all.
+
+Make it look like an ordinary, anonymous stretch of the same duct system: no scratched symbols, arrows or writing anywhere, no debris, no gas or haze, no unique landmarks — it must be indistinguishable from other generic duct screens. …
+```
+
+Why it works:
+- **Freezing the camera.** "Keep EVERYTHING identical" plus a list of what to keep, naming the hero's own details (the strip lights, the corner pipes), locks camera, lighting and geometry. Fresh prompts never match each other that closely.
+- **Numbered changes.** A short numbered list of changes, each tied to a screen region, stops the model "improving" anything else.
+- **Clearing the hero's identity.** The hero frame had its own landmarks: scratched symbols and gas haze. The anonymity clause removes them from the variants. If a result adds any landmark (writing, a skeleton, a glowing panel), regenerate it, because landmarks defeat a maze.
+
+### Step 6: Mirror instead of generating
+
+Right-handed variants are horizontal mirrors of left-handed ones: three generations gave five frames.
+
+```python
+from PIL import Image, ImageOps
+ImageOps.mirror(Image.open('act1_vent_maze_lf.webp').convert('RGB')).save('act1_vent_maze_rf.webp', quality=92, method=6)
+```
+
+Mirror the hotspots too: a box spanning `x … x+w` becomes `960−x−w … 960−x`, and mirror the character's `x` (`560` becomes `400`). Never mirror frames that contain text or numbers.
+
+### Step 7: One hotspot geometry for every generic cell
+
+Measure the hero frame once and reuse the same boxes in every cell. That's what makes art and clicks agree across 13 screens:
+
+| Exit | Box (960×720 JSON) | Source |
+|------|--------------------|--------|
+| Left opening (W) | `(95,187)` 205×347 | junction's painted left mouth |
+| Right opening (E) | `(660,187)` 205×347 | mirror of W |
+| Forward tunnel (N) | `(380,210)` 220×255, or `(360,210)` on mirrored frames | the edit's forward mouth |
+| Back (S) | `(150,660)` 660×60 | bottom edge strip, not painted |
+
+Character at `(560,650)` (`(400,650)` on mirrored frames), clear of the forward mouth so it never covers the exit.
+
+### Step 8: Design the maze for the frames you have
+
+Work in **fixed-compass** terms: the camera always faces north, so left is W, right is E, forward is N and the bottom edge is S. Each cell's frame is determined by which of N/W/E it opens, and S is behind the camera so it needs no art.
+
+| N/W/E openings | Frame |
+|----------------|-------|
+| N + W | left + forward (generated) |
+| N + E | right + forward (mirror) |
+| W | left turn (generated) |
+| E | right turn (mirror) |
+| none | dead end (generated) |
+
+Lay out the grid using **only frame classes you have art for**. The Harvest has no generic T-junction or crossroads, so the only T is the painted junction landmark. Before building:
+
+- every opening must have a matching opening in its neighbour (two-way);
+- every cell must be reachable;
+- add a loop and a dead end so getting lost is real;
+- put the painted special rooms inside the grid as landmarks.
+
+`vent-maze-design.md` has the grid, cell table and checks.
+
+### Step 9: Generate the cells and the map from data
+
+- **`scenarios/the-harvest/scripts/build_vent_maze.py`** turns the grid (`CELLS`) into views and nav objects using the Step 7 geometry, re-routes the special rooms' exits, and writes per-cell hints. The hints come from a breadth-first search toward the gas room, so each one names the right direction. The script is idempotent: change the grid, re-run, and it rebuilds.
+- **`scenarios/the-harvest/scripts/draw_vent_map.py`** draws the in-game map from the *same* grid. Anything that must be accurate (a map, a diagram, a code) should be drawn from data, never AI-generated. Technique:
+  - multi-scale value noise blended between two rust colors, plus brushed streaks, for the metal plate;
+  - a riveted bevel border;
+  - engraved strokes (a dark line offset 2px under a light line, three jittered passes) for passages;
+  - simple glyphs for landmarks: skull, fan, hatch box, X, gouged bars;
+  - yellow chevrons along the true route.
+
+### Step 10: Verify like a player
+
+```bash
+node tools/validate-scenario.mjs scenarios/the-harvest/scenario.json --views act1
+node --max-old-space-size=6000 tools/softlock-search.mjs scenarios/the-harvest/scenario.json --views act1 --goal "state:airlock_override_panel!=locked"
+```
+
+Then walk it in the browser (Playwright recipe in [Verifying In-Game](#verifying-in-game)), covering:
+- the true route;
+- the loop;
+- the dead end;
+- a mirrored cell;
+- the branch to the optional room;
+- the long way round.
+
+Screenshot every frame class next to the character, and check the map hint in several cells.
+
+### What went wrong (so you don't repeat it)
+
+- **Hint order.** `getHint()` returns the *last* matching hint, and several rooms had their always-true hint last, which masked the specific ones. Put unconditional hints first. The validator now warns about this.
+- **Stale text.** After re-routing, old text still said "the right tunnel is a dead end". Grep the special rooms' look/hand text whenever routing changes.
+- **WebP in node-canvas.** node-canvas can't decode WebP. `preview-hotspots.mjs` falls back to ImageMagick; other tools may need `convert in.webp in.png` first.
 
 ## Verifying In-Game
 
 Do not report art as placed until you've seen it in the running game.
 
-1. `cd client && npm run dev`, then open `http://localhost:5173/?dev`. Dev mode skips the intro, shows hotspot outlines, and has a **Views** tab to teleport.
-2. `/editor.html` lets you drag sprites and hotspots, tune shadows, and export a position patch.
-3. For agents: drive the game with Playwright (Chromium is preinstalled in cloud sessions). Gotchas:
+1. Before installing, preview a raw image against the existing hotspots: `node tools/preview-hotspots.mjs <scenario.json> <view_id> --image new.webp`.
+2. `cd client && npm run dev`, then open `http://localhost:5173/?dev`. Dev mode skips the intro, shows hotspot outlines, and has a **Views** tab to teleport.
+3. `/editor.html` lets you drag sprites and hotspots, tune shadows, and export a position patch.
+4. For agents: drive the game with Playwright (Chromium is preinstalled in cloud sessions). Gotchas:
    - The game viewport is the 960×540 element. Screen point = `(viewport.x + json_x, viewport.y + json_y × 0.75)`.
    - Click a sprite object at its visual center: `json_y − (frame_height × scale / 2) / 0.75`, not at `position`, which is its bottom edge.
    - There are no verb buttons. Right-click cycles **look → move → hand → talk**, and the default is look.

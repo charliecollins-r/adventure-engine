@@ -242,6 +242,7 @@ Built-in tools for scenario authors:
 - **In-game Dev Panel** (`?dev` URL param) — collapsible side panel with 5 tabs: Views (jump to any view with metadata badges), Objects (position/size/visibility/state inspector), Character (live sprite animation preview), Sprites (browse all sprite sheets), Export (copy-to-clipboard position data). Auto-enables debug hitbox overlays and skips intro.
 - **Visual Editor** (`/editor.html`) — standalone visual editor with actual animated sprite rendering. Drag/resize hotspot boxes, position character and object sprites, adjust shadow properties with real-time sliders, toggle overlays, and export changes in 3 formats.
 - **Scenario validator** (`node tools/validate-scenario.mjs <scenario.json>`) — catches what parses fine but silently breaks play: duplicate keys, `use_item` with no item, object IDs used as item IDs, dangling references, malformed lights, missing assets, off-screen pickups.
+- **Hotspot preview** (`node tools/preview-hotspots.mjs <scenario.json> <view_id> [--image new.webp]`) — renders a background, or a raw image you're about to install, at game resolution with every hotspot, sprite anchor and the character's footprint drawn on, so art and clicks can be checked against each other.
 - **Soft-lock search** (`node tools/softlock-search.mjs <scenario.json> --goal <expr>`) — explores every reachable game state with the real engine and reports any state from which the goal can no longer be reached, plus deaths and the shortest win.
 
 <p align="center">
@@ -283,7 +284,13 @@ The player character is a bearded human in a green tunic, rendered as a pixel-ar
 
 **Two styles, on purpose.** Backgrounds are painted; everything layered on top of them (props, pickups, inventory icons) is **VGA pixel art** at the same fidelity as the character, so nothing looks pasted in. Art is generated with Google Gemini on a pure-blue (`#0000FF`) background, keyed out with `tools/process-chromakey-sprite.mjs` (with edge despill), then sized, anchored, and checked in the running game.
 
-**→ [docs/ART_GUIDE.md](docs/ART_GUIDE.md)** has everything an author or AI agent needs to produce matching art: the prompt template and the exact prompts that shipped, the processing pipeline, a sizing table measured from Act 1, anchoring and placement rules, the inventory icon spec, procedural composite sprites, and a Playwright verification recipe.
+**One building, nine screens.** The vent maze in The Harvest is built from one approved background, so every room reads as the same place. Each new room was prompted with that image attached as a reference, with features placed exactly where the hotspots already were. The interchangeable duct screens are numbered *edits* of one hero frame, and the right-handed ones are mirror images. The maze cells and the in-game map are generated from the same grid data. Every one worked on the first Gemini attempt.
+
+<p align="center">
+  <img src="docs/images/vent-maze-rooms.webp" width="820" alt="The Harvest vent maze screens" />
+</p>
+
+**→ [docs/ART_GUIDE.md](docs/ART_GUIDE.md)** has everything an author or AI agent needs to produce matching art: the prompt template and the exact prompts that shipped, the processing pipeline, a sizing table measured from Act 1, anchoring and placement rules, the inventory icon spec, procedural composite sprites, a step-by-step case study of how the vent maze was made, and a Playwright verification recipe.
 
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_specimen_archive.webp" width="400" alt="Specimen Archive" />
