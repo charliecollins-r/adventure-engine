@@ -28213,12 +28213,12 @@
       "name": "Your Grappling Line",
       "description": "Your grappling line, hooked onto the far railing and spanning the gap.",
       "position": {
-        "x": 594,
-        "y": 621
+        "x": 664,
+        "y": 592
       },
       "size": {
-        "width": 112,
-        "height": 99
+        "width": 256,
+        "height": 171
       },
       "visual": {
         "color": "#6a5a3a",
@@ -28226,8 +28226,8 @@
       },
       "sprite": {
         "file": "sprites/grappling_line_rigged.png",
-        "frame_width": 224,
-        "frame_height": 148,
+        "frame_width": 512,
+        "frame_height": 256,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
