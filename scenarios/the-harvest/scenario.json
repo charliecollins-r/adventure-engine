@@ -79,9 +79,9 @@
     "sprite_sets": {
       "idle": {
         "file": "sprites/character_idle.png",
-        "columns": 2,
+        "columns": 12,
         "rows": 2,
-        "frame_rate": 0,
+        "frame_rate": 2,
         "directions": [
           "right",
           "down"
@@ -109,9 +109,9 @@
       },
       "idle_helmet": {
         "file": "sprites/character_idle_helmet.png",
-        "columns": 2,
+        "columns": 12,
         "rows": 2,
-        "frame_rate": 0,
+        "frame_rate": 2,
         "directions": [
           "right",
           "down"

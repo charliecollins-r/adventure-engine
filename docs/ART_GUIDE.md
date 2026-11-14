@@ -116,6 +116,16 @@ For a creature or machine that should feel alive but stay in place, don't ask fo
 
 **Dark or bluish subjects need a green key.** A black cat's fur has blue and violet highlights that a blue key would punch holes in. Generate on `#00FF00`, add "no green tones anywhere on the subject", and key green. The cat sheet is `sprites/black-cat.png`: 10 frames of 119×184 at scale 0.19, about 35px tall in the corridor.
 
+### Idle animations for the player character
+
+The same method works on the player, with two extra rules, because a person's colours and proportions are much easier to spoil than a cat's:
+
+- **Make breathing procedurally, not with Gemini.** A "chest rising" edit came back slightly recoloured everywhere, so it flickered against the base. Instead, `scenarios/the-harvest/scripts/build_player_idle.py` lifts the head and shoulders by 2px and stretches the torso band down to the waist with NEAREST resampling. The original pixels are kept, so it reads as a breath and not a redraw. It can't lift a frame whose head already touches the top of the cell (the front-facing frame), so that row only gets the base pose.
+- **Take only the changed region from an edit, and colour-match it.** For the head turn, only the head box is transplanted from the Gemini edit, matched to the original by per-channel mean and standard deviation, so there is no seam. Gemini's output is mapped back into frame space by undoing the reference placement (centre crop, ×1/3), keyed, and despilled.
+- **Reject edits that redraw the body.** A fist clench grew the hand past the outline, and a weight shift repainted the legs and torso; both flickered and weren't used.
+
+The sheet order is `base, base, breath, base, base, breath, base, look, look, look, base, breath`: 12 columns at 2 fps, a 6-second loop. Row 0 faces right and row 1 faces the camera. The helmeted sheet is built from the same frames, and the helmet rises with each breath.
+
 ### When a result is too painterly
 
 Re-prompt first. If the shape is right but the rendering is too smooth, quantize it:
