@@ -15,7 +15,9 @@
  * Legend: gold = interactive object, blue = navigation, green dot + box = sprite
  * (bottom-center anchor and rendered size), red = character footprint (frame size × scale),
  * cyan = walk_area floor and walk_to stand points, red fill = blocked areas.
- * Options: --grid (label 960x720 coordinates), --floor '[[x,y],...]' (preview a candidate floor).
+ * Options: --grid (label 960x720 coordinates), --floor '[[x,y],...]' (preview a candidate floor),
+ *   --ghosts (draw the player's idle sprite at sample spots across the floor, to check he never
+ *   seems to stand on or in front of painted furniture), --clean (no hotspot boxes).
  */
 import { readFileSync, writeFileSync } from 'fs';
 import { execFileSync } from 'child_process';
@@ -63,7 +65,8 @@ if (wa?.floor) {
   for (const b of wa.blocked || []) poly(b, 'rgba(248,113,113,0.25)', '#f87171');
   label('floor', wa.floor[0][0], wa.floor[0][1] * SY, '#22d3ee');
 }
-for (const id of view.objects) {
+const clean = process.argv.includes('--clean');
+for (const id of clean ? [] : view.objects) {
   const o = objs[id]; if (!o) continue;
   const hidden = o.initially_visible === false;
   if (o.sprite) {
@@ -83,8 +86,28 @@ for (const id of view.objects) {
 g.setLineDash([]);
 // explicit stand points (walk_to) as small cyan crosses
 for (const id of view.objects) { const o = objs[id]; const w = o?.walk_to; if (!w) continue; g.strokeStyle = '#22d3ee'; g.beginPath(); g.moveTo(w.x - 6, w.y * SY); g.lineTo(w.x + 6, w.y * SY); g.moveTo(w.x, w.y * SY - 6); g.lineTo(w.x, w.y * SY + 6); g.stroke(); }
+// --ghosts: the player's idle sprite at sample floor points (outline vertices pulled inward + an interior grid).
+if (process.argv.includes('--ghosts') && wa?.floor && s.character) {
+  const ch0 = s.character, set = ch0.sprite_sets.idle || Object.values(ch0.sprite_sets)[0];
+  const sheet = await load(join(dirname(file), set.file));
+  const dirs = set.directions || ['down']; const row = Math.max(0, dirs.indexOf('down'));
+  const sc = ch0.scale ?? 1, fw = ch0.frame_width, fh = ch0.frame_height;
+  const inside = (x, y, pts) => { let a = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const [xi, yi] = pts[i], [xj, yj] = pts[j]; if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) a = !a; } return a; };
+  const ok = (x, y) => inside(x, y, wa.floor) && !(wa.blocked || []).some((b) => inside(x, y, b));
+  const cx = wa.floor.reduce((a, p) => a + p[0], 0) / wa.floor.length, cy = wa.floor.reduce((a, p) => a + p[1], 0) / wa.floor.length;
+  const pts = [];
+  for (const [x, y] of wa.floor) { for (const f of [0.06, 0.15, 0.3]) { const px = x + (cx - x) * f, py = y + (cy - y) * f; if (ok(px, py)) { pts.push([px, py]); break; } } }
+  const step = Number(opt('--ghost-step') || 110);
+  for (let y = 0; y <= 720; y += step * 0.75) for (let x = step / 2; x < 960; x += step) if (ok(x, y) && !pts.some(([px, py]) => Math.hypot(px - x, (py - y) * 0.75) < step * 0.5)) pts.push([x, y]);
+  pts.sort((a, b) => a[1] - b[1]);
+  for (const [x, y] of pts) {
+    g.drawImage(sheet, 0, row * fh, fw, fh, x - (fw * sc) / 2, y * SY - fh * sc, fw * sc, fh * sc);
+    g.fillStyle = '#22d3ee'; g.beginPath(); g.arc(x, y * SY, 3, 0, Math.PI * 2); g.fill();
+  }
+  console.log(`ghosts at ${pts.length} spots`);
+}
 const ch = view.character;
-if (ch && s.character) {
+if (ch && s.character && !clean) {
   const sc = s.character.scale ?? 1, w = s.character.frame_width * sc, h = s.character.frame_height * sc;
   g.strokeStyle = '#f87171'; g.strokeRect(ch.x - w / 2, ch.y * SY - h, w, h);
   label('character', ch.x - w / 2, ch.y * SY - h, '#f87171');

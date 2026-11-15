@@ -596,6 +596,14 @@ Optional, per view. A view with a `walk_area` lets the player walk; a view witho
 
 The view's `character.x`/`y` is where he appears on entering and must be on the floor.
 
+**The floor must be painted floor, and only open floor.** The background is one flat image and the character is drawn over it, so the painting can never hide any part of him. If his feet are anywhere that something painted should be in front of him (behind a table, between a cabinet and the wall, inside a pit, up a curved duct wall), he looks like he is standing on that thing. So the outline covers only open floor where nothing painted overlaps his whole body (feet up to head, about 26 px either side of his feet in 960-wide space, and his sprite height above them):
+
+1. Find each piece of furniture's **base**: where its nearest leg or edge meets the floor. His feet must never be behind that base while his body would overlap it sideways. Behind a table means he can't stand there at all; walk him around it.
+2. Leave out everything that sits on the floor: pipes, crates, bodies, pods, the lip of a hatch. Floor-level things (grates, puddles, drain channels, the far rim of a hole) are fine to stand on or in front of.
+3. Doors and exits do not have to be on the floor: a click on an exit walks him to the nearest floor point, then the interaction runs. Don't stretch the floor up a back wall to reach a door.
+4. Check it: `node tools/preview-hotspots.mjs scenario.json <view> --clean --ghosts` draws his real sprite at sample spots all over the floor. Every figure must look like it stands on the floor. If one seems to stand on, in or behind something, pull the outline in there and look again.
+
+
 **What the player can do in a walking view**
 
 | Action | Result |
@@ -614,7 +622,7 @@ The interaction runs when he arrives, with the game state at that moment; if the
 
 **`at` on `set_view`** (optional): `{ "type": "set_view", "view": "act1_containment_corridor", "at": { "x": 120, "y": 640, "facing": "right" } }` places him in the new view (for example by the door he came through). Without it he appears at the view's `character` placement. Re-entering a room never remembers where he last stood.
 
-Validation: `tools/validate-scenario.mjs` checks outlines (3+ points, no self-crossing, inside 960x720, blocked areas inside the floor), that start spots, `walk_to` points and `at` points are on the floor, that `walk` sprite sets exist, and warns when an object's stand point can't be reached from the start spot.
+Validation: `tools/validate-scenario.mjs` checks outlines (3+ points, no self-crossing, inside 960x720, blocked areas strictly inside the floor, not touching its outline), that start spots, `walk_to` points and `at` points are on the floor, that `walk` sprite sets exist, and warns when an object's stand point can't be reached from the start spot.
 
 ### Object States
 
