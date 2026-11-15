@@ -601,7 +601,7 @@ The view's `character.x`/`y` is where he appears on entering and must be on the 
 1. Find each piece of furniture's **base**: where its nearest leg or edge meets the floor. His feet must never be behind that base while his body would overlap it sideways. Behind a table means he can't stand there at all; walk him around it.
 2. Leave out everything that sits on the floor: pipes, crates, bodies, pods, the lip of a hatch. Floor-level things (grates, puddles, drain channels, the far rim of a hole) are fine to stand on or in front of.
 3. Doors and exits do not have to be on the floor: a click on an exit walks him to the nearest floor point, then the interaction runs. Don't stretch the floor up a back wall to reach a door.
-4. Check it: `node tools/preview-hotspots.mjs scenario.json <view> --clean --ghosts` draws his real sprite at sample spots all over the floor. Every figure must look like it stands on the floor. If one seems to stand on, in or behind something, pull the outline in there and look again.
+4. Check it: in the visual editor's **Floor** tab the player stands under the mouse (red when off the floor) and **Save to scenario.json** writes the result; from the command line, `node tools/preview-hotspots.mjs scenario.json <view> --clean --ghosts` draws his real sprite at sample spots all over the floor. Every figure must look like it stands on the floor. If one seems to stand on, in or behind something, pull the outline in there and look again.
 
 
 **What the player can do in a walking view**

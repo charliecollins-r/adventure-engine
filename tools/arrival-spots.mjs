@@ -8,7 +8,8 @@
  * puts him by the Lab door in the corridor. Hand-written `at` values are kept unless --overwrite.
  *
  * Usage:
- *   node tools/arrival-spots.mjs scenarios/<id>/scenario.json [--views act1] [--write] [--overwrite]
+ *   node tools/arrival-spots.mjs scenarios/<id>/scenario.json [--views act1] [--into <view_id>] [--write] [--overwrite]
+ *   --into only fills doors that lead into that view (the editor's Save uses this after a floor change).
  * Without --write it only prints what it would change.
  */
 import { readFileSync, writeFileSync, mkdtempSync } from 'fs';
@@ -20,6 +21,7 @@ const args = process.argv.slice(2);
 const file = args[0];
 if (!file) { console.log('Usage: node tools/arrival-spots.mjs <scenario.json> [--views prefix] [--write] [--overwrite]'); process.exit(1); }
 const prefix = args.includes('--views') ? args[args.indexOf('--views') + 1] : '';
+const into = args.includes('--into') ? args[args.indexOf('--into') + 1] : '';
 const write = args.includes('--write');
 const overwrite = args.includes('--overwrite');
 
@@ -50,6 +52,7 @@ for (const o of s.objects) {
   const from = ownerView[o.id];
   if (!from || !from.startsWith(prefix)) continue;
   for (const e of moveSetViews(o)) {
+    if (into && e.view !== into) continue;
     const target = views[e.view];
     if (!target?.walk_area || !target.character) continue;
     if (e.at && !overwrite) continue;

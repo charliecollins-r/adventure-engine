@@ -53,6 +53,9 @@
   #floorPanel .fp-warn { color: #f87171; }
   #floorPanel .fp-ok { color: #4ade80; }
   #floorPanel input[type=number] { width: 64px; background: #1a1a26; color: #dde; border: 1px solid #445; border-radius: 3px; padding: 2px 4px; }
+  .floor-ghost { position: absolute; pointer-events: none; z-index: 60; image-rendering: pixelated; background-repeat: no-repeat; }
+  .floor-ghost.off { filter: sepia(1) saturate(8) hue-rotate(-40deg) brightness(0.9); opacity: 0.8; }
+  .floor-ghost-tag { position: absolute; pointer-events: none; z-index: 61; font: 11px sans-serif; color: #fff; background: rgba(0,0,0,.7); padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
   #floorPanel textarea { width: 100%; height: 120px; background: #11111a; color: #9fe; border: 1px solid #334; font: 11px monospace; }
   .toolbar select, .toolbar button {
     background: var(--bg);
@@ -1612,7 +1615,7 @@ function floorLoad() {
   const wa = view && view.walk_area;
   floorData = wa ? JSON.parse(JSON.stringify({ floor: wa.floor || [], blocked: wa.blocked || [], depth_scale: wa.depth_scale || null }))
                  : { floor: [], blocked: [], depth_scale: null };
-  floorActive = 'floor';
+  floorActive = 'floor'; floorSaveMsg = '';
   renderFloor();
 }
 function floorRing() { return floorActive === 'floor' ? floorData.floor : floorData.blocked[floorActive]; }
@@ -1671,6 +1674,7 @@ function renderFloor() {
     html += `<line x1="0" x2="960" y1="${y * SCALE_Y}" y2="${y * SCALE_Y}" stroke="#facc15" stroke-dasharray="6 4"/><text x="8" y="${y * SCALE_Y - 4}" fill="#facc15" font-size="12">${label} (y ${y})</text>`;
   }
   svg.innerHTML = html;
+  renderFloorGhosts();
   if (editing) renderFloorPanel();
 }
 
@@ -1697,11 +1701,12 @@ function floorMouseDown(e) {
   renderFloor();
 }
 function floorMouseMove(e) {
-  if (!floorDrag) return;
+  if (!floorDrag) { floorHover(e); return; }
   const ring = floorDrag.ring === 'floor' ? floorData.floor : floorData.blocked[floorDrag.ring];
   const [x, y] = floorPointFromEvent(e);
   ring[floorDrag.idx] = [Math.max(0, Math.min(960, x)), Math.max(0, Math.min(720, y))];
   renderFloor();
+  if (floorGhostOpts.cursor && floorDrag.ring === 'floor') floorCursorGhost(ring[floorDrag.idx]);
 }
 function floorContextMenu(e) {
   if (!floorEditing()) return;
@@ -1752,17 +1757,99 @@ function renderFloorPanel() {
       <button onclick="floorRing().length=0;renderFloor()">Clear outline</button>
       <button onclick="floorLoad()">Reset to saved</button>
     </div>
+    <h4>Preview the player</h4>
+    <p>The player is drawn over the painting, so he must only ever stand on open floor. Every figure should look like it stands on the floor, never on or behind furniture, pipes or a hatch lip.</p>
+    <p><label><input type="checkbox" ${floorGhostOpts.cursor ? 'checked' : ''} onchange="floorGhostOpts.cursor=this.checked;floorCursorGhost(null)"> Show him at the mouse (and on the point you drag)</label></p>
+    <p><label><input type="checkbox" ${floorGhostOpts.samples ? 'checked' : ''} onchange="floorGhostOpts.samples=this.checked;renderFloor()"> Show sample figures across the floor</label></p>
     <h4>Check</h4>
     ${probs.length ? probs.map(p => `<p class="fp-warn">• ${p}</p>`).join('') : '<p class="fp-ok">✓ Outline looks good. Run tools/validate-scenario.mjs for the full check.</p>'}
     <h4>Perspective (optional)</h4>
     <p><label><input type="checkbox" ${ds ? 'checked' : ''} onchange="floorData.depth_scale=this.checked?{far_y:${Math.round(Math.min(...floorData.floor.map(p=>p[1]), 400) || 400)},far:0.7,near_y:720,near:1}:null;renderFloor()"> Make him smaller further away</label></p>
     ${ds ? `<p>At y <input type="number" id="fpFarY" value="${ds.far_y}" onchange="floorData.depth_scale.far_y=+this.value;renderFloor()"> scale × <input type="number" step="0.05" id="fpFar" value="${ds.far}" onchange="floorData.depth_scale.far=+this.value;renderFloor()"></p>
            <p>At y <input type="number" id="fpNearY" value="${ds.near_y}" onchange="floorData.depth_scale.near_y=+this.value;renderFloor()"> scale × <input type="number" step="0.05" id="fpNear" value="${ds.near}" onchange="floorData.depth_scale.near=+this.value;renderFloor()"></p>` : ''}
+    <h4>Save</h4>
+    <button onclick="floorSave(this)">Save to scenario.json</button>
+    <p id="floorSaveStatus">${floorSaveMsg || "Writes this room's floor into the scenario file, refreshes where he appears when he walks in, and runs the validator. Needs the dev server."}</p>
     <h4>JSON for this view</h4>
     <textarea id="floorJsonOut" readonly>${floorJson()}</textarea>
     <button onclick="(navigator.clipboard?navigator.clipboard.writeText(document.getElementById('floorJsonOut').value):Promise.reject()).then(()=>this.textContent='Copied',()=>{document.getElementById('floorJsonOut').select();this.textContent='Selected — press Ctrl+C'})">Copy JSON</button>
-    <p>Paste it into this view in scenario.json (replacing any existing <code>walk_area</code>).</p>`;
+    <p>Or paste it into this view in scenario.json yourself (replacing any existing <code>walk_area</code>).</p>`;
 }
+
+// --- Player preview: the character drawn where he would stand (docs: SCENARIO_SCHEMA → Walkable Areas) ---
+// The player is always drawn over the painting, so the floor must be open floor: every figure has to look like
+// it stands ON the floor, never on or behind furniture.
+const floorGhostOpts = { cursor: true, samples: false };
+let floorSaveMsg = '';
+function floorWalkable(p) {
+  if (!floorData || floorData.floor.length < 3 || !fpInside(p, floorData.floor)) return false;
+  return !floorData.blocked.some(b => b.length >= 3 && fpInside(p, b) && !b.some((q, i) => fpSegDist(p, q, b[(i + 1) % b.length]) < 1e-6));
+}
+function floorGhostScale(y) {
+  const ds = floorData && floorData.depth_scale;
+  if (!ds) return 1;
+  const t = Math.max(0, Math.min(1, (y - ds.far_y) / ((ds.near_y - ds.far_y) || 1)));
+  return ds.far + (ds.near - ds.far) * t;
+}
+function floorGhostStyle(el, x, y) {
+  const ss = charConfig && (charConfig.sprite_sets.idle || Object.values(charConfig.sprite_sets)[0]);
+  if (!ss) return false;
+  const sc = (charConfig.scale || 1) * floorGhostScale(y), fw = charConfig.frame_width, fh = charConfig.frame_height;
+  const dirs = ss.directions || ['down']; const row = Math.max(0, dirs.indexOf('down'));
+  const w = fw * sc, h = fh * sc;
+  Object.assign(el.style, { left: `${x - w / 2}px`, top: `${y * SCALE_Y - h}px`, width: `${w}px`, height: `${h}px`,
+    backgroundImage: `url(/scenarios/${scenarioId}/${ss.file})`, backgroundSize: `${(ss.columns || 1) * w}px ${(ss.rows || 1) * h}px`,
+    backgroundPosition: `0px ${-row * h}px` });
+  return true;
+}
+function floorCursorGhost(p) {
+  const vp = document.getElementById('viewport'); if (!vp) return;
+  let g = vp.querySelector('.floor-ghost.cursor'), tag = vp.querySelector('.floor-ghost-tag');
+  if (!p) { g?.remove(); tag?.remove(); return; }
+  if (!g) { g = document.createElement('div'); g.className = 'floor-ghost cursor'; vp.appendChild(g); }
+  if (!tag) { tag = document.createElement('div'); tag.className = 'floor-ghost-tag'; vp.appendChild(tag); }
+  if (!floorGhostStyle(g, p[0], p[1])) return;
+  const on = floorWalkable(p);
+  g.classList.toggle('off', !on);
+  tag.textContent = `${on ? '' : 'off the floor · '}${p[0]}, ${p[1]}`;
+  Object.assign(tag.style, { left: `${p[0] + 8}px`, top: `${p[1] * SCALE_Y + 4}px` });
+}
+function floorHover(e) {
+  if (!floorEditing() || !floorGhostOpts.cursor) { floorCursorGhost(null); return; }
+  const r = document.getElementById('viewport').getBoundingClientRect();
+  if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { floorCursorGhost(null); return; }
+  floorCursorGhost(floorPointFromEvent(e));
+}
+function renderFloorGhosts() {
+  const vp = document.getElementById('viewport'); if (!vp) return;
+  vp.querySelectorAll('.floor-ghost.sample').forEach(n => n.remove());
+  if (!floorEditing()) floorCursorGhost(null);
+  if (!floorEditing() || !floorGhostOpts.samples || !floorData || floorData.floor.length < 3) return;
+  const f = floorData.floor, cx = f.reduce((a, p) => a + p[0], 0) / f.length, cy = f.reduce((a, p) => a + p[1], 0) / f.length;
+  const pts = [];
+  for (const [x, y] of f) for (const k of [0.06, 0.15, 0.3]) { const p = [x + (cx - x) * k, y + (cy - y) * k]; if (floorWalkable(p)) { pts.push(p); break; } }
+  const step = 110;
+  for (let y = 0; y <= 720; y += step * 0.75) for (let x = step / 2; x < 960; x += step)
+    if (floorWalkable([x, y]) && !pts.some(([px, py]) => Math.hypot(px - x, (py - y) * 0.75) < step * 0.5)) pts.push([x, y]);
+  pts.sort((a, b) => a[1] - b[1]).forEach(([x, y]) => { const g = document.createElement('div'); g.className = 'floor-ghost sample'; if (floorGhostStyle(g, x, y)) vp.appendChild(g); });
+}
+async function floorSave(btn) {
+  const status = document.getElementById('floorSaveStatus');
+  const wa = { floor: floorData.floor, blocked: floorData.blocked.filter(b => b.length >= 3), depth_scale: floorData.depth_scale };
+  btn.disabled = true; status.innerHTML = 'Saving…';
+  try {
+    const r = await fetch('/__editor/walk-area', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ scenario: scenarioId, view: currentViewId, walk_area: wa }) });
+    const res = await r.json();
+    if (!r.ok) throw new Error(res.error || r.statusText);
+    const view = scenario.views.find(v => v.id === currentViewId); if (view) view.walk_area = res.walk_area;
+    floorSaveMsg = `<span class="fp-ok">✓ Saved to scenarios/${scenarioId}/scenario.json. ${res.arrivals} arrival spot(s) into this room refreshed.</span>` +
+      (res.findings.length ? res.findings.map(l => `<br><span class="fp-warn">• ${l.replace(/</g, '&lt;')}</span>`).join('') : '<br><span class="fp-ok">✓ The validator has nothing to say about this room.</span>');
+    status.innerHTML = floorSaveMsg;
+  } catch (err) {
+    status.innerHTML = floorSaveMsg = `<span class="fp-warn">Could not save (${String(err.message || err)}). Saving needs the dev server (cd client && npm run dev); otherwise use Copy JSON.</span>`;
+  } finally { btn.disabled = false; }
+}
+
 // Hook into view loading and tab switching
 const _floorOrigLoadView = loadView;
 loadView = function (id) { _floorOrigLoadView(id); floorLoad(); };
