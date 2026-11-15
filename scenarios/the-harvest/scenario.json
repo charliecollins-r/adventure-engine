@@ -7468,6 +7468,25 @@
           ]
         },
         {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You step up to the screens and the terminal beneath them..."
+            },
+            {
+              "type": "set_animation",
+              "object": "lab_startup_display",
+              "value": ""
+            },
+            {
+              "type": "set_view",
+              "view": "act1_lab_terminal_closeup"
+            }
+          ]
+        },
+        {
           "verb": "move",
           "when": [],
           "then": [
@@ -8438,6 +8457,25 @@
             {
               "type": "message",
               "text": "You lean in to examine the security console up close..."
+            },
+            {
+              "type": "set_flag",
+              "flag": "security_hub_accessed",
+              "value": "true"
+            },
+            {
+              "type": "set_view",
+              "view": "act1_security_closeup"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You lean over the console and get your hands on its controls..."
             },
             {
               "type": "set_flag",
@@ -24556,7 +24594,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Detailed anatomical cross-sections of... you. A goblin's entire nervous system mapped in glowing green lines. Organs catalogued, bone structure measured, pain receptors highlighted in red. They've been studying your kind. Thoroughly."
+              "text": "Detailed anatomical cross-sections of... you. A human nervous system mapped in glowing green lines. Organs catalogued, bone structure measured, pain receptors highlighted in red. They've been studying your kind. Thoroughly."
             }
           ]
         },
@@ -24789,7 +24827,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your blood runs cold. Lying in the drawer is a goblin. Like you. Dead — for some time, by the look of it. The eyes are open, staring at nothing. Surgical marks run across its chest, precise and methodical. You weren't the first specimen to wake up."
+              "text": "Your blood runs cold. Lying in the drawer is a person. A human, like you. Dead — for some time, by the look of it. The eyes are open, staring at nothing. Surgical marks run across its chest, precise and methodical. You weren't the first specimen to wake up."
             },
             {
               "type": "play_sound",
@@ -24814,7 +24852,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The dead goblin lies still in its drawer. The surgical precision of the marks on its chest tells you everything about what the Choir do to their specimens. Whatever happened to this one... you won't let it happen to you."
+              "text": "The dead man lies still in his drawer. The surgical precision of the marks on its chest tells you everything about what the Choir do to their specimens. Whatever happened to this one... you won't let it happen to you."
             }
           ]
         },
@@ -24830,7 +24868,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach into the drawer and find — a body. A goblin, like you. Dead. You gently close its eyes. The skin is cold but not rigid. It hasn't been dead that long. You weren't the first to wake up here. And the first one didn't make it."
+              "text": "You reach into the drawer and find — a body. A human, like you. Dead. You gently close his eyes. The skin is cold but not rigid. It hasn't been dead that long. You weren't the first to wake up here. And the first one didn't make it."
             },
             {
               "type": "play_sound",

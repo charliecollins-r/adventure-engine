@@ -205,7 +205,7 @@ A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6
 - **Verified solvable** — the soft-lock search finds no unwinnable state in Act 1
 - **Per-room ambient audio** — distinct soundscapes per room (lab ambience, industrial ventilation, eerie harmonics, dead silence in the morgue)
 - **Directional character shadows** — skewed to match each room's lighting
-- **Complete walkthrough** at [`scenarios/the-harvest/walkthrough.md`](scenarios/the-harvest/walkthrough.md)
+- **Complete walkthrough** at [`scenarios/the-harvest/walkthrough.md`](scenarios/the-harvest/walkthrough.md): real screenshots of every room, a deck map, the vent maze route, all four deaths. Regenerate it with the Playwright playthrough harness in `scenarios/the-harvest/scripts/playthrough/`.
 
 <p align="center">
   <img src="scenarios/the-harvest/backgrounds/act1_stasis_hold.webp" width="400" alt="Stasis Hold" />
@@ -365,8 +365,9 @@ adventure-engine/
 |   |   +-- design.md                 Design document (story, prompts, patterns)
 |   +-- the-harvest/                  Flagship: 5 acts, 70 views, 7 designed endings
 |   |   +-- backgrounds/ closeups/ sprites/ items/ ui/ audio/   Art and sound
-|   |   +-- scripts/                  Build scripts (vent maze, map, glyphs, idle sheet, close-up)
+|   |   +-- scripts/                  Build scripts (vent maze, map, glyphs, idle sheet, close-up, walkthrough images) + playthrough/ harness
 |   |   +-- walkthrough.md            Act 1 walkthrough
+|   |   +-- walkthrough/              Walkthrough screenshots + diagrams (generated)
 |   +-- ... (15 scenarios total)
 |
 +-- docs/                             Engine-level documentation

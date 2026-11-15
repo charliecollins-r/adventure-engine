@@ -1,495 +1,284 @@
 # The Harvest — Act 1 Walkthrough
 
-> You wake up in a shattered stasis pod aboard an alien harvesting ship. Your goal: escape the containment deck through the ventilation system and reach the Airlock Bay. Along the way you'll scavenge tools, crack a security code, override the ship's locks, survive two lethal hazards, and discover what the Choir have planned for your world.
+> You wake in a cracked stasis pod aboard a living alien harvesting ship. Escape the containment deck: cross a broken walkway to learn a code written in alien glyphs, use it to arm the deck's emergency override, crawl through a ventilation maze past poison gas and a giant fan, and reach the Airlock Bay. On the way you'll learn where the ship is heading next.
+
+![Deck map](walkthrough/deck_map.webp)
+
+| Act 1 at a glance | |
+|---|---|
+| Screens | 30: 8 rooms, 3 close-ups, 19 vent screens (shaft, junction, 13 ducts, 4 special chambers) |
+| Items | 17 (6 required, 1 strongly recommended, 10 optional) |
+| Puzzles | Grappling line (craft), glyph keypad (code), emergency override, vent maze (map), gas (helmet), fan (probe) |
+| Deaths | 4 (jump the gap; cross the gas without a helmet, either way; walk into the fan) |
+| Shortest win | 27 actions |
+| Soft-locks | None: every reachable state can still finish the act (exhaustive search with the real engine) |
+
+All screenshots on this page come from a scripted playthrough of the current build (`scripts/playthrough/`). Images are rebuilt by `scripts/build_walkthrough_images.py`.
 
 ---
 
-## How to Beat Act 1 (The Short Version)
+## How to play
 
-If you just want to get through it, here's the cheat sheet:
-
-1. **Stasis Hold** — HAND the broken pod (glass shard) and the tag hook (specimen tag). The cataloguer robot's specimen displays hold the **four-glyph code**, but they're across a gap in the walkway. Don't jump; HAND on the gap kills you. Pet the cat in the corridor (cat hair).
-2. **Processing Lab** — HAND the sample jars (empty jar) and the instrument rack (surgical probe). USE the probe ON the restraint straps (restraint strap; you keep the probe). LOOK at the lab screens (security sequence).
-3. **Morgue** (Corridor → Feeding Station → left) — HAND the carcass hook jammed in the open drawer (and the neural tendril, for lore).
-4. **Combine** the restraint strap and the carcass hook in your inventory (click one, then the other) → **grappling line**.
-5. **Back to Stasis Hold** — USE the grappling line ON the gap, then LOOK (or HAND) the cataloguer robot to learn the code: **fern, double curl, sprouting snake, thorny branch**. USE the empty jar ON the drainage channel (stasis fluid vial).
-6. **Security Hub** — HAND the console, which opens the closeup. HAND the keypad (code + sequence activate it), HAND the lever (override all locks, +20 noise), HAND the drawer (key card). Back in the room, HAND the emergency cabinet (helmet).
-7. **Feeding Station** — HAND the dispenser (nutrient paste). TALK to the prisoner (choose your dialogue).
-8. **Specimen Archive** — HAND the misplaced crystal. USE it on the reading device. LOOK at the holographic display.
-9. **Back to Corridor** — The vent grate is now unlocked. Go through.
-10. **Vent Maze** — HAND the wall scratches (map), then LOOK at the map in your inventory. From the junction go **WEST** (left), then **straight ahead four times** to the gas chamber. You need the helmet for the gas and the probe to jam the fan.
-11. **Airlock Bay** — USE the key card on the override panel. LOOK at the viewport.
-
-That's Act 1. Read on for details, optional content, item uses, and how not to die.
+- **Verbs:** right-click cycles the cursor through **Look**, **Move** (feet), **Hand** and **Talk**; the current verb shows at the top right. Left-click uses it.
+- **Items:** open the **Items** tray under the picture, click an item to select it, then click something in the room to use it there. Click two items in a row to combine them.
+- **Hints:** the **?** button gives a hint for the room you're in, based on what you've done so far.
+- **Dev mode:** add `?dev` to the URL for a room-jump panel, hotspot outlines and intro skip.
 
 ---
 
-## Debug / Dev Mode
+## The short version
 
-Having trouble finding hotspots or want to jump between rooms? Add `?dev` to the URL:
-
-```
-http://localhost:5173/?dev
-```
-
-This gives you:
-
-- **DevPanel** (right side) — Five tabs:
-  - **Views** — Click any room name to teleport there instantly
-  - **Objects** — See every hotspot's position, size, and visibility state
-  - **Character** — Preview character sprites with facing/animation controls
-  - **Sprites** — Browse all sprite sheets with live animation
-  - **Export** — Copy view data for pasting into the editor
-- **Debug outlines** — All hotspot boxes become visible on the game view (gold borders for interactive objects, blue for navigation)
-- **Intro skip** — The opening text and standup animation are bypassed
-
-The dev panel is your best friend when you can't figure out what's clickable.
+1. **Stasis Hold.** HAND the **Specimen Tag** on your pod and the **Broken Pod** (glass shard). The cataloguer robot is across a torn gap in the walkway. Don't HAND the gap: you'll try to jump and die.
+2. **Processing Lab** (Corridor → left door). HAND the **Instrument Rack** (surgical probe) and the **Sample Jars** (empty jar). USE the **probe** ON the **Restraint Straps** to cut one free (you keep the probe).
+3. **Security Hub** (Corridor → right door). HAND the **Key Card Drawer** on the right wall (key card) and the **Emergency Cabinet** (helmet).
+4. **Morgue** (Corridor → far end → Feeding Station → left). HAND the **Carcass Hook** in the open drawer.
+5. **Combine** the **Restraint Strap** and the **Carcass Hook** → **Grappling Line**.
+6. **Stasis Hold.** USE the **Grappling Line** ON the gap, then LOOK at the cataloguer robot. The specimen displays show the code: **fern, double curl, sprouting snake, thorny branch**.
+7. **Processing Lab.** LOOK (or HAND) the screens to reach the terminal. HAND the keypad and press the four glyphs in that order. The terminal reports that the **emergency override is armed**.
+8. **Security Hub.** LOOK (or HAND) the console. HAND the glowing red **override button**: every lock on the deck opens.
+9. **Corridor.** MOVE into the floor vent. In the shaft, HAND the **wall scratches** (map).
+10. **Vent maze.** From the junction go **left**, then **straight ahead four times** to the gas. The helmet gets you through the gas. USE the **probe** ON the **fan mechanism** to jam the fan, then MOVE through it, then MOVE through the hatch.
+11. **Airlock Bay.** USE the **key card** ON the **override panel**. That's the end of Act 1.
 
 ---
 
-## Deck Map
+## Puzzle dependencies
 
-```
-                    ┌──────────────┐
-                    │ STASIS HOLD  │ ← START
-                    │  ◆◆◆ ✦ 🐈    │   (3 items + glyph code)
-                    └──────┬───────┘
-                           │ Dark Archway
-                    ┌──────┴───────┐
-      Left Door ┌───│  CONTAINMENT │───┐ Right Door
-                │   │  CORRIDOR    │   │
-                │   │   (hub)      │   │
-                │   └───┬──┬───────┘   │
-                │       │  │ Far End   │
-        ┌───────┴────┐  │  │   ┌───────┴──────┐
-        │ PROCESSING │  │  │   │ SECURITY     │
-        │ LAB        │  │  │   │ HUB          │
-        │  ◆◆ ✧ ✦    │  │  │   │  ◆◆ ✧✧ ✦     │
-        └────────────┘  │  │   └──────────────┘
-                        │  │
-           Floor Vent ──┘  │
-          (locked until    │
-           security        │
-           override)       │
-                    ┌──────┴───────┐
-      Left     ┌───│  FEEDING     │───┐ Right
-      Passage  │   │  STATION     │   │ Passage
-               │   │  ◆ ♦         │   │
-               │   └──────────────┘   │
-               │                      │
-        ┌──────┴───────┐       ┌──────┴──────┐
-        │ MORGUE       │       │ SPECIMEN    │
-        │  ◆ ✧         │       │ ARCHIVE     │
-        └──────────────┘       │  ◆ ✧✧ ✦     │
-                               └─────────────┘
-
-                   ┌──────────────┐
-                   │ VENT ENTRY   │ ← via corridor floor vent
-                   │  ◆           │
-                   └──────┬───────┘
-                          │
-                   ┌──────┴───────┐
-          Left ┌───│ VENT JUNCTION│───┐ Right
-               │   └──────────────┘   │
-        ┌──────┴───────┐       ┌──────┴──────┐
-        │ GAS CHAMBER  │       │ COLLAPSED   │
-        │  ☠ (helmet)  │       │ SECTION     │
-        └──────┬───────┘       │ ◆◆ (dead    │
-               │               │  end, opt.)  │
-        ┌──────┴───────┐       └─────────────┘
-        │ FAN ROOM     │
-        │  ☠ (probe)   │
-        └──────┬───────┘
-               │
-        ┌──────┴───────┐
-        │ EXIT PASSAGE │
-        │  ✧ (stars!)  │
-        └──────┬───────┘
-               │
-        ┌──────┴───────┐
-        │ AIRLOCK BAY  │ ← ACT 1 END
-        │  ✧✧ ✦        │
-        └──────────────┘
-
-  ◆ = collectible item    ✧ = knowledge flag
-  ✦ = puzzle/gate          ♦ = NPC dialogue
-  ☠ = lethal hazard
+```mermaid
+flowchart TD
+  probe[Surgical Probe<br/>Processing Lab rack] --> strap[Restraint Strap<br/>probe on straps]
+  hook[Carcass Hook<br/>Morgue drawer] --> line
+  strap --> line[Grappling Line<br/>combine]
+  line --> gap[Cross the Stasis Hold gap]
+  gap --> code[Glyph code<br/>cataloguer close-up]
+  code --> terminal[Lab terminal keypad<br/>fern · curl · sprout · thorn]
+  terminal --> armed[Override armed]
+  armed --> button[Press the override<br/>Security close-up]
+  button --> vent[Corridor floor vent opens]
+  vent --> map[Ventilation Map<br/>wall scratches]
+  map --> maze[Vent maze]
+  vent --> maze
+  helmet[Emergency Suit Helmet<br/>Security Hub cabinet] --> gas[Gas-Filled Passage]
+  maze --> gas --> fan[Fan Chamber]
+  probe --> fan
+  fan --> exit[Exit Passage] --> airlock[Airlock Bay]
+  card[Containment Key Card<br/>Security Hub drawer] --> airlock
+  airlock --> done([Override panel open: end of Act 1])
 ```
 
----
-
-## Puzzle Chain
-
-Here's what unlocks what — the dependency tree for Act 1:
-
-```
-USE Surgical Probe ON Restraint Straps (Processing Lab) ─► Restraint Strap
-HAND Carcass Hook (Morgue, open drawer) ─────────────────► Carcass Hook
-  └─► COMBINE strap + hook ─► Grappling Line
-       └─► USE Grappling Line ON walkway gap (Stasis Hold) ─► gap crossed
-            └─► LOOK / HAND Cataloguer Robot
-  └─► learn the four-glyph code
-       └─► HAND Lab Terminal Keypad (Processing Lab closeup), enter the code
-            └─► terminal unlocked, emergency override ARMED
-                 └─► HAND red Override Button (Security Hub closeup)
-                      └─► security_locks_overridden (+20 noise)
-                           └─► Corridor floor vent opens
-                                └─► Ventilation maze accessible
-
-HAND Sample Jars (Processing Lab)
-  └─► empty sample jar
-       └─► USE jar ON Drainage Channel (Stasis Hold)
-            └─► stasis fluid vial
-
-HAND Emergency Cabinet (Security Hub)
-  └─► emergency suit helmet
-       └─► survive Gas Chamber (vent maze)
-
-HAND Instrument Rack (Processing Lab)
-  └─► surgical probe
-       └─► USE probe ON Fan Mechanism (Fan Room)
-            └─► fan jammed (probe consumed!)
-                 └─► path to Exit Passage
-
-HAND Key Card Drawer (Security Hub wall)
-  └─► containment key card
-       └─► USE card ON Airlock Override Panel
-            └─► airlock controls open
-```
+The code is a **knowledge gate**: you can try to brute-force the keypad (4,096 combinations), but wrong entries add noise and every sixth one sets off an alarm. The game nudges you to go and find where the glyphs are written down.
 
 ---
 
-## Room-by-Room Walkthrough
+## Room by room
 
-### 1. Stasis Hold (Start)
+### 1. Stasis Hold (start)
 
-You wake up cold, confused, and surrounded by alien specimen pods. Time to scavenge.
+![Stasis Hold](walkthrough/01_stasis_hold.webp)
 
-**Pick up three items:**
-- **HAND the Broken Pod** — Snap off a shard of razor-sharp pod glass. *(Gets: pod glass shard)*
-- **HAND the Specimen Tag Hook** — Tear off your identification tag. *(Gets: specimen tag)*
-- **LOOK at the Torn Railing (the gap)** — The cataloguer robot, which holds the code you need, is across a gap in the walkway over the drainage pit. The far side has a solid railing. *Don't HAND the gap: you jump, slip, and die.*
+- **HAND Specimen Tag** → *Specimen Tag* (optional lore: use it on the archive reader or the lab terminal's right screen).
+- **HAND Broken Pod** → *Pod Glass Shard* (optional: cuts open the growth in the Processing Lab later).
+- **The gap.** LOOK tells you the far railing looks solid. HAND kills you. The answer is a grappling line (step 5).
+- **Drainage channel.** HAND fails (the fluid slips through your fingers). USE the *Empty Sample Jar* on it for a *Stasis Fluid Vial* (optional).
 
-> **Come back later**: you'll need a **grappling line** to cross (see the Processing Lab and Morgue). Once across, **LOOK or HAND the Cataloguer Robot**. It takes you to a closeup of its specimen jars and every specimen display shows the same four characters in the same order: **fern, double curl, sprouting snake, thorny branch**. *(Sets: gap_crossed, then lab_code_known)*
+After you rig the line, the strap stays across the gap and the robot is in reach:
 
-**Don't grab the drainage channel yet** — you need an empty jar from the Processing Lab first. You'll come back for it.
+![Line rigged across the gap](walkthrough/14_stasis_rigged.webp)
 
-**Also here**: LOOK at the occupied pods and walkway railing for atmosphere. The cataloguer closeup has five interactive specimen objects to examine.
+![Cataloguer close-up: the glyph code](walkthrough/15_cataloguer_closeup.webp)
 
-MOVE through the **Dark Archway** to reach the corridor.
+LOOK or HAND the robot to open the **specimen close-up**. Every display shows the same four glyphs in the same order: **fern, double curl, sprouting snake, thorny branch**.
 
----
+### 2. Containment Corridor (hub)
 
-### 2. Containment Corridor (Hub)
+![Containment Corridor](walkthrough/02_corridor.webp)
 
-The central hallway with five exits. No critical items, but:
+Five exits: Stasis Hold (back), Processing Lab (left), Security Hub (right), Feeding Station (far end) and the **floor vent**, which stays locked until you press the override.
 
-- **HAND the Black Cat** — A stray shadow cat is wandering the corridor. Pet it to collect some fur. *(Gets: cat hair; cat disappears)*
-- **LOOK at the Drag Marks** — Story context about things being dragged down the corridor.
-- **LOOK at the Emergency Panel** — The cracked CRT monitor flashing CRITICAL.
-
-> The **floor vent** (bottom-left area) is sealed until you override security. You'll come back later.
-
-Head to the **Processing Lab** (left door) first.
-
----
+**Come back later:** on your second visit a black cat is sitting near the right wall. HAND it for *Shadow Cat Fur* (optional lore).
 
 ### 3. Processing Lab
 
-Two items and two key knowledge flags here.
+![Processing Lab](walkthrough/03_processing_lab.webp)
 
-- **HAND the Sample Jars** — Grab an empty specimen jar from the rack. You'll need this to collect stasis fluid. *(Gets: empty sample jar)*
-- **HAND the Instrument Rack** — Take the surgical probe — a thin, flexible instrument. This is your most important tool. *(Gets: surgical probe)*
-- **USE the Surgical Probe ON the Restraint Straps** — The straps are far too strong to tear (HAND tells you so) and your glass shard just skates off them, but a Choir instrument cuts Choir material cleanly. You get a long strap and **keep the probe**. *(Gets: restraint strap; Sets: restraint_strap_cut)*
-- **LOOK at the Lab Data Screens** — The screens cycle through processing routines, and you lean in to the **Lab Terminal closeup** with its keypad:
-- **HAND the Lab Terminal Keypad** — A keypad overlay opens: eight keys etched with alien glyphs, four display slots. Press the four characters from the specimen displays in order (**fern, double curl, sprouting snake, thorny branch**). Wrong entries buzz and add a little noise; every 6th wrong try sets off a louder alarm (+8 noise). Brute force is possible but miserable (4,096 codes). The terminal unlocks *(Sets: terminal_unlocked)*, the side screens open up, and a line of red script reports that **the emergency override at the Security Console is now armed**.
-- **LOOK the data screens** — Optional but reveals integration schedules and Earth specimen records.
-- **USE specimen tag ON right data screen** — Your tag ID pulls up your full record. *(Sets: full_record_known)*
+- **HAND Instrument Rack** → *Surgical Probe*. **Required twice**: it cuts the strap (kept) and jams the fan (used up there).
+- **HAND Sample Jars** → *Empty Sample Jar*.
+- **USE Surgical Probe ON Restraint Straps** → *Restraint Strap*. HAND says they're too strong to tear, and the glass shard skates off them.
+- **LOOK or HAND the screens** → the **Lab Terminal close-up**.
 
-**Now go back to the Stasis Hold** (Corridor → Dark Archway):
-- **USE the empty jar ON the Pod Drainage Channel** — Fill the jar with amber stasis fluid. *(Transforms: empty jar → stasis fluid vial)*
+![Lab terminal](walkthrough/04_lab_terminal.webp)
 
-Return to the Corridor and head to the **Security Hub** (right door).
+HAND the keypad: eight glyph keys, four slots. A wrong code flashes red and costs a little noise:
 
----
+![Wrong code](walkthrough/05_keypad_wrong.webp)
+
+Enter **fern, double curl, sprouting snake, thorny branch** and the terminal unlocks. A line of red script reports that the emergency override at the security console is **armed**. LOOK at the screen afterwards for the big reveal: the ship's next harvesting stop is Earth.
+
+**Come back later:** the lab changes while you're away. Fresh drag marks appear on your second visit, and a patch of glowing growth on the wall on your third. USE the glass shard on the growth to find a message from a previous prisoner, and USE the cat fur on the examination tables to learn what happened to the cat.
+
+![The lab on a later visit](walkthrough/15b_lab_growth.webp)
 
 ### 4. Security Hub
 
-The security hub has the console, an emergency cabinet, and a key card drawer unit on the right wall.
+![Security Hub](walkthrough/06_security_hub.webp)
 
-- **HAND the Key Card Drawer** — Pull a bio-organic key card out of the jammed drawer. You need it for the airlock at the end of the act. *(Gets: containment key card)*
-- **LOOK at the console** — Opens the **Security Console closeup**. *(Sets: security_hub_accessed)*
+- **HAND Key Card Drawer** (the tan box on the right wall) → *Containment Key Card*. **Required** for the airlock at the end.
+- **HAND Emergency Cabinet** → *Emergency Suit Helmet*. **Required** for the gas. Taking it switches your character to the helmeted sprites.
+- **LOOK or HAND the console** → the **Security close-up**.
 
-**In the closeup:**
-- **The red Emergency Override button** is dark until you unlock the lab terminal. Pressing it before then does nothing. Once it's armed (glowing), HAND it: every containment lock on the deck clicks open, including the corridor floor vent. The Curator *will* notice. *(Sets: security_locks_overridden; +20 noise)*
-- **LOOK at the surveillance feeds** — shows the Curator's patrol. *(Sets: curator_location_known)*
+![Security close-up, override not armed](walkthrough/08_security_closeup_dark.webp)
 
-Use "Back to Security Hub" to return to the main view.
+The red **override button** (lower left) is dark until you unlock the lab terminal; pressing it does nothing. The right-hand screen is a live camera feed (LOOK to see the Curator on patrol); the red screen on the left is the deck status.
 
-**Also in the main Security Hub:**
-- **HAND the Emergency Equipment Cabinet** — Smash the cracked glass, grab an oversized alien helmet. The atmosphere seals still work. You'll need this for the vent maze gas. *(Gets: emergency suit helmet)*
+![Security close-up, override armed](walkthrough/16_security_closeup_armed.webp)
 
-> **Puzzle chain recap**: Cross the gap → glyph code from the specimen displays → Lab terminal → Emergency Override button armed → press it → the vent grate opens. You can try to brute-force the lab keypad instead of crossing the gap, but it's noisy and slow.
+Once armed it glows. HAND it: every containment lock on the deck opens, including the corridor floor vent (+20 noise).
 
-Head to the **Feeding Station** (corridor, far end).
+### 5. Feeding Station (second hub)
 
----
+![Feeding Station](walkthrough/09_feeding_station.webp)
 
-### 5. Feeding Station (Secondary Hub)
+Exits: Morgue (left), Specimen Archive (right), Corridor (back).
 
-The second hub room with three exits: Morgue (left), Specimen Archive (right), and back to Corridor.
+- **HAND Nutrient Dispenser** → *Nutrient Paste Tube* (optional; feed it to the prisoner, or keep it for crafting later).
+- **TALK to the caged prisoner** → a one-time choice (see Prisoner dialogue below).
 
-- **HAND the Nutrient Dispenser** — Collect a tube of grey nutrient paste. Gross, but useful. *(Gets: nutrient paste tube)*
-- **TALK to the Caged Prisoner** — A four-armed alien behind an energy barrier. This triggers the **dialogue choice system** — a modal pops up with four options (see Dialogue Branching section below). *(Sets: prisoner_spoken, prisoner_bond)*
-
-**Optional item use:**
-- **USE nutrient paste ON the prisoner** — Feed them through the barrier. Strengthens your bond. *(Sets: prisoner_fed; consumes paste; +5 noise)*
-
-Head to the **Morgue** (left passage).
-
----
+![Prisoner dialogue](walkthrough/10_dialogue.webp)
 
 ### 6. Morgue
 
-- **HAND the Carcass Hook** — A barbed bio-metal hook jammed into the lip of the open drawer at upper left. The Choir use them to drag bodies out. It has an eyelet at the top, perfect for tying a line to. *(Gets: carcass hook)*
-- **HAND the Neural Tendril Sample** — Pick up a severed length of bio-electric neural tendril. Warm and slightly damp. *(Gets: severed neural tendril; optional lore)*
+![Morgue](walkthrough/11_morgue.webp)
 
-**Make the grappling line:** open your inventory, click the **Restraint Strap**, then click the **Carcass Hook**. You knot the strap through the hook's eyelet. *(Gets: grappling line; uses up strap and hook)*
-
-Then head back to the **Stasis Hold** and **USE the Grappling Line ON the gap**. The hook bites the far railing, you shimmy across, and the line stays rigged there. Now LOOK at the cataloguer for the four-glyph code.
-- **LOOK at the Dead Goblin** — A creature like you, dead in a drawer. Surgical marks everywhere. You're not the first. *(Sets: dead_goblin_seen)*
-
-**Also here**: Morgue drawers, autopsy slab, recycling vats, chemical cabinet — all with LOOK flavor text that builds the horror.
-
-Return to Feeding Station, head to the **Specimen Archive** (right passage).
-
----
+- **HAND Carcass Hook** (in the lip of the open drawer, upper left) → *Carcass Hook*. **Required** for the grappling line.
+- **HAND Severed Neural Tendril** → optional, but it pays off in later acts.
+- LOOK in the open drawer: you weren't the first specimen to wake up.
 
 ### 7. Specimen Archive
 
-- **HAND the Misplaced Crystal** — A data crystal misfiled among specimen records. *(Gets: data crystal — personal log)*
-- **USE the crystal ON the Reading Device** — Select the crystal from your inventory, click the reader. Alien text, diagrams, planetary data flood the display. *(Sets: archive_accessed)*
-- **LOOK at the Holographic Display** — Miniature planets drift overhead, almost all branded with the Convergence symbol. The Choir have been doing this to worlds across the galaxy. *(Sets: convergence_history_known)*
+![Specimen Archive](walkthrough/12_archive.webp)
 
-**Optional item uses:**
-- **USE stasis fluid vial ON the reading device** — Enhances the reader's biological interface. *(Sets: reader_enhanced; consumes vial)*
-- **USE specimen tag ON the reading device** — Pull up your species classification. *(Sets: specimen_classification_known)*
-- **USE neural tendril ON the holographic display** — The tendril interfaces with the display, revealing the Convergence heading — Earth. *(Sets: convergence_destination_known; consumes tendril)*
+- **HAND the misplaced crystal** on the left rack → *Data Crystal — Personal Log*. USE it on the **reading device** for a Choir officer's journal.
+- **LOOK at the hologram** (the spinning globe above the pedestal) for the Convergence's history. USE the tendril on it to see where the ship is going.
 
-Return to Corridor. The **floor vent** is now unlocked (you overrode security earlier). MOVE through it.
+### 8. Ventilation Shaft
 
----
+![Ventilation Shaft](walkthrough/17_vent_shaft.webp)
 
-### 8. Ventilation Shaft Entry
+- **HAND the wall scratches** → *Ventilation Map*. LOOK at it in your inventory to see the whole maze. Strongly recommended.
+- Forward leads to the junction; back leads up into the corridor.
 
-- **HAND the Wall Scratches** — Trace a map scratched by a previous escapee. *(Gets: ventilation map)* LOOK at the map in your inventory to see it: the whole duct maze, north at the top, with arrows along the route out.
+### 9. The vent maze
 
-**Also here**: Old Remains (bones of whoever scratched the map), Maintenance Hatch.
+![Vent junction](walkthrough/18_vent_junction.webp)
 
-Continue forward to the **Vent Junction**.
+The ducts are a fixed-compass maze: **the camera always faces north**, so the left tunnel is west, the right tunnel is east and the bottom edge is south. Thirteen duct screens look alike; the map is how you find your way.
 
----
+![Vent maze route](walkthrough/vent_maze_route.webp)
 
-### 9. Vent Junction and the Air Ducts (the maze)
+**The way out (gold):** from the junction go **left**, then **straight ahead** four times (Duct A → B → E → F), and you're in the gas.
 
-The junction is the entrance to a maze of near-identical ducts, KQ-style. **The camera always faces north**: the left opening is west, the right opening is east, straight ahead is north, and the bottom edge of the screen takes you back south. That's why the map (drawn north-up) matches the screens exactly.
+**The skeleton (optional):** from the junction go **right**, then straight ahead, then right, then straight ahead (Duct G → H → I) to the Collapsed Section. HAND the skeleton for the *Crew Datapad*, and HAND it again for the hidden *Choir Access Chip*, which opens the Act 2 Shuttle Bay silently.
 
-- **The way through:** from the junction go **WEST** (left tunnel), then **straight ahead** ×4 to reach the Gas-Filled Passage.
-- **Ways to get lost:**
-  - A loop. Taking the left opening one screen into the west route sends you round in a circle back onto it.
-  - The east tunnel. It winds the long way round and also reaches the gas, but it's longer. Along it is a plain dead end (a sealed grate) and the side branch to the Collapsed Section, the optional reward room (see Optional Content).
-- **Stuck?** The ? hint in every duct screen tells you which way your map points from there, once you have the map.
+![Collapsed Section](walkthrough/19_vent_collapsed.webp)
 
-```
-        EXIT
-        FAN ☠
-        GAS ☠
-         F ───── N       L (dead end)
- D ───── E       M ───── K       COLL ✦
- C ───── B               H ───── I
-         A ───── J ───── G
-               ENTRY
-```
+Also in the maze: a loop on the west side (C–D), a long east arm (G–H–K–M–N) that rejoins Duct F, and a dead end with a sealed grate (Duct L).
 
----
+### 10. Gas-Filled Passage
 
-### 10. Gas-Filled Passage ☠
+![Gas-Filled Passage](walkthrough/20_vent_gas.webp)
 
-**THIS ROOM WILL KILL YOU** without the Emergency Suit Helmet.
+With the helmet, MOVE forward: the visor seals and you walk through. Without it you die (both directions).
 
-The room is flooded with toxic gas from a cracked bio-pipe. If you try to MOVE forward or touch anything without the helmet equipped, you die. Game over. Reload.
+### 11. Fan Chamber
 
-With the helmet on, you're safe. **MOVE forward** to the Fan Room.
+![Fan Chamber](walkthrough/21_vent_fan.webp)
 
----
-
-### 11. Fan Chamber ☠
-
-**THIS ROOM WILL ALSO KILL YOU** if you walk into the fan.
-
-A massive spinning fan blocks the passage. Do NOT try to MOVE through it yet.
-
-- **LOOK at the Fan Mechanism** — Exposed gears with a narrow gap. Something thin and strong could jam it...
-- **USE the Surgical Probe ON the Fan Mechanism** — The probe jams the gears. Fan stops. Probe is destroyed. *(Consumes: surgical probe; Sets: fan_jammed)*
-- **MOVE through the jammed Fan** — Squeeze between the stilled blades.
-
-> The probe is permanently consumed here. This is its final and most important use.
-
----
+USE the **Surgical Probe** ON the **fan mechanism** (right side) to jam the blades (the probe is used up). Then MOVE into the fan to squeeze through. Walk in while it's spinning and you die.
 
 ### 12. Exit Passage
 
-A quiet moment. Almost there.
+![Exit Passage](walkthrough/23_vent_exit.webp)
 
-- **LOOK at the Crack in Wall** — Stars. Your first view outside the ship. Beautiful and terrifying — you're in orbit above a planet.
+LOOK through the crack: stars. MOVE through the hatch to drop into the Airlock Bay.
 
-**MOVE through the Exit Hatch** to drop into the Airlock Bay.
+### 13. Airlock Bay (end of Act 1)
 
----
+![Airlock Bay](walkthrough/24_airlock_bay.webp)
 
-### 13. Airlock Bay (Act 1 End)
-
-- **USE the Containment Key Card ON the Airlock Override Panel** — The card interfaces with the bio-lock and opens the override panel.
-- **LOOK at the Empty Docking Clamps** — Your ship, the Outrider, was jettisoned. The clamps are empty. No easy way home. *(Sets: outrider_gone_known)*
-- **LOOK at the Viewport** — The planet below is beautiful from orbit. Energy beams descend from the ship to the surface. The Convergence is already feeding. *(Sets: airlock_visited)*
-
-Congratulations — you've escaped the containment deck. Act 2 begins.
+LOOK at the viewport (the planet and the energy siphons) and the empty docking clamps (your ship, the *Outrider*, is gone). USE the **Containment Key Card** ON the **override panel**. That's the end of Act 1 as built.
 
 ---
 
-## Where You Can Die (4 Deaths)
+## Where you can die (4 deaths)
 
-| Location | How You Die | How to Survive |
-|----------|------------|----------------|
-| Stasis Hold | HAND the walkway gap (you try to jump it) | Cross with the Grappling Line instead |
-| Gas-Filled Passage | MOVE forward or touch anything without helmet | Get the Emergency Suit Helmet from the Security Hub cabinet BEFORE entering the vents |
-| Gas-Filled Passage | Going back through the gas without helmet (same check) | Same — have the helmet |
-| Fan Chamber | MOVE into the spinning fan before jamming it | USE the Surgical Probe on the Fan Mechanism first |
+| Where | How | How to survive |
+|---|---|---|
+| Stasis Hold | HAND the walkway gap (you try to jump) | Cross with the grappling line |
+| Gas-Filled Passage | MOVE forward without the helmet | Take the helmet from the Security Hub cabinet first |
+| Gas-Filled Passage | MOVE back through the gas without the helmet | Same |
+| Fan Chamber | MOVE into the fan before jamming it | USE the probe on the fan mechanism first |
 
-There are no other deaths in Act 1. You cannot softlock yourself. That's verified by an exhaustive search over every reachable game state with the real engine (`tools/softlock-search.mjs`): every reachable state can still finish the act. Order is flexible; the strap and hook can be collected in either order, and the stasis fluid just needs the empty jar first.
+Every death has a warning first: LOOK at the gap, the gas or the fan before you act.
 
----
-
-## Optional Content
-
-### Vent Maze — Collapsed Section (east side of the maze)
-
-From the junction go EAST (right), straight ahead once, then right, then straight ahead: a dead-end room with a Choir engineer skeleton (the X on your map). Two hidden items here:
-
-1. **HAND the Skeleton** — Take the **Crew Datapad** from their grip. Contains Act 2 lore about the Choir's internal hierarchy. *(Gets: crew datapad)*
-2. **HAND the Skeleton again** — Search deeper. Find a **Choir Access Chip** hidden in a uniform pocket. *(Gets: choir access chip)*
-
-**Why bother?** In Act 2, the Shuttle Bay has a bio-resonance security lock. With the chip: instant silent bypass. Without it: you have to guess the right frequency (1-in-3 odds, wrong guesses add +15 noise each). This chip rewards thorough exploration.
-
-### Item Uses for Extra Lore
-
-These aren't required to beat Act 1, but they deepen the story:
-
-| Item | Use On | What Happens |
-|------|--------|-------------|
-| Pod Glass Shard | Corridor Organic Growth | Cut open the growth, find scratched message from previous prisoner |
-| Cat Hair | Processing Lab Examination Tables | DNA analysis reveals the cat was "processed" by the Choir |
-| Stasis Fluid Vial | Specimen Archive Reading Device | Enhances the biological interface |
-| Specimen Tag | Reading Device | Reveals your species classification |
-| Specimen Tag | Lab Terminal Data (right screen) | Pulls up your full specimen record |
-| Neural Tendril | Specimen Archive Holographic Display | Reveals the Convergence is heading to Earth |
-| Nutrient Paste | Caged Prisoner | Feed the prisoner, strengthens your bond |
+| Gas without a helmet | The fan |
+|---|---|
+| ![Gas death](walkthrough/death_gas.webp) | ![Fan death](walkthrough/death_fan.webp) |
 
 ---
 
-## Prisoner Dialogue Branching
+## Prisoner dialogue
 
-When you TALK to the caged prisoner, a dialogue modal appears with four choices. **You can only pick one per playthrough.** Each sets a different `prisoner_bond` value and may unlock bonus knowledge.
+TALK to the caged prisoner for a one-time choice. Each option sets `prisoner_bond`, which carries into Act 2.
 
-| Choice | Bond Value | Extra Knowledge | What Happens |
-|--------|-----------|----------------|--------------|
-| "We're both prisoners here, aren't we?" | `empathy` | — | Emotional connection. The creature mirrors your gestures. Foundation of trust for Act 2. |
-| "Do you know a way out of here?" | `pragmatic` | `airlock_hinted` | The creature maps the ship layout with gestures, pointing toward the airlock. |
-| "What are they? The ones who put us here?" | `knowledge` | `choir_nature_known` | The creature reveals the Choir ARE the ship — the vessel is alive. |
-| [Say nothing — just nod] | `silent` | — | Respectful silence. The creature nods back. Least info, but no missteps. |
-
-The `prisoner_bond` value carries into Act 2 and affects all future interactions with this character.
+| Choice | Bond | Extra |
+|---|---|---|
+| "We're both prisoners here, aren't we?" | `empathy` | The creature mirrors your gestures |
+| "Do you know a way out of here?" | `pragmatic` | It maps the ship with gestures and points toward the airlock (`airlock_hinted`) |
+| "What are they? The ones who put us here?" | `knowledge` | The Choir *are* the ship (`choir_nature_known`) |
+| [Say nothing — just nod] | `silent` | Respectful silence |
 
 ---
 
-## Item Checklist (15 Total)
+## Items (17)
 
-| # | Item | Where | How | Required? |
-|---|------|-------|-----|-----------|
-| 1 | Pod Glass Shard | Stasis Hold | HAND Broken Pod | Optional (lore use) |
-| 2 | Specimen Tag | Stasis Hold | HAND Specimen Tag Hook | Optional (lore use) |
-| 3 | Empty Sample Jar | Processing Lab | HAND Sample Jars | Yes (needed for stasis fluid) |
-| 4 | Surgical Probe | Processing Lab | HAND Instrument Rack | **Yes** (jam the fan) |
-| 5 | Stasis Fluid Vial | Stasis Hold | USE empty jar ON Drainage Channel | Optional (lore use) |
-| 6 | Containment Key Card | Security Hub closeup | HAND Drawer | **Yes** (airlock override) |
-| 7 | Emergency Suit Helmet | Security Hub | HAND Emergency Cabinet | **Yes** (survive gas) |
-| 8 | Nutrient Paste Tube | Feeding Station | HAND Nutrient Dispenser | Optional (feed prisoner) |
-| 9 | Severed Neural Tendril | Morgue | HAND Neural Tendril | Optional (lore use) |
-| 10 | Data Crystal | Specimen Archive | HAND Misplaced Crystal | Optional (lore use) |
-| 11 | Ventilation Map | Vent Entry | HAND Wall Scratches | Recommended (maze navigation) |
-| 12 | Cat Hair | Corridor | HAND Black Cat | Optional (lore use) |
-| 13 | Restraint Strap | Processing Lab | USE surgical probe ON Restraint Straps | **Yes** (grappling line) |
-| 14 | Carcass Hook | Morgue | HAND Carcass Hook (open drawer) | **Yes** (grappling line) |
-| 15 | Grappling Line | Inventory | COMBINE strap + hook | **Yes** (cross the gap; consumed) |
-| — | Crew Datapad *(opt.)* | Collapsed Section | HAND Skeleton | Optional (Act 2 lore) |
-| — | Choir Access Chip *(opt.)* | Collapsed Section | HAND Skeleton again | Optional (Act 2 shortcut) |
+Full details, every use and the in-game text for each item: the **[item compendium](https://claude.ai/artifact/9Zw5Tx8D9GitG6uGVvZ9Tt)**.
 
-> **Minimum required items**: Surgical Probe, Restraint Strap + Carcass Hook (→ Grappling Line), Containment Key Card, Emergency Suit Helmet. Everything else is for lore, world-building, or Act 2 advantages.
+| Item | Where | How | Needed? |
+|---|---|---|---|
+| Surgical Probe | Processing Lab | HAND Instrument Rack | **Required** (strap, fan) |
+| Restraint Strap | Processing Lab | USE probe ON Restraint Straps | **Required** (line) |
+| Carcass Hook | Morgue | HAND hook in the open drawer | **Required** (line) |
+| Grappling Line | Inventory | COMBINE strap + hook | **Required** (gap; used up) |
+| Containment Key Card | Security Hub | HAND Key Card Drawer (right wall) | **Required** (airlock) |
+| Emergency Suit Helmet | Security Hub | HAND Emergency Cabinet | **Required** (gas) |
+| Ventilation Map | Ventilation Shaft | HAND wall scratches | Strongly recommended |
+| Choir Access Chip | Collapsed Section | HAND skeleton twice | Optional (Act 2 shortcut) |
+| Severed Neural Tendril | Morgue | HAND tendril | Optional (later acts) |
+| Stasis Fluid Vial | Stasis Hold | USE jar ON drainage channel | Optional (later crafting) |
+| Nutrient Paste Tube | Feeding Station | HAND dispenser | Optional |
+| Empty Sample Jar | Processing Lab | HAND Sample Jars | Optional (becomes the vial) |
+| Data Crystal — Personal Log | Specimen Archive | HAND misplaced crystal | Lore |
+| Pod Glass Shard | Stasis Hold | HAND Broken Pod | Lore |
+| Crew Datapad | Collapsed Section | HAND skeleton | Lore |
+| Specimen Tag | Stasis Hold | HAND tag on your pod | Lore |
+| Shadow Cat Fur | Corridor (2nd visit) | HAND the cat | Lore |
 
----
-
-## Knowledge Flags
-
-| Flag | How to Get It | What It Does |
-|------|-------------|-------------|
-| `gap_crossed` | USE Grappling Line ON the gap | Lets you reach the cataloguer robot |
-| `lab_code_known` | LOOK/HAND Cataloguer Robot (after crossing) | You've seen the glyph code (fern, double curl, sprouting snake, thorny branch); used by hints |
-| `restraint_strap_cut` | USE surgical probe ON Restraint Straps | Strap obtained |
-| `carcass_hook_taken` | HAND Carcass Hook (Morgue) | Hook obtained |
-| `terminal_unlocked` | HAND Lab Terminal Keypad (with code) | Opens lab data screens; arms the Emergency Override button |
-| `security_hub_accessed` | LOOK Security Console (opens the closeup) | Corridor panel becomes readable; hints |
-| `security_locks_overridden` | HAND the armed Emergency Override button | **Opens vent grate + all doors** |
-| `ventilation_map_found` | HAND Wall Scratches | Shows maze directions |
-| `fan_jammed` | USE probe ON Fan Mechanism | Opens path through fan |
-| `dead_goblin_seen` | LOOK Dead Goblin (Morgue) | Story flag |
-| `prisoner_spoken` | TALK Caged Prisoner | Story flag |
-| `convergence_history_known` | LOOK Holographic Display | Story flag |
-| `airlock_visited` | LOOK Viewport (Airlock Bay) | Story flag |
-| `outrider_gone_known` | LOOK Docking Clamps | Story flag |
-| `cat_petted` | HAND Black Cat | Story flag |
-| `growth_cut_open` | USE glass shard ON organic growth | Story flag |
-| `cat_fate_known` | USE cat hair ON examination tables | Story flag |
-| `convergence_destination_known` | USE tendril ON holographic display | Story flag (Earth!) |
-| `prisoner_fed` | USE paste ON prisoner | Bond flag |
+**Careful with:** the tendril (the hologram uses it up, and later acts want it), the stasis fluid (the archive reader uses it up) and the nutrient paste (feeding the prisoner uses it up). None of them matter for Act 1.
 
 ---
 
-## Common Stuck Points
+## Common stuck points
 
-**"The override button on the security console does nothing"**
-It's dark because nothing has armed it. Get the four-glyph code (fern, double curl, sprouting snake, thorny branch: cross the Stasis Hold gap with the grappling line, then LOOK at the cataloguer robot), enter it on the lab terminal keypad in the Processing Lab, then come back and press the now-glowing button.
+**"How do I get across the gap?"** Build a grappling line: cut a strap in the Processing Lab with the surgical probe, pull the hook from the morgue drawer, combine them, use the line on the gap.
 
-**"How do I reach the cataloguer robot / get across the gap?"**
-Don't jump (HAND kills you). Build a grappling line: cut a restraint strap free in the Processing Lab with the surgical probe, pull the carcass hook out of the open morgue drawer, then combine them in your inventory (click one, then the other). USE the line on the gap.
+**"The keypad wants four characters."** They're on the specimen displays across the Stasis Hold gap: fern, double curl, sprouting snake, thorny branch.
 
-**"How do I get stasis fluid?"**
-You can't just HAND the drainage channel. First grab an empty jar from the Processing Lab (HAND the sample jars), then come back and USE the jar on the drainage channel.
+**"The override button does nothing."** It's dark until the lab terminal is unlocked with the code. Come back afterwards.
 
-**"How do I use inventory items?"**
-Click an item in your inventory tray at the bottom — it highlights with a gold border. Then click any world object to USE the item on it. If it works, you'll get a response. If not, you'll get a "that doesn't work" message.
+**"Where's the key card?"** The tan drawer unit on the Security Hub's right wall.
 
-**"I can't reach the Morgue or Archive"**
-They're off the Feeding Station, not the Corridor. Corridor → far end → Feeding Station → left for Morgue, right for Archive.
+**"I can't get into the vent."** Press the armed override in the security close-up first.
 
-**"I can't get into the vents"**
-The vent grate in the corridor floor is locked until you press the armed Emergency Override button in the Security Hub closeup. Arm it from the lab terminal first.
+**"I keep getting lost in the ducts."** Get the map from the wall scratches in the shaft, then LOOK at it in your inventory. From the junction: left, then straight ahead four times. The hint button reads the map for you.
 
-**"Which way at the vent junction?"**
-LEFT leads to the airlock (through gas + fan). RIGHT is a dead end with optional loot. The ventilation map (from wall scratches) tells you this if you LOOK at the junction markings.
-
-**"I keep dying in the vents"**
-Two items save your life: the **helmet** (Security Hub cabinet) for the gas, and the **surgical probe** (Processing Lab instrument rack) for the fan. Get BOTH before entering the vents.
-
----
-
-*Last updated: November 2026. All steps verified against scenario.json.*
+**"Where's the cat?"** It turns up on your second visit to the corridor.

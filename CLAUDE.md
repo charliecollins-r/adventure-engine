@@ -12,6 +12,18 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 
 ---
 
+## North Star (the mission — never lose sight of this)
+
+This is becoming a **development platform for point-and-click adventures**, distributed through **Steam with deep Steam Workshop integration**:
+
+1. **A scenario is a package**: one `scenario.json` plus a folder (or zip/tar) of images and audio. Nothing else. No code, ever, for a new scenario.
+2. **Agent-generatable from scratch**: the docs must be complete enough that an AI agent handed a single file from this repo plus a human's theme prompt ("a haunted lighthouse in 1890s Maine") can produce an entire playable, soft-lock-free scenario on its own: story, rooms, puzzles, JSON, art prompts, audio prompts. Image and audio generation use third-party tools; everything else is the agent.
+3. **Steam Workshop**: players browse, subscribe to and play community scenario packages; authors publish them.
+
+Every change should move toward this: schema-driven features (rule 8), documentation an agent can follow cold, validation tools as the quality gate (`validate-scenario.mjs`, `softlock-search.mjs`), and a package format the engine can load from anywhere (`resolveAsset()`/`setAssetBase()`).
+
+---
+
 ## Repository Layout
 
 ```
@@ -62,11 +74,12 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   │   ├── deep-design.md
 │   │   ├── act1-level-design.md      ←   Act 1 navigation map, room tables, puzzle flow
 │   │   ├── vent-maze-design.md       ←   Vent maze v2 grid, conventions, art plan
-│   │   ├── walkthrough.md            ←   Act 1 walkthrough (+ walkthrough-screenshots/)
+│   │   ├── walkthrough.md            ←   Act 1 walkthrough (screenshots, deck map, maze route in walkthrough/)
+│   │   ├── walkthrough/              ←   Generated walkthrough images (scripts/build_walkthrough_images.py)
 │   │   ├── audio/                    ←   Ambient audio tracks and sound effects
 │   │   ├── backgrounds/              ←   21 Act 1 backgrounds (19 in use: 9 rooms, 5 vent landmarks, 5 maze frames)
 │   │   ├── closeups/                 ←   Detail images for show_closeup effect (incl. procedural vent_map.webp)
-│   │   ├── scripts/                  ←   Scenario build scripts: build_vent_maze.py, draw_vent_map.py, draw_rigged_line.py, extract_glyphs.py, build_player_idle.py, compose_security_closeup.py
+│   │   ├── scripts/                  ←   Scenario build scripts: build_vent_maze.py, draw_vent_map.py, draw_rigged_line.py, extract_glyphs.py, build_player_idle.py, compose_security_closeup.py, build_walkthrough_images.py; playthrough/ (Playwright harness)
 │   │   ├── items/                    ←   Inventory icons (icon_file)
 │   │   ├── ui/                       ←   Widget art (keypad glyph keys)
 │   │   └── sprites/                  ←   Character and object sprite sheets
@@ -340,7 +353,8 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Back navigation button**: Views with `back_label` show a "◀ {back_label}" button at top-left. Only on closeup-style sub-views, not on main rooms.
 - **Act 1 fully solvable**: 30 views (9 main rooms + 3 close-up sub-views: cataloguer, lab terminal, security console + 18 vent maze screens: 5 landmark rooms and 13 duct cells), 17 items (16 collectible + the crafted grappling line; including 2 optional: crew_datapad and choir_access_chip in the collapsed section), all key flags settable, all 4 dialogue branches functional, lethal hazards with fair warnings. Walkthrough at `scenarios/the-harvest/walkthrough.md` with ASCII deck map, critical path table, and room-by-room guide.
 - **Item compendium**: Published artifact (https://claude.ai/artifact/9Zw5Tx8D9GitG6uGVvZ9Tt) ranking all 18 Act 1 items by importance, with where to find each, every use (with in-game text), combinations, what uses it up, the rooms that check for it, later-act uses, and three flagged cross-act consumption risks (tendril, stasis fluid, nutrient paste). Built from data extracted from scenario.json; regenerate it when items or their uses change.
-- **Interactive scenario map**: Published artifact at claude.ai showing Act 1 room graph, item locations, puzzle chains, and 30-step walkthrough. Keep this updated when rooms, items, or puzzles change. Data extracted from scenario JSON.
+- **Act 1 walkthrough (current)**: `scenarios/the-harvest/walkthrough.md` with real screenshots, a deck map and the maze route (images in `walkthrough/`, built by `scripts/build_walkthrough_images.py` from screenshots captured by the Playwright harness in `scripts/playthrough/`, which plays the whole act in human order through real doors and logs every response). The old "Interactive scenario map" artifact is superseded by the published visual walkthrough artifact.
+- **Playthrough fixes (Nov 2026)**: the corridor character stood on the vent cover (blocking clicks), the archive hologram hotspot was anchored off-screen, the junction character covered a hotspot, HAND now opens the lab terminal and security close-ups (not only LOOK), duplicated sentences fixed, Airlock Bay hints corrected, the four lines calling the player a goblin now say human (the sprite and story are human: Earth, "Sol-3 Primate"). Hotspots expose `data-object-id` for automated playtests.
 - **Cataloguer robot closeup**: Spider-legged drone in Stasis Hold with a 4-frame animated sprite (`sprites/cataloguer_robot.png`, 2fps). Looking or touching navigates to `act1_cataloguer_closeup` sub-view — a full interactive view using the specimen image as background with `back_label: "Stasis Hold"`. Four interactive objects (3 specimen tanks, data plates) with look/hand/talk responses. The specimen displays show the four-glyph section code (fern, double curl, sprouting snake, thorny branch); LOOK/HAND the robot or plates sets `lab_code_known`. Sub-views support all 4 verbs, unlike the old `show_closeup` overlay which was hand-only. Character override only applies when the current view has a `character` placement — views without one (like closeup sub-views) show no character sprite.
 - **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
 - **Vent cover in corridor**: Ventilation shaft entrance moved from Feeding Station to Containment Corridor. A `vent_cover` object with a sprite grate graphic (`sprites/vent_cover.png`) is always visible in the corridor floor (bottom-left) but gated by `security_locks_overridden` — trying to enter before overriding security shows a locked message.
