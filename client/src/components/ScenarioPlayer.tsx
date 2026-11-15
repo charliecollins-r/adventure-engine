@@ -554,17 +554,28 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     job.walkTime += dt;
     const steps = stepConfig(job.area, job.walkSet);
     const ws = scenario.character?.sprite_sets[job.walkSet];
-    const stepped = scenario.character?.walk_motion !== 'smooth' && !!ws && (ws.frame_rate ?? 0) > 0;
+    const motion = scenario.character?.walk_motion ?? 'paced';
+    const synced = motion !== 'smooth' && !!ws && (ws.frame_rate ?? 0) > 0;
     let shownAt = job.travelled;
     let frame: number | undefined;
-    if (stepped) {
-      // Sierra-style: advance the drawn position only when the walk cycle moves to its next frame.
-      const cols = ws!.columns, frameNo = Math.floor(job.walkTime * ws!.frame_rate!);
+    if (synced) {
+      // The walk-cycle frame and the footsteps share one clock with the movement.
+      const cols = ws!.columns, phase = job.walkTime * ws!.frame_rate!, frameNo = Math.floor(phase);
       if (frameNo !== job.lastFrame) {
         job.lastFrame = frameNo; job.shown = job.travelled;
         if (steps && frameNo % Math.max(1, Math.round(cols / 2)) === 0) playStep(steps);
       }
-      shownAt = job.shown; frame = frameNo % cols;
+      frame = frameNo % cols;
+      if (motion === 'stepped') {
+        // Sierra-style: the drawn position only advances when the frame changes.
+        shownAt = job.shown;
+      } else {
+        // "paced": continuous, but each stride slows as the foot plants and speeds up mid-stride.
+        // Offset is 0 at every frame boundary, so he never jumps; speed varies between (1 - pulse) and (1 + pulse).
+        const pulse = Math.min(0.95, Math.max(0, scenario.character?.walk_pulse ?? 0.6));
+        const stride = speed / ws!.frame_rate!, u = phase - frameNo;
+        shownAt = Math.max(0, job.travelled - (pulse * stride * Math.sin(2 * Math.PI * u)) / (2 * Math.PI));
+      }
     } else if (steps && now >= job.stepAt) {
       playStep(steps);
       job.stepAt = now + (steps.interval * 1000) / Math.max(0.3, depthScaleAt(job.area, here.y));

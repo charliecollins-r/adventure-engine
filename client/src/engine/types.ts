@@ -407,16 +407,21 @@ export interface CharacterConfig {
   /** Sounds played while he walks. A view's walk_area.footsteps overrides this (false = silent there). */
   footsteps?: Footsteps;
   /**
-   * "stepped" (default, Sierra-style): he moves one stride per walk-cycle frame and the frame, the move and
-   * the footsteps share one clock, so his feet plant instead of sliding. "smooth": continuous motion.
+   * How he moves while the walk cycle plays.
+   * "paced" (default): continuous movement that slows as each foot plants and speeds up mid-stride, on the
+   * same clock as the walk frames and footsteps, so it reads as steps without jumping.
+   * "stepped": classic Sierra, the position jumps one stride each time the walk frame changes.
+   * "smooth": constant speed, frames and footsteps on their own timers.
    */
-  walk_motion?: 'stepped' | 'smooth';
+  walk_motion?: 'paced' | 'stepped' | 'smooth';
+  /** "paced" only: how strongly speed swells and dips within a stride, 0 (constant) to 0.95. Default 0.6. */
+  walk_pulse?: number;
 }
 
 export interface Footsteps {
   /** Step sounds, picked in random order (never the same one twice in a row). */
   sounds: string[];
-  /** Seconds between steps in "smooth" walk_motion. With "stepped" motion a step plays on the first frame of each half of the walk cycle. Default: 2 / frame_rate. */
+  /** Seconds between steps in "smooth" walk_motion. With "paced" or "stepped" motion a step plays on the first frame of each half of the walk cycle. Default: 2 / frame_rate. */
   interval?: number;
   /** 0..1, default 0.4. */
   volume?: number;
