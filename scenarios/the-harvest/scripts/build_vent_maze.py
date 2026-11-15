@@ -56,7 +56,7 @@ BOX = {'lf': {'N': (380,210,220,255), 'W': (95,187,205,347)}, 'rf': {'N': (360,2
        'lt': {'W': (95,187,205,347)}, 'rt': {'E': (660,187,205,347)}, 'de': {}}
 CHAR_X = {'lf': 560, 'rf': 400, 'lt': 560, 'rt': 400, 'de': 480}
 # Walkable floor shared by every duct frame (they are edits of one painting): see docs/WALKABLE_AREAS.md
-DUCT_FLOOR = [[300, 496], [660, 496], [760, 531], [745, 547], [638, 547], [638, 707], [322, 707], [322, 547], [215, 547], [200, 531]]
+DUCT_FLOOR = [[336, 528], [336, 688], [624, 688], [624, 528], [697, 528], [658, 515], [302, 515], [263, 528]]
 SOUTH = (150, 660, 660, 60)
 LABEL = {'N': '↑ Ahead', 'W': '← Left', 'E': 'Right →', 'S': '↓ Back'}
 LOOK = {'N': 'The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it.',
