@@ -10,7 +10,7 @@ junction hints are (re)written in place, so running twice is safe. Afterwards:
 re-draw the map (scripts/draw_vent_map.py), then run tools/validate-scenario.mjs
 and tools/softlock-search.mjs. Conventions: see vent-maze-design.md.
 """
-import json, sys, collections, copy
+import json, re, sys, collections, copy
 p = sys.argv[1]
 s = json.load(open(p))
 # idempotent: drop previously generated maze content before rebuilding
@@ -50,6 +50,8 @@ def frame(c):
 BOX = {'lf': {'N': (380,210,220,255), 'W': (95,187,205,347)}, 'rf': {'N': (360,210,220,255), 'E': (660,187,205,347)},
        'lt': {'W': (95,187,205,347)}, 'rt': {'E': (660,187,205,347)}, 'de': {}}
 CHAR_X = {'lf': 560, 'rf': 400, 'lt': 560, 'rt': 400, 'de': 480}
+# Walkable floor shared by every duct frame (they are edits of one painting): see docs/WALKABLE_AREAS.md
+DUCT_FLOOR = [[160, 520], [360, 470], [600, 470], [800, 520], [880, 620], [800, 700], [160, 700], [80, 620]]
 SOUTH = (150, 660, 660, 60)
 LABEL = {'N': '↑ Ahead', 'W': '← Left', 'E': 'Right →', 'S': '↓ Back'}
 LOOK = {'N': 'The duct runs on straight ahead, deeper into the dark. A faint teal glow hangs somewhere far along it.',
@@ -96,6 +98,7 @@ for c in GENERIC:
     new_views.append({'id': vid(c), 'name': 'Air Ducts', 'background_key': vid(c), 'background_file': f'backgrounds/act1_vent_maze_{f}.webp',
                       'objects': [o['id'] for o in objs], 'room_animation': 'flicker', 'hints': hints,
                       'character': {'x': CHAR_X[f], 'y': 650, 'facing': 'up', 'sprite_set': 'idle', 'object_id': 'goblin_self'},
+                      'walk_area': {'floor': DUCT_FLOOR},
                       'ambient_lighting': {'lights': lights, 'flicker': True}})
     new_objs += objs
 
@@ -147,6 +150,9 @@ m['examine'] = [{'verb': 'look', 'when': [], 'then': [
     {'type': 'show_closeup', 'image': 'closeups/vent_map.webp'},
     msg("A scratched map of the ducts, north at the top. From the junction, arrows run WEST, then straight NORTH past a skull, a fan, and a box: the way out. A loop of ducts hangs off to the west, a long way round winds through the east, a deep X marks the end of one eastern branch, and three gouged bars mark a dead end.")]}]
 
-open(p, 'w').write(json.dumps(s, indent=2, ensure_ascii=False) + '\n')
+# Canonical format: json indent=2, but [x, y] number pairs (floor points) stay on one line.
+out = json.dumps(s, indent=2, ensure_ascii=False)
+out = re.sub(r'\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\s*\]', r'[\1, \2]', out)
+open(p, 'w').write(out + '\n')
 print('views added', len(new_views), 'objects added', len(new_objs))
 print({c: (frame(c), toward_gas(c)) for c in GENERIC})

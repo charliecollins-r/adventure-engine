@@ -225,6 +225,9 @@ No verb buttons: right-click cycles the verb and the cursor changes to match. Un
 ### Character Sprites
 Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes via effects. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art. Configurable directional shadows with offset, opacity, size, and skew — global defaults with per-view overrides.
 
+### Click-to-Walk
+Give a view a floor outline and the player walks, King's Quest V style: Move walks to the spot, Hand and items walk over to the object first, doors walk you out, and he arrives by the door he came through. Exact shortest paths around obstacles, walk cycles per sprite set, optional perspective scaling, and a **Floor** tab in the visual editor to draw floors on the background. Views without a floor keep a standing character, so it's opt-in per view. See [docs/WALKABLE_AREAS.md](docs/WALKABLE_AREAS.md).
+
 ### Object Sprites
 Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored with JSON-configurable shadows matching the character shadow system.
 
@@ -322,7 +325,8 @@ The player character is a bearded human in a green tunic, rendered as a pixel-ar
 | [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) | ScenarioEngine class walkthrough, condition/effect system, rendering pipeline |
 | [**docs/ART_GUIDE.md**](docs/ART_GUIDE.md) | Generating, processing, sizing and placing art: prompts, chroma key, icons, verification |
 | [**docs/HOTSPOT_POSITIONING_GUIDE.md**](docs/HOTSPOT_POSITIONING_GUIDE.md) | Converting image pixels to hotspot coordinates, with worked examples |
-| [**docs/SPATIAL_MOVEMENT_DESIGN.md**](docs/SPATIAL_MOVEMENT_DESIGN.md) | Deferred design for click-to-move and walkable areas |
+| [**docs/WALKABLE_AREAS.md**](docs/WALKABLE_AREAS.md) | Click-to-walk: floor outlines, routing, stand points, arrival spots (implemented) |
+| [**docs/SPATIAL_MOVEMENT_DESIGN.md**](docs/SPATIAL_MOVEMENT_DESIGN.md) | Older, larger spatial design (hazards, NPC paths, edge exits); its walking parts are superseded by WALKABLE_AREAS.md |
 | [**CLAUDE.md**](CLAUDE.md) | Project context and conventions for AI agents contributing to this repo |
 
 ---

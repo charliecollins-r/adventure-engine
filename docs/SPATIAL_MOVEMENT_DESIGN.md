@@ -2,7 +2,7 @@
 
 > Extends SCENARIO_SCHEMA v1.0 with player avatar movement, distance-based interactions, walkable areas, screen transitions, animated characters, and maze/exploration mechanics.
 >
-> **Status: deferred, post-MVP. Nothing in this document is implemented.** It predates some things that now exist, so read it with these in mind:
+> **Status: walking is implemented differently; see [WALKABLE_AREAS.md](WALKABLE_AREAS.md).** The rest of this document (hazard zones, NPC paths, edge exits, reach distances) is a deferred idea bank. Nothing else here is implemented. It predates some things that now exist, so read it with these in mind:
 > - The engine already has a static player sprite: a root `character` block of named `sprite_sets` plus a per-view `character` placement (bottom-center, 960×720 space) and the `set_character` effect. See [SCENARIO_SCHEMA.md → Character Sprite](SCENARIO_SCHEMA.md#character-sprite). A spatial implementation should extend that rather than add the separate `player` block proposed below.
 > - Rendering is still React/CSS (sprite sheets via `background-position`), not Phaser.
 > - Authoring coordinates are 960×720 (rendered at 960×540), not the 1024×768 used in the diagrams here.

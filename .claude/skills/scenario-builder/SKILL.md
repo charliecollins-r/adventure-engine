@@ -296,6 +296,10 @@ Each view that shows the character needs a `character` block:
 
 ---
 
+### Walkable Floors (optional, recommended for main rooms)
+
+To let the player walk in a view, add `"walk_area": { "floor": [[x, y], ...] }` (960x720 space, points in order around the floor; `blocked` outlines for furniture; optional `depth_scale`). Pick the points from `node tools/preview-hotspots.mjs scenario.json <view> --grid` (or draw them in the editor's **Floor** tab), keep the view's `character.x`/`y` on the floor, then run `node tools/arrival-spots.mjs scenario.json --write` so he arrives by the door he came through, and `node tools/validate-scenario.mjs` (it warns about any object he can't reach). Close-ups stay without a character and without a floor. Reference: `docs/SCENARIO_SCHEMA.md` → Walkable Areas.
+
 ## 4. JSON Scenario Structure
 
 The complete JSON reference is in `docs/SCENARIO_SCHEMA.md` (1700+ lines). Here is the practical guide to building one.

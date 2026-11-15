@@ -144,6 +144,8 @@ All state is exposed through read-only getter methods. The engine never hands ou
 |--------|-----------|---------|
 | `interact` | `(objectId, verb, itemId?) → InteractionResult` | Primary game action — resolve verb + object + conditions → effects |
 | `navigateToView` | `(viewId) → void` | Push current view to stack and move to new view |
+| `getWalkArea` / `getApproach` / `isExit` | `() → WalkArea \| null`, `(objectId) → StandPoint \| null`, `(objectId) → boolean` | Click-to-walk queries (see Walking) |
+| `setCharacterPosition` | `(pos \| null) → void` | Where the character stands in the current view after a walk |
 | `navigateBack` | `() → void` | Pop view stack and return to previous view |
 | `combineItems` | `(itemA, itemB) → InteractionResult` | Attempt to combine two inventory items |
 | `examineItem` | `(itemId, verb?) → InteractionResult` | Use a verb on an inventory item |
@@ -493,6 +495,16 @@ App
     ├── Game Over Overlay
     └── DevPanel (?dev, side-by-side)
 ```
+
+### Walking (click-to-walk)
+
+Views with a `walk_area` let the character walk (spec: `docs/SCENARIO_SCHEMA.md` → Walkable Areas; design: `docs/WALKABLE_AREAS.md`). Three layers, each testable on its own:
+
+- **`engine/walkable.ts`** (pure geometry): `isOnFloor`, `nearestFloorPoint`, `segmentOnFloor`, `findPath` (exact shortest path in a polygon with holes: a visibility graph over the outline corners, searched with Dijkstra; vertex-to-vertex visibility is cached per area), `pointAlong`, `depthScaleAt`, `facingFromDelta`, `resolveFacing` (maps a wanted facing onto the rows a sprite set has: `left` mirrors `right`, a missing `up` falls back to sideways), `outlineProblems`. Points on an outline count as floor. Tests: `walkable.test.ts` (hand-built cases with exact answers, 10,000 random routes checked to stay on the floor, 750 compared with a brute-force grid search).
+- **Engine** (`ScenarioEngine`): `getWalkArea()`, `setCharacterPosition()` / `getCharacterPosition()` (per view; reset on `set_view` unless it has `at`, reset by `navigateToView`, and restored by `navigateBack` from a position stack kept beside the view history, so leaving a close-up puts him back where he stood), `getApproach(objectId)` (stand point from `walk_to` or the floor point nearest the object's bottom-centre, plus a facing toward it), `isExit(objectId)` (any Move interaction that can `set_view` or `game_over`), `getObjectFocus()`. `getCharacterPlacement()` merges view placement, `set_character` override and the walked position. Tests: `ScenarioEngine.walk.test.ts`.
+- **UI** (`ScenarioPlayer` + `GameView`): `GameView` reports every click's position in 960x720 space (`onClickPoint`, in the capture phase) and passes empty clicks with their point. `ScenarioPlayer` routes clicks: Look/Talk turn in place and run; Move on a non-exit walks to the click; Hand, items and Move on exits walk to `getApproach()` and run on arrival. The walk controller animates along `findPath()` with `requestAnimationFrame` (speed × depth scale, facing per leg, the sprite set's `walk` set), commits the end position to the engine, then runs the pending interaction; a view change cancels it. In walking views `GameView` draws sprite objects and the character in one layer (`z-index` 4) whose children are sorted by base y; the character only takes clicks when his placement's `object_id` names a real object.
+
+Browser test: `scenarios/the-harvest/scripts/playthrough/walk.cjs` walks to random floor points in every Act 1 walking view (checking the end point and that every animation frame is on the floor) and checks the behaviours above.
 
 ### ScenarioPlayer — The Orchestrator
 

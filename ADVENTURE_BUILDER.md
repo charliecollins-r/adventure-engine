@@ -1319,6 +1319,26 @@ The player character is an optional root-level `character` block of named sprite
 
 Making the frames (prompts, keying, sizing) is covered in [Creating Sprite Sheets](#creating-sprite-sheets) and [docs/ART_GUIDE.md](docs/ART_GUIDE.md).
 
+### Walkable Areas (click-to-walk)
+
+Give a view a floor and the player can walk around it, King's Quest V style: **Move** on the floor walks there, **Hand** or an item walks over to the object and then acts, **Move** on a door walks to it and then goes through, and **Look**/**Talk** just turn him to face it. Views without a floor keep the character standing still, so walking is entirely optional and per view.
+
+```json
+"walk_area": {
+  "floor":   [[200, 524], [300, 520], [700, 520], [780, 548], [780, 592], [200, 592], [160, 566]],
+  "blocked": [ [[490, 470], [668, 470], [668, 622], [490, 622]] ]
+}
+```
+
+- **`floor`**: the outline of the floor as `[x, y]` points (960x720 space), in order around the edge. **`blocked`** (optional): outlines inside the floor he walks around, such as a table. **`depth_scale`** (optional): `{ "far_y": 450, "far": 0.7, "near_y": 720, "near": 1 }` shrinks him as he walks away from the camera.
+- **Draw it, don't type it**: open the visual editor (`/editor.html`), pick the view, open the **Floor** tab, click points around the floor, drag to adjust, right-click to delete, then **Copy JSON**.
+- **Check it**: `node tools/preview-hotspots.mjs scenario.json <view> --grid` draws the floor on the painting; `node tools/validate-scenario.mjs` checks outlines, start spots and that every object can be reached.
+- **Where he stands for an object** is automatic (the floor point nearest the bottom of its hotspot or sprite). Override with `"walk_to": { "x": 525, "y": 640, "facing": "down" }`, or `"walk_to": false` to use it from anywhere.
+- **Arriving by the right door**: `set_view` takes `"at": { "x": 120, "y": 640, "facing": "right" }`. `node tools/arrival-spots.mjs scenario.json --write` fills these in for every door automatically (it puts him by the exit that leads back).
+- **Walk cycle**: the character's `walk` sprite set is used while walking; a sprite set can name its own (`"idle_helmet": { ..., "walk": "walk_helmet" }`). `character.walk_speed` sets the speed (default 150).
+
+Full reference: [SCENARIO_SCHEMA.md → Walkable Areas](docs/SCENARIO_SCHEMA.md#walkable-areas-click-to-walk). Design notes: [docs/WALKABLE_AREAS.md](docs/WALKABLE_AREAS.md).
+
 ### Killer AI *(Planned)*
 
 An AI antagonist that patrols, responds to noise, searches for the player, and has configurable personality dialogue. Define the killer in the `killer` object with base behavior (check intervals, noise thresholds), search behavior (thoroughness, evidence awareness), and personality (approach/search/catch dialogue). See [SCENARIO_SCHEMA.md](docs/SCENARIO_SCHEMA.md) for full configuration.

@@ -397,7 +397,7 @@
             "pulse_speed": 0.25,
             "pulse_amount": 0.15,
             "alpha": 0.18,
-            "phase": 3.0
+            "phase": 3
           },
           {
             "x": 0.88,
@@ -430,7 +430,20 @@
         ],
         "flicker": true
       },
-      "ambient_audio": "audio/ambient_lab.mp3"
+      "ambient_audio": "audio/ambient_lab.mp3",
+      "walk_area": {
+        "floor": [
+          [240, 446],
+          [345, 446],
+          [420, 545],
+          [565, 602],
+          [585, 652],
+          [565, 720],
+          [40, 720],
+          [60, 600],
+          [200, 540]
+        ]
+      }
     },
     {
       "id": "act1_cataloguer_closeup",
@@ -698,6 +711,23 @@
           }
         ],
         "flicker": true
+      },
+      "walk_area": {
+        "floor": [
+          [540, 372],
+          [700, 372],
+          [700, 430],
+          [600, 470],
+          [560, 520],
+          [580, 720],
+          [0, 720],
+          [0, 560],
+          [150, 540],
+          [180, 505],
+          [420, 505],
+          [440, 430],
+          [520, 420]
+        ]
       }
     },
     {
@@ -836,7 +866,7 @@
             "pulse_speed": 0.35,
             "pulse_amount": 0.25,
             "alpha": 0.25,
-            "phase": 1.0
+            "phase": 1
           },
           {
             "x": 0.85,
@@ -850,7 +880,7 @@
             "pulse_speed": 0.28,
             "pulse_amount": 0.2,
             "alpha": 0.22,
-            "phase": 2.0
+            "phase": 2
           },
           {
             "x": 0.5,
@@ -872,34 +902,13 @@
       "ambient_audio": "audio/ambient_industrial.wav",
       "walk_area": {
         "floor": [
-          [
-            200,
-            524
-          ],
-          [
-            300,
-            520
-          ],
-          [
-            700,
-            520
-          ],
-          [
-            780,
-            548
-          ],
-          [
-            780,
-            592
-          ],
-          [
-            200,
-            592
-          ],
-          [
-            160,
-            566
-          ]
+          [200, 524],
+          [300, 520],
+          [700, 520],
+          [780, 548],
+          [780, 592],
+          [200, 592],
+          [160, 566]
         ]
       }
     },
@@ -1018,7 +1027,7 @@
             "pulse_speed": 0.45,
             "pulse_amount": 0.3,
             "alpha": 0.25,
-            "phase": 1.0
+            "phase": 1
           },
           {
             "x": 0.15,
@@ -1032,11 +1041,33 @@
             "pulse_speed": 0.3,
             "pulse_amount": 0.2,
             "alpha": 0.15,
-            "phase": 2.0
+            "phase": 2
           }
         ]
       },
-      "ambient_audio": []
+      "ambient_audio": [],
+      "walk_area": {
+        "floor": [
+          [330, 430],
+          [480, 430],
+          [660, 420],
+          [790, 420],
+          [800, 560],
+          [900, 640],
+          [920, 720],
+          [440, 720],
+          [440, 560],
+          [340, 500]
+        ],
+        "blocked": [
+          [
+            [488, 438],
+            [652, 438],
+            [652, 482],
+            [488, 482]
+          ]
+        ]
+      }
     },
     {
       "id": "act1_feeding_station",
@@ -1172,10 +1203,36 @@
             "pulse_speed": 0.55,
             "pulse_amount": 0.3,
             "alpha": 0.18,
-            "phase": 2.0
+            "phase": 2
           }
         ],
         "flicker": true
+      },
+      "walk_area": {
+        "floor": [
+          [120, 470],
+          [300, 452],
+          [480, 432],
+          [740, 422],
+          [880, 470],
+          [900, 640],
+          [760, 720],
+          [120, 720]
+        ],
+        "blocked": [
+          [
+            [490, 470],
+            [668, 470],
+            [668, 622],
+            [490, 622]
+          ],
+          [
+            [318, 472],
+            [444, 472],
+            [444, 560],
+            [318, 560]
+          ]
+        ]
       }
     },
     {
@@ -1276,7 +1333,19 @@
         ],
         "flicker": true
       },
-      "ambient_audio": "audio/ambient_industrial.wav"
+      "ambient_audio": "audio/ambient_industrial.wav",
+      "walk_area": {
+        "floor": [
+          [420, 500],
+          [600, 500],
+          [700, 560],
+          [790, 660],
+          [800, 720],
+          [160, 720],
+          [200, 640],
+          [320, 560]
+        ]
+      }
     },
     {
       "id": "act1_vent_junction",
@@ -1364,7 +1433,19 @@
           ],
           "text": "Your map says WEST (the left tunnel), then straight north. The skull scratched near the end means bad air: have the helmet."
         }
-      ]
+      ],
+      "walk_area": {
+        "floor": [
+          [100, 440],
+          [320, 430],
+          [680, 430],
+          [880, 470],
+          [900, 600],
+          [700, 700],
+          [260, 700],
+          [60, 600]
+        ]
+      }
     },
     {
       "id": "act1_vent_maze_a",
@@ -1397,6 +1478,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -1478,6 +1571,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -1556,6 +1661,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -1636,6 +1753,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -1701,6 +1830,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -1782,6 +1923,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -1860,6 +2013,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -1941,6 +2106,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -2019,6 +2196,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -2100,6 +2289,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -2179,6 +2380,18 @@
         "sprite_set": "idle",
         "object_id": "goblin_self"
       },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
+      },
       "ambient_lighting": {
         "lights": [
           {
@@ -2243,6 +2456,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -2322,6 +2547,18 @@
         "facing": "up",
         "sprite_set": "idle",
         "object_id": "goblin_self"
+      },
+      "walk_area": {
+        "floor": [
+          [160, 520],
+          [360, 470],
+          [600, 470],
+          [800, 520],
+          [880, 620],
+          [800, 700],
+          [160, 700],
+          [80, 620]
+        ]
       },
       "ambient_lighting": {
         "lights": [
@@ -2441,7 +2678,17 @@
           ],
           "text": "The helmet should protect you from the gas. Press forward."
         }
-      ]
+      ],
+      "walk_area": {
+        "floor": [
+          [300, 470],
+          [680, 470],
+          [800, 560],
+          [820, 700],
+          [180, 700],
+          [200, 560]
+        ]
+      }
     },
     {
       "id": "act1_vent_fan_room",
@@ -2472,7 +2719,7 @@
               50
             ],
             "alpha": 0.2,
-            "pulse_speed": 2.0,
+            "pulse_speed": 2,
             "pulse_amount": 0.15
           },
           {
@@ -2534,7 +2781,17 @@
           ],
           "text": "The fan is stopped. You can squeeze through the blades now."
         }
-      ]
+      ],
+      "walk_area": {
+        "floor": [
+          [200, 560],
+          [700, 560],
+          [780, 640],
+          [760, 720],
+          [150, 720],
+          [160, 640]
+        ]
+      }
     },
     {
       "id": "act1_vent_collapsed",
@@ -2613,7 +2870,17 @@
           ],
           "text": "The skeleton had more than just a datapad. Search the body again — check their uniform pockets."
         }
-      ]
+      ],
+      "walk_area": {
+        "floor": [
+          [220, 560],
+          [640, 540],
+          [880, 600],
+          [880, 700],
+          [240, 700],
+          [150, 640]
+        ]
+      }
     },
     {
       "id": "act1_vent_exit",
@@ -2667,7 +2934,26 @@
           "when": [],
           "text": "The airlock bay is below. Drop through the hatch to reach it."
         }
-      ]
+      ],
+      "walk_area": {
+        "floor": [
+          [250, 560],
+          [440, 380],
+          [560, 380],
+          [740, 560],
+          [830, 700],
+          [120, 700],
+          [140, 620]
+        ],
+        "blocked": [
+          [
+            [370, 500],
+            [665, 500],
+            [700, 665],
+            [330, 665]
+          ]
+        ]
+      }
     },
     {
       "id": "act1_security_hub",
@@ -2781,7 +3067,7 @@
             "pulse_speed": 0.8,
             "pulse_amount": 0.3,
             "alpha": 0.22,
-            "phase": 1.0
+            "phase": 1
           },
           {
             "x": 0.5,
@@ -2795,7 +3081,7 @@
             "pulse_speed": 0.5,
             "pulse_amount": 0.25,
             "alpha": 0.22,
-            "phase": 2.0
+            "phase": 2
           },
           {
             "x": 0.2,
@@ -2813,7 +3099,22 @@
           }
         ]
       },
-      "ambient_audio": "audio/haunted.wav"
+      "ambient_audio": "audio/haunted.wav",
+      "walk_area": {
+        "floor": [
+          [60, 560],
+          [220, 540],
+          [400, 530],
+          [820, 520],
+          [940, 560],
+          [940, 700],
+          [700, 690],
+          [620, 652],
+          [340, 652],
+          [260, 720],
+          [60, 720]
+        ]
+      }
     },
     {
       "id": "act1_security_closeup",
@@ -3024,7 +3325,35 @@
           }
         ]
       },
-      "ambient_audio": "audio/ambient_lab.mp3"
+      "ambient_audio": "audio/ambient_lab.mp3",
+      "walk_area": {
+        "floor": [
+          [200, 500],
+          [330, 462],
+          [620, 452],
+          [780, 470],
+          [900, 520],
+          [930, 660],
+          [700, 622],
+          [300, 622],
+          [40, 660],
+          [60, 540]
+        ],
+        "blocked": [
+          [
+            [480, 520],
+            [585, 520],
+            [585, 578],
+            [480, 578]
+          ],
+          [
+            [655, 540],
+            [712, 540],
+            [712, 592],
+            [655, 592]
+          ]
+        ]
+      }
     },
     {
       "id": "act1_airlock_bay",
@@ -3146,7 +3475,7 @@
             "pulse_speed": 0.6,
             "pulse_amount": 0.3,
             "alpha": 0.22,
-            "phase": 1.0
+            "phase": 1
           },
           {
             "x": 0.85,
@@ -3160,8 +3489,20 @@
             "pulse_speed": 0.3,
             "pulse_amount": 0.2,
             "alpha": 0.15,
-            "phase": 2.0
+            "phase": 2
           }
+        ]
+      },
+      "walk_area": {
+        "floor": [
+          [60, 580],
+          [380, 565],
+          [740, 560],
+          [920, 600],
+          [930, 650],
+          [750, 665],
+          [240, 668],
+          [40, 650]
         ]
       }
     },
@@ -20950,7 +21291,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_containment_corridor"
+              "view": "act1_containment_corridor",
+              "at": {
+                "x": 467,
+                "y": 592,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21011,7 +21357,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_morgue"
+              "view": "act1_morgue",
+              "at": {
+                "x": 743,
+                "y": 720,
+                "facing": "left"
+              }
             },
             {
               "type": "set_flag",
@@ -21103,7 +21454,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_containment_corridor"
+              "view": "act1_containment_corridor",
+              "at": {
+                "x": 192,
+                "y": 533,
+                "facing": "right"
+              }
             },
             {
               "type": "message",
@@ -21164,7 +21520,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_stasis_hold"
+              "view": "act1_stasis_hold",
+              "at": {
+                "x": 275,
+                "y": 446,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21225,7 +21586,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_processing_lab"
+              "view": "act1_processing_lab",
+              "at": {
+                "x": 629,
+                "y": 372,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -21356,7 +21722,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_feeding_station"
+              "view": "act1_feeding_station",
+              "at": {
+                "x": 517,
+                "y": 720,
+                "facing": "down"
+              }
             },
             {
               "type": "set_flag",
@@ -21422,7 +21793,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_security_hub"
+              "view": "act1_security_hub",
+              "at": {
+                "x": 480,
+                "y": 652,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21483,7 +21859,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_feeding_station"
+              "view": "act1_feeding_station",
+              "at": {
+                "x": 120,
+                "y": 640,
+                "facing": "right"
+              }
             },
             {
               "type": "set_flag",
@@ -21575,7 +21956,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_containment_corridor"
+              "view": "act1_containment_corridor",
+              "at": {
+                "x": 583,
+                "y": 520,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -21694,7 +22080,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_ventilation_shaft"
+              "view": "act1_ventilation_shaft",
+              "at": {
+                "x": 494,
+                "y": 720,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21777,7 +22168,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_containment_corridor"
+              "view": "act1_containment_corridor",
+              "at": {
+                "x": 480,
+                "y": 592,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21864,7 +22260,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_containment_corridor"
+              "view": "act1_containment_corridor",
+              "at": {
+                "x": 775,
+                "y": 560,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -21925,7 +22326,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_specimen_archive"
+              "view": "act1_specimen_archive",
+              "at": {
+                "x": 500,
+                "y": 622,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -21986,7 +22392,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_feeding_station"
+              "view": "act1_feeding_station",
+              "at": {
+                "x": 787,
+                "y": 439,
+                "facing": "left"
+              }
             },
             {
               "type": "set_flag",
@@ -24347,7 +24758,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_exit"
+              "view": "act1_vent_exit",
+              "at": {
+                "x": 515,
+                "y": 665,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -25733,7 +26149,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_junction",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -25984,7 +26405,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_a"
+              "view": "act1_vent_maze_a",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -26068,7 +26494,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_g"
+              "view": "act1_vent_maze_g",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             },
             {
               "type": "message",
@@ -26132,7 +26563,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_ventilation_shaft"
+              "view": "act1_ventilation_shaft",
+              "at": {
+                "x": 546,
+                "y": 500,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -26384,7 +26820,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_fan_room"
+              "view": "act1_vent_fan_room",
+              "at": {
+                "x": 480,
+                "y": 710,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -26448,7 +26889,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_f"
+              "view": "act1_vent_maze_f",
+              "at": {
+                "x": 470,
+                "y": 470,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -26593,7 +27039,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_exit"
+              "view": "act1_vent_exit",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -26909,7 +27360,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber"
+              "view": "act1_vent_gas_chamber",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -27290,7 +27746,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_i"
+              "view": "act1_vent_maze_i",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -27402,7 +27863,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_airlock_bay"
+              "view": "act1_airlock_bay",
+              "at": {
+                "x": 497,
+                "y": 666,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -27466,7 +27932,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_fan_room"
+              "view": "act1_vent_fan_room",
+              "at": {
+                "x": 485,
+                "y": 626,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -27829,7 +28300,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_b"
+              "view": "act1_vent_maze_b",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -27891,7 +28367,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_junction",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -27953,7 +28434,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_e"
+              "view": "act1_vent_maze_e",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28015,7 +28501,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_c"
+              "view": "act1_vent_maze_c",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -28077,7 +28568,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_a"
+              "view": "act1_vent_maze_a",
+              "at": {
+                "x": 470,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28139,7 +28635,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_d"
+              "view": "act1_vent_maze_d",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28201,7 +28702,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_b"
+              "view": "act1_vent_maze_b",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -28263,7 +28769,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_e"
+              "view": "act1_vent_maze_e",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -28325,7 +28836,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_c"
+              "view": "act1_vent_maze_c",
+              "at": {
+                "x": 470,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28387,7 +28903,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_f"
+              "view": "act1_vent_maze_f",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28449,7 +28970,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_d"
+              "view": "act1_vent_maze_d",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -28511,7 +29037,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_b"
+              "view": "act1_vent_maze_b",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28573,7 +29104,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber"
+              "view": "act1_vent_gas_chamber",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28635,7 +29171,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_n"
+              "view": "act1_vent_maze_n",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -28697,7 +29238,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_e"
+              "view": "act1_vent_maze_e",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28759,7 +29305,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_h"
+              "view": "act1_vent_maze_h",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28821,7 +29372,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_junction",
+              "at": {
+                "x": 780,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -28883,7 +29439,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_k"
+              "view": "act1_vent_maze_k",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -28945,7 +29506,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_i"
+              "view": "act1_vent_maze_i",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -29007,7 +29573,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_g"
+              "view": "act1_vent_maze_g",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29069,7 +29640,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_collapsed"
+              "view": "act1_vent_collapsed",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29131,7 +29707,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_h"
+              "view": "act1_vent_maze_h",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -29193,7 +29774,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_l"
+              "view": "act1_vent_maze_l",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29255,7 +29841,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_m"
+              "view": "act1_vent_maze_m",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -29317,7 +29908,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_h"
+              "view": "act1_vent_maze_h",
+              "at": {
+                "x": 470,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29379,7 +29975,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_k"
+              "view": "act1_vent_maze_k",
+              "at": {
+                "x": 490,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29498,7 +30099,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_n"
+              "view": "act1_vent_maze_n",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29560,7 +30166,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_k"
+              "view": "act1_vent_maze_k",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -29622,7 +30233,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_f"
+              "view": "act1_vent_maze_f",
+              "at": {
+                "x": 763,
+                "y": 534,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -29684,7 +30300,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_maze_m"
+              "view": "act1_vent_maze_m",
+              "at": {
+                "x": 470,
+                "y": 470,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -29925,18 +30546,9 @@
           "Alarms"
         ],
         "linked": [
-          [
-            0,
-            3
-          ],
-          [
-            1,
-            4
-          ],
-          [
-            2,
-            5
-          ]
+          [0, 3],
+          [1, 4],
+          [2, 5]
         ]
       },
       "on_solve": [

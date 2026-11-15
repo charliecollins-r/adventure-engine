@@ -12,8 +12,20 @@ async function start(opts = {}) {
   return g;
 }
 const sp = (g, x, y) => ({ x: g.vp.x + x, y: g.vp.y + y * 0.75 });
+/** Wait until the character has stopped walking (walking views animate before an action runs). */
+async function settle(g, maxMs = 10000) {
+  const t0 = Date.now(); let still = 0;
+  while (Date.now() - t0 < maxMs) {
+    const walking = await g.p.evaluate(() => [...document.querySelectorAll('div')].some((d) => /_walk/.test(d.style.backgroundImage)));
+    still = walking ? 0 : still + 1;
+    if (still >= 2) return;
+    await g.p.waitForTimeout(120);
+  }
+}
 async function msg(g) {
-  await g.p.waitForTimeout(500);
+  await g.p.waitForTimeout(250);
+  await settle(g);
+  await g.p.waitForTimeout(250);
   return await g.p.evaluate(() => { const h = [...document.querySelectorAll('div')].find(d => d.children.length === 0 && d.textContent.trim() === 'click to dismiss'); return h ? h.parentElement.innerText.replace(/\s*click to dismiss\s*$/, '').trim() : null; });
 }
 async function dismiss(g) {
@@ -71,7 +83,7 @@ async function go(g, viewId) {
 }
 async function shot(g, name) { await g.p.screenshot({ path: name + '.png', clip: { x: g.vp.x, y: g.vp.y, width: 960, height: 540 } }); }
 async function shotFull(g, name) { await g.p.screenshot({ path: name + '.png' }); }
-module.exports = { start, act, useOn, combine, go, shot, shotFull, dismiss, openInv, setVerb, msg, sp };
+module.exports = { start, settle, act, useOn, combine, go, shot, shotFull, dismiss, openInv, setVerb, msg, sp };
 module.exports.hint = async (g, label) => {
   await module.exports.dismiss(g);
   await g.p.click('button:text-is("?")');
