@@ -331,10 +331,12 @@ Players interact with the world through four verbs, inspired by King's Quest V:
 
 | Verb | Cursor | What It Does | Default Fail Message |
 |------|--------|-------------|---------------------|
-| **Look** | `?` | Examine visually. Always safe. No noise. | Shows the object's `description` field |
-| **Move** | `+` | Navigate between rooms. Click nav hotspots. | "You can't go that way." |
-| **Hand** | `👆` | Physical manipulation — push, pull, open, take, touch. | "You can't do anything useful with {name} right now." |
-| **Talk** | `T` | Speak, listen, read aloud. | "Talking to {name} doesn't accomplish anything." |
+| **Look** | eye | Examine visually. Always safe. No noise. | Shows the object's `description` field |
+| **Move** | footprints | Navigate between rooms. Click nav hotspots. | "You can't go that way." |
+| **Hand** | hand | Physical manipulation — push, pull, open, take, touch. | "You can't do anything useful with {name} right now." |
+| **Talk** | speech bubble | Speak, listen, read aloud. | "Talking to {name} doesn't accomplish anything." |
+
+There are no verb buttons. The player **right-clicks** the game view to cycle look → move → hand → talk (the default is look), and the cursor changes to show the active verb. The fail messages above are one of several random variants per verb.
 
 ### Using Inventory Items
 
@@ -525,10 +527,16 @@ Views are the screens/locations in your game. A room, a close-up of a desk, a zo
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | Yes | Unique identifier. Referenced by `set_view` effects. |
-| `background_key` | string | Yes | Key for the background asset. |
+| `name` | string | No | Display name, shown in gold at the bottom-right of the viewport. |
+| `background_key` | string | Yes (schema) | Key for the background asset. The renderer only uses `background_file`. |
 | `background_file` | string | No | Relative path to background image. Without this, objects render as colored rectangles (prototyping mode). |
+| `background_fit` | `"cover"` \| `"contain"` | No | How the image fills the 960×540 viewport (default `cover`). |
 | `objects` | string[] | Yes | IDs of objects visible in this view. An object can appear in multiple views. |
-| `back_label` | string | No | If set, a "back" button appears with this label. Used for close-up/detail views. |
+| `back_label` | string | No | If set, a "◀ label" button appears at the top-left and returns to the previous view. Used for close-up/detail views. |
+| `character` | object | No | Where the player sprite stands in this view (see [Creating Sprite Sheets](#creating-sprite-sheets)). Omit it on close-ups. |
+| `hints` | array | No | Progressive hints (see [View Hints](#view-hints)). |
+| `ambient_audio` | string \| string[] | No | Overrides the scenario's ambient track(s) for this view; `[]` is silence (see [Audio](#audio)). |
+| `ambient_lighting` | object | No | Pulsing light glows drawn over the background (see [Ambient Lighting](#ambient-lighting)). |
 
 ### Close-up Views
 
@@ -725,7 +733,8 @@ Conditions gate when interactions, events, and phases fire. A `when` array is AN
 | `item_count` | `count` | Player has >= count items | `{"type": "item_count", "count": 3}` |
 | `is_hiding` | — | Player is hiding | `{"type": "is_hiding"}` |
 | `not_hiding` | — | Player is NOT hiding | `{"type": "not_hiding"}` |
-| `killer_is` | `state` | Killer AI is in named state | `{"type": "killer_is", "state": "searching"}` |
+| `widget_solved` | `widget` | A puzzle widget has been solved | `{"type": "widget_solved", "widget": "vault_lock"}` |
+| `killer_is` | `state` | Killer AI is in named state (planned: always false for now) | `{"type": "killer_is", "state": "searching"}` |
 
 ### Composite Conditions
 
@@ -787,7 +796,11 @@ Effects change the game world. They execute in order within a `then` array.
 | Type | Fields | What It Does |
 |------|--------|-------------|
 | `set_animation` | `object`, `value` | Change or clear an object's `visual.animation`. Empty string `""` stops glimmer/pulse effects. Use to suppress attention-drawing animations after an object has been fully interacted with. |
-| `show_closeup` | `image` | Show a framed close-up image in a dismissable overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks anywhere or presses Escape to dismiss. |
+| `show_closeup` | `image` | Show a framed close-up image in a dismissable overlay. Path relative to scenario folder (e.g. `"closeups/vent_map.webp"`). Player clicks anywhere or presses Escape to dismiss. For a close-up with clickable parts, make a sub-view with `back_label` instead (see [Close-up Views](#close-up-views)). |
+| `set_character` | `sprite_set`, `facing`, `x`, `y`, `frame`, `flip_h` (all optional) | Change the player sprite for the rest of the session, e.g. `{"type": "set_character", "sprite_set": "idle_helmet"}`. |
+| `show_dialogue` | `prompt`, `choices` | Open a branching dialogue. See [Dialogue Choices](#dialogue-choices). |
+| `open_widget` | `widget` | Open a puzzle widget overlay. See [Puzzle Widgets](#puzzle-widgets-keypads-implemented). |
+| `play_sound` | `sound` | Play a sound: a key of `setting.sounds` (e.g. `"discovery"`) or a path like `"audio/click.wav"`. |
 
 ### Advanced Effects
 
@@ -797,7 +810,6 @@ Effects change the game world. They execute in order within a `then` array.
 | `conditional_effect` | `when`, `then`, `else` | If conditions met, do `then`; otherwise do `else` |
 | `trigger_event` | `event` | Fire a named event (planned) |
 | `visual_cue` | `cue` | Visual effect: `"shake"`, `"flash"`, `"flicker"` (planned) |
-| `play_sound` | `sound` | Play a sound effect (planned) |
 
 ### Examples
 
@@ -979,7 +991,7 @@ By convention, nav object IDs start with `nav_`. They use the `move` verb to tri
 
 ### Nav Object Styling
 
-Nav objects get a **blue hover border** (vs. gold for regular objects) and render at a higher z-index so they're always clickable, even when overlapping with regular objects.
+Nav objects render at a higher z-index so they're always clickable, even when overlapping with regular objects. Like all hotspots they are invisible in play; in debug mode they are outlined red (regular objects gold) and highlighted blue on hover.
 
 ### Bidirectional Navigation
 
@@ -1067,8 +1079,8 @@ Add subtle visual cues to draw the player's attention to important objects:
 
 | Animation | Effect | Best For |
 |-----------|--------|----------|
-| `"glimmer"` | Slow inset box-shadow shimmer every 6 seconds | Items that glint, reflections, glass, metal |
-| `"pulse"` | Gentle opacity pulse every 3 seconds | Screens, displays, lights, glowing objects |
+| `"glimmer"` | A small white star glint that flashes twice every 8 seconds | Items that glint, reflections, glass, metal |
+| `"pulse"` | A soft green glow dot at the center that brightens and fades every 4 seconds | Screens, displays, lights, glowing objects |
 
 ```json
 "visual": {
@@ -1078,30 +1090,39 @@ Add subtle visual cues to draw the player's attention to important objects:
 }
 ```
 
-Animations pause when the player hovers over the object so they don't interfere with the hover highlight.
+Animations pause when the player hovers over the object. They only show on plain hotspots, not on objects drawn with a `sprite`. Use the `set_animation` effect with `"value": ""` to switch one off once the player has dealt with the object.
 
-### Room Animations
+### Ambient Lighting
 
-Add a subtle ambient animation overlay to an entire view to give static backgrounds life:
-
-| Animation | Effect | Best For |
-|-----------|--------|----------|
-| `"flicker"` | Random light flicker (green-tinted) | Rooms with overhead lights, machinery, labs |
-| `"breathe"` | Slow pulsing radial glow (blue-tinted) | Organic rooms, crystal chambers, viewports |
-| `"scan"` | Horizontal scan line moving down the screen | Monitor rooms, surveillance, tech spaces |
-
-Add `room_animation` to any view definition:
+Give a static background life with soft, pulsing light glows drawn over it. Add `ambient_lighting` to any view:
 
 ```json
 {
   "id": "security_hub",
   "background_file": "backgrounds/security_hub.webp",
   "objects": ["console", "monitors"],
-  "room_animation": "scan"
+  "ambient_lighting": {
+    "flicker": true,
+    "lights": [
+      { "x": 0.35, "y": 0.3, "radius": 0.2, "color": [60, 180, 200], "pulse_speed": 0.7, "pulse_amount": 0.35, "alpha": 0.28, "phase": 0 },
+      { "x": 0.2, "y": 0.35, "radius": 0.15, "color": [200, 50, 40], "pulse_speed": 1.2, "pulse_amount": 0.5, "alpha": 0.2, "phase": 1.5 }
+    ]
+  }
 }
 ```
 
-The overlay is transparent and non-interactive — it sits between the background and hotspots.
+| Light field | Meaning |
+|-------------|---------|
+| `x`, `y` | Center, as a 0–1 fraction of the viewport width/height |
+| `radius` | Glow radius as a fraction of the viewport's larger side (0.1–0.3 is typical) |
+| `color` | `[r, g, b]` |
+| `alpha` | Base opacity (0.1–0.3 is subtle) |
+| `pulse_speed`, `pulse_amount` | Breathing speed (cycles per second) and depth (0–1). **Both required** — a missing one breaks the lighting canvas (the validator catches it) |
+| `phase` | Optional offset so lights don't pulse in sync |
+
+`"flicker": true` adds a faint shared flicker, good for failing overhead lights. Put lights on the painted light sources (screens, lamps, glowing growths). The canvas is non-interactive and sits between the background and hotspots.
+
+(Older scenarios use a `room_animation` field on views. It is no longer rendered; use `ambient_lighting`.)
 
 ---
 
@@ -1165,9 +1186,9 @@ Phases are story chapters that change the game's tone, ambient text, and (option
 ]
 ```
 
-The first phase with an empty `starts_when` is the initial phase. Phase transitions are checked after every interaction.
+The engine starts in the **first** phase in the array and runs its `on_enter` effects. While a phase is active, its `ambient_text` replaces the scenario's.
 
-Use the `advance_phase` effect to jump to a phase explicitly, or let the engine auto-transition when `starts_when` conditions are met.
+Move between phases with the `advance_phase` effect. (`starts_when` is part of the schema for automatic transitions, but the engine doesn't evaluate it yet, so trigger every transition explicitly with `advance_phase`.)
 
 ---
 
@@ -1249,6 +1270,54 @@ Design notes:
 - **After solving**, switch the object's interaction with a flag set in `on_solve`, or with the `widget_solved` condition.
 
 Full reference: [SCENARIO_SCHEMA.md → Puzzle Widgets](docs/SCENARIO_SCHEMA.md#puzzle-widgets). Dials, combination locks, toggle panels and sequence puzzles are specified there but not implemented yet.
+
+### Dialogue Choices
+
+The `show_dialogue` effect pauses play and shows a list of choices. Each choice has a `label`, optional `when` conditions (the choice is hidden unless they pass), and its own `then` effects:
+
+```json
+{ "type": "show_dialogue",
+  "prompt": "The creature watches you through the bars.",
+  "choices": [
+    { "label": "\"We're both prisoners here.\"",
+      "then": [ { "type": "set_flag", "flag": "prisoner_bond", "value": "empathy" }, { "type": "message", "text": "It nods slowly." } ] },
+    { "label": "\"Do you know a way out?\"",
+      "when": [ { "type": "flag_not", "flag": "asked_escape" } ],
+      "then": [ { "type": "set_flag", "flag": "asked_escape", "value": "true" }, { "type": "message", "text": "It points toward the vents." } ] },
+    { "label": "[Say nothing]", "then": [ { "type": "message", "text": "Silence says enough." } ] }
+  ] }
+```
+
+A choice can't be taken back, so check that every flag a choice sets (or fails to set) still leaves the game winnable. The soft-lock search explores every dialogue branch.
+
+### Character Sprite
+
+The player character is an optional root-level `character` block of named sprite sets, plus a `character` placement on each view where the player should appear:
+
+```json
+"character": {
+  "sprite_sets": {
+    "idle":    { "file": "sprites/hero_idle.png",    "columns": 12, "rows": 2, "frame_rate": 2, "directions": ["right", "down"] },
+    "walk":    { "file": "sprites/hero_walk.png",    "columns": 4,  "rows": 2, "frame_rate": 6, "directions": ["right", "down"] },
+    "standup": { "file": "sprites/hero_standup.png", "columns": 4,  "rows": 1, "frame_rate": 3, "directions": ["right"], "loop": false }
+  },
+  "frame_width": 300, "frame_height": 410, "scale": 0.35,
+  "shadow": { "width": 60, "height": 12, "opacity": 0.85, "offset_y": 2 }
+}
+```
+
+```json
+// On a view: the sprite's feet (bottom-center) in 960x720 space
+"character": { "x": 480, "y": 600, "facing": "right", "sprite_set": "idle" }
+```
+
+- Each row of a sheet is one direction, in the order of `directions`. With no `left` row, `"facing": "left"` mirrors the `right` row.
+- `frame_rate: 0` shows a static frame (pick it with `"frame": n` in the placement); `"loop": false` plays once and holds the last frame.
+- Leave `character` off close-up views; they show no player.
+- **Intro stand-up:** a set named exactly `standup` plays once during the opening fade-in, then the engine switches to the set named `idle`. Use those two names if you want this.
+- Change the sprite during play with `set_character` (The Harvest switches to `idle_helmet` when the player takes the emergency helmet).
+
+Making the frames (prompts, keying, sizing) is covered in [Creating Sprite Sheets](#creating-sprite-sheets) and [docs/ART_GUIDE.md](docs/ART_GUIDE.md).
 
 ### Killer AI *(Planned)*
 
@@ -1355,7 +1424,7 @@ node tools/softlock-search.mjs scenarios/my-scenario/scenario.json --goal "flag:
 #   goal forms: state:<obj>=<v> | state:<obj>!=<v> | flag:<f>=<v> | item:<id> | view:<prefix>
 ```
 
-Run both before you share a scenario. The validator takes a second. The search takes seconds for a small scenario and can take tens of minutes for a large one like The Harvest's Act 1.
+Run both before you share a scenario. The validator takes a second. The search takes seconds for a small scenario; The Harvest's Act 1 (about 27,000 states) takes around 20 seconds.
 
 ### In-Game Dev Panel (`?dev`)
 
@@ -1432,7 +1501,7 @@ Add `?debug` to the game URL to show hotspot outlines without the full dev panel
 http://localhost:5173/?debug
 ```
 
-Hotspots render with colored borders: blue for navigation objects, gold for interactive objects. This is the quickest way to verify your hitbox positions match the background art.
+Hotspots render with colored borders: red for navigation objects (`nav_*`), gold for interactive objects, and a blue or gold highlight on hover. This is the quickest way to verify your hitbox positions match the background art. The title bar's **Debug** button toggles the same view.
 
 ---
 
@@ -1458,7 +1527,7 @@ npm install      # First time only
 npm run dev      # Start dev server at http://localhost:5173
 ```
 
-Select your scenario from the list and play through. The dev server hot-reloads — edit your JSON, save, and the browser updates.
+Select your scenario from the list and play through (if the manifest lists only one scenario, it launches straight away, with no list). The dev server hot-reloads — edit your JSON, save, and the browser updates. Add `?view=<view_id>` to the URL to start in a specific view, or `?skipIntro` to skip the opening narration.
 
 ### Type-Check
 
@@ -1467,7 +1536,7 @@ cd client
 npx tsc -b
 ```
 
-This checks the engine code, not your JSON. JSON validation tooling is planned.
+This checks the engine code, not your JSON. For the JSON, use `tools/validate-scenario.mjs` and `tools/softlock-search.mjs` (see [Developer Tools](#developer-tools)).
 
 ### Common Issues
 

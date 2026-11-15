@@ -212,7 +212,7 @@ Note: sprite size is in **screen** pixels; positions are in the **960×720 JSON*
 
 Rules of thumb:
 
-- **Hand-held pickups:** 15–35px. Under ~15px nobody can click them; give them the `glimmer` animation so they're findable.
+- **Hand-held pickups:** 15–35px. Under ~15px nobody can click them. Note that `visual.animation` (`glimmer`) is only drawn on plain hotspots: an object with a `sprite` is rendered by `SpriteObject`, which ignores it, so a sprite pickup has to be findable by its own size and contrast.
 - **Scale with depth.** Objects at the back of the room are smaller than the same object near the camera. Match the painted furniture around them, not an absolute size.
 - **Readable beats realistic.** A pickup can be ~1.5× its "true" size if that's what it takes to read. The carcass hook is bigger than a forearm because it's a hook sized for the Choir, who are larger than the player.
 

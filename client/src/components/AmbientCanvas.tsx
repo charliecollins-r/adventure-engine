@@ -77,7 +77,6 @@ export function AmbientCanvas({ lighting, width, height }: AmbientCanvasProps) {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 1,
-        mixBlendMode: 'lighter',
       }}
     />
   );

@@ -12,6 +12,8 @@ interface SpriteObjectProps {
   scaleY: number;
   cursor: string;
   onClick: () => void;
+  /** Object ID, exposed as data-object-id for automated playtests. */
+  objectId?: string;
 }
 
 export function SpriteObject({
@@ -24,6 +26,7 @@ export function SpriteObject({
   scaleY,
   cursor,
   onClick,
+  objectId,
 }: SpriteObjectProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -93,7 +96,7 @@ export function SpriteObject({
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
-      <div data-object-hotspot style={style} onClick={handleClick} />
+      <div data-object-hotspot data-object-id={objectId} style={style} onClick={handleClick} />
     </>
   );
 }

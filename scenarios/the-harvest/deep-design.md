@@ -1,8 +1,10 @@
 # The Harvest — Deep Design Document
 
-## Companion to [the-harvest.md](./the-harvest.md)
+## Companion to [design.md](./design.md)
 
 This document contains the detailed game design: branching decision architecture, per-view interaction breakdowns, item chains, puzzle playability evaluations, and pacing analysis. The parent document covers story, image prompts, and structural overview.
+
+> **Status.** This is design intent, not a description of the shipped game. Act 1 was built differently from the breakdown below (no Chen storyline, Pod Cluster or security sequence puzzle; instead a grappling-line gap, a glyph keypad on the lab terminal, a single security override, and a vent maze). For Act 1 as it plays, see [`act1-level-design.md`](act1-level-design.md), [`vent-maze-design.md`](vent-maze-design.md) and [`walkthrough.md`](walkthrough.md). Acts 2–5 exist in `scenario.json` as data only (no art, not yet playtested).
 
 ---
 

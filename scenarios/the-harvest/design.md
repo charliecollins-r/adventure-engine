@@ -26,6 +26,8 @@ Five acts. Fifty views. Thirty patterns. Multiple endings — from selfish escap
 | 4 | **The Dead City** | Planet — Civilization ruins interior | 10 | Echoes + The Watcher | ~120 min |
 | 5 | **The Nexus** | Planet core — Convergence harvesting heart | 10 | All + The Convergence | ~120 min |
 
+> **As built** (`scenario.json`): Acts 2–5 have 10 views each as designed. Act 1 grew to 30 views: 9 rooms, 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and an 18-screen vent maze. Only Act 1 is playable and has art. The JSON has 6 win conditions; the hidden 7th ending (Resonance, in `deep-design.md`) is not in it yet. This document is the original design; for Act 1 as it actually plays, see [`act1-level-design.md`](act1-level-design.md), [`vent-maze-design.md`](vent-maze-design.md) and [`walkthrough.md`](walkthrough.md).
+
 ---
 
 ## Image Descriptions & Generation Prompts
@@ -719,6 +721,8 @@ Act 4: Fragment 4 (Library) ─────────┘    Gates ALL alien te
 ## Puzzle Breakdown
 
 ### Act 1 Puzzles
+
+> **As designed.** The shipped Act 1 differs: the pod starts open (you scavenge the wreckage); there is no lab door keypad and no security sequence puzzle; the one keypad is the **glyph keypad on the lab terminal**, whose code is painted on the specimen displays across the Stasis Hold walkway gap (crossed with a grappling line crafted from a restraint strap and a carcass hook); solving it arms the Emergency Override in the security console close-up, which unlocks the floor vent grate in the Containment Corridor; and the vents are a maze with a gas passage (helmet) and a fan (jam it with the surgical probe). See `walkthrough.md`.
 
 **1. Pod Escape (Gateway)**
 - Break the cracked pod glass from inside using your elbow

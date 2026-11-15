@@ -1,6 +1,12 @@
 # Spatial Movement & Click-to-Move Design
 
 > Extends SCENARIO_SCHEMA v1.0 with player avatar movement, distance-based interactions, walkable areas, screen transitions, animated characters, and maze/exploration mechanics.
+>
+> **Status: deferred, post-MVP. Nothing in this document is implemented.** It predates some things that now exist, so read it with these in mind:
+> - The engine already has a static player sprite: a root `character` block of named `sprite_sets` plus a per-view `character` placement (bottom-center, 960×720 space) and the `set_character` effect. See [SCENARIO_SCHEMA.md → Character Sprite](SCENARIO_SCHEMA.md#character-sprite). A spatial implementation should extend that rather than add the separate `player` block proposed below.
+> - Rendering is still React/CSS (sprite sheets via `background-position`), not Phaser.
+> - Authoring coordinates are 960×720 (rendered at 960×540), not the 1024×768 used in the diagrams here.
+> - Mazes already work in classic mode, as views that share backgrounds: see The Harvest's vent maze (`scenarios/the-harvest/vent-maze-design.md`).
 
 ---
 

@@ -7,7 +7,7 @@ Drop a scenario JSON, background art, and audio into a folder. The engine render
 <p align="center">
   <img src="docs/images/screenshot-harvest-gameplay.png" width="800" alt="Gameplay — The Harvest, Act 1: Stasis Hold" />
   <br />
-  <em>The Harvest — waking beside a shattered stasis pod aboard an alien harvester ship. Character sprites with directional shadows, animated cataloguer robot, immersive HUD overlay.</em>
+  <em>The Harvest — waking beside a shattered stasis pod aboard an alien harvester ship. Character sprites with directional shadows, animated cataloguer robot, minimal HUD.</em>
 </p>
 
 ---
@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` and play. The Harvest loads automatically — you wake in a stasis pod and start exploring.
+Open `http://localhost:5173` and play. The Harvest loads automatically — you wake in a stasis pod and start exploring. Right-click cycles the verb (look → move → hand → talk); click an inventory item, then a world object, to use it.
 
 ---
 
@@ -93,7 +93,10 @@ my-scenario/
   sprites/                   # Character and object sprite sheets (optional)
     walk.png
     npc_idle.png
-  audio/                     # Ambient audio tracks (optional)
+  items/                     # Inventory icons (optional)
+    rusty_key.png
+  ui/                        # Puzzle widget art, e.g. keypad keys (optional)
+  audio/                     # Ambient audio tracks and sound effects (optional)
     ambient_music.mp3
   design.md                  # Story notes, puzzle flow, image prompts (optional)
 ```
@@ -105,6 +108,8 @@ The `scenario.json` is the entire game. It defines:
 - **Items** — inventory objects that can be used on the world or combined with each other
 - **Flags** — key-value pairs tracking game progress
 - **Dialogue choices** — branching conversation trees with conditional branches
+- **Puzzle widgets** — keypads that open as an overlay, with their own solve/fail effects
+- **Character** — the player's sprite sets and where they stand in each view
 - **Win/Lose Conditions** — state checks that end the game
 - **Hints** — progressive per-view hints that guide stuck players
 
@@ -116,7 +121,7 @@ For the full authoring guide, see [**ADVENTURE_BUILDER.md**](ADVENTURE_BUILDER.m
 
 ## The Four Verbs
 
-Every interaction uses one of four verbs — inherited from the Sierra and LucasArts classics:
+Every interaction uses one of four verbs — inherited from the Sierra and LucasArts classics. There are no verb buttons: right-click cycles through them, and the cursor shows which one is active.
 
 | Verb | What It Does |
 |------|-------------|
@@ -125,7 +130,7 @@ Every interaction uses one of four verbs — inherited from the Sierra and Lucas
 | **Hand** | Touch, push, pull, open, close, take. All physical manipulation. |
 | **Talk** | Speak, listen, read aloud. The dialogue verb. |
 
-**Using inventory items**: Select an item from the inventory panel, then click a world object. The engine calls `use_item` internally — no separate "use" verb button needed. This matches the King's Quest V/VI flow where items are dragged onto the world.
+**Using inventory items**: Select an item from the inventory panel, then click a world object. The engine calls `use_item` internally — no separate "use" verb button needed. This matches the King's Quest V/VI flow where items are dragged onto the world. Select one item and click another to combine them.
 
 Every click produces feedback, even when nothing happens — KQ5-style messages like *"You can't do anything useful with that right now"* or *"Talking to the door doesn't accomplish anything."* The player always knows their click registered.
 
@@ -158,44 +163,46 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 
 **Character & NPC Systems** — Sierra-style sprite sheet characters with animated walk cycles and static poses, object sprites for animated world entities (pacing prisoners, spinning holograms, scanning robots), per-view character placement, dynamic sprite changes via effects, configurable directional shadows with per-view overrides.
 
-**Audio & Atmosphere** — Per-room ambient audio with automatic crossfading on navigation, layered ambient tracks, sound effects on item pickup and room transitions, JSON-driven ambient lighting with pulsing light sources.
+**Audio & Atmosphere** — Per-room ambient audio with automatic crossfading on navigation, layered ambient tracks, sound effects on item pickup and room transitions (plus named sounds via `play_sound`), JSON-driven ambient lighting with pulsing light sources.
 
-**Advanced Features** — AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), stealth system (hiding spots, noise tracking, detection), timed events, hotspot animations (glimmer, pulse), 14 condition types with composites (`any_of`, `all_of`), 20+ effect types.
+**Advanced Features** — Hiding spots and a noise meter, hotspot animations (glimmer, pulse), 15 working condition types (`killer_is` is a stub until the killer AI exists) plus the `any_of` / `all_of` composites, 25+ effect types. Specified in the schema but not built yet: the AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), timed events, and the non-keypad puzzle widgets.
 
 ---
 
 ## Included Scenarios
 
-15 scenario designs spanning genres from cozy kids adventures to psychological horror. 13 have complete JSON definitions ready to play:
+15 scenario designs spanning genres from cozy kids adventures to psychological horror. 13 have complete JSON definitions. The game currently ships with only The Harvest in `scenarios/manifest.json`; add a folder name there to put another scenario in the picker (or load its JSON with the upload button):
 
 | Scenario | Genre | Views | Difficulty |
 |----------|-------|-------|-----------|
 | [The Wizard's Apprentice](scenarios/the-wizards-apprentice/) | Kids / Cozy | 8 | Easy |
 | [The Lighthouse Keeper](scenarios/the-lighthouse-keeper/) | Atmospheric | 3 | Medium |
-| [The Last Signal](scenarios/the-last-signal/) | Sci-Fi | 3 | Medium |
-| [Pressure Point](scenarios/pressure-point/) | Thriller | 4 | Medium |
-| [The Seance Room](scenarios/the-seance-room/) | Gothic | 3 | Medium |
-| [The Memory Dealer](scenarios/the-memory-dealer/) | Sci-Fi Noir | 3 | Medium |
+| [The Last Signal](scenarios/the-last-signal/) | Sci-Fi | 3 | Hard |
+| [Pressure Point](scenarios/pressure-point/) | Thriller | 4 | Hard |
+| [The Seance Room](scenarios/the-seance-room/) | Gothic | 3 | Hard |
+| [The Memory Dealer](scenarios/the-memory-dealer/) | Sci-Fi Noir | 3 | Hard |
 | [The Abandoned Ward](scenarios/the-abandoned-ward/) | Medical Horror | 5 | Hard |
 | [The Defector's Gambit](scenarios/the-defectors-gambit/) | Cold War Espionage | 4 | Hard |
 | [The Taxidermist](scenarios/the-taxidermist/) | Southern Gothic | 4 | Hard |
 | [The Butcher's Debt](scenarios/the-butchers-debt/) | Horror | 4 | Hard |
 | [The Dollmaker's Workshop](scenarios/the-dollmakers-workshop/) | Psychological Horror | 5 | Hard |
 | [The Pharaoh's Architect](scenarios/the-pharaohs-architect/) | Historical | 24 | Hard |
-| **[The Harvest](scenarios/the-harvest/)** | **Sci-Fi Epic** | **49** | **Epic** |
+| **[The Harvest](scenarios/the-harvest/)** | **Sci-Fi Epic** | **70** | **Nightmare** |
 | [Blackwood Manor](scenarios/blackwood-manor/) | Gothic Mystery | -- | *Design only* |
 | [The Clockmaker's Secret](scenarios/the-clockmakers-secret/) | Steampunk | -- | *Design only* |
 
 ### The Harvest (Flagship)
 
-A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
+A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6 are in the JSON so far) including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
 
 **Act 1 is fully playable** with:
-- **9 rooms + 1 closeup** — Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay, plus an interactive cataloguer closeup sub-view
-- **11 collectible items** — pod glass shard, stasis fluid vial, specimen tag, surgical probe, containment key card, nutrient paste tube, severed neural tendril, personal log crystal, ventilation map, and more
-- **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot (static sprite), holographic display (spinning planets), shadow cat, vent cover grate
+- **30 views** — 9 rooms (Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay), 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and an 18-screen vent maze (5 painted landmark rooms and 13 duct cells, with a readable map)
+- **17 items** — 16 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft
+- **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot, holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
-- **Puzzle chains** — cataloguer code → lab sequence → security override → vent access → airlock
+- **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → vent maze → airlock
+- **Glyph keypad** — an overlay puzzle widget with alien-glyph keys; wrong guesses make noise
+- **Verified solvable** — the soft-lock search finds no unwinnable state in Act 1
 - **Per-room ambient audio** — distinct soundscapes per room (lab ambience, industrial ventilation, eerie harmonics, dead silence in the morgue)
 - **Directional character shadows** — skewed to match each room's lighting
 - **Complete walkthrough** at [`scenarios/the-harvest/walkthrough.md`](scenarios/the-harvest/walkthrough.md)
@@ -212,8 +219,8 @@ A full-length adventure spanning **5 acts, 49 views, and 7 possible endings** in
 
 ## Engine Features
 
-### Immersive HUD
-Messages overlay on the game viewport with a semi-transparent backdrop instead of a dedicated panel. Inventory is a collapsible drawer with a toggle tab. Progressive hints float at the corner. Room names appear subtly in gold text. No UI elements below the viewport — full immersion.
+### Minimal HUD
+No verb buttons: right-click cycles the verb and the cursor changes to match. Under the viewport sit a collapsible "Items" inventory tray (it opens on pickup) and the message line, which shows ambient text when idle. The hint "?" floats at the corner of the viewport and room names appear subtly in gold text.
 
 ### Character Sprites
 Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes via effects. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art. Configurable directional shadows with offset, opacity, size, and skew — global defaults with per-view overrides.
@@ -222,7 +229,7 @@ Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static p
 Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored with JSON-configurable shadows matching the character shadow system.
 
 ### Closeup Overlays
-Detail images displayed in a dismissable framed overlay for examining objects up close. The cataloguer robot in The Harvest shows a three-tank specimen closeup with data plates revealing the section code needed for the processing lab keypad.
+Detail images displayed in a dismissable framed overlay for examining objects up close (The Harvest's ventilation map). For close-ups the player can click into, use a sub-view with a back button: the cataloguer robot in The Harvest opens a specimen close-up whose displays show the four-glyph code for the lab terminal keypad.
 
 ### Puzzle Widgets
 Keypads that open as an overlay from any object: text or image keys (The Harvest uses alien glyphs), auto-submit, in-widget feedback for wrong entries, noise for guessing, and solve and fail effects. All of it is configured in JSON via `puzzle_widgets` and the `open_widget` effect.
@@ -252,14 +259,14 @@ Built-in tools for scenario authors:
   <img src="docs/images/screenshot-dev-panel.png" width="400" alt="Dev Panel — Views tab" />
   <img src="docs/images/screenshot-dev-objects.png" width="400" alt="Dev Panel — Objects tab" />
   <br />
-  <em>Dev Panel: Views tab (50 views with metadata) and Objects tab (hotspot inspector with debug overlays)</em>
+  <em>Dev Panel: Views tab (every view with metadata) and Objects tab (hotspot inspector with debug overlays)</em>
 </p>
 
 <p align="center">
   <img src="docs/images/screenshot-dev-sprites.png" width="400" alt="Dev Panel — Sprites browser" />
   <img src="docs/images/screenshot-editor-overview.png" width="400" alt="Visual Editor" />
   <br />
-  <em>Sprites browser (animated previews of all 8 sprite sheets) and Visual Editor (drag hotspots, position sprites, export JSON)</em>
+  <em>Sprites browser (animated previews of every sprite sheet) and Visual Editor (drag hotspots, position sprites, export JSON)</em>
 </p>
 
 ---
@@ -268,7 +275,7 @@ Built-in tools for scenario authors:
 
 | Layer | Technology | Notes |
 |-------|-----------|-------|
-| Frontend | React 19 + TypeScript + Vite 8 | Pure React rendering (no canvas) |
+| Frontend | React 19 + TypeScript + Vite 6 | React DOM rendering (a canvas only for ambient lighting) |
 | Engine | TypeScript `ScenarioEngine` | Pure state machine — no rendering, no side effects |
 | Rendering | React components + CSS positioning | Objects as positioned divs on painted backgrounds |
 | Backend | Spring Boot 3.3.5 + Java 21 + Maven | Future: validation, tooling, save sync |
@@ -314,6 +321,8 @@ The player character is a bearded human in a green tunic, rendered as a pixel-ar
 | [**docs/SCENARIO_SCHEMA.md**](docs/SCENARIO_SCHEMA.md) | Complete JSON schema reference (1700+ lines, 30 design patterns) |
 | [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) | ScenarioEngine class walkthrough, condition/effect system, rendering pipeline |
 | [**docs/ART_GUIDE.md**](docs/ART_GUIDE.md) | Generating, processing, sizing and placing art: prompts, chroma key, icons, verification |
+| [**docs/HOTSPOT_POSITIONING_GUIDE.md**](docs/HOTSPOT_POSITIONING_GUIDE.md) | Converting image pixels to hotspot coordinates, with worked examples |
+| [**docs/SPATIAL_MOVEMENT_DESIGN.md**](docs/SPATIAL_MOVEMENT_DESIGN.md) | Deferred design for click-to-move and walkable areas |
 | [**CLAUDE.md**](CLAUDE.md) | Project context and conventions for AI agents contributing to this repo |
 
 ---
@@ -328,15 +337,20 @@ adventure-engine/
 |       +-- engine/                   ScenarioEngine — pure TypeScript state machine
 |       |   +-- types.ts              TypeScript types matching the schema
 |       |   +-- ScenarioEngine.ts     Core: load JSON, manage state, resolve interactions
+|       |   +-- assetResolver.ts      One place that builds every asset URL
 |       +-- components/               React UI components
+|           +-- ScenarioLoader.tsx    Reads scenarios/manifest.json, picker + upload
 |           +-- ScenarioPlayer.tsx    Main game orchestrator
-|           +-- GameView.tsx          Background + hotspot rendering + animations
+|           +-- GameView.tsx          Background + hotspot rendering + verb cursors
 |           +-- CharacterSprite.tsx   Sierra-style sprite sheet character renderer
 |           +-- SpriteObject.tsx      Animated sprite sheets on world objects
+|           +-- AmbientCanvas.tsx     Pulsing ambient lighting
 |           +-- DialogueOverlay.tsx   Branching conversation choice modal
+|           +-- KeypadWidget.tsx      Keypad puzzle widget overlay
+|           +-- CloseupOverlay.tsx    Detail image overlay
+|           +-- InventoryPanel.tsx    Item display and selection (+ ItemIcon.tsx)
+|           +-- IntroSequence.tsx     Opening narration (+ EyeOpenTransition.tsx)
 |           +-- DevPanel.tsx          In-game developer tools panel (?dev)
-|           +-- VerbBar.tsx           Verb selection (look, move, hand, talk)
-|           +-- InventoryPanel.tsx    Item display and selection
 |           +-- NoiseIndicator.tsx    Noise level meter
 |   +-- public/
 |       +-- editor.html              Standalone visual hotspot editor
@@ -345,21 +359,26 @@ adventure-engine/
 |   +-- src/main/java/com/kq/        Future: validation, tooling, save sync
 |
 +-- scenarios/                        ALL scenario content (self-contained packages)
+|   +-- manifest.json                 Scenario IDs shown in the game (currently the-harvest)
 |   +-- the-lighthouse-keeper/        Each scenario is a self-contained folder
 |   |   +-- scenario.json             The scenario definition
 |   |   +-- design.md                 Design document (story, prompts, patterns)
-|   |   +-- backgrounds/              Background images for this scenario
-|   |   +-- audio/                    Ambient audio tracks (optional)
-|   |   +-- items/                    Item icon images (optional)
-|   +-- the-harvest/                  Flagship: 5 acts, 49 views, 7 endings
+|   +-- the-harvest/                  Flagship: 5 acts, 70 views, 7 designed endings
+|   |   +-- backgrounds/ closeups/ sprites/ items/ ui/ audio/   Art and sound
+|   |   +-- scripts/                  Build scripts (vent maze, map, glyphs, idle sheet, close-up)
+|   |   +-- walkthrough.md            Act 1 walkthrough
 |   +-- ... (15 scenarios total)
 |
 +-- docs/                             Engine-level documentation
 |   +-- ARCHITECTURE.md               Engine internals deep dive
 |   +-- ART_GUIDE.md                  Art prompts, chroma key, sizing, placement, verification
+|   +-- HOTSPOT_POSITIONING_GUIDE.md  Image pixels → hotspot coordinates
 |   +-- SCENARIO_SCHEMA.md            THE schema spec (1700+ lines, 30 design patterns)
 |   +-- SPATIAL_MOVEMENT_DESIGN.md    Future: click-to-move system
 |   +-- images/                       Screenshots and diagrams
+|
++-- tools/                            Node scripts: validator, soft-lock search, hotspot preview,
+|                                     chroma-key sprite processing, sprite splicing, voiceover
 |
 +-- ADVENTURE_BUILDER.md              Third-party developer guide
 +-- TECHNICAL_DEEP_DIVE.md            Engine architecture reference
@@ -374,7 +393,7 @@ adventure-engine/
 - [x] Scenario schema specification (30 design patterns, 4 verbs, condition/effect system)
 - [x] 13 complete scenario JSONs across genres
 - [x] Flagship scenario deep design (The Harvest — 5 acts, 7 endings)
-- [x] Background art for Act 1 of The Harvest (11 views at 1920x1080)
+- [x] Background art for Act 1 of The Harvest (19 painted backgrounds + 3 close-ups)
 - [x] ScenarioEngine — pure TypeScript state machine with all condition/effect types
 - [x] Scenario loader and player UI
 - [x] Background image rendering with object hotspots
@@ -386,17 +405,20 @@ adventure-engine/
 - [x] Object sprite system (animated world entities)
 - [x] Branching dialogue choice system
 - [x] Progressive per-room hint system
-- [x] Immersive HUD (overlay messages, collapsible inventory, ambient text)
+- [x] Minimal HUD (cursor verbs, collapsible inventory, ambient text)
 - [x] Room name labels in viewport
 - [x] Back navigation for closeup views
-- [x] Act 1 of The Harvest fully solvable (10 views, 11 items, walkthrough)
+- [x] Act 1 of The Harvest fully solvable (30 views, 17 items, walkthrough)
 - [x] Per-room ambient audio with crossfading
 - [x] Sprite shadow system (directional shadows with per-view overrides)
 - [x] Visual editor with shadow sliders and sprite positioning
 - [x] Voiceover narration tooling (ElevenLabs TTS batch generator)
-- [ ] Item icon images in inventory panel
+- [x] Item icon images in inventory panel
+- [x] Keypad puzzle widget (overlay, image keys)
+- [x] Scenario validator and soft-lock search (Node tools)
+- [x] Vent maze: KQ-style labyrinth with a generated map
 - [ ] Events system (timed/conditional narrative beats)
-- [ ] Puzzle widget UI components
+- [ ] Remaining puzzle widgets (dials, combination locks, toggles, sequences)
 - [ ] Killer AI state machine
 - [ ] Scenario validation tooling (Spring Boot)
 - [ ] Spatial movement system (click-to-move, walkable areas)

@@ -794,7 +794,7 @@
         }
       ],
       "character": {
-        "x": 478,
+        "x": 330,
         "y": 563,
         "facing": "right",
         "sprite_set": "idle",
@@ -1259,7 +1259,7 @@
         "nav_act1_vent_junction_to_act1_ventilation_shaft"
       ],
       "character": {
-        "x": 480,
+        "x": 640,
         "y": 560,
         "facing": "up",
         "sprite_set": "idle",
@@ -3009,7 +3009,7 @@
       "room_animation": "breathe",
       "hints": [
         {
-          "text": "An airlock bay. Your ship might have been docked here. Look around for supplies and a way to open the outer doors.",
+          "text": "An airlock bay. Your ship might have been docked here. Look around: the clamps, the viewport, the override panel.",
           "when": []
         },
         {
@@ -3064,6 +3064,16 @@
               "type": "object_state",
               "object": "airlock_override_panel",
               "state": "locked"
+            }
+          ]
+        },
+        {
+          "text": "The override panel is open. You've escaped the containment deck: this is as far as Act 1 goes.",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "airlock_override_panel",
+              "state": "open"
             }
           ]
         }
@@ -8046,7 +8056,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A length of neural tendril, severed from something. The cut end still pulses faintly with residual bio-electricity. This one is severed — torn during whatever struggle damaged the security hub. The cut end still pulses faintly with residual bio-electricity. It's gross. It might also be useful."
+              "text": "A length of neural tendril, torn loose during whatever struggle damaged the security hub. The cut end still pulses faintly with residual bio-electricity. It's gross. It might also be useful."
             }
           ]
         },
@@ -9414,8 +9424,8 @@
       "name": "Holographic Planet Display",
       "description": "Holographic projections of cataloged worlds drifting slowly above the archive, most marked in red.",
       "position": {
-        "x": 335,
-        "y": 0
+        "x": 521,
+        "y": 335
       },
       "size": {
         "width": 383,
@@ -9433,7 +9443,7 @@
         "columns": 4,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 1.19
+        "scale": 0.4
       },
       "initial_state": "default",
       "initially_visible": true,
@@ -9621,7 +9631,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The docking clamps are open, still showing the outline of your ship's hull in wear patterns. The docking clamps are open, still showing the outline of a ship's hull in wear patterns. Something about the shape tugs at your memory — your ship? A name surfaces: Outrider. Your ship. Your way out. Jettisoned. Probably automated: the Choir don't want escape vehicles lying around for specimens to find. Your ship is gone. You're not leaving this way."
+              "text": "The docking clamps are open, still showing the outline of a ship's hull in wear patterns. Something about the shape tugs at your memory — your ship? A name surfaces: Outrider. Your ship. Your way out. Jettisoned. Probably automated: the Choir don't want escape vehicles lying around for specimens to find. Your ship is gone. You're not leaving this way."
             },
             {
               "type": "play_sound",
@@ -29744,106 +29754,6 @@
           "amount": 8
         }
       ]
-    },
-    {
-      "id": "security_console_hack",
-      "widget_type": "sequence_puzzle",
-      "position": {
-        "x": 500,
-        "y": 280
-      },
-      "size": {
-        "width": 200,
-        "height": 120
-      },
-      "view": "act1_security_hub",
-      "initially_visible": true,
-      "config": {
-        "steps": [
-          {
-            "id": "bio_alpha",
-            "label": "Alpha Node",
-            "position": {
-              "x": 20,
-              "y": 20
-            }
-          },
-          {
-            "id": "bio_beta",
-            "label": "Beta Node",
-            "position": {
-              "x": 80,
-              "y": 20
-            }
-          },
-          {
-            "id": "bio_gamma",
-            "label": "Gamma Node",
-            "position": {
-              "x": 140,
-              "y": 20
-            }
-          },
-          {
-            "id": "bio_delta",
-            "label": "Delta Node",
-            "position": {
-              "x": 50,
-              "y": 70
-            }
-          },
-          {
-            "id": "bio_epsilon",
-            "label": "Epsilon Node",
-            "position": {
-              "x": 110,
-              "y": 70
-            }
-          }
-        ],
-        "solution_order": [
-          "bio_gamma",
-          "bio_alpha",
-          "bio_epsilon",
-          "bio_delta",
-          "bio_beta"
-        ],
-        "reset_on_error": true,
-        "correct_step_message": "The node pulses in acknowledgment.",
-        "wrong_step_message": "The sequence resets with an irritated buzz.",
-        "wrong_step_noise": 8
-      },
-      "on_solve": [
-        {
-          "type": "set_flag",
-          "flag": "security_hacked",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "containment_locks_disabled",
-          "value": "true"
-        },
-        {
-          "type": "message",
-          "text": "The console flares to life. Surveillance feeds flicker across every screen — the ship is enormous. A schematic appears: deck layouts, containment sections, operational levels. You memorize what you can. The containment locks disengage with a distant clunk."
-        },
-        {
-          "type": "play_sound",
-          "sound": "system_unlock"
-        }
-      ],
-      "on_fail": [
-        {
-          "type": "add_noise",
-          "amount": 8
-        },
-        {
-          "type": "message",
-          "text": "Wrong sequence. The console buzzes and resets."
-        }
-      ],
-      "noise_per_interaction": 3
     },
     {
       "id": "bridge_access_lock",

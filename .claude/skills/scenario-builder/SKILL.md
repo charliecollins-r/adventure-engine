@@ -36,8 +36,9 @@ scenarios/<scenario-id>/
 ├── audio/                 # Ambient audio + sound effects
 │   ├── ambient_rain.mp3   #   MP3/WAV/OGG, loops automatically
 │   └── door_open.wav
-└── items/                 # Inventory item icons
-    └── rusty_key.png
+├── items/                 # Inventory item icons
+│   └── rusty_key.png
+└── ui/                    # Puzzle widget art (e.g. keypad key images)
 ```
 
 The folder name IS the scenario ID. Use kebab-case: `the-haunted-manor`, `escape-from-mars`.
@@ -192,7 +193,7 @@ Frames are laid out in a grid: columns = frames per animation, rows = directions
 - All sprite_sets for one character must share the same frame_width/frame_height
 - Left-facing is handled via CSS `scaleX(-1)` flip — only generate right-facing frames
 - Static sprites (idle poses) use `frame_rate: 0`
-- For subtle idle animation, use 2 frames at `frame_rate: 1` (e.g., slight breathing motion)
+- For subtle idle animation, use a few frames at a low rate (The Harvest's idle is 12 frames at 2fps, mostly the base pose with a breath and a glance; see `docs/ART_GUIDE.md` → "Idle animations for the player character")
 
 ### Idle Breathing Animation Trick
 
@@ -209,7 +210,7 @@ convert character_frame.png -gravity south -chop 0x3 -gravity north -splice 0x3 
 node tools/splice-sprites.mjs frame1.png frame2.png --cols 2 --output character_idle.png
 ```
 
-This creates barely perceptible vertical oscillation at 1fps — enough to feel alive without looking twitchy.
+This creates barely perceptible vertical oscillation at 1fps — enough to feel alive without looking twitchy. For a better result (head and shoulders lift, torso stretches, original pixels kept), see `scenarios/the-harvest/scripts/build_player_idle.py`.
 
 ### Splicing Separate Frames Into a Sheet
 
@@ -230,9 +231,9 @@ convert right_row.png down_row.png -append full_sheet.png
   "sprite_sets": {
     "idle": {
       "file": "sprites/character_idle.png",
-      "columns": 2,
+      "columns": 12,
       "rows": 2,
-      "frame_rate": 1,
+      "frame_rate": 2,
       "directions": ["right", "down"]
     },
     "walk": {
@@ -241,19 +242,31 @@ convert right_row.png down_row.png -append full_sheet.png
       "rows": 2,
       "frame_rate": 6,
       "directions": ["right", "down"]
+    },
+    "standup": {
+      "file": "sprites/character_standup.png",
+      "columns": 4,
+      "rows": 1,
+      "frame_rate": 3,
+      "directions": ["right"],
+      "loop": false
     }
   },
   "frame_width": 300,
-  "frame_height": 447,
+  "frame_height": 410,
   "scale": 0.35,
   "shadow": {
-    "width": 55,
-    "height": 10,
-    "opacity": 0.55,
-    "offset_y": -2
+    "width": 60,
+    "height": 12,
+    "opacity": 0.85,
+    "offset_y": 2
   }
 }
 ```
+
+(These are The Harvest's real values; it also has `idle_helmet` and `walk_helmet` sets that a `set_character` effect switches to.)
+
+**Sprite set names that mean something:** if a set is named exactly `standup`, the game plays it once (`"loop": false` holds the last frame) during the opening fade-in and then switches to the set named `idle`. Name them that way if you want the intro stand-up; any other names are free.
 
 **Character shadow** renders as a radial-gradient ellipse beneath the sprite's feet. All fields optional — defaults: width = 60% of render width, height = 6px, opacity = 0.6, color = `rgba(0,0,0,0.5)`.
 
@@ -311,7 +324,7 @@ The complete JSON reference is in `docs/SCENARIO_SCHEMA.md` (1700+ lines). Here 
 }
 ```
 
-Only `schema_version`, `metadata`, `setting`, `views`, `flags`, `items`, `combinations`, and `objects` are required. Everything else is optional.
+Only `schema_version`, `metadata`, `setting`, `views`, `flags`, `items`, and `objects` are required. Everything else is optional. (The top-level `hints` array is the timed form from the schema and isn't read by the engine; put hints on views.)
 
 ### Metadata
 
@@ -357,7 +370,7 @@ The `id` MUST match the folder name.
 
 - `ambient_audio` can be a string (single track) or array (layered tracks that play simultaneously)
 - `intro_text` array = multi-screen intro the player clicks through before gameplay starts
-- `sounds` paths are relative to the scenario folder
+- `sounds` paths are relative to the scenario folder. `room_transition`, `item_pickup` and `intro_voice` play automatically; any other key (e.g. `"discovery"`) can be played with `{ "type": "play_sound", "sound": "discovery" }`
 
 ### Views
 
@@ -388,7 +401,7 @@ Views are screens/locations. Each one has a background and a list of which objec
 ```
 
 - `name`: displayed as a subtle room label at bottom-right of viewport
-- `back_label`: shows a "Back to X" button at top-left (use for closeup sub-views)
+- `back_label`: shows a "◀ {back_label}" button at top-left that returns to the previous view (use for closeup sub-views)
 - `hints`: per-view progressive hints — engine shows the LAST matching hint (most specific first = least helpful, most specific last = most helpful)
 - An object can appear in multiple views (e.g., the same door seen from both sides)
 
@@ -413,8 +426,8 @@ Objects are clickable hotspots. They have a position, size, visual, state, and i
 ```
 
 - `position`: top-left corner in 960×720 coordinate space
-- `visual.color`: hover highlight color (semi-transparent)
-- `visual.animation`: `"glimmer"` or `"pulse"` — CSS animation to draw player attention
+- `visual.color`: fill color in prototyping mode (no background image); over painted art hotspots are invisible
+- `visual.animation`: `"glimmer"` or `"pulse"` — CSS animation to draw player attention (plain hotspots only; not drawn on objects with a `sprite`)
 - `initially_visible: false` = hidden until a `show_object` effect reveals it
 - Objects referenced by a view's `objects` array are rendered; unreferenced objects exist but are invisible
 
@@ -427,6 +440,8 @@ Objects are clickable hotspots. They have a position, size, visual, state, and i
 | Hand | Touch, push, pull, open, take. All physical interaction. | `"hand"` |
 | Talk | Speak, listen, read aloud. | `"talk"` |
 | Use Item | Implicit — player selects inventory item, clicks object. | `"use_item"` (with `"item"` field) |
+
+There are no verb buttons: the player right-clicks to cycle look → move → hand → talk. `hand` also falls back to legacy `"take"` interactions.
 
 ### Interactions
 
@@ -502,7 +517,7 @@ Navigation between rooms uses `move` verb + `set_view` effect:
 }
 ```
 
-Navigation objects get blue hover borders in the UI (regular objects get gold). Use `"label": "→ Kitchen"` with arrow for visual navigation cues.
+Navigation objects (IDs starting `nav_`) sit above regular objects so they stay clickable. Hotspots are invisible in play; in debug mode nav objects are outlined red (blue on hover) and regular objects gold. `visual.label` is the debug hover label, so `"→ Kitchen"` is a handy convention.
 
 ### Conditions Reference
 
@@ -520,6 +535,8 @@ Navigation objects get blue hover borders in the UI (regular objects get gold). 
 | `is_hiding` | — | Player is currently hiding |
 | `not_hiding` | — | Player is NOT hiding |
 | `item_count` | `count` | Player has >= this many items |
+| `not_in_view` | `view` | Player is NOT in this view |
+| `widget_solved` | `widget` | A puzzle widget has been solved |
 | `any_of` | `conditions[]` | At least ONE sub-condition is true (OR) |
 | `all_of` | `conditions[]` | ALL sub-conditions are true (AND) |
 
@@ -538,9 +555,10 @@ Navigation objects get blue hover borders in the UI (regular objects get gold). 
 | `set_noise` | `amount` | Set noise to exact value |
 | `show_object` | `object` | Make a hidden object visible |
 | `hide_object` | `object` | Hide a visible object |
-| `set_animation` | `object`, `state` | Set/clear animation on object. Pass empty string to clear. |
+| `set_animation` | `object`, `value` | Set/clear animation on object. Pass `"value": ""` to clear. |
 | `show_closeup` | `image` | Show detail image in overlay |
 | `show_dialogue` | `prompt`, `choices[]` | Show branching dialogue UI |
+| `open_widget` | `widget` | Open a puzzle widget overlay (keypad; see `docs/SCENARIO_SCHEMA.md` → Puzzle Widgets) |
 | `game_over` | `result` ("win"/"lose"), `reason` | End the game |
 | `advance_phase` | `phase` | Move to a new game phase |
 | `start_hiding` | — | Player starts hiding |
@@ -549,7 +567,7 @@ Navigation objects get blue hover borders in the UI (regular objects get gold). 
 | `set_character` | `sprite_set`, `facing`, `x`, `y`, `frame`, `flip_h` | Change character appearance/position |
 | `conditional_effect` | `when[]`, `then[]`, `else[]` | If conditions met → then effects, else → else effects |
 | `delay_then` | `seconds`, `effects[]` | Wait N seconds then apply effects |
-| `play_sound` | `sound` | Play a sound effect (path relative to scenario folder) |
+| `play_sound` | `sound` | Play a sound effect: a `setting.sounds` key, or a path relative to the scenario folder |
 
 ### Items
 
@@ -665,7 +683,7 @@ Choices with `when` conditions are hidden if conditions aren't met — the playe
 }
 ```
 
-Object sprites are bottom-center anchored at the object's position. The hotspot box (`position` + `size`) defines the clickable area independently from the sprite rendering.
+Object sprites are bottom-center anchored at the object's position, and the rendered sprite itself is the click target. `size` is only used by the editor for sprite objects (see `docs/ART_GUIDE.md` → Anchoring).
 
 ---
 
@@ -708,7 +726,7 @@ position.y + size.height ≤ 720
 1. Open the background image in a viewer and note pixel coordinates of each interactive element
 2. Apply the conversion formula
 3. Run the dev server (`cd client && npm run dev`)
-4. Enable debug mode (press `D` in-game) — shows colored hotspot outlines
+4. Enable debug mode (the **Debug** button in the title bar, or open `http://localhost:5173/?debug`; `?dev` adds the dev panel) — shows colored hotspot outlines. `node tools/preview-hotspots.mjs <scenario.json> <view_id>` draws the same boxes on a PNG without running the game
 5. Adjust positions until hotspots align with the painted art
 6. Navigation hotspots should cover the visible doorway/passage in the art
 
@@ -727,7 +745,7 @@ Add dynamic glow effects per view:
     "lights": [
       {
         "x": 0.5, "y": 0.3,
-        "radius": 200,
+        "radius": 0.2,
         "color": [0, 255, 100],
         "pulse_speed": 1.5,
         "pulse_amount": 0.3,
@@ -740,10 +758,13 @@ Add dynamic glow effects per view:
 ```
 
 - `x, y` are normalized (0-1), NOT 960×720 coordinates
+- `radius` is a fraction of the viewport's larger side (0.1–0.3 is typical)
 - `color` is [R, G, B] (0-255)
-- `pulse_speed`: oscillation frequency
-- `pulse_amount`: how much the radius varies
+- `pulse_speed`: oscillation frequency (cycles per second)
+- `pulse_amount`: how deep the brightness pulse is (0-1)
 - `alpha`: base opacity of the light overlay
+- `phase` (optional): offset so lights don't pulse in sync
+- `pulse_speed` and `pulse_amount` are required on every light: a missing one turns into NaN and breaks the lighting canvas (`tools/validate-scenario.mjs` flags it)
 
 ---
 
@@ -766,7 +787,7 @@ Add dynamic glow effects per view:
 ]
 ```
 
-The engine evaluates these every tick. When met, the game shows a win/lose screen with the `description`.
+The engine checks these after every interaction (and after each `delay_then` batch). When one is met, the game shows a win/lose screen with the `description`. Win conditions are checked first.
 
 ---
 
@@ -798,6 +819,8 @@ Phases divide the game into stages that change world behavior:
   }
 ]
 ```
+
+The engine starts in the first phase and shows each phase's `ambient_text` while it is active. It does **not** evaluate `starts_when` yet, so move between phases explicitly with `{ "type": "advance_phase", "phase": "escape" }`. `killer_overrides` are for the planned killer AI.
 
 ### The `set_character` Effect
 
@@ -861,21 +884,32 @@ npm install      # First time only
 npm run dev      # Start dev server at http://localhost:5173
 ```
 
-Select your scenario from the picker and play through. Hot-reload is active — edit JSON, save, refresh.
+Select your scenario from the picker and play through (with only one ID in the manifest it launches straight away). Hot-reload is active — edit JSON, save, refresh.
 
 ### Debug Mode
 
-Press **D** in-game to toggle debug mode:
+Click **Debug** in the title bar (or add `?debug` to the URL; `?dev` also opens the dev panel and skips the intro) to toggle debug mode:
 - Shows colored outlines on all hotspot boxes
 - Gold borders = regular objects
-- Blue borders = navigation objects
+- Red borders = navigation objects (blue on hover)
 - Essential for verifying hotspot alignment with background art
+
+`?view=<view_id>` starts the game in that view.
 
 ### Type Check
 
 ```bash
-cd client && npx tsc --noEmit
+cd client && npx tsc -b
 ```
+
+### Validate and Prove Solvable
+
+```bash
+node tools/validate-scenario.mjs scenarios/my-scenario/scenario.json
+node tools/softlock-search.mjs scenarios/my-scenario/scenario.json --goal "flag:escaped=true"
+```
+
+The validator catches duplicate keys, `use_item` without `item`, object IDs used as item IDs, dangling references, missing assets, malformed lights, off-screen pickups and mis-ordered hints. The soft-lock search explores every reachable state with the real engine and reports any state from which the goal can't be reached.
 
 ### Common Mistakes
 
@@ -1107,6 +1141,7 @@ Before registering, verify:
 - [ ] At least one `game_over` with `"result": "win"` exists (or `win_conditions`)
 - [ ] Every object has at least a `look` interaction
 - [ ] Scenario ID added to `scenarios/manifest.json`
+- [ ] `tools/validate-scenario.mjs` reports 0 errors and `tools/softlock-search.mjs` reports 0 soft-locked states
 - [ ] Design doc with image prompts exists at `design.md`
 
 ---
@@ -1116,6 +1151,6 @@ Before registering, verify:
 - **Full JSON Schema**: `docs/SCENARIO_SCHEMA.md` (1700+ lines — every field documented)
 - **Architecture**: `docs/ARCHITECTURE.md` (engine internals, data flow diagrams)
 - **Builder Guide**: `ADVENTURE_BUILDER.md` (third-party developer reference)
-- **Example Scenario**: `scenarios/the-harvest/` (flagship — 49 views, full sprites, ambient audio)
+- **Example Scenario**: `scenarios/the-harvest/` (flagship — 70 views, 30 of them in Act 1; full sprites, ambient audio, keypad widget, vent maze)
 - **Simple Example**: `scenarios/the-lighthouse-keeper/` (3 views, straightforward)
 - **Sprite Splicing Tool**: `node tools/splice-sprites.mjs` (combine frames into sheets)

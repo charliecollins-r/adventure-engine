@@ -14,7 +14,7 @@ Technical reference for developers who want to understand, extend, or build on t
 - [Effect System](#effect-system)
 - [Interaction Resolution](#interaction-resolution)
 - [View Navigation](#view-navigation)
-- [The Five Verbs](#the-five-verbs)
+- [The Four Verbs](#the-four-verbs)
 - [The React Layer](#the-react-layer)
 - [Coordinate System](#coordinate-system)
 - [Scenario JSON Format](#scenario-json-format)
@@ -45,7 +45,7 @@ This separation means the engine can be tested without a browser, scenarios can 
 
 ## The ScenarioEngine
 
-`ScenarioEngine` (`client/src/engine/ScenarioEngine.ts`) is the heart of the system — a single TypeScript class (~580 lines) with no rendering logic, no DOM access, and no side effects beyond internal state mutation (plus `setTimeout` for `delay_then`).
+`ScenarioEngine` (`client/src/engine/ScenarioEngine.ts`) is the heart of the system — a single TypeScript class (~880 lines) with no rendering logic, no DOM access, and no side effects beyond internal state mutation (plus `setTimeout` for `delay_then`).
 
 ### Construction and Initialization
 
@@ -113,6 +113,10 @@ All state is exposed through read-only getter methods. The engine never hands ou
 | `getUsableItems(objectId)` | Find which inventory items have valid `use_item` interactions on this object |
 | `dismissMessages()` | Clear the current message queue |
 | `decayNoise(amount)` | Reduce noise level (used by killer AI timing) |
+| `getHint()` | Last matching hint in the current view's `hints` array |
+| `getDialogue()` / `selectDialogueChoice(i)` | Branching dialogue opened by `show_dialogue` |
+| `getActiveWidget()` / `submitWidget(entry)` / `closeWidget()` | Puzzle widget overlay opened by `open_widget` |
+| `getCloseupImage()` / `getPendingSounds()` / `getCharacterPlacement()` | Presentation state for `show_closeup`, `play_sound` and the character sprite |
 
 ---
 
@@ -149,6 +153,7 @@ An empty `when` array always passes — unconditional interactions fire regardle
 | `noise_above` | Noise level exceeds threshold | `threshold` |
 | `noise_below` | Noise level is below threshold | `threshold` |
 | `item_count` | Player has at least N items | `count` |
+| `widget_solved` | A puzzle widget has been solved | `widget` |
 | `killer_is` | Killer AI is in a specific state | *(stub — returns `false`)* |
 
 ### Composite Conditions
@@ -217,6 +222,18 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 |------|--------|--------|
 | `set_view` | `view` | Navigate to a different view (pushes current to history stack) |
 
+**Presentation:**
+
+| Type | Fields | Action |
+|------|--------|--------|
+| `set_animation` | `object`, `value` | Change or clear (`""`) an object's hotspot animation |
+| `show_closeup` | `image` | Show a detail image in a dismissable overlay |
+| `show_dialogue` | `prompt`, `choices[]` | Open a branching dialogue |
+| `open_widget` | `widget` | Open a puzzle widget overlay (keypad) |
+| `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` | Override the character sprite placement |
+| `play_sound` | `sound` | Queue a sound (a `setting.sounds` key or a file path) |
+| `equip_item` / `unequip_item` | `item` | Equip/unequip a `wearable` item overlay on the character |
+
 **Noise:**
 
 | Type | Fields | Action |
@@ -245,7 +262,6 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 | Type | Purpose |
 |------|---------|
 | `visual_cue` | Screen effects (flicker, shake) |
-| `play_sound` | Audio playback |
 | `trigger_event` | Activate a scenario event |
 
 ### Branching Effects: conditional_effect
@@ -368,14 +384,13 @@ Navigation between views is handled entirely by `set_view` effects on navigation
 
 ```json
 {
-  "id": "nav_stasis_hold_to_pod_cluster",
-  "name": "Pod Cluster Passage",
+  "id": "nav_act1_stasis_hold_to_act1_containment_corridor",
+  "name": "Dark Archway",
   "interactions": [{
-    "verb": "hand",
+    "verb": "move",
     "when": [],
     "then": [
-      { "type": "message", "text": "You move to Pod Cluster." },
-      { "type": "set_view", "view": "act1_pod_cluster" }
+      { "type": "set_view", "view": "act1_containment_corridor" }
     ]
   }]
 }
@@ -403,7 +418,7 @@ navigateBack(): void {
 }
 ```
 
-The UI shows a "< Back" button when `viewHistory` is non-empty or the view has a `back_label`.
+The UI shows a "◀ {back_label}" button at the top-left of views that define a `back_label` (close-up sub-views). Main rooms are left through their nav hotspots instead.
 
 ### Conditional Navigation
 
@@ -411,7 +426,7 @@ Navigation can be gated by conditions — locked doors, hidden passages, phase-d
 
 ```json
 {
-  "verb": "hand",
+  "verb": "move",
   "when": [{ "type": "flag_is", "flag": "airlock_unlocked", "value": "true" }],
   "then": [
     { "type": "message", "text": "The airlock hisses open." },
@@ -422,68 +437,78 @@ Navigation can be gated by conditions — locked doors, hidden passages, phase-d
 
 ---
 
-## The Five Verbs
+## The Four Verbs
 
-The engine supports exactly five verbs, inherited from the Sierra/LucasArts tradition:
+The engine has four verbs, inherited from the Sierra/LucasArts tradition, plus implicit item use:
 
 | Verb | Engine ID | Cursor | What the Player Does |
 |------|-----------|--------|---------------------|
-| Look | `look` | `help` | Examine, read, observe |
-| Hand | `hand` | `pointer` | Touch, push, pull, open, close, flip, press |
-| Take | `take` | `grab` | Pick up and add to inventory |
-| Talk | `talk` | `text` | Speak, listen, read aloud |
-| Use | `use` → `use_item` | `cell` | Apply an inventory item to a world object |
+| Look | `look` | eye | Examine, read, observe |
+| Move | `move` | footprints | Walk through doorways, passages and exits (nav hotspots) |
+| Hand | `hand` | hand | Touch, push, pull, open, close, press, pick up |
+| Talk | `talk` | speech bubble | Speak, listen, read aloud |
+| *(item)* | `use_item` | star | Apply a selected inventory item to a world object |
 
-### Why Exactly Five
+There are no verb buttons: right-clicking the viewport cycles look → move → hand → talk, and each verb has its own SVG cursor. `hand` falls back to `take` interactions so older scenario JSONs keep working.
 
-Every physical manipulation (push, pull, open, close, turn, flip) maps to `hand`. The schema analysis across all 13 scenarios confirmed zero usage of `push`, `pull`, `open`, or `close` as separate verbs — authors naturally use `hand` for all physical interaction. Five verbs is the sweet spot: enough expressiveness for complex puzzles, simple enough for intuitive play.
+### Why Four
 
-### The Use Verb
+Every physical manipulation (push, pull, open, close, turn, flip, take) maps to `hand`. The schema analysis across all 13 scenarios confirmed zero usage of `push`, `pull`, `open`, or `close` as separate verbs — authors naturally use `hand` for all physical interaction. Navigation got its own `move` verb so exits are distinct from things you touch. Four verbs is the sweet spot: enough expressiveness for complex puzzles, simple enough for intuitive play.
 
-"Use" is the puzzle verb. When selected, the player first selects an inventory item, then clicks a world object. The engine internally maps this:
+### Using Items
+
+Item use is the puzzle action. The player clicks an item in the inventory, then clicks a world object. The engine internally maps this:
 
 ```
-Player action:  Use verb → select "wrench" → click "bolt"
+Player action:  select "wrench" in inventory → click "bolt"
 Engine call:    interact("bolt", "use_item", "wrench")
 Matched JSON:   { "verb": "use_item", "item": "wrench", "when": [...], "then": [...] }
 ```
 
+Clicking a second inventory item while one is selected tries `combineItems()` instead.
+
 ### Default Failure Messages
 
-When no interaction matches, the engine provides sensible defaults:
+When no interaction matches, the engine picks a random line from a small pool per verb, for example:
 
-| Verb | Fallback Message |
+| Verb | Fallback Message (one of several) |
 |------|-----------------|
 | `look` | Returns the object's `description` field (always succeeds) |
-| `hand` | "You can't do anything with {name} right now." |
-| `take` | "You can't take {name}." |
-| `talk` | "{name} doesn't respond." |
-| `use` | "That doesn't work." |
+| `move` | "You can't go that way." |
+| `hand` | "You can't do anything useful with {name} right now." |
+| `talk` | "Talking to {name} doesn't accomplish anything." |
+| `use_item` | "That doesn't seem to work." |
 
 ---
 
 ## The React Layer
 
-Six components form the UI, orchestrated by `ScenarioPlayer`.
+`ScenarioPlayer` orchestrates the UI. (`VerbBar.tsx` and `MessagePanel.tsx` are still in the repo but no longer rendered.) The full component list is in [TECHNICAL_DEEP_DIVE.md → The React Layer](../TECHNICAL_DEEP_DIVE.md#the-react-layer).
 
 ### Component Tree
 
 ```
 ScenarioPlayer
+├── IntroSequence (paged intro text, before play)
 ├── Title Bar
-│   ├── Scenario Title
-│   ├── NoiseIndicator (color-coded progress bar)
+│   ├── Scenario Title + NoiseIndicator (color-coded progress bar)
+│   ├── DEV / Debug / Mute toggles
 │   └── Exit Button
-└── Game Area (960px wide)
-    ├── GameView (960×540 viewport)
-    │   ├── Background Image (<img> with object-fit: cover)
-    │   ├── Object Hotspots (positioned <div>s)
-    │   ├── Cursor Label (active verb / "Use {item} on...")
-    │   └── Back Button (when navigation stack > 0)
-    ├── MessagePanel (story text, click to dismiss)
-    ├── InventoryPanel (horizontal scrolling item bar)
-    ├── VerbBar (Look, Hand, Take, Talk, Use)
-    └── Game Over Overlay (when gameOver ≠ null)
+├── Game Area (960px wide)
+│   ├── GameView (960×540 viewport)
+│   │   ├── Background Image (<img> with object-fit: cover)
+│   │   ├── AmbientCanvas (per-view ambient lighting)
+│   │   ├── CharacterSprite
+│   │   ├── SpriteObject / Object Hotspots (positioned <div>s)
+│   │   ├── Cursor Label (active verb / "Use {item} on...")
+│   │   ├── Back Button (views with back_label)
+│   │   └── Room Name Label
+│   ├── Hint "?" button
+│   └── EyeOpenTransition
+├── Items tab → InventoryPanel, then messages / ambient text (below the viewport)
+├── CloseupOverlay, DialogueOverlay, KeypadWidget
+├── Game Over Overlay (when gameOver ≠ null)
+└── DevPanel (?dev)
 ```
 
 ### ScenarioPlayer — The Orchestrator
@@ -492,7 +517,7 @@ The top-level component owns:
 
 - A `useRef<ScenarioEngine>` — the engine instance, stable across renders
 - `activeVerb` state — which verb is selected
-- `selectedItem` state — which inventory item is selected for `use`
+- `selectedItem` state — which inventory item is selected for use
 - A `bump()` callback — increments a dummy counter to force re-render after engine state changes
 
 ```typescript
@@ -506,16 +531,15 @@ After every engine call, `bump()` triggers a re-render. Components then read fre
 
 Renders the 960×540 viewport:
 
-1. **Background image** — loaded from `/scenarios/{scenarioId}/{background_file}` with `object-fit: cover`. Falls back to the scenario's `room_style.background_color` if no image exists or loading fails (an `onError` handler hides broken images)
-2. **Object hotspots** — positioned `<div>` elements at scaled coordinates. Transparent when a background image is present (invisible overlays on painted art). On hover: gold border (`#c0a030`) and label tooltip
+1. **Background image** — loaded through `resolveAsset(scenarioId, background_file)` with `object-fit: cover`. Falls back to the scenario's `room_style.background_color` if no image exists or loading fails (an `onError` handler hides broken images)
+2. **Object hotspots** — positioned `<div>` elements at scaled coordinates, transparent over painted art (outlined only in debug mode). Objects with a `sprite` are drawn by `SpriteObject`
 3. **Cursor label** — top-right indicator showing the active verb or "Use {item} on..."
-4. **Back button** — bottom-center when back-navigation is available
+4. **Back button** — top-left on views with a `back_label`
 
-### VerbBar, InventoryPanel, MessagePanel
+### InventoryPanel and Messages
 
-- **VerbBar** — five buttons. Active verb is highlighted. Unavailable verbs are dimmed.
-- **InventoryPanel** — horizontal scrolling bar. Click selects for `use`; double-click / right-click examines.
-- **MessagePanel** — displays messages from the last interaction. Falls back to `ambient_text` when empty. Click dismisses.
+- **InventoryPanel** — horizontal scrolling row in a collapsible tray below the viewport, with item icons. Click selects for use; double-click / right-click examines.
+- **Messages** — drawn by `ScenarioPlayer` below the inventory. Falls back to `ambient_text` when empty. Click dismisses.
 
 ### NoiseIndicator
 
@@ -544,6 +568,7 @@ User clicks object
 ```
 
 ---
+
 
 ## Coordinate System
 
@@ -577,7 +602,7 @@ A scenario JSON has this top-level structure:
   "schema_version": "1.0",
   "metadata": { "id": "my-scenario", "title": "...", "difficulty": "medium", ... },
   "setting": { "initial_view": "room_1", "ambient_text": "...", "room_style": { ... } },
-  "views": [{ "id": "room_1", "background_file": "backgrounds/room.webp", "objects": ["door", "desk"] }],
+  "views": [{ "id": "room_1", "background_file": "backgrounds/room.webp", "objects": ["door", "desk"], "hints": [{ "text": "...", "when": [...] }] }],
   "flags": { "game_started": "false", "found_key": "false" },
   "items": [{ "id": "key", "name": "Rusty Key", "description": "...", "examine": [...] }],
   "objects": [{ "id": "door", "name": "Door", "position": {...}, "interactions": [...] }],
@@ -588,7 +613,6 @@ A scenario JSON has this top-level structure:
   "killer": { "name": "The Warden", "base_behavior": {...}, "search_behavior": {...} },
   "win_conditions": [{ "id": "escape", "conditions": [...] }],
   "lose_conditions": [{ "id": "caught", "conditions": [...] }],
-  "hints": [{ "after_seconds": 60, "condition": {...}, "text": "..." }],
   "solution_paths": [{ "id": "main", "steps": ["take_nail", "pry_board", ...] }]
 }
 ```
@@ -615,7 +639,7 @@ A linear sequence where each step unlocks the next:
 ```json
 [
   {
-    "verb": "take", "when": [],
+    "verb": "hand", "when": [],
     "then": [
       { "type": "add_item", "item": "nail" },
       { "type": "message", "text": "You pull the nail free." }
@@ -706,7 +730,7 @@ A typical scenario uses 8–12 of the 30 patterns. That's over **30 million uniq
 
 ## Future Systems
 
-These systems are fully specified in the [schema](SCENARIO_SCHEMA.md) and referenced by all 13 scenario JSONs, but are not yet implemented in the engine.
+These systems are fully specified in the [schema](SCENARIO_SCHEMA.md) and referenced by all 13 scenario JSONs, but are not yet (or only partly) implemented in the engine.
 
 ### Events System
 
@@ -739,7 +763,7 @@ interface PuzzleWidget {
 }
 ```
 
-These render as overlay UI elements on top of the game view. All 13 scenarios define at least one puzzle widget.
+All 13 scenarios define at least one puzzle widget. The `keypad` type is implemented as an overlay (`KeypadWidget.tsx`): an `open_widget` effect opens it, `on_solve` / `on_fail` / `on_max_fail` effects run from the engine, and the `widget_solved` condition reads the result (a widget with `"presentation": "overlay"` needs no `position`/`size`/`view`). Dials, combination locks, toggle panels and sequence puzzles are still unrendered.
 
 ### Killer AI
 

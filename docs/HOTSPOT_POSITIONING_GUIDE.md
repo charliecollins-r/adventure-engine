@@ -174,17 +174,22 @@ If someone circles or boxes a region on a screenshot:
 
 ## Debug Mode
 
-Toggle **Debug Mode** from the title bar in-game to show all hotspot boundaries:
+Toggle **Debug Mode** from the title bar in-game (or open the game with `?debug`, or `?dev` for the full dev panel) to show all hotspot boundaries:
 
 - **Gold outlines** — regular interactive objects
-- **Red outlines** — navigation hotspots (`nav_` prefix)
-- **Cyan outlines** — objects with active animations
-- **Labels** — object names shown on hover
+- **Red outlines** — navigation hotspots (`nav_` prefix), highlighted blue on hover
+- **Labels** — the object's `visual.label` shown on hover
+
+Objects with a `sprite` are drawn by the sprite renderer and are anchored differently: their `position` is the sprite's **bottom-center**, not a top-left corner (see [ART_GUIDE.md → Anchoring](ART_GUIDE.md#anchoring-the-1-source-of-misplaced-sprites)).
+
+### Without Running the Game
+
+`node tools/preview-hotspots.mjs <scenario.json> <view_id> --out preview.png` renders a view at 960×540 with every hotspot (gold = object, blue = nav), each sprite's anchor and box, and the character footprint drawn on. Add `--image new.webp` to check a background you haven't installed yet. `node tools/validate-scenario.mjs <scenario.json>` warns about hotspots and sprite anchors that fall off the 960×720 canvas.
 
 ### Debug Workflow
 
 1. Set approximate positions in the JSON
-2. Run `cd client && npm run dev` → load the scenario
+2. Run `cd client && npm run dev` → load the scenario (add `?view=<view_id>` to jump straight to the view)
 3. Toggle Debug Mode on
 4. Compare outlines to the painted background
 5. Adjust JSON values → save → the page hot-reloads

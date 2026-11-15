@@ -78,10 +78,17 @@ my-scenario/
     main_room.png        # Primary room background (960x720 coordinate space)
     desk_closeup.png     # Optional closeup view
     safe_closeup.png     # Optional closeup view
-  thumbnail.png          # 320x240 preview for scenario browser
+  closeups/              # Optional: images for the show_closeup effect
+  sprites/               # Optional: character and object sprite sheets (transparent PNG)
+  items/                 # Optional: inventory icons (item icon_file)
+  ui/                    # Optional: widget art such as keypad key images
+  audio/                 # Optional: ambient tracks and sound effects
+  thumbnail.png          # 320x240 preview for scenario browser (planned; not read yet)
 ```
 
-Background images can be any resolution (1376x768 and 1920x1080 are common). The engine renders them with `object-fit: cover` inside a 960x540 pixel viewport. **Object positions use a 960x720 coordinate space** (origin at top-left). Position is the **top-left corner** of the hotspot box, not the center. The engine maps to the viewport with `SCALE_X = 1.0` (no horizontal change) and `SCALE_Y = 0.75` (vertical compression). To convert image pixel coordinates to JSON: `json_x = img_x × (960 / IMG_W)`, `json_y = img_y × (720 / IMG_H)`. Bounds: `x + width ≤ 960`, `y + height ≤ 720`. See `docs/HOTSPOT_POSITIONING_GUIDE.md` for the full conversion workflow and `ADVENTURE_BUILDER.md` for the builder guide. Closeup views use the same coordinate space. Thumbnail is 320x240 for the scenario selection screen.
+To make the scenario appear in the game, add its folder name to `scenarios/manifest.json`.
+
+Background images can be any resolution (1376x768 and 1920x1080 are common). The engine renders them with `object-fit: cover` inside a 960x540 pixel viewport. **Object positions use a 960x720 coordinate space** (origin at top-left). Position is the **top-left corner** of the hotspot box, not the center. The engine maps to the viewport with `SCALE_X = 1.0` (no horizontal change) and `SCALE_Y = 0.75` (vertical compression). To convert image pixel coordinates to JSON: `json_x = img_x × (960 / IMG_W)`, `json_y = img_y × (720 / IMG_H)`. Bounds: `x + width ≤ 960`, `y + height ≤ 720`. See `docs/HOTSPOT_POSITIONING_GUIDE.md` for the full conversion workflow and `ADVENTURE_BUILDER.md` for the builder guide. Closeup views use the same coordinate space.
 
 ---
 
@@ -104,13 +111,14 @@ Background images can be any resolution (1376x768 and 1920x1080 are common). The
   "win_conditions": [ ... ],
   "lose_conditions": [ ... ],
   "hints": [ ... ],
-  "solution_paths": [ ... ]
+  "solution_paths": [ ... ],
+  "character": { ... }
 }
 ```
 
-**Required**: `schema_version`, `metadata`, `setting`, `objects`, `items`, `flags`.
+**Required**: `schema_version`, `metadata`, `setting`, `views`, `objects`, `items`, `flags`.
 
-**Optional**: `views` (defaults to one view containing all objects), `combinations`, `puzzle_widgets`, `phases`, `events`, `killer`, `win_conditions`, `lose_conditions`, `hints`, `solution_paths`.
+**Optional**: `combinations`, `puzzle_widgets`, `phases`, `events`, `killer`, `win_conditions`, `lose_conditions`, `hints` (the timed top-level form, not yet read by the engine; per-view `hints` are what the "?" button shows), `solution_paths`, `character` (see [Character Sprite](#character-sprite)).
 
 ---
 
@@ -160,9 +168,12 @@ The setting defines the visual environment. Every scenario has a main view (the 
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `initial_view` | string | no | Which view to start on. Defaults to `"main"`. |
-| `ambient_text` | string | yes | Atmospheric text shown at game start. |
+| `initial_view` | string | yes | Which view to start on. The engine has no default; the ID must exist in `views`. |
+| `ambient_text` | string | yes | Atmospheric text shown when no message is on screen. |
 | `room_style` | object | no | Fallback colors when no background image exists. |
+| `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
+| `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
+| `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events; any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
 
 ### Views
 
@@ -189,14 +200,16 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | yes | Unique view identifier. |
-| `background_key` | string | yes | Key for the background image asset. |
-| `background_file` | string | yes | Relative path to the background image file. |
+| `name` | string | no | Display name, shown in the viewport's bottom-right corner. |
+| `background_key` | string | yes | Key for the background image asset. (The renderer only reads `background_file`.) |
+| `background_file` | string | yes | Relative path to the background image file. Without it, objects render as colored rectangles. |
+| `background_fit` | `"cover"` or `"contain"` | no | How the image fills the 960x540 viewport. Default `cover`. |
 | `objects` | string[] | yes | IDs of objects visible in this view. |
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
 | `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
 | `ambient_audio` | string or string[] | no | Ambient audio track(s) for this view, overriding the scenario-level `setting.ambient_audio`. Loops continuously while the player is in this view. Falls back to `setting.ambient_audio` when not specified. |
-| `ambient_lighting` | object | no | Per-view ambient lighting with `lights` array and optional `flicker`. |
+| `ambient_lighting` | object | no | Per-view ambient lighting: `{ "lights": [...], "flicker": bool }`. Each light is `{ x, y, radius, color, pulse_speed, pulse_amount, alpha, phase? }`: `x`/`y` are 0-1 fractions of the viewport, `radius` is a fraction of its larger side, `color` is `[r, g, b]`, `pulse_speed`/`pulse_amount` (both required numbers) shape a slow breathing glow. Drawn on a canvas over the background. |
 
 ### View Hints
 
@@ -215,9 +228,7 @@ Each view can have a `hints` array that provides progressive guidance to the pla
 | `text` | string | yes | The hint text shown to the player. |
 | `when` | Condition[] | yes | Conditions that must ALL be true for this hint to be active. Empty array `[]` means always active. |
 
-If `views` is omitted, a default main view is created containing all objects, using `room_style` for rendering.
-
-When the player transitions to a closeup view (via a `set_view` effect), the canvas switches to that view's background and shows only that view's objects. A back button returns to the previous view.
+When the player transitions to a closeup view (via a `set_view` effect), the viewport switches to that view's background and shows only that view's objects. On views with a `back_label`, a back button at the top-left returns to the previous view.
 
 **How backgrounds and objects relate:** When a background image is present, objects are invisible clickable hotspot regions positioned over the art. The player clicks on what they see in the painting; the hotspot region determines which object they clicked. When no background image is present, objects render as colored rectangles with labels (prototyping mode).
 
@@ -318,7 +329,7 @@ Inventory items the player can collect, examine, use, and combine.
 | `id` | string | yes | Unique item identifier. Referenced everywhere. |
 | `name` | string | yes | Display name in inventory. |
 | `description` | string | yes | Short description shown on hover. |
-| `icon` | string | no | Icon key for rendering. Falls back to first 3 chars of name. |
+| `icon` | string | no | Built-in SVG icon keyword (`ItemIcon.tsx`: `vial`, `shard`, `probe`, `card`, `crystal`, `key`, `map`, `helmet`, `note`, …). Unknown keys render a ◆ glyph. |
 | `icon_file` | string | no | Path to an inventory icon image, relative to the scenario folder (e.g. `"items/carcass_hook.png"`). Overrides `icon`. Convention: 326×273 transparent PNG, object centered; rendered 28px tall. See [ART_GUIDE.md](ART_GUIDE.md#inventory-icons). |
 | `examine` | interaction[] | no | Interactions when examining this item in inventory. Same format as object interactions. |
 
@@ -518,10 +529,43 @@ Both object sprites and character sprites can have shadows — dark ellipses ren
 | `height` | number | `6` | Ellipse height in pixels. |
 | `opacity` | number | `0.6` | Shadow opacity (0–1). |
 | `color` | string | `"rgba(0,0,0,0.5)"` | Shadow color as CSS color string. |
+| `skew_x` | number | `0` | Skew in degrees for a directional shadow (positive = light from the left, negative = from the right). |
 
 **Object shadows**: Add `shadow` alongside `sprite` on the object definition.
 
 **Character shadows**: Set `shadow` on the top-level `character` config for global defaults. Override per-view by adding `shadow` to the view's `character` placement — the per-view shadow completely replaces the global one for that view.
+
+### Character Sprite
+
+An optional root-level `character` block defines the player sprite. Each view that should show the player gives a `character` placement (see [Views](#views)); views without one (close-ups) show no character.
+
+```json
+"character": {
+  "sprite_sets": {
+    "idle":        { "file": "sprites/character_idle.png",        "columns": 12, "rows": 2, "frame_rate": 2, "directions": ["right", "down"] },
+    "walk":        { "file": "sprites/character_walk.png",        "columns": 4,  "rows": 2, "frame_rate": 6, "directions": ["right", "down"] },
+    "standup":     { "file": "sprites/character_standup.png",     "columns": 4,  "rows": 1, "frame_rate": 3, "directions": ["right"], "loop": false },
+    "idle_helmet": { "file": "sprites/character_idle_helmet.png", "columns": 12, "rows": 2, "frame_rate": 2, "directions": ["right", "down"] }
+  },
+  "frame_width": 300,
+  "frame_height": 410,
+  "scale": 0.35,
+  "shadow": { "width": 60, "height": 12, "opacity": 0.85, "offset_y": 2 }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `sprite_sets` | object | yes | Named sheets. Each: `file`, `columns` (frames per row), `rows`, `frame_rate` (fps, `0` = static), `directions` (one row per direction, in order; default `["down","left","right","up"]`), `loop` (default `true`; `false` plays once and holds the last frame). |
+| `frame_width`, `frame_height` | number | yes | Frame size in pixels, shared by every set. |
+| `scale` | number | no | Render scale. On screen the sprite is `frame_width × scale` wide. |
+| `shadow` | object | no | Default shadow (see [Sprite Shadows](#sprite-shadows)). |
+
+**Placement** (`view.character`): `x`, `y` (the sprite's **bottom-center**, i.e. the feet, in 960x720 space), `sprite_set`, optional `facing` (`"down"`, `"left"`, `"right"`, `"up"`), `frame` (show one fixed frame), `flip_h`, `shadow`. If a sheet has no `left` row, `facing: "left"` mirrors the `right` row.
+
+**Changing it at runtime**: the `set_character` effect overrides any of `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` for the rest of the session (The Harvest switches to `idle_helmet` when the player takes the emergency helmet).
+
+**Intro stand-up convention**: if a set is named exactly `standup`, the player plays it once during the opening fade-in, then the engine switches to the set named `idle`. A scenario that wants this needs both names.
 
 ### Object States
 
@@ -554,12 +598,13 @@ Every interaction on an object (or item examination) has this structure:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `verb` | string | yes | One of: `"look"`, `"hand"`, `"take"`, `"talk"`, `"use_item"` |
+| `verb` | string | yes | One of: `"look"`, `"move"`, `"hand"`, `"talk"`, `"use_item"` (`"take"` is still accepted as a legacy fallback for `hand`). |
 | `item` | string | only for `use_item` | The inventory item ID being used. |
 | `when` | condition[] | no | Conditions that must ALL be true. Empty = always matches. |
-| `then` | effect[] | yes | Effects to apply when this interaction fires. |
+| `then` | effect[] | yes, unless `response` | Effects to apply when this interaction fires. |
+| `response` | string | no | Shorthand: with no (or an empty) `then`, this text is shown as the message. |
 | `noise` | number | no | Noise generated by this interaction. Default 0. |
-| `fail_message` | string | no | Override message when conditions partially match but don't fully qualify. |
+| `fail_message` | string | no | Reserved; not read by the engine yet. Write a specific fallback interaction instead. |
 
 ### Verb Descriptions
 
@@ -573,9 +618,11 @@ Every interaction on an object (or item examination) has this structure:
 - "You pry up the floorboard with your fingers." (noise: 20)
 - "You flip the light switch." (noise: 2)
 
-**`take`** — Pick up and add to inventory.
+**`move`** — Walk somewhere: doorways, passages, exits. Navigation hotspots (`nav_*` objects) answer `move` with a `set_view` effect.
+- "You squeeze through the gap in the wall."
+
+**`take`** *(legacy)* — Older scenarios used a separate take verb. The player UI no longer offers it: picking things up is `hand`, and when no `hand` interaction matches, the engine retries the object's `take` interactions.
 - "You grab the wire cutters and pocket them."
-- "You carefully peel the note off the wall."
 
 **`talk`** — Speak, read aloud, listen, whisper, shout. Rich even in single-player:
 - Talk to door: "Hello?! Anyone there?" (noise: 30) → Killer responds through the door
@@ -596,12 +643,12 @@ When the player performs a verb on an object:
 2. For each matching interaction, evaluate its `when` conditions
 3. Take the **first** interaction whose conditions are ALL satisfied
 4. Apply its `then` effects in order and generate its `noise`
-5. If NO interaction matches, the engine returns a generic fallback:
-   - `look` → "Nothing unusual."
-   - `hand` → "That doesn't do anything."
-   - `take` → "You can't take that."
-   - `talk` → "..."
-   - `use_item` → "That doesn't work here."
+5. If NO interaction matches (and, for `hand`, no `take` interaction either), the engine returns a generic fallback, picked at random from a few KQ5-style lines per verb:
+   - `look` → the object's `description`
+   - `move` → "You can't go that way."
+   - `hand` → "You can't do anything useful with {name} right now."
+   - `talk` → "Talking to {name} doesn't accomplish anything."
+   - `use_item` → "That doesn't seem to work."
 
 **Order matters.** Put the most specific interactions first (with the most conditions) and the most generic last. The engine takes the first match.
 
@@ -689,7 +736,7 @@ When the player performs a verb on an object:
 }
 ```
 
-This single object supports: looking (reveals escape route), pulling (fails without tool), shouting for help (massive noise), using the wrong tool (scalpel breaks — red herring), using the right tool (wire cutters succeed), and the final escape action. All five verbs are useful on it.
+This single object supports: looking (reveals escape route), pulling (fails without tool), shouting for help (massive noise), using the wrong tool (scalpel breaks — red herring), using the right tool (wire cutters succeed), and the final escape action. Every verb (look, hand, talk and item use) does something on it.
 
 ---
 
@@ -706,17 +753,18 @@ Conditions gate when interactions, events, and phase transitions fire.
 | `not_has_item` | `item` | Player does NOT have this item |
 | `flag_is` | `flag`, `value` | Global flag equals value |
 | `flag_not` | `flag`, `value` | Global flag does NOT equal value |
-| `noise_above` | `level` | Current noise > level |
-| `noise_below` | `level` | Current noise < level |
+| `noise_above` | `threshold` | Current noise > threshold |
+| `noise_below` | `threshold` | Current noise < threshold |
 | `phase_is` | `phase` | Current game phase matches |
-| `time_after` | `seconds` | Seconds since game start > value |
-| `time_before` | `seconds` | Seconds since game start < value |
-| `item_count` | `min` | Player has >= min items in inventory |
+| `time_after` | `seconds` | Seconds since game start > value *(not implemented: no game clock yet, so the engine treats it as true)* |
+| `time_before` | `seconds` | Seconds since game start < value *(not implemented, treated as true)* |
+| `item_count` | `count` | Player has >= count items in inventory |
 | `is_hiding` | — | Player is currently in a hiding spot |
 | `not_hiding` | — | Player is NOT hiding |
-| `killer_is` | `state` | Killer AI is in this state |
+| `killer_is` | `state` | Killer AI is in this state *(stub: always false until the killer AI exists)* |
 | `widget_solved` | `widget` | The puzzle widget with this id has been solved |
 | `view_is` | `view` | Player is on this view |
+| `not_in_view` | `view` | Player is NOT on this view |
 
 ### Composite Conditions
 
@@ -759,19 +807,21 @@ Effects change the game world. They execute in order within an interaction's `th
 | `set_animation` | `object`, `value` | Change or clear an object's `visual.animation`. Empty string `""` clears the animation (stops glimmer/pulse). |
 | `set_flag` | `flag`, `value` | Set a global flag. |
 | `add_noise` | `amount` | Add to noise level (clamped 0-100). |
-| `set_noise` | `level` | Set noise to exact value. |
+| `set_noise` | `amount` | Set noise to exact value (clamped 0-100). |
 | `advance_phase` | `phase` | Jump to a specific game phase. |
 | `game_over` | `result` (`"win"`/`"lose"`), `reason` | End the game. |
 | `start_hiding` | — | Player enters hiding. |
 | `stop_hiding` | — | Player leaves hiding. |
-| `transform_item` | `from`, `to` | Replace one inventory item with another. |
-| `trigger_event` | `event` | Manually fire a named event. |
-| `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"` |
-| `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/specimen_jars.webp"`). Player clicks to dismiss. |
+| `transform_item` | `item`, `into` | Replace one inventory item with another, in the same inventory slot. |
+| `trigger_event` | `event` | Manually fire a named event. *(Not implemented yet: no-op.)* |
+| `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"`. *(Not implemented yet: no-op.)* |
+| `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/vent_map.webp"`). Player clicks to dismiss. For a close-up the player can interact with, use a sub-view with `back_label` instead. |
 | `show_dialogue` | `prompt`, `choices` | Show a dialogue choice overlay. `prompt` is the situation text. `choices` is an array of `{label, when?, then}` objects — each choice has display text, optional conditions (hidden if not met), and effects to apply when selected. See Dialogue Choices section. |
 | `open_widget` | `widget` | Open an overlay puzzle widget (e.g. a `keypad`) by id. See Puzzle Widgets → Overlay Widgets. |
 | `set_view` | `view` | Switch to a different view (closeup or back to main). |
-| `play_sound` | `sound` | Play a named sound effect (from a standard library). |
+| `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` (all optional) | Override the player sprite placement for the rest of the session. See [Character Sprite](#character-sprite). |
+| `equip_item` / `unequip_item` | `item` | Equip or unequip a held item that has a `wearable` overlay (`{slot, sprite_file, frame_width, frame_height, offset_x, offset_y, scale?, auto_equip?}`), drawn on top of the character. `add_item` auto-equips when `auto_equip` is true; `remove_item` unequips. |
+| `play_sound` | `sound` | Play a sound: a key of `setting.sounds` (e.g. `"discovery"`), or a file path relative to the scenario folder. Keys with no match are tried as paths. |
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |
 | `random_message` | `messages` | Show one message randomly from an array. Good for variety. |
 | `conditional_effect` | `when`, `then`, `else` | If condition is met, do `then` effects; otherwise do `else` effects. |
@@ -1025,8 +1075,8 @@ Arrange tiles in correct order by sliding.
 |-------|------|----------|-------------|
 | `id` | string | yes | Unique identifier |
 | `widget_type` | string | yes | One of the types above |
-| `position` | `{x, y}` | yes | Position in 960x720 coordinate space |
-| `size` | `{width, height}` | yes | Clickable/display region |
+| `position` | `{x, y}` | inline only | Position in 960x720 coordinate space |
+| `size` | `{width, height}` | inline only | Clickable/display region |
 | `view` | string | no | Which view this widget appears on. Default `"main"`. |
 | `initially_visible` | boolean | no | Default `true`. |
 | `config` | object | yes | Type-specific configuration. |
@@ -1333,6 +1383,8 @@ Lose conditions include `caught` (built into the killer AI system) and optional 
 
 ## Hints
 
+> **Engine status:** the "?" button reads the per-view `hints` array ([View Hints](#view-hints)). The timed top-level `hints` form below is specified for a future timer-driven system and is not read by the engine yet.
+
 Progressive help system. Hints unlock over time or by request.
 
 ```json
@@ -1423,7 +1475,7 @@ Solution paths serve three purposes:
 
 ## Validation Rules
 
-A valid scenario must satisfy all of these:
+A valid scenario must satisfy all of these. Two tools check a subset automatically: `node tools/validate-scenario.mjs <scenario.json>` (referential integrity, missing assets, duplicate keys, off-canvas anchors, hint order) and `node tools/softlock-search.mjs <scenario.json> --goal <expr>` (reachability and no dead ends, by exhaustive search with the real engine). The rest are not machine-checked yet.
 
 ### Referential Integrity
 1. Every `item` referenced in any condition or effect exists in `items[]`
@@ -1602,11 +1654,20 @@ Two time-sensitive things happen at once. Player must choose which to pursue. Im
 
 Different from a Red Herring, which doesn't work. Bait and Punish **works** but costs dearly. The obvious solution is functional but punishing. The patient player who explores finds the better path.
 
-Two interactions on the same object: one with no gating condition but high noise/consequences, and another gated by a preparation flag that achieves the same result quietly.
+Two interactions on the same object: one with no gating condition but high noise/consequences, and another gated by a preparation flag that achieves the same result quietly. List the gated one first: the engine takes the first match, so an unconditional interaction placed first would always win.
 
 ```json
 {
-  "verb": "take",
+  "verb": "hand",
+  "when": [{ "type": "flag_is", "flag": "alarm_disabled", "value": "true" }],
+  "then": [
+    { "type": "add_item", "item": "key" },
+    { "type": "message", "text": "You take the key. Silence." }
+  ],
+  "noise": 2
+},
+{
+  "verb": "hand",
   "when": [],
   "then": [
     { "type": "add_item", "item": "key" },
@@ -1615,15 +1676,6 @@ Two interactions on the same object: one with no gating condition but high noise
     { "type": "trigger_event", "event": "alarm_triggered" }
   ],
   "noise": 0
-},
-{
-  "verb": "take",
-  "when": [{ "type": "flag_is", "flag": "alarm_disabled", "value": "true" }],
-  "then": [
-    { "type": "add_item", "item": "key" },
-    { "type": "message", "text": "You take the key. Silence." }
-  ],
-  "noise": 2
 }
 ```
 

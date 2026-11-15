@@ -12,14 +12,14 @@ The camera **always faces north**. Inside every maze screen:
 
 | Screen position | Compass | Nav hotspot (960×720 JSON space) |
 |-----------------|---------|----------------------------------|
-| Tunnel continuing straight ahead (center) | **North** | `(390,160)` 200×260 |
+| Tunnel continuing straight ahead (center) | **North** | `(380,210)` 220×255, or `(360,210)` on mirrored (RF/RT) frames |
 | Round opening in the left wall | **West** | `(95,187)` 205×347 (same as the Junction's left opening) |
-| Round opening in the right wall | **East** | `(670,187)` 220×347 (same as the Junction's right opening) |
-| Bottom edge (behind the viewer, not painted) | **South** | `(300,640)` 360×70 |
+| Round opening in the right wall | **East** | `(660,187)` 205×347 (the West box mirrored) |
+| Bottom edge (behind the viewer, not painted) | **South** | `(150,660)` 660×60 |
 
 Walking west through the left opening puts you in the next cell **still facing north**, so the passage you came through is now on your right. That's the classic KQ rule, and it means the in-game map (drawn north-up) matches the screens exactly: forward on screen = up on the map. Every connection is two-way: if a cell has a West opening, its western neighbour has an East opening.
 
-Character standing spot in every generic cell: `(480, 600)`, facing up.
+Character standing spot in the generic cells: `(560, 650)` on left-handed frames, `(400, 650)` on mirrored frames, `(480, 650)` in the dead end; always facing up, clear of the forward mouth. (These are the values `build_vent_maze.py` writes; `docs/ART_GUIDE.md` → Step 7 explains how they were measured.)
 
 ## Maze Graph (v2)
 
@@ -222,7 +222,7 @@ At every junction/decision point, examining `junction_markings` (or similar) giv
 - `surgical_probe` — obtained from Processing Lab. Required to jam fan. **Consumed** (removed from inventory).
 
 ### Surgical Probe Sacrifice
-The probe is consumed when jamming the fan. This is the probe's ultimate purpose — it was useful for item uses in Act 1 (security keypad prying, etc.) but its final destiny is saving your life in the vent maze. Players who used it carefully will have it; it's not missable.
+The probe is consumed when jamming the fan. This is the probe's ultimate purpose — it was useful earlier in Act 1 (cutting the restraint strap free in the Processing Lab, flavour uses) but its final destiny is saving your life in the vent maze. Players who used it carefully will have it; it's not missable.
 
 Wait — checking: the probe is NOT consumed in any current interaction. It's used as a tool but kept. The fan room is where it gets sacrificed. This is good design — the player has had it for a while and has used it as a tool, so losing it here feels earned, not punishing.
 
@@ -363,10 +363,10 @@ Make it look like an ordinary, anonymous stretch of the same duct system: no scr
 - **Hints:** in every cell, the map hint names the direction of a shortest path to the Gas Chamber.
 - **Verified:**
   - `validate-scenario.mjs`: clean except two known missing assets;
-  - `softlock-search.mjs`: 15,287 states, 0 soft-locks, and the shortest win goes junction → W → N×4 → gas;
+  - `softlock-search.mjs`: 15,287 states at the time of the maze build (27,371 now, after the Act 1 security simplification), 0 soft-locks, and the shortest win goes junction → W → N×4 → gas;
   - browser walk of the west route, the C–D loop, the dead end, the east arm to the Collapsed Section, and the east route to the gas.
 
-## Implementation Notes
+## Implementation Notes (v1, kept for history)
 
 - Reuse `act1_ventilation_shaft` as the entry room (just modify nav objects)
 - All new views follow `act1_vent_*` naming convention

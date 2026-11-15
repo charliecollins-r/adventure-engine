@@ -80,7 +80,7 @@ This keeps the engine as the single source of truth. Components call `engine.get
 
 ## The ScenarioEngine Class
 
-**File:** `client/src/engine/ScenarioEngine.ts` (~600 lines)
+**File:** `client/src/engine/ScenarioEngine.ts` (~880 lines)
 
 The heart of the system — a single TypeScript class with no rendering logic, no DOM access, and no external dependencies.
 
@@ -160,6 +160,12 @@ All state is exposed through read-only getter methods. The engine never hands ou
 | `getAmbientText` | `() → string` | Phase-aware ambient text (falls back to setting) |
 | `canGoBack` | `() → boolean` | Whether the view history stack has entries |
 | `getBackLabel` | `() → string \| undefined` | Custom back button text for close-up views |
+| `getHint` | `() → string \| null` | Last matching entry of the current view's `hints` array |
+| `getCharacterPlacement` / `setCharacterOverride` | | Current view's character placement, merged with any `set_character` override |
+| `getCloseupImage` / `dismissCloseup` | | Image set by `show_closeup` |
+| `getDialogue` / `selectDialogueChoice` / `dismissDialogue` | | Branching dialogue opened by `show_dialogue` |
+| `getActiveWidget` / `pressWidgetKey` / `submitWidget` / `closeWidget` / `isWidgetSolved` | | Puzzle widget overlay opened by `open_widget` (see [Puzzle Widgets](#puzzle-widgets-keypad-overlay)) |
+| `getPendingSounds` / `clearPendingSounds` | | Sounds queued by `play_sound`, played by `ScenarioPlayer` |
 
 ---
 
@@ -198,8 +204,9 @@ An empty `when` array always passes — unconditional interactions fire regardle
 | `item_count` | Player has at least N items | `count` | Implemented |
 | `all_of` | Logical AND — all sub-conditions must pass | `conditions[]` | Implemented |
 | `any_of` | Logical OR — at least one sub-condition must pass | `conditions[]` | Implemented |
+| `widget_solved` | A puzzle widget has been solved | `widget` | Implemented |
 | `killer_is` | Killer AI is in a specific state | *(stub)* | **Stub — returns `false`** |
-| `time_after` | Game clock past a time | *(not read)* | **Not implemented** |
+| `time_after` / `time_before` | Game clock past / before a time | *(not read)* | **Not implemented** (unknown types fall through to `true`) |
 
 ### Composite Conditions
 
@@ -255,12 +262,14 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 | `show_object` | `object` | Make an object visible in its view | Implemented |
 | `hide_object` | `object` | Make an object invisible | Implemented |
 | `transform_item` | `item`, `into` | Replace one inventory item with another in-place | Implemented |
+| `equip_item` / `unequip_item` | `item` | Put a held item with a `wearable` definition into (or take it out of) its slot; `CharacterSprite` draws equipped overlays. `add_item` auto-equips when `wearable.auto_equip` is set, and `remove_item` unequips. Not used by The Harvest, which swaps whole sprite sets with `set_character` instead | Implemented |
 
 **Navigation:**
 
 | Type | Fields | Action | Status |
 |------|--------|--------|--------|
 | `set_view` | `view` | Navigate to a different view (pushes current to history stack) | Implemented |
+| `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` | Override the character placement for the rest of the session (e.g. swap to a helmet sprite set) | Implemented |
 
 **Noise:**
 
@@ -278,6 +287,16 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 | `start_hiding` | *(none)* | Player enters hiding | Implemented |
 | `stop_hiding` | *(none)* | Player exits hiding | Implemented |
 
+**Presentation:**
+
+| Type | Fields | Action | Status |
+|------|--------|--------|--------|
+| `set_animation` | `object`, `value` | Change or clear (`""`) an object's `visual.animation` | Implemented |
+| `show_closeup` | `image` | Show a detail image in a dismissable overlay | Implemented |
+| `show_dialogue` | `prompt`, `choices[]` | Open a branching dialogue | Implemented |
+| `open_widget` | `widget` | Open a puzzle widget overlay (only `keypad` is rendered) | Implemented |
+| `play_sound` | `sound` | Queue a sound: a key of `setting.sounds`, or a path in the scenario folder | Implemented |
+
 **Temporal and Conditional:**
 
 | Type | Fields | Action | Status |
@@ -290,7 +309,6 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 | Type | Purpose | Status |
 |------|---------|--------|
 | `visual_cue` | Screen effects (flicker, shake) | No-op |
-| `play_sound` | Audio playback | No-op |
 | `trigger_event` | Activate a scenario event | No-op (needs events system) |
 
 ### Recursive Effects
@@ -443,29 +461,37 @@ Win conditions are checked first — if both a win and lose condition are true s
 
 ## The React Layer
 
-Seven components form the UI, orchestrated by `ScenarioPlayer`.
+`ScenarioPlayer` orchestrates a set of small components. `VerbBar.tsx` and `MessagePanel.tsx` still exist in `components/` but are no longer rendered: verbs are chosen with the cursor and messages are drawn by `ScenarioPlayer` itself.
 
 ### Component Tree
 
 ```
 App
-├── ScenarioLoader (scenario selection screen)
+├── ScenarioLoader (reads scenarios/manifest.json; auto-launches a single scenario)
 └── ScenarioPlayer (game orchestrator)
+    ├── IntroSequence (paged setting.intro_text, before play)
     ├── Title Bar
-    │   ├── Scenario Title
-    │   ├── NoiseIndicator
-    │   ├── Mute Button (when ambient_audio present)
+    │   ├── Scenario Title + NoiseIndicator
+    │   ├── DEV toggle (?dev only), Debug toggle
+    │   ├── Mute Button (when any ambient_audio is present)
     │   └── Exit Button
-    └── Game Area (960px wide)
-        ├── GameView (960x540 viewport)
-        │   ├── Background Image
-        │   ├── Object Hotspots (positioned divs with animations)
-        │   ├── Cursor Label (active verb / "Use {item} on...")
-        │   └── Back Button
-        ├── MessagePanel (story text, click to dismiss)
-        ├── InventoryPanel (horizontal scrolling item bar)
-        ├── VerbBar (Look, Move, Hand, Talk)
-        └── Game Over Overlay
+    ├── Game Area (960px wide)
+    │   ├── GameView (960x540 viewport)
+    │   │   ├── Background Image (view.background_fit, default cover)
+    │   │   ├── AmbientCanvas (view.ambient_lighting glow)
+    │   │   ├── CharacterSprite (per-view placement + set_character override + shadow)
+    │   │   ├── Cursor Label (active verb / "Use {item} on...")
+    │   │   ├── Back Button (top-left, views with back_label)
+    │   │   ├── SpriteObject / hotspot divs (with glimmer/pulse animations)
+    │   │   └── Room Name Label (bottom-right)
+    │   ├── Hint "?" button (bottom-right)
+    │   └── EyeOpenTransition (fade from black, with the stand-up animation)
+    ├── Below the viewport: "Items" toggle → InventoryPanel (ItemIcon / icon_file), then messages or ambient text
+    ├── CloseupOverlay (show_closeup)
+    ├── DialogueOverlay (show_dialogue)
+    ├── KeypadWidget (open_widget, keypad type)
+    ├── Game Over Overlay
+    └── DevPanel (?dev, side-by-side)
 ```
 
 ### ScenarioPlayer — The Orchestrator
@@ -479,19 +505,24 @@ Owns all game state coordination:
 - `selectedItem` — which inventory item is selected for use
 - `muted` — audio mute state
 - `audioRefs` — array of `HTMLAudioElement` references for ambient audio
+- URL parameters: `?dev` (dev panel + debug + skip intro), `?debug`, `?skipIntro`, `?view=<id>` (start in a view, skipping the intro)
 
 **Key event handlers:**
 
 | Handler | What It Does |
 |---------|-------------|
-| `handleObjectClick` | If item selected → `use_item`. Otherwise → active verb. Always calls `bump()`. |
-| `handleBackClick` | `engine.navigateBack()`, then `bump()` |
-| `handleEmptyClick` | Dismisses messages. If item selected, deselects it. If move verb active, shows "You can't go that way." |
-| `handleVerbSelect` | Sets active verb, clears selected item |
-| `handleItemSelect` | If different item selected → `combineItems()`. Same item → deselect. No item → select. |
+| `handleObjectClick` | If item selected → `use_item`. Otherwise → active verb. Plays pending sounds, then `bump()`. |
+| `handleCycleVerb` | Right-click on the viewport cycles look → move → hand → talk and clears the selected item |
+| `handleNavigateBack` | `engine.navigateBack()`, then `bump()` |
+| `handleEmptyClick` | Dismisses messages and shows a verb-specific "nothing there" line. If an item is selected, says it can't be used there and deselects it. |
+| `handleItemSelect` | If different item selected → `combineItems()`. Same item → deselect. No item → select it and show its `description`. |
 | `handleItemExamine` | `engine.examineItem(itemId, 'look')` |
+| `handleHint` | Shows `engine.getHint()` as a message |
 | `handleDismiss` | `engine.dismissMessages()` |
+| `handleWidgetKey` / `handleWidgetSubmit` / `handleWidgetClose` | Forward keypad input to `pressWidgetKey()` / `submitWidget()` / `closeWidget()` |
 | `handleRestart` | Constructs a new `ScenarioEngine` from the same scenario |
+
+**Intro stand-up convention:** if `character.sprite_sets` contains a set named exactly `standup`, the player is shown in that set (from frame 0) while the eye-open fade plays, and once it has run (`columns / frame_rate` seconds) the override switches to the set named `idle`. Without a `standup` set the character simply appears in its per-view placement.
 
 ### GameView — Background and Hotspots
 
@@ -499,41 +530,41 @@ Owns all game state coordination:
 
 Renders the 960x540 viewport:
 
-1. **Background image** — loaded from `/scenarios/{scenarioId}/{background_file}` with `object-fit: cover`. An `onError` handler hides broken images, falling back to the scenario's `room_style.background_color`.
-2. **Object hotspots** — positioned `<div>` elements at scaled coordinates. When a background image is present, hotspots are fully transparent until hovered (invisible overlays on painted art). Without a background, hotspots show their `visual.color`.
-3. **Navigation vs. regular hotspots** — objects with IDs starting with `nav_` get a higher z-index (2 vs. 1) and a blue hover border (`#4a90d9`) instead of gold (`#c0a030`).
-4. **Animations** — objects with `visual.animation` get CSS keyframe animations (see [Hotspot Animation System](#hotspot-animation-system)).
-5. **Cursor label** — top-right indicator showing the active verb or "Use {item} on..."
-6. **Back button** — bottom-center, shown when `viewHistory` is non-empty or the view has a `back_label`.
-7. **Empty click detection** — clicks on the viewport that don't hit an object hotspot or back button are routed to `onEmptyClick`.
-
-### VerbBar
-
-**File:** `client/src/components/VerbBar.tsx`
-
-Four verb buttons: Look, Move, Hand, Talk. Active verb is highlighted with a gold border and brighter text. Supports an optional `availableVerbs` prop to dim unavailable verbs (not currently used but wired for future context-sensitive verb display).
+1. **Background image** — loaded via `resolveAsset(scenarioId, background_file)` with `object-fit: cover` (or `view.background_fit`). An `onError` handler hides broken images, falling back to the scenario's `room_style.background_color`.
+2. **Ambient lighting** — `AmbientCanvas` draws the view's `ambient_lighting` lights on a canvas over the background.
+3. **Object hotspots** — positioned `<div>` elements at scaled coordinates, fully transparent outside debug mode. Objects with a `sprite` are drawn by `SpriteObject` (bottom-center anchored) and are their own click target.
+4. **Navigation vs. regular hotspots** — objects with IDs starting with `nav_` get a higher z-index (2 vs. 1). In debug mode they are outlined red (regular objects gold), with a blue (`#4a90d9`) or gold (`#c0a030`) border on hover.
+5. **Animations** — objects with `visual.animation` get a glint or glow indicator (see [Hotspot Animation System](#hotspot-animation-system)).
+6. **Cursor** — each verb has its own SVG cursor (eye, footprints, hand, speech bubble); a selected item shows a star cursor. A label at the top right names the active verb or "Use {item} on...".
+7. **Back button** — top-left, shown when the view has a `back_label`.
+8. **Room name** — the view's `name` in gold at the bottom right.
+9. **Empty click detection** — clicks that don't hit a hotspot or the back button go to `onEmptyClick`; right-clicks go to `onCycleVerb`.
 
 ### InventoryPanel
 
 **File:** `client/src/components/InventoryPanel.tsx`
 
-Horizontal scrolling bar of inventory items as text buttons.
+Horizontal scrolling row of inventory items in a collapsible tray below the viewport (the "Items" tab toggles it; it opens automatically on pickup). Each item shows its `icon_file` image if it has one, otherwise an `ItemIcon` SVG glyph chosen by the item's `icon` keyword, followed by its name.
 
 - **Click** — selects item for use (highlight it, then click a world object)
-- **Double-click** — examines the item (calls `onItemExamine`)
-- **Right-click** — also examines (with `preventDefault()` to suppress context menu)
+- **Click another item while one is selected** — combines them
+- **Double-click / right-click** — examines the item (calls `onItemExamine`)
 - **Selected item** gets a gold border and brighter text
-- **Empty inventory** shows italic "Empty" text
+- **Empty inventory** shows italic "No items yet"
 
-### MessagePanel
+### Messages
 
-**File:** `client/src/components/MessagePanel.tsx`
+Rendered by `ScenarioPlayer` under the inventory tray:
 
-Displays story messages from the last interaction.
+- When messages are present: shows them in gold serif text with a "click to dismiss" hint.
+- When no messages: shows `engine.getAmbientText()` (phase-aware) in muted italic text.
+- Clicking the message area dismisses messages.
 
-- When messages are present: shows them in gold serif text with "click to dismiss" hint. Auto-scrolls to bottom.
-- When no messages: shows `ambientText` in italicized muted text. Phase-aware ambient text is passed from `engine.getAmbientText()`.
-- Click anywhere on the panel to dismiss messages.
+### Overlays
+
+- **`CloseupOverlay`** — the framed image from `show_closeup`; click to dismiss.
+- **`DialogueOverlay`** — the prompt and visible choices from `show_dialogue`; selecting one calls `selectDialogueChoice()`.
+- **`KeypadWidget`** — the keypad overlay for an `open_widget` effect (see [Puzzle Widgets](#puzzle-widgets-keypad-overlay)).
 
 ### NoiseIndicator
 
@@ -554,10 +585,10 @@ A color-coded progress bar showing noise level 0-100:
 
 The scenario selection screen:
 
-1. Fetches metadata for each scenario ID in the `SCENARIOS` array
-2. Displays cards in a responsive grid with title, description, difficulty, and estimated time
-3. Clicking a card fetches the full `scenario.json` and calls `onLoad(scenario)`
-4. **Custom scenario upload** — a file input button lets users load any `.json` file directly
+1. Fetches `scenarios/manifest.json` (a list of scenario folder IDs), then each scenario's metadata
+2. If the manifest lists exactly one scenario, loads it straight away (the current MVP setup: only `the-harvest`)
+3. Otherwise displays cards in a responsive grid with title, description, difficulty, and estimated time; clicking a card fetches the full `scenario.json` and calls `onLoad(scenario)`
+4. **Custom scenario upload** — a file input button lets users load any `.json` file directly (and is the only option if there is no manifest)
 
 ### Data Flow Summary
 
@@ -615,13 +646,13 @@ Background images are rendered as an `<img>` element inside the 960x540 viewport
 ```typescript
 // GameView.tsx — background rendering
 <img
-  src={`/scenarios/${scenarioId}/${bgFile}`}
+  src={resolveAsset(scenarioId, bgFile)}
   style={{
     position: 'absolute',
     top: 0, left: 0,
     width: '100%',          // fills viewport width (960px)
     height: '100%',         // fills viewport height (540px)
-    objectFit: 'cover',     // scale to fill, may crop edges
+    objectFit: view.background_fit ?? 'cover',  // scale to fill, may crop edges
     pointerEvents: 'none',
     zIndex: 0,
   }}
@@ -666,12 +697,12 @@ Hotspots are absolutely-positioned `<div>` elements layered over the background:
 - **Hovered (debug off)**: no visual change (cursor icon is the only feedback)
 - **Hovered (debug on)**: border and label tooltip appear
 
-**Debug mode** (toggled via the Debug button in title bar):
+**Debug mode** (toggled via the Debug button in the title bar, or `?debug` / `?dev` in the URL):
 - **Nav objects** (`id.startsWith('nav_')`) — red outline, red tint background, z-index 2
 - **Regular objects** — gold outline, gold tint background, z-index 1
 - **On hover** — label showing `visual.label` text below the hotspot
 
-Debug mode is the primary tool for verifying hotspot alignment against background art. The rendering in `GameView.tsx` (`objectHotspotStyle` function at line 69) applies debug borders unconditionally when `debugMode` is true.
+Debug mode is the primary tool for verifying hotspot alignment against background art. The rendering in `GameView.tsx` (`objectHotspotStyle` function) applies debug borders unconditionally when `debugMode` is true.
 
 ### Position Validation Checklist (for engine contributors and AI agents)
 
@@ -756,14 +787,14 @@ Audio files are served by the Vite middleware plugin from `scenarios/{id}/audio/
 
 ## Hotspot Animation System
 
-Objects can have a `visual.animation` property that triggers a CSS keyframe animation on their hotspot div. This is fully schema-driven — any scenario author can add it to any object.
+Objects can have a `visual.animation` property that draws a small animated indicator inside their hotspot div. This is fully schema-driven — any scenario author can add it to any object. (It applies to plain hotspots; objects drawn with a `sprite` don't show it.)
 
 ### Supported Animations
 
 | Value | Effect | Duration | Use Case |
 |-------|--------|----------|----------|
-| `"glimmer"` | Subtle inset box-shadow shimmer, flickers twice per cycle | 6s | Items that glint (glass, metal, crystals) |
-| `"pulse"` | Gentle opacity oscillation between 0.15 and 0.35 | 3s | Electronic displays, holographic screens |
+| `"glimmer"` | A four-point white star glint that flashes twice per cycle (`glint-flash` keyframes), placed 30% down / 40% across the hotspot | 8s | Items that glint (glass, metal, crystals) |
+| `"pulse"` | A small green-white glow dot at the hotspot's center whose opacity oscillates 0.3 → 0.7 (`screen-glow` keyframes) | 4s | Electronic displays, holographic screens |
 
 ### Schema Usage
 
@@ -779,34 +810,20 @@ Objects can have a `visual.animation` property that triggers a CSS keyframe anim
 
 ### Implementation (GameView.tsx)
 
-CSS keyframes are injected once into `<head>` via a module-level singleton:
+CSS keyframes live in one module-level `ANIMATION_KEYFRAMES` string (`glint-flash`, `screen-glow`, plus `room-fade-in` and the dev-panel walkthrough highlight keyframes) and are injected once into `<head>`:
 
 ```typescript
-const GLIMMER_KEYFRAMES = `
-@keyframes hotspot-glimmer {
-  0%, 100% { box-shadow: none; }
-  15% { box-shadow: inset 0 0 8px 2px rgba(200, 220, 255, 0.3); }
-  30% { box-shadow: none; }
-  45% { box-shadow: inset 0 0 4px 1px rgba(200, 220, 255, 0.15); }
-  55% { box-shadow: none; }
-}
-@keyframes hotspot-pulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.35; }
-}
-`;
-
 let stylesInjected = false;
 function injectAnimationStyles() {
   if (stylesInjected) return;
   stylesInjected = true;
   const el = document.createElement('style');
-  el.textContent = GLIMMER_KEYFRAMES;
+  el.textContent = ANIMATION_KEYFRAMES;
   document.head.appendChild(el);
 }
 ```
 
-Animations **pause on hover** so they don't fight with the hover highlight — the animation style is only applied when `!isHovered`.
+Animations **pause on hover** — the indicator is only rendered when `!isHovered`. The `set_animation` effect changes or clears `visual.animation` at runtime, which is how solved objects stop drawing attention.
 
 ### Adding New Hotspot Animations
 
@@ -815,39 +832,28 @@ Animations **pause on hover** so they don't fight with the hover highlight — t
 3. Update `docs/SCENARIO_SCHEMA.md` and `ADVENTURE_BUILDER.md` with the new animation name
 4. Scenario authors can now use it via `visual.animation`
 
-## Ambient Room Animation System
+## Ambient Lighting System
 
-Views can have a `room_animation` property that renders a subtle CSS overlay between the background and hotspots, giving static backgrounds life.
-
-### Supported Room Animations
-
-| Value | Effect | Duration | Use Case |
-|-------|--------|----------|----------|
-| `"flicker"` | Random green-tinted light flicker overlay | 8s | Labs, machinery rooms, overhead lighting |
-| `"breathe"` | Slow pulsing blue radial glow | 10s | Organic rooms, crystal chambers, viewports |
-| `"scan"` | Horizontal green scan line sweeping down | 12s | Security monitors, tech rooms, displays |
+Views can have an `ambient_lighting` object that `AmbientCanvas.tsx` draws as soft, pulsing radial glows on a `<canvas>` between the background and the hotspots, giving static backgrounds life. (This replaced the earlier CSS `room_animation` overlays; `room_animation` is still in `types.ts` and in some Harvest views but is no longer rendered.)
 
 ### Schema Usage
 
 ```json
 {
-  "id": "security_hub",
-  "background_file": "backgrounds/security_hub.webp",
-  "objects": ["console", "monitors"],
-  "room_animation": "scan"
+  "id": "act1_security_hub",
+  "ambient_lighting": {
+    "lights": [
+      { "x": 0.35, "y": 0.3, "radius": 0.2, "color": [60, 180, 200], "pulse_speed": 0.7, "pulse_amount": 0.35, "alpha": 0.28, "phase": 0 }
+    ]
+  }
 }
 ```
 
+`x`/`y` are 0-1 fractions of the viewport, `radius` is a fraction of the viewport's larger side, `color` is `[r, g, b]`, `alpha` is the base opacity, `pulse_speed` (cycles per second) and `pulse_amount` (0-1) shape the breathing, and `phase` offsets lights from one another. `flicker: true` adds a slight shared flicker. Every light needs numeric `pulse_speed` and `pulse_amount`; a missing one produces NaN and breaks the canvas (the validator checks this).
+
 ### Implementation
 
-Each room animation is a static `CSSProperties` object in `AMBIENT_STYLES` map, rendered as a transparent div between the background `<img>` and the hotspot layer. The div has `pointerEvents: 'none'` so it doesn't interfere with clicks. Each uses CSS keyframes from the shared `ANIMATION_KEYFRAMES` string.
-
-### Adding New Room Animations
-
-1. Add the `@keyframes` rule to `ANIMATION_KEYFRAMES` in `GameView.tsx`
-2. Add the style entry to `AMBIENT_STYLES` in `GameView.tsx`
-3. Update `ADVENTURE_BUILDER.md` and `TECHNICAL_DEEP_DIVE.md` with the new animation name
-4. Scenario authors can now use it via `room_animation` on any view
+`AmbientCanvas` runs a `requestAnimationFrame` loop. For each light it sums two sine waves (`pulse_speed` and 1.7 × `pulse_speed`), scales `alpha` by `pulse_amount`, applies the flicker multiplier, and fills a radial gradient. The canvas has `pointerEvents: 'none'`. Views without `ambient_lighting` render no canvas.
 
 ---
 
@@ -890,9 +896,9 @@ function serveScenarios(): Plugin {
 }
 ```
 
-### Why a Plugin (Not a Symlink)
+### Why a Plugin (Not Just a Symlink)
 
-The scenario files live outside the `client/` directory (at `scenarios/` in the repo root). A symlink (`client/public/scenarios → ../../scenarios`) works on macOS/Linux but breaks on Windows. The Vite plugin serves the files directly with proper MIME types.
+The scenario files live outside the `client/` directory (at `scenarios/` in the repo root). The repo also has a symlink (`client/public/scenarios → ../../scenarios`), which works on macOS/Linux but breaks on Windows. The Vite plugin serves the files directly with proper MIME types, so the dev server works either way.
 
 ### URL Mapping
 
@@ -910,13 +916,13 @@ The plugin only intercepts dev server requests. For production, scenario assets 
 
 ## Scenario Loading Pipeline
 
-### 1. ScenarioLoader Fetches Metadata
+### 1. ScenarioLoader Reads the Manifest
 
-On mount, `ScenarioLoader` fetches each scenario's `scenario.json` to extract metadata (title, description, difficulty, estimated time). Failures are caught and shown as error cards.
+On mount, `ScenarioLoader` fetches `scenarios/manifest.json`, then each listed scenario's `scenario.json` to extract metadata (title, description, difficulty, estimated time). Failures are caught and shown as error cards.
 
 ### 2. User Selects a Scenario
 
-Clicking a card fetches the full JSON, parses it as a `Scenario` type, and calls `onLoad(scenario)`.
+If the manifest lists a single scenario, it loads immediately. Otherwise clicking a card fetches the full JSON, parses it as a `Scenario` type, and calls `onLoad(scenario)`.
 
 Alternatively, the "Load Custom Scenario (JSON)" button opens a file picker for user-provided JSON files.
 
@@ -930,7 +936,7 @@ The `ScenarioEngine` constructor receives the full scenario JSON object and init
 
 ### 5. Gameplay Begins
 
-The engine's initial view is rendered. If the first phase has `on_enter` effects, those fire immediately (e.g., opening narrative message).
+If `setting.intro_text` is set, `IntroSequence` pages through it first; then the viewport fades in from black (with the `standup` sprite set, if the scenario has one). The engine's initial view is rendered. If the first phase has `on_enter` effects, those fire immediately (e.g., opening narrative message).
 
 ---
 
@@ -955,6 +961,7 @@ The engine's initial view is rendered. If the first phase has `on_enter` effects
 | `noise_above` | Yes | 1/13 |
 | `noise_below` | Yes | 1/13 |
 | `item_count` | Yes | 1/13 |
+| `widget_solved` | Yes | — (The Harvest's keypad uses `on_solve` flags instead) |
 | `killer_is` | **Stub (returns false)** | 8/13 |
 | `time_after` | **Not implemented** | 13/13 (events) |
 
@@ -963,7 +970,6 @@ The engine's initial view is rendered. If the first phase has `on_enter` effects
 All 20+ effect types have implementations. Remaining no-ops:
 - `trigger_event` — needs events system
 - `visual_cue` — cosmetic, acceptable for MVP
-- `play_sound` — cosmetic, acceptable for MVP
 
 ### Major Unimplemented Systems
 
@@ -972,7 +978,6 @@ All 20+ effect types have implementations. Remaining no-ops:
 | Events system | 13/13 | HIGH | Timed/conditional narrative beats |
 | Puzzle widgets | 13/13 | HIGH | `keypad` overlay implemented (`KeypadWidget.tsx`, `open_widget`, `widget_solved`); dials, toggles and sequence puzzles still TODO |
 | Killer AI | 13/13 | MEDIUM | Patrol, detection, search, personality |
-| Hints | defined | LOW | Progressive help system |
 | `time_after` condition | 13/13 | HIGH (with events) | Needs game clock |
 
 ---
@@ -981,8 +986,8 @@ All 20+ effect types have implementations. Remaining no-ops:
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Frontend | React + TypeScript + Vite | 19 / 5.7 / 8 | Pure React rendering (no canvas) |
-| Engine | TypeScript `ScenarioEngine` | — | Pure state machine, ~600 lines |
+| Frontend | React + TypeScript + Vite | 19 / 5.7 / 6 | React DOM rendering; a `<canvas>` only for ambient lighting |
+| Engine | TypeScript `ScenarioEngine` | — | Pure state machine, ~880 lines |
 | Rendering | React components + CSS | — | Objects as positioned divs on backgrounds |
 | Backend | Spring Boot + Java + Maven | 3.3.5 / 21 | Future: validation, tooling, save sync |
 | Future Rendering | Phaser | 3.80 (in deps) | For animations, sprites, canvas effects |
@@ -1013,15 +1018,29 @@ cd server && mvn spring-boot:run
 | `client/src/engine/ScenarioEngine.ts` | Core game engine — state machine |
 | `client/src/components/ScenarioPlayer.tsx` | Top-level game orchestrator |
 | `client/src/components/ScenarioLoader.tsx` | Scenario selection screen |
-| `client/src/components/GameView.tsx` | Viewport rendering, hotspots, animations |
-| `client/src/components/VerbBar.tsx` | Verb selection bar |
+| `client/src/engine/assetResolver.ts` | `resolveAsset()` / `setAssetBase()` — every scenario asset URL |
+| `client/src/components/GameView.tsx` | Viewport rendering, hotspots, animations, verb cursors |
+| `client/src/components/CharacterSprite.tsx` | Player sprite sheet renderer + shadow + wearable overlays |
+| `client/src/components/SpriteObject.tsx` | Animated sprite sheets on world objects |
+| `client/src/components/AmbientCanvas.tsx` | Canvas ambient lighting (`ambient_lighting`) |
 | `client/src/components/InventoryPanel.tsx` | Inventory item display |
-| `client/src/components/MessagePanel.tsx` | Story text display |
+| `client/src/components/ItemIcon.tsx` | Built-in SVG item icons (by `icon` keyword) |
+| `client/src/components/CloseupOverlay.tsx` | `show_closeup` image overlay |
+| `client/src/components/DialogueOverlay.tsx` | `show_dialogue` choice modal |
+| `client/src/components/KeypadWidget.tsx` | Keypad puzzle widget overlay |
+| `client/src/components/IntroSequence.tsx` | Paged intro text |
+| `client/src/components/EyeOpenTransition.tsx` | Fade-from-black on game start |
 | `client/src/components/NoiseIndicator.tsx` | Noise level meter |
+| `client/src/components/DevPanel.tsx` | In-game developer tools (`?dev`) |
+| `client/src/components/VerbBar.tsx`, `MessagePanel.tsx` | Older verb bar and message panel, not currently rendered |
+| `client/public/editor.html` | Standalone visual editor (`/editor.html`) |
 | `client/src/App.tsx` | Entry point: ScenarioLoader → ScenarioPlayer |
 | `client/src/App.css` | Dark theme base styles |
 | `client/vite.config.ts` | Vite config + scenario serving plugin |
 | `docs/SCENARIO_SCHEMA.md` | Complete JSON schema specification (1700+ lines) |
+| `tools/validate-scenario.mjs` | Static scenario lint |
+| `tools/softlock-search.mjs` | Exhaustive soft-lock search over the real engine |
+| `tools/preview-hotspots.mjs` | Render a view with its hotspots, sprite anchors and character drawn on |
 
 ---
 
@@ -1062,7 +1081,7 @@ cd server && mvn spring-boot:run
 
 ### Adding a New Hotspot Animation
 
-1. Add the `@keyframes` CSS to `GLIMMER_KEYFRAMES` in `GameView.tsx`
+1. Add the `@keyframes` CSS to `ANIMATION_KEYFRAMES` in `GameView.tsx`
 2. Add the animation name check in the hotspot rendering loop
 3. Document the animation name in `docs/SCENARIO_SCHEMA.md` under the Visual section
 
@@ -1082,7 +1101,7 @@ Timed and condition-triggered narrative beats. Events have a trigger (timer or c
 
 ### Puzzle Widgets (HIGH PRIORITY)
 
-Pre-built UI components for physical puzzles: keypads, combination locks, toggle panels, dials, sliders, sequence memory. Each widget renders as an overlay on the game view. All 13 scenarios define at least one. Needs a `PuzzleWidgetOverlay` component and widget-specific sub-components.
+Pre-built UI components for physical puzzles: keypads, combination locks, toggle panels, dials, sliders, sequence memory. All 13 scenarios define at least one. The `keypad` overlay is done (`KeypadWidget.tsx`, opened by `open_widget`); the remaining types need their own components.
 
 ### Killer AI (MEDIUM PRIORITY)
 
@@ -1095,7 +1114,7 @@ Click-to-move with walkable area polygons. See `docs/SPATIAL_MOVEMENT_DESIGN.md`
 ### Phaser Canvas Rendering (POST-MVP)
 
 Phaser 3.80 is already in dependencies. The plan is to add a canvas layer for:
-- Sprite animations (character movement, item pickup effects)
+- Character movement and item pickup effects (sprite sheets themselves are already rendered with CSS by `CharacterSprite` / `SpriteObject`)
 - Particle effects (breaking glass, sparks, ambient particles)
 - Smooth transitions between views
 - Animated object states (doors opening, screens flickering)

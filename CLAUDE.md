@@ -18,29 +18,35 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 /
 ├── CLAUDE.md                          ← YOU ARE HERE — project bible for AI agents
 ├── README.md                          ← Public-facing documentation (KEEP IN SYNC)
-├── client/                            ← React + TypeScript frontend (Vite 8)
+├── client/                            ← React + TypeScript frontend (Vite 6)
 │   ├── src/
 │   │   ├── engine/                    ← ScenarioEngine — pure TS state machine
 │   │   │   ├── types.ts              ← TypeScript types matching SCENARIO_SCHEMA.md
 │   │   │   ├── ScenarioEngine.ts     ← Core: load JSON, manage state, resolve interactions
 │   │   │   └── assetResolver.ts      ← Centralized asset URL construction (portability layer)
 │   │   ├── components/               ← React UI components
-│   │   │   ├── ScenarioPlayer.tsx    ← Main game orchestrator
-│   │   │   ├── ScenarioLoader.tsx    ← Scenario selection screen
-│   │   │   ├── GameView.tsx          ← Renders background + object hotspots + animations
+│   │   │   ├── ScenarioPlayer.tsx    ← Main game orchestrator (verb cycling, inventory tray, messages, overlays)
+│   │   │   ├── ScenarioLoader.tsx    ← Scenario selection screen (reads scenarios/manifest.json)
+│   │   │   ├── GameView.tsx          ← Renders background + object hotspots + animations + verb cursors
 │   │   │   ├── CharacterSprite.tsx   ← Sierra-style sprite sheet character renderer
-│   │   │   ├── VerbBar.tsx           ← Verb selection (look, move, hand, talk)
+│   │   │   ├── SpriteObject.tsx      ← Animated sprite sheets on world objects
+│   │   │   ├── AmbientCanvas.tsx     ← Canvas ambient lighting (view.ambient_lighting)
 │   │   │   ├── InventoryPanel.tsx    ← Item display and selection
-│   │   │   ├── MessagePanel.tsx      ← Story text display
+│   │   │   ├── ItemIcon.tsx          ← Built-in SVG item icons (item.icon)
+│   │   │   ├── CloseupOverlay.tsx    ← show_closeup image overlay
+│   │   │   ├── DialogueOverlay.tsx   ← show_dialogue choice modal
 │   │   │   ├── KeypadWidget.tsx      ← Keypad puzzle widget overlay (open_widget)
+│   │   │   ├── IntroSequence.tsx     ← Paged setting.intro_text
+│   │   │   ├── EyeOpenTransition.tsx ← Fade-from-black at game start (with the standup sprite set)
 │   │   │   ├── NoiseIndicator.tsx    ← Noise level meter
-│   │   │   └── DevPanel.tsx          ← In-game developer tools panel (?dev URL param)
+│   │   │   ├── DevPanel.tsx          ← In-game developer tools panel (?dev URL param)
+│   │   │   └── VerbBar.tsx, MessagePanel.tsx ← Legacy, no longer rendered (right-click cycles verbs; ScenarioPlayer draws messages)
 │   │   ├── App.tsx                   ← Entry: ScenarioLoader → ScenarioPlayer
 │   │   └── App.css                   ← Dark theme base styles
 │   ├── public/
 │   │   ├── scenarios → ../../scenarios  ← Symlink so Vite serves scenario content
 │   │   └── editor.html               ← Standalone visual editor (sprite preview, hotspot drawing)
-│   ├── package.json                  ← React 19
+│   ├── package.json                  ← React 19, Vite 6, TypeScript 5.7
 │   └── vite.config.ts
 ├── server/                            ← Spring Boot 3 backend (Java 21, Maven)
 │   └── src/main/java/com/kq/        ← Future: validation, tooling, save sync
@@ -49,21 +55,26 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   ├── the-lighthouse-keeper/        ← Each scenario is a folder containing:
 │   │   ├── scenario.json             ←   The scenario definition
 │   │   ├── design.md                 ←   Design doc (story, image prompts, patterns)
-│   │   └── backgrounds/              ←   Background images for this scenario
-│   ├── the-harvest/                  ← Flagship: 5 acts, 49 views, 7 endings
+│   │   └── backgrounds/              ←   Background images (optional; only the-harvest and the-clockmakers-secret have any yet)
+│   ├── the-harvest/                  ← Flagship: 5 acts, 70 views (30 in Act 1), 7 designed endings (6 win conditions in the JSON)
 │   │   ├── scenario.json
 │   │   ├── design.md
 │   │   ├── deep-design.md
-│   │   ├── audio/                    ←   Ambient audio tracks
-│   │   ├── backgrounds/              ←   11 Act 1 backgrounds
+│   │   ├── act1-level-design.md      ←   Act 1 navigation map, room tables, puzzle flow
+│   │   ├── vent-maze-design.md       ←   Vent maze v2 grid, conventions, art plan
+│   │   ├── walkthrough.md            ←   Act 1 walkthrough (+ walkthrough-screenshots/)
+│   │   ├── audio/                    ←   Ambient audio tracks and sound effects
+│   │   ├── backgrounds/              ←   21 Act 1 backgrounds (19 in use: 9 rooms, 5 vent landmarks, 5 maze frames)
 │   │   ├── closeups/                 ←   Detail images for show_closeup effect (incl. procedural vent_map.webp)
 │   │   ├── scripts/                  ←   Scenario build scripts: build_vent_maze.py, draw_vent_map.py, draw_rigged_line.py, extract_glyphs.py, build_player_idle.py, compose_security_closeup.py
+│   │   ├── items/                    ←   Inventory icons (icon_file)
 │   │   ├── ui/                       ←   Widget art (keypad glyph keys)
-│   │   └── sprites/                  ←   Character sprite sheets
+│   │   └── sprites/                  ←   Character and object sprite sheets
 │   └── ... (15 scenarios total, 13 with JSONs, 2 design-only)
 ├── docs/
 │   ├── SCENARIO_SCHEMA.md            ← THE schema spec (1700+ lines) — full JSON reference
 │   ├── ARCHITECTURE.md               ← Engine internals (diagrams, data flow)
+│   ├── HOTSPOT_POSITIONING_GUIDE.md  ← Image-pixel → 960x720 hotspot conversion, worked examples
 │   ├── SPATIAL_MOVEMENT_DESIGN.md    ← Deferred post-MVP spatial system design
 │   ├── ART_GUIDE.md                  ← HOW TO MAKE ART: prompts, chroma-key, sizing, placement, verification
 │   └── images/                       ← Screenshots for README
@@ -74,6 +85,7 @@ A **JSON-driven point-and-click adventure game engine** — "no-code adventure g
 │   ├── softlock-search.mjs           ← Exhaustive state-space soft-lock search using the real engine
 │   ├── preview-hotspots.mjs          ← Render a view (or a raw new image) at 960×540 with all hotspots/sprites/character drawn on
 │   └── generate-voiceover.mjs        ← ElevenLabs TTS batch generator for scenario narration
+├── .claude/skills/scenario-builder/SKILL.md ← AI agent guide to building a scenario package
 ├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
 ├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)
 └── .gitignore
@@ -107,7 +119,7 @@ When you contribute to this project, follow these rules:
 
 | Layer | Technology | Notes |
 |-------|-----------|-------|
-| Frontend | React 19 + TypeScript + Vite 8 | POC uses React-only rendering (no canvas) |
+| Frontend | React 19 + TypeScript 5.7 + Vite 6 | POC uses React DOM rendering; a canvas only for ambient lighting |
 | Game Engine | TypeScript `ScenarioEngine` class | Pure state machine, no rendering, no side effects |
 | Rendering | React components + CSS positioning | Objects as positioned divs on painted backgrounds |
 | Backend | Spring Boot 3.3.5 + Java 21 + Maven | Future: tooling server for validation, save sync |
@@ -145,6 +157,8 @@ Clickable hotspots in views. Have position (960x720 coords), size, visual appear
 Verb + conditions → effects. "If player uses wrench on bolt AND bolt_state is 'tight' THEN set bolt_state to 'loose' AND show message."
 
 ### Four Verbs + Inventory Use
+There are no verb buttons: right-clicking the viewport cycles look → move → hand → talk (default look), and each verb has its own SVG cursor.
+
 | Verb | What It Does |
 |------|-------------|
 | `look` | Examine visually. Always safe. Fallback shows object description. |
@@ -156,11 +170,11 @@ Verb + conditions → effects. "If player uses wrench on bolt AND bolt_state is 
 
 The engine falls back from `hand` to `take` for backwards compatibility with older scenario JSONs. Every click produces KQ5-style feedback, even when nothing happens ("You can't do anything useful with X right now.").
 
-### Condition Types (14 + composites)
-`flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `noise_above`, `noise_below`, `phase_is`, `time_after`, `time_before`, `item_count`, `is_hiding`, `not_hiding`, `killer_is`, `widget_solved` + composites: `any_of`, `all_of`
+### Condition Types (17 + composites)
+`flag_is`, `flag_not`, `object_state`, `has_item`, `not_has_item`, `view_is`, `not_in_view`, `noise_above`, `noise_below` (field `threshold`), `phase_is`, `time_after`, `time_before`, `item_count` (field `count`), `is_hiding`, `not_hiding`, `killer_is`, `widget_solved` + composites: `any_of`, `all_of`. `time_after`/`time_before` are not implemented (unknown types evaluate true) and `killer_is` is a stub (false).
 
-### Effect Types (20+)
-`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `open_widget`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `show_dialogue`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`, `set_character`
+### Effect Types (25+)
+`message`, `random_message`, `set_flag`, `set_state`, `add_item`, `remove_item`, `set_view`, `open_widget`, `add_noise`, `set_noise`, `show_object`, `hide_object`, `set_animation`, `show_closeup`, `show_dialogue`, `game_over`, `advance_phase`, `start_hiding`, `stop_hiding`, `transform_item`, `trigger_event`, `visual_cue`, `play_sound`, `delay_then`, `conditional_effect`, `set_character`, `equip_item`, `unequip_item` (wearable item overlays; implemented but unused by any scenario)
 
 ### Other Systems
 - **Items**: Inventory objects with examine interactions
@@ -171,11 +185,11 @@ The engine falls back from `hand` to `take` for backwards compatibility with old
 - **Puzzle Widgets**: Special UI for specific puzzles. Implemented: `keypad` as an **overlay** opened by the `open_widget` effect (glyph or text keys, auto-submit, in-widget fail feedback, `on_solve`/`on_fail`/`max_attempts`+`on_max_fail` that never locks, `widget_solved` condition). Other types are specified but unrendered
 - **Events**: Timer/condition-triggered narrative beats
 - **Win/Lose Conditions**: Flag/state checks that end the game
-- **Hints**: Progressive help system
+- **Hints**: Progressive per-view help system (`view.hints`; the timed top-level `hints` array is not read by the engine)
 - **Dialogue Choices**: Branching conversation system via `show_dialogue` effect
 - **Character Sprites**: Sierra-style sprite sheet rendering on backgrounds
 - **30 Design Patterns**: Documented reusable puzzle patterns
-- **Sound Effects**: Optional `setting.sounds` with `room_transition`, `item_pickup`, `intro_voice` paths
+- **Sound Effects**: Optional `setting.sounds` with `room_transition`, `item_pickup`, `intro_voice` paths; any other key (e.g. `discovery`) can be played with the `play_sound` effect
 - **Ambient Lighting**: Optional per-view `ambient_lighting` with light sources for dynamic canvas glow effects
 
 ### Character Sprite System
@@ -191,7 +205,9 @@ Optional `character` config at scenario root defines available sprite sets (walk
 }
 ```
 
-Per-view placement: `"character": { "x": 480, "y": 550, "facing": "down", "sprite_set": "idle", "frame": 0 }`
+Per-view placement: `"character": { "x": 480, "y": 550, "facing": "down", "sprite_set": "idle", "frame": 0 }` (x/y is the feet, bottom-center).
+
+**Naming convention the player relies on**: if `sprite_sets` has a set named exactly `standup`, `ScenarioPlayer` plays it once during the intro fade-in, then switches the override to the set named `idle`. The Harvest's sets are `idle`, `walk`, `standup`, `idle_helmet`, `walk_helmet` (frame 300×410, scale 0.35).
 
 ---
 
@@ -215,16 +231,16 @@ Per-view placement: `"character": { "x": 480, "y": 550, "facing": "down", "sprit
 | `noise_above` | Yes | 1/13 |
 | `noise_below` | Yes | 1/13 |
 | `item_count` | Yes | 1/13 |
+| `not_in_view` | Yes | 0/13 |
 | `killer_is` | Stub (returns false) | 8/13 |
-| `widget_solved` | Yes | 1/13 (The Harvest keypads) |
+| `widget_solved` | Yes | 0/13 (The Harvest's keypad uses an `on_solve` flag instead) |
 | **`time_after`** | **NO** | **13/13** (events) |
 
 ### Effects — what's implemented vs. what scenarios use
 
-All 20+ effect types have real implementations. Remaining no-ops:
+All 25+ effect types have real implementations (`play_sound` queues a `setting.sounds` key or file path that `ScenarioPlayer` plays). Remaining no-ops:
 - `trigger_event` — no-op (needs events system)
 - `visual_cue` — no-op (cosmetic, fine for MVP)
-- `play_sound` — no-op (cosmetic, fine for MVP)
 
 ### Major Unimplemented Systems
 
@@ -253,7 +269,7 @@ All 20+ effect types have real implementations. Remaining no-ops:
 | The Butcher's Debt | `the-butchers-debt/` | Yes | Yes | No |
 | The Dollmaker's Workshop | `the-dollmakers-workshop/` | Yes | Yes | No |
 | The Pharaoh's Architect | `the-pharaohs-architect/` | Yes | Yes | No |
-| The Harvest | `the-harvest/` | Yes | Yes + deep-design | 11 (Act 1) |
+| The Harvest | `the-harvest/` | Yes | Yes + deep-design | 21 (Act 1) + 6 close-up images |
 | Blackwood Manor | `blackwood-manor/` | No | Yes | No |
 | The Clockmaker's Secret | `the-clockmakers-secret/` | No | Yes | 1 |
 
@@ -298,10 +314,10 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **All core conditions implemented**: `all_of`, `any_of`, `noise_above`, `noise_below`, `item_count` all working
 - **All core effects implemented**: `set_noise`, `transform_item`, `conditional_effect`, `delay_then` all working
 - **The Harvest Act 1** redesigned — navigation graph corrected to match actual background art. 9 rooms: Stasis Hold → Corridor (hub, 5 exits) → Processing Lab, Security Hub, Feeding Station (secondary hub, 3 exits), Ventilation Shaft (via gated floor vent, requires `security_locks_overridden`) → Feeding Station → Morgue, Specimen Archive → Ventilation Shaft → Airlock Bay. All object positions aligned to painted backgrounds.
-- **Ambient audio system**: Supports single or layered audio tracks per scenario. The Harvest has 2 ambient tracks (ship hum + lab ambience).
+- **Ambient audio system**: Supports single or layered audio tracks per scenario, with per-view overrides (`[]` = silence). The Harvest's default is `audio/haunted.wav`; Act 1 views override it with lab ambience (`ambient_lab.mp3`), industrial ventilation (`ambient_industrial.wav`), or silence in the morgue.
 - **Level design doc** at `scenarios/the-harvest/act1-level-design.md` with navigation map, room-by-room tables, puzzle flow, and Gemini background regeneration prompts.
 - **All 13 scenario JSONs updated** with new verb mappings (nav: hand→move, take→hand).
-- **Hotspot rendering** improved: nav objects get higher z-index and blue hover border, regular objects get gold hover border, all hotspots positioned within 960x720 bounds
+- **Hotspot rendering** improved: nav objects get higher z-index; in debug mode nav objects are outlined red with a blue hover border and regular objects gold (hotspots are invisible in normal play); all hotspots positioned within 960x720 bounds
 - **Lighthouse Keeper** is simplest (3 views) — first playtest target
 - **Branch**: `claude/dreamy-volta-ha3r6v`
 - **Architecture doc** at `docs/ARCHITECTURE.md` with SVG diagrams in `docs/images/`
@@ -311,26 +327,26 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Response shorthand**: Interactions can use `response` string instead of `then` effects array for simple messages.
 - **Navigation routing corrected**: Corridor is primary hub (5 exits including gated vent), Feeding Station is secondary hub (3 exits: morgue, archive, corridor). Vent shaft entrance moved from Feeding Station to Corridor — gated by `security_locks_overridden`. Processing Lab and Security Hub are dead ends.
 - **Animation suppression**: `set_animation` effect clears glimmer/pulse on completed objects so they stop drawing attention after the player has collected items or gained knowledge from them.
-- **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. Used by: cataloguer robot in Stasis Hold shows 3-tank specimen closeup.
-- **Hotspot positioning guide**: Comprehensive documentation across ADVENTURE_BUILDER.md, TECHNICAL_DEEP_DIVE.md, SCENARIO_SCHEMA.md, and CLAUDE.md covering image-to-coordinate conversion formulas, worked examples, debug mode workflow, common mistakes, and an AI agent checklist. Self-maintenance rule #9 requires verifying positions against actual background image dimensions.
+- **Closeup overlay system**: `show_closeup` effect displays a framed detail image in a dismissable overlay. Images stored in scenario `closeups/` subfolder. Used by: LOOK at the ventilation map (`closeups/vent_map.webp`). The cataloguer, lab terminal and security console close-ups are interactive sub-views instead (see below).
+- **Hotspot positioning guide**: `docs/HOTSPOT_POSITIONING_GUIDE.md` plus sections in ADVENTURE_BUILDER.md, TECHNICAL_DEEP_DIVE.md, SCENARIO_SCHEMA.md, and CLAUDE.md covering image-to-coordinate conversion formulas, worked examples, debug mode workflow, common mistakes, and an AI agent checklist. Self-maintenance rule #9 requires verifying positions against actual background image dimensions.
 - **Progressive hint system**: Per-view `hints` array on each view in the scenario JSON. Engine evaluates conditions in order and returns the last matching hint (most specific). Floating "?" button at bottom-right of viewport shows hints as message overlay. Implemented in ScenarioEngine.getHint(), ScenarioPlayer, and documented in SCENARIO_SCHEMA.md and ADVENTURE_BUILDER.md.
 - **Scenario picker restored**: App.tsx shows ScenarioLoader on startup — all scenarios with JSON files are auto-discovered from `scenarios/manifest.json`. Players can also upload a custom JSON file. No hardcoded scenario ID.
-- **Immersive HUD**: Messages overlay on the game viewport (semi-transparent backdrop) instead of a dedicated panel below. Inventory is a collapsible drawer with "Items" toggle tab at bottom-left. Hint "?" button floats at bottom-right. Ambient text shows subtly when idle. Inventory auto-opens on item pickup. No UI elements below the viewport — full immersion.
+- **HUD**: No verb buttons — right-click cycles look → move → hand → talk, with a per-verb SVG cursor (`VerbBar.tsx` and `MessagePanel.tsx` are no longer rendered). Below the viewport: a collapsible "Items" inventory tray (auto-opens on item pickup), then the message line (ambient text when idle). Hint "?" button floats at the viewport's bottom-right. (An earlier version overlaid messages on the viewport; inventory and messages moved back below it.)
 - **Starting puzzle fix**: Stasis pod starts open (matches background art). Player scavenges wreckage instead of "breaking out." specimen_tag_hook now visible from start.
-- **Character sprite system**: Sierra-style sprite sheet rendering on top of backgrounds. `CharacterSprite` component uses CSS background-position to show frames from sprite sheets. Supports animated walk cycles and static poses. Per-view character placement in scenario JSON. Dynamic state changes via `set_character` effect. Sprite sheets go in scenario `sprites/` subfolder. Splicing tool at `tools/splice-sprites.mjs`. The Harvest has character placements for all 14 Act 1 views (9 main rooms + 5 vent maze rooms; closeup sub-views intentionally have no character).
+- **Character sprite system**: Sierra-style sprite sheet rendering on top of backgrounds. `CharacterSprite` component uses CSS background-position to show frames from sprite sheets. Supports animated walk cycles and static poses. Per-view character placement in scenario JSON. Dynamic state changes via `set_character` effect. Sprite sheets go in scenario `sprites/` subfolder. Splicing tool at `tools/splice-sprites.mjs`. The Harvest has character placements for 27 of the 30 Act 1 views (9 main rooms + 5 vent landmark rooms + 13 maze cells; the 3 closeup sub-views intentionally have no character).
 - **Dialogue choice system**: `show_dialogue` effect pauses gameplay and shows a branching conversation modal (`DialogueOverlay` component). Each choice has a label, optional `when` conditions (hidden if not met), and `then` effects array. Engine methods: `getDialogue()`, `selectDialogueChoice(index)`, `dismissDialogue()`. First use: caged prisoner in feeding station with 4 branching choices that set different `prisoner_bond` values affecting all subsequent interactions. Documented in SCENARIO_SCHEMA.md.
 - **Object sprite system**: `SpriteObject` component renders animated sprite sheets on world objects. Defined via `sprite` field in object JSON: `{ file, frame_width, frame_height, columns, rows, frame_rate, scale }`. Uses CSS background-position with requestAnimationFrame. Bottom-center anchored at z-index 4. First uses: caged_prisoner (pacing animation), holographic_display (spinning planets).
 - **Room name labels**: Bottom-right of viewport shows the current view's `name` field subtly in gold. Bottom at 26px to avoid overlapping the hint "?" button.
-- **Back navigation button**: Views with `back_label` show a "Back to X" button at top-left. Only on closeup-style sub-views, not on main rooms.
-- **Act 1 fully solvable**: 14 rooms navigable (9 main + 1 cataloguer closeup + 1 security closeup + 3 vent maze rooms accessible without items), 15 collectible/craftable items (12 original + restraint strap, carcass hook, grappling line) (including 2 optional: crew_datapad and choir_access_chip in vent dead end), all key flags settable, all 4 dialogue branches functional, 3 lethal hazards with fair warnings. Walkthrough at `scenarios/the-harvest/walkthrough.md` with ASCII deck map, critical path table, and room-by-room guide.
+- **Back navigation button**: Views with `back_label` show a "◀ {back_label}" button at top-left. Only on closeup-style sub-views, not on main rooms.
+- **Act 1 fully solvable**: 30 views (9 main rooms + 3 close-up sub-views: cataloguer, lab terminal, security console + 18 vent maze screens: 5 landmark rooms and 13 duct cells), 17 items (16 collectible + the crafted grappling line; including 2 optional: crew_datapad and choir_access_chip in the collapsed section), all key flags settable, all 4 dialogue branches functional, lethal hazards with fair warnings. Walkthrough at `scenarios/the-harvest/walkthrough.md` with ASCII deck map, critical path table, and room-by-room guide.
 - **Item compendium**: Published artifact (https://claude.ai/artifact/9Zw5Tx8D9GitG6uGVvZ9Tt) ranking all 18 Act 1 items by importance, with where to find each, every use (with in-game text), combinations, what uses it up, the rooms that check for it, later-act uses, and three flagged cross-act consumption risks (tendril, stasis fluid, nutrient paste). Built from data extracted from scenario.json; regenerate it when items or their uses change.
 - **Interactive scenario map**: Published artifact at claude.ai showing Act 1 room graph, item locations, puzzle chains, and 30-step walkthrough. Keep this updated when rooms, items, or puzzles change. Data extracted from scenario JSON.
-- **Cataloguer robot closeup**: Spider-legged drone in Stasis Hold with static sprite (frame_rate=0). Looking or touching navigates to `act1_cataloguer_closeup` sub-view — a full interactive view using the specimen image as background with `back_label: "Stasis Hold"`. Five interactive objects (3 specimen tanks, data plates, cataloguer mechanism) with look/hand/talk responses. The specimen displays show the four-glyph section code (fern, double curl, sprouting snake, thorny branch); LOOK/HAND the robot or plates sets `lab_code_known`. Sub-views support all 4 verbs, unlike the old `show_closeup` overlay which was hand-only. Character override only applies when the current view has a `character` placement — views without one (like closeup sub-views) show no character sprite.
+- **Cataloguer robot closeup**: Spider-legged drone in Stasis Hold with a 4-frame animated sprite (`sprites/cataloguer_robot.png`, 2fps). Looking or touching navigates to `act1_cataloguer_closeup` sub-view — a full interactive view using the specimen image as background with `back_label: "Stasis Hold"`. Four interactive objects (3 specimen tanks, data plates) with look/hand/talk responses. The specimen displays show the four-glyph section code (fern, double curl, sprouting snake, thorny branch); LOOK/HAND the robot or plates sets `lab_code_known`. Sub-views support all 4 verbs, unlike the old `show_closeup` overlay which was hand-only. Character override only applies when the current view has a `character` placement — views without one (like closeup sub-views) show no character sprite.
 - **Engine bug fixes**: `evaluateConditions()` now handles undefined/missing `when` arrays gracefully. `flag_is`/`flag_not` conditions without explicit `value` default to checking against `"true"` (previously compared against `undefined`, breaking conditions like `flag_not security_sequence_known`).
 - **Vent cover in corridor**: Ventilation shaft entrance moved from Feeding Station to Containment Corridor. A `vent_cover` object with a sprite grate graphic (`sprites/vent_cover.png`) is always visible in the corridor floor (bottom-left) but gated by `security_locks_overridden` — trying to enter before overriding security shows a locked message.
 - **Vent maze hazards and rewards** (routing superseded by "Vent maze v2" below): Gas Chamber (☠ needs helmet) → Fan Chamber (☠ jam with surgical probe, which is consumed) → Exit Passage → Airlock Bay. The Collapsed Section holds a Choir skeleton with crew_datapad (lore) and a hidden choir_access_chip. The emergency helmet comes from the Security Hub emergency cabinet. 3 game_over deaths (gas without helmet ×2, fan blades). All five special rooms have painted backgrounds.
 - **Choir Access Chip**: Hidden optional item on the dead Choir engineer in the vent maze collapsed section. Found by HANDing the skeleton a second time after taking the crew_datapad. In Act 2, the Shuttle Bay entrance from Engineering has a bio-resonance security lock. With the chip: instant silent bypass. Without: a 3-option dialogue challenge where only 1 frequency is correct — wrong guesses add +15 noise each. Rewards thorough maze exploration with a significant Act 2 convenience.
-- **Standup intro animation**: When the game starts and the intro text is dismissed, the goblin plays an 8-frame stand-up animation (`sprites/goblin_standup.png`) during the fade-from-black transition, then transitions to the idle sprite. Implemented via `loop: false` on SpriteSet (plays once, holds last frame) and ScenarioPlayer managing the standup→idle character override. CharacterSprite resets frame counter when sprite_set changes.
+- **Standup intro animation**: When the game starts and the intro text is dismissed, the player plays a 4-frame stand-up animation (`sprites/character_standup.png`, 3fps) during the fade-from-black transition, then transitions to the idle sprite. Implemented via `loop: false` on SpriteSet (plays once, holds last frame) and ScenarioPlayer managing the standup→idle character override. The convention is name-based: ScenarioPlayer looks for a sprite set literally named `standup`, and afterwards switches to the one named `idle` (no `standup` set = no animation). CharacterSprite resets frame counter when sprite_set changes.
 - **Portability audit complete**: All scenario-specific hardcoding removed from engine and components. Zero references to "the-harvest" or any scenario-specific assets in `client/src/`. Changes: (1) App.tsx restored ScenarioLoader instead of hardcoded CAMPAIGN_ID, (2) ScenarioPlayer.tsx sound effects now read from `setting.sounds` in JSON instead of hardcoded paths, (3) AmbientCanvas.tsx rewritten to read `ambient_lighting` from view JSON instead of hardcoded presets, (4) ScenarioLoader.tsx reads from `scenarios/manifest.json` for auto-discovery, (5) All asset URL construction centralized through `resolveAsset()` utility. A third-party scenario needs only JSON + asset folders — no engine changes.
 - **Centralized asset resolver**: `client/src/engine/assetResolver.ts` exports `resolveAsset(scenarioId, relativePath)` and `setAssetBase(url)`. All 8 components that load scenario assets (backgrounds, sprites, sounds, icons, closeups) route through this single function. Default behavior serves from `/scenarios/{id}/`, but `setAssetBase()` can redirect all asset loading to a different origin (CDN, blob URL from zip extraction, etc.) — one line change to support any deployment model.
 - **JSON-driven sound effects**: `setting.sounds` object in scenario JSON with optional `room_transition`, `item_pickup`, and `intro_voice` paths. Engine plays these on the corresponding events. Scenarios without sounds simply don't play any — no errors.
@@ -346,17 +362,17 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Security console closeup**: `act1_security_closeup` sub-view with 3 objects: the red Emergency Override button (two objects, `sec_closeup_override_button_dark` until the lab terminal's `on_solve` swaps in the lit `sec_closeup_override_button` via `hide_object`/`show_object`; pressing the lit one sets `security_locks_overridden`, opening the corridor vent), surveillance feeds (Curator patrol), and the status display. `back_label: "Security Hub"`. Its background `closeups/security_closeup.webp` is composited from existing art by `scenarios/the-harvest/scripts/compose_security_closeup.py` (the hub painting's wall of screens, blurred, behind the chroma-keyed console art); the feeds and status hotspots sit on the painted screens. The containment key card comes from the `key_card_drawer` on the Security Hub wall, not the close-up.
 - **Item use overhaul (Act 1)**: 7 new use_item interactions give previously unused items purpose: glass shard + organic growth (reveals scratched message from previous prisoner), stasis fluid vial + reading device (enhances reader), specimen tag + reader (reveals species classification), nutrient paste + prisoner (feeds prisoner, strengthens bond), neural tendril + holographic display (reveals Convergence heading to Earth), cat hair + examination tables (DNA analysis reveals cat was processed), surgical probe + keypad/lever (flavor interactions with noise; since removed with the old security keypad and lever). Fixed missing `has_item` conditions on reading_device and airlock_override_panel.
 - **Hitbox fixes**: corridor_pipes width 965→960, personal_log_crystal 20x53→50x70, broken_pod repositioned to (160,560) with size 150x100.
-- **Grappling-line gap puzzle (soft-lock fix)**: The Stasis Hold walkway gap guards the cataloguer robot (four-glyph code → security keypad or lab terminal → vent). Its only solution used to be the neural tendril, which the holographic display consumes — visiting the Archive first soft-locked Act 1. Now: USE surgical probe ON restraint straps (Processing Lab; probe kept, shard fails with a hint) → Restraint Strap; HAND the carcass hook in the morgue's open drawer (`morgue_carcass_hook`) → Carcass Hook; COMBINE → Grappling Line (`consumes: true`, Act 1's first combination); USE line ON `platform_gap` → `gap_crossed`, line consumed, hidden `gap_grappling_line` object shown (procedural strap sprite drawn between the two painted railing stubs). Specific rejections for strap-only, hook-only, probe, tendril, shard; HAND still kills. Stasis/lab/morgue hints teach combining. New art: `items/restraint_strap.png`, `items/carcass_hook.png`, `items/grappling_line.png`, `sprites/carcass_hook.png`, `sprites/grappling_line_rigged.png`.
+- **Grappling-line gap puzzle (soft-lock fix)**: The Stasis Hold walkway gap guards the cataloguer robot (four-glyph code → lab terminal → vent; at the time there was also a security keypad route). Its only solution used to be the neural tendril, which the holographic display consumes — visiting the Archive first soft-locked Act 1. Now: USE surgical probe ON restraint straps (Processing Lab; probe kept, shard fails with a hint) → Restraint Strap; HAND the carcass hook in the morgue's open drawer (`morgue_carcass_hook`) → Carcass Hook; COMBINE → Grappling Line (`consumes: true`, Act 1's first combination); USE line ON `platform_gap` → `gap_crossed`, line consumed, hidden `gap_grappling_line` object shown (procedural strap sprite drawn between the two painted railing stubs). Specific rejections for strap-only, hook-only, probe, tendril, shard; HAND still kills. Stasis/lab/morgue hints teach combining. New art: `items/restraint_strap.png`, `items/carcass_hook.png`, `items/grappling_line.png`, `sprites/carcass_hook.png`, `sprites/grappling_line_rigged.png`.
 - **Duplicate-key cleanup**: `black_cat` and `emergency_cabinet` had two `shadow` blocks each (older value silently winning over the latest editor export). Removed the stale ones; scenario.json is now canonical `json.dumps(indent=2)` format, so scripted edits produce minimal diffs.
 - **Act 1 was unwinnable — fixed**: (1) `fan_mechanism`'s `use_item` interactions had no `item` field since the vent maze was added, so the surgical probe could never jam the fan (walking into it was the only option: death). Now `item: "surgical_probe"`, plus the "won't fit" rejection is attached to the other plausible items. (2) The security-closeup key-card drawer sprite was anchored at y=-23 (off the top of the screen) by an editor export, making the only key card unobtainable; re-anchored beneath the console at (690,700). (3) Five vent-maze ambient lights lacked `pulse_speed`/`pulse_amount`, crashing the lighting canvas with NaN. All found by the new validator / soft-lock search.
 - **One security route (simplified)**: the old security keypad, startup-sequence flag, membrane lever and close-up drawer were removed. They duplicated the lab terminal route, and the "five-step startup sequence" was never entered anywhere (one LOOK set a flag). Chain now: gap → glyph code → lab terminal keypad (arms the override) → Security Hub close-up → press the override → corridor vent. Soft-lock search: 27,371 states, 0 soft-locked, shortest win 27 actions.
 - **How the vent views were made**: every vent background (5 special rooms + 3 generic frames) worked on the first Gemini attempt and fitted existing hotspots with small nudges. The full recipe is documented in `docs/ART_GUIDE.md` → "Case Study: The Vent Maze" (reference-image anchoring, hotspot-to-fraction composition, hero-frame edits, mirroring, shared hotspot geometry, data-driven build) and summarised in rule 14. Showcase image: `docs/images/vent-maze-rooms.webp`. Tools added: `tools/preview-hotspots.mjs`; `scenarios/the-harvest/scripts/build_vent_maze.py` (idempotent).
 - **Vent maze v2 (implemented)**: KQ-style labyrinth replacing the single fork. Fixed compass (camera always faces north; left=W, right=E, bottom edge=S). 13 generic "Air Ducts" cells (`act1_vent_maze_a`…`n`) on 5 reusable frames: LF/LT/DE generated as Gemini edits of the junction art, RF/RT as horizontal mirrors. The five painted special rooms (junction, gas chamber, fan chamber, collapsed section, exit passage) are landmarks inside the grid. The `ventilation_map` is the way through: LOOKing at it shows `closeups/vent_map.webp`, drawn from the grid by `scenarios/the-harvest/scripts/draw_vent_map.py`. Per-cell hints point along the map once you have it. Route: junction → W → N×4 → gas → fan → exit. It includes a loop, a dead end, and a long east arm to the optional skeleton room. Soft-lock search: 0 soft-locks. Design and conventions: `scenarios/the-harvest/vent-maze-design.md`.
 - **Hint-order bug fixed**: five vent rooms had an always-true hint *after* their specific hints, and since `getHint()` returns the last match, the specific ones never showed (e.g. the fan room's "jam the mechanism"). Unconditional hints now come first everywhere, and the validator warns on this pattern.
-- **Glyph keypad (puzzle widget #1)**: The lab terminal keypad is a real puzzle. HAND opens a `keypad` overlay widget with 8 alien-glyph keys. The code is the four characters painted on the specimen displays in the cataloguer close-up (fern, double curl, sprouting snake, thorny branch), which are only reachable across the Stasis Hold gap. The solution glyphs are traced from that painting by `scenarios/the-harvest/scripts/extract_glyphs.py`, which renders 4 procedural decoys identically, so no key gives itself away. Wrong entries add noise and show cycling in-widget feedback that hints toward "somewhere the characters are written in order". `max_attempts` (6) triggers a loud alarm but never locks. Brute force is possible (4,096 codes) but miserable, so the gap is a knowledge gate. The code unlocks the terminal, which arms the security console's Emergency Override (the only route to the vent). The old dead `lab_access_keypad` widget was removed. Soft-lock search (widget-aware): 143,587 states, 0 soft-locks.
+- **Glyph keypad (puzzle widget #1)**: The lab terminal keypad is a real puzzle. HAND opens a `keypad` overlay widget with 8 alien-glyph keys. The code is the four characters painted on the specimen displays in the cataloguer close-up (fern, double curl, sprouting snake, thorny branch), which are only reachable across the Stasis Hold gap. The solution glyphs are traced from that painting by `scenarios/the-harvest/scripts/extract_glyphs.py`, which renders 4 procedural decoys identically, so no key gives itself away. Wrong entries add noise and show cycling in-widget feedback that hints toward "somewhere the characters are written in order". `max_attempts` (6) triggers a loud alarm but never locks. Brute force is possible (4,096 codes) but miserable, so the gap is a knowledge gate. The code unlocks the terminal, which arms the security console's Emergency Override (the only route to the vent). The old dead `lab_access_keypad` widget was removed. Soft-lock search (widget-aware): 143,587 states, 0 soft-locks at the time; after the security simplification it is 27,371 states (see "One security route").
 - **Scenario tooling**: `tools/validate-scenario.mjs` (referential/schema lint) and `tools/softlock-search.mjs` (exhaustive search over the real engine, cone-of-influence reduced). Both documented in Key Commands.
 - **Art guide**: `docs/ART_GUIDE.md` — two-style rule (painted backgrounds, pixel-art sprites), prompt template + the exact prompts that shipped, chroma pipeline (now with despill), sizing table measured from Act 1, anchoring rules, icon canvas spec, procedural composite sprites, Playwright verification recipe.
-- **Sprite stubs**: 1 object has sprite config stub awaiting art: vent_maintenance_hatch. Previously 10 — now resolved: instrument_rack, corridor_emergency_panel, corridor_drag_marks, corridor_organic_growth, neural_tendril_sample, vent_old_remains, nutrient_dispenser all have chroma-keyed art; specimen_tag_hook and personal_log_crystal have procedural placeholder sprites (4-frame animated, generated via node-canvas). Both collectibles now hide on pickup via `hide_object` effect.
+- **Sprite stubs**: none left. All 10 former stubs have art: vent_maintenance_hatch (`sprites/maintenance_hatch.png`), instrument_rack, corridor_emergency_panel, corridor_drag_marks, corridor_organic_growth, neural_tendril_sample, vent_old_remains, nutrient_dispenser all have chroma-keyed art; specimen_tag_hook and personal_log_crystal have procedural placeholder sprites (4-frame animated, generated via node-canvas). Both collectibles now hide on pickup via `hide_object` effect.
 
 ---
 
@@ -372,8 +388,8 @@ cd client && npm run dev    # http://localhost:5173
 # Backend (not needed for POC)
 cd server && mvn spring-boot:run
 
-# Type check
-cd client && npx tsc --noEmit
+# Type check (client/tsconfig.json only has project references, so plain `tsc --noEmit` checks nothing)
+cd client && npx tsc -b
 ```
 
 ### Validate a scenario (run before every commit that touches scenario.json)
@@ -414,10 +430,10 @@ Run it after any change that adds `remove_item`, `consumes: true`, irreversible 
 2. ~~Implement `set_noise` effect, `noise_above` condition~~ DONE
 3. ~~Fix coordinate scaling~~ DONE (960x720 space)
 4. Add game clock + events system
-5. Implement puzzle widget UI components
+5. Implement puzzle widget UI components (keypad overlay DONE; dial, combination lock, toggle panel, sequence still TODO)
 6. Implement killer AI state machine
 7. ~~Fix The Harvest position data~~ DONE (all Act 1 objects within 960x720 bounds, nav z-index fix)
 8. Get Lighthouse Keeper fully playable end-to-end
 9. ~~Character shadow rendering~~ DONE — all sprites (character + object) support JSON-configurable shadows with offset, opacity, size. Character shadows overridable per-view. Visual editor has shadow sliders.
-10. Process and integrate cataloguer robot animated sprite (4-frame animation)
+10. ~~Process and integrate cataloguer robot animated sprite (4-frame animation)~~ DONE
 11. Voiceover narration — ElevenLabs TTS integration (script built, awaiting API key)

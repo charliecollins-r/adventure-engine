@@ -295,6 +295,7 @@ export function GameView({
           return (
             <SpriteObject
               key={obj.id}
+              objectId={obj.id}
               sprite={obj.sprite}
               shadow={obj.shadow}
               scenarioId={scenarioId}
@@ -326,6 +327,7 @@ export function GameView({
           <div
             key={obj.id}
             data-object-hotspot
+            data-object-id={obj.id}
             style={{
               ...hotspotStyle,
               zIndex: isNav ? 2 : 1,

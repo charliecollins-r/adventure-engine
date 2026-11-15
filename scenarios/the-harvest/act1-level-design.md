@@ -1,36 +1,33 @@
 # The Harvest — Act 1 Level Design
 
+> **Status.** This is the original Act 1 level design. The shipped Act 1 has changed since: the Pod Cluster close-up was never built (the cataloguer close-up across the walkway gap took its place), the ventilation shaft is entered through a gated grate in the **Containment Corridor** (not the Feeding Station), the shaft leads into an 18-screen vent maze before the Airlock Bay, and the security puzzle is one route through the lab terminal's glyph keypad. The map and puzzle flow below are current. Object positions in the room tables are design-time sketches; `scenario.json` is authoritative (use `tools/preview-hotspots.mjs` to see real positions). For the current step-by-step solution see [`walkthrough.md`](walkthrough.md); for the maze see [`vent-maze-design.md`](vent-maze-design.md).
+
 ## Navigation Map
 
 ```
-                                    [POD CLUSTER]
-                                    (close-up from
-                                     Stasis Hold)
-                                         |
-                                         | (zoom)
-                                         |
-[STASIS HOLD] ←——— archway ———→ [CONTAINMENT CORRIDOR]
-  (START)                          |        |        |
-                              left door  far end  right door
-                                  |        |        |
-                          [PROCESSING   [FEEDING  [SECURITY
-                             LAB]      STATION]     HUB]
-                          (dead end)   / | \      (dead end)
-                               rear door | right door
-                                 /       |       \
-                          [MORGUE]  vent grate  [SPECIMEN
-                                        |       ARCHIVE]
-                                  [VENTILATION
-                                     SHAFT]
-                                        |
-                                    forward
-                                        |
-                                  [AIRLOCK BAY]
-                                    (END)
+   [CATALOGUER CLOSE-UP]                      [LAB TERMINAL CLOSE-UP]   [SECURITY CONSOLE CLOSE-UP]
+   (across the walkway gap)                    (glyph keypad)            (Emergency Override)
+            |                                          |                          |
+[STASIS HOLD] ←——— archway ———→ [CONTAINMENT CORRIDOR] (hub)                      |
+  (START)                       |       |        |        \                      |
+                           left door  far end  right door  floor vent grate       |
+                               |        |        |          (needs security_      |
+                        [PROCESSING  [FEEDING  [SECURITY ———  locks_overridden) —-+
+                            LAB]     STATION]    HUB]              |
+                             |        /    \                [VENTILATION SHAFT]
+                             |   rear pass. right door            |
+                             |      /          \           [VENT JUNCTION] → vent maze
+                    (close-up) [MORGUE]   [SPECIMEN              (13 duct cells + gas chamber,
+                                           ARCHIVE]               fan chamber, collapsed section)
+                                                                   |
+                                                             [EXIT PASSAGE]
+                                                                   |
+                                                             [AIRLOCK BAY] (END)
 ```
 
-> **Feeding Station** is a secondary hub with 4 exits: back to Corridor, rear passage to Morgue, right door to Specimen Archive, and vent grate to Ventilation Shaft.
-> **Processing Lab** and **Security Hub** are dead ends — back to Corridor only.
+> **Containment Corridor** is the primary hub with 5 exits: Stasis Hold, Processing Lab, Security Hub, Feeding Station, and the floor vent grate (locked until the security override is pressed).
+> **Feeding Station** is a secondary hub with 3 exits: back to Corridor, rear passage to Morgue, right door to Specimen Archive.
+> **Processing Lab** and **Security Hub** are dead ends — back to Corridor only (each has a close-up sub-view).
 
 ## Room-by-Room Design
 
@@ -63,7 +60,10 @@
 
 ---
 
-### 2. Pod Cluster (CLOSE-UP from Stasis Hold)
+### 2. Pod Cluster (CLOSE-UP from Stasis Hold) — *not built*
+
+> Not in the shipped game. `backgrounds/act1_pod_cluster.webp` exists but no view uses it, and there is no `preserved_insect` item. Its role went to the **cataloguer close-up** (`act1_cataloguer_closeup`, background `closeups/cataloguer_specimens.webp`): LOOK or HAND the cataloguer robot once you've crossed the walkway gap with the grappling line, and the specimen displays show the four-glyph code (fern, double curl, sprouting snake, thorny branch).
+
 **Background**: `act1_pod_cluster.webp`
 **Purpose**: Examine specimens, find the preserved insect (puzzle item), read alien labels.
 **Type**: Close-up view (not a navigable room). Accessed by looking at occupied_pods.
@@ -192,9 +192,9 @@
 **Interactive Objects**:
 | Object | Position (960x720) | What It Does |
 |--------|-------------------|-------------|
-| security_console | (480, 470) | Hand: access security systems. |
+| security_console | (480, 470) | Look/Hand: opens the Security Console close-up (Emergency Override button, feeds, status). |
 | cracked_screen | (540, 200) | Look: "Spider-web cracks. Whatever hit this was angry." |
-| key_card_drawer | (350, 560) | Hand: find containment key card (gated by flag). |
+| key_card_drawer | (350, 560) | Hand: take the containment key card (one per game). |
 
 **Navigation**:
 | Exit | Position | Destination | Visual Feature |
@@ -260,9 +260,8 @@
 | Far left passage | (50, 350) | Containment Corridor | Dark door behind alcoves |
 | Rear passage | (480, 150) | Morgue | Dark opening at back of room |
 | Right door | (900, 320) | Specimen Archive | Heavy door on right wall |
-| Floor vent | (480, 660) | Ventilation Shaft | Vent grate in floor |
 
-> **Secondary hub** — 4 exits. Feeding Station bridges between Corridor and the deeper rooms.
+> **Secondary hub** — 3 exits. Feeding Station bridges between Corridor and the deeper rooms. (The floor vent originally planned here moved to the Containment Corridor as `vent_cover`.)
 
 ---
 
@@ -288,8 +287,10 @@
 **Navigation**:
 | Exit | Position | Destination | Visual Feature |
 |------|----------|-------------|---------------|
-| Behind (bottom) | (480, 680) | Feeding Station | Where you entered |
-| Forward (center) | (480, 300) | Airlock Bay | Teal-green lit opening |
+| Behind (bottom) | (480, 680) | Containment Corridor | Where you entered (the floor grate) |
+| Forward (center) | (480, 300) | Vent Junction → vent maze → Airlock Bay | Teal-green lit opening |
+
+> As built, the ventilation map is found here and the maze lies beyond: see [`vent-maze-design.md`](vent-maze-design.md).
 
 ---
 
@@ -323,44 +324,44 @@
 
 ## Puzzle Flow
 
+As built (the soft-lock search proves every reachable state can still win; shortest win: 27 goal-relevant actions):
+
 ```
 START: Wake in Stasis Hold
   │
-  ├─ Take: specimen_tag (from broken pod)
-  ├─ Take: pod_glass_shard (from broken pod)
-  ├─ Take: stasis_fluid_vial (from drainage channel)
+  ├─ Take: pod_glass_shard, specimen_tag (broken pod / tag hook), stasis_fluid_vial (drainage channel)
   │
-  ├─ Zoom: Pod Cluster (from occupied_pods)
-  │   └─ Take: preserved_insect (to use later)
-  │
-  └─ Move: to Containment Corridor
+  └─ Move: to Containment Corridor (hub)
       │
       ├─ LEFT → Processing Lab
-      │   ├─ Take: surgical_probe (from instrument rack)
-      │   ├─ Read: lab displays (learn about the ship)
-      │   └─ → Morgue
-      │       ├─ Take: neural_tendril_sample
-      │       └─ Examine: recycling vats, drawers
+      │   ├─ Take: surgical_probe (instrument rack)
+      │   ├─ USE surgical_probe ON restraint straps → restraint_strap (probe is kept)
+      │   └─ LOOK lab terminal → Lab Terminal close-up (glyph keypad, locked)
+      │
+      ├─ FAR END → Feeding Station (secondary hub)
+      │   ├─ Take: nutrient_paste_tube; talk to the caged prisoner (4-way dialogue)
+      │   ├─ → Morgue: HAND the carcass hook in the open drawer → carcass_hook
+      │   │            (also: severed_neural_tendril)
+      │   └─ → Specimen Archive: data crystal, reading device, holographic display (lore)
+      │
+      ├─ COMBINE restraint_strap + carcass_hook → grappling_line
+      ├─ Back in Stasis Hold: USE grappling_line ON the walkway gap → gap crossed
+      │   └─ LOOK cataloguer robot → close-up: the four glyphs (fern, curl, sprout, thorn)
+      │
+      ├─ Lab Terminal close-up: enter the glyph code on the keypad widget
+      │   └─ arms the Emergency Override in the security close-up
       │
       ├─ RIGHT → Security Hub
-      │   ├─ Take: containment_key_card (from drawer, gated)
-      │   ├─ Examine: monitors (see other rooms)
-      │   └─ → Specimen Archive
-      │       ├─ Take: data_crystal / personal_log_crystal
-      │       ├─ Use: reading_device (insert crystal)
-      │       └─ Examine: holographic display (Earth!)
+      │   ├─ Take: containment_key_card (key card drawer), emergency_suit_helmet (emergency cabinet)
+      │   └─ LOOK console → Security Console close-up: press the lit override
+      │       └─ security_locks_overridden → the corridor vent grate unlocks
       │
-      └─ FAR END → Feeding Station
-          ├─ Take: nutrient_paste_tube
-          ├─ Examine: energy barriers, feeding apparatus
-          └─ → Ventilation Shaft
-              ├─ Examine: claw marks (foreshadowing)
-              ├─ Find: ventilation_map (scratched on wall)
-              └─ → Airlock Bay (END)
-                  ├─ Take: emergency_suit_helmet (from suit locker)
-                  ├─ Use: containment_key_card on override_panel
-                  ├─ Use: surgical_probe on blast_doors
-                  └─ WIN: blast_doors open → escape
+      └─ FLOOR GRATE → Ventilation Shaft (take: ventilation_map) → Vent Junction → maze
+          ├─ Gas-filled passage: needs the helmet (☠ without it)
+          ├─ Fan chamber: USE surgical_probe ON fan mechanism (probe consumed; ☠ walking in)
+          ├─ Optional: collapsed section (crew_datapad, hidden choir_access_chip)
+          └─ Exit passage → Airlock Bay (END)
+              └─ USE containment_key_card ON airlock override panel
 ```
 
 ---
