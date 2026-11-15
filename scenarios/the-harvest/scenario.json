@@ -950,14 +950,29 @@
       "ambient_audio": "audio/ambient_industrial.wav",
       "walk_area": {
         "floor": [
-          [200, 524],
-          [300, 520],
-          [700, 520],
+          [217, 554],
+          [309, 546],
+          [435, 459],
+          [587, 394],
+          [641, 387],
+          [634, 505],
           [780, 548],
-          [780, 592],
-          [200, 592],
-          [160, 566]
-        ]
+          [698, 654],
+          [819, 714],
+          [701, 715],
+          [639, 594],
+          [295, 594],
+          [223, 715],
+          [145, 711],
+          [229, 613],
+          [203, 574]
+        ],
+        "depth_scale": {
+          "far_y": 383,
+          "far": 0.3,
+          "near_y": 546,
+          "near": 1
+        }
       }
     },
     {
@@ -24816,7 +24831,7 @@
               "view": "act1_containment_corridor",
               "at": {
                 "x": 467,
-                "y": 592,
+                "y": 594,
                 "facing": "down"
               }
             },
@@ -25003,8 +25018,8 @@
               "type": "set_view",
               "view": "act1_containment_corridor",
               "at": {
-                "x": 192,
-                "y": 533,
+                "x": 217,
+                "y": 554,
                 "facing": "right"
               }
             },
@@ -25539,8 +25554,8 @@
               "view": "act1_containment_corridor",
               "at": {
                 "x": 583,
-                "y": 520,
-                "facing": "left"
+                "y": 417,
+                "facing": "down"
               }
             },
             {
@@ -25842,8 +25857,8 @@
               "type": "set_view",
               "view": "act1_containment_corridor",
               "at": {
-                "x": 775,
-                "y": 560,
+                "x": 772,
+                "y": 558,
                 "facing": "left"
               }
             },

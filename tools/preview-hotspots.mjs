@@ -100,8 +100,11 @@ if (process.argv.includes('--ghosts') && wa?.floor && s.character) {
   const step = Number(opt('--ghost-step') || 110);
   for (let y = 0; y <= 720; y += step * 0.75) for (let x = step / 2; x < 960; x += step) if (ok(x, y) && !pts.some(([px, py]) => Math.hypot(px - x, (py - y) * 0.75) < step * 0.5)) pts.push([x, y]);
   pts.sort((a, b) => a[1] - b[1]);
+  const ds = wa.depth_scale;
+  const depth = (y) => (ds ? ds.far + (ds.near - ds.far) * Math.max(0, Math.min(1, (y - ds.far_y) / ((ds.near_y - ds.far_y) || 1))) : 1);
   for (const [x, y] of pts) {
-    g.drawImage(sheet, 0, row * fh, fw, fh, x - (fw * sc) / 2, y * SY - fh * sc, fw * sc, fh * sc);
+    const k = sc * depth(y);
+    g.drawImage(sheet, 0, row * fh, fw, fh, x - (fw * k) / 2, y * SY - fh * k, fw * k, fh * k);
     g.fillStyle = '#22d3ee'; g.beginPath(); g.arc(x, y * SY, 3, 0, Math.PI * 2); g.fill();
   }
   console.log(`ghosts at ${pts.length} spots`);
