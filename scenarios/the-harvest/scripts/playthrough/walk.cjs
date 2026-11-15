@@ -101,8 +101,9 @@ const rng = (seed) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return
   // 7. Draw order: the character is drawn in front of sprites whose base is above his feet, behind those below
   { const zs = await g.p.evaluate(() => [...document.querySelectorAll('[data-object-id]')].map((d) => ({ id: d.getAttribute('data-object-id'), z: +d.style.zIndex })).filter((x) => x.z >= 10));
     const f = await engineFeet(); const objs = Object.fromEntries(SC.objects.map((o) => [o.id, o]));
-    const wrong = zs.filter((s) => { const by = objs[s.id].position.y; return (by < f.y - 2 && s.z > f.z) || (by > f.y + 2 && s.z < f.z); });
-    if (wrong.length) fail(`Depth: wrong order for ${wrong.map((w) => w.id).join(', ')}`); else console.log(`ok   depth order (${zs.length} sprites in the layer)`); }
+    const front = SC.character.draw_order === 'front';
+    const wrong = zs.filter((s) => { const o = objs[s.id]; if (o.layer === 'front') return s.z < f.z; if (o.layer === 'floor' || front) return s.z > f.z; const by = o.position.y; return (by < f.y - 2 && s.z > f.z) || (by > f.y + 2 && s.z < f.z); });
+    if (wrong.length) fail(`Depth: wrong order for ${wrong.map((w) => w.id).join(', ')}`); else console.log(`ok   depth order (${zs.length} sprites in the layer; character draw_order ${SC.character.draw_order || 'sorted'})`); }
 
   // 8. The character never swallows clicks (vent cover under him)
   { await L.setVerb(g, 'move'); await g.p.mouse.click(g.vp.x + 480, g.vp.y + 600 * 0.75); await track(); await L.setVerb(g, 'look');

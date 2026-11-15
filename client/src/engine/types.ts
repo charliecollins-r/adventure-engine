@@ -94,6 +94,8 @@ export interface WalkArea {
   blocked?: PointXY[][];
   /** Draw the character at `far` x scale when his feet are at far_y and `near` x at near_y; blend between. */
   depth_scale?: { far_y: number; far: number; near_y: number; near: number };
+  /** Footsteps for this view (e.g. a carpet), or false for silent walking. Default: character.footsteps. */
+  footsteps?: Footsteps | false;
 }
 
 /** Where the character stands (feet, bottom-center) and which way he faces. */
@@ -156,6 +158,8 @@ export interface Effect {
   amount?: number;
   result?: string;
   reason?: string;
+  /** game_over: heading for the end screen. */
+  title?: string;
   seconds?: number;
   effects?: Effect[];
   cue?: string;
@@ -212,6 +216,8 @@ export interface ScenarioObject {
   interactions: Interaction[];
   /** Where the character stands to Hand/Use/Move this object in a walking view; false = interact from where he is. */
   walk_to?: StandPoint | false;
+  /** Walking views, sprite objects: "floor" = always under the character (rugs, grates), "front" = always over him, default sorted by base. */
+  layer?: 'floor' | 'sorted' | 'front';
 }
 
 export interface ItemExamine {
@@ -394,6 +400,24 @@ export interface CharacterConfig {
   shadow?: CharacterShadow;
   /** Walking speed in 960x720 pixels per second at normal scale. Default 150. */
   walk_speed?: number;
+  /** Walking views: "sorted" (default) draws him in front of or behind sprite objects by where his feet are; "front" always draws him on top. */
+  draw_order?: 'sorted' | 'front';
+  /** Sounds played while he walks. A view's walk_area.footsteps overrides this (false = silent there). */
+  footsteps?: Footsteps;
+  /**
+   * "stepped" (default, Sierra-style): he moves one stride per walk-cycle frame and the frame, the move and
+   * the footsteps share one clock, so his feet plant instead of sliding. "smooth": continuous motion.
+   */
+  walk_motion?: 'stepped' | 'smooth';
+}
+
+export interface Footsteps {
+  /** Step sounds, picked in random order (never the same one twice in a row). */
+  sounds: string[];
+  /** Seconds between steps in "smooth" walk_motion. With "stepped" motion a step plays on the first frame of each half of the walk cycle. Default: 2 / frame_rate. */
+  interval?: number;
+  /** 0..1, default 0.4. */
+  volume?: number;
 }
 
 export interface CharacterPlacement {
@@ -445,6 +469,8 @@ export interface GameOverResult {
   won: boolean;
   conditionId: string;
   text: string;
+  /** Heading for the end screen (game_over effect `title`); default "Game Over" / "You Escaped". */
+  title?: string;
 }
 
 export interface InteractionResult {

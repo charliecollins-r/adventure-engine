@@ -209,6 +209,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [muted, setMuted] = useState(false);
   const [debugMode, setDebugMode] = useState(() => dev.debug);
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [combinedOnce, setCombinedOnce] = useState(false);
 
   // ── First-play tutorial (setting.tutorial) ────────────────────────────────
   const tutorialSteps = scenario.setting.tutorial?.steps ?? [];
@@ -463,6 +464,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     walkSet: string;
     pending: { objectId: string; verb: string; itemId?: string } | null;
     finalFacing?: Facing;
+    stepAt: number;
+    walkTime: number;
+    lastFrame: number;
+    shown: number;
   }
   const [pose, setPose] = useState<Partial<CharacterPlacement> | null>(null);
   const walkRef = useRef<WalkJob | null>(null);
@@ -478,6 +483,26 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [engine]);
 
   const directionsOf = (set: string) => scenario.character?.sprite_sets[set]?.directions;
+
+  // Footsteps (character.footsteps, overridden per view by walk_area.footsteps; false = silent)
+  const lastStepRef = useRef(-1);
+  const stepConfig = (area: WalkArea, walkSet: string) => {
+    const cfg = area.footsteps === false ? null : (area.footsteps ?? scenario.character?.footsteps ?? null);
+    if (!cfg || !cfg.sounds?.length) return null;
+    const fr = scenario.character?.sprite_sets[walkSet]?.frame_rate || 6;
+    return { ...cfg, interval: cfg.interval ?? 2 / fr };
+  };
+  const playStep = (cfg: { sounds: string[]; volume?: number }) => {
+    if (muted) return;
+    let i = Math.floor(Math.random() * cfg.sounds.length);
+    if (cfg.sounds.length > 1 && i === lastStepRef.current) i = (i + 1) % cfg.sounds.length;
+    lastStepRef.current = i;
+    const a = new Audio(resolveAsset(scenario.metadata.id, cfg.sounds[i]));
+    a.volume = Math.max(0, Math.min(1, (cfg.volume ?? 0.4) * (0.85 + Math.random() * 0.15)));
+    (a as HTMLAudioElement & { preservesPitch?: boolean }).preservesPitch = false;
+    a.playbackRate = 0.94 + Math.random() * 0.12;
+    a.play().catch(() => {});
+  };
 
   /** Stop walking where he is (his current spot becomes his position). */
   const stopWalk = useCallback(() => {
@@ -517,14 +542,32 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const here = pointAlong(job.path, job.travelled).pt;
     const speed = (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y);
     job.travelled += speed * dt;
-    const { pt, leg, done } = pointAlong(job.path, job.travelled);
-    if (done) { finishWalk(job); return; }
-    const a = job.path[leg - 1], b = job.path[leg];
+    job.walkTime += dt;
+    const steps = stepConfig(job.area, job.walkSet);
+    const ws = scenario.character?.sprite_sets[job.walkSet];
+    const stepped = scenario.character?.walk_motion !== 'smooth' && !!ws && (ws.frame_rate ?? 0) > 0;
+    let shownAt = job.travelled;
+    let frame: number | undefined;
+    if (stepped) {
+      // Sierra-style: advance the drawn position only when the walk cycle moves to its next frame.
+      const cols = ws!.columns, frameNo = Math.floor(job.walkTime * ws!.frame_rate!);
+      if (frameNo !== job.lastFrame) {
+        job.lastFrame = frameNo; job.shown = job.travelled;
+        if (steps && frameNo % Math.max(1, Math.round(cols / 2)) === 0) playStep(steps);
+      }
+      shownAt = job.shown; frame = frameNo % cols;
+    } else if (steps && now >= job.stepAt) {
+      playStep(steps);
+      job.stepAt = now + (steps.interval * 1000) / Math.max(0.3, depthScaleAt(job.area, here.y));
+    }
+    if (pointAlong(job.path, job.travelled).done) { finishWalk(job); return; }
+    const { pt, leg } = pointAlong(job.path, shownAt);
+    const a = job.path[Math.max(0, leg - 1)], b = job.path[Math.max(1, leg)] ?? a;
     const facing = resolveFacing(facingFromDelta(b.x - a.x, b.y - a.y), directionsOf(job.walkSet), b.x - a.x);
-    setPose({ x: pt.x, y: pt.y, facing, sprite_set: job.walkSet, frame: undefined });
+    setPose({ x: pt.x, y: pt.y, facing, sprite_set: job.walkSet, frame });
     rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [engine, scenario, finishWalk]);
+  }, [engine, scenario, finishWalk, muted]);
   const tickRef = useRef(tick);
   tickRef.current = tick;
 
@@ -541,6 +584,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       const job: WalkJob = {
         path: findPath(area, from, target), travelled: 0, last: performance.now(),
         viewId: engine.getCurrentView().id, area, walkSet, pending, finalFacing,
+        stepAt: walkRef.current ? walkRef.current.stepAt : performance.now() + 60,
+        // a redirect keeps the walk cycle going instead of restarting it
+        walkTime: walkRef.current ? walkRef.current.walkTime : 0,
+        lastFrame: walkRef.current ? walkRef.current.lastFrame : -1,
+        shown: 0,
       };
       engine.dismissMessages();
       if (!pending) tutorialEvent('walked');
@@ -660,7 +708,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const handleItemSelect = useCallback(
     (itemId: string) => {
       if (selectedItem && selectedItem !== itemId) {
+        const before = engine.getInventory().length;
         engine.combineItems(selectedItem, itemId);
+        if (engine.getInventory().length !== before || engine.getInventory().every((it) => it.id !== selectedItem)) setCombinedOnce(true);
         setSelectedItem(null);
         playPendingSounds();
         bump();
@@ -947,6 +997,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             scenarioId={scenario.metadata.id}
             onItemSelect={handleItemSelect}
             onItemExamine={handleItemExamine}
+            showCombineTip={!combinedOnce}
           />
         </div>
         {/* Messages or ambient text */}
@@ -1005,7 +1056,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
                 : '0 0 30px rgba(204, 68, 68, 0.4)',
             }}
           >
-            {gameOverResult.won ? 'You Escaped' : 'Game Over'}
+            {gameOverResult.title ?? (gameOverResult.won ? 'You Escaped' : 'Game Over')}
           </div>
           <div style={styles.gameOverText}>{gameOverResult.text}</div>
           <div style={styles.gameOverButtons}>

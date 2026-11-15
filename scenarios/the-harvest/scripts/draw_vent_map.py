@@ -2,9 +2,15 @@ import sys, random, math
 from PIL import Image, ImageDraw, ImageFilter
 random.seed(7319)
 W,H=1200,960
-CELLS={'ENTRY':((2,0),'N'),'J':((2,1),'WES'),'A':((1,1),'NE'),'B':((1,2),'NWS'),'C':((0,2),'NE'),'D':((0,3),'ES'),'E':((1,3),'NWS'),'F':((1,4),'NES'),'GAS':((1,5),'NS'),'FAN':((1,6),'NS'),'EXIT':((1,7),'S'),'G':((3,1),'NW'),'H':((3,2),'NES'),'I':((4,2),'NW'),'COLL':((4,3),'S'),'K':((3,3),'NWS'),'L':((3,4),'S'),'M':((2,3),'NE'),'N':((2,4),'WS')}
-ROUTE=['ENTRY','J','A','B','E','F','GAS','FAN','EXIT']
-def P(c): (x,y),_=CELLS[c]; return (190+x*205, 860-y*108)
+import json, os
+# Layout from vent_maze_grid.json (design_vent_maze.py). The map is north-up and shows no route and no
+# "you are here": players count their own turns, KQ-desert style.
+_g = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vent_maze_grid.json')))
+CELLS = {k: (tuple(v[0]), v[1]) for k, v in _g['cells'].items()}
+PURGE = set(_g['purge'])
+_xs = [v[0][0] for v in CELLS.values()]; _ys = [v[0][1] for v in CELLS.values()]
+_cw = (W - 260) / max(1, max(_xs) - min(_xs)); _rh = (H - 200) / max(1, max(_ys) - min(_ys))
+def P(c): (x,y),_=CELLS[c]; return (150 + (x - min(_xs)) * _cw, H - 110 - (y - min(_ys)) * _rh)
 # rusted metal plate: multi-scale value noise + brushed streaks + bevel + rivets
 import numpy as np
 rng=np.random.default_rng(7319)
@@ -45,7 +51,7 @@ for c,((x,y),o) in CELLS.items():
 # entry stub to corridor
 ex,ey=P('ENTRY'); scratch((ex,ey),(ex,ey+70))
 for c in CELLS:
-    x,y=P(c); r=16
+    x,y=P(c); r=11
     d.ellipse([x-r,y-r,x+r,y+r],fill=(40,20,16),outline=(30,14,10),width=6); d.ellipse([x-r,y-r,x+r,y+r],outline=(226,196,160),width=3)
 def skull(x,y,s=34):
     d.ellipse([x-s,y-s*1.1,x+s,y+s*0.5],outline=(240,210,170),width=5)
@@ -63,12 +69,10 @@ cx,cy=P('COLL'); cross(cx,cy-55)
 xx,xy=P('EXIT'); d.rectangle([xx+50,xy-24,xx+110,xy+24],outline=(30,14,10),width=7); d.rectangle([xx+50,xy-24,xx+110,xy+24],outline=(240,210,170),width=4)
 jx,jy=P('J')
 for k in range(5): scratch((jx-30+k*14,jy+40),(jx-22+k*14,jy+64),w=3,jit=1)   # the junction's tally marks
-lx,ly=P('L'); scratch((lx-26,ly-34),(lx+26,ly-34),w=6,jit=1,col=(240,120,90))  # dead-end gouge
-# arrows along the true route
-for a,b in zip(ROUTE,ROUTE[1:]):
-    (x1,y1),(x2,y2)=P(a),P(b); mx,my=(x1+x2)/2,(y1+y2)/2; ang=math.atan2(y2-y1,x2-x1)
-    for s_ in (2.5,-2.5):
-        t=ang+math.pi+s_*0.3; scratch((mx,my),(mx+math.cos(ang+math.pi+0.5*(1 if s_>0 else -1))*30,my+math.sin(ang+math.pi+0.5*(1 if s_>0 else -1))*30),w=4,jit=1,col=(250,220,120))
+for c,((x,y),o) in CELLS.items():
+    px,py=P(c)
+    if c in PURGE: skull(px,py,s=16)
+    elif set(o) <= {'S'} and c not in ('EXIT','COLL'): scratch((px-18,py-22),(px+18,py-22),w=5,jit=1,col=(240,120,90))  # dead-end bar
 # compass N
 nx,ny=1100,110; scratch((nx,ny+60),(nx,ny-40),w=5,jit=1); scratch((nx,ny-40),(nx-20,ny-10),w=5,jit=1); scratch((nx,ny-40),(nx+20,ny-10),w=5,jit=1)
 # vignette

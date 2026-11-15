@@ -26,6 +26,9 @@ interface GameViewProps {
 
 /** z-index in the walking depth layer: things whose base is lower on screen are drawn in front. */
 const depthZ = (baseY720: number) => 10 + 2 * Math.round(Math.max(0, Math.min(720, baseY720)) * (540 / 720));
+/** Above every sorted sprite (depthZ tops out near 1090), below objects with layer "front". */
+const CHAR_FRONT_Z = 1500;
+const OBJ_FRONT_Z = 1600;
 
 const VIEW_WIDTH = 960;
 const VIEW_HEIGHT = 540;
@@ -225,7 +228,8 @@ export function GameView({
       cursor={cursor}
       onObjectClick={charClickable ? onObjectClick : undefined}
       equippedOverlays={engine.getEquippedOverlays()}
-      layerZ={layered ? depthZ(placement.y) : undefined}
+      layerZ={layered ? (charConfig?.draw_order === 'front' ? CHAR_FRONT_Z : depthZ(placement.y)) : undefined}
+      shadowZ={layered && charConfig?.draw_order === 'front' ? CHAR_FRONT_Z - 1 : undefined}
       depthScale={layered ? depthScaleAt(walkArea, placement.y) : 1}
     />
   ) : null;
@@ -242,7 +246,7 @@ export function GameView({
       scaleY={SCALE_Y}
       cursor={cursor}
       onClick={() => onObjectClick(obj.id)}
-      layerZ={layered ? depthZ(obj.position.y) : undefined}
+      layerZ={layered ? (obj.layer === 'floor' ? 2 : obj.layer === 'front' ? OBJ_FRONT_Z : depthZ(obj.position.y)) : undefined}
     />
   );
 

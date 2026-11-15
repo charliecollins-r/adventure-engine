@@ -797,6 +797,7 @@ export class ScenarioEngine {
             won: e.result === 'win',
             conditionId: 'effect_triggered',
             text: e.reason ?? (e.result === 'win' ? 'You win!' : 'Game over.'),
+            ...(e.title ? { title: e.title } : {}),
           };
           break;
 

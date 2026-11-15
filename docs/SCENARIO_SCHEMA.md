@@ -570,6 +570,8 @@ An optional root-level `character` block defines the player sprite. Each view th
 
 **Walking fields** (only used in views with a `walk_area`, see below): `walk_speed` on the `character` block (pixels per second in 960x720 space, default 150), and `walk` on any sprite set: the set to use while walking when this one is current (default: a set named `walk`; without one he glides in his idle pose). The Harvest gives `idle_helmet` `"walk": "walk_helmet"` so the helmeted player walks with the helmeted cycle.
 
+`walk_motion`: `"stepped"` (default, Sierra-style) moves him one stride per walk-cycle frame, with the frame, the move and the footsteps on one clock so his feet plant instead of sliding; `"smooth"` moves him continuously. `footsteps`: `{ "sounds": ["audio/steps/step_1.mp3", ...], "volume": 0.45, "interval": 0.33 }` plays a step (random, never the same twice in a row, slight pitch variation) on each half of the walk cycle (`stepped`) or every `interval` seconds (`smooth`); a view's `walk_area.footsteps` overrides it for that room (another sound set, or `false` for silence). `draw_order`: see Draw order below.
+
 ### Walkable Areas (click-to-walk)
 
 Optional, per view. A view with a `walk_area` lets the player walk; a view without one works as before (the character stands still at his placement). Close-ups and other views with no `character` placement never walk. Design notes: [WALKABLE_AREAS.md](WALKABLE_AREAS.md).
@@ -604,7 +606,9 @@ The view's `character.x`/`y` is where he appears on entering and must be on the 
 | **Look** or **Talk** | He stops, turns toward it, and the interaction runs at once. |
 | Click while walking | The new click replaces the destination and any pending action. |
 
-The interaction runs when he arrives, with the game state at that moment; if the view changes first, it is dropped. Sprite objects and the character are drawn in order of their bottom edge, so he can pass in front of or behind them. Clicks pass through the character unless his placement's `object_id` names a real object.
+The interaction runs when he arrives, with the game state at that moment; if the view changes first, it is dropped.
+
+**Draw order.** By default sprite objects and the character are drawn in order of their bottom edge, so he can pass in front of or behind them. Two fields change that: `character.draw_order: "front"` always draws him on top of every sprite object (The Harvest does this), and an object's `"layer": "floor"` keeps it under him (rugs, floor grates, puddles) while `"layer": "front"` keeps it over him (a pillar in the foreground). Clicks pass through the character unless his placement's `object_id` names a real object.
 
 **`walk_to` on an object** (optional): `{ "x": 525, "y": 640, "facing": "down" }` is where he stands to Hand, Use or Move it, and which way he faces on arrival. Without it he goes to the floor point nearest the object's bottom-center and faces the object. `"walk_to": false` means he interacts from wherever he stands.
 
@@ -854,7 +858,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `add_noise` | `amount` | Add to noise level (clamped 0-100). |
 | `set_noise` | `amount` | Set noise to exact value (clamped 0-100). |
 | `advance_phase` | `phase` | Jump to a specific game phase. |
-| `game_over` | `result` (`"win"`/`"lose"`), `reason` | End the game. |
+| `game_over` | `result` (`"win"`/`"lose"`), `reason` (the text shown), optional `title` (the heading; default "Game Over" / "You Escaped") | End the game. |
 | `start_hiding` | — | Player enters hiding. |
 | `stop_hiding` | — | Player leaves hiding. |
 | `transform_item` | `item`, `into` | Replace one inventory item with another, in the same inventory slot. |

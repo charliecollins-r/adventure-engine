@@ -6,11 +6,11 @@
 
 | Act 1 at a glance | |
 |---|---|
-| Screens | 30: 8 rooms, 3 close-ups, 19 vent screens (shaft, junction, 13 ducts, 4 special chambers) |
+| Screens | 62: 8 rooms, 3 close-ups, 51 vent screens (shaft, junction, 45 ducts, 4 special chambers) |
 | Items | 17 (6 required, 1 strongly recommended, 10 optional) |
 | Puzzles | Grappling line (craft), glyph keypad (code), emergency override, vent maze (map), gas (helmet), fan (probe) |
-| Deaths | 4 (jump the gap; cross the gas without a helmet, either way; walk into the fan) |
-| Shortest win | 27 actions |
+| Deaths | 5 kinds (jump the gap; cross the gas without a helmet; walk into the fan; crawl into one of 3 purge ducts) |
+| Shortest win | 40 actions (18 of them in the maze) |
 | Soft-locks | None: every reachable state can still finish the act (exhaustive search with the real engine) |
 
 All screenshots on this page come from a scripted playthrough of the current build (`scripts/playthrough/`). Images are rebuilt by `scripts/build_walkthrough_images.py`.
@@ -37,7 +37,7 @@ All screenshots on this page come from a scripted playthrough of the current bui
 7. **Processing Lab.** LOOK (or HAND) the screens to reach the terminal. HAND the keypad and press the four glyphs in that order. The terminal reports that the **emergency override is armed**.
 8. **Security Hub.** LOOK (or HAND) the console. HAND the glowing red **override button**: every lock on the deck opens.
 9. **Corridor.** MOVE into the floor vent. In the shaft, HAND the **wall scratches** (map).
-10. **Vent maze.** From the junction go **left**, then **straight ahead four times** to the gas. The helmet gets you through the gas. USE the **probe** ON the **fan mechanism** to jam the fan, then MOVE through it, then MOVE through the hatch.
+10. **Vent maze.** It's big and it loops. LOOK at the map in your inventory and count your turns from the junction (route below). Never crawl into a scorched duct. The helmet gets you through the gas. USE the **probe** ON the **fan mechanism** to jam the fan, then MOVE through it, then MOVE through the hatch.
 11. **Airlock Bay.** USE the **key card** ON the **override panel**. That's the end of Act 1.
 
 ---
@@ -141,7 +141,8 @@ Once armed it glows. HAND it: every containment lock on the deck opens, includin
 Exits: Morgue (left), Specimen Archive (right), Corridor (back).
 
 - **HAND Nutrient Dispenser** → *Nutrient Paste Tube* (optional; feed it to the prisoner, or keep it for crafting later).
-- **TALK to the caged prisoner** → a one-time choice (see Prisoner dialogue below).
+- **TALK to the caged prisoner** → your first answer sets your bond (see Prisoner dialogue below). TALK again for more: ask about the ducts, or **promise to free it**.
+- **Come back after pressing the override**: the override drops the energy barriers too, and the prisoner escapes. If you promised to free it (or fed it), it leaves the **safe duct route scratched into its cage floor**. HAND the scratches to copy them, and the hint button in the ducts will tell you every turn.
 
 ![Prisoner dialogue](walkthrough/10_dialogue.webp)
 
@@ -171,17 +172,19 @@ Exits: Morgue (left), Specimen Archive (right), Corridor (back).
 
 ![Vent junction](walkthrough/18_vent_junction.webp)
 
-The ducts are a fixed-compass maze: **the camera always faces north**, so the left tunnel is west, the right tunnel is east and the bottom edge is south. Thirteen duct screens look alike; the map is how you find your way.
+The ducts are a fixed-compass maze: **the camera always faces north**, so the tunnel straight ahead is north, the left opening is west, the right opening is east and the bottom edge (back) is south. There are 45 duct screens that look alike, 6 loops, 6 dead ends and 3 **purge ducts** that kill you. The map from the wall scratches shows the whole grid but not where you are, so keep count of your turns.
+
+![The ventilation map](walkthrough/vent_map.webp)
 
 ![Vent maze route](walkthrough/vent_maze_route.webp)
 
-**The way out (gold):** from the junction go **left**, then **straight ahead** four times (Duct A → B → E → F), and you're in the gas.
+**The way out (gold), 18 moves from the junction:** right (east), ahead, right, ahead, ahead, ahead, left, ahead, left, **back**, left, **back**, left, ahead, ahead, ahead, left, ahead into the gas. (In compass terms: E, N, E, N, N, N, W, N, W, S, W, S, W, N, N, N, W, N.) Yes, it doubles back twice.
 
-**The skeleton (optional):** from the junction go **right**, then straight ahead, then right, then straight ahead (Duct G → H → I) to the Collapsed Section. HAND the skeleton for the *Crew Datapad*, and HAND it again for the hidden *Choir Access Chip*, which opens the Act 2 Shuttle Bay silently.
+**Purge ducts:** if an opening breathes scalding air and its mouth is scorched black (LOOK to check), don't go in. They're the small skulls on the map.
+
+**The skeleton (optional):** right (east), ahead, right, then ahead six times to the Collapsed Section in the north-east. HAND the skeleton for the *Crew Datapad*, and again for the hidden *Choir Access Chip*, which opens the Act 2 Shuttle Bay silently. Come back the same way, reversed.
 
 ![Collapsed Section](walkthrough/19_vent_collapsed.webp)
-
-Also in the maze: a loop on the west side (C–D), a long east arm (G–H–K–M–N) that rejoins Duct F, and a dead end with a sealed grate (Duct L).
 
 ### 10. Gas-Filled Passage
 
@@ -209,7 +212,7 @@ LOOK at the viewport (the planet and the energy siphons) and the empty docking c
 
 ---
 
-## Where you can die (4 deaths)
+## Where you can die
 
 | Where | How | How to survive |
 |---|---|---|
@@ -217,6 +220,7 @@ LOOK at the viewport (the planet and the energy siphons) and the empty docking c
 | Gas-Filled Passage | MOVE forward without the helmet | Take the helmet from the Security Hub cabinet first |
 | Gas-Filled Passage | MOVE back through the gas without the helmet | Same |
 | Fan Chamber | MOVE into the fan before jamming it | USE the probe on the fan mechanism first |
+| Vent maze | Crawl into a purge duct (3 of them) | LOOK first: scorched, breathing hot air. They're skulls on the map |
 
 Every death has a warning first: LOOK at the gap, the gas or the fan before you act.
 
@@ -228,10 +232,27 @@ Every death has a warning first: LOOK at the gap, the gas or the fan before you 
 
 ## Prisoner dialogue
 
-TALK to the caged prisoner for a one-time choice. Each option sets `prisoner_bond`, which carries into Act 2.
+The first time you TALK to the caged prisoner, your answer sets `prisoner_bond`, which carries into Act 2.
 
 | Choice | Bond | Extra |
 |---|---|---|
+| "We're both prisoners here, aren't we?" | `empathy` | The creature mirrors your gestures |
+| "Do you know a way out of here?" | `pragmatic` | It maps the ship with gestures and points toward the airlock (`airlock_hinted`) |
+| "What are they? The ones who put us here?" | `knowledge` | The Choir *are* the ship (`choir_nature_known`) |
+| [Say nothing — just nod] | `silent` | Respectful silence |
+
+**Later conversations** (TALK again):
+
+| Choice | When | What it does |
+|---|---|---|
+| "Do you know the ducts?" | Any bond except silent | It mimes the purge vents: hot wind, scorched mouths, death (`purge_warned`) |
+| "I'll find a way to open your cage. I promise." | Until you've promised | `promised_freedom`; your bond becomes empathy |
+| [Offer it the nutrient paste] | You carry the paste and haven't fed it | Same as using the paste on it (`prisoner_fed`) |
+| "I have to go." | Always | Goodbye |
+
+**The escape.** Pressing the security override drops every lock on the deck, the energy barriers included: the prisoner is gone when you come back, and the cage stays empty. If you promised to free it or fed it, it scratches the **safe route through the ducts** into the cage floor. HAND the scratches to copy them onto your map (`vent_route_known`); from then on the hint button in every duct names the next turn. If you never earned its trust, the cage is just empty.
+
+---|---|---|
 | "We're both prisoners here, aren't we?" | `empathy` | The creature mirrors your gestures |
 | "Do you know a way out of here?" | `pragmatic` | It maps the ship with gestures and points toward the airlock (`airlock_hinted`) |
 | "What are they? The ones who put us here?" | `knowledge` | The Choir *are* the ship (`choir_nature_known`) |
@@ -279,6 +300,6 @@ Full details, every use and the in-game text for each item: the **[item compendi
 
 **"I can't get into the vent."** Press the armed override in the security close-up first.
 
-**"I keep getting lost in the ducts."** Get the map from the wall scratches in the shaft, then LOOK at it in your inventory. From the junction: left, then straight ahead four times. The hint button reads the map for you.
+**"I keep getting lost in the ducts."** That's the point, but it's beatable. Get the map from the wall scratches in the shaft, LOOK at it in your inventory, and keep count of every turn from the junction (ahead = north, left = west, right = east, back = south). The full route is in section 9.
 
 **"Where's the cat?"** It turns up on your second visit to the corridor.

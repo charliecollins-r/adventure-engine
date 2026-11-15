@@ -9,9 +9,11 @@ interface InventoryPanelProps {
   scenarioId: string;
   onItemSelect: (itemId: string) => void;
   onItemExamine: (itemId: string) => void;
+  /** Show the "click two items to combine" tip (until the player has combined something once). */
+  showCombineTip?: boolean;
 }
 
-function itemStyle(selected: boolean, hovered: boolean): CSSProperties {
+function itemStyle(selected: boolean, hovered: boolean, combineTarget = false): CSSProperties {
   return {
     display: 'inline-flex',
     alignItems: 'center',
@@ -24,7 +26,7 @@ function itemStyle(selected: boolean, hovered: boolean): CSSProperties {
       : hovered
         ? 'rgba(32, 26, 16, 0.6)'
         : 'transparent',
-    border: selected ? '1px solid #c0a030' : '1px solid rgba(42, 34, 24, 0.4)',
+    border: selected ? '1px solid #c0a030' : combineTarget && hovered ? '1px dashed #e0c040' : '1px solid rgba(42, 34, 24, 0.4)',
     borderRadius: '3px',
     cursor: 'pointer',
     whiteSpace: 'nowrap',
@@ -39,8 +41,10 @@ export function InventoryPanel({
   scenarioId,
   onItemSelect,
   onItemExamine,
+  showCombineTip,
 }: InventoryPanelProps) {
   const [hovered, setHovered] = useState<string | null>(null);
+  const selected = items.find((it) => it.id === selectedItem) ?? null;
 
   return (
     <div
@@ -64,10 +68,18 @@ export function InventoryPanel({
           No items yet
         </span>
       ) : (
-        items.map((item) => (
+        <>
+        {selected && (
+          <span data-using-item style={styles.using}>
+            Using <b style={{ color: '#e0c040' }}>{selected.name}</b>: click something in the room, or another item to combine.
+          </span>
+        )}
+        {items.map((item) => {
+          const combineTarget = !!selected && selected.id !== item.id;
+          return (
           <button
             key={item.id}
-            style={itemStyle(selectedItem === item.id, hovered === item.id)}
+            style={itemStyle(selectedItem === item.id, hovered === item.id, combineTarget)}
             onClick={() => onItemSelect(item.id)}
             onDoubleClick={() => onItemExamine(item.id)}
             onContextMenu={(e) => {
@@ -76,8 +88,10 @@ export function InventoryPanel({
             }}
             onMouseEnter={() => setHovered(item.id)}
             onMouseLeave={() => setHovered(null)}
-            title={`${item.name} — right-click to examine`}
+            title={combineTarget ? `${item.name} — combine with ${selected!.name}` : `${item.name} — right-click to examine`}
+            data-combine-target={combineTarget || undefined}
           >
+            {combineTarget && <span style={styles.plus} aria-hidden="true">+</span>}
             {item.icon_file ? (
               <img
                 src={resolveAsset(scenarioId, item.icon_file)}
@@ -96,8 +110,19 @@ export function InventoryPanel({
             )}
             {item.name}
           </button>
-        ))
+          );
+        })}
+        {!selected && showCombineTip && items.length >= 2 && (
+          <span data-combine-tip style={styles.tip}>Click an item to use it. Click two items to combine them.</span>
+        )}
+        </>
       )}
     </div>
   );
 }
+
+const styles: Record<string, CSSProperties> = {
+  using: { fontSize: '12px', fontFamily: '"Georgia", serif', color: '#b8a070', whiteSpace: 'nowrap', marginRight: '6px', flexShrink: 0 },
+  plus: { color: '#e0c040', fontWeight: 'bold', marginRight: '4px', fontSize: '13px' },
+  tip: { fontSize: '11px', fontFamily: '"Georgia", serif', color: '#6a5a40', fontStyle: 'italic', whiteSpace: 'nowrap', marginLeft: '8px', flexShrink: 0 },
+};

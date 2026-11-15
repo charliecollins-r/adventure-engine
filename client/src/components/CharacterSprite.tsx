@@ -20,6 +20,8 @@ interface CharacterSpriteProps {
   layerZ?: number;
   /** Walking views: multiplier on the character's scale from walk_area.depth_scale. */
   depthScale?: number;
+  /** z-index of his shadow in the depth layer (default 1: under every sprite). */
+  shadowZ?: number;
 }
 
 export function CharacterSprite({
@@ -33,6 +35,7 @@ export function CharacterSprite({
   equippedOverlays,
   layerZ,
   depthScale = 1,
+  shadowZ,
 }: CharacterSpriteProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -123,7 +126,7 @@ export function CharacterSprite({
     opacity: shadow.opacity ?? 0.6,
     transform: shadow.skew_x ? `skewX(${shadow.skew_x}deg)` : undefined,
     pointerEvents: 'none',
-    zIndex: layerZ !== undefined ? 1 : 4,
+    zIndex: layerZ !== undefined ? (shadowZ ?? 1) : 4,
   } : null;
 
   const overlayElements = (equippedOverlays ?? []).map(({ itemId, overlay }) => {

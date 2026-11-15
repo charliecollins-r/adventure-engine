@@ -2,9 +2,13 @@
 
 ## Overview
 
-The vents between the Containment Corridor and the Airlock Bay are a **King's Quest–style labyrinth**: a grid of near-identical tunnel screens where it is genuinely possible to get lost, with five painted landmark rooms (Junction, Gas Chamber, Fan Chamber, Collapsed Section, Exit Passage) placed inside it. The scratched **ventilation map** found at the Vent Entry is the way through. Preparation (map, helmet, probe) is rewarded; wandering costs time, never progress. There are no new deaths, and every passage is two-way, so getting lost can't soft-lock the game.
+The vents between the Containment Corridor and the Airlock Bay are a **King's Quest desert–style labyrinth**: 48 near-identical duct screens on a fixed compass, with five painted landmark rooms (Junction, Gas Chamber, Fan Chamber, Collapsed Section, Exit Passage) inside it. It is meant to be genuinely hard: the shortest way out is 18 duct moves through 6 loops and past 6 dead ends, and three side ducts are **purge ducts** that kill you. The scratched **ventilation map** from the Vent Entry shows the whole grid, north-up, but no route and no "you are here": like KQ's desert, you keep track of your own turns.
 
-> **v2 (current, implemented).** v1 was a single fork (Junction → Gas or Collapsed), which wasn't really a maze. v2 keeps the v1 special rooms and their puzzles; only the routing between them changes.
+> **v3 (current).** v2 was a 13-cell maze whose map drew arrows along the route and whose hints named the next turn in every duct. v3 keeps the special rooms and their puzzles and replaces the grid. The layout is generated, not hand-drawn: `scripts/design_vent_maze.py` searches seeded layouts that the five duct frames can show and keeps the hardest by score, writing `scripts/vent_maze_grid.json`. `build_vent_maze.py`, `draw_vent_map.py`, `build_walkthrough_images.py` and the playthrough harness all read that file.
+
+**Fairness.** Every duct you can see opens into another (the design search rejects openings that lead nowhere), every connection is two-way, and wandering can't soft-lock (exhaustive search: 0 soft-locked states). The purge ducts are the only new deaths, and each is telegraphed twice: LOOK at the opening ("scalding air gusts out… the metal around its mouth is scorched black") and a small skull on the map. The duct hints say how to read the map (count turns from the junction; ahead is north) but never which way to go.
+
+**Why it's built this way.** The duct art has five frames: ahead+left, ahead+right, left only, right only and a dead end (back is always possible). So a generic duct can't be a straight corridor or a crossroads, and side passages come in pairs. The search works inside those rules, which is why the maze reads as columns joined by short cross-ducts. More frame types (a straight duct, a T-junction) would allow bigger loops; see the frame prompts below.
 
 ## Navigation Convention (fixed compass, like KQ1 / KQ6's catacombs)
 
@@ -21,37 +25,13 @@ Walking west through the left opening puts you in the next cell **still facing n
 
 Character standing spot in the generic cells: `(560, 650)` on left-handed frames, `(400, 650)` on mirrored frames, `(480, 650)` in the dead end; always facing up, clear of the forward mouth. (These are the values `build_vent_maze.py` writes; `docs/ART_GUIDE.md` → Step 7 explains how they were measured.)
 
-## Maze Graph (v2)
+## Maze Graph (v3)
 
-```
-          x=0       x=1       x=2       x=3       x=4
-   y=7              EXIT ─► hatch down to Airlock Bay
-                     │
-   y=6              FAN ☠  (jam with surgical probe)
-                     │
-   y=5              GAS ☠  (helmet required to go north)
-                     │
-   y=4               F ─────── N         L  (dead end)
-                     │         │         │
-   y=3     D ─────── E         M ─────── K        COLL ✦ (skeleton: datapad, access chip)
-           │         │                   │         │
-   y=2     C ─────── B                   H ─────── I
-                     │                   │
-   y=1               A ─────── J ─────── G
-                               │      (J = Junction, painted landmark)
-   y=0                       ENTRY  (Vent Entry: wall scratches → ventilation map)
-                               │
-                       Containment Corridor (vent cover)
-```
+Run `python3 scripts/design_vent_maze.py` to print the current layout (ASCII, north up, ☠ = purge). The walkthrough's `walkthrough/vent_maze_route.webp` draws it with the way out in gold. Cells are named by column letter and row number (`A1`…`G7`, view `act1_vent_maze_a1` etc.); the special rooms keep their names (`J`, `GAS`, `FAN`, `EXIT`, `COLL`, `ENTRY`).
 
-**Correct route (what the map shows):** Junction → **W** → N → N → N → N → Gas Chamber → N → Fan → N → Exit. That's 5 moves from the Junction to the gas.
+> The v2 notes below (cells, map, names) describe the previous 13-cell layout and are kept for history; the conventions (fixed compass, nav box geometry, character spots, frames) are unchanged in v3.
 
-**Ways to get lost:**
-- **The C–D loop.** From B, going west leads round C → D → E and back onto the true path. It looks like progress but goes in a circle.
-- **The long east arm.** Junction → E → G → H → K → M → N → F also reaches the gas, but it takes 7 moves and passes two traps:
-  - the side branch H → I → **Collapsed Section**, the optional reward (crew datapad and Choir access chip);
-  - **L**, a plain dead end north of K.
-- Repetition does the rest. 13 generic cells share 5 frames.
+## v2 (historical)
 
 ### Cells
 

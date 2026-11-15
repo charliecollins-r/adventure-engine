@@ -1352,6 +1352,9 @@ Give a view a floor and the player can walk around it, King's Quest V style: **M
 - **Check it**: `node tools/preview-hotspots.mjs scenario.json <view> --grid` draws the floor on the painting; `node tools/validate-scenario.mjs` checks outlines, start spots and that every object can be reached.
 - **Where he stands for an object** is automatic (the floor point nearest the bottom of its hotspot or sprite). Override with `"walk_to": { "x": 525, "y": 640, "facing": "down" }`, or `"walk_to": false` to use it from anywhere.
 - **Arriving by the right door**: `set_view` takes `"at": { "x": 120, "y": 640, "facing": "right" }`. `node tools/arrival-spots.mjs scenario.json --write` fills these in for every door automatically (it puts him by the exit that leads back).
+- **Draw order**: he's drawn in front of or behind sprite objects by where his feet are. Set `"draw_order": "front"` on the `character` block to always draw him on top, or give a flat object (a floor grate) `"layer": "floor"` and a foreground object `"layer": "front"`.
+- **Footsteps**: `"footsteps": { "sounds": ["audio/steps/step_1.mp3", "audio/steps/step_2.mp3"], "volume": 0.45 }` on the `character` block plays a step in time with the walk cycle; give a carpeted room `"walk_area": { ..., "footsteps": { "sounds": [...] } }` or `"footsteps": false`.
+- **Stepping, not gliding**: by default (`"walk_motion": "stepped"`) he moves one stride per walk frame like a Sierra character; `"smooth"` glides.
 - **Walk cycle**: the character's `walk` sprite set is used while walking; a sprite set can name its own (`"idle_helmet": { ..., "walk": "walk_helmet" }`). `character.walk_speed` sets the speed (default 150).
 
 Full reference: [SCENARIO_SCHEMA.md → Walkable Areas](docs/SCENARIO_SCHEMA.md#walkable-areas-click-to-walk). Design notes: [docs/WALKABLE_AREAS.md](docs/WALKABLE_AREAS.md).

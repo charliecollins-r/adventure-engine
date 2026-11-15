@@ -93,6 +93,7 @@ function effs(es, ctx) {
     if (e.type === 'transform_item') { checkItem(e.into, ctx); granted.add(e.into); }
     if (['set_state', 'show_object', 'hide_object', 'set_animation'].includes(e.type) && !objIds.has(e.object)) errors.push(`${ctx}: effect "${e.type}" on unknown object "${e.object}"`);
     if (e.type === 'set_view' && !viewIds.has(e.view)) errors.push(`${ctx}: set_view to unknown view "${e.view}"`);
+    if (e.type === 'game_over' && !e.reason) errors.push(`${ctx}: game_over has no "reason" (the text shown${e.message || e.text ? `; it has "${e.message ? 'message' : 'text'}", which the engine ignores` : ''})`);
     if (e.type === 'set_flag') flagsSet.add(e.flag);
     if (e.type === 'open_widget') { if (!widgetIds.has(e.widget)) errors.push(`${ctx}: open_widget for unknown widget "${e.widget}"`); else openedWidgets.add(e.widget); }
     if (e.type === 'show_closeup' && e.image && !existsSync(join(dir, e.image))) errors.push(`${ctx}: closeup image missing: ${e.image}`);

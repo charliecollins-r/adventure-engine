@@ -86,13 +86,13 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     await go('act1_containment_corridor'); await A('move', 'vent_cover'); view = 'act1_ventilation_shaft'; await shot('17_vent_shaft'); await lookAll(view);
     await A('hand', 'wall_scratches'); await L.hint(g, 'shaft');
     await A('move', 'nav_act1_vent_entry_to_act1_vent_junction'); view = 'act1_vent_junction'; await shot('18_vent_junction'); await lookAll(view); await L.hint(g, 'junction');
-    // side trip: skeleton arm  g -> h -> i -> collapsed
-    for (const [nav, v] of [['nav_act1_vent_junction_to_act1_vent_collapsed', 'act1_vent_maze_g'], ['nav_vent_maze_g_north', 'act1_vent_maze_h'], ['nav_vent_maze_h_east', 'act1_vent_maze_i'], ['nav_vent_maze_i_north', 'act1_vent_collapsed']]) { await A('move', nav); view = v; }
+    // side trip to the skeleton (route computed from vent_maze_grid.json)
+    for (const st of L.mazeRoute('J', 'COLL')) { await A('move', st.nav); view = st.view; }
     await shot('19_vent_collapsed'); await lookAll(view); await A('hand', 'collapsed_skeleton'); await A('hand', 'collapsed_skeleton');
-    for (const [nav, v] of [['nav_act1_vent_collapsed_to_act1_vent_junction', 'act1_vent_maze_i'], ['nav_vent_maze_i_west', 'act1_vent_maze_h'], ['nav_vent_maze_h_south', 'act1_vent_maze_g'], ['nav_vent_maze_g_west', 'act1_vent_junction']]) { await A('move', nav); view = v; }
-    // main route: junction -> a -> b -> e -> f -> gas
-    for (const [nav, v] of [['nav_act1_vent_junction_to_act1_vent_gas_chamber', 'act1_vent_maze_a'], ['nav_vent_maze_a_north', 'act1_vent_maze_b'], ['nav_vent_maze_b_north', 'act1_vent_maze_e'], ['nav_vent_maze_e_north', 'act1_vent_maze_f']]) { await A('move', nav); view = v; await L.hint(g, v); }
-    await A('move', 'nav_vent_maze_f_north'); view = 'act1_vent_gas_chamber'; await shot('20_vent_gas'); await lookAll(view);
+    for (const st of L.mazeRoute('COLL', 'J')) { await A('move', st.nav); view = st.view; }
+    // main route to the gas chamber (computed; the last step enters the gas)
+    { const r = L.mazeRoute('J', 'GAS'); for (const st of r.slice(0, -1)) { await A('move', st.nav); view = st.view; } await L.hint(g, view); globalThis.__lastNav = r[r.length - 1].nav; }
+    await A('move', globalThis.__lastNav); view = 'act1_vent_gas_chamber'; await shot('20_vent_gas'); await lookAll(view);
     await A('move', 'nav_act1_vent_gas_to_act1_vent_fan_room'); view = 'act1_vent_fan_room'; await shot('21_vent_fan'); await lookAll(view);
     await U('surgical_probe', 'fan_mechanism'); await shot('22_vent_fan_jammed');
     await A('move', 'vent_fan'); view = 'act1_vent_exit'; await shot('23_vent_exit'); await lookAll(view);

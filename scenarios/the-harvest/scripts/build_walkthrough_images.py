@@ -65,33 +65,49 @@ for a, b, lab in edges:
         d.text((mx - tw / 2, my - 10), lab, fill=GOLD, font=F(15))
 im.save(os.path.join(OUT, 'deck_map.webp'), quality=84, method=6)
 
-# 3. Vent maze grid with the route
-src = open(os.path.join(os.path.dirname(__file__), 'build_vent_maze.py')).read()
-CELLS = ast.literal_eval(re.search(r'CELLS = (\{.*?\})\n', src, re.S).group(1))
-SPECIAL = {'ENTRY': ('17_vent_shaft', 'Shaft (from corridor)'), 'J': ('18_vent_junction', 'Junction'),
-           'GAS': ('20_vent_gas', 'Gas: needs helmet'), 'FAN': ('21_vent_fan', 'Fan: jam with probe'),
-           'EXIT': ('23_vent_exit', 'Exit → Airlock'), 'COLL': ('19_vent_collapsed', 'Collapsed (skeleton)')}
-ROUTE = ['ENTRY', 'J', 'A', 'B', 'E', 'F', 'GAS', 'FAN', 'EXIT']
-W2, H2, G2 = 220, 124, 46
-xs = [c[0][0] for c in CELLS.values()]; ys = [c[0][1] for c in CELLS.values()]
-cols, rows = max(xs) + 1, max(ys) + 1
-cw, ch = cols * W2 + (cols - 1) * G2 + 80, rows * H2 + (rows - 1) * G2 + 150
-im = Image.new('RGB', (cw, ch), BG); d = ImageDraw.Draw(im)
-d.text((40, 22), 'Vent maze · north is up · gold = the way out', fill=GOLD, font=F(26))
-org = lambda c: (40 + CELLS[c][0][0] * (W2 + G2), 80 + (rows - 1 - CELLS[c][0][1]) * (H2 + G2))
-ctr = lambda c: (org(c)[0] + W2 // 2, org(c)[1] + H2 // 2)
+# 3. Vent maze grid with the route (schematic, from vent_maze_grid.json)
+import collections, json as _json
+G = _json.load(open(os.path.join(os.path.dirname(__file__), 'vent_maze_grid.json')))
+CELLS = {k: (tuple(v[0]), v[1]) for k, v in G['cells'].items()}
+PURGE = set(G['purge'])
+LABELS = {'ENTRY': 'Shaft', 'J': 'Junction', 'GAS': 'GAS (helmet)', 'FAN': 'FAN (probe)', 'EXIT': 'EXIT', 'COLL': 'Skeleton'}
+D4 = {'N': (0, 1), 'S': (0, -1), 'E': (1, 0), 'W': (-1, 0)}
+OPP = {'N': 'S', 'S': 'N', 'E': 'W', 'W': 'E'}
 pos = {v[0]: k for k, v in CELLS.items()}
-D = {'N': (0, 1), 'S': (0, -1), 'E': (1, 0), 'W': (-1, 0)}
+def nb(c):
+    (x, y), ds = CELLS[c]
+    for d in ds:
+        n = pos.get((x + D4[d][0], y + D4[d][1]))
+        if n and OPP[d] in CELLS[n][1]: yield n
+prev = {'J': None}; q = collections.deque(['J'])
+while q:
+    c = q.popleft()
+    for n in nb(c):
+        if n not in prev and n not in PURGE and n != 'ENTRY': prev[n] = c; q.append(n)
+ROUTE = ['GAS']
+while prev[ROUTE[-1]]: ROUTE.append(prev[ROUTE[-1]])
+ROUTE = ['ENTRY'] + ROUTE[::-1] + ['FAN', 'EXIT']
+xs = [v[0][0] for v in CELLS.values()]; ys = [v[0][1] for v in CELLS.values()]
+BW, BH, GP = 118, 56, 34
+cols, rows = max(xs) - min(xs) + 1, max(ys) - min(ys) + 1
+cw, ch = cols * BW + (cols - 1) * GP + 80, rows * BH + (rows - 1) * GP + 130
+im = Image.new('RGB', (cw, ch), BG); d = ImageDraw.Draw(im)
+d.text((40, 22), f'Vent maze (north up): gold = way out, red = purge (deadly)', fill=GOLD, font=F(24))
+org = lambda c: (40 + (CELLS[c][0][0] - min(xs)) * (BW + GP), 80 + (max(ys) - CELLS[c][0][1]) * (BH + GP))
+ctr = lambda c: (org(c)[0] + BW // 2, org(c)[1] + BH // 2)
 route_edges = {frozenset(p) for p in zip(ROUTE, ROUTE[1:])}
-for c, ((x, y), dirs) in CELLS.items():
-    for dd in dirs:
-        n = pos.get((x + D[dd][0], y + D[dd][1]))
-        if n:
-            hl = frozenset((c, n)) in route_edges
-            d.line([*ctr(c), *ctr(n)], fill=GOLD if hl else (96, 100, 110), width=10 if hl else 6)
 for c in CELLS:
-    if c in SPECIAL: name, label = SPECIAL[c]
-    else: name, label = 'maze_' + c.lower(), f'Duct {c}' + (' (dead end)' if c == 'L' else '')
-    tile(im, d, name, label, *org(c), W2, H2, hl=c in ROUTE)
+    for n in nb(c):
+        hl = frozenset((c, n)) in route_edges
+        d.line([*ctr(c), *ctr(n)], fill=GOLD if hl else ((200, 70, 60) if (c in PURGE or n in PURGE) else (96, 100, 110)), width=9 if hl else 5)
+for c in CELLS:
+    x, y = org(c)
+    on = c in ROUTE; bad = c in PURGE; sp = c in LABELS
+    fill = (60, 24, 20) if bad else ((58, 46, 20) if on else ((34, 52, 56) if sp else (30, 33, 38)))
+    edge = (220, 80, 70) if bad else (GOLD if on else ((90, 170, 160) if sp else (80, 84, 92)))
+    d.rounded_rectangle([x, y, x + BW, y + BH], radius=8, fill=fill, outline=edge, width=3)
+    t = 'PURGE ☠' if bad else LABELS.get(c, c)
+    t = t.replace(' ☠', '')
+    tw = d.textlength(t, font=F(15)); d.text((x + (BW - tw) / 2, y + BH / 2 - 9), t, fill=(240, 236, 220), font=F(15))
 im.save(os.path.join(OUT, 'vent_maze_route.webp'), quality=84, method=6)
 print('wrote', len(os.listdir(OUT)), 'files to', OUT)

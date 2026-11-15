@@ -115,3 +115,21 @@ module.exports.U = async (g, item, id) => {
   if (!(await clickId(g, id))) { g.log.push(`[use ${item} on ${id}] NOT RENDERED`); return null; }
   const t = await msg(g); g.log.push(`[use ${item} on ${id}] ${t}`); return t;
 };
+// Route through the vent maze from the layout file: [{ nav, view }] steps from cell `from` to cell `to`.
+module.exports.mazeRoute = (from, to) => {
+  const grid = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'vent_maze_grid.json'), 'utf8'));
+  const C = grid.cells, purge = new Set(grid.purge);
+  const D = { N: [0, 1], S: [0, -1], E: [1, 0], W: [-1, 0] }, OPP = { N: 'S', S: 'N', E: 'W', W: 'E' }, WORD = { N: 'north', S: 'south', E: 'east', W: 'west' };
+  const at = {}; for (const [k, v] of Object.entries(C)) at[v[0].join(',')] = k;
+  const view = (c) => ({ J: 'act1_vent_junction', GAS: 'act1_vent_gas_chamber', COLL: 'act1_vent_collapsed', ENTRY: 'act1_ventilation_shaft' }[c] || `act1_vent_maze_${c.toLowerCase()}`);
+  const prev = { [from]: null }, q = [from];
+  while (q.length) { const c = q.shift(); if (c === to) break; for (const d of C[c][1]) { const [x, y] = C[c][0]; const n = at[[x + D[d][0], y + D[d][1]].join(',')]; if (n && !purge.has(n) && C[n][1].includes(OPP[d]) && !(n in prev) && n !== 'ENTRY') { prev[n] = [c, d]; q.push(n); } } }
+  const steps = []; for (let c = to; prev[c]; c = prev[c][0]) steps.unshift([prev[c][0], prev[c][1], c]);
+  return steps.map(([c, d, n]) => {
+    let nav = `nav_vent_maze_${c.toLowerCase()}_${WORD[d]}`;
+    if (c === 'J') nav = d === 'W' ? 'nav_act1_vent_junction_to_act1_vent_gas_chamber' : 'nav_act1_vent_junction_to_act1_vent_collapsed';
+    if (c === 'GAS') nav = 'nav_act1_vent_gas_to_act1_vent_junction';
+    if (c === 'COLL') nav = 'nav_act1_vent_collapsed_to_act1_vent_junction';
+    return { nav, view: view(n) };
+  });
+};
