@@ -801,9 +801,13 @@ function loadView(viewId) {
       origH: obj.size.height,
       origScale: obj.sprite ? (obj.sprite.scale || 1) : undefined,
       shadow: obj.shadow ? { ...obj.shadow } : null,
-      origShadow: obj.shadow ? JSON.stringify(obj.shadow) : null,
+      origShadow: JSON.stringify(obj.shadow || null),
     };
-    if (entry.hasSprite) syncSpriteHitbox(entry);
+    if (entry.hasSprite) {
+      syncSpriteHitbox(entry);
+      // The box derived from the sprite (rounded) is the starting point, not an edit.
+      entry.origX = entry.x; entry.origY = entry.y; entry.origW = entry.w; entry.origH = entry.h;
+    }
     objects.push(entry);
   }
 
@@ -820,8 +824,9 @@ function loadView(viewId) {
       origX: view.character.x,
       origY: view.character.y,
       shadow: view.character.shadow ? { ...view.character.shadow } : (charConfig && charConfig.shadow ? { ...charConfig.shadow } : null),
-      origShadow: view.character.shadow ? JSON.stringify(view.character.shadow) : null,
     };
+    // Unchanged unless edited here (the global shadow is shown when the view has none of its own).
+    character.origShadow = JSON.stringify(character.shadow || null);
   } else {
     character = null;
   }
@@ -1481,7 +1486,7 @@ function renderObjSpriteDetail(el, obj) {
   const renderH = Math.round(sp.frame_height * scale);
   const totalFrames = sp.columns * (sp.rows || 1);
   const scaleChanged = obj.origScale !== undefined && scale !== obj.origScale;
-  const shadowChanged = JSON.stringify(obj.shadow || null) !== (obj.origShadow || null);
+  const shadowChanged = JSON.stringify(obj.shadow || null) !== obj.origShadow;
   const changed = obj.x !== obj.origX || obj.y !== obj.origY || obj.w !== obj.origW || obj.h !== obj.origH || scaleChanged || shadowChanged;
 
   let html = '<div class="sprite-detail">';
@@ -2232,7 +2237,7 @@ function getChanges() {
 
   for (const obj of objects) {
     const scaleChanged = obj.hasSprite && obj.origScale !== undefined && (obj.sprite.scale || 1) !== obj.origScale;
-    const shadowChanged = JSON.stringify(obj.shadow || null) !== (obj.origShadow || null);
+    const shadowChanged = JSON.stringify(obj.shadow || null) !== obj.origShadow;
     if (obj.x !== obj.origX || obj.y !== obj.origY ||
         obj.w !== obj.origW || obj.h !== obj.origH ||
         scaleChanged || shadowChanged) {
@@ -2253,7 +2258,7 @@ function getChanges() {
     }
   }
 
-  const charShadowChanged = character && JSON.stringify(character.shadow || null) !== (character.origShadow || null);
+  const charShadowChanged = character && JSON.stringify(character.shadow || null) !== character.origShadow;
   if (character && (character.x !== character.origX || character.y !== character.origY || charShadowChanged)) {
     const change = {
       type: 'character',
@@ -2262,6 +2267,13 @@ function getChanges() {
     };
     if (charShadowChanged) change.shadow = character.shadow;
     changes.push(change);
+  }
+
+  // Floor outline edited in the Floor tab
+  if (typeof floorData !== 'undefined' && floorData) {
+    const saved = scenario.views.find(v => v.id === currentViewId)?.walk_area;
+    const norm = wa => JSON.stringify({ floor: wa?.floor || [], blocked: (wa?.blocked || []).filter(b => b.length >= 3), depth_scale: wa?.depth_scale || null });
+    if (norm(floorData) !== norm(saved)) changes.push({ type: 'floor', walk_area: JSON.parse(`{${floorJson()}}`).walk_area });
   }
 
   for (const box of newBoxes) {
@@ -2315,6 +2327,8 @@ function getExportText(tabIdx) {
           text += `  shadow: ${JSON.stringify(c.shadow)}\n`;
         }
         text += '\n';
+      } else if (c.type === 'floor') {
+        text += `CHANGED FLOOR (replace this view's walk_area):\n${floorJson()}\n\n`;
       } else if (c.type === 'new') {
         text += `NEW HOTSPOT: "${c.id}"\n`;
         text += `  position: { x: ${c.position.x}, y: ${c.position.y} }\n`;
