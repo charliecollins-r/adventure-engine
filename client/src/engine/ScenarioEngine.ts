@@ -25,6 +25,7 @@ export interface EngineSnapshot {
   gameOver: GameOverResult | null; phase: string | null; hiding: boolean; characterOverride: Partial<CharacterPlacement> | null;
   characterPos: StandPoint | null; posHistory: (StandPoint | null)[]; eventsFired: string[]; eventsActive: string[];
   widgetAttempts: Record<string, number>; solvedWidgets: Record<string, boolean>; equipped: [string, string][];
+  score: number; scoredIds: string[];
 }
 
 export class ScenarioEngine {
@@ -58,6 +59,12 @@ export class ScenarioEngine {
   private equippedItems: Map<string, string>;
   /** Bumped by restore(): delayed effects scheduled before an undo are dropped. */
   private epoch = 0;
+  private _score = 0;
+  private scoredIds = new Set<string>();
+  /** The transition sound chosen by the last set_view (undefined = use the view's default). */
+  private _transitionSound: string | null | undefined = undefined;
+  /** play_animation counters per object: a change restarts that object's sprite from its first frame. */
+  private animationRuns: Record<string, number> = {};
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -427,6 +434,22 @@ export class ScenarioEngine {
     }
   }
 
+  getScore(): number { return this._score; }
+
+  /** The transition sound the last set_view asked for, once (undefined = use the view's default). */
+  takeTransitionSound(): string | null | undefined {
+    const s = this._transitionSound; this._transitionSound = undefined; return s;
+  }
+
+  /** Changes each time play_animation restarts this object's sprite. */
+  getAnimationRun(objectId: string): number { return this.animationRuns[objectId] ?? 0; }
+
+  /** The view's lighting now: the first lighting_variants entry whose conditions hold, else ambient_lighting. */
+  getLighting(view: { ambient_lighting?: unknown; lighting_variants?: { when: Condition[]; lighting: unknown }[] } = this.getCurrentView()) {
+    const v = (view.lighting_variants ?? []).find((x) => this.evaluateConditions(x.when));
+    return (v ? v.lighting : view.ambient_lighting) as View['ambient_lighting'];
+  }
+
   combineItems(itemA: string, itemB: string): InteractionResult {
     if (this._gameOver) {
       return { success: false, messages: ['The game is over.'], noiseGenerated: 0 };
@@ -771,6 +794,22 @@ export class ScenarioEngine {
     this.posHistory.push(this._characterPos);
             this._currentViewId = e.view;
             this._characterPos = e.at ? { x: e.at.x, y: e.at.y, ...(e.at.facing ? { facing: e.at.facing } : {}) } : null;
+            this._transitionSound = 'sound' in e ? (e.sound ?? null) : undefined;
+            const decay = this.scenario.setting.noise_decay ?? 0;
+            if (decay > 0) this._noiseLevel = Math.max(0, this._noiseLevel - decay);
+          }
+          break;
+
+        case 'add_score':
+          if (e.id && this.scoredIds.has(e.id)) break;
+          if (e.id) this.scoredIds.add(e.id);
+          this._score += e.points ?? 0;
+          break;
+
+        case 'play_animation':
+          if (e.object) {
+            this.objectVisibility[e.object] = true;
+            this.animationRuns[e.object] = (this.animationRuns[e.object] ?? 0) + 1;
           }
           break;
 
@@ -944,6 +983,7 @@ export class ScenarioEngine {
       gameOver: this._gameOver, phase: this._currentPhaseId, hiding: this._isHiding, characterOverride: this._characterOverride,
       characterPos: this._characterPos, posHistory: this.posHistory, eventsFired: [...this.eventsFired], eventsActive: [...this.eventsActive],
       widgetAttempts: this.widgetAttempts, solvedWidgets: this.solvedWidgets, equipped: [...this.equippedItems],
+      score: this._score, scoredIds: [...this.scoredIds],
     });
   }
 
@@ -955,6 +995,7 @@ export class ScenarioEngine {
     this._gameOver = s.gameOver; this._currentPhaseId = s.phase; this._isHiding = s.hiding; this._characterOverride = s.characterOverride;
     this._characterPos = s.characterPos; this.posHistory = s.posHistory; this.eventsFired = new Set(s.eventsFired); this.eventsActive = new Set(s.eventsActive);
     this.widgetAttempts = s.widgetAttempts; this.solvedWidgets = s.solvedWidgets; this.equippedItems = new Map(s.equipped);
+    this._score = s.score; this.scoredIds = new Set(s.scoredIds); this._transitionSound = undefined;
     this._messages = []; this._pendingSounds = []; this._dialoguePrompt = null; this._dialogueChoices = [];
     this._activeWidgetId = null; this._closeupImage = null;
     this.epoch++;

@@ -781,7 +781,9 @@ Effects change the game world. They execute in order within a `then` array.
 | `add_item` | `item` | Add item to inventory |
 | `remove_item` | `item` | Remove item from inventory |
 | `transform_item` | `item`, `into` | Replace one inventory item with another |
-| `set_view` | `view` | Navigate to a different view |
+| `set_view` | `view`, `at`?, `sound`? | Navigate to a different view (`sound`: this move's transition sound, `null` = silent) |
+| `add_score` | `points`, `id`? | Award points (once per `id`). Set `setting.max_score` to show "Score: x of max". |
+| `play_animation` | `object` | Show an object and replay its sprite from frame 1 (use `sprite.loop: false` for one-shot animations) |
 | `show_object` | `object` | Make a hidden object visible |
 | `hide_object` | `object` | Make an object invisible |
 | `add_noise` | `amount` | Increase noise level (clamped 0-100) |
@@ -801,6 +803,8 @@ Effects change the game world. They execute in order within a `then` array.
 | `show_dialogue` | `prompt`, `choices` | Open a branching dialogue. See [Dialogue Choices](#dialogue-choices). |
 | `open_widget` | `widget` | Open a puzzle widget overlay. See [Puzzle Widgets](#puzzle-widgets-keypads-implemented). |
 | `play_sound` | `sound` | Play a sound: a key of `setting.sounds` (e.g. `"discovery"`) or a path like `"audio/click.wav"`. |
+
+**Atmosphere fields** (all optional, see SCENARIO_SCHEMA): `setting.music` + view `music` (a music channel that carries on across rooms), view `enter_sound` (`null` for silent close-ups, `"crawl"` in ducts), view `lighting_variants` (lighting that changes with game state), `setting.noise_decay` (noise fades as the player moves on), `setting.noise_sound_min`, and `setting.max_score` with `add_score` for a KQ-style score.
 
 ### Advanced Effects
 

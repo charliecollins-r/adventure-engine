@@ -173,6 +173,11 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
+| `music` | string | no | Background music on its own channel (a path). It keeps playing across rooms and only changes when a view names a different track (view `music`; `null` there = no music). |
+| `music_volume` | number | no | Music volume 0..1. Default `0.3`. |
+| `noise_decay` | number | no | Noise points that fade every time the player goes to another view (`set_view`), so exploring isn't punished forever. Default `0`. |
+| `noise_sound_min` | number | no | Smallest rise in noise that plays `sounds.noise`. Default `3`. |
+| `max_score` | number | no | Total points available. Shows "Score: x of max" in the title bar and on the end screen. Points come from the `add_score` effect. |
 | `allow_undo` | boolean | no | Death screens offer **Undo last move**, which puts the game back to just before the fatal action. Default `true`; set `false` for a hardcore scenario. |
 | `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events, `noise` whenever the noise level jumps by 3 or more, and `combine` when two items are combined successfully (falls back to `item_pickup`); any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
 | `tutorial` | object | no | First-play tips: `{ "steps": [{ "text": "...", "done_when": "verb_changed" }] }`. Shown one at a time in the top-left of the picture after the intro; each moves on when the player does what `done_when` names: `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (shows a button). The box is click-through, has **Skip tutorial**, and is remembered per scenario in the browser. Hidden in `?dev`/`?skipIntro` mode unless the URL has `?tutorial`. |
@@ -211,6 +216,9 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
 | `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
 | `ambient_audio` | string or string[] | no | Ambient audio track(s) for this view, overriding the scenario-level `setting.ambient_audio`. Loops continuously while the player is in this view. Falls back to `setting.ambient_audio` when not specified. |
+| `lighting_variants` | array | no | Lighting that replaces `ambient_lighting` while its conditions hold: `[{ "when": [conditions], "lighting": { "lights": [...] } }]`, the first match wins. Example: red alarm strobes after an override (`flag_is security_locks_overridden`). |
+| `enter_sound` | string or null | no | Sound played on entering this view (a `setting.sounds` key or a path). `null` or `""` = silent (close-ups). Default: `setting.sounds.room_transition`. A `set_view` with its own `sound` wins. |
+| `music` | string or null | no | Music for this view, overriding `setting.music`; `null` = silence. The same track carries on uninterrupted between rooms. |
 | `ambient_lighting` | object | no | Per-view ambient lighting: `{ "lights": [...], "flicker": bool }`. Each light is `{ x, y, radius, color, pulse_speed, pulse_amount, alpha, phase? }`: `x`/`y` are 0-1 fractions of the viewport, `radius` is a fraction of its larger side, `color` is `[r, g, b]`, `pulse_speed`/`pulse_amount` (both required numbers) shape a slow breathing glow. Drawn on a canvas over the background. |
 
 ### View Hints
@@ -506,6 +514,7 @@ Objects can optionally render as animated sprite sheets instead of (or in additi
 | `columns` | number | yes | Number of columns in the sprite sheet grid. |
 | `rows` | number | yes | Number of rows in the sprite sheet grid. |
 | `frame_rate` | number | yes | Animation frames per second. `0` = static (shows first frame). |
+| `loop` | boolean | no | `false` plays the frames once and holds the last one; the `play_animation` effect restarts it. Default `true`. |
 | `scale` | number | yes | Render scale multiplier. Rendered size = `frame_width × scale` by `frame_height × scale`. |
 
 ### Sprite Shadows
@@ -877,7 +886,9 @@ Effects change the game world. They execute in order within an interaction's `th
 | `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/vent_map.webp"`). Player clicks to dismiss. For a close-up the player can interact with, use a sub-view with `back_label` instead. |
 | `show_dialogue` | `prompt`, `choices` | Show a dialogue choice overlay. `prompt` is the situation text. `choices` is an array of `{label, when?, then}` objects — each choice has display text, optional conditions (hidden if not met), and effects to apply when selected. See Dialogue Choices section. |
 | `open_widget` | `widget` | Open an overlay puzzle widget (e.g. a `keypad`) by id. See Puzzle Widgets → Overlay Widgets. |
-| `set_view` | `view` | Switch to a different view (closeup or back to main). |
+| `set_view` | `view`, `at`?, `sound`? | Switch to a different view (closeup or back to main). `sound` names the transition sound for this move (`null` = silent), overriding the view's `enter_sound`. |
+| `add_score` | `points`, `id`? | Add points to the score. With `id`, awarded only once per id (safe to put on repeatable interactions). |
+| `play_animation` | `object` | Show the object and restart its sprite from the first frame (pair with `sprite.loop: false` for one-shot set pieces: a fan grinding to a halt, a hatch dropping open). |
 | `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` (all optional) | Override the player sprite placement for the rest of the session. See [Character Sprite](#character-sprite). |
 | `equip_item` / `unequip_item` | `item` | Equip or unequip a held item that has a `wearable` overlay (`{slot, sprite_file, frame_width, frame_height, offset_x, offset_y, scale?, auto_equip?}`), drawn on top of the character. `add_item` auto-equips when `auto_equip` is true; `remove_item` unequips. |
 | `play_sound` | `sound` | Play a sound: a key of `setting.sounds` (e.g. `"discovery"`), or a file path relative to the scenario folder. Keys with no match are tried as paths. |

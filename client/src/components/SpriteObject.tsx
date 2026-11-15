@@ -43,7 +43,7 @@ export function SpriteObject({
     const tick = (time: number) => {
       if (time - last >= interval) {
         last = time;
-        setCurrentFrame((f) => (f + 1) % columns);
+        setCurrentFrame((f) => (sprite.loop === false ? Math.min(f + 1, columns - 1) : (f + 1) % columns));
       }
       animRef.current = requestAnimationFrame(tick);
     };

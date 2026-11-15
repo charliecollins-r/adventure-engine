@@ -38,7 +38,7 @@ All screenshots on this page come from a scripted playthrough of the current bui
 8. **Security Hub.** LOOK (or HAND) the console. HAND the glowing red **override button**: every lock on the deck opens.
 9. **Corridor.** MOVE into the floor vent. In the shaft, HAND the **wall scratches** (map).
 10. **Vent maze.** It's big and it loops. LOOK at the map in your inventory and count your turns from the junction (route below). Never crawl into a scorched duct. The helmet gets you through the gas. USE the **probe** ON the **fan mechanism** to jam the fan, then MOVE through it, then MOVE through the hatch.
-11. **Airlock Bay.** USE the **key card** ON the **override panel**. That's the end of Act 1.
+11. **Airlock Bay.** USE the **key card** ON the **override panel**: the window shutters open on Earth. Click the view of Earth for the **End of Act 1** screen and your score.
 
 ---
 
@@ -208,7 +208,7 @@ LOOK through the crack: stars. MOVE through the hatch to drop into the Airlock B
 
 ![Airlock Bay](walkthrough/24_airlock_bay.webp)
 
-LOOK at the viewport (the planet and the energy siphons) and the empty docking clamps (your ship, the *Outrider*, is gone). USE the **Containment Key Card** ON the **override panel**. That's the end of Act 1 as built.
+LOOK at the viewport (the planet and the energy siphons) and the empty docking clamps (your ship, the *Outrider*, is gone). USE the **Containment Key Card** ON the **override panel**. The shutters fold back from the great window and you see Earth with the siphon beams falling on it; click it for the **End of Act 1** screen, with your score out of 93.
 
 ---
 

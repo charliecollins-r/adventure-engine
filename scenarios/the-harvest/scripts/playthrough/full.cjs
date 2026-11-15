@@ -27,7 +27,7 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     while (q.length) { const c = q.shift(); if (c === target) break; for (const [nav, to] of EDGES[c] || []) if (!(to in prev)) { prev[to] = [c, nav]; q.push(to); } }
     if (!(target in prev)) { await L.go(g, target); view = target; return; }
     const path = []; for (let c = target; prev[c]; c = prev[c][0]) path.unshift(prev[c][1]);
-    for (const nav of path) { await L.A(g, 'move', nav); await L.dismiss(g); await g.p.waitForTimeout(250); }
+    for (const nav of path) { await L.A(g, 'move', nav); await L.dismiss(g); await g.p.waitForTimeout(250); if (await L.clearCutaways(g)) rec('cutaway', 'curator glimpse', 'stepped back out'); }
     view = target; await g.p.waitForTimeout(300);
   };
   const PARENT = { act1_lab_terminal_closeup: 'act1_processing_lab', act1_security_closeup: 'act1_security_hub', act1_cataloguer_closeup: 'act1_stasis_hold' };
@@ -97,8 +97,11 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     await U('surgical_probe', 'fan_mechanism'); await shot('22_vent_fan_jammed');
     await A('move', 'vent_fan'); view = 'act1_vent_exit'; await shot('23_vent_exit'); await lookAll(view);
     await A('move', 'exit_hatch'); view = 'act1_airlock_bay'; await shot('24_airlock_bay'); await lookAll(view);
-    await U('containment_key_card', 'airlock_override_panel'); await shot('25_airlock_done'); await L.hint(g, 'airlock end');
-    await A('look', 'airlock_override_panel'); await A('hand', 'airlock_override_panel'); await A('hand', 'blast_doors');
+    await L.hint(g, 'airlock end'); await A('hand', 'airlock_override_panel'); await A('hand', 'blast_doors');
+    await U('containment_key_card', 'airlock_override_panel'); view = 'act1_earth_closeup'; await shot('25_earth');
+    await A('look', 'earth_closeup_window'); await g.p.waitForTimeout(900); await shot('26_act_end');
+    const endText = await g.p.evaluate(() => document.body.innerText);
+    rec('ending', 'act 1', /End of Act 1/i.test(endText) ? 'END OF ACT 1 SCREEN ' + ((endText.match(/Score: \d+ of \d+/) || [''])[0]) : null);
   } catch (e) { console.log('ERR at', view, e.message.split('\n')[0]); }
   for (const l of g.log) if (l.startsWith('[HINT')) LOG.push({ view: 'hint', verb: 'hint', target: l.slice(6, l.indexOf(']')), text: l.slice(l.indexOf(']') + 2) });
   fs.writeFileSync('full_log.json', JSON.stringify(LOG, null, 1));

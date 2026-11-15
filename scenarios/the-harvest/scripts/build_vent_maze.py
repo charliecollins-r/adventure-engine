@@ -65,7 +65,7 @@ LOOK = {'N': 'The duct runs on straight ahead, deeper into the dark. A faint tea
         'S': 'The duct behind you. Every stretch of this place looks the same from here.'}
 PURGE_LOOK = 'Scalding air gusts out of this duct in slow pulses, and the metal around its mouth is scorched black. Something vents through here, hard.'
 PURGE_MOVE = 'You crawl into the scorched duct. Halfway in, the metal starts to tick and shudder. Then the purge cycle fires.'
-PURGE_DEATH = 'A wall of superheated exhaust roars down the duct. There is nowhere to go. The ship clears its vents the way it always has.'
+PURGE_DEATH = "The duct breathes out. Unfortunately, you're in it. A wall of superheated exhaust clears the vent the way it always has. Next time, LOOK before you crawl: purge ducts glow with heat and are scorched black."
 
 def msg(t): return {'type': 'message', 'text': t}
 def nav_obj(c, d, box):
@@ -100,6 +100,11 @@ for c in GENERIC:
                          {'verb': 'talk', 'when': [], 'then': [msg('"Wrong way," you tell yourself. The duct agrees.')]},
                          {'verb': 'move', 'when': [], 'response': "It's bolted shut. You'll have to go back.", 'then': []}]})
     lights = copy.deepcopy(lights_base)
+    # Purge ducts glow: a pulsing orange heat haze in the mouth of every deadly duct, so the danger is visible.
+    for o in objs:
+        if any(e.get('title') == 'Purged' for it in o['interactions'] for e in it.get('then', [])):
+            px, py = o['position']['x'] + o['size']['width'] / 2, o['position']['y'] + o['size']['height'] / 2
+            lights.append({'x': round(px / 960, 3), 'y': round(py / 720, 3), 'radius': 0.16, 'color': [255, 110, 20], 'pulse_speed': 1.1, 'pulse_amount': 0.45, 'alpha': 0.42})
     if 'N' in CELLS[c][1]:
         lights.append({'x': 0.51 if f == 'lf' else 0.49, 'y': 0.47, 'radius': 0.13, 'color': [60, 170, 150], 'pulse_speed': 0.25, 'pulse_amount': 0.2, 'alpha': 0.12, 'phase': 0.6})
     hints = [{'text': "These ducts all look the same. Without a map it is easy to go in circles, and some ducts here vent scalding exhaust.", 'when': []},
@@ -110,7 +115,7 @@ for c in GENERIC:
         hints.append({'text': f"The prisoner's scratched route says: from here, go {SCREEN[way]} ({WORD[way]}).",
                       'when': [{'type': 'flag_is', 'flag': 'vent_route_known', 'value': 'true'}]})
     new_views.append({'id': vid(c), 'name': 'Air Ducts', 'background_key': vid(c), 'background_file': f'backgrounds/act1_vent_maze_{f}.webp',
-                      'objects': [o['id'] for o in objs], 'room_animation': 'flicker', 'hints': hints,
+                      'objects': [o['id'] for o in objs], 'room_animation': 'flicker', 'hints': hints, 'enter_sound': 'crawl', 'music': 'audio/music_ducts.mp3',
                       'character': {'x': CHAR_X[f], 'y': 650, 'facing': 'up', 'sprite_set': 'idle', 'object_id': 'goblin_self'},
                       'walk_area': {'floor': DUCT_FLOOR},
                       'ambient_lighting': {'lights': lights, 'flicker': True}})

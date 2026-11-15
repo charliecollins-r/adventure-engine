@@ -12,6 +12,7 @@ node extras.cjs                               # intro, all 13 maze ducts, both v
 node walk.cjs                                 # click-to-walk in every walking view
 node prisoner.cjs                             # the caged prisoner's story
 node noise.cjs                                # brute-force guard, noise thresholds, hiding, caught
+node features.cjs                             # toys, score, override set piece, the Keth-Vari in the ducts
 cd ../.. && python3 scripts/build_walkthrough_images.py scripts/playthrough/shots walkthrough
 ```
 

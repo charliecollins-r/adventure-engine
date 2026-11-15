@@ -96,6 +96,17 @@ function pt(id) {
   if (o.sprite) { const rh = o.sprite.frame_height * o.sprite.scale; return [o.position.x, (o.position.y * 0.75 - rh / 2) / 0.75]; }
   return [o.position.x + o.size.width / 2, o.position.y + o.size.height / 2];
 }
+// One-time cutaways (the Curator glimpse) take over the screen after a move: step back out like a player would.
+module.exports.clearCutaways = async (g) => {
+  let cleared = false;
+  for (let i = 0; i < 3; i++) {
+    const back = await g.p.$('[data-object-id="curator_glimpse_return"]');
+    if (!back) return cleared;
+    cleared = true;
+    await module.exports.dismiss(g); const b = await back.boundingBox(); await g.p.mouse.click(b.x + 20, b.y + 20); await g.p.waitForTimeout(600); await module.exports.dismiss(g);
+  }
+  return cleared;
+};
 module.exports.A = (g, verb, id) => { const [x, y] = pt(id); return module.exports.act(g, verb, x, y, id); };
 module.exports.U = (g, item, id) => { const [x, y] = pt(id); return module.exports.useOn(g, item, x, y, id); };
 // Click a rendered hotspot by object ID (needs data-object-id in GameView/SpriteObject).

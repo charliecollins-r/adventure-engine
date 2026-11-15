@@ -270,7 +270,9 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 
 | Type | Fields | Action | Status |
 |------|--------|--------|--------|
-| `set_view` | `view` | Navigate to a different view (pushes current to history stack) | Implemented |
+| `set_view` | `view`, `at`?, `sound`? | Navigate to a different view (pushes current to history stack); applies `setting.noise_decay`; records `sound` for `takeTransitionSound()` | Implemented |
+| `add_score` | `points`, `id`? | Add to the score (`getScore()`); with `id` only once (`scoredIds`, in snapshots) | Implemented |
+| `play_animation` | `object` | Show the object and bump `getAnimationRun(id)`; GameView keys the sprite on it, so it restarts | Implemented |
 | `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` | Override the character placement for the rest of the session (e.g. swap to a helmet sprite set) | Implemented |
 
 **Noise:**

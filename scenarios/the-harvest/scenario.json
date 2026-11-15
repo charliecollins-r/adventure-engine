@@ -61,12 +61,12 @@
     },
     "ambient_audio": "audio/haunted.wav",
     "intro_text": [
-      "You remember fragments.\nA world with... two suns? Or was it one?. Fields of amber grain.\nFaces you can no longer name.",
-      "Then the sky split open.\nSomething vast descended — a living ship,\nall tendrils and bioluminescent veins.\nIt took everything.",
+      "You remember the Outrider's cockpit.\nEarth turning blue and slow beneath you.\nA routine salvage run, and a beacon in the dark\nwhere no beacon should be.",
+      "Then the dark moved.\nSomething vast unfolded out of nothing — a living ship,\nall tendrils and bioluminescent veins.\nIt swallowed the Outrider whole.",
       "You were catalogued.\nWeighed. Measured. Filed away in a pod\nof warm amber fluid alongside\nhundreds of other specimens.",
       "You don't know how long you slept.\nDays. Months. Years.\nThe ship hums around you —\na heartbeat that is not your own.",
       "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\nAlarms pulse in colors you have no name for.\nThe ship's crew is nowhere to be seen.",
-      "You are cold. You are weak.\nYou are alone on a vessel\nbuilt to harvest worlds.\n\nFind a way out."
+      "You are cold. You are weak.\nAnd somewhere below this ship,\nEarth is still turning.\n\nFind a way out."
     ],
     "sounds": {
       "room_transition": "audio/door_open_close.wav",
@@ -75,7 +75,11 @@
       "intro_voice": "audio/voice/ambient_stasis.mp3",
       "noise": "audio/noise_clang.mp3",
       "alarm": "audio/alarm.mp3",
-      "curator": "audio/curator_steps.mp3"
+      "curator": "audio/curator_steps.mp3",
+      "crawl": "audio/crawl.mp3",
+      "drop": "audio/drop_thud.mp3",
+      "score": "audio/score.mp3",
+      "sting_earth": "audio/sting_earth.mp3"
     },
     "tutorial": {
       "steps": [
@@ -104,7 +108,12 @@
           "done_when": "next"
         }
       ]
-    }
+    },
+    "noise_decay": 4,
+    "noise_sound_min": 6,
+    "music": "audio/music_explore.mp3",
+    "music_volume": 0.28,
+    "max_score": 93
   },
   "character": {
     "sprite_sets": {
@@ -209,15 +218,6 @@
       "hints": [
         {
           "text": "Your stasis pod is shattered. Search the wreckage — the broken glass and pooling fluid might be useful.",
-          "when": [
-            {
-              "type": "not_has_item",
-              "item": "pod_glass_shard"
-            }
-          ]
-        },
-        {
-          "text": "Your broken pod is a source of useful materials. Search it thoroughly before moving on.",
           "when": [
             {
               "type": "not_has_item",
@@ -478,7 +478,8 @@
           [475, 719],
           [161, 715]
         ]
-      }
+      },
+      "music": "audio/music_stasis.mp3"
     },
     {
       "id": "act1_cataloguer_closeup",
@@ -504,7 +505,7 @@
           ]
         },
         {
-          "text": "You've memorized the four characters: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The keypads on this ship are etched with the same script.",
+          "text": "You've memorized the four characters on the specimen displays, in order. The keypads on this ship use the same script.",
           "when": [
             {
               "type": "flag_is",
@@ -514,7 +515,9 @@
           ]
         }
       ],
-      "ambient_audio": "audio/ambient_lab.mp3"
+      "ambient_audio": "audio/ambient_lab.mp3",
+      "music": "audio/music_stasis.mp3",
+      "enter_sound": null
     },
     {
       "id": "act1_lab_terminal_closeup",
@@ -540,7 +543,7 @@
           ]
         },
         {
-          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again.",
+          "text": "You've memorized the four characters on the specimen displays, in order. The keypads on this ship use the same script.",
           "when": [
             {
               "type": "all_of",
@@ -569,7 +572,8 @@
           ]
         }
       ],
-      "ambient_audio": "audio/ambient_lab.mp3"
+      "ambient_audio": "audio/ambient_lab.mp3",
+      "enter_sound": null
     },
     {
       "id": "act1_processing_lab",
@@ -776,7 +780,78 @@
           [120, 564],
           [109, 596]
         ]
-      }
+      },
+      "lighting_variants": [
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.3,
+                "y": 0.25,
+                "radius": 0.25,
+                "color": [
+                  60,
+                  200,
+                  140
+                ],
+                "pulse_speed": 0.5,
+                "pulse_amount": 0.3,
+                "alpha": 0.3,
+                "phase": 0
+              },
+              {
+                "x": 0.7,
+                "y": 0.3,
+                "radius": 0.2,
+                "color": [
+                  50,
+                  180,
+                  120
+                ],
+                "pulse_speed": 0.6,
+                "pulse_amount": 0.25,
+                "alpha": 0.22,
+                "phase": 1.5
+              },
+              {
+                "x": 0.5,
+                "y": 0.1,
+                "radius": 0.3,
+                "color": [
+                  200,
+                  150,
+                  50
+                ],
+                "pulse_speed": 0.2,
+                "pulse_amount": 0.15,
+                "alpha": 0.18,
+                "phase": 0.8
+              },
+              {
+                "x": 0.5,
+                "y": 0.3,
+                "radius": 0.75,
+                "color": [
+                  255,
+                  30,
+                  30
+                ],
+                "pulse_speed": 2.2,
+                "pulse_amount": 0.6,
+                "alpha": 0.2
+              }
+            ],
+            "flicker": true
+          }
+        }
+      ]
     },
     {
       "id": "act1_containment_corridor",
@@ -966,7 +1041,92 @@
           "near_y": 546,
           "near": 1
         }
-      }
+      },
+      "lighting_variants": [
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.25,
+                "y": 0.08,
+                "radius": 0.3,
+                "color": [
+                  220,
+                  170,
+                  60
+                ],
+                "pulse_speed": 0.3,
+                "pulse_amount": 0.2,
+                "alpha": 0.3,
+                "phase": 0
+              },
+              {
+                "x": 0.55,
+                "y": 0.06,
+                "radius": 0.25,
+                "color": [
+                  200,
+                  150,
+                  50
+                ],
+                "pulse_speed": 0.35,
+                "pulse_amount": 0.25,
+                "alpha": 0.25,
+                "phase": 1
+              },
+              {
+                "x": 0.85,
+                "y": 0.08,
+                "radius": 0.25,
+                "color": [
+                  210,
+                  160,
+                  55
+                ],
+                "pulse_speed": 0.28,
+                "pulse_amount": 0.2,
+                "alpha": 0.22,
+                "phase": 2
+              },
+              {
+                "x": 0.5,
+                "y": 0.85,
+                "radius": 0.35,
+                "color": [
+                  60,
+                  180,
+                  120
+                ],
+                "pulse_speed": 0.4,
+                "pulse_amount": 0.3,
+                "alpha": 0.22,
+                "phase": 0.5
+              },
+              {
+                "x": 0.5,
+                "y": 0.3,
+                "radius": 0.75,
+                "color": [
+                  255,
+                  30,
+                  30
+                ],
+                "pulse_speed": 2.2,
+                "pulse_amount": 0.6,
+                "alpha": 0.2
+              }
+            ],
+            "flicker": true
+          }
+        }
+      ]
     },
     {
       "id": "act1_morgue",
@@ -1315,7 +1475,92 @@
           [279, 474],
           [134, 486]
         ]
-      }
+      },
+      "lighting_variants": [
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.18,
+                "y": 0.4,
+                "radius": 0.2,
+                "color": [
+                  140,
+                  60,
+                  200
+                ],
+                "pulse_speed": 0.6,
+                "pulse_amount": 0.35,
+                "alpha": 0.3,
+                "phase": 0
+              },
+              {
+                "x": 0.15,
+                "y": 0.55,
+                "radius": 0.15,
+                "color": [
+                  160,
+                  70,
+                  220
+                ],
+                "pulse_speed": 0.5,
+                "pulse_amount": 0.3,
+                "alpha": 0.22,
+                "phase": 1.2
+              },
+              {
+                "x": 0.6,
+                "y": 0.35,
+                "radius": 0.2,
+                "color": [
+                  60,
+                  200,
+                  140
+                ],
+                "pulse_speed": 0.4,
+                "pulse_amount": 0.25,
+                "alpha": 0.22,
+                "phase": 0.5
+              },
+              {
+                "x": 0.85,
+                "y": 0.4,
+                "radius": 0.2,
+                "color": [
+                  50,
+                  180,
+                  120
+                ],
+                "pulse_speed": 0.55,
+                "pulse_amount": 0.3,
+                "alpha": 0.18,
+                "phase": 2
+              },
+              {
+                "x": 0.5,
+                "y": 0.3,
+                "radius": 0.75,
+                "color": [
+                  255,
+                  30,
+                  30
+                ],
+                "pulse_speed": 2.2,
+                "pulse_amount": 0.6,
+                "alpha": 0.2
+              }
+            ],
+            "flicker": true
+          }
+        }
+      ]
     },
     {
       "id": "act1_ventilation_shaft",
@@ -1351,7 +1596,7 @@
               "item": "ventilation_map"
             }
           ],
-          "text": "Your map shows the duct maze ahead. Read it (look at it in your inventory): from the junction it's WEST, then straight north."
+          "text": "Your map shows the duct maze ahead. Read it (look at it in your inventory): from the junction it's EAST, then the long way round to the north-west. The left tunnel is a dead end."
         }
       ],
       "character": {
@@ -1420,7 +1665,9 @@
           [583, 399],
           [428, 399]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_vent_junction",
@@ -1433,7 +1680,8 @@
         "junction_air_current",
         "nav_act1_vent_junction_to_act1_vent_gas_chamber",
         "nav_act1_vent_junction_to_act1_vent_collapsed",
-        "nav_act1_vent_junction_to_act1_ventilation_shaft"
+        "nav_act1_vent_junction_to_act1_ventilation_shaft",
+        "junction_keth_vari"
       ],
       "character": {
         "x": 640,
@@ -1521,7 +1769,9 @@
           [156, 531],
           [141, 546]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_vent_maze_a1",
@@ -1558,6 +1808,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -1659,6 +1911,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -1760,6 +2014,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -1861,6 +2117,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -1962,6 +2220,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -2063,6 +2323,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -2165,6 +2427,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -2267,6 +2531,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -2368,6 +2634,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -2454,6 +2722,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -2542,6 +2812,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -2589,6 +2861,19 @@
             "pulse_amount": 0.1,
             "alpha": 0.08,
             "phase": 1.2
+          },
+          {
+            "x": 0.49,
+            "y": 0.469,
+            "radius": 0.16,
+            "color": [
+              255,
+              110,
+              20
+            ],
+            "pulse_speed": 1.1,
+            "pulse_amount": 0.45,
+            "alpha": 0.42
           },
           {
             "x": 0.49,
@@ -2644,6 +2929,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -2745,6 +3032,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 480,
         "y": 650,
@@ -2833,6 +3122,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -2935,6 +3226,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -3036,6 +3329,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -3137,6 +3432,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -3239,6 +3536,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -3340,6 +3639,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -3441,6 +3742,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 480,
         "y": 650,
@@ -3529,6 +3832,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -3631,6 +3936,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -3732,6 +4039,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -3819,6 +4128,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -3921,6 +4232,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -4023,6 +4336,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -4125,6 +4440,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -4172,6 +4489,19 @@
             "pulse_amount": 0.1,
             "alpha": 0.08,
             "phase": 1.2
+          },
+          {
+            "x": 0.206,
+            "y": 0.501,
+            "radius": 0.16,
+            "color": [
+              255,
+              110,
+              20
+            ],
+            "pulse_speed": 1.1,
+            "pulse_amount": 0.45,
+            "alpha": 0.42
           },
           {
             "x": 0.51,
@@ -4227,6 +4557,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -4328,6 +4660,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -4430,6 +4764,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -4532,6 +4868,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -4633,6 +4971,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 480,
         "y": 650,
@@ -4720,6 +5060,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -4822,6 +5164,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -4923,6 +5267,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 480,
         "y": 650,
@@ -5011,6 +5357,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -5113,6 +5461,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -5160,6 +5510,19 @@
             "pulse_amount": 0.1,
             "alpha": 0.08,
             "phase": 1.2
+          },
+          {
+            "x": 0.51,
+            "y": 0.469,
+            "radius": 0.16,
+            "color": [
+              255,
+              110,
+              20
+            ],
+            "pulse_speed": 1.1,
+            "pulse_amount": 0.45,
+            "alpha": 0.42
           },
           {
             "x": 0.51,
@@ -5215,6 +5578,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -5316,6 +5681,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -5418,6 +5785,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -5519,6 +5888,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -5605,6 +5976,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -5692,6 +6065,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -5780,6 +6155,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 400,
         "y": 650,
@@ -5881,6 +6258,8 @@
           ]
         }
       ],
+      "enter_sound": "crawl",
+      "music": "audio/music_ducts.mp3",
       "character": {
         "x": 560,
         "y": 650,
@@ -6028,7 +6407,9 @@
           [515, 494],
           [382, 495]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_vent_fan_room",
@@ -6129,7 +6510,9 @@
           [591, 568],
           [369, 568]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_vent_collapsed",
@@ -6218,7 +6601,9 @@
           [434, 595],
           [416, 595]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_vent_exit",
@@ -6280,7 +6665,9 @@
           [750, 720],
           [275, 720]
         ]
-      }
+      },
+      "music": "audio/music_ducts.mp3",
+      "enter_sound": "crawl"
     },
     {
       "id": "act1_security_hub",
@@ -6291,7 +6678,8 @@
         "key_card_drawer",
         "overturned_chair",
         "emergency_cabinet",
-        "nav_act1_security_hub_to_act1_containment_corridor"
+        "nav_act1_security_hub_to_act1_containment_corridor",
+        "security_black_cat"
       ],
       "background_key": "act1_security_hub",
       "background_file": "backgrounds/act1_security_hub.webp",
@@ -6431,7 +6819,91 @@
           [926, 586],
           [74, 586]
         ]
-      }
+      },
+      "lighting_variants": [
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.35,
+                "y": 0.3,
+                "radius": 0.2,
+                "color": [
+                  60,
+                  180,
+                  200
+                ],
+                "pulse_speed": 0.7,
+                "pulse_amount": 0.35,
+                "alpha": 0.28,
+                "phase": 0
+              },
+              {
+                "x": 0.65,
+                "y": 0.25,
+                "radius": 0.18,
+                "color": [
+                  50,
+                  160,
+                  180
+                ],
+                "pulse_speed": 0.8,
+                "pulse_amount": 0.3,
+                "alpha": 0.22,
+                "phase": 1
+              },
+              {
+                "x": 0.5,
+                "y": 0.4,
+                "radius": 0.25,
+                "color": [
+                  40,
+                  200,
+                  160
+                ],
+                "pulse_speed": 0.5,
+                "pulse_amount": 0.25,
+                "alpha": 0.22,
+                "phase": 2
+              },
+              {
+                "x": 0.2,
+                "y": 0.35,
+                "radius": 0.15,
+                "color": [
+                  200,
+                  50,
+                  40
+                ],
+                "pulse_speed": 1.2,
+                "pulse_amount": 0.5,
+                "alpha": 0.2,
+                "phase": 0
+              },
+              {
+                "x": 0.5,
+                "y": 0.3,
+                "radius": 0.75,
+                "color": [
+                  255,
+                  30,
+                  30
+                ],
+                "pulse_speed": 2.2,
+                "pulse_amount": 0.6,
+                "alpha": 0.2
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "act1_security_closeup",
@@ -6506,7 +6978,8 @@
             }
           ]
         }
-      ]
+      ],
+      "enter_sound": null
     },
     {
       "id": "act1_specimen_archive",
@@ -6797,7 +7270,8 @@
           [380, 584],
           [70, 598]
         ]
-      }
+      },
+      "enter_sound": "drop"
     },
     {
       "id": "act2_navigation_bridge",
@@ -8411,6 +8885,79 @@
           ]
         }
       ]
+    },
+    {
+      "id": "act1_curator_glimpse",
+      "name": "Stasis Hold",
+      "background_key": "act1_curator_glimpse",
+      "background_file": "backgrounds/act1_stasis_hold.webp",
+      "objects": [
+        "curator_glimpse_return",
+        "curator_glimpse_figure"
+      ],
+      "back_label": "Keep moving",
+      "enter_sound": null,
+      "music": "audio/music_ducts.mp3",
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.3,
+            "y": 0.7,
+            "radius": 0.35,
+            "color": [
+              255,
+              160,
+              40
+            ],
+            "pulse_speed": 0.6,
+            "pulse_amount": 0.3,
+            "alpha": 0.18
+          }
+        ],
+        "flicker": true
+      },
+      "hints": [
+        {
+          "text": "That's the Curator. It hunts by sound. Keep quiet, and if it gets close, hide.",
+          "when": []
+        }
+      ]
+    },
+    {
+      "id": "act1_earth_closeup",
+      "name": "Earth",
+      "background_key": "act1_earth_closeup",
+      "background_file": "closeups/earth_siphon.webp",
+      "background_fit": "cover",
+      "objects": [
+        "earth_closeup_window"
+      ],
+      "enter_sound": null,
+      "music": null,
+      "ambient_audio": [],
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.5,
+            "y": 0.0,
+            "radius": 0.6,
+            "color": [
+              160,
+              255,
+              230
+            ],
+            "pulse_speed": 0.4,
+            "pulse_amount": 0.4,
+            "alpha": 0.15
+          }
+        ]
+      },
+      "hints": [
+        {
+          "text": "Take it in. Then click anywhere.",
+          "when": []
+        }
+      ]
     }
   ],
   "flags": {
@@ -8637,7 +9184,16 @@
     "purge_warned": "false",
     "prisoner_absence_seen": "false",
     "curator_hunting": "false",
-    "hunter_in_lab": "false"
+    "hunter_in_lab": "false",
+    "curator_glimpsed": "false",
+    "earth_revealed": "false",
+    "earth_seen": "false",
+    "ring_taken": "false",
+    "orchid_spore": "false",
+    "hologram_spun": "false",
+    "keth_vari_waved": "false",
+    "orchid_stirring": "false",
+    "orchid_open": "false"
   },
   "items": [
     {
@@ -8791,7 +9347,7 @@
     {
       "id": "nutrient_paste_tube",
       "name": "Nutrient Paste Tube",
-      "description": "A tube of grey nutrient slurry from the feeding station. Smells like wet cardboard and ozone.",
+      "description": "A tube of grey nutrient slurry from the feeding station. Smells like wet cardboard and pennies.",
       "icon": "tube",
       "examine": [
         {
@@ -8800,7 +9356,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Standard specimen feed. The tube is soft, organic material. The paste inside is grey, odorless, nutritionally complete for a dozen different species. Edible but unappetizing. Could also be used as bait — the drones are programmed to retrieve spilled feed."
+              "text": "Standard specimen feed. The tube is soft, organic material. The paste inside is grey, smells, faintly, of wet cardboard and pennies, nutritionally complete for a dozen different species. Edible but unappetizing. Could also be used as bait — the drones are programmed to retrieve spilled feed."
             }
           ]
         }
@@ -8819,7 +9375,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A small organic tag, pulled from your pod's label slot. Alien script — you can't read it yet — but it's your entry in their collection. Proof that you were catalogued. Proof that you exist as something more than a specimen."
+              "text": "Your own specimen tag. On the back, a ring of seven marks, six of them dark. A countdown, and you're the last mark. You'd rather not find out what happens when it goes out."
             }
           ]
         }
@@ -10027,7 +10583,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The datapad's screen shows the last entries of a Choir crew member. Their log describes the ship's systems failing, the Curator going rogue, and their desperate attempt to reach the airlock through the vents. The final entry is coordinates — the ship's last known heading before the crash — and a security override frequency for the operational decks. This could be invaluable once you reach the upper sections."
+              "text": "The datapad's screen shows the last entries of a Choir crew member. Their log describes a containment breach, the Curator sweeping the decks for anything out of place, crew included, and their desperate attempt to reach the airlock through the vents. The final entry is a string of coordinates, the ship's orbit over a blue world, and a security override frequency for the operational decks. This could be invaluable once you reach the upper sections."
             }
           ]
         }
@@ -10102,6 +10658,25 @@
             {
               "type": "message",
               "text": "The strap is cinched through the hook's eyelet with the tightest knot you know. Throw the hook, let the barb bite, and the line will take your weight. Built from the tools of your captors."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wedding_ring",
+      "name": "Wedding Ring",
+      "description": "A plain gold band from the dead man in the morgue.",
+      "icon": "ring",
+      "icon_file": "items/wedding_ring.png",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A plain gold band. Engraved inside, worn almost smooth: 'M & J. Always.' It's no use to you at all. It's the most human thing on this ship."
             }
           ]
         }
@@ -10428,8 +11003,17 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 1,
+              "id": "cat_petted"
+            },
+            {
               "type": "hide_object",
               "object": "black_cat"
+            },
+            {
+              "type": "show_object",
+              "object": "security_black_cat"
             }
           ]
         },
@@ -10447,7 +11031,7 @@
         },
         {
           "verb": "move",
-          "response": "The cat watches you approach, then vanishes into the shadows before you get close.",
+          "response": "You make a grab for the cat. Better people than you have grabbed at this cat. It's gone before your hand arrives.",
           "then": []
         }
       ]
@@ -10508,7 +11092,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The pod hangs open, drained of fluid. Your outline is still visible in the residue on the back wall — a small creature's impression in amber. A specimen tag dangles from the pod's frame.",
+              "text": "The pod hangs open, drained of fluid. Your own outline is still pressed into the amber residue on the back wall, arms crossed like a pharaoh. A specimen tag dangles from the pod's frame.",
               "voice": "audio/voice/your_pod_look.mp3"
             }
           ]
@@ -10564,7 +11148,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The pod is fused to the wall by thick organic brackets. It's not going anywhere — and neither is what happened inside it."
+              "text": "You give the pod a shove. It's fused to the wall, which is more than can be said for your nerves."
             }
           ]
         }
@@ -10681,7 +11265,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The channel is carved directly into the floor, part of the ship's living architecture. You couldn't pry it loose without tools."
+              "text": "It's a channel in the floor. You can't pick up a channel. You checked."
             }
           ]
         }
@@ -10786,7 +11370,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You snap the tag free from the pod frame. It's small enough to pocket. You're not a specimen. You're a person. But this might be useful as proof — to someone, somewhere — that you were here.",
+              "text": "You snap the tag free from the pod frame. On the back, a ring of seven alien marks, six of them already dark. You don't need a translator to read a countdown. Batch 7. That's you. You pocket the tag: you're a person, not a specimen, and you'd like proof of that later.",
               "voice": "audio/voice/specimen_tag_hand.mp3"
             },
             {
@@ -10820,7 +11404,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The hook is a small nub of bio-metal protruding from the pod frame. It bends slightly but won't break off."
+              "text": "The hook bends a little, then springs back. It's had a lot of practice holding on to things."
             }
           ]
         }
@@ -10872,7 +11456,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The tables are anchored to the floor by thick organic stalks. They're part of the ship's anatomy, not furniture."
+              "text": "You put your shoulder to the table. The table, which weighs about as much as a car, does not notice."
             }
           ]
         },
@@ -10898,7 +11482,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You place the cat hair on the examination table's analysis plate. The table hums, its organic scanners activating automatically — it's designed to process biological samples. A holographic readout appears above the surface: 'Sol-3 Felis catus. Batch 7. Status: PROCESSED.' Processed. Your cat was here. Was analyzed. Was... harvested. A cold fury builds in your chest. You carefully retrieve the hair and pocket it. This is personal now."
+              "text": "You place the cat hair on the examination table's analysis plate. The table hums and a readout appears above it: 'Sol-3 Felis catus. Batch 7. Status: PROCESSED.' Processed. And yet a black cat is sitting in the corridor, very much alive, looking smug about it. It got out. So can you."
             },
             {
               "type": "play_sound",
@@ -10908,6 +11492,11 @@
               "type": "set_flag",
               "flag": "cat_fate_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "cat_fate_known"
             }
           ]
         }
@@ -10999,7 +11588,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The rack is grown directly from the wall. Pulling it would be like trying to remove a rib."
+              "text": "You give the rack a tug. It tugs back. You stop."
             }
           ]
         },
@@ -11109,7 +11698,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The jars are seated in recesses molded perfectly to their shape. They weren't placed here — they were grown in place."
+              "text": "The jars are grown into their recesses. Also, you'd really rather not hold one."
             }
           ]
         },
@@ -11224,7 +11813,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The display is a bioluminescent membrane stretched across an organic frame. It can't be moved any more than you could move a patch of skin."
+              "text": "You'd sooner try to move a patch of skin. Which, to be fair, is roughly what this is."
             }
           ]
         },
@@ -11234,7 +11823,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You try speaking to the display. A symbol flickers in response — the ship might understand vocal commands, but you don't know its language. Yet."
+              "text": "\"Hello?\" A symbol flickers politely. You feel like you've just tried French on a fax machine."
             }
           ]
         }
@@ -11291,7 +11880,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screen has changed — it now cycles through specimen processing records. You recognize some of the organism silhouettes from the stasis hold tanks. Each record shows intake data, biological classification, and... a schedule. Processing dates. Future dates. The ship is still collecting. Still processing. Still on its route. And according to this schedule, the next harvesting stop is a planet in a system with a single yellow star. Eight planets. Third from the sun. Earth. Your home. The Convergence is heading for Earth. Along the bottom of the screen, red script still crawls beside a cross symbol: the emergency override at the security console is armed."
+              "text": "The screen has changed — it now cycles through specimen processing records. You recognize some of the organism silhouettes from the stasis hold tanks. Each record shows intake data, biological classification, and... a schedule. Processing dates. Future dates. The ship is still collecting. Still processing. And according to this schedule, the current harvest is a planet in a system with a single yellow star. Eight planets. Third from the sun. Earth. Your home. The Convergence isn't on its way there. It's already in orbit. Along the bottom of the screen, red script still crawls beside a cross symbol: the emergency override at the security console is armed."
             },
             {
               "type": "play_sound",
@@ -11301,6 +11890,11 @@
               "type": "set_flag",
               "flag": "terminal_data_read",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "terminal_data_read"
             }
           ]
         },
@@ -11332,7 +11926,7 @@
         },
         {
           "verb": "talk",
-          "response": "You speak to the screen. The alien characters flicker slightly, but the display doesn't respond to your voice. The Choir's systems don't understand your language.",
+          "response": "You ask the screen nicely. It continues not to speak English.",
           "then": []
         }
       ],
@@ -11415,7 +12009,7 @@
         },
         {
           "verb": "talk",
-          "response": "The keypad doesn't respond to voice. It needs physical key presses — and the right code.",
+          "response": "\"Open sesame.\" The keypad, which has never heard of Ali Baba, remains closed.",
           "then": []
         }
       ],
@@ -11477,6 +12071,11 @@
               "type": "set_flag",
               "flag": "integration_schedule_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "integration_schedule_known"
             }
           ]
         },
@@ -11487,7 +12086,7 @@
         },
         {
           "verb": "talk",
-          "response": "You mutter at the status display. The alien characters don't change. The processing queue doesn't care about your feelings.",
+          "response": "You glare at the processing queue. The processing queue, being a list, glares back without blinking.",
           "then": []
         }
       ],
@@ -11539,7 +12138,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The registry shows every species the Convergence has collected from this sector. Hundreds of entries, organized by world of origin. You find the entries for your world — 'SOL-3' — and the list is chilling. Seventeen species catalogued. Felis catus. Canis lupus familiaris. Pan troglodytes. Homo sapiens. They've been visiting Earth for a long time, taking samples. The cat in the feeding station — it's not a coincidence. It's an escaped specimen, just like you."
+              "text": "The registry shows every species the Convergence has collected from this sector. Hundreds of entries, organized by world of origin. You find the entries for your world — 'SOL-3' — and the list is chilling. Seventeen species catalogued. Felis catus. Canis lupus familiaris. Pan troglodytes. Homo sapiens. They've been visiting Earth for a long time, taking samples. The black cat in the corridor — it's not a coincidence. It's an escaped specimen, just like you."
             }
           ]
         },
@@ -11550,7 +12149,7 @@
         },
         {
           "verb": "talk",
-          "response": "\"Seventeen species from Earth,\" you whisper. The registry scrolls on, indifferent to your horror.",
+          "response": "\"Show me what you've got,\" you tell the registry. Until the terminal is unlocked, what it's got is a lock symbol. Fair enough.",
           "then": []
         },
         {
@@ -11576,6 +12175,11 @@
               "type": "set_flag",
               "flag": "full_record_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "full_record_known"
             }
           ]
         }
@@ -11665,7 +12269,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The drawers are built into the wall itself — organic metal fused seamlessly into the ship's structure."
+              "text": "Drawers are for opening, not carrying off. Even on an alien ship, you're fairly sure of that."
             }
           ]
         }
@@ -11727,7 +12331,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The slab is anchored to the floor by thick organic cables. It's not going anywhere — and neither were its occupants."
+              "text": "The slab is cabled to the floor. You decide not to get any closer to it than you have to."
             }
           ]
         }
@@ -11789,7 +12393,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each vat is a deep organic basin grown directly from the floor. You couldn't move one any more than you could move a tree stump."
+              "text": "You consider shoving a vat. Then you consider what's in it. You leave it exactly where it is."
             }
           ]
         }
@@ -11926,7 +12530,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A mechanical arm dispenses grey slurry into feeding troughs on a timer. The paste smells like metal and algae. It's sustenance — barely. The dispenser connects to a central nutrient tank via transparent tubes."
+              "text": "A mechanical arm squirts grey slurry into the feeding troughs on a timer. It smells like wet cardboard and pennies. It's sustenance, barely. The dispenser is plumbed into a central nutrient tank by transparent tubes."
             }
           ]
         },
@@ -11941,7 +12545,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You collect a tube's worth of nutrient paste from the dispenser output. It's disgusting, but grey slurry that smells like metal and algae. But you pocket a tube of it anyway. On a ship full of things that want to process you, having something foul-smelling could come in handy."
+              "text": "You collect a tube of grey slurry from the dispenser. It smells like wet cardboard and pennies. You pocket it anyway: on a ship this hungry, food is currency."
             },
             {
               "type": "add_item",
@@ -11960,7 +12564,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The dispenser is rooted to the wall by a tangle of feeding tubes. It pulses slightly when you push against it."
+              "text": "You push the dispenser. It squelches. You stop pushing the dispenser."
             }
           ]
         },
@@ -12022,7 +12626,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The troughs are carved directly into the floor — depressions in the ship's living tissue. They can't be moved."
+              "text": "They're dips in the floor. You can't move a dip. You'd look silly trying."
             }
           ]
         },
@@ -12110,7 +12714,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The barrier emitters are embedded in the ceiling and floor. Whatever powers them is deep inside the ship's walls."
+              "text": "The emitters are buried in the ceiling and the floor. You'd have to move the room first."
             }
           ]
         }
@@ -12143,7 +12747,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Deep gouges in the organic walls, made by claws or tools. Someone else navigated these vents before you. The scratches form patterns — not random panic, but deliberate markings. Arrows, symbols, a crude map of the shaft system. A junction ahead splits left and right. The left path is marked with a helmet symbol. The right has deep warning gouges."
+              "text": "Deep gouges in the organic walls, made by claws or tools. Someone else navigated these vents before you, and they left notes: arrows, symbols, a crude map of the ducts. A junction ahead splits left and right. The right-hand path is marked with arrows. The left one ends in a deep, angry X."
             }
           ]
         },
@@ -12158,7 +12762,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace the scratch-map with your fingers, memorizing it. Past a junction the ducts become a whole maze, drawn north-up: from the junction, arrows run WEST, then straight NORTH past a scratched skull and a fan to a way out. A long route winds round through the east, with a deep X at the end of one branch. Whoever made this got further than the Choir expected."
+              "text": "You trace the scratch-map with your fingers, memorizing it. Past the junction the ducts become a whole maze, drawn north-up: from the junction the arrows run EAST, then wind north and all the way back west across the maze, to a scratched skull (bad air) and a fan, and a way out beyond them. The west tunnel ends in an X. Little skulls mark the ducts that breathe fire. Whoever made this got further than the Choir expected."
             },
             {
               "type": "add_item",
@@ -12177,6 +12781,11 @@
               "type": "set_flag",
               "flag": "ventilation_map_found",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "ventilation_map_found"
             }
           ]
         },
@@ -12186,7 +12795,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Something clawed at this wall... desperately,\" you whisper. The scratches are too deep to have been made by human fingernails."
+              "text": "\"Thanks,\" you tell whoever made these. The scratches are too deep for fingernails, which raises more questions than it answers."
             }
           ]
         },
@@ -12266,7 +12875,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The console is fused to the floor by thick cables of organic conduit. It's not going anywhere."
+              "text": "The console is cabled into the floor. Besides, it's the only thing on this ship that's been any help. Leave it alone."
             }
           ]
         },
@@ -12328,7 +12937,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The screen is embedded in the console housing. Prying it out would take tools you don't have."
+              "text": "Pry it out with what, your fingernails? You've seen what happened to the last person's fingernails."
             }
           ]
         },
@@ -12423,6 +13032,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 2,
+              "id": "containment_key_obtained"
+            },
+            {
               "type": "set_animation",
               "object": "key_card_drawer",
               "value": ""
@@ -12510,7 +13124,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The rack is a lattice of hardened organic resin, fused to the wall. The crystals sit in purpose-grown slots."
+              "text": "The rack is fused to the wall. Taking a whole library home is frowned on everywhere, apparently."
             }
           ]
         }
@@ -12663,6 +13277,11 @@
               "type": "set_flag",
               "flag": "archive_accessed",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "archive_accessed"
             }
           ]
         },
@@ -12692,7 +13311,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The reading device is a console grown from the archive wall. Thick neural cables feed into its base."
+              "text": "It's plumbed into the wall by cables thicker than your arm. It stays."
             }
           ]
         },
@@ -12751,6 +13370,11 @@
               "type": "set_flag",
               "flag": "specimen_classification_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "specimen_classification_known"
             }
           ]
         }
@@ -12822,7 +13446,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. A section code, probably. That could be useful.",
+              "text": "Now that you're close, you can read the displays beneath the specimen jars. The same four alien characters glow on every one, always in the same order. You study their shapes until you could draw them with your eyes shut. A section code, probably.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -12833,6 +13457,11 @@
               "type": "set_flag",
               "flag": "lab_code_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "lab_code_known"
             },
             {
               "type": "set_view",
@@ -12862,7 +13491,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
+              "text": "You've already memorized the four characters on the specimen displays. It can't hurt to look at them again."
             },
             {
               "type": "set_view",
@@ -12902,7 +13531,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. A section code, probably. That could be useful.",
+              "text": "Now that you're close, you can read the displays beneath the specimen jars. The same four alien characters glow on every one, always in the same order. You study their shapes until you could draw them with your eyes shut. A section code, probably.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -12913,6 +13542,11 @@
               "type": "set_flag",
               "flag": "lab_code_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "lab_code_known"
             },
             {
               "type": "set_view",
@@ -12942,7 +13576,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
+              "text": "You've already memorized the four characters on the specimen displays. It can't hurt to look at them again."
             },
             {
               "type": "set_view",
@@ -12956,7 +13590,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The cataloguer emits a low electronic hum as it works. It doesn't respond to your voice — this machine operates on instinct, not intelligence. Just a collector, endlessly sorting the ship's trophies."
+              "text": "\"Excuse me?\" The cataloguer files your voice under background noise and carries on sorting."
             }
           ]
         }
@@ -13115,11 +13749,92 @@
         },
         {
           "verb": "talk",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "orchid_stirring"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "\"You're beautiful,\" you whisper to the orchid. And it is — alien and deadly-looking, but beautiful. The petals flutter faintly, as if responding to your voice. You wonder if it's some kind of symbiont — something that attracts, and then feeds. The Choir might have plucked it from a garden. Or a trap."
+              "text": "\"You're beautiful,\" you whisper to the orchid. The outer petals open, very slightly, toward your voice."
+            },
+            {
+              "type": "set_flag",
+              "flag": "orchid_stirring",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "orchid_stirring",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "orchid_open"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You keep talking to it, low and kind, the way you'd talk to a nervous animal. The petals unfurl further. Something golden glows in its throat."
+            },
+            {
+              "type": "set_flag",
+              "flag": "orchid_open",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "orchid_open",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "orchid_spore"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Go on,\" you whisper. The orchid opens all the way and breathes out a single glowing spore. It drifts through the glass as if the glass isn't there and settles on the back of your hand, where it glows softly for a moment, warm as a coal, and fades into your skin. You feel, absurdly, encouraged."
+            },
+            {
+              "type": "set_flag",
+              "flag": "orchid_spore",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "orchid_spore"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "orchid_spore",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The orchid has folded itself closed again. You could swear it looks pleased with itself."
             }
           ]
         }
@@ -13156,7 +13871,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each tank has a big teal display at its base, and all three show the same four alien characters in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The specimen names differ from tank to tank, but these four never change. Not a name. A section mark. A code, probably. You commit the shapes to memory."
+              "text": "The same four characters, in the same order. You have them by heart now. The specimen names differ from tank to tank, but these four never change. Not a name. A section mark. A code, probably. You commit the shapes to memory."
             }
           ]
         },
@@ -13172,7 +13887,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The same four characters on every display: a fern, a double curl, a sprouting snake, and the same sprouting snake again. You have them memorized."
+              "text": "The same four characters, in the same order. You have them by heart now. You have them memorized."
             }
           ]
         },
@@ -13187,7 +13902,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace each character with a fingertip so you won't forget the shapes or the order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The same four on every tank. It must unlock something on this ship."
+              "text": "The same four characters, in the same order. You have them by heart now. The same four on every tank. It must unlock something on this ship."
             },
             {
               "type": "play_sound",
@@ -13197,6 +13912,11 @@
               "type": "set_flag",
               "flag": "lab_code_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "lab_code_known"
             }
           ]
         },
@@ -13212,7 +13932,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already got them: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
+              "text": "The same four characters, in the same order. You have them by heart now."
             }
           ]
         },
@@ -13276,19 +13996,14 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 1,
+              "id": "convergence_history_known"
+            },
+            {
               "type": "set_animation",
               "object": "holographic_display",
               "value": ""
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Your hand passes through the holographic projection. The display flickers and reconfigures around your fingers, unbothered."
             }
           ]
         },
@@ -13308,7 +14023,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The display is a projection — there's nothing physical to move. The emitter is embedded somewhere in the ceiling."
+              "text": "You try to grab a planet. Your hand goes straight through it. Somewhere, the six-year-old you is thrilled."
             }
           ]
         },
@@ -13324,7 +14039,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hold the neural tendril up to the holographic display. The tendril twitches — still faintly alive — and the display responds, reconfiguring around this new biological input. The star map zooms in, planet after planet flickering past, until it locks on a single system. A single yellow star. Eight planets. Third from the sun. The Convergence's next destination. Your home system. They're heading for Earth. The tendril goes dark in your hand, spent. But you've learned what you needed to know."
+              "text": "You hold the neural tendril up to the holographic display. It twitches, still faintly alive, and the display answers it: the star map zooms past dead world after dead world until it settles on a blue one you'd know anywhere. Beside it, the harvest glyph and a ring of marks, counting down. Eleven are still lit. Eleven cycles until Earth is empty. The tendril goes dark in your hand, spent."
             },
             {
               "type": "play_sound",
@@ -13336,6 +14051,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 2,
+              "id": "convergence_destination_known"
+            },
+            {
               "type": "remove_item",
               "item": "severed_neural_tendril"
             },
@@ -13343,6 +14063,26 @@
               "type": "set_animation",
               "object": "holographic_display",
               "value": ""
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You flick the hologram. A thousand worlds spin past like a slot machine, ice and fire and seas and dust, every one marked with the red harvest glyph, and it clicks to a stop on a small blue one. You don't like that. You don't like that at all."
+            },
+            {
+              "type": "set_flag",
+              "flag": "hologram_spun",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 1,
+              "id": "hologram_spun"
             }
           ]
         }
@@ -13374,12 +14114,37 @@
           "then": [
             {
               "type": "message",
-              "text": "The planet fills the viewport. Blue oceans, green continents, wisps of white cloud. From up here it looks healthy, alive, beautiful. But you can see them now — thin beams of light descending from orbit to the surface. Energy siphons. The Convergence is already feeding. The planet doesn't know it's dying."
+              "text": "That's home. You'd know those coastlines anywhere: North America under a thin skin of cloud, the east coast lighting up as dusk rolls over it. And falling toward it, thin as threads, beams of light from orbit. Energy siphons. The Convergence isn't on its way to Earth. It's already here, and it has already started."
             },
             {
               "type": "set_flag",
               "flag": "airlock_visited",
               "value": "true"
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "earth_seen"
+                }
+              ],
+              "then": [
+                {
+                  "type": "play_sound",
+                  "sound": "sting_earth"
+                },
+                {
+                  "type": "set_flag",
+                  "flag": "earth_seen",
+                  "value": "true"
+                },
+                {
+                  "type": "add_score",
+                  "points": 3,
+                  "id": "earth_seen"
+                }
+              ]
             }
           ]
         },
@@ -13399,7 +14164,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"That's the way out,\" you murmur, staring into the star-flecked darkness. If only it were that simple."
+              "text": "\"Hang on,\" you tell the planet. It's a ridiculous thing to say to a planet. You mean it anyway."
             }
           ]
         },
@@ -13409,7 +14174,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The viewport is a thick slab of transparent alloy set flush into the hull. It isn't going anywhere."
+              "text": "It's a window in a spaceship. Moving it would be a very short-lived plan."
             }
           ]
         }
@@ -13441,7 +14206,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The docking clamps are open, still showing the outline of a ship's hull in wear patterns. Something about the shape tugs at your memory — your ship? A name surfaces: Outrider. Your ship. Your way out. Jettisoned. Probably automated: the Choir don't want escape vehicles lying around for specimens to find. Your ship is gone. You're not leaving this way."
+              "text": "The docking clamps are open, still holding the outline of a hull in their wear marks. You'd know that scuffed shape anywhere: the Outrider was clamped here. Your ship. Your way home. Jettisoned, probably on autopilot: the Choir don't leave escape vehicles lying around for specimens to find. You're not leaving this way."
             },
             {
               "type": "play_sound",
@@ -13451,6 +14216,11 @@
               "type": "set_flag",
               "flag": "outrider_gone_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "outrider_gone_known"
             }
           ]
         },
@@ -13470,7 +14240,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Whatever was docked here left in a hurry,\" you observe. The clamps are still in their release position."
+              "text": "\"Sorry, old girl,\" you tell the empty clamps. You never did make the last payment on her."
             }
           ]
         },
@@ -13480,7 +14250,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each clamp is anchored to the deck with bolts thicker than your wrist. They're not moving."
+              "text": "Each clamp is bolted down with bolts thicker than your wrist. You leave them be."
             }
           ]
         }
@@ -13585,6 +14355,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 2,
+              "id": "emergency_helmet_taken"
+            },
+            {
               "type": "set_character",
               "sprite_set": "idle_helmet"
             }
@@ -13606,7 +14381,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The suit locker is welded to the bulkhead. Standard safety protocol — even on alien ships, apparently."
+              "text": "Welded to the bulkhead. Even alien ships have someone whose whole job is welding things to bulkheads."
             }
           ]
         }
@@ -13632,6 +14407,38 @@
       "initial_state": "locked",
       "initially_visible": true,
       "interactions": [
+        {
+          "verb": "look",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "airlock_override_panel",
+              "state": "open"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The panel hangs open, its override controls glowing. The blast doors still lead to nothing but vacuum, but the shutters over the great window answer to this panel too."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "object_state",
+              "object": "airlock_override_panel",
+              "state": "open"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You've already opened it. The controls hum under your fingers, waiting."
+            }
+          ]
+        },
         {
           "verb": "look",
           "when": [],
@@ -13675,12 +14482,26 @@
           "then": [
             {
               "type": "message",
-              "text": "The containment key card interfaces with the lock. The panel opens, revealing override controls. You won't be using the airlock itself — but you've learned how the ship's override systems work. This knowledge will help with other locked systems."
+              "text": "The key card slides home and the panel opens. You don't need the airlock: your ship is gone and there's only vacuum out there. But one control is lit, and it's labelled with a symbol you'd know anywhere: an eye. You press it. The armoured shutters over the great window fold back, all of them, with a sound like a cathedral door."
             },
             {
               "type": "set_state",
               "object": "airlock_override_panel",
               "state": "open"
+            },
+            {
+              "type": "set_flag",
+              "flag": "earth_revealed",
+              "value": "true"
+            },
+            {
+              "type": "play_sound",
+              "sound": "sting_earth"
+            },
+            {
+              "type": "set_view",
+              "view": "act1_earth_closeup",
+              "sound": null
             }
           ]
         },
@@ -13690,7 +14511,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"Emergency override... if I can figure out the sequence.\" The panel's symbols glow faintly, waiting for input."
+              "text": "\"Come on, come on,\" you mutter at the panel. Its symbols glow politely, which is not the same as helping."
             }
           ]
         },
@@ -13700,7 +14521,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The override panel is integrated into the airlock frame itself. It can't be removed."
+              "text": "It's part of the airlock frame. You'd have to take the airlock with it."
             }
           ]
         }
@@ -13762,7 +14583,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The blast doors weigh several tons. No amount of pushing will budge them without the override."
+              "text": "You push. Several tons of door remain unimpressed."
             }
           ]
         }
@@ -24078,7 +24899,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The pipes are fused into the walls — part of the ship itself. They pulse faintly, like veins."
+              "text": "You hug the pipes and heave. They pulse warmly back. You let go before this turns into a relationship."
             }
           ]
         },
@@ -24119,7 +24940,7 @@
         },
         {
           "verb": "hand",
-          "response": "The grating is bolted down firmly. Through the gaps you can see bioluminescent fluid pumping through transparent tubes.",
+          "response": "You heave at the grating. It's bolted down, and it knows it.",
           "then": []
         },
         {
@@ -24232,6 +25053,22 @@
           "verb": "look",
           "when": [
             {
+              "type": "flag_is",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The panel has gone from red to a frantic, strobing orange. The symbol that kept repeating is still there, but now it's crossed through and flashing. Whatever was scheduled has been postponed: containment breach. Somewhere a very organized alien is having a very bad day."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
               "type": "flag_not",
               "flag": "security_hub_accessed"
             }
@@ -24271,7 +25108,7 @@
         },
         {
           "verb": "talk",
-          "response": "You try speaking to the panel. It chirps once — voice commands might work, but not in any language you know.",
+          "response": "\"Status report?\" The panel chirps once, which you decide means \"bad\".",
           "then": []
         }
       ]
@@ -24377,6 +25214,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 3,
+              "id": "growth_cut_open"
+            },
+            {
               "type": "play_sound",
               "sound": "discovery"
             },
@@ -24452,7 +25294,7 @@
         },
         {
           "verb": "talk",
-          "response": "The cabinet doesn't respond to vocal commands. Choir security is tactile, not verbal.",
+          "response": "\"Pretty please?\" The cabinet stays shut. Choir security is tactile, not polite.",
           "then": []
         }
       ]
@@ -24544,7 +25386,7 @@
         },
         {
           "verb": "talk",
-          "response": "\"I'm sorry,\" you whisper to the bones. \"I'll make it. For both of us.\"",
+          "response": "\"I'll make it,\" you tell the bones. They have the decency not to point out how many people have said that down here.",
           "then": []
         }
       ],
@@ -28314,8 +29156,8 @@
             },
             {
               "type": "game_over",
-              "title": "A Fatal Leap",
-              "reason": "You tried to jump across the gap without any way to steady yourself. The wet surface offered no grip. Perhaps you should have found a tool to help you cross safely.",
+              "title": "Look Before You Leap",
+              "reason": "The Choir thank you for returning yourself to the recycling system. Next time, try bringing something to hold on to.",
               "result": "lose"
             }
           ]
@@ -28355,6 +29197,11 @@
               "type": "set_flag",
               "flag": "gap_crossed",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 5,
+              "id": "gap_crossed"
             },
             {
               "type": "show_object",
@@ -28423,11 +29270,13 @@
         },
         {
           "verb": "move",
-          "response": "The gap is too wide to just walk across. You need a way to reach the other side safely."
+          "response": "The gap is too wide to just walk across. You need a way to reach the other side safely.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "You stare into the drainage pit below. It doesn't answer. Neither does the gap."
+          "response": "\"Any tips?\" you ask the pit. It has none, which is honest of it.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -28635,6 +29484,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 2,
+              "id": "restraint_strap_cut"
+            },
+            {
               "type": "play_sound",
               "sound": "discovery"
             }
@@ -28733,7 +29587,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Your blood runs cold. Lying in the drawer is a person. A human, like you. Dead — for some time, by the look of it. The eyes are open, staring at nothing. Surgical marks run across its chest, precise and methodical. You weren't the first specimen to wake up."
+              "text": "Your blood runs cold. Lying in the drawer is a person. A human, like you, and not long dead: the skin still has a little colour. His eyes are open, staring at nothing. Neat surgical marks run across his chest. You weren't the first specimen to wake up."
             },
             {
               "type": "play_sound",
@@ -28743,6 +29597,11 @@
               "type": "set_flag",
               "flag": "dead_goblin_seen",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 1,
+              "id": "dead_goblin_seen"
             }
           ]
         },
@@ -28758,7 +29617,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The dead man lies still in his drawer. The surgical precision of the marks on its chest tells you everything about what the Choir do to their specimens. Whatever happened to this one... you won't let it happen to you."
+              "text": "The dead man lies still in his drawer. The surgical marks on his chest are neat and unhurried, which is somehow the worst part. Whatever happened to him, you won't let it happen to you."
             }
           ]
         },
@@ -28774,7 +29633,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach into the drawer and find — a body. A human, like you. Dead. You gently close his eyes. The skin is cold but not rigid. It hasn't been dead that long. You weren't the first to wake up here. And the first one didn't make it."
+              "text": "You reach into the drawer and find a body. A human, like you. You gently close his eyes. The skin is cold but not yet rigid: he hasn't been dead long. You weren't the first to wake up here, and the first one didn't make it."
             },
             {
               "type": "play_sound",
@@ -28784,6 +29643,45 @@
               "type": "set_flag",
               "flag": "dead_goblin_seen",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 1,
+              "id": "dead_goblin_seen"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "dead_goblin_seen",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "ring_taken"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "His left hand is curled shut. Gently, you open it. A plain gold ring. You hesitate, then take it. Someone should carry it home."
+            },
+            {
+              "type": "add_item",
+              "item": "wedding_ring"
+            },
+            {
+              "type": "set_flag",
+              "flag": "ring_taken",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "ring_taken"
             }
           ]
         },
@@ -28799,7 +29697,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already closed its eyes. There's nothing more you can do for it. But you can make sure their sacrifice wasn't meaningless — you'll find a way out."
+              "text": "You've already closed his eyes. The only thing left you can do for him is get out and tell someone."
             }
           ]
         },
@@ -28809,7 +29707,7 @@
           "then": [
             {
               "type": "message",
-              "text": "\"I'll get out,\" you whisper to the still form. \"For both of us.\" The silence in the morgue feels heavier than before."
+              "text": "\"I'll tell someone you were here,\" you promise him. It's the only promise on this ship you can actually keep."
             }
           ]
         }
@@ -29094,6 +29992,10 @@
           "then": [
             {
               "type": "message",
+              "text": "It taps its own chest, slowly and carefully, the way you'd introduce yourself to a child: \"Keth.\" Taps again: \"Vari.\" Then it points at you and waits."
+            },
+            {
+              "type": "message",
               "text": "The creature stops pacing and approaches the barrier. It makes a series of clicking sounds, then tilts its head, waiting. When you don't respond, it tries different sounds — whistles, hums, a deep thrumming. Then it touches two of its hands together and points at you, then at itself. A universal gesture: you and me. Same."
             },
             {
@@ -29111,6 +30013,11 @@
                       "type": "set_flag",
                       "flag": "prisoner_spoken",
                       "value": "true"
+                    },
+                    {
+                      "type": "add_score",
+                      "points": 2,
+                      "id": "prisoner_spoken"
                     },
                     {
                       "type": "play_sound",
@@ -29134,6 +30041,11 @@
                       "type": "set_flag",
                       "flag": "prisoner_spoken",
                       "value": "true"
+                    },
+                    {
+                      "type": "add_score",
+                      "points": 2,
+                      "id": "prisoner_spoken"
                     },
                     {
                       "type": "play_sound",
@@ -29164,6 +30076,11 @@
                       "value": "true"
                     },
                     {
+                      "type": "add_score",
+                      "points": 2,
+                      "id": "prisoner_spoken"
+                    },
+                    {
                       "type": "play_sound",
                       "sound": "discovery"
                     },
@@ -29190,6 +30107,11 @@
                       "type": "set_flag",
                       "flag": "prisoner_spoken",
                       "value": "true"
+                    },
+                    {
+                      "type": "add_score",
+                      "points": 2,
+                      "id": "prisoner_spoken"
                     },
                     {
                       "type": "play_sound",
@@ -29279,6 +30201,11 @@
                       "value": "true"
                     },
                     {
+                      "type": "add_score",
+                      "points": 2,
+                      "id": "promised_freedom"
+                    },
+                    {
                       "type": "set_flag",
                       "flag": "prisoner_bond",
                       "value": "empathy"
@@ -29306,6 +30233,11 @@
                       "type": "set_flag",
                       "flag": "prisoner_fed",
                       "value": "true"
+                    },
+                    {
+                      "type": "add_score",
+                      "points": 3,
+                      "id": "prisoner_fed"
                     },
                     {
                       "type": "remove_item",
@@ -29352,6 +30284,11 @@
               "type": "set_flag",
               "flag": "prisoner_fed",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "prisoner_fed"
             },
             {
               "type": "remove_item",
@@ -29405,6 +30342,11 @@
               "type": "set_flag",
               "flag": "curator_location_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "curator_location_known"
             }
           ]
         },
@@ -29433,7 +30375,7 @@
         {
           "verb": "talk",
           "when": [],
-          "response": "\"Show me where it is,\" you whisper to the screens. They don't respond to voice commands. This is a security console, not a personal assistant.",
+          "response": "\"Show me where it is,\" you whisper to the screens. They don't take voice commands. This is a security console, not a personal assistant.",
           "then": []
         }
       ],
@@ -29555,7 +30497,7 @@
         {
           "verb": "talk",
           "when": [],
-          "response": "It's a button. It doesn't talk back — and right now it doesn't even light up.",
+          "response": "It's a button. A dark, sulking button.",
           "then": []
         }
       ],
@@ -29610,16 +30552,21 @@
           "then": [
             {
               "type": "message",
-              "text": "You press the emergency override button. It sinks into the console with a wet click — and across the deck, containment locks disengage with a series of heavy thunks. Every secured door, every grated vent, every sealed passage on this level just opened. The surveillance feeds flicker. Whatever patrols these corridors will notice. But every path forward is now open."
+              "text": "You press the emergency override button. It sinks into the console with a wet click — and across the deck, containment locks disengage with a series of heavy thunks. Every secured door, every grated vent, every sealed passage on this level just opened. The surveillance feeds flicker. Whatever patrols these corridors will notice. But every path forward is now open. On the surveillance feed, the middle barrier in the feeding station gutters and goes out. Four arms. A blur. Gone."
             },
             {
               "type": "play_sound",
-              "sound": "discovery"
+              "sound": "alarm"
             },
             {
               "type": "set_flag",
               "flag": "security_locks_overridden",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 5,
+              "id": "security_locks_overridden"
             },
             {
               "type": "add_noise",
@@ -29649,11 +30596,13 @@
               "value": "true"
             }
           ],
-          "response": "The override button is dark now — all containment locks are already disengaged. There's nothing left to override."
+          "response": "The override button is dark now — all containment locks are already disengaged. There's nothing left to override.",
+          "then": []
         },
         {
           "verb": "talk",
-          "response": "It's a button. It doesn't talk back."
+          "response": "\"Big red button,\" you say to it, respectfully.",
+          "then": []
         }
       ],
       "hiding_spot": false
@@ -29770,7 +30719,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Cross-referencing with your map: these are the same marks. WEST, the left tunnel, carries the arrows, then the route runs straight north toward the skull (bad air: you'll want protection). EAST, the right tunnel, winds the long way round through the ducts, past a branch gouged with an X. The mapmaker was thorough."
+              "text": "Cross-referencing with your map: these are the same marks. EAST, the right-hand tunnel, carries the arrows: the long way round, north and then back west to the skull (bad air: you'll want protection) and the way out. WEST, the left, ends at an X. A dead end. The mapmaker was thorough."
             }
           ]
         },
@@ -29839,7 +30788,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The pipes gurgle in response, like a stomach digesting."
+              "text": "The pipes gurgle back. You decide that was a yes."
             }
           ]
         }
@@ -29868,7 +30817,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The air behaves differently at the junction. From the LEFT, warm air carries a sharp chemical smell: acrid, metallic, wrong. From the RIGHT, the air is stale and slow, as if it has wandered a long way to get here."
+              "text": "The air behaves differently at the junction. From the LEFT, a sour chemical haze curls out of the tunnel and just hangs there, going nowhere: dead air. From the RIGHT, a faint, steady draught. Air that has come a long way, which means it's going somewhere."
             }
           ]
         },
@@ -29878,7 +30827,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You hold your hand up to feel the currents. Left: warm, chemical-tinged, with a faint mechanical vibration. Right: still, stale, motionless."
+              "text": "You hold your hand up to the currents. Left: still and sour. Right: a cool, steady pull."
             }
           ]
         },
@@ -29888,7 +30837,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You sniff the air. The left tunnel smells dangerous. The right smells like nothing at all."
+              "text": "You sniff the air. The left tunnel smells like a cupboard nobody opens. The right smells like a way out."
             }
           ]
         }
@@ -30252,8 +31201,8 @@
             },
             {
               "type": "game_over",
-              "title": "Toxic Death",
-              "reason": "The toxic gas overwhelms you. Your vision blurs, your lungs seize. You collapse beside the remains, another specimen who didn't make it through the vents.",
+              "title": "Toxic Curiosity",
+              "reason": "You lean in for a closer look. So does the gas. Next time, wear the hat.",
               "result": "lose"
             }
           ]
@@ -30349,7 +31298,7 @@
             {
               "type": "game_over",
               "title": "Toxic Death",
-              "reason": "Without protection, the toxic gas overwhelms you in seconds. Your lungs burn, your vision fails. You stumble and fall, another victim of the ship's poisoned veins.",
+              "reason": "You hold your breath, which works for about nine seconds. The ship's poisoned air does the rest. That helmet in Security would have looked very good on you.",
               "result": "lose"
             }
           ]
@@ -30567,8 +31516,8 @@
             },
             {
               "type": "game_over",
-              "title": "Fan Death",
-              "reason": "The fan blade strikes with the force of a freight train. Your adventure ends instantly in the spinning dark of the ventilation shaft.",
+              "title": "Sliced",
+              "reason": "You walked into a giant spinning fan. The kind with blades. On the bright side, the ship's ventilation is working perfectly. Next time, find something to jam it with.",
               "result": "lose"
             }
           ]
@@ -30745,6 +31694,11 @@
               "type": "set_flag",
               "flag": "fan_jammed",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 5,
+              "id": "fan_jammed"
             },
             {
               "type": "set_animation",
@@ -30934,8 +31888,8 @@
             },
             {
               "type": "game_over",
-              "title": "Toxic Death",
-              "reason": "The toxic gas overwhelms you on the return trip. Without the helmet that got you through before, you have no protection. Your lungs give out halfway back.",
+              "title": "Toxic Rematch",
+              "reason": "Without the helmet, the gas wins the rematch. It was always going to.",
               "result": "lose"
             }
           ]
@@ -31005,7 +31959,7 @@
           "then": [
             {
               "type": "message",
-              "text": "There's no way through. The collapse is absolute."
+              "text": "You shove the rubble. One pebble moves. The rest of the collapse stays collapsed."
             }
           ]
         },
@@ -31104,6 +32058,11 @@
               "type": "set_flag",
               "flag": "crew_datapad_found",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "crew_datapad_found"
             }
           ]
         },
@@ -31133,6 +32092,11 @@
               "type": "set_flag",
               "flag": "choir_access_chip_found",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 4,
+              "id": "choir_access_chip_found"
             }
           ]
         },
@@ -31604,6 +32568,11 @@
               "value": "true"
             },
             {
+              "type": "add_score",
+              "points": 2,
+              "id": "emergency_helmet_taken"
+            },
+            {
               "type": "set_character",
               "sprite_set": "idle_helmet"
             },
@@ -31650,7 +32619,7 @@
           "then": [
             {
               "type": "message",
-              "text": "It's bolted to the wall."
+              "text": "It's bolted to the wall. Someone on this ship takes health and safety very seriously. Just not yours."
             }
           ]
         }
@@ -31726,6 +32695,11 @@
               "type": "set_flag",
               "flag": "carcass_hook_taken",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 1,
+              "id": "carcass_hook_taken"
             },
             {
               "type": "hide_object",
@@ -31964,6 +32938,11 @@
               "type": "set_flag",
               "flag": "vent_route_known",
               "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 3,
+              "id": "vent_route_known"
             },
             {
               "type": "set_animation",
@@ -33522,7 +34501,7 @@
             {
               "type": "game_over",
               "result": "lose",
-              "reason": "A wall of superheated exhaust roars down the duct. There is nowhere to go. The ship clears its vents the way it always has.",
+              "reason": "The duct breathes out. Unfortunately, you're in it. A wall of superheated exhaust clears the vent the way it always has. Next time, LOOK before you crawl: purge ducts glow with heat and are scorched black.",
               "title": "Purged"
             }
           ]
@@ -36317,7 +37296,7 @@
             {
               "type": "game_over",
               "result": "lose",
-              "reason": "A wall of superheated exhaust roars down the duct. There is nowhere to go. The ship clears its vents the way it always has.",
+              "reason": "The duct breathes out. Unfortunately, you're in it. A wall of superheated exhaust clears the vent the way it always has. Next time, LOOK before you crawl: purge ducts glow with heat and are scorched black.",
               "title": "Purged"
             }
           ]
@@ -37973,7 +38952,7 @@
             {
               "type": "game_over",
               "result": "lose",
-              "reason": "A wall of superheated exhaust roars down the duct. There is nowhere to go. The ship clears its vents the way it always has.",
+              "reason": "The duct breathes out. Unfortunately, you're in it. A wall of superheated exhaust clears the vent the way it always has. Next time, LOOK before you crawl: purge ducts glow with heat and are scorched black.",
               "title": "Purged"
             }
           ]
@@ -39339,6 +40318,509 @@
           ]
         }
       ]
+    },
+    {
+      "id": "junction_keth_vari",
+      "name": "The Keth-Vari",
+      "description": "The four-armed prisoner you helped, waiting in the dark.",
+      "position": {
+        "x": 790,
+        "y": 520
+      },
+      "size": {
+        "width": 90,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "The Keth-Vari"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
+            },
+            {
+              "type": "set_flag",
+              "flag": "keth_vari_waved",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "keth_vari_waved"
+            },
+            {
+              "type": "hide_object",
+              "object": "junction_keth_vari"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
+            },
+            {
+              "type": "set_flag",
+              "flag": "keth_vari_waved",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "keth_vari_waved"
+            },
+            {
+              "type": "hide_object",
+              "object": "junction_keth_vari"
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
+            },
+            {
+              "type": "set_flag",
+              "flag": "keth_vari_waved",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "keth_vari_waved"
+            },
+            {
+              "type": "hide_object",
+              "object": "junction_keth_vari"
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
+            },
+            {
+              "type": "set_flag",
+              "flag": "keth_vari_waved",
+              "value": "true"
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "keth_vari_waved"
+            },
+            {
+              "type": "hide_object",
+              "object": "junction_keth_vari"
+            }
+          ]
+        }
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/caged_prisoner.png",
+        "frame_width": 248,
+        "frame_height": 173,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 3,
+        "scale": 0.32
+      }
+    },
+    {
+      "id": "curator_glimpse_return",
+      "name": "Back away",
+      "description": "Back to the feeding station, quietly.",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 960,
+        "height": 720
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Back away"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You back away down the corridor before it can turn around. Click. Click. Click. The sound follows you a long way."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station",
+              "sound": null
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You back away down the corridor before it can turn around. Click. Click. Click. The sound follows you a long way."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station",
+              "sound": null
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You back away down the corridor before it can turn around. Click. Click. Click. The sound follows you a long way."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station",
+              "sound": null
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You back away down the corridor before it can turn around. Click. Click. Click. The sound follows you a long way."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station",
+              "sound": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curator_glimpse_figure",
+      "name": "The Curator",
+      "description": "Tall, thin, too many joints.",
+      "position": {
+        "x": 345,
+        "y": 650
+      },
+      "size": {
+        "width": 90,
+        "height": 260
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "The Curator"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Tall. Thin. Too many joints in the arms. Two amber lenses where a face should be. It bends over your empty pod, dips one long finger into the drained fluid, and tilts its head. It knows something is missing."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Absolutely not."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You open your mouth. Every instinct you have closes it again."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You back away down the corridor before it can turn around. Click. Click. Click. The sound follows you a long way."
+            },
+            {
+              "type": "set_view",
+              "view": "act1_feeding_station",
+              "sound": null
+            }
+          ]
+        }
+      ],
+      "sprite": {
+        "file": "sprites/curator_silhouette.png",
+        "frame_width": 132,
+        "frame_height": 450,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.55
+      }
+    },
+    {
+      "id": "earth_closeup_window",
+      "name": "Earth",
+      "description": "Home, and the beams falling on it.",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 960,
+        "height": 720
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Earth"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Home. North America under a thin skin of cloud, the east coast lighting up as evening rolls in. Somewhere down there it's an ordinary Tuesday. And falling toward it from this ship, thin as threads, the siphon beams, drinking."
+            },
+            {
+              "type": "play_sound",
+              "sound": "curator"
+            },
+            {
+              "type": "add_score",
+              "points": 10,
+              "id": "act1_complete"
+            },
+            {
+              "type": "set_flag",
+              "flag": "act1_complete",
+              "value": "true"
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "title": "End of Act 1",
+              "reason": "Behind you, the clicking stops. You don't turn around. Not yet. You've seen what they're doing, and you know where you're going: down there, before the last of the eleven marks goes dark. The Harvest continues in Act 2."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Home. North America under a thin skin of cloud, the east coast lighting up as evening rolls in. Somewhere down there it's an ordinary Tuesday. And falling toward it from this ship, thin as threads, the siphon beams, drinking."
+            },
+            {
+              "type": "play_sound",
+              "sound": "curator"
+            },
+            {
+              "type": "add_score",
+              "points": 10,
+              "id": "act1_complete"
+            },
+            {
+              "type": "set_flag",
+              "flag": "act1_complete",
+              "value": "true"
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "title": "End of Act 1",
+              "reason": "Behind you, the clicking stops. You don't turn around. Not yet. You've seen what they're doing, and you know where you're going: down there, before the last of the eleven marks goes dark. The Harvest continues in Act 2."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Home. North America under a thin skin of cloud, the east coast lighting up as evening rolls in. Somewhere down there it's an ordinary Tuesday. And falling toward it from this ship, thin as threads, the siphon beams, drinking."
+            },
+            {
+              "type": "play_sound",
+              "sound": "curator"
+            },
+            {
+              "type": "add_score",
+              "points": 10,
+              "id": "act1_complete"
+            },
+            {
+              "type": "set_flag",
+              "flag": "act1_complete",
+              "value": "true"
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "title": "End of Act 1",
+              "reason": "Behind you, the clicking stops. You don't turn around. Not yet. You've seen what they're doing, and you know where you're going: down there, before the last of the eleven marks goes dark. The Harvest continues in Act 2."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Home. North America under a thin skin of cloud, the east coast lighting up as evening rolls in. Somewhere down there it's an ordinary Tuesday. And falling toward it from this ship, thin as threads, the siphon beams, drinking."
+            },
+            {
+              "type": "play_sound",
+              "sound": "curator"
+            },
+            {
+              "type": "add_score",
+              "points": 10,
+              "id": "act1_complete"
+            },
+            {
+              "type": "set_flag",
+              "flag": "act1_complete",
+              "value": "true"
+            },
+            {
+              "type": "game_over",
+              "result": "win",
+              "title": "End of Act 1",
+              "reason": "Behind you, the clicking stops. You don't turn around. Not yet. You've seen what they're doing, and you know where you're going: down there, before the last of the eleven marks goes dark. The Harvest continues in Act 2."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security_black_cat",
+      "name": "Black Cat",
+      "description": "The black cat, sitting on the security console like it owns the place.",
+      "position": {
+        "x": 760,
+        "y": 372
+      },
+      "size": {
+        "width": 60,
+        "height": 70
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Black Cat"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The black cat has followed you in and is sitting on the security console like it owns the place. Maybe it does. It's the only creature on this ship that seems completely unbothered."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It allows exactly one scratch behind the ear. Then, holding your gaze, it pushes a stylus off the edge of the console. On purpose."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Who's a good alien-ship cat?\" It blinks slowly at you. You've been judged and found adequate."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You try to shoo it off the console. It stays exactly where it is. Cats."
+            }
+          ]
+        }
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/black-cat.png",
+        "frame_width": 119,
+        "frame_height": 184,
+        "columns": 10,
+        "rows": 1,
+        "frame_rate": 2,
+        "scale": 0.19
+      },
+      "shadow": {
+        "offset_x": 0,
+        "offset_y": -2,
+        "opacity": 1,
+        "width": 60,
+        "height": 8
+      },
+      "layer": "front"
     }
   ],
   "puzzle_widgets": [
@@ -39353,43 +40835,35 @@
         "keys": [
           {
             "value": "zigzag",
-            "image": "ui/glyph_zigzag.png",
-            "label": "Zigzag"
+            "image": "ui/glyph_zigzag.png"
           },
           {
             "value": "spiral",
-            "image": "ui/glyph_spiral.png",
-            "label": "Spiral"
+            "image": "ui/glyph_spiral.png"
           },
           {
             "value": "fern",
-            "image": "ui/glyph_fern.png",
-            "label": "Fern"
+            "image": "ui/glyph_fern.png"
           },
           {
             "value": "eyehook",
-            "image": "ui/glyph_eyehook.png",
-            "label": "Eye and hook"
+            "image": "ui/glyph_eyehook.png"
           },
           {
             "value": "curl",
-            "image": "ui/glyph_curl.png",
-            "label": "Double curl"
+            "image": "ui/glyph_curl.png"
           },
           {
             "value": "trident",
-            "image": "ui/glyph_trident.png",
-            "label": "Trident"
+            "image": "ui/glyph_trident.png"
           },
           {
             "value": "sprout",
-            "image": "ui/glyph_sprout.png",
-            "label": "Sprouting snake"
+            "image": "ui/glyph_sprout.png"
           },
           {
             "value": "twinbranch",
-            "image": "ui/glyph_twinbranch.png",
-            "label": "Forked branch"
+            "image": "ui/glyph_twinbranch.png"
           }
         ],
         "code_length": 4,
@@ -39409,7 +40883,7 @@
       "on_solve": [
         {
           "type": "message",
-          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, and the sprouting snake again. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers, and a line of red script crawls across the bottom of it, over and over. You can't read it, but you know the cross symbol beside it from the security console: the emergency containment override. It's armed now."
+          "text": "You press the four characters from the specimen displays, in order. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. A line of red script crawls across the main screen beside two symbols you do recognise: the cross from the dead button on the security console, and a hand pressing down. The containment override is armed. It wants a hand on that button in Security."
         },
         {
           "type": "play_sound",
@@ -39419,6 +40893,11 @@
           "type": "set_flag",
           "flag": "terminal_unlocked",
           "value": "true"
+        },
+        {
+          "type": "add_score",
+          "points": 5,
+          "id": "terminal_unlocked"
         },
         {
           "type": "set_animation",
@@ -40908,6 +42387,83 @@
           "result": "lose",
           "title": "Caught",
           "reason": "The clicking stops right behind you. Long, cold fingers close around your shoulders. The Curator carries you back to the stasis hold without a sound, and this time it seals the pod."
+        }
+      ]
+    },
+    {
+      "id": "keth_vari_in_ducts",
+      "one_shot": true,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "security_locks_overridden",
+            "value": "true"
+          },
+          {
+            "type": "any_of",
+            "conditions": [
+              {
+                "type": "flag_is",
+                "flag": "promised_freedom",
+                "value": "true"
+              },
+              {
+                "type": "flag_is",
+                "flag": "prisoner_fed",
+                "value": "true"
+              }
+            ]
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "junction_keth_vari"
+        }
+      ]
+    },
+    {
+      "id": "curator_glimpse",
+      "one_shot": true,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_feeding_station"
+          },
+          {
+            "type": "flag_is",
+            "flag": "feeding_station_visited",
+            "value": "true"
+          },
+          {
+            "type": "flag_not",
+            "flag": "curator_glimpsed"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "curator_glimpsed",
+          "value": "true"
+        },
+        {
+          "type": "play_sound",
+          "sound": "curator"
+        },
+        {
+          "type": "message",
+          "text": "Click. Click. Click. From back the way you came. You flatten yourself against the doorway and look back toward the stasis hold. Something is standing over your empty pod."
+        },
+        {
+          "type": "set_view",
+          "view": "act1_curator_glimpse",
+          "sound": null
         }
       ]
     }

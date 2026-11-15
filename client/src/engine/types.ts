@@ -53,6 +53,16 @@ export interface Setting {
   sounds?: SoundEffects;
   /** Death screens offer "Undo last move" (back to just before the fatal action). Default true. */
   allow_undo?: boolean;
+  /** Noise points that fade each time the player goes to another room (set_view). Default 0. */
+  noise_decay?: number;
+  /** Smallest rise in noise that plays setting.sounds.noise. Default 3. */
+  noise_sound_min?: number;
+  /** Total points available; shows "Score: x of max" in the title bar and on the end screen. */
+  max_score?: number;
+  /** Background music, on its own channel: it keeps playing across rooms until a view asks for a different track. */
+  music?: string;
+  /** Music volume, 0..1. Default 0.3. */
+  music_volume?: number;
   /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
   tutorial?: Tutorial;
 }
@@ -83,7 +93,13 @@ export interface View {
   hints?: ViewHint[];
   character?: CharacterPlacement;
   ambient_lighting?: AmbientLighting;
+  /** Lighting that replaces ambient_lighting while its conditions hold (the first match wins), e.g. red alarm strobes. */
+  lighting_variants?: { when: Condition[]; lighting: AmbientLighting }[];
   ambient_audio?: string | string[];
+  /** Music for this view (overrides setting.music; null = no music here). The same track carries on across rooms. */
+  music?: string | null;
+  /** Sound played on entering this view: a path or sounds key, or null/"" for silence. Default: setting.sounds.room_transition. */
+  enter_sound?: string | null;
   /** Turns on click-to-walk for this view. See docs/WALKABLE_AREAS.md. */
   walk_area?: WalkArea;
 }
@@ -183,7 +199,11 @@ export interface Effect {
   flip_h?: boolean;
   prompt?: string;
   choices?: DialogueChoice[];
-  sound?: string;
+  /** play_sound: a setting.sounds key or path. set_view: the transition sound for this move (null = silent). */
+  sound?: string | null;
+  /** add_score: points to add; with `id`, awarded only once per id. */
+  points?: number;
+  id?: string;
   voice?: string;
   widget?: string;
 }
@@ -205,6 +225,8 @@ export interface ObjectSprite {
   rows: number;
   frame_rate: number;
   scale: number;
+  /** false: play the frames once and hold the last one (restart it with the play_animation effect). Default true. */
+  loop?: boolean;
 }
 
 export interface ScenarioObject {

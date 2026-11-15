@@ -235,7 +235,7 @@ export function GameView({
   ) : null;
   const spriteEl = (obj: (typeof objects)[number]) => (
     <SpriteObject
-      key={obj.id}
+      key={`${obj.id}:${engine.getAnimationRun(obj.id)}`}
       objectId={obj.id}
       sprite={obj.sprite!}
       shadow={obj.shadow}
@@ -286,7 +286,7 @@ export function GameView({
       )}
 
       {/* Canvas-based ambient lighting */}
-      <AmbientCanvas lighting={view.ambient_lighting} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
+      <AmbientCanvas lighting={engine.getLighting(view)} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
 
       {/* Character sprite (classic views); walking views draw it in the depth layer below */}
       {!layered && characterEl}

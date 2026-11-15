@@ -163,6 +163,8 @@ const styles: Record<string, CSSProperties> = {
     maxWidth: '500px',
     lineHeight: '1.6',
   },
+  score: { fontSize: '11px', fontFamily: 'monospace', color: '#8a7a5a', letterSpacing: '1px', marginLeft: '12px' },
+  gameOverScore: { fontSize: '0.9rem', fontFamily: '"Georgia", serif', color: '#c0a030', marginTop: '-16px', marginBottom: '24px', letterSpacing: '1px' },
   gameOverButtons: {
     display: 'flex',
     gap: '16px',
@@ -337,10 +339,26 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     audioRefs.current = elements;
   });
 
+  // Music: its own channel. It only changes when the track does, so it carries on across rooms.
+  const musicRef = useRef<HTMLAudioElement | null>(null);
+  const musicFile = (() => { const v = engine.getCurrentView(); return v.music !== undefined ? v.music : scenario.setting.music ?? null; })();
+  useEffect(() => {
+    const cur = musicRef.current;
+    if (cur && cur.dataset.file === (musicFile ?? '')) return;
+    if (cur) { cur.pause(); cur.src = ''; musicRef.current = null; }
+    if (!musicFile || showIntro) return;
+    const a = new Audio(resolveAsset(scenario.metadata.id, musicFile));
+    a.dataset.file = musicFile; a.loop = true; a.volume = scenario.setting.music_volume ?? 0.3; a.muted = muted;
+    a.play().catch(() => {});
+    musicRef.current = a;
+  }, [musicFile, showIntro, muted, scenario]);
+  useEffect(() => () => { musicRef.current?.pause(); }, []);
+
   useEffect(() => {
     for (const a of audioRefs.current) {
       a.muted = muted;
     }
+    if (musicRef.current) musicRef.current.muted = muted;
   }, [muted]);
 
   const scenarioId = scenario.metadata.id;
@@ -400,8 +418,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const currentView = engine.currentViewId;
     if (prevViewRef.current !== currentView) {
       stopVoice();
-      const transitionSound = scenario.setting.sounds?.room_transition;
-      if (transitionSound) playSound(transitionSound);
+      // set_view's own `sound`, else the new view's enter_sound, else setting.sounds.room_transition (null/"" = silent)
+      const asked = engine.takeTransitionSound();
+      const enter = engine.getCurrentView().enter_sound;
+      const s = asked !== undefined ? asked : enter !== undefined ? enter : scenario.setting.sounds?.room_transition;
+      if (s) playSound(scenario.setting.sounds?.[s] ?? s);
       prevViewRef.current = currentView;
     }
   });
@@ -423,8 +444,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const n = engine.getNoiseLevel();
     const loud = scenario.setting.sounds?.noise;
-    if (loud && n >= prevNoise.current + 3) playSound(loud);
+    if (loud && n >= prevNoise.current + (scenario.setting.noise_sound_min ?? 3)) playSound(loud);
     prevNoise.current = n;
+  });
+
+  // Points: a short sting when the score rises (setting.sounds.score, else discovery).
+  const prevScore = useRef(0);
+  useEffect(() => {
+    const sc = engine.getScore();
+    if (sc > prevScore.current) { const s = scenario.setting.sounds?.score ?? scenario.setting.sounds?.discovery; if (s) playSound(s); }
+    prevScore.current = sc;
   });
 
   const prevItemCount = useRef(-1);
@@ -796,9 +825,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [scenario, bump]);
 
   const handleNavigateBack = useCallback(() => {
+    // Leaving a view the way you came sounds like entering it did (a silent close-up stays silent).
+    const leaving = engine.getCurrentView().enter_sound;
     engine.navigateBack();
-    const transitionSound = scenario.setting.sounds?.room_transition;
-    if (transitionSound) playSound(transitionSound);
+    const s = leaving !== undefined ? leaving : scenario.setting.sounds?.room_transition;
+    if (s) playSound(scenario.setting.sounds?.[s] ?? s);
+    prevViewRef.current = engine.currentViewId;
     bump();
   }, [engine, bump, playSound, scenario]);
 
@@ -895,6 +927,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         <div style={styles.titleLeft}>
           <div style={styles.title}>{scenario.metadata.title}</div>
           <NoiseIndicator level={noiseLevel} />
+          {(scenario.setting.max_score || engine.getScore() > 0) && (
+            <span style={styles.score} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</span>
+          )}
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           {dev.isDev && (
@@ -1104,6 +1139,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             {gameOverResult.title ?? (gameOverResult.won ? 'You Escaped' : 'Game Over')}
           </div>
           <div style={styles.gameOverText}>{gameOverResult.text}</div>
+          {(scenario.setting.max_score || engine.getScore() > 0) && (
+            <div style={styles.gameOverScore}>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
+          )}
           <div style={styles.gameOverButtons}>
             {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && (
               <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleUndo} data-undo autoFocus>
