@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import type { CharacterPlacement, Facing, Scenario, TutorialTrigger, WalkArea } from '../engine/types';
 import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
-import { ScenarioEngine } from '../engine/ScenarioEngine';
+import { ScenarioEngine, type EngineSnapshot } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
 import { GameView } from './GameView';
 import { IntroSequence } from './IntroSequence';
@@ -210,6 +210,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [debugMode, setDebugMode] = useState(() => dev.debug);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [combinedOnce, setCombinedOnce] = useState(false);
+  /** The game as it was just before the player's latest action ("Undo last move" on a death screen). */
+  const undoRef = useRef<EngineSnapshot | null>(null);
 
   // ── First-play tutorial (setting.tutorial) ────────────────────────────────
   const tutorialSteps = scenario.setting.tutorial?.steps ?? [];
@@ -440,6 +442,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   /** Run an interaction now (also used when a walk arrives). */
   const runInteraction = useCallback(
     (objectId: string, verb: string, itemId?: string) => {
+      if (!engine.isGameOver()) undoRef.current = engine.snapshot();
       const invBefore = new Set(engine.getInventory().map((i) => i.id));
       if (verb === 'use_item' && itemId) engine.interact(objectId, 'use_item', itemId);
       else engine.interact(objectId, verb);
@@ -728,6 +731,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const handleItemSelect = useCallback(
     (itemId: string) => {
       if (selectedItem && selectedItem !== itemId) {
+        undoRef.current = engine.snapshot();
         const result = engine.combineItems(selectedItem, itemId);
         if (result.success) {
           setCombinedOnce(true);
@@ -768,7 +772,22 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [engine, bump, stopVoice]);
 
+  /** Death screen: put the game back to just before the move that killed him. */
+  const handleUndo = useCallback(() => {
+    if (!undoRef.current) return;
+    cancelAnimationFrame(rafRef.current);
+    walkRef.current = null;
+    setPose(null);
+    engine.restore(undoRef.current);
+    setSelectedItem(null);
+    bump();
+  }, [engine, bump]);
+
   const handleRestart = useCallback(() => {
+    undoRef.current = null;
+    cancelAnimationFrame(rafRef.current);
+    walkRef.current = null;
+    setPose(null);
     engineRef.current = new ScenarioEngine(scenario);
     setActiveVerb('look');
     setSelectedItem(null);
@@ -819,6 +838,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleDialogueSelect = useCallback(
     (index: number) => {
+      undoRef.current = engine.snapshot();
       engine.selectDialogueChoice(index);
       playPendingSounds();
       bump();
@@ -829,6 +849,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const handleWidgetKey = useCallback(() => { engine.pressWidgetKey(); }, [engine]);
   const handleWidgetSubmit = useCallback(
     (entry: string[]) => {
+      undoRef.current = engine.snapshot();
       const result = engine.submitWidget(entry);
       playPendingSounds();
       bump();
@@ -930,7 +951,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               (e.target as HTMLElement).style.borderColor = '#2a2018';
             }}
           >
-            Exit
+            Menu
           </button>
         </div>
       </div>
@@ -1084,11 +1105,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           </div>
           <div style={styles.gameOverText}>{gameOverResult.text}</div>
           <div style={styles.gameOverButtons}>
+            {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && (
+              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleUndo} data-undo autoFocus>
+                Undo last move
+              </button>
+            )}
             <button style={styles.gameOverButton} onClick={handleRestart}>
-              Play Again
+              {gameOverResult.won ? 'Play again' : 'Restart'}
             </button>
             <button style={styles.gameOverButton} onClick={onExit}>
-              Exit
+              Main menu
             </button>
           </div>
         </div>

@@ -595,12 +595,15 @@ A color-coded progress bar showing noise level 0-100:
 
 **File:** `client/src/components/ScenarioLoader.tsx`
 
-The scenario selection screen:
+The main menu:
 
 1. Fetches `scenarios/manifest.json` (a list of scenario folder IDs), then each scenario's metadata
-2. If the manifest lists exactly one scenario, loads it straight away (the current MVP setup: only `the-harvest`)
-3. Otherwise displays cards in a responsive grid with title, description, difficulty, and estimated time; clicking a card fetches the full `scenario.json` and calls `onLoad(scenario)`
-4. **Custom scenario upload** — a file input button lets users load any `.json` file directly (and is the only option if there is no manifest)
+2. **Play**: a card per scenario with title, description, difficulty and estimated time; clicking one fetches the full `scenario.json` and calls `onLoad(scenario)`
+3. **Steam Workshop**: three placeholder cards (browse, subscribed, publish), marked "Coming soon", where the Workshop integration will go
+4. **Your own adventure**: a file input that loads any `.json` scenario (the only option if there is no manifest)
+5. On the first visit only, `?play=<id>` starts that scenario directly, and the developer parameters `?dev`, `?skipIntro` and `?view` start the first scenario (the test harness relies on this). Leaving a game always returns to the menu.
+
+**Undo last move.** `ScenarioEngine.snapshot()` returns every piece of state a player action can change as plain data, and `restore(snap)` puts it back (delayed `delay_then` effects scheduled before the undo are dropped through an epoch counter). `ScenarioPlayer` takes a snapshot before each interaction, combination, dialogue choice and keypad entry. A lose screen offers **Undo last move** (unless `setting.allow_undo` is false), **Restart** and **Main menu**; a win screen offers **Play again** and **Main menu**. Tests: `ScenarioEngine.undo.test.ts`.
 
 ### Data Flow Summary
 
@@ -1029,7 +1032,7 @@ cd server && mvn spring-boot:run
 | `client/src/engine/types.ts` | All TypeScript interfaces matching the JSON schema |
 | `client/src/engine/ScenarioEngine.ts` | Core game engine — state machine |
 | `client/src/components/ScenarioPlayer.tsx` | Top-level game orchestrator |
-| `client/src/components/ScenarioLoader.tsx` | Scenario selection screen |
+| `client/src/components/ScenarioLoader.tsx` | Main menu: play, Steam Workshop placeholders, load your own |
 | `client/src/engine/assetResolver.ts` | `resolveAsset()` / `setAssetBase()` — every scenario asset URL |
 | `client/src/components/GameView.tsx` | Viewport rendering, hotspots, animations, verb cursors |
 | `client/src/components/CharacterSprite.tsx` | Player sprite sheet renderer + shadow + wearable overlays |

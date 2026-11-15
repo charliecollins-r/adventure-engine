@@ -18,6 +18,15 @@ import type {
   WidgetSubmitResult,
 } from './types';
 
+/** Opaque engine state from ScenarioEngine.snapshot(). */
+export interface EngineSnapshot {
+  view: string; flags: Record<string, string>; objectStates: Record<string, string>; objectVisibility: Record<string, boolean>;
+  objectAnimations: Record<string, string>; inventory: string[]; noise: number; viewHistory: string[];
+  gameOver: GameOverResult | null; phase: string | null; hiding: boolean; characterOverride: Partial<CharacterPlacement> | null;
+  characterPos: StandPoint | null; posHistory: (StandPoint | null)[]; eventsFired: string[]; eventsActive: string[];
+  widgetAttempts: Record<string, number>; solvedWidgets: Record<string, boolean>; equipped: [string, string][];
+}
+
 export class ScenarioEngine {
   private scenario: Scenario;
   private _currentViewId: string;
@@ -47,6 +56,8 @@ export class ScenarioEngine {
   private widgetAttempts: Record<string, number>;
   private solvedWidgets: Record<string, boolean>;
   private equippedItems: Map<string, string>;
+  /** Bumped by restore(): delayed effects scheduled before an undo are dropped. */
+  private epoch = 0;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -827,7 +838,9 @@ export class ScenarioEngine {
           if (e.effects) {
             const delayMs = (e.seconds ?? 0) * 1000;
             const delayedEffects = e.effects;
+            const epoch = this.epoch;
             setTimeout(() => {
+              if (epoch !== this.epoch) return;
               const delayMessages = this.applyEffects(delayedEffects);
               this._messages.push(...delayMessages);
               this.checkGameEndConditions();
@@ -918,6 +931,33 @@ export class ScenarioEngine {
         this.eventsActive.delete(ev.id);
       }
     }
+  }
+
+  /**
+   * Everything a player action can change, as plain data (for "undo last move" after a death).
+   * Messages, dialogue, close-ups and open widgets are transient and not included.
+   */
+  snapshot(): EngineSnapshot {
+    return structuredClone({
+      view: this._currentViewId, flags: this.flags, objectStates: this.objectStates, objectVisibility: this.objectVisibility,
+      objectAnimations: this.objectAnimations, inventory: this.inventory, noise: this._noiseLevel, viewHistory: this.viewHistory,
+      gameOver: this._gameOver, phase: this._currentPhaseId, hiding: this._isHiding, characterOverride: this._characterOverride,
+      characterPos: this._characterPos, posHistory: this.posHistory, eventsFired: [...this.eventsFired], eventsActive: [...this.eventsActive],
+      widgetAttempts: this.widgetAttempts, solvedWidgets: this.solvedWidgets, equipped: [...this.equippedItems],
+    });
+  }
+
+  /** Put the game back exactly as it was when `snapshot()` was taken. */
+  restore(snap: EngineSnapshot): void {
+    const s = structuredClone(snap);
+    this._currentViewId = s.view; this.flags = s.flags; this.objectStates = s.objectStates; this.objectVisibility = s.objectVisibility;
+    this.objectAnimations = s.objectAnimations; this.inventory = s.inventory; this._noiseLevel = s.noise; this.viewHistory = s.viewHistory;
+    this._gameOver = s.gameOver; this._currentPhaseId = s.phase; this._isHiding = s.hiding; this._characterOverride = s.characterOverride;
+    this._characterPos = s.characterPos; this.posHistory = s.posHistory; this.eventsFired = new Set(s.eventsFired); this.eventsActive = new Set(s.eventsActive);
+    this.widgetAttempts = s.widgetAttempts; this.solvedWidgets = s.solvedWidgets; this.equippedItems = new Map(s.equipped);
+    this._messages = []; this._pendingSounds = []; this._dialoguePrompt = null; this._dialogueChoices = [];
+    this._activeWidgetId = null; this._closeupImage = null;
+    this.epoch++;
   }
 
   private checkGameEndConditions(): void {

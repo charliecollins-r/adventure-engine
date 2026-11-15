@@ -786,7 +786,7 @@ Effects change the game world. They execute in order within a `then` array.
 | `hide_object` | `object` | Make an object invisible |
 | `add_noise` | `amount` | Increase noise level (clamped 0-100) |
 | `set_noise` | `amount` | Set noise to exact value |
-| `game_over` | `result` (`"win"`/`"lose"`), `reason` | End the game |
+| `game_over` | `result` (`"win"`/`"lose"`), `reason`, `title`? | End the game. A lose screen offers **Undo last move** (unless `setting.allow_undo` is `false`), **Restart** and **Main menu**, so deaths can be harsh without costing the player their progress. |
 | `advance_phase` | `phase` | Jump to a named game phase |
 | `start_hiding` | — | Player enters hiding |
 | `stop_hiding` | — | Player leaves hiding |

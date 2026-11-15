@@ -51,6 +51,8 @@ export interface Setting {
   ambient_audio?: string | string[];
   intro_text?: string[];
   sounds?: SoundEffects;
+  /** Death screens offer "Undo last move" (back to just before the fatal action). Default true. */
+  allow_undo?: boolean;
   /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
   tutorial?: Tutorial;
 }

@@ -343,7 +343,7 @@ adventure-engine/
 |       |   +-- ScenarioEngine.ts     Core: load JSON, manage state, resolve interactions
 |       |   +-- assetResolver.ts      One place that builds every asset URL
 |       +-- components/               React UI components
-|           +-- ScenarioLoader.tsx    Reads scenarios/manifest.json, picker + upload
+|           +-- ScenarioLoader.tsx    Main menu: play, Steam Workshop placeholders, load your own
 |           +-- ScenarioPlayer.tsx    Main game orchestrator
 |           +-- GameView.tsx          Background + hotspot rendering + verb cursors
 |           +-- CharacterSprite.tsx   Sierra-style sprite sheet character renderer

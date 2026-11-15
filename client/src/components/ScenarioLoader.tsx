@@ -3,7 +3,20 @@ import type { Scenario } from '../engine/types';
 
 interface ScenarioLoaderProps {
   onLoad: (scenario: Scenario) => void;
+  /**
+   * Skip the menu and start a scenario straight away when the URL asks for it: ?play=<id>, or the developer
+   * parameters ?dev / ?skipIntro / ?view (the first scenario in the manifest). Only on the first visit,
+   * so leaving a game always lands on the menu.
+   */
+  autoLaunch?: boolean;
 }
+
+/** Placeholders for the Steam Workshop integration (see CLAUDE.md North Star). */
+const WORKSHOP_SLOTS = [
+  { title: 'Browse the Workshop', text: 'Community adventures, made by players and their AI agents. Subscribe and they appear here.' },
+  { title: 'Subscribed adventures', text: 'Adventures you subscribe to on the Steam Workshop, downloaded and ready to play.' },
+  { title: 'Publish your adventure', text: 'Package a scenario.json and its art and audio, check it, and share it on the Workshop.' },
+];
 
 interface ScenarioMeta {
   id: string;
@@ -89,6 +102,36 @@ const styles: Record<string, CSSProperties> = {
     borderRadius: '4px',
     cursor: 'pointer',
   },
+  sectionTitle: {
+    width: '100%',
+    maxWidth: '960px',
+    fontSize: '0.8rem',
+    fontFamily: '"Georgia", serif',
+    color: '#8a7a5a',
+    letterSpacing: '3px',
+    textTransform: 'uppercase',
+    borderBottom: '1px solid #2a2018',
+    paddingBottom: '6px',
+    marginBottom: '14px',
+  },
+  workshopCard: {
+    padding: '20px',
+    backgroundColor: '#100e0c',
+    border: '1px dashed #2a2018',
+    borderRadius: '4px',
+    cursor: 'default',
+  },
+  soon: {
+    display: 'inline-block',
+    fontSize: '0.7rem',
+    fontFamily: 'monospace',
+    color: '#6a5a30',
+    border: '1px solid #3a2a18',
+    borderRadius: '3px',
+    padding: '2px 8px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+  },
   loadingCard: {
     color: '#5a4a30',
     fontFamily: '"Georgia", serif',
@@ -97,7 +140,7 @@ const styles: Record<string, CSSProperties> = {
   },
 };
 
-export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
+export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
   const [metas, setMetas] = useState<ScenarioMeta[]>([]);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
@@ -115,8 +158,10 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
             loading: true,
           })),
         );
-        if (ids.length === 1) {
-          fetch(`/scenarios/${ids[0]}/scenario.json`)
+        const params = new URLSearchParams(window.location.search);
+        const direct = params.get('play') || (['dev', 'skipIntro', 'view'].some((k) => params.has(k)) ? ids[0] : null);
+        if (autoLaunch && direct) {
+          fetch(`/scenarios/${direct}/scenario.json`)
             .then((r) => r.json())
             .then((data) => onLoad(data as Scenario))
             .catch(() => {});
@@ -153,6 +198,7 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
       .catch(() => {
         // No manifest — show upload-only mode
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCardClick = async (id: string) => {
@@ -185,7 +231,9 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
   return (
     <div style={styles.container}>
       <div style={styles.title}>Adventure Engine</div>
-      <div style={styles.subtitle}>Select a scenario to play</div>
+      <div style={styles.subtitle}>Point-and-click adventures, made from a story</div>
+
+      <div style={styles.sectionTitle}>Play</div>
 
       <div style={styles.grid}>
         {metas.map((meta) => (
@@ -226,6 +274,18 @@ export function ScenarioLoader({ onLoad }: ScenarioLoaderProps) {
         ))}
       </div>
 
+      <div style={styles.sectionTitle}>Steam Workshop</div>
+      <div style={styles.grid} data-workshop>
+        {WORKSHOP_SLOTS.map((w) => (
+          <div key={w.title} style={styles.workshopCard} aria-disabled="true">
+            <div style={{ ...styles.cardTitle, color: '#8a7a5a' }}>{w.title}</div>
+            <div style={styles.cardDescription}>{w.text}</div>
+            <div style={styles.soon}>Coming soon</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={styles.sectionTitle}>Your own adventure</div>
       <div style={styles.uploadArea}>
         <input
           ref={fileRef}
