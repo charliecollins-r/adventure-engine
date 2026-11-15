@@ -1271,6 +1271,23 @@ Design notes:
 
 Full reference: [SCENARIO_SCHEMA.md → Puzzle Widgets](docs/SCENARIO_SCHEMA.md#puzzle-widgets). Dials, combination locks, toggle panels and sequence puzzles are specified there but not implemented yet.
 
+### First-Play Tutorial
+
+Teach new players the controls with a few tips that advance as they do things:
+
+```json
+"setting": {
+  "tutorial": { "steps": [
+    { "text": "Right-click to change what your cursor does: Look, Move, Hand and Talk.", "done_when": "verb_changed" },
+    { "text": "With the Move cursor, click the floor to walk there.", "done_when": "walked" },
+    { "text": "Hand picks things up. Try the tag on your pod.", "done_when": "item_taken" },
+    { "text": "Stuck? The ? button gives a hint.", "done_when": "next" }
+  ] }
+}
+```
+
+`done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL.
+
 ### Dialogue Choices
 
 The `show_dialogue` effect pauses play and shows a list of choices. Each choice has a `label`, optional `when` conditions (the choice is hidden unless they pass), and its own `then` effects:

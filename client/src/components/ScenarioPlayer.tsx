@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
-import type { CharacterPlacement, Facing, Scenario, WalkArea } from '../engine/types';
+import type { CharacterPlacement, Facing, Scenario, TutorialTrigger, WalkArea } from '../engine/types';
 import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
@@ -12,6 +12,7 @@ import { DialogueOverlay } from './DialogueOverlay';
 import { KeypadWidget } from './KeypadWidget';
 import { EyeOpenTransition } from './EyeOpenTransition';
 import { DevPanel } from './DevPanel';
+import { TutorialCoach } from './TutorialCoach';
 
 interface ScenarioPlayerProps {
   scenario: Scenario;
@@ -191,6 +192,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       skipIntro: params.has('skipIntro') || !!params.get('view') || isDev,
       debug: params.has('debug') || isDev,
       isDev,
+      forceTutorial: params.has('tutorial'),
     };
   })());
 
@@ -207,6 +209,28 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [muted, setMuted] = useState(false);
   const [debugMode, setDebugMode] = useState(() => dev.debug);
   const [inventoryOpen, setInventoryOpen] = useState(false);
+
+  // ── First-play tutorial (setting.tutorial) ────────────────────────────────
+  const tutorialSteps = scenario.setting.tutorial?.steps ?? [];
+  const tutorialKey = `kq-tutorial-done:${scenario.metadata.id}`;
+  const [tutIndex, setTutIndex] = useState<number | null>(null);
+  const tutRef = useRef<number | null>(null);
+  tutRef.current = tutIndex;
+  const finishTutorial = useCallback(() => {
+    setTutIndex(null);
+    try { localStorage.setItem(tutorialKey, '1'); } catch { /* storage unavailable: just hide it */ }
+  }, [tutorialKey]);
+  const advanceTutorial = useCallback(() => {
+    const i = tutRef.current;
+    if (i === null) return;
+    if (i + 1 >= tutorialSteps.length) finishTutorial();
+    else setTutIndex(i + 1);
+  }, [tutorialSteps.length, finishTutorial]);
+  /** Tell the tutorial the player just did something; the current tip moves on if it was waiting for that. */
+  const tutorialEvent = useCallback((t: TutorialTrigger) => {
+    const i = tutRef.current;
+    if (i !== null && tutorialSteps[i]?.done_when === t) advanceTutorial();
+  }, [tutorialSteps, advanceTutorial]);
   const [walkthroughHighlights, setWalkthroughHighlights] = useState<string[]>([]);
   const [devPanelOpen, setDevPanelOpen] = useState(() => dev.isDev);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
@@ -379,10 +403,23 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     }
   });
 
+  useEffect(() => {
+    if (showIntro || !tutorialSteps.length) return;
+    if ((dev.isDev || dev.skipIntro) && !dev.forceTutorial) return;
+    let done = false;
+    try { done = !dev.forceTutorial && localStorage.getItem(tutorialKey) === '1'; } catch { /* no storage */ }
+    if (done) return;
+    const t = setTimeout(() => setTutIndex((i) => (i === null ? 0 : i)), 1500);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showIntro]);
+  useEffect(() => { if (inventoryOpen) tutorialEvent('items_opened'); }, [inventoryOpen, tutIndex, tutorialEvent]);
+
   const prevItemCount = useRef(-1);
   useEffect(() => {
     const count = engine.getInventory().length;
     if (prevItemCount.current >= 0 && count > prevItemCount.current) {
+      tutorialEvent('item_taken');
       setInventoryOpen(true);
       const pickupSound = scenario.setting.sounds?.item_pickup;
       if (pickupSound) playSound(pickupSound);
@@ -396,6 +433,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       const invBefore = new Set(engine.getInventory().map((i) => i.id));
       if (verb === 'use_item' && itemId) engine.interact(objectId, 'use_item', itemId);
       else engine.interact(objectId, verb);
+      if (verb === 'look') tutorialEvent('looked');
+      else if (verb === 'hand') tutorialEvent('handled');
+      else if (verb === 'talk') tutorialEvent('talked');
       const invAfter = new Set(engine.getInventory().map((i) => i.id));
       const itemConsumed = [...invBefore].some((id) => !invAfter.has(id));
       const itemTransformed = [...invAfter].some((id) => !invBefore.has(id));
@@ -406,7 +446,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       playPendingSounds();
       bump();
     },
-    [engine, bump, playPendingSounds, playSound, scenario],
+    [engine, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
   const runRef = useRef(runInteraction);
   runRef.current = runInteraction;
@@ -503,12 +543,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         viewId: engine.getCurrentView().id, area, walkSet, pending, finalFacing,
       };
       engine.dismissMessages();
+      if (!pending) tutorialEvent('walked');
       walkRef.current = job;
       if (pathLength(job.path) < 0.5) { finishWalk(job); return true; }
       rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
       return true;
     },
-    [engine, scenario, pose, walkableNow, finishWalk],
+    [engine, scenario, pose, walkableNow, finishWalk, tutorialEvent],
   );
 
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
@@ -613,7 +654,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       return VERB_ORDER[(idx + 1) % VERB_ORDER.length];
     });
     setSelectedItem(null);
-  }, []);
+    tutorialEvent('verb_changed');
+  }, [tutorialEvent]);
 
   const handleItemSelect = useCallback(
     (itemId: string) => {
@@ -626,6 +668,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         setSelectedItem(null);
       } else {
         setSelectedItem(itemId);
+        tutorialEvent('item_selected');
         const item = engine.getInventory().find((it) => it.id === itemId);
         if (item) {
           engine.showMessage(item.description);
@@ -633,7 +676,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         }
       }
     },
-    [engine, selectedItem, bump, playPendingSounds],
+    [engine, selectedItem, bump, playPendingSounds, tutorialEvent],
   );
 
   const handleItemExamine = useCallback(
@@ -667,6 +710,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [engine, bump, playSound, scenario]);
 
   const handleHint = useCallback(() => {
+    tutorialEvent('hint_used');
     const hint = engine.getHint();
     if (hint) {
       engine.showMessage(hint);
@@ -674,7 +718,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       engine.showMessage('No hints available for this room.');
     }
     bump();
-  }, [engine, bump]);
+  }, [engine, bump, tutorialEvent]);
 
   const handleDevViewChange = useCallback(
     (viewId: string) => {
@@ -832,6 +876,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onClickPoint={(p) => { clickPointRef.current = p; }}
           characterPose={pose}
         />
+
+        {tutIndex !== null && (
+          <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} />
+        )}
 
         {/* Bottom HUD overlay — hint button only */}
         <div style={styles.bottomHud}>

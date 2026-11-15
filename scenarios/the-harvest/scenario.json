@@ -73,6 +73,34 @@
       "item_pickup": "audio/item_pickup.wav",
       "discovery": "audio/discovery.wav",
       "intro_voice": "audio/voice/ambient_stasis.mp3"
+    },
+    "tutorial": {
+      "steps": [
+        {
+          "text": "Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.",
+          "done_when": "verb_changed"
+        },
+        {
+          "text": "With the Move cursor (the feet), click the floor to walk there.",
+          "done_when": "walked"
+        },
+        {
+          "text": "Switch to Look (the eye) and click something to examine it. Looking is always safe.",
+          "done_when": "looked"
+        },
+        {
+          "text": "Hand picks things up and works them. Try the specimen tag hanging from your pod.",
+          "done_when": "item_taken"
+        },
+        {
+          "text": "What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.",
+          "done_when": "item_selected"
+        },
+        {
+          "text": "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.",
+          "done_when": "next"
+        }
+      ]
     }
   },
   "character": {

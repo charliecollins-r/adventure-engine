@@ -1040,6 +1040,7 @@ cd server && mvn spring-boot:run
 | `client/src/components/CloseupOverlay.tsx` | `show_closeup` image overlay |
 | `client/src/components/DialogueOverlay.tsx` | `show_dialogue` choice modal |
 | `client/src/components/KeypadWidget.tsx` | Keypad puzzle widget overlay |
+| `client/src/components/TutorialCoach.tsx` | First-play tips from `setting.tutorial`; `ScenarioPlayer` advances them via `tutorialEvent(trigger)` from its verb, walk, interaction, inventory and hint handlers |
 | `client/src/components/IntroSequence.tsx` | Paged intro text |
 | `client/src/components/EyeOpenTransition.tsx` | Fade-from-black on game start |
 | `client/src/components/NoiseIndicator.tsx` | Noise level meter |

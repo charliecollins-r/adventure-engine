@@ -47,6 +47,22 @@ export interface Setting {
   ambient_audio?: string | string[];
   intro_text?: string[];
   sounds?: SoundEffects;
+  /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
+  tutorial?: Tutorial;
+}
+
+/** What finishes a tutorial step. `next` shows a button; the rest advance when the player does it. */
+export type TutorialTrigger =
+  | 'next' | 'verb_changed' | 'walked' | 'looked' | 'handled' | 'talked'
+  | 'item_taken' | 'items_opened' | 'item_selected' | 'hint_used';
+
+export interface TutorialStep {
+  text: string;
+  done_when: TutorialTrigger;
+}
+
+export interface Tutorial {
+  steps: TutorialStep[];
 }
 
 export interface View {
