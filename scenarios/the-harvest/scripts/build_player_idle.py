@@ -5,8 +5,8 @@ Gemini "look toward the camera" edit of the base frame and colour-matched. See d
 "Idle animations for the player character".
 
 Usage (from scenarios/the-harvest):
-  python3 scripts/build_player_idle.py <gemini_look.png> sprites/character_idle.png \
-      sprites/character_idle_helmet.png sprites/emergency_helmet.png
+  python3 scripts/build_player_idle.py <gemini_look.png> sprites/character_idle.png
+  python3 scripts/build_helmet_sheets.py      # then rebuild the helmeted sheets from it
 """
 import sys
 import numpy as np
@@ -49,29 +49,21 @@ def transplant(frame, gem, box):
     o[y0:y1, x0:x1] = np.where(gm[..., None], np.clip(g[y0:y1, x0:x1], 0, 255), 0)
     return Image.fromarray(o.astype(np.uint8))
 
-def build_sheets(look_path, out_idle, out_helmet, helmet_src):
+def build_sheets(look_path, out_idle):
     right = sheet.crop((0, 0, FW, FH)); front = sheet.crop((0, FH, FW, 2 * FH))
     rb = right.getbbox(); fb = front.getbbox()
     r_frames = {'base': right, 'breath': breathe(right, waist=262),
                 'look': transplant(right, gemini_to_frame(look_path, right), (105, 122, 215, 196))}
-    # The front frame's head already touches the frame top, so it can't be lifted: keep it still.
+    # The front-facing row stays still (no breath or glance frames were made for it).
     f_frames = {'base': front, 'breath': front, 'look': front}
     order = ['base', 'base', 'breath', 'base', 'base', 'breath', 'base', 'look', 'look', 'look', 'base', 'breath']
-    hs = Image.open(helmet_src).convert('RGBA'); hw = 48; helmet = hs.resize((hw, round(hs.height * hw / hs.width)), Image.LANCZOS)
-    lift = {'base': 0, 'breath': 2, 'look': 0}
-    row_lift = {0: lift, 1: {'base': 0, 'breath': 0, 'look': 0}}
-    pos = {0: (103, 135), 1: (137, -3)}            # helmet placement per row (from the earlier helmet composite)
-    idle = Image.new('RGBA', (FW * len(order), FH * 2)); helm = idle.copy()
+    idle = Image.new('RGBA', (FW * len(order), FH * 2))
     for col, k in enumerate(order):
         for row, frames in ((0, r_frames), (1, f_frames)):
-            f = frames[k]; idle.alpha_composite(f, (col * FW, row * FH))
-            hf = f.copy(); px, py = pos[row]; py -= row_lift[row][k]
-            crop_top = max(0, -py); h = helmet.crop((0, crop_top, helmet.width, helmet.height))
-            hf.alpha_composite(h, (px, max(0, py)))
-            helm.alpha_composite(hf, (col * FW, row * FH))
-    idle.save(out_idle); helm.save(out_helmet)
+            idle.alpha_composite(frames[k], (col * FW, row * FH))
+    idle.save(out_idle)
     return len(order)
 
 if __name__ == '__main__' and len(sys.argv) > 2:
-    n = build_sheets(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    n = build_sheets(sys.argv[1], sys.argv[2])
     print('columns', n)

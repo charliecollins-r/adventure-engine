@@ -132,6 +132,10 @@ The same method works on the player, with two extra rules, because a person's co
 
 The sheet order is `base, base, breath, base, base, breath, base, look, look, look, base, breath`: 12 columns at 2 fps, a 6-second loop. Row 0 faces right and row 1 faces the camera. The helmeted sheet is built from the same frames, and the helmet rises with each breath.
 
+**The helmeted sheets are generated, not drawn.** `scenarios/the-harvest/scripts/build_helmet_sheets.py` finds the head in every frame of the plain idle and walk sheets (the top rows of the figure) and pastes the helmet art over it at 1.8 × the head's width, so the dome encloses the whole head and the visor covers the face; breathing and the walk bob carry over. Re-run it whenever the plain sheets change.
+
+**Keep every frame's feet on the bottom row of its cell.** The engine anchors sprites at bottom-centre, so a frame whose figure ends higher up floats. The camera-facing rows of the idle and walk sheets once ended 120 px early (he hovered about 42 screen pixels whenever he faced the camera); check with `Image.getbbox()` per frame that the bottom is within a few pixels of the frame height. The character's shadow is one global `character.shadow` with `offset_y: -5`, so its dark centre sits just above the soles; avoid per-view shadow overrides.
+
 ### When a result is too painterly
 
 Re-prompt first. If the shape is right but the rendering is too smooth, quantize it:
