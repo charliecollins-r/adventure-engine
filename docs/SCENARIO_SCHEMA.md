@@ -567,6 +567,50 @@ An optional root-level `character` block defines the player sprite. Each view th
 
 **Intro stand-up convention**: if a set is named exactly `standup`, the player plays it once during the opening fade-in, then the engine switches to the set named `idle`. A scenario that wants this needs both names.
 
+**Walking fields** (only used in views with a `walk_area`, see below): `walk_speed` on the `character` block (pixels per second in 960x720 space, default 150), and `walk` on any sprite set: the set to use while walking when this one is current (default: a set named `walk`; without one he glides in his idle pose). The Harvest gives `idle_helmet` `"walk": "walk_helmet"` so the helmeted player walks with the helmeted cycle.
+
+### Walkable Areas (click-to-walk)
+
+Optional, per view. A view with a `walk_area` lets the player walk; a view without one works as before (the character stands still at his placement). Close-ups and other views with no `character` placement never walk. Design notes: [WALKABLE_AREAS.md](WALKABLE_AREAS.md).
+
+```json
+{
+  "id": "act1_containment_corridor",
+  "character": { "x": 330, "y": 563, "facing": "right", "sprite_set": "idle" },
+  "walk_area": {
+    "floor":   [[150, 520], [810, 520], [960, 700], [960, 720], [0, 720], [0, 700]],
+    "blocked": [ [[440, 590], [580, 590], [580, 650], [440, 650]] ],
+    "depth_scale": { "far_y": 520, "far": 0.8, "near_y": 720, "near": 1.15 }
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `walk_area.floor` | `[x, y][]` | yes | The outline of the floor, in 960x720 space, points in order around the edge (either direction). At least 3 points; must not cross itself. Points on the outline count as floor. |
+| `walk_area.blocked` | `[x, y][][]` | no | Areas inside the floor the character walks around (a table, a pit). Each is an outline like `floor`. |
+| `walk_area.depth_scale` | object | no | `{ far_y, far, near_y, near }`: the character is drawn at `far` × his normal scale when his feet are at `far_y`, and `near` × at `near_y`, blended in between and held beyond. Omit for constant size. |
+
+The view's `character.x`/`y` is where he appears on entering and must be on the floor.
+
+**What the player can do in a walking view**
+
+| Action | Result |
+|---|---|
+| **Move** on the floor, or on any object that isn't an exit | Walk to the clicked spot (or the nearest reachable floor point if it's off the floor or blocked). Flavour-only Move text on such objects is not shown in walking views. |
+| **Move** on an exit (an object with a Move interaction that can `set_view` or `game_over`, even behind a condition, e.g. a locked vent) | Walk to it, then the interaction runs. |
+| **Hand**, or use an inventory item, on an object | Walk to it and face it, then the interaction runs. |
+| **Look** or **Talk** | He stops, turns toward it, and the interaction runs at once. |
+| Click while walking | The new click replaces the destination and any pending action. |
+
+The interaction runs when he arrives, with the game state at that moment; if the view changes first, it is dropped. Sprite objects and the character are drawn in order of their bottom edge, so he can pass in front of or behind them. Clicks pass through the character unless his placement's `object_id` names a real object.
+
+**`walk_to` on an object** (optional): `{ "x": 525, "y": 640, "facing": "down" }` is where he stands to Hand, Use or Move it, and which way he faces on arrival. Without it he goes to the floor point nearest the object's bottom-center and faces the object. `"walk_to": false` means he interacts from wherever he stands.
+
+**`at` on `set_view`** (optional): `{ "type": "set_view", "view": "act1_containment_corridor", "at": { "x": 120, "y": 640, "facing": "right" } }` places him in the new view (for example by the door he came through). Without it he appears at the view's `character` placement. Re-entering a room never remembers where he last stood.
+
+Validation: `tools/validate-scenario.mjs` checks outlines (3+ points, no self-crossing, inside 960x720, blocked areas inside the floor), that start spots, `walk_to` points and `at` points are on the floor, that `walk` sprite sets exist, and warns when an object's stand point can't be reached from the start spot.
+
 ### Object States
 
 Objects track their current state as a string. States are implicit — they exist by being referenced in conditions and effects. Common state patterns:

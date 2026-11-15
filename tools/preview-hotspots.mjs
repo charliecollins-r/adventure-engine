@@ -13,7 +13,9 @@
  *   --out     Output PNG (default: ./preview_<view_id>.png)
  *
  * Legend: gold = interactive object, blue = navigation, green dot + box = sprite
- * (bottom-center anchor and rendered size), red = character footprint (frame size × scale).
+ * (bottom-center anchor and rendered size), red = character footprint (frame size × scale),
+ * cyan = walk_area floor and walk_to stand points, red fill = blocked areas.
+ * Options: --grid (label 960x720 coordinates), --floor '[[x,y],...]' (preview a candidate floor).
  */
 import { readFileSync, writeFileSync } from 'fs';
 import { execFileSync } from 'child_process';
@@ -46,6 +48,21 @@ if (imgPath) {
 }
 g.font = '11px sans-serif'; g.lineWidth = 2;
 const label = (t, x, y, col) => { g.fillStyle = 'rgba(0,0,0,0.6)'; g.fillRect(x, y, g.measureText(t).width + 6, 14); g.fillStyle = col; g.fillText(t, x + 3, y + 11); };
+// --grid: label 960x720 coordinates every 40 px (for picking floor points)
+if (process.argv.includes('--grid')) {
+  g.save(); g.lineWidth = 1; g.font = '9px sans-serif';
+  for (let x = 0; x <= 960; x += 40) { g.strokeStyle = x % 200 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.35)'; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); if (x % 80 === 0) { g.fillStyle = '#fff'; g.fillText(String(x), x + 2, 10); } }
+  for (let y = 0; y <= 720; y += 40) { const sy = y * SY; g.strokeStyle = y % 200 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.35)'; g.beginPath(); g.moveTo(0, sy); g.lineTo(W, sy); g.stroke(); if (y % 80 === 0) { g.fillStyle = '#fff'; g.fillText(String(y), 2, sy - 2); } }
+  g.restore();
+}
+// Walk area: floor (cyan), blocked areas (red). --floor '<json>' previews a candidate floor.
+const wa = opt('--floor') ? { ...(view.walk_area || {}), floor: JSON.parse(opt('--floor')) } : view.walk_area;
+const poly = (pts, fill, stroke) => { if (!pts || pts.length < 2) return; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y * SY) : g.moveTo(x, y * SY))); g.closePath(); g.fillStyle = fill; g.fill(); g.strokeStyle = stroke; g.stroke(); pts.forEach(([x, y]) => { g.fillStyle = stroke; g.fillRect(x - 3, y * SY - 3, 6, 6); }); };
+if (wa?.floor) {
+  poly(wa.floor, 'rgba(34,211,238,0.16)', '#22d3ee');
+  for (const b of wa.blocked || []) poly(b, 'rgba(248,113,113,0.25)', '#f87171');
+  label('floor', wa.floor[0][0], wa.floor[0][1] * SY, '#22d3ee');
+}
 for (const id of view.objects) {
   const o = objs[id]; if (!o) continue;
   const hidden = o.initially_visible === false;
@@ -64,6 +81,8 @@ for (const id of view.objects) {
   }
 }
 g.setLineDash([]);
+// explicit stand points (walk_to) as small cyan crosses
+for (const id of view.objects) { const o = objs[id]; const w = o?.walk_to; if (!w) continue; g.strokeStyle = '#22d3ee'; g.beginPath(); g.moveTo(w.x - 6, w.y * SY); g.lineTo(w.x + 6, w.y * SY); g.moveTo(w.x, w.y * SY - 6); g.lineTo(w.x, w.y * SY + 6); g.stroke(); }
 const ch = view.character;
 if (ch && s.character) {
   const sc = s.character.scale ?? 1, w = s.character.frame_width * sc, h = s.character.frame_height * sc;

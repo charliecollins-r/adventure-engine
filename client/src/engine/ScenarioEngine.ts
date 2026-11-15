@@ -1,4 +1,8 @@
+import { facingFromDelta, nearestFloorPoint } from './walkable';
 import type {
+  Facing,
+  StandPoint,
+  WalkArea,
   Scenario,
   View,
   ScenarioObject,
@@ -30,6 +34,10 @@ export class ScenarioEngine {
   private _isHiding: boolean;
   private _closeupImage: string | null;
   private _characterOverride: Partial<CharacterPlacement> | null;
+  /** Where the character stands in the current view after walking or a set_view `at`; null = the view's placement. */
+  private _characterPos: StandPoint | null = null;
+  /** Character position at each viewHistory entry, so leaving a close-up puts him back where he stood. */
+  private posHistory: (StandPoint | null)[] = [];
   private _pendingSounds: string[];
   private _dialoguePrompt: string | null;
   private _dialogueChoices: DialogueChoice[];
@@ -132,7 +140,88 @@ export class ScenarioEngine {
     const view = this.getCurrentView();
     const base = view.character;
     if (!base) return null;
-    return { ...base, ...this._characterOverride };
+    const placed = { ...base, ...this._characterOverride };
+    if (this._characterPos) {
+      placed.x = this._characterPos.x;
+      placed.y = this._characterPos.y;
+      if (this._characterPos.facing) placed.facing = this._characterPos.facing;
+    }
+    return placed;
+  }
+
+  // ── Walking (docs/WALKABLE_AREAS.md) ──────────────────────────────────────
+
+  /** The current view's walk area, or null if this view doesn't walk (no floor, or no character shown). */
+  getWalkArea(): WalkArea | null {
+    const view = this.getCurrentView();
+    if (!view.walk_area || !view.character || !this.scenario.character) return null;
+    if (!Array.isArray(view.walk_area.floor) || view.walk_area.floor.length < 3) return null;
+    return view.walk_area;
+  }
+
+  /** Record where the character now stands in the current view (called when a walk ends). */
+  setCharacterPosition(pos: StandPoint | null): void {
+    this._characterPos = pos ? { x: pos.x, y: pos.y, ...(pos.facing ? { facing: pos.facing } : {}) } : null;
+  }
+
+  getCharacterPosition(): StandPoint | null {
+    return this._characterPos ? { ...this._characterPos } : null;
+  }
+
+  /**
+   * Is this object a way out (a door, a vent)? True if any of its Move interactions can change the
+   * view or end the game. In walking views, Move on an exit walks to it and runs the interaction;
+   * Move on anything else just walks to the clicked spot.
+   */
+  isExit(objectId: string): boolean {
+    const obj = this.scenario.objects.find((o) => o.id === objectId);
+    if (!obj) return false;
+    const leads = (effects: Effect[] | undefined): boolean =>
+      (effects ?? []).some((e) => e.type === 'set_view' || e.type === 'game_over' || leads(e.then) || leads(e.else));
+    return (obj.interactions ?? []).some((i) => i.verb === 'move' && leads(i.then));
+  }
+
+  /** Does this object have any interaction for `verb`? */
+  hasInteraction(objectId: string, verb: string): boolean {
+    const obj = this.scenario.objects.find((o) => o.id === objectId);
+    return !!obj && (obj.interactions ?? []).some((i) => i.verb === verb);
+  }
+
+  /** The point to face when looking at or using an object: the centre of its sprite or hotspot. */
+  getObjectFocus(objectId: string): { x: number; y: number } | null {
+    const obj = this.scenario.objects.find((o) => o.id === objectId);
+    if (!obj) return null;
+    if (obj.sprite) {
+      const h = (obj.sprite.frame_height * (obj.sprite.scale ?? 1)) / 0.75; // screen px -> 720-space
+      return { x: obj.position.x, y: obj.position.y - h / 2 };
+    }
+    return { x: obj.position.x + obj.size.width / 2, y: obj.position.y + obj.size.height / 2 };
+  }
+
+  /**
+   * Where the character should stand to Hand/Use/Move an object in the current walking view,
+   * or null if he should interact from where he is (no walk area, or walk_to: false).
+   */
+  getApproach(objectId: string): StandPoint | null {
+    const area = this.getWalkArea();
+    const obj = this.scenario.objects.find((o) => o.id === objectId);
+    if (!area || !obj || obj.walk_to === false) return null;
+    let stand: { x: number; y: number };
+    let facing: Facing | undefined;
+    if (obj.walk_to) {
+      stand = nearestFloorPoint(area, obj.walk_to);
+      facing = obj.walk_to.facing;
+    } else {
+      const anchor = obj.sprite
+        ? { x: obj.position.x, y: obj.position.y }
+        : { x: obj.position.x + obj.size.width / 2, y: obj.position.y + obj.size.height };
+      stand = nearestFloorPoint(area, anchor);
+    }
+    if (!facing) {
+      const f = this.getObjectFocus(objectId)!;
+      facing = facingFromDelta(f.x - stand.x, f.y - stand.y);
+    }
+    return { x: stand.x, y: stand.y, facing };
   }
 
   setCharacterOverride(overrides: Partial<CharacterPlacement> | null): void {
@@ -309,14 +398,18 @@ export class ScenarioEngine {
     if (!view) return;
 
     this.viewHistory.push(this._currentViewId);
+    this.posHistory.push(this._characterPos);
     this._currentViewId = viewId;
+    this._characterPos = null;
     this._messages = [];
   }
 
   navigateBack(): void {
     const previous = this.viewHistory.pop();
+    const prevPos = this.posHistory.pop() ?? null;
     if (previous) {
       this._currentViewId = previous;
+      this._characterPos = prevPos;
       this._messages = [];
     }
   }
@@ -661,7 +754,9 @@ export class ScenarioEngine {
         case 'set_view':
           if (e.view) {
             this.viewHistory.push(this._currentViewId);
+    this.posHistory.push(this._characterPos);
             this._currentViewId = e.view;
+            this._characterPos = e.at ? { x: e.at.x, y: e.at.y, ...(e.at.facing ? { facing: e.at.facing } : {}) } : null;
           }
           break;
 

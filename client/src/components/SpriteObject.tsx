@@ -14,6 +14,8 @@ interface SpriteObjectProps {
   onClick: () => void;
   /** Object ID, exposed as data-object-id for automated playtests. */
   objectId?: string;
+  /** Walking views: z-index in the shared depth layer (sorted by the sprite's base). */
+  layerZ?: number;
 }
 
 export function SpriteObject({
@@ -27,6 +29,7 @@ export function SpriteObject({
   cursor,
   onClick,
   objectId,
+  layerZ,
 }: SpriteObjectProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -68,7 +71,7 @@ export function SpriteObject({
     backgroundRepeat: 'no-repeat',
     imageRendering: 'auto',
     pointerEvents: 'auto',
-    zIndex: 4,
+    zIndex: layerZ ?? 4,
     cursor,
     outline: 'none',
   };
@@ -85,7 +88,7 @@ export function SpriteObject({
     opacity: shadow.opacity ?? 0.6,
     transform: shadow.skew_x ? `skewX(${shadow.skew_x}deg)` : undefined,
     pointerEvents: 'none',
-    zIndex: 4,
+    zIndex: layerZ !== undefined ? 1 : 4,
   } : null;
 
   const handleClick = (e: React.MouseEvent) => {

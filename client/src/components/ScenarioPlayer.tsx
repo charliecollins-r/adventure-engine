@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
-import type { Scenario } from '../engine/types';
+import type { CharacterPlacement, Facing, Scenario, WalkArea } from '../engine/types';
+import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
 import { ScenarioEngine } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
 import { GameView } from './GameView';
@@ -389,15 +390,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     prevItemCount.current = count;
   });
 
-  const handleObjectClick = useCallback(
-    (objectId: string) => {
+  /** Run an interaction now (also used when a walk arrives). */
+  const runInteraction = useCallback(
+    (objectId: string, verb: string, itemId?: string) => {
       const invBefore = new Set(engine.getInventory().map((i) => i.id));
-      if (selectedItem) {
-        engine.interact(objectId, 'use_item', selectedItem);
-        setSelectedItem(null);
-      } else {
-        engine.interact(objectId, activeVerb);
-      }
+      if (verb === 'use_item' && itemId) engine.interact(objectId, 'use_item', itemId);
+      else engine.interact(objectId, verb);
       const invAfter = new Set(engine.getInventory().map((i) => i.id));
       const itemConsumed = [...invBefore].some((id) => !invAfter.has(id));
       const itemTransformed = [...invAfter].some((id) => !invBefore.has(id));
@@ -408,10 +406,160 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       playPendingSounds();
       bump();
     },
-    [engine, activeVerb, selectedItem, bump, playPendingSounds, playSound, scenario],
+    [engine, bump, playPendingSounds, playSound, scenario],
+  );
+  const runRef = useRef(runInteraction);
+  runRef.current = runInteraction;
+
+  // ── Walking (docs/WALKABLE_AREAS.md) ─────────────────────────────────────
+  // The engine stores where the character stands; this animates him along a route and runs the
+  // pending interaction on arrival. Views without a walk_area never get here.
+  interface WalkJob {
+    path: Pt[];
+    travelled: number;
+    last: number;
+    viewId: string;
+    area: WalkArea;
+    walkSet: string;
+    pending: { objectId: string; verb: string; itemId?: string } | null;
+    finalFacing?: Facing;
+  }
+  const [pose, setPose] = useState<Partial<CharacterPlacement> | null>(null);
+  const walkRef = useRef<WalkJob | null>(null);
+  const rafRef = useRef(0);
+  const clickPointRef = useRef<{ x: number; y: number } | null>(null);
+
+  /** The walk area if the character can walk right now (not during the intro stand-up or after death). */
+  const walkableNow = useCallback((): WalkArea | null => {
+    const area = engine.getWalkArea();
+    const p = engine.getCharacterPlacement();
+    if (!area || !p || p.sprite_set === 'standup' || engine.isGameOver()) return null;
+    return area;
+  }, [engine]);
+
+  const directionsOf = (set: string) => scenario.character?.sprite_sets[set]?.directions;
+
+  /** Stop walking where he is (his current spot becomes his position). */
+  const stopWalk = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    const job = walkRef.current;
+    walkRef.current = null;
+    if (job && pose && pose.x !== undefined && pose.y !== undefined && engine.getCurrentView().id === job.viewId) {
+      engine.setCharacterPosition({ x: pose.x, y: pose.y, facing: pose.facing });
+    }
+    setPose(null);
+  }, [engine, pose]);
+
+  const finishWalk = useCallback((job: WalkJob) => {
+    const end = job.path[job.path.length - 1];
+    const prev = job.path.length > 1 ? job.path[job.path.length - 2] : end;
+    const dx = end.x - prev.x;
+    const idle = engine.getCharacterPlacement()?.sprite_set ?? '';
+    const want = job.finalFacing ?? (job.path.length > 1 ? facingFromDelta(dx, end.y - prev.y) : engine.getCharacterPlacement()?.facing ?? 'right');
+    engine.setCharacterPosition({ x: end.x, y: end.y, facing: resolveFacing(want, directionsOf(idle), dx) });
+    walkRef.current = null;
+    setPose(null);
+    if (job.pending) runRef.current(job.pending.objectId, job.pending.verb, job.pending.itemId);
+    else bump();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [engine, bump, scenario]);
+
+  const tick = useCallback((now: number) => {
+    const job = walkRef.current;
+    if (!job) return;
+    if (engine.getCurrentView().id !== job.viewId || engine.isGameOver()) {
+      walkRef.current = null;
+      setPose(null);
+      return;
+    }
+    const dt = Math.min(0.05, Math.max(0, (now - job.last) / 1000));
+    job.last = now;
+    const here = pointAlong(job.path, job.travelled).pt;
+    const speed = (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y);
+    job.travelled += speed * dt;
+    const { pt, leg, done } = pointAlong(job.path, job.travelled);
+    if (done) { finishWalk(job); return; }
+    const a = job.path[leg - 1], b = job.path[leg];
+    const facing = resolveFacing(facingFromDelta(b.x - a.x, b.y - a.y), directionsOf(job.walkSet), b.x - a.x);
+    setPose({ x: pt.x, y: pt.y, facing, sprite_set: job.walkSet, frame: undefined });
+    rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [engine, scenario, finishWalk]);
+  const tickRef = useRef(tick);
+  tickRef.current = tick;
+
+  /** Walk to `target` (snapped onto the floor), then run `pending` if given. Returns false if he can't walk here. */
+  const startWalk = useCallback(
+    (target: { x: number; y: number }, pending: WalkJob['pending'], finalFacing?: Facing): boolean => {
+      const area = walkableNow();
+      if (!area) return false;
+      const placed = engine.getCharacterPlacement()!;
+      const from = walkRef.current && pose?.x !== undefined && pose?.y !== undefined ? { x: pose.x, y: pose.y } : { x: placed.x, y: placed.y };
+      cancelAnimationFrame(rafRef.current);
+      const sets = scenario.character?.sprite_sets ?? {};
+      const walkSet = sets[placed.sprite_set]?.walk ?? (sets.walk ? 'walk' : placed.sprite_set);
+      const job: WalkJob = {
+        path: findPath(area, from, target), travelled: 0, last: performance.now(),
+        viewId: engine.getCurrentView().id, area, walkSet, pending, finalFacing,
+      };
+      engine.dismissMessages();
+      walkRef.current = job;
+      if (pathLength(job.path) < 0.5) { finishWalk(job); return true; }
+      rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
+      return true;
+    },
+    [engine, scenario, pose, walkableNow, finishWalk],
   );
 
-  const handleEmptyClick = useCallback(() => {
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+
+  /** Turn to face an object without moving (Look/Talk in a walking view). */
+  const faceToward = useCallback((objectId: string) => {
+    if (!walkableNow()) return;
+    stopWalk();
+    const p = engine.getCharacterPlacement();
+    const f = engine.getObjectFocus(objectId);
+    if (!p || !f) return;
+    const dx = f.x - p.x;
+    engine.setCharacterPosition({ x: p.x, y: p.y, facing: resolveFacing(facingFromDelta(dx, f.y - p.y), directionsOf(p.sprite_set), dx) });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [engine, walkableNow, stopWalk, scenario]);
+
+  const handleObjectClick = useCallback(
+    (objectId: string) => {
+      const itemId = selectedItem ?? undefined;
+      const verb = itemId ? 'use_item' : activeVerb;
+      if (itemId) setSelectedItem(null);
+      if (!walkableNow()) { runInteraction(objectId, verb, itemId); return; }
+      if (verb === 'look' || verb === 'talk') {
+        faceToward(objectId);
+        runInteraction(objectId, verb, itemId);
+        return;
+      }
+      // Move on anything that isn't an exit (a rug, a floor grating, the ceiling pipes): walk to the spot.
+      if (verb === 'move' && !engine.isExit(objectId)) {
+        if (clickPointRef.current) startWalk(clickPointRef.current, null);
+        bump();
+        return;
+      }
+      const approach = engine.getApproach(objectId);
+      if (!approach) {
+        faceToward(objectId);
+        runInteraction(objectId, verb, itemId);
+        return;
+      }
+      startWalk(approach, { objectId, verb, itemId }, approach.facing);
+      bump();
+    },
+    [engine, activeVerb, selectedItem, bump, runInteraction, walkableNow, faceToward, startWalk],
+  );
+
+  const handleEmptyClick = useCallback((point?: { x: number; y: number }) => {
+    if (point && activeVerb === 'move' && !selectedItem && walkableNow()) {
+      startWalk(point, null);
+      bump();
+      return;
+    }
     engine.dismissMessages();
     const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
     if (selectedItem) {
@@ -455,7 +603,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       engine.showMessage(pick(pool));
       bump();
     }
-  }, [engine, activeVerb, selectedItem, bump]);
+  }, [engine, activeVerb, selectedItem, bump, walkableNow, startWalk]);
 
   const VERB_ORDER = ['look', 'move', 'hand', 'talk'];
 
@@ -681,6 +829,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onEmptyClick={handleEmptyClick}
           onCycleVerb={handleCycleVerb}
           onNavigateBack={handleNavigateBack}
+          onClickPoint={(p) => { clickPointRef.current = p; }}
+          characterPose={pose}
         />
 
         {/* Bottom HUD overlay — hint button only */}

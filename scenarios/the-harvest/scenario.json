@@ -115,7 +115,8 @@
         "directions": [
           "right",
           "down"
-        ]
+        ],
+        "walk": "walk_helmet"
       },
       "walk_helmet": {
         "file": "sprites/character_walk_helmet.png",
@@ -868,7 +869,39 @@
         ],
         "flicker": true
       },
-      "ambient_audio": "audio/ambient_industrial.wav"
+      "ambient_audio": "audio/ambient_industrial.wav",
+      "walk_area": {
+        "floor": [
+          [
+            200,
+            524
+          ],
+          [
+            300,
+            520
+          ],
+          [
+            700,
+            520
+          ],
+          [
+            780,
+            548
+          ],
+          [
+            780,
+            592
+          ],
+          [
+            200,
+            592
+          ],
+          [
+            160,
+            566
+          ]
+        ]
+      }
     },
     {
       "id": "act1_morgue",

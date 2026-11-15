@@ -62,6 +62,29 @@ export interface View {
   character?: CharacterPlacement;
   ambient_lighting?: AmbientLighting;
   ambient_audio?: string | string[];
+  /** Turns on click-to-walk for this view. See docs/WALKABLE_AREAS.md. */
+  walk_area?: WalkArea;
+}
+
+/** An [x, y] point in 960x720 authoring space. */
+export type PointXY = [number, number];
+
+export type Facing = 'down' | 'left' | 'right' | 'up';
+
+export interface WalkArea {
+  /** Outline of the floor the character can walk on, in order around the edge. At least 3 points. */
+  floor: PointXY[];
+  /** Areas inside the floor the character must walk around. */
+  blocked?: PointXY[][];
+  /** Draw the character at `far` x scale when his feet are at far_y and `near` x at near_y; blend between. */
+  depth_scale?: { far_y: number; far: number; near_y: number; near: number };
+}
+
+/** Where the character stands (feet, bottom-center) and which way he faces. */
+export interface StandPoint {
+  x: number;
+  y: number;
+  facing?: Facing;
 }
 
 export interface Position {
@@ -103,6 +126,8 @@ export interface DialogueChoice {
 
 export interface Effect {
   type: string;
+  /** set_view: where the character appears in the new view (walking views). */
+  at?: StandPoint;
   text?: string;
   flag?: string;
   value?: string;
@@ -169,6 +194,8 @@ export interface ScenarioObject {
   sprite?: ObjectSprite;
   shadow?: CharacterShadow;
   interactions: Interaction[];
+  /** Where the character stands to Hand/Use/Move this object in a walking view; false = interact from where he is. */
+  walk_to?: StandPoint | false;
 }
 
 export interface ItemExamine {
@@ -329,6 +356,8 @@ export interface SpriteSet {
   frame_rate?: number;
   directions?: ('down' | 'left' | 'right' | 'up')[];
   loop?: boolean;
+  /** Sprite set to use while walking when this set is current. Default: a set named "walk". */
+  walk?: string;
 }
 
 export interface CharacterShadow {
@@ -347,6 +376,8 @@ export interface CharacterConfig {
   frame_height: number;
   scale?: number;
   shadow?: CharacterShadow;
+  /** Walking speed in 960x720 pixels per second at normal scale. Default 150. */
+  walk_speed?: number;
 }
 
 export interface CharacterPlacement {

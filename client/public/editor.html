@@ -42,6 +42,18 @@
     flex-shrink: 0;
   }
   .toolbar label { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  /* Floor (walk_area) editor */
+  .floor-svg { position: absolute; left: 0; top: 0; width: 960px; height: 540px; z-index: 50; pointer-events: none; }
+  .floor-svg.editing { pointer-events: auto; cursor: crosshair; }
+  .floor-svg circle { cursor: move; }
+  #floorPanel h4 { margin: 12px 0 6px; font-size: 12px; color: #c0a030; text-transform: uppercase; letter-spacing: .06em; }
+  #floorPanel p { margin: 4px 0; font-size: 12px; color: #aab; line-height: 1.45; }
+  #floorPanel button { background: #2a2a3a; color: #dde; border: 1px solid #445; border-radius: 4px; padding: 4px 8px; margin: 2px 4px 2px 0; font-size: 12px; cursor: pointer; }
+  #floorPanel button.on { border-color: #22d3ee; color: #22d3ee; }
+  #floorPanel .fp-warn { color: #f87171; }
+  #floorPanel .fp-ok { color: #4ade80; }
+  #floorPanel input[type=number] { width: 64px; background: #1a1a26; color: #dde; border: 1px solid #445; border-radius: 3px; padding: 2px 4px; }
+  #floorPanel textarea { width: 100%; height: 120px; background: #11111a; color: #9fe; border: 1px solid #334; font: 11px monospace; }
   .toolbar select, .toolbar button {
     background: var(--bg);
     color: var(--text);
@@ -590,11 +602,15 @@
     <div class="panel-tabs">
       <div class="panel-tab active" data-tab="objects" onclick="switchTab('objects')">Objects</div>
       <div class="panel-tab" data-tab="character" onclick="switchTab('character')">Character</div>
+      <div class="panel-tab" data-tab="floor" onclick="switchTab('floor')">Floor</div>
       <div class="panel-tab" data-tab="sprites" onclick="switchTab('sprites')">Sprites</div>
       <div class="panel-tab" data-tab="narration" onclick="switchTab('narration')">Narration</div>
     </div>
     <div class="panel-content active" id="tab-objects">
       <div id="objectList" style="padding:8px;"></div>
+    </div>
+    <div class="panel-content" id="tab-floor">
+      <div id="floorPanel" style="padding:10px;"></div>
     </div>
     <div class="panel-content" id="tab-character">
       <div id="charPanel"></div>
@@ -1582,6 +1598,176 @@ function switchTab(tab) {
   document.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
   document.querySelectorAll('.panel-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tab));
 }
+
+// ============================================================
+// Floor editor (walk_area) — docs/WALKABLE_AREAS.md
+// Click the picture to add points (near an edge inserts there), drag to move, right-click to delete.
+// ============================================================
+let floorData = null;     // { floor: [[x,y]], blocked: [[[x,y]]], depth_scale|null }
+let floorActive = 'floor'; // 'floor' or the index of a blocked area
+let floorDrag = null;
+
+function floorLoad() {
+  const view = scenario && scenario.views.find(v => v.id === currentViewId);
+  const wa = view && view.walk_area;
+  floorData = wa ? JSON.parse(JSON.stringify({ floor: wa.floor || [], blocked: wa.blocked || [], depth_scale: wa.depth_scale || null }))
+                 : { floor: [], blocked: [], depth_scale: null };
+  floorActive = 'floor';
+  renderFloor();
+}
+function floorRing() { return floorActive === 'floor' ? floorData.floor : floorData.blocked[floorActive]; }
+function floorEditing() { return document.querySelector('.panel-tab.active')?.dataset.tab === 'floor'; }
+
+// --- geometry helpers (same rules as the engine: points on an outline count as inside) ---
+function fpSegDist(p, a, b) { const dx = b[0]-a[0], dy = b[1]-a[1]; const L = dx*dx+dy*dy; let t = L ? ((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(p[0]-(a[0]+t*dx), p[1]-(a[1]+t*dy)); }
+function fpInside(p, ring) {
+  if (ring.length < 3) return false;
+  for (let i = 0; i < ring.length; i++) if (fpSegDist(p, ring[i], ring[(i+1)%ring.length]) < 1e-6) return true;
+  let c = false; for (let i = 0, j = ring.length-1; i < ring.length; j = i++) { const a = ring[i], b = ring[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < a[0] + (p[1]-a[1])*(b[0]-a[0])/(b[1]-a[1])) c = !c; }
+  return c;
+}
+function fpCross(o, a, b) { return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]); }
+function fpSelfCrossing(ring) {
+  const n = ring.length; if (n < 4) return false;
+  for (let i = 0; i < n; i++) for (let j = i+1; j < n; j++) {
+    if (j === i+1 || (i === 0 && j === n-1)) continue;
+    const a = ring[i], b = ring[(i+1)%n], c = ring[j], d = ring[(j+1)%n];
+    const d1 = fpCross(c,d,a), d2 = fpCross(c,d,b), d3 = fpCross(a,b,c), d4 = fpCross(a,b,d);
+    if (((d1>0&&d2<0)||(d1<0&&d2>0)) && ((d3>0&&d4<0)||(d3<0&&d4>0))) return true;
+  }
+  return false;
+}
+
+function renderFloor() {
+  const vp = document.getElementById('viewport');
+  if (!vp || !floorData) return;
+  let svg = vp.querySelector('.floor-svg');
+  if (!svg) {
+    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'floor-svg'); svg.setAttribute('viewBox', '0 0 960 540');
+    svg.addEventListener('mousedown', floorMouseDown);
+    svg.addEventListener('contextmenu', floorContextMenu);
+    vp.appendChild(svg);
+    document.addEventListener('mousemove', floorMouseMove);
+    document.addEventListener('mouseup', () => { if (floorDrag) { floorDrag = null; renderFloor(); } });
+  }
+  const editing = floorEditing();
+  svg.classList.toggle('editing', editing);
+  const showAlways = !!(scenario && scenario.views.find(v => v.id === currentViewId)?.walk_area);
+  svg.style.display = (editing || showAlways) ? '' : 'none';
+  const pts = r => r.map(([x, y]) => `${x},${y * SCALE_Y}`).join(' ');
+  let html = '';
+  const ringSvg = (ring, idx, fill, stroke) => {
+    const active = floorActive === idx;
+    if (ring.length >= 3) html += `<polygon points="${pts(ring)}" fill="${fill}" stroke="${stroke}" stroke-width="${active ? 2.5 : 1.5}"/>`;
+    else if (ring.length === 2) html += `<polyline points="${pts(ring)}" fill="none" stroke="${stroke}" stroke-width="2"/>`;
+    if (editing && active) ring.forEach(([x, y], i) => { html += `<circle cx="${x}" cy="${y * SCALE_Y}" r="6" fill="${stroke}" stroke="#000" stroke-width="1.5" data-ring="${idx}" data-idx="${i}"><title>${x}, ${y} — drag to move, right-click to delete</title></circle>`; });
+  };
+  ringSvg(floorData.floor, 'floor', editing ? 'rgba(34,211,238,0.18)' : 'rgba(34,211,238,0.10)', '#22d3ee');
+  floorData.blocked.forEach((b, i) => ringSvg(b, i, 'rgba(248,113,113,0.25)', '#f87171'));
+  // depth guides
+  const ds = floorData.depth_scale;
+  if (editing && ds) for (const [y, label] of [[ds.far_y, `far ×${ds.far}`], [ds.near_y, `near ×${ds.near}`]]) {
+    html += `<line x1="0" x2="960" y1="${y * SCALE_Y}" y2="${y * SCALE_Y}" stroke="#facc15" stroke-dasharray="6 4"/><text x="8" y="${y * SCALE_Y - 4}" fill="#facc15" font-size="12">${label} (y ${y})</text>`;
+  }
+  svg.innerHTML = html;
+  if (editing) renderFloorPanel();
+}
+
+function floorPointFromEvent(e) {
+  const r = document.getElementById('viewport').getBoundingClientRect();
+  return [Math.round(e.clientX - r.left), Math.round((e.clientY - r.top) / SCALE_Y)];
+}
+function floorMouseDown(e) {
+  if (!floorEditing() || e.button !== 0) return;
+  e.preventDefault(); e.stopPropagation();
+  const t = e.target;
+  if (t.tagName === 'circle') { floorDrag = { ring: t.dataset.ring === 'floor' ? 'floor' : +t.dataset.ring, idx: +t.dataset.idx }; return; }
+  const p = floorPointFromEvent(e);
+  const ring = floorRing(); if (!ring) return;
+  // Clicking near an existing edge inserts the point into that edge; otherwise it is appended.
+  let best = -1, bestD = 10;
+  if (ring.length >= 2) for (let i = 0; i < ring.length; i++) {
+    if (ring.length === 2 && i === 1) break;
+    const a = ring[i], b = ring[(i+1) % ring.length];
+    const d = fpSegDist([p[0], p[1]*SCALE_Y], [a[0], a[1]*SCALE_Y], [b[0], b[1]*SCALE_Y]);
+    if (d < bestD) { bestD = d; best = i; }
+  }
+  if (best >= 0) ring.splice(best + 1, 0, p); else ring.push(p);
+  renderFloor();
+}
+function floorMouseMove(e) {
+  if (!floorDrag) return;
+  const ring = floorDrag.ring === 'floor' ? floorData.floor : floorData.blocked[floorDrag.ring];
+  const [x, y] = floorPointFromEvent(e);
+  ring[floorDrag.idx] = [Math.max(0, Math.min(960, x)), Math.max(0, Math.min(720, y))];
+  renderFloor();
+}
+function floorContextMenu(e) {
+  if (!floorEditing()) return;
+  e.preventDefault(); e.stopPropagation();
+  const t = e.target; if (t.tagName !== 'circle') return;
+  const ring = t.dataset.ring === 'floor' ? floorData.floor : floorData.blocked[+t.dataset.ring];
+  ring.splice(+t.dataset.idx, 1); renderFloor();
+}
+
+function floorJson() {
+  const wa = { floor: floorData.floor };
+  const blocked = floorData.blocked.filter(b => b.length >= 3);
+  if (blocked.length) wa.blocked = blocked;
+  if (floorData.depth_scale) wa.depth_scale = floorData.depth_scale;
+  const fmt = r => '[' + r.map(([x, y]) => `[${x}, ${y}]`).join(', ') + ']';
+  let txt = `"walk_area": {\n  "floor": ${fmt(wa.floor)}`;
+  if (wa.blocked) txt += `,\n  "blocked": [\n    ${wa.blocked.map(fmt).join(',\n    ')}\n  ]`;
+  if (wa.depth_scale) txt += `,\n  "depth_scale": ${JSON.stringify(wa.depth_scale).replace(/:/g, ': ').replace(/,/g, ', ')}`;
+  return txt + '\n}';
+}
+function floorProblems() {
+  const out = [];
+  const f = floorData.floor;
+  if (f.length < 3) out.push('The floor needs at least 3 points.');
+  else if (fpSelfCrossing(f)) out.push('The floor outline crosses itself.');
+  floorData.blocked.forEach((b, i) => {
+    if (b.length && b.length < 3) out.push(`Blocked area ${i+1} needs at least 3 points.`);
+    else if (b.length && fpSelfCrossing(b)) out.push(`Blocked area ${i+1} crosses itself.`);
+    else if (b.length && f.length >= 3 && b.some(p => !fpInside(p, f))) out.push(`Blocked area ${i+1} goes outside the floor.`);
+  });
+  if (character && f.length >= 3 && !fpInside([character.x, character.y], f)) out.push(`The character's start spot (${character.x}, ${character.y}) is not on the floor.`);
+  return out;
+}
+function renderFloorPanel() {
+  const el = document.getElementById('floorPanel'); if (!el) return;
+  const probs = floorProblems();
+  const ds = floorData.depth_scale;
+  const ringBtn = (id, label) => `<button class="${floorActive === id ? 'on' : ''}" onclick="floorActive=${id === 'floor' ? "'floor'" : id};renderFloor()">${label}</button>`;
+  el.innerHTML = `
+    <p><b>Where can the player walk?</b> Click the picture to add points around the floor, in order. Click near an edge to insert a point there. Drag a point to move it; right-click it to delete.</p>
+    <h4>Outline</h4>
+    ${ringBtn('floor', `Floor (${floorData.floor.length} pts)`)}
+    ${floorData.blocked.map((b, i) => ringBtn(i, `Blocked ${i+1} (${b.length})`)).join('')}
+    <button onclick="floorData.blocked.push([]);floorActive=floorData.blocked.length-1;renderFloor()">+ Blocked area</button>
+    ${floorActive !== 'floor' ? `<button onclick="floorData.blocked.splice(floorActive,1);floorActive='floor';renderFloor()">Delete this blocked area</button>` : ''}
+    <div style="margin-top:4px">
+      <button onclick="floorRing().pop();renderFloor()">Undo last point</button>
+      <button onclick="floorRing().length=0;renderFloor()">Clear outline</button>
+      <button onclick="floorLoad()">Reset to saved</button>
+    </div>
+    <h4>Check</h4>
+    ${probs.length ? probs.map(p => `<p class="fp-warn">• ${p}</p>`).join('') : '<p class="fp-ok">✓ Outline looks good. Run tools/validate-scenario.mjs for the full check.</p>'}
+    <h4>Perspective (optional)</h4>
+    <p><label><input type="checkbox" ${ds ? 'checked' : ''} onchange="floorData.depth_scale=this.checked?{far_y:${Math.round(Math.min(...floorData.floor.map(p=>p[1]), 400) || 400)},far:0.7,near_y:720,near:1}:null;renderFloor()"> Make him smaller further away</label></p>
+    ${ds ? `<p>At y <input type="number" id="fpFarY" value="${ds.far_y}" onchange="floorData.depth_scale.far_y=+this.value;renderFloor()"> scale × <input type="number" step="0.05" id="fpFar" value="${ds.far}" onchange="floorData.depth_scale.far=+this.value;renderFloor()"></p>
+           <p>At y <input type="number" id="fpNearY" value="${ds.near_y}" onchange="floorData.depth_scale.near_y=+this.value;renderFloor()"> scale × <input type="number" step="0.05" id="fpNear" value="${ds.near}" onchange="floorData.depth_scale.near=+this.value;renderFloor()"></p>` : ''}
+    <h4>JSON for this view</h4>
+    <textarea id="floorJsonOut" readonly>${floorJson()}</textarea>
+    <button onclick="(navigator.clipboard?navigator.clipboard.writeText(document.getElementById('floorJsonOut').value):Promise.reject()).then(()=>this.textContent='Copied',()=>{document.getElementById('floorJsonOut').select();this.textContent='Selected — press Ctrl+C'})">Copy JSON</button>
+    <p>Paste it into this view in scenario.json (replacing any existing <code>walk_area</code>).</p>`;
+}
+// Hook into view loading and tab switching
+const _floorOrigLoadView = loadView;
+loadView = function (id) { _floorOrigLoadView(id); floorLoad(); };
+const _floorOrigSwitchTab = switchTab;
+switchTab = function (tab) { _floorOrigSwitchTab(tab); renderFloor(); };
 
 // ============================================================
 // Mouse interactions

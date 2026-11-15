@@ -16,6 +16,10 @@ interface CharacterSpriteProps {
   cursor?: string;
   onObjectClick?: (objectId: string) => void;
   equippedOverlays?: EquippedOverlay[];
+  /** Walking views: z-index in the shared depth layer (sprite objects and character sorted by feet). */
+  layerZ?: number;
+  /** Walking views: multiplier on the character's scale from walk_area.depth_scale. */
+  depthScale?: number;
 }
 
 export function CharacterSprite({
@@ -27,6 +31,8 @@ export function CharacterSprite({
   cursor,
   onObjectClick,
   equippedOverlays,
+  layerZ,
+  depthScale = 1,
 }: CharacterSpriteProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -36,7 +42,7 @@ export function CharacterSprite({
 
   const fw = config.frame_width;
   const fh = config.frame_height;
-  const scale = config.scale ?? 1;
+  const scale = (config.scale ?? 1) * depthScale;
   const frameRate = spriteSet.frame_rate ?? 6;
   const isStatic = placement.frame !== undefined || frameRate <= 0;
 
@@ -93,7 +99,7 @@ export function CharacterSprite({
     backgroundRepeat: 'no-repeat',
     imageRendering: 'pixelated',
     pointerEvents: interactive ? 'auto' : 'none',
-    zIndex: 5,
+    zIndex: layerZ ?? 5,
     cursor: interactive ? cursor : undefined,
     transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
   };
@@ -104,18 +110,20 @@ export function CharacterSprite({
 
   const shadow = placement.shadow ?? config.shadow;
   const shColor = shadow?.color ?? 'rgba(0,0,0,0.5)';
+  const shW = (shadow?.width ?? renderW * 0.6 / depthScale) * depthScale;
+  const shH = (shadow?.height ?? 6) * depthScale;
   const shadowStyle: CSSProperties | null = shadow ? {
     position: 'absolute',
-    left: `${screenX + (shadow.offset_x ?? 0) - ((shadow.width ?? renderW * 0.6) / 2)}px`,
-    top: `${screenY + (shadow.offset_y ?? 0) - ((shadow.height ?? 6) / 2)}px`,
-    width: `${shadow.width ?? renderW * 0.6}px`,
-    height: `${shadow.height ?? 6}px`,
+    left: `${screenX + (shadow.offset_x ?? 0) * depthScale - shW / 2}px`,
+    top: `${screenY + (shadow.offset_y ?? 0) * depthScale - shH / 2}px`,
+    width: `${shW}px`,
+    height: `${shH}px`,
     borderRadius: '50%',
     background: `radial-gradient(ellipse, ${shColor} 0%, ${shColor} 40%, transparent 100%)`,
     opacity: shadow.opacity ?? 0.6,
     transform: shadow.skew_x ? `skewX(${shadow.skew_x}deg)` : undefined,
     pointerEvents: 'none',
-    zIndex: 4,
+    zIndex: layerZ !== undefined ? 1 : 4,
   } : null;
 
   const overlayElements = (equippedOverlays ?? []).map(({ itemId, overlay }) => {
@@ -135,7 +143,7 @@ export function CharacterSprite({
       backgroundRepeat: 'no-repeat',
       imageRendering: 'pixelated',
       pointerEvents: 'none',
-      zIndex: 6,
+      zIndex: layerZ !== undefined ? layerZ + 1 : 6,
       transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
     };
     return <div key={itemId} style={overlayStyle} />;

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ScenarioEngine } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
+import type { CharacterPlacement } from '../engine/types';
+import { depthScaleAt } from '../engine/walkable';
 import { AmbientCanvas } from './AmbientCanvas';
 import { CharacterSprite } from './CharacterSprite';
 import { SpriteObject } from './SpriteObject';
@@ -12,10 +14,18 @@ interface GameViewProps {
   debugMode: boolean;
   walkthroughHighlights?: string[];
   onObjectClick: (objectId: string) => void;
-  onEmptyClick?: () => void;
+  /** Click on no object; `point` is in 960x720 authoring space. */
+  onEmptyClick?: (point: { x: number; y: number }) => void;
   onCycleVerb?: () => void;
   onNavigateBack?: () => void;
+  /** Every click's position in 960x720 space, reported before the object/empty handlers run. */
+  onClickPoint?: (point: { x: number; y: number }) => void;
+  /** While walking: position, facing and sprite set that override the engine's placement. */
+  characterPose?: Partial<CharacterPlacement> | null;
 }
+
+/** z-index in the walking depth layer: things whose base is lower on screen are drawn in front. */
+const depthZ = (baseY720: number) => 10 + 2 * Math.round(Math.max(0, Math.min(720, baseY720)) * (540 / 720));
 
 const VIEW_WIDTH = 960;
 const VIEW_HEIGHT = 540;
@@ -147,6 +157,8 @@ export function GameView({
   onEmptyClick,
   onCycleVerb,
   onNavigateBack,
+  onClickPoint,
+  characterPose,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
@@ -179,13 +191,60 @@ export function GameView({
     ? `Use ${engine.getInventory().find((it) => it.id === selectedItem)?.name ?? selectedItem} on...`
     : activeVerb.charAt(0).toUpperCase() + activeVerb.slice(1);
 
+  const toWorld = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    return {
+      x: ((e.clientX - r.left) / r.width) * COORD_SPACE_W,
+      y: ((e.clientY - r.top) / r.height) * COORD_SPACE_H,
+    };
+  };
+
   const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const isObject = target.closest('[data-object-hotspot]');
     if (!isObject && onEmptyClick) {
-      onEmptyClick();
+      onEmptyClick(toWorld(e));
     }
   };
+
+  // Walking views draw sprite objects and the character in one layer sorted by their base.
+  const walkArea = engine.getWalkArea();
+  const layered = !!walkArea;
+  const basePlacement = engine.getCharacterPlacement();
+  const placement = basePlacement ? { ...basePlacement, ...(characterPose ?? {}) } : null;
+  const charConfig = engine.getScenario().character;
+  // Clicks pass through the character unless his placement names a real object.
+  const charClickable = !!placement?.object_id && engine.getScenario().objects.some((o) => o.id === placement.object_id);
+  const characterEl = charConfig && placement ? (
+    <CharacterSprite
+      config={charConfig}
+      placement={placement}
+      scenarioId={scenarioId}
+      scaleX={SCALE_X}
+      scaleY={SCALE_Y}
+      cursor={cursor}
+      onObjectClick={charClickable ? onObjectClick : undefined}
+      equippedOverlays={engine.getEquippedOverlays()}
+      layerZ={layered ? depthZ(placement.y) : undefined}
+      depthScale={layered ? depthScaleAt(walkArea, placement.y) : 1}
+    />
+  ) : null;
+  const spriteEl = (obj: (typeof objects)[number]) => (
+    <SpriteObject
+      key={obj.id}
+      objectId={obj.id}
+      sprite={obj.sprite!}
+      shadow={obj.shadow}
+      scenarioId={scenarioId}
+      x={obj.position.x}
+      y={obj.position.y}
+      scaleX={SCALE_X}
+      scaleY={SCALE_Y}
+      cursor={cursor}
+      onClick={() => onObjectClick(obj.id)}
+      layerZ={layered ? depthZ(obj.position.y) : undefined}
+    />
+  );
 
   const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -200,6 +259,7 @@ export function GameView({
         cursor,
       }}
       onClick={handleViewportClick}
+      onClickCapture={(e) => onClickPoint?.(toWorld(e))}
       onContextMenu={handleContextMenu}
     >
       {/* Background image */}
@@ -224,18 +284,15 @@ export function GameView({
       {/* Canvas-based ambient lighting */}
       <AmbientCanvas lighting={view.ambient_lighting} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
 
-      {/* Character sprite */}
-      {engine.getScenario().character && engine.getCharacterPlacement() && (
-        <CharacterSprite
-          config={engine.getScenario().character!}
-          placement={engine.getCharacterPlacement()!}
-          scenarioId={scenarioId}
-          scaleX={SCALE_X}
-          scaleY={SCALE_Y}
-          cursor={cursor}
-          onObjectClick={onObjectClick}
-          equippedOverlays={engine.getEquippedOverlays()}
-        />
+      {/* Character sprite (classic views); walking views draw it in the depth layer below */}
+      {!layered && characterEl}
+
+      {/* Walking views: sprite objects + character, sorted by base. The layer itself takes no clicks. */}
+      {layered && (
+        <div style={{ position: 'absolute', inset: 0, zIndex: 4, pointerEvents: 'none' }}>
+          {objects.filter((o) => o.sprite).map(spriteEl)}
+          {characterEl}
+        </div>
       )}
 
       {/* Cursor action label */}
@@ -291,23 +348,7 @@ export function GameView({
 
       {/* Object hotspots */}
       {objects.map((obj) => {
-        if (obj.sprite) {
-          return (
-            <SpriteObject
-              key={obj.id}
-              objectId={obj.id}
-              sprite={obj.sprite}
-              shadow={obj.shadow}
-              scenarioId={scenarioId}
-              x={obj.position.x}
-              y={obj.position.y}
-              scaleX={SCALE_X}
-              scaleY={SCALE_Y}
-              cursor={cursor}
-              onClick={() => onObjectClick(obj.id)}
-            />
-          );
-        }
+        if (obj.sprite) return layered ? null : spriteEl(obj);
         const isHovered = hoveredObject === obj.id;
         const isNav = obj.id.startsWith('nav_');
         const animation = obj.visual.animation;
