@@ -728,9 +728,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const handleItemSelect = useCallback(
     (itemId: string) => {
       if (selectedItem && selectedItem !== itemId) {
-        const before = engine.getInventory().length;
-        engine.combineItems(selectedItem, itemId);
-        if (engine.getInventory().length !== before || engine.getInventory().every((it) => it.id !== selectedItem)) setCombinedOnce(true);
+        const result = engine.combineItems(selectedItem, itemId);
+        if (result.success) {
+          setCombinedOnce(true);
+          // A successful combination sounds like getting a new item (setting.sounds.combine, else item_pickup).
+          const combineSound = scenario.setting.sounds?.combine ?? scenario.setting.sounds?.item_pickup;
+          if (combineSound) playSound(combineSound);
+        }
         setSelectedItem(null);
         playPendingSounds();
         bump();
@@ -746,7 +750,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         }
       }
     },
-    [engine, selectedItem, bump, playPendingSounds, tutorialEvent],
+    [engine, selectedItem, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
 
   const handleItemExamine = useCallback(
@@ -1005,7 +1009,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         <div
           style={{
             overflow: 'hidden',
-            maxHeight: inventoryOpen ? '54px' : '0',
+            maxHeight: inventoryOpen ? '220px' : '0', // room for the items to wrap onto several rows
             transition: 'max-height 0.3s ease',
             backgroundColor: '#0d0d0a',
             borderBottom: inventoryOpen ? '1px solid rgba(42, 32, 24, 0.4)' : 'none',

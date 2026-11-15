@@ -62,7 +62,7 @@
 
 ### 2. Pod Cluster (CLOSE-UP from Stasis Hold) — *not built*
 
-> Not in the shipped game. `backgrounds/act1_pod_cluster.webp` exists but no view uses it, and there is no `preserved_insect` item. Its role went to the **cataloguer close-up** (`act1_cataloguer_closeup`, background `closeups/cataloguer_specimens.webp`): LOOK or HAND the cataloguer robot once you've crossed the walkway gap with the grappling line, and the specimen displays show the four-glyph code (fern, double curl, sprouting snake, thorny branch).
+> Not in the shipped game. `backgrounds/act1_pod_cluster.webp` exists but no view uses it, and there is no `preserved_insect` item. Its role went to the **cataloguer close-up** (`act1_cataloguer_closeup`, background `closeups/cataloguer_specimens.webp`): LOOK or HAND the cataloguer robot once you've crossed the walkway gap with the grappling line, and the specimen displays show the four-glyph code (fern, double curl, sprouting snake, sprouting snake).
 
 **Background**: `act1_pod_cluster.webp`
 **Purpose**: Examine specimens, find the preserved insect (puzzle item), read alien labels.
@@ -346,7 +346,7 @@ START: Wake in Stasis Hold
       │
       ├─ COMBINE restraint_strap + carcass_hook → grappling_line
       ├─ Back in Stasis Hold: USE grappling_line ON the walkway gap → gap crossed
-      │   └─ LOOK cataloguer robot → close-up: the four glyphs (fern, curl, sprout, thorn)
+      │   └─ LOOK cataloguer robot → close-up: the four glyphs (fern, curl, sprout, sprout)
       │
       ├─ Lab Terminal close-up: enter the glyph code on the keypad widget
       │   └─ arms the Emergency Override in the security close-up

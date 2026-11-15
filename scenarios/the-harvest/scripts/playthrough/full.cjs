@@ -79,7 +79,7 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     // 9. Terminal + override
     await go('act1_processing_lab'); await shot('15a_lab_drag_marks'); await go('act1_containment_corridor'); await go('act1_processing_lab'); await shot('15b_lab_growth');
     await A('look', 'corridor_drag_marks'); await A('look', 'corridor_organic_growth'); await U('pod_glass_shard', 'corridor_organic_growth'); await U('cat_hair', 'examination_tables');
-    await A('look', 'lab_startup_display'); view = 'act1_lab_terminal_closeup'; await keypad(['fern', 'curl', 'sprout', 'thorn']); rec('keypad', 'correct', await L.msg(g)); await L.dismiss(g);
+    await A('look', 'lab_startup_display'); view = 'act1_lab_terminal_closeup'; await keypad(['fern', 'curl', 'sprout', 'sprout']); rec('keypad', 'correct', await L.msg(g)); await L.dismiss(g);
     await A('look', 'lab_terminal_screen');
     await go('act1_security_hub'); await A('look', 'security_console'); view = 'act1_security_closeup'; await shot('16_security_closeup_armed'); await A('look', 'sec_closeup_override_button'); await A('hand', 'sec_closeup_override_button');
     // 10. Vents

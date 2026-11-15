@@ -374,7 +374,7 @@ The `id` MUST match the folder name.
 
 - `ambient_audio` can be a string (single track) or array (layered tracks that play simultaneously)
 - `intro_text` array = multi-screen intro the player clicks through before gameplay starts
-- `sounds` paths are relative to the scenario folder. `room_transition`, `item_pickup` and `intro_voice` play automatically; any other key (e.g. `"discovery"`) can be played with `{ "type": "play_sound", "sound": "discovery" }`
+- `sounds` paths are relative to the scenario folder. `room_transition`, `item_pickup`, `intro_voice`, `noise` (any noise jump of 3+) and `combine` (a successful combination; defaults to `item_pickup`) play automatically; any other key (e.g. `"discovery"`) can be played with `{ "type": "play_sound", "sound": "discovery" }`
 
 ### Views
 

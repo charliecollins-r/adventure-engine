@@ -17,7 +17,7 @@ function itemStyle(selected: boolean, hovered: boolean, combineTarget = false): 
   return {
     display: 'inline-flex',
     alignItems: 'center',
-    padding: '4px 12px',
+    padding: '3px 9px',
     fontSize: '12px',
     fontFamily: '"Georgia", serif',
     color: selected ? '#e0c040' : '#c0a030',
@@ -49,11 +49,12 @@ export function InventoryPanel({
   return (
     <div
       style={{
+        // Wrap onto more rows instead of scrolling sideways, so every item is always in view.
         display: 'flex',
+        flexWrap: 'wrap',
         alignItems: 'center',
         gap: '6px',
         padding: '6px 16px',
-        overflowX: 'auto',
       }}
     >
       {items.length === 0 ? (
@@ -97,7 +98,7 @@ export function InventoryPanel({
                 src={resolveAsset(scenarioId, item.icon_file)}
                 alt={item.name}
                 style={{
-                  height: '28px',
+                  height: '26px',
                   width: 'auto',
                   marginRight: '6px',
                   verticalAlign: 'middle',
@@ -122,7 +123,7 @@ export function InventoryPanel({
 }
 
 const styles: Record<string, CSSProperties> = {
-  using: { fontSize: '12px', fontFamily: '"Georgia", serif', color: '#b8a070', whiteSpace: 'nowrap', marginRight: '6px', flexShrink: 0 },
+  using: { fontSize: '12px', fontFamily: '"Georgia", serif', color: '#b8a070', flexBasis: '100%' },
   plus: { color: '#e0c040', fontWeight: 'bold', marginRight: '4px', fontSize: '13px' },
-  tip: { fontSize: '11px', fontFamily: '"Georgia", serif', color: '#6a5a40', fontStyle: 'italic', whiteSpace: 'nowrap', marginLeft: '8px', flexShrink: 0 },
+  tip: { fontSize: '11px', fontFamily: '"Georgia", serif', color: '#6a5a40', fontStyle: 'italic', flexBasis: '100%' },
 };

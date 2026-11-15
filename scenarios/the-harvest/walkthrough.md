@@ -33,7 +33,7 @@ All screenshots on this page come from a scripted playthrough of the current bui
 3. **Security Hub** (Corridor → right door). HAND the **Key Card Drawer** on the right wall (key card) and the **Emergency Cabinet** (helmet).
 4. **Morgue** (Corridor → far end → Feeding Station → left). HAND the **Carcass Hook** in the open drawer.
 5. **Combine** the **Restraint Strap** and the **Carcass Hook** → **Grappling Line**.
-6. **Stasis Hold.** USE the **Grappling Line** ON the gap, then LOOK at the cataloguer robot. The specimen displays show the code: **fern, double curl, sprouting snake, thorny branch**.
+6. **Stasis Hold.** USE the **Grappling Line** ON the gap, then LOOK at the cataloguer robot. The specimen displays show the code: **fern, double curl, sprouting snake, sprouting snake**.
 7. **Processing Lab.** LOOK (or HAND) the screens to reach the terminal. HAND the keypad and press the four glyphs in that order. The terminal reports that the **emergency override is armed**.
 8. **Security Hub.** LOOK (or HAND) the console. HAND the glowing red **override button**: every lock on the deck opens.
 9. **Corridor.** MOVE into the floor vent. In the shaft, HAND the **wall scratches** (map).
@@ -51,7 +51,7 @@ flowchart TD
   strap --> line[Grappling Line<br/>combine]
   line --> gap[Cross the Stasis Hold gap]
   gap --> code[Glyph code<br/>cataloguer close-up]
-  code --> terminal[Lab terminal keypad<br/>fern · curl · sprout · thorn]
+  code --> terminal[Lab terminal keypad<br/>fern · curl · sprout · sprout]
   terminal --> armed[Override armed]
   armed --> button[Press the override<br/>Security close-up]
   button --> vent[Corridor floor vent opens]
@@ -87,7 +87,7 @@ After you rig the line, the strap stays across the gap and the robot is in reach
 
 ![Cataloguer close-up: the glyph code](walkthrough/15_cataloguer_closeup.webp)
 
-LOOK or HAND the robot to open the **specimen close-up**. Every display shows the same four glyphs in the same order: **fern, double curl, sprouting snake, thorny branch**.
+LOOK or HAND the robot to open the **specimen close-up**. Every display shows the same four glyphs in the same order: **fern, double curl, sprouting snake, sprouting snake**.
 
 ### 2. Containment Corridor (hub)
 
@@ -112,7 +112,7 @@ HAND the keypad: eight glyph keys, four slots. A wrong code flashes red and cost
 
 ![Wrong code](walkthrough/05_keypad_wrong.webp)
 
-Enter **fern, double curl, sprouting snake, thorny branch** and the terminal unlocks. A line of red script reports that the emergency override at the security console is **armed**. LOOK at the screen afterwards for the big reveal: the ship's next harvesting stop is Earth.
+Enter **fern, double curl, sprouting snake, sprouting snake** and the terminal unlocks. A line of red script reports that the emergency override at the security console is **armed**. LOOK at the screen afterwards for the big reveal: the ship's next harvesting stop is Earth.
 
 **Come back later:** the lab changes while you're away. Fresh drag marks appear on your second visit, and a patch of glowing growth on the wall on your third. USE the glass shard on the growth to find a message from a previous prisoner, and USE the cat fur on the examination tables to learn what happened to the cat.
 
@@ -292,7 +292,7 @@ Full details, every use and the in-game text for each item: the **[item compendi
 
 **"How do I get across the gap?"** Build a grappling line: cut a strap in the Processing Lab with the surgical probe, pull the hook from the morgue drawer, combine them, use the line on the gap.
 
-**"The keypad wants four characters."** They're on the specimen displays across the Stasis Hold gap: fern, double curl, sprouting snake, thorny branch.
+**"The keypad wants four characters."** They're on the specimen displays across the Stasis Hold gap: fern, double curl, sprouting snake, sprouting snake.
 
 **"The override button does nothing."** It's dark until the lab terminal is unlocked with the code. Come back afterwards.
 

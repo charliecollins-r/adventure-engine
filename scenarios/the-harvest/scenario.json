@@ -504,7 +504,7 @@
           ]
         },
         {
-          "text": "You've memorized the four characters: a fern, a double curl, a sprouting snake, a thorny branch. The keypads on this ship are etched with the same script.",
+          "text": "You've memorized the four characters: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The keypads on this ship are etched with the same script.",
           "when": [
             {
               "type": "flag_is",
@@ -540,7 +540,7 @@
           ]
         },
         {
-          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch.",
+          "text": "Enter the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again.",
           "when": [
             {
               "type": "all_of",
@@ -12822,7 +12822,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, a thorny branch. A section code, probably. That could be useful.",
+              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. A section code, probably. That could be useful.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -12862,7 +12862,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch."
+              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
             },
             {
               "type": "set_view",
@@ -12902,7 +12902,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, a thorny branch. A section code, probably. That could be useful.",
+              "text": "Now that you're close, you can see the displays beneath the specimen jars clearly. The same four alien characters glow on every one, in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. A section code, probably. That could be useful.",
               "voice": "audio/voice/robot_look_first.mp3"
             },
             {
@@ -12942,7 +12942,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, a thorny branch."
+              "text": "You've already memorized the four characters from the specimen displays: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
             },
             {
               "type": "set_view",
@@ -13156,7 +13156,7 @@
           "then": [
             {
               "type": "message",
-              "text": "Each tank has a big teal display at its base, and all three show the same four alien characters in the same order: a fern, a double curl, a sprouting snake, a thorny branch. The specimen names differ from tank to tank, but these four never change. Not a name. A section mark. A code, probably. You commit the shapes to memory."
+              "text": "Each tank has a big teal display at its base, and all three show the same four alien characters in the same order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The specimen names differ from tank to tank, but these four never change. Not a name. A section mark. A code, probably. You commit the shapes to memory."
             }
           ]
         },
@@ -13172,7 +13172,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The same four characters on every display: a fern, a double curl, a sprouting snake, a thorny branch. You have them memorized."
+              "text": "The same four characters on every display: a fern, a double curl, a sprouting snake, and the same sprouting snake again. You have them memorized."
             }
           ]
         },
@@ -13187,7 +13187,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You trace each character with a fingertip so you won't forget the shapes or the order: a fern, a double curl, a sprouting snake, a thorny branch. The same four on every tank. It must unlock something on this ship."
+              "text": "You trace each character with a fingertip so you won't forget the shapes or the order: a fern, a double curl, a sprouting snake, and the same sprouting snake again. The same four on every tank. It must unlock something on this ship."
             },
             {
               "type": "play_sound",
@@ -13212,7 +13212,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You've already got them: a fern, a double curl, a sprouting snake, a thorny branch."
+              "text": "You've already got them: a fern, a double curl, a sprouting snake, and the same sprouting snake again."
             }
           ]
         },
@@ -39352,9 +39352,9 @@
         "columns": 4,
         "keys": [
           {
-            "value": "thorn",
-            "image": "ui/glyph_thorn.png",
-            "label": "Thorny branch"
+            "value": "zigzag",
+            "image": "ui/glyph_zigzag.png",
+            "label": "Zigzag"
           },
           {
             "value": "spiral",
@@ -39397,7 +39397,7 @@
           "fern",
           "curl",
           "sprout",
-          "thorn"
+          "sprout"
         ],
         "fail_text": [
           "The display flashes red. A dry, disapproving buzz.",
@@ -39409,7 +39409,7 @@
       "on_solve": [
         {
           "type": "message",
-          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, the thorny branch. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers, and a line of red script crawls across the bottom of it, over and over. You can't read it, but you know the cross symbol beside it from the security console: the emergency containment override. It's armed now."
+          "text": "You press the four characters from the specimen plates, in order: the fern, the double curl, the sprouting snake, and the sprouting snake again. Each key yields like warm cartilage. The keypad flashes green: ACCESS GRANTED. The main screen flickers, and a line of red script crawls across the bottom of it, over and over. You can't read it, but you know the cross symbol beside it from the security console: the emergency containment override. It's armed now."
         },
         {
           "type": "play_sound",

@@ -15,7 +15,9 @@ def cover_map(img, px, py):  # 960x540 viewport point -> source pixel (object-fi
 
 plates = Image.open('closeups/cataloguer_specimens.webp').convert('RGB')
 x0, y0 = cover_map(plates, 392, 446)          # centre data plate
-PLATE = {'fern': (25, 15, 60, 82), 'curl': (63, 15, 103, 82), 'sprout': (106, 15, 152, 82), 'thorn': (153, 15, 197, 82)}
+# The plate reads fern, double curl, sprouting snake, sprouting snake (the painting's 3rd and 4th characters
+# are the same snake), so three keys are traced; the code repeats the sprout key.
+PLATE = {'fern': (25, 15, 60, 82), 'curl': (63, 15, 103, 82), 'sprout': (106, 15, 152, 82)}
 import math, random
 from PIL import ImageDraw
 random.seed(7319)
@@ -39,6 +41,7 @@ DECOYS = {   # stroke lists in a 200x260 box, same organic stroke language as th
   'spiral':  [[(100+math.cos(t)*(8+t*7), 120+math.sin(t)*(8+t*7)) for t in [i*0.25 for i in range(40)]], bez((150,140),(175,200),(130,250))],
   'eyehook': [[(100+math.cos(t)*38, 85+math.sin(t)*30) for t in [i*0.2 for i in range(33)]], bez((100,115),(105,190),(60,230)), bez((60,230),(45,240),(55,250)), [(95,80),(105,90)]],
   'twinbranch': [bez((100,250),(100,170),(70,90)), bez((100,170),(130,120),(150,50)), bez((80,120),(55,115),(40,90)), bez((118,135),(145,140),(160,120)), bez((140,80),(165,75),(170,55))],
+  'zigzag': [[(60, 30), (140, 80), (62, 140), (140, 200), (96, 250)], [(150, 30), (156, 36)]],   # added last so the other decoys keep their jitter
 }
 def draw_decoy(strokes):
     im = Image.new('RGB', (200, 260), (20, 40, 40)); d = ImageDraw.Draw(im)

@@ -766,7 +766,7 @@ Or multiple layered tracks:
 
 An empty array `[]` means dead silence. When navigating between views with different audio, the engine crossfades — stopping the old tracks and starting the new ones. Views without an `ambient_audio` field inherit the scenario-level default.
 
-**Sound effects** — optional `setting.sounds` object with paths for `room_transition`, `item_pickup`, and `intro_voice`. The engine plays these on the corresponding events:
+**Sound effects** — optional `setting.sounds` object with paths for `room_transition`, `item_pickup`, `intro_voice`, `noise` (any noise jump of 3+) and `combine` (a successful combination; defaults to `item_pickup`). The engine plays these on the corresponding events:
 
 ```json
 {

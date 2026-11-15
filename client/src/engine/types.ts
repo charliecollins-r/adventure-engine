@@ -23,6 +23,8 @@ export interface SoundEffects {
   discovery?: string;
   /** Played whenever an action raises the noise level by 3 or more (a clang, an alarm). */
   noise?: string;
+  /** Played when two items are combined successfully. Default: item_pickup. */
+  combine?: string;
   [key: string]: string | undefined;
 }
 
