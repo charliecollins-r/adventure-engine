@@ -3,3 +3,5 @@
 | File(s) | Source | License |
 |---|---|---|
 | `steps/metal_step_1..4.mp3` | Four steps cut from "Metal Steps" by Phil25, https://freesound.org/s/208101/ (trimmed, faded, peak-normalised to -4 dB) | Creative Commons 0 |
+| `noise_clang.mp3`, `alarm.mp3`, `curator_steps.mp3` | Derived from the same "Metal Steps" recording by Phil25 (pitched down, layered, filtered) | Creative Commons 0 |
+| `discovery.wav` | Synthesised for this project (a rising four-note chime) | Creative Commons 0 |

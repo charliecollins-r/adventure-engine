@@ -38,6 +38,8 @@ export class ScenarioEngine {
   private _characterPos: StandPoint | null = null;
   /** Character position at each viewHistory entry, so leaving a close-up puts him back where he stood. */
   private posHistory: (StandPoint | null)[] = [];
+  private eventsFired = new Set<string>();
+  private eventsActive = new Set<string>();
   private _pendingSounds: string[];
   private _dialoguePrompt: string | null;
   private _dialogueChoices: DialogueChoice[];
@@ -752,6 +754,7 @@ export class ScenarioEngine {
           break;
 
         case 'set_view':
+          this._activeWidgetId = null; // moving to another view closes any open puzzle widget
           if (e.view) {
             this.viewHistory.push(this._currentViewId);
     this.posHistory.push(this._characterPos);
@@ -894,7 +897,32 @@ export class ScenarioEngine {
     return messages;
   }
 
+  /**
+   * Condition-triggered events (scenario.events): after every player action, an event whose trigger
+   * has just become true runs its effects. one_shot events run at most once; others run again each
+   * time their trigger becomes true after having been false. Time-based triggers (time_after,
+   * time_before) are not evaluated here.
+   */
+  private runEvents(): void {
+    for (const ev of this.scenario.events ?? []) {
+      const t = ev.trigger as Condition | undefined;
+      if (!t || typeof t.type !== 'string' || t.type.startsWith('time_')) continue;
+      if (ev.one_shot && this.eventsFired.has(ev.id)) continue;
+      const on = this.evaluateConditions([t]);
+      if (on && !this.eventsActive.has(ev.id)) {
+        this.eventsActive.add(ev.id);
+        this.eventsFired.add(ev.id);
+        this.applyEffects(ev.effects ?? []);
+        if (this._gameOver) return;
+      } else if (!on) {
+        this.eventsActive.delete(ev.id);
+      }
+    }
+  }
+
   private checkGameEndConditions(): void {
+    if (this._gameOver) return;
+    this.runEvents();
     if (this._gameOver) return;
 
     for (const wc of this.scenario.win_conditions ?? []) {

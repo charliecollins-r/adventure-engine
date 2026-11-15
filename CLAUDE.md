@@ -256,14 +256,14 @@ Per-view placement: `"character": { "x": 480, "y": 550, "facing": "down", "sprit
 ### Effects — what's implemented vs. what scenarios use
 
 All 25+ effect types have real implementations (`play_sound` queues a `setting.sounds` key or file path that `ScenarioPlayer` plays). Remaining no-ops:
-- `trigger_event` — no-op (needs events system)
+- `trigger_event` — no-op (condition-triggered events run on their own; see below)
 - `visual_cue` — no-op (cosmetic, fine for MVP)
 
 ### Major Unimplemented Systems
 
 | System | Used By | Priority |
 |--------|---------|----------|
-| Events system | 13/13 | HIGH |
+| Events system | 13/13 | Condition triggers DONE (after every action, edge-triggered, `one_shot`); timed triggers need a game clock |
 | Puzzle widgets | 13/13 | HIGH — `keypad` overlay DONE; inline dial/combination/toggle/sequence still TODO |
 | Killer AI | 13/13 | MEDIUM |
 | ~~Hints~~ | ~~defined~~ | **DONE** — per-view progressive hints |
@@ -396,6 +396,7 @@ Low camera angle looking UP from knee-height — [scene-specific description of 
 - **Glyph keypad (puzzle widget #1)**: The lab terminal keypad is a real puzzle. HAND opens a `keypad` overlay widget with 8 alien-glyph keys. The code is the four characters painted on the specimen displays in the cataloguer close-up (fern, double curl, sprouting snake, thorny branch), which are only reachable across the Stasis Hold gap. The solution glyphs are traced from that painting by `scenarios/the-harvest/scripts/extract_glyphs.py`, which renders 4 procedural decoys identically, so no key gives itself away. Wrong entries add noise and show cycling in-widget feedback that hints toward "somewhere the characters are written in order". `max_attempts` (6) triggers a loud alarm but never locks. Brute force is possible (4,096 codes) but miserable, so the gap is a knowledge gate. The code unlocks the terminal, which arms the security console's Emergency Override (the only route to the vent). The old dead `lab_access_keypad` widget was removed. Soft-lock search (widget-aware): 143,587 states, 0 soft-locks at the time; after the security simplification it is 27,371 states (see "One security route").
 - **Scenario tooling**: `tools/validate-scenario.mjs` (referential/schema lint) and `tools/softlock-search.mjs` (exhaustive search over the real engine, cone-of-influence reduced). Both documented in Key Commands.
 - **Art guide**: `docs/ART_GUIDE.md` — two-style rule (painted backgrounds, pixel-art sprites), prompt template + the exact prompts that shipped, chroma pipeline (now with despill), sizing table measured from Act 1, anchoring rules, icon canvas spec, procedural composite sprites, Playwright verification recipe.
+- **Noise and tension (Act 1)**: condition-triggered events are implemented in the engine (`runEvents()`, after every action, edge-triggered, `one_shot`; `time_*` triggers skipped). The Harvest uses them for the Curator: noise ≥ 50 "something is listening" + distant footsteps, ≥ 80 "it's hunting, hide", ≥ 100 caught (game over). Hiding spots (`hiding_spot: true`: an empty morgue drawer, your old pod, behind the overturned chair) reset noise to 10 when HANDed while noise is above 29. Brute-forcing the lab keypad (6 wrong codes) sounds an alarm, adds 30 noise, throws you out of the close-up and spawns `lab_hunter_drone` (placeholder art: the cataloguer sprite) beside the terminal: LOOK at the terminal refuses, HAND on it or the drone = caught; leaving the lab makes it give up. The corridor's lab and security doors are heavy (+3/+2 noise). Every noise jump of 3+ plays `setting.sounds.noise`; new clips `audio/noise_clang.mp3`, `alarm.mp3`, `curator_steps.mp3`, `discovery.wav`. `set_view` now closes an open widget. Recipe: SCENARIO_SCHEMA → "Pattern: noise, guards and hiding". Browser test: `scripts/playthrough/noise.cjs`.
 - **Sprite stubs**: none left. All 10 former stubs have art: vent_maintenance_hatch (`sprites/maintenance_hatch.png`), instrument_rack, corridor_emergency_panel, corridor_drag_marks, corridor_organic_growth, neural_tendril_sample, vent_old_remains, nutrient_dispenser all have chroma-keyed art; specimen_tag_hook and personal_log_crystal have procedural placeholder sprites (4-frame animated, generated via node-canvas). Both collectibles now hide on pickup via `hide_object` effect.
 
 ---
@@ -464,7 +465,7 @@ Run it after any change that adds `remove_item`, `consumes: true`, irreversible 
 1. ~~Implement `all_of` condition~~ DONE
 2. ~~Implement `set_noise` effect, `noise_above` condition~~ DONE
 3. ~~Fix coordinate scaling~~ DONE (960x720 space)
-4. Add game clock + events system
+4. Add game clock for timed events (condition-triggered events DONE)
 5. Implement puzzle widget UI components (keypad overlay DONE; dial, combination lock, toggle panel, sequence still TODO)
 6. Implement killer AI state machine
 7. ~~Fix The Harvest position data~~ DONE (all Act 1 objects within 960x720 bounds, nav z-index fix)

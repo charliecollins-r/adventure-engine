@@ -104,6 +104,20 @@ Tip: say "the same [object]" and paste the original subject description again, s
 
 Ask for a horizontal strip: *"N frames in a single horizontal row, evenly spaced, identical size and position in each frame, only [the moving part] changes"*. Then process with `--cols N`. Check that the object doesn't drift between frames: the corridor emergency panel jittered because its two frames were 96px apart horizontally. Fix drift by cropping per frame or keeping a single frame.
 
+### Guards: one reusable sprite (The Harvest hunter drone)
+
+A guard is a hidden object with a sprite that a widget's `on_max_fail` (or any effect) shows and the room's exit hides again. The same art can block a doorway: place a second object over the door and gate the nav. See SCENARIO_SCHEMA → "Pattern: noise, guards and hiding". The Harvest currently uses the cataloguer sprite as a placeholder (`lab_hunter_drone`). This is the prompt for its real art:
+
+```
+Game character sprite sheet in the style of 1990s Sierra On-Line King's Quest V VGA pixel art: visible hand-placed pixels, limited 256-color palette, crisp dark outlines, flat shading with stepped dithered gradients. NOT painterly, NOT airbrushed, NOT 3D rendered.
+Subject: an alien hunter drone that guards rooms on a bio-organic starship. It hovers in mid-air with no legs: a lean, upright body about the height of a crouching adult, shaped like a segmented insect thorax of dark grown bio-metal, with a single large round lens at the top glowing hot red-orange, two long folded mantis-like grabbing arms tucked against its chest, and three short dangling sensor tendrils underneath. Vertebra-like ridges run down its back. It looks patient and predatory, not cute.
+Colors: dark gunmetal green-grey body, bone-white ridges and arm tips, hot red-orange lens with a yellow core, faint red glow on the edges facing the lens. Small rust stains.
+4 frames in a single horizontal row, evenly spaced, identical size and position in each frame, facing the viewer in a three-quarter front view. Only these change: the body bobs up and down by a few pixels (frame 1 middle, frame 2 up, frame 3 middle, frame 4 down), the lens turns slightly left, centre, right, centre, and the tendrils sway.
+Dark bio-organic alien starship aesthetic, King's Quest meets H.R. Giger. Flat solid pure blue (#0000FF) background, no cast shadow, no floor, no text, no other objects. Absolutely no blue tones anywhere on the drone itself.
+```
+
+Process it like any animated sprite (`--cols 4`), save as `sprites/hunter_drone.png`, and set the object's `sprite` to the new `file`, `frame_width`/`frame_height` and a `scale` that makes it about as tall as the player's head-to-waist (about 110–140 px on screen; the player is about 143 px). Keep `frame_rate` around 4 so it reads as hovering. A floating guard wants a soft, small shadow well below it (`shadow.offset_y` 20–30) to sell the height.
+
 ### Idle animations: one frame plus edits (the black cat)
 
 For a creature or machine that should feel alive but stay in place, don't ask for a multi-frame strip; poses drift between frames, and the old cat even switched from sitting to standing. Instead:

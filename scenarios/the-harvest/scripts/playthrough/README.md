@@ -9,6 +9,9 @@ cd client && npm run dev                      # in another terminal (http://loca
 cd scenarios/the-harvest/scripts/playthrough
 node full.cjs                                 # main playthrough -> shots/01_*.png ... and full_log.json
 node extras.cjs                               # intro, all 13 maze ducts, both vent deaths
+node walk.cjs                                 # click-to-walk in every walking view
+node prisoner.cjs                             # the caged prisoner's story
+node noise.cjs                                # brute-force guard, noise thresholds, hiding, caught
 cd ../.. && python3 scripts/build_walkthrough_images.py scripts/playthrough/shots walkthrough
 ```
 

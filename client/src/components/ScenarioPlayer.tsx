@@ -416,6 +416,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [showIntro]);
   useEffect(() => { if (inventoryOpen) tutorialEvent('items_opened'); }, [inventoryOpen, tutIndex, tutorialEvent]);
 
+  // A loud action is heard: play setting.sounds.noise when the noise level jumps by 3 or more.
+  const prevNoise = useRef(0);
+  useEffect(() => {
+    const n = engine.getNoiseLevel();
+    const loud = scenario.setting.sounds?.noise;
+    if (loud && n >= prevNoise.current + 3) playSound(loud);
+    prevNoise.current = n;
+  });
+
   const prevItemCount = useRef(-1);
   useEffect(() => {
     const count = engine.getInventory().length;

@@ -808,7 +808,7 @@ Effects change the game world. They execute in order within a `then` array.
 |------|--------|-------------|
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects |
 | `conditional_effect` | `when`, `then`, `else` | If conditions met, do `then`; otherwise do `else` |
-| `trigger_event` | `event` | Fire a named event (planned) |
+| `trigger_event` | `event` | Fire a named event (not implemented yet; condition-triggered events work) |
 | `visual_cue` | `cue` | Visual effect: `"shake"`, `"flash"`, `"flicker"` (planned) |
 
 ### Examples
@@ -1363,9 +1363,17 @@ Full reference: [SCENARIO_SCHEMA.md → Walkable Areas](docs/SCENARIO_SCHEMA.md#
 
 An AI antagonist that patrols, responds to noise, searches for the player, and has configurable personality dialogue. Define the killer in the `killer` object with base behavior (check intervals, noise thresholds), search behavior (thoroughness, evidence awareness), and personality (approach/search/catch dialogue). See [SCENARIO_SCHEMA.md](docs/SCENARIO_SCHEMA.md) for full configuration.
 
-### Events *(Planned)*
+### Events
 
-Named events triggered by conditions or timers. Use for narrative beats — a phone ringing after 90 seconds, lights flickering when the player enters a phase, the killer discovering an empty chair.
+Named events triggered by conditions. Each has an `id`, a `trigger` (any condition, including `all_of`/`any_of`), `one_shot`, and `effects`. The engine checks them after every player action and fires an event when its trigger *becomes* true; a repeating (`one_shot: false`) event fires again only after the trigger was false in between. Timer triggers (`time_after`, `time_before`) are not implemented yet and are skipped.
+
+```json
+{ "id": "noise_listening", "trigger": { "type": "noise_above", "threshold": 49 }, "one_shot": false,
+  "effects": [ { "type": "message", "text": "Somewhere above you, the footsteps stop. Something is listening." },
+               { "type": "play_sound", "sound": "curator" } ] }
+```
+
+**Noise, guards and hiding** is the main use today: loud actions `add_noise`, events at noise thresholds warn and finally end the game, `hiding_spot` objects with a noise-gated HAND interaction reset the level with `set_noise`, and a keypad's `on_max_fail` can summon a guard sprite that blocks an object until the player leaves the room. Set `setting.sounds.noise` to hear every noise jump. The full recipe with JSON is in `docs/SCENARIO_SCHEMA.md` → "Pattern: noise, guards and hiding".
 
 ### View Hints
 

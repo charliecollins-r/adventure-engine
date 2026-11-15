@@ -311,7 +311,7 @@ Effects mutate game state. When an interaction matches, its `then[]` array execu
 | Type | Purpose | Status |
 |------|---------|--------|
 | `visual_cue` | Screen effects (flicker, shake) | No-op |
-| `trigger_event` | Activate a scenario event | No-op (needs events system) |
+| `trigger_event` | Activate a scenario event | No-op (condition-triggered events run automatically) |
 
 ### Recursive Effects
 
@@ -987,7 +987,7 @@ All 20+ effect types have implementations. Remaining no-ops:
 
 | System | Used By | Priority | Notes |
 |--------|---------|----------|-------|
-| Events system | 13/13 | HIGH | Timed/conditional narrative beats |
+| Events system | 13/13 | HIGH | Condition triggers done; timed triggers need a game clock |
 | Puzzle widgets | 13/13 | HIGH | `keypad` overlay implemented (`KeypadWidget.tsx`, `open_widget`, `widget_solved`); dials, toggles and sequence puzzles still TODO |
 | Killer AI | 13/13 | MEDIUM | Patrol, detection, search, personality |
 | `time_after` condition | 13/13 | HIGH (with events) | Needs game clock |
@@ -1108,9 +1108,9 @@ cd server && mvn spring-boot:run
 
 ## Future Systems
 
-### Events System (HIGH PRIORITY)
+### Events System (condition triggers DONE, timers TODO)
 
-Timed and condition-triggered narrative beats. Events have a trigger (timer or condition check), can be one-shot or repeating, and fire a list of effects. All 13 scenarios define events. Needs a game clock and a tick loop.
+`ScenarioEngine.runEvents()` runs at the start of `checkGameEndConditions()`, i.e. after every player action. It evaluates each event's trigger with `evaluateConditions`, fires on a false→true edge (`eventsActive` remembers which triggers were true last time) and records `one_shot` events in `eventsFired`. Effects run through the normal `applyEffect` path, so an event can message, play sounds, set flags, show objects or end the game. Triggers whose type starts with `time_` are skipped (unknown condition types evaluate true, which would fire them at once); they need a game clock and tick loop. `trigger_event` is still a no-op. Tests: `ScenarioEngine.events.test.ts`.
 
 ### Puzzle Widgets (HIGH PRIORITY)
 

@@ -21,6 +21,8 @@ export interface SoundEffects {
   item_pickup?: string;
   intro_voice?: string;
   discovery?: string;
+  /** Played whenever an action raises the noise level by 3 or more (a clang, an alarm). */
+  noise?: string;
   [key: string]: string | undefined;
 }
 

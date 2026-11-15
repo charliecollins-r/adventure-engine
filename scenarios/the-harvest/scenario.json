@@ -72,7 +72,10 @@
       "room_transition": "audio/door_open_close.wav",
       "item_pickup": "audio/item_pickup.wav",
       "discovery": "audio/discovery.wav",
-      "intro_voice": "audio/voice/ambient_stasis.mp3"
+      "intro_voice": "audio/voice/ambient_stasis.mp3",
+      "noise": "audio/noise_clang.mp3",
+      "alarm": "audio/alarm.mp3",
+      "curator": "audio/curator_steps.mp3"
     },
     "tutorial": {
       "steps": [
@@ -579,7 +582,8 @@
         "restraint_straps",
         "corridor_drag_marks",
         "corridor_organic_growth",
-        "nav_act1_processing_lab_to_act1_containment_corridor"
+        "nav_act1_processing_lab_to_act1_containment_corridor",
+        "lab_hunter_drone"
       ],
       "ambient_audio": "audio/ambient_lab.mp3",
       "background_key": "act1_processing_lab",
@@ -677,6 +681,16 @@
             {
               "type": "flag_is",
               "flag": "security_locks_overridden",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "A hunter drone is guarding the terminal. Don't touch anything near it: leave the lab, and it will give up.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "hunter_in_lab",
               "value": "true"
             }
           ]
@@ -8650,7 +8664,9 @@
     "prisoner_freed": "false",
     "vent_route_known": "false",
     "purge_warned": "false",
-    "prisoner_absence_seen": "false"
+    "prisoner_absence_seen": "false",
+    "curator_hunting": "false",
+    "hunter_in_lab": "false"
   },
   "items": [
     {
@@ -10486,6 +10502,30 @@
       "initially_visible": true,
       "interactions": [
         {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "noise_above",
+              "threshold": 29
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You climb back into your cracked pod and curl up in the drained fluid, still as a specimen. The clicking passes along the walkway, hesitates, and fades. The ship settles."
+            },
+            {
+              "type": "set_noise",
+              "amount": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "curator_hunting",
+              "value": "false"
+            }
+          ]
+        },
+        {
           "verb": "look",
           "when": [
             {
@@ -10558,7 +10598,7 @@
           ]
         }
       ],
-      "hiding_spot": false
+      "hiding_spot": true
     },
     {
       "id": "pod_drainage_channel",
@@ -11137,6 +11177,40 @@
       "interactions": [
         {
           "verb": "look",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "hunter_in_lab",
+              "value": "true"
+            }
+          ],
+          "response": "Not with the hunter drone hanging right beside it. Leave the lab and come back when it's gone.",
+          "then": []
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "hunter_in_lab",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach for the terminal. The lens snaps onto you."
+            },
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "The hunter drone was waiting for exactly that. It pins you against the terminal until the Curator comes for you."
+            }
+          ]
+        },
+        {
+          "verb": "look",
           "when": [],
           "then": [
             {
@@ -11557,6 +11631,30 @@
       "initially_visible": true,
       "interactions": [
         {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "noise_above",
+              "threshold": 29
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You pull open an empty drawer and squeeze in beside the cold, pull it shut and lie still. Click. Click. Click. The footsteps come into the morgue, stop beside the drawers, and go. You wait a long time before you climb out."
+            },
+            {
+              "type": "set_noise",
+              "amount": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "curator_hunting",
+              "value": "false"
+            }
+          ]
+        },
+        {
           "verb": "look",
           "when": [],
           "then": [
@@ -11601,7 +11699,7 @@
           ]
         }
       ],
-      "hiding_spot": false
+      "hiding_spot": true
     },
     {
       "id": "autopsy_slab",
@@ -24760,6 +24858,31 @@
               "when": [
                 {
                   "type": "flag_is",
+                  "flag": "hunter_in_lab",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "hunter_in_lab",
+                  "value": "false"
+                },
+                {
+                  "type": "hide_object",
+                  "object": "lab_hunter_drone"
+                },
+                {
+                  "type": "message",
+                  "text": "Behind you, the hunter drone gives up on the empty room and folds itself back into the ceiling."
+                }
+              ]
+            },
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
                   "flag": "corridor_visited",
                   "value": "true"
                 },
@@ -24995,6 +25118,10 @@
                   "value": "true"
                 }
               ]
+            },
+            {
+              "type": "add_noise",
+              "amount": 3
             }
           ]
         },
@@ -25157,6 +25284,10 @@
             {
               "type": "message",
               "text": "The translucent panels part with a wet hiss. Monitor screens illuminate a small control room."
+            },
+            {
+              "type": "add_noise",
+              "amount": 2
             }
           ]
         },
@@ -28733,6 +28864,30 @@
       "initially_visible": true,
       "interactions": [
         {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "noise_above",
+              "threshold": 29
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You crouch behind the overturned chair, knees to your chest. Footsteps cross the corridor outside, slow down at the door, and move on. You let your breath out."
+            },
+            {
+              "type": "set_noise",
+              "amount": 10
+            },
+            {
+              "type": "set_flag",
+              "flag": "curator_hunting",
+              "value": "false"
+            }
+          ]
+        },
+        {
           "verb": "look",
           "when": [],
           "then": [
@@ -28752,7 +28907,8 @@
             }
           ]
         }
-      ]
+      ],
+      "hiding_spot": true
     },
     {
       "id": "right_crystal_wall",
@@ -39149,6 +39305,69 @@
           ]
         }
       ]
+    },
+    {
+      "id": "lab_hunter_drone",
+      "name": "Hunter Drone",
+      "description": "A hunter drone guarding the lab terminal.",
+      "position": {
+        "x": 470,
+        "y": 380
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/cataloguer_robot.png",
+        "frame_width": 339,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.24
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "A hunter drone hangs beside the terminal, its single lens sweeping the lab in slow arcs. It's waiting for whatever tripped the alarm to show itself. Touch nothing near it. Leave the lab and let it lose interest."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "You reach for the drone. It is much faster than you."
+            },
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "The hunter drone pins you to the floor in a blink and holds you there, humming, until the Curator arrives."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "response": "Its lens snaps toward your voice. You stop talking.",
+          "then": []
+        }
+      ]
     }
   ],
   "puzzle_widgets": [
@@ -39258,11 +39477,28 @@
       "on_max_fail": [
         {
           "type": "message",
-          "text": "The keypad flushes an angry crimson and freezes for a long moment. Somewhere down the corridor, a security tone sounds. Guessing is getting loud."
+          "text": "The keypad flushes crimson and shrieks. A hatch snaps open in the ceiling and a hunter drone unfolds out of it, lens sweeping, gliding toward the terminal. You back away fast."
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
         },
         {
           "type": "add_noise",
-          "amount": 8
+          "amount": 30
+        },
+        {
+          "type": "set_flag",
+          "flag": "hunter_in_lab",
+          "value": "true"
+        },
+        {
+          "type": "show_object",
+          "object": "lab_hunter_drone"
+        },
+        {
+          "type": "set_view",
+          "view": "act1_processing_lab"
         }
       ]
     },
@@ -40644,6 +40880,63 @@
         {
           "type": "play_sound",
           "sound": "distant_rumble"
+        }
+      ]
+    },
+    {
+      "id": "noise_listening",
+      "trigger": {
+        "type": "noise_above",
+        "threshold": 49
+      },
+      "one_shot": false,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Somewhere above you, the clicking footsteps stop. Something is listening. (You are making too much noise.)"
+        },
+        {
+          "type": "play_sound",
+          "sound": "curator"
+        }
+      ]
+    },
+    {
+      "id": "noise_hunting",
+      "trigger": {
+        "type": "noise_above",
+        "threshold": 79
+      },
+      "one_shot": false,
+      "effects": [
+        {
+          "type": "message",
+          "text": "Click. Click. Click. Closer now, and quicker. The Curator is hunting the noise. Find somewhere to hide and keep still until it passes, or it will find you."
+        },
+        {
+          "type": "play_sound",
+          "sound": "curator"
+        },
+        {
+          "type": "set_flag",
+          "flag": "curator_hunting",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "id": "noise_caught",
+      "trigger": {
+        "type": "noise_above",
+        "threshold": 99
+      },
+      "one_shot": true,
+      "effects": [
+        {
+          "type": "game_over",
+          "result": "lose",
+          "title": "Caught",
+          "reason": "The clicking stops right behind you. Long, cold fingers close around your shoulders. The Curator carries you back to the stasis hold without a sound, and this time it seals the pod."
         }
       ]
     }

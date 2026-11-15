@@ -745,6 +745,8 @@ interface ScenarioEvent {
 }
 ```
 
+Condition triggers are implemented: the engine checks every event after each player action and fires it when its trigger becomes true (`one_shot` events once). Timer triggers (`time_after`) still need the game clock.
+
 Events enable atmospheric moments ("The lights flicker at the 2-minute mark"), story reveals ("After three puzzles, the phone rings"), and time pressure ("Killer starts patrolling after 5 minutes"). All 13 scenarios define events.
 
 ### Puzzle Widgets

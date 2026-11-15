@@ -422,7 +422,8 @@ adventure-engine/
 - [x] Keypad puzzle widget (overlay, image keys)
 - [x] Scenario validator and soft-lock search (Node tools)
 - [x] Vent maze: KQ-style labyrinth with a generated map
-- [ ] Events system (timed/conditional narrative beats)
+- [x] Events system: condition-triggered narrative beats (noise thresholds, flags)
+- [ ] Timed events (game clock for `time_after`)
 - [ ] Remaining puzzle widgets (dials, combination locks, toggles, sequences)
 - [ ] Killer AI state machine
 - [ ] Scenario validation tooling (Spring Boot)

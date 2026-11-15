@@ -173,7 +173,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
-| `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events; any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
+| `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events, and `noise` whenever the noise level jumps by 3 or more; any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
 | `tutorial` | object | no | First-play tips: `{ "steps": [{ "text": "...", "done_when": "verb_changed" }] }`. Shown one at a time in the top-left of the picture after the intro; each moves on when the player does what `done_when` names: `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (shows a button). The box is click-through, has **Skip tutorial**, and is remembered per scenario in the browser. Hidden in `?dev`/`?skipIntro` mode unless the URL has `?tutorial`. |
 
 ### Views
@@ -1254,7 +1254,42 @@ Named events triggered by conditions. For narrative beats and timed occurrences.
 | `one_shot` | boolean | yes | If true, fires only once. If false, fires every time conditions are met. |
 | `effects` | effect[] | yes | What happens when the event fires. |
 
-Events are evaluated every game tick (1/sec). Use `one_shot: true` for most narrative events. Use `one_shot: false` for repeating environmental effects (e.g., a dripping sound every time noise is below 10).
+Events are evaluated after every player action (interaction, item use, combination, dialogue choice, widget entry). An event fires when its `trigger` **becomes** true: a `one_shot: false` event fires again only after its trigger has been false in between, so "noise above 49" warns once per crossing, not on every click. `one_shot: true` events fire at most once per game. Any condition type works as a trigger, including `all_of`/`any_of`.
+
+*Not implemented yet:* triggers whose type starts with `time_` (`time_after`, `time_before`) need the game clock and are skipped, and `trigger_event` is still a no-op.
+
+### Pattern: noise, guards and hiding (tension without a clock)
+
+Everything below is plain JSON; The Harvest Act 1 uses all of it (see `scenarios/the-harvest/scripts/playthrough/noise.cjs` for the browser test).
+
+1. **Noise costs something.** Loud actions use `add_noise` (a heavy door: `add_noise` 2-3 on its Move interaction; a wrong keypad code: `on_fail: [{ "type": "add_noise", "amount": 1 }]`). Set `setting.sounds.noise` and the player hears it every time the level jumps by 3 or more.
+2. **Thresholds escalate through events.** Condition-triggered events with `noise_above` fire on the action that crosses the line (not every action while it stays above), and again after the level has dropped back under it:
+
+```json
+"events": [
+  { "id": "noise_listening", "trigger": { "type": "noise_above", "threshold": 49 }, "one_shot": false,
+    "effects": [ { "type": "message", "text": "Somewhere above you, the footsteps stop. Something is listening." },
+                 { "type": "play_sound", "sound": "curator" } ] },
+  { "id": "noise_hunting", "trigger": { "type": "noise_above", "threshold": 79 }, "one_shot": false,
+    "effects": [ { "type": "message", "text": "Closer now. Find somewhere to hide." }, { "type": "play_sound", "sound": "curator" } ] },
+  { "id": "noise_caught", "trigger": { "type": "noise_above", "threshold": 99 }, "one_shot": true,
+    "effects": [ { "type": "game_over", "result": "lose", "title": "Caught", "reason": "The clicking stops right behind you." } ] }
+]
+```
+
+3. **Hiding resets it.** Put a noise-gated interaction *first* on a few objects (the first matching interaction wins), and mark them `hiding_spot: true`:
+
+```json
+{ "verb": "hand", "when": [ { "type": "noise_above", "threshold": 29 } ],
+  "then": [ { "type": "message", "text": "You squeeze into an empty drawer and lie still..." }, { "type": "set_noise", "amount": 10 } ] }
+```
+
+4. **Brute force summons a guard.** A widget's `on_max_fail` can raise the alarm instead of just scolding: `play_sound`, a big `add_noise`, `set_flag guard_here`, `show_object` a hidden guard sprite and `set_view` the player out of the close-up (which also closes the widget). While the flag is set, the guarded object's interactions say "not with that thing watching" (LOOK) or end the game (HAND); the guard itself is LOOK-safe and HAND-deadly. Leaving the room clears it: a `conditional_effect` on the exit's Move interaction resets the flag and hides the guard. Never make a guard permanent unless an alternative route exists (rule: no soft-locks).
+5. **The same guard blocks rooms.** Show a guard object on a nav hotspot's view and give the nav's Move interaction a `when: [flag_is guard_here]` variant that refuses ("The drone's lens sweeps the doorway. Not now.") before the normal one. Clear the flag from an event, a distraction item, or another room.
+
+The soft-lock search resets noise to 0 between states, so noise-based deaths never show up as soft-locks; keep noise logic out of goal-critical interactions so the search stays small.
+
+
 
 ---
 
