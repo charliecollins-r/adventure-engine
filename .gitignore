@@ -29,3 +29,7 @@ Thumbs.db
 # Env
 .env
 .env.local
+
+# Playthrough harness output (screenshots, logs)
+shots/
+full_log.json
