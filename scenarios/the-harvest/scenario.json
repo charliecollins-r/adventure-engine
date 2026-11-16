@@ -196,7 +196,8 @@
           {
             "text": "Outrider, Relay Control. LUMEN-7 is still dark on our end. How's it looking out there?",
             "style": "radio",
-            "static": 0.15
+            "static": 0.15,
+            "voice": "intro/audio/radio_01.mp3"
           }
         ],
         "hold": 12
@@ -308,7 +309,8 @@
           {
             "text": "Copy, Outrider. Take your time. The long-range array's acting up again. Probably the cold.",
             "style": "radio",
-            "static": 0.3
+            "static": 0.3,
+            "voice": "intro/audio/radio_02.mp3"
           }
         ],
         "hold": 12
@@ -400,7 +402,8 @@
           {
             "text": "Outrider... we're seeing... long-range is showing... something big. Something very big, right on top of you—",
             "style": "radio",
-            "static": 0.7
+            "static": 0.7,
+            "voice": "intro/audio/radio_03.mp3"
           }
         ],
         "hold": 10
@@ -532,7 +535,8 @@
           {
             "text": "Outrider, respond. Outrider—",
             "style": "radio",
-            "static": 0.85
+            "static": 0.85,
+            "voice": "intro/audio/radio_04.mp3"
           }
         ],
         "hold": 10,
