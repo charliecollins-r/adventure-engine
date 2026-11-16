@@ -541,12 +541,13 @@
         "transition": "flash"
       },
       {
-        "background": "backgrounds/act1_processing_lab.webp",
+        "background": "intro/backgrounds/intro_catalogue.webp",
         "sound": "intro/audio/sfx_scan.mp3",
         "music": "audio/music_stasis.mp3",
         "camera": {
           "from": {
-            "zoom": 1.06
+            "zoom": 1.06,
+            "x": 10
           },
           "to": {
             "zoom": 1.0
@@ -566,8 +567,9 @@
               1
             ],
             "frame_rate": 1,
-            "scale": 0.27,
-            "at": [455, 500]
+            "scale": 0.36,
+            "at": [505, 438],
+            "rotate": -10
           },
           {
             "file": "sprites/cataloguer_robot.png",
@@ -575,25 +577,38 @@
             "frame_height": 562,
             "columns": 4,
             "frame_rate": 2,
-            "scale": 0.42,
-            "at": [780, 640]
+            "scale": 0.4,
+            "at": [840, 640]
           }
         ],
         "ambient_lighting": {
           "lights": [
             {
-              "x": 0.49,
-              "y": 0.42,
+              "x": 0.59,
+              "y": 0.17,
+              "radius": 0.2,
+              "color": [
+                90,
+                255,
+                170
+              ],
+              "alpha": 0.22,
+              "pulse_speed": 0.4,
+              "pulse_amount": 0.3
+            },
+            {
+              "x": 0.52,
+              "y": 0.55,
               "radius": 0.18,
               "color": [
                 90,
                 255,
                 170
               ],
-              "alpha": 0.25,
-              "pulse_speed": 0.4,
+              "alpha": 0.12,
+              "pulse_speed": 0.25,
               "pulse_amount": 0.3,
-              "phase": 0
+              "phase": 1
             }
           ]
         },
@@ -601,10 +616,10 @@
           {
             "type": "sweep",
             "area": [
-              300,
+              350,
+              330,
               360,
-              360,
-              150
+              130
             ],
             "color": [
               110,
@@ -612,7 +627,7 @@
               180
             ],
             "period": 3.2,
-            "alpha": 0.55
+            "alpha": 0.5
           }
         ],
         "lines": [
