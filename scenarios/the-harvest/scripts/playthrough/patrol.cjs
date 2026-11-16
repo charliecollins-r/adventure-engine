@@ -1,5 +1,5 @@
 // Browser test: the game clock and the cataloguer patrol (scenario.patrols).
-// A hunter drone sweeps: Stasis Hold 0-5 s, corridor 5-10, feeding station 10-15, archive 15-20 of every 2-minute sweep (first at 1:00).
+// A hunter drone sweeps: Stasis Hold 0-5 s, corridor 5-10, feeding station 10-15, archive 15-20 of every 1-minute sweep (first at 1:00).
 const L = require('./lib.cjs');
 let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); }; const ok = (m) => console.log('ok   ' + m);
 const SHOTS = process.env.SHOTS || null;

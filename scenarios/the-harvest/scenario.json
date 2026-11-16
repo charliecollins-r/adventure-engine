@@ -45011,7 +45011,7 @@
           "flag": "alarm_hunters_out"
         }
       ],
-      "period": 120,
+      "period": 60,
       "first_at": 60,
       "warn_seconds": 5,
       "warn_sound": "patrol",
@@ -45100,7 +45100,7 @@
           "type": "game_over",
           "result": "lose",
           "title": "Caught",
-          "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every two minutes, and you can hear them coming. Watch the clock, leave the room, or hide."
+          "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every minute, and you can hear them coming. Watch the clock, leave the room, or hide."
         }
       ],
       "nearby_sound": "patrol_far"

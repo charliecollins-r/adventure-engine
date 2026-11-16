@@ -1336,7 +1336,7 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 "patrols": [{
   "id": "hunter_patrol",
   "when": [ { "type": "flag_not", "flag": "alarm_hunters_out" } ],
-  "period": 120, "first_at": 60, "warn_seconds": 5,
+  "period": 60, "first_at": 60, "warn_seconds": 5,
   "warn_sound": "patrol", "enter_sound": "patrol", "nearby_sound": "patrol_far", "notice_seconds": 1.5,
   "warn_message": "Metal legs, clicking closer. Something is coming this way.",
   "sprite": { "file": "sprites/hunter_drone.png", "frame_width": 237, "frame_height": 600, "columns": 4, "rows": 1, "frame_rate": 4, "scale": 0.3 },
@@ -1375,7 +1375,7 @@ Rules that keep it fair (and soft-lock free):
 ```
 
   While hiding, the player is not drawn and the patrol walks past. Any HAND, MOVE or item use, or walking, ends hiding; LOOK and TALK do not.
-- **Teach it in the death text.** "They pass every two minutes, and you can hear them coming. Watch the clock, leave the room, or hide." With Undo, a death costs a few seconds.
+- **Teach it in the death text.** "They pass every minute, and you can hear them coming. Watch the clock, leave the room, or hide." With Undo, a death costs a few seconds.
 - Patrols run on real time, which the soft-lock search does not model; keep them out of goal-critical logic (they only kill, and death has Undo).
 
 Tests: `client/src/engine/ScenarioEngine.patrol.test.ts`, browser `scenarios/the-harvest/scripts/playthrough/patrol.cjs` (other browser suites load with `?noPatrols`).

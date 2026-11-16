@@ -201,7 +201,7 @@ A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6
 - **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot, holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
 - **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → vent maze → airlock
-- **Hunter patrol** — a minute in, and every two minutes after, a hunter drone sweeps the rooms you start in; the title-bar clock lets you learn its rhythm, you hear it 5 seconds before it comes in, and you hear it pass from the rooms next door
+- **Hunter patrol** — every minute, from a minute in, a hunter drone sweeps the rooms you start in; the title-bar clock lets you learn its rhythm, you hear it 5 seconds before it comes in, and you hear it pass from the rooms next door
 - **Glyph keypad** — an overlay puzzle widget with alien-glyph keys; wrong guesses make noise
 - **Verified solvable** — the soft-lock search finds no unwinnable state in Act 1
 - **Per-room ambient audio** — distinct soundscapes per room (lab ambience, industrial ventilation, eerie harmonics, dead silence in the morgue)
