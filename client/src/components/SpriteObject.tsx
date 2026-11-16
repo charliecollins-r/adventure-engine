@@ -69,6 +69,7 @@ export function SpriteObject({
     backgroundPosition: `${bgX * scale}px 0px`,
     backgroundSize: `${sheetW}px ${sheetH}px`,
     backgroundRepeat: 'no-repeat',
+    transform: sprite.flip ? 'scaleX(-1)' : undefined,
     imageRendering: 'auto',
     pointerEvents: 'auto',
     zIndex: layerZ ?? 4,

@@ -41506,7 +41506,8 @@
         "columns": 13,
         "rows": 1,
         "frame_rate": 2,
-        "scale": 0.44
+        "scale": 0.44,
+        "flip": true
       },
       "shadow": {
         "width": 60,

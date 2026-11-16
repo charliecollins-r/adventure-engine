@@ -517,6 +517,7 @@ Objects can optionally render as animated sprite sheets instead of (or in additi
 | `rows` | number | yes | Number of rows in the sprite sheet grid. |
 | `frame_rate` | number | yes | Animation frames per second. `0` = static (shows first frame). |
 | `loop` | boolean | no | `false` plays the frames once and holds the last one; the `play_animation` effect restarts it. Default `true`. |
+| `flip` | boolean | no | `true` draws the sheet mirrored left-to-right, so a figure painted facing right faces left. Default `false`. |
 | `scale` | number | yes | Render scale multiplier. Rendered size = `frame_width × scale` by `frame_height × scale`. |
 
 ### Sprite Shadows

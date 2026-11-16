@@ -371,6 +371,8 @@ export interface ObjectSprite {
   scale: number;
   /** false: play the frames once and hold the last one (restart it with the play_animation effect). Default true. */
   loop?: boolean;
+  /** true: draw the sheet mirrored left-to-right (a figure drawn facing right then faces left). Default false. */
+  flip?: boolean;
 }
 
 export interface ScenarioObject {
