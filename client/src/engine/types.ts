@@ -696,6 +696,9 @@ export interface Patrol {
   warn_message?: string;
   /** Played when it comes into your room. */
   enter_sound?: string;
+  /** Played when it comes into a room next door to yours (any room with an exit into yours): you hear it pass.
+   *  Usually a quieter, muffled version of enter_sound. */
+  nearby_sound?: string;
   /** Seconds it takes to notice you once you are in its room and not hidden. Default 1.5. */
   notice_seconds?: number;
   /** How it looks while it walks through your room. */

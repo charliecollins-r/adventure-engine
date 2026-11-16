@@ -1336,8 +1336,8 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 "patrols": [{
   "id": "hunter_patrol",
   "when": [ { "type": "flag_not", "flag": "alarm_hunters_out" } ],
-  "period": 120, "first_at": 120, "warn_seconds": 5,
-  "warn_sound": "patrol", "enter_sound": "patrol", "notice_seconds": 1.5,
+  "period": 120, "first_at": 60, "warn_seconds": 5,
+  "warn_sound": "patrol", "enter_sound": "patrol", "nearby_sound": "patrol_far", "notice_seconds": 1.5,
   "warn_message": "Metal legs, clicking closer. Something is coming this way.",
   "sprite": { "file": "sprites/hunter_drone.png", "frame_width": 237, "frame_height": 600, "columns": 4, "rows": 1, "frame_rate": 4, "scale": 0.3 },
   "shadow": { "width": 56, "height": 10, "opacity": 0.5, "offset_y": 22 },
@@ -1360,6 +1360,7 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 | `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
 | `warn_seconds` | Warning before it comes into the player's room (default 5): `warn_sound` plays and the room's `warn_message` shows |
 | `enter_sound` | Plays when it comes into the player's room |
+| `nearby_sound` | Plays when it comes into a room next door to the player's (any room with a Move exit into it, either way): the player hears it pass through the wall. Use a quieter, muffled clip |
 | `notice_seconds` | How long it takes to notice a player who is in its room and not hiding (default 1.5), then `on_caught` runs |
 | `sprite`, `shadow` | How it is drawn while it walks through the player's room (scaled by the floor's `depth_scale`; it never takes clicks) |
 

@@ -87,6 +87,10 @@ export class ScenarioEngine {
   private patrolEntered = new Set<string>();
   /** Seconds each patrol has had the player in plain sight. */
   private patrolSeen: Record<string, number> = {};
+  /** Patrol legs already heard from next door ("patrol:sweep:stop"). */
+  private patrolHeard = new Set<string>();
+  /** Views next door to each view: rooms with an exit (a Move interaction that can set_view) into it. Built on first use. */
+  private neighbourIndex: Map<string, Set<string>> | null = null;
   /** Tools (tests, the soft-lock search) can switch patrols off. */
   patrolsEnabled = true;
 
@@ -502,6 +506,43 @@ export class ScenarioEngine {
     return null;
   }
 
+  /** Is `a` next door to `b` (a room with an exit into the other)? */
+  private isNeighbour(a: string, b: string): boolean {
+    if (!this.neighbourIndex) {
+      const idx = new Map<string, Set<string>>();
+      const link = (x: string, y: string) => { if (x === y) return; if (!idx.has(x)) idx.set(x, new Set()); idx.get(x)!.add(y); };
+      const targets = (effects: Effect[] | undefined, out: string[]) => {
+        for (const e of effects ?? []) {
+          if (e.type === 'set_view' && e.view) out.push(e.view);
+          targets(e.then, out); targets(e.else, out); targets(e.effects, out);
+        }
+        return out;
+      };
+      for (const v of this.scenario.views) {
+        for (const id of v.objects ?? []) {
+          const o = this.objectIndex.get(id);
+          for (const it of o?.interactions ?? []) {
+            if (it.verb !== 'move') continue;
+            for (const to of targets(it.then, [])) { link(v.id, to); link(to, v.id); }
+          }
+        }
+      }
+      this.neighbourIndex = idx;
+    }
+    return !!this.neighbourIndex.get(a)?.has(b);
+  }
+
+  /** The leg of the sweep under way, if a patrol is walking through some room right now. */
+  private patrolLeg(p: Patrol, t: number = this._clock): { sweep: number; stop: number } | null {
+    if (!this.patrolsEnabled || !p.period || !p.stops?.length || !this.evaluateConditions(p.when)) return null;
+    const first = p.first_at ?? p.period;
+    if (t < first) return null;
+    const sweep = Math.floor((t - first) / p.period);
+    const u = t - (first + sweep * p.period);
+    const stop = p.stops.findIndex((s) => u >= s.enter && u < s.leave);
+    return stop < 0 ? null : { sweep, stop };
+  }
+
   /**
    * Move the game clock on by `seconds` and run the patrols: a warning (sound + message) when one is
    * about to come into the player's room, its enter sound when it does, and on_caught when it has had
@@ -513,6 +554,18 @@ export class ScenarioEngine {
     let changed = false;
     for (const p of this.scenario.patrols ?? []) {
       const st = this.patrolStatus(p);
+      // Heard through the wall: it comes into a room next door to the player's.
+      if (p.nearby_sound && !st) {
+        const leg = this.patrolLeg(p);
+        const key = leg && `${p.id}:${leg.sweep}:${leg.stop}`;
+        if (leg && key && !this.patrolHeard.has(key)) {
+          this.patrolHeard.add(key);
+          if (p.stops[leg.stop].views.some((v) => this.isNeighbour(v, this._currentViewId))) {
+            this._pendingSounds.push(this.scenario.setting.sounds?.[p.nearby_sound] ?? p.nearby_sound);
+            changed = true;
+          }
+        }
+      }
       if (!st) { this.patrolSeen[p.id] = 0; continue; }
       const key = `${p.id}:${st.sweep}:${st.stop}`;
       const stop = p.stops[st.stop];

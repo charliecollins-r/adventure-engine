@@ -264,7 +264,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     : 0;
 
   // Delayed effects (delay_then) change state between clicks: redraw when they fire.
-  useEffect(() => { engine.setChangeListener(bump); return () => engine.setChangeListener(null); }, [engine, bump]);
+  // A delayed traverse (a fall, a second leg of a stunt) starts here too, and delayed sounds play.
+  useEffect(() => { engine.setChangeListener(() => onEngineChangeRef.current()); return () => engine.setChangeListener(null); }, [engine]);
 
   const hasIntroVoice = !!scenario.setting.sounds?.intro_voice;
   const voiceDurationValid = introVoiceDurationMs != null && introVoiceDurationMs > 0;
@@ -551,6 +552,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     [engine, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
   const traverseRef = useRef<(r: { path: Pt[]; seconds?: number; sprite_set?: string; end: Pt & { facing?: Facing } }) => void>(() => {});
+  const onEngineChangeRef = useRef<() => void>(() => {});
+  onEngineChangeRef.current = () => {
+    const route = engine.takeTraverse();
+    if (route) traverseRef.current(route);
+    playPendingSounds();
+    bump();
+  };
   const runRef = useRef(runInteraction);
   runRef.current = runInteraction;
 

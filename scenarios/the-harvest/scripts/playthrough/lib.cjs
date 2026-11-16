@@ -54,8 +54,13 @@ async function act(g, verb, x, y, label) {
   return t;
 }
 async function openInv(g) {
-  const open = await g.p.$('button[title*="right-click to examine"]');
-  if (!open) { const t = await g.p.$('button:has-text("Items")'); if (t) await t.click(); await g.p.waitForTimeout(300); }
+  // The tray can open by itself (an item just arrived) while we look: let renders settle, then trust the toggle's arrow.
+  await g.p.waitForTimeout(200);
+  for (let i = 0; i < 4; i++) {
+    const closed = await g.p.$('button:has-text("▸ Items")');
+    if (!closed) return;
+    await closed.click(); await g.p.waitForTimeout(400);
+  }
 }
 async function selectItem(g, name) {
   await dismiss(g); await openInv(g);

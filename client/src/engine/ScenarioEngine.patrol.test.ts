@@ -27,7 +27,7 @@ function scenario(extra: Record<string, unknown> = {}): Scenario {
       ]),
     ],
     patrols: [{
-      id: 'bot', period: 120, warn_seconds: 5, warn_message: 'Clicking, coming closer.', warn_sound: 'skitter', enter_sound: 'skitter',
+      id: 'bot', period: 120, nearby_sound: 'far', warn_seconds: 5, warn_message: 'Clicking, coming closer.', warn_sound: 'skitter', enter_sound: 'skitter',
       notice_seconds: 1.5,
       stops: [
         { views: ['a'], enter: 0, leave: 5, path: [[900, 700], [300, 450]] },
@@ -139,6 +139,19 @@ describe('game clock and patrols', () => {
     const quiet = new ScenarioEngine(s);
     run(quiet, 130);
     expect(quiet.isGameOver()).toBe(false);
+  });
+
+  it('you hear it from next door when it comes into a neighbouring room, once per leg', () => {
+    const e = new ScenarioEngine(scenario());
+    e.interact('to_b', 'move'); e.interact('to_side', 'move'); // side is next door to b only
+    run(e, 120.2); // it comes into a: not next door
+    expect(e.getPendingSounds()).not.toContain('far');
+    run(e, 5); // 125.2: it comes into b, next door
+    expect(e.getPendingSounds().filter((x) => x === 'far')).toHaveLength(1);
+    e.clearPendingSounds();
+    run(e, 3);
+    expect(e.getPendingSounds()).not.toContain('far');
+    expect(e.isGameOver()).toBe(false);
   });
 
   it('undo puts the clock back with everything else', () => {

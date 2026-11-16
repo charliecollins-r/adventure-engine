@@ -53,6 +53,25 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   const leave = await L.A(g, 'move', 'nav_act1_stasis_hold_to_act1_containment_corridor'); await g.p.waitForTimeout(600);
   if ((await view()) !== 'act1_containment_corridor') fail(`could not leave: ${leave}`); else ok('and walk out of the room');
 
+  // Jumping the gap without the line: he leaps, falls out of view, and only then does the death screen come up
+  // (a fresh game: the line is not rigged)
+  await g.b.close();
+  const j = await L.start(); g.b = j.b; g.p = j.p; g.vp = j.vp; g.verb = j.verb;
+  await L.setVerb(g, 'hand');
+  const gap = await g.p.$('[data-object-id="platform_gap"]'); const gb = await gap.boundingBox();
+  await g.p.mouse.click(gb.x + gb.width / 2, gb.y + gb.height / 2);
+  let sawFall = false, overEarly = false;
+  for (let i = 0; i < 40 && !sawFall; i++) {
+    await g.p.waitForTimeout(100);
+    sawFall = await g.p.evaluate(() => [...document.querySelectorAll('div')].some((d) => /character_rope/.test(d.style.backgroundImage)));
+    if (!sawFall && await g.p.evaluate(() => window.__engine.isGameOver())) overEarly = true;
+  }
+  if (!sawFall) fail('no falling pose after the leap'); else ok('he leaps and falls (arms up)');
+  if (overEarly) fail('death screen before the fall');
+  await g.p.waitForTimeout(3000);
+  const dead = await g.p.evaluate(() => window.__engine.getGameOverResult()?.title);
+  if (dead !== 'Look Before You Leap') fail(`after the fall: ${dead}`); else ok('then the death screen');
+
   console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL ROPE TESTS PASSED');
   await g.b.close(); process.exit(failures ? 1 : 0);
 })();

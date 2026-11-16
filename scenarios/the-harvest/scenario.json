@@ -82,7 +82,8 @@
       "sting_earth": "audio/sting_earth.mp3",
       "death": "audio/death_sting.mp3",
       "intro_voice": "audio/voice/ambient_stasis.mp3",
-      "patrol": "audio/patrol_skitter.mp3"
+      "patrol": "audio/patrol_skitter.mp3",
+      "patrol_far": "audio/patrol_skitter_far.mp3"
     },
     "wake": {
       "hold_seconds": 1.8,
@@ -30181,13 +30182,67 @@
           "then": [
             {
               "type": "message",
-              "text": "You brace yourself and leap across the gap. For a moment you're airborne — then your feet hit the far edge. The surface is slick with drainage fluid. Your boots slide. Your hands claw at nothing. You fall backward into the drainage pit, tumbling through the dark until the impact drives the air from your lungs. The last thing you see is the amber fluid closing over your face."
+              "text": "You back up, take a run at it and leap. For one glorious moment you're flying."
             },
             {
-              "type": "game_over",
-              "title": "Look Before You Leap",
-              "reason": "The Choir thank you for returning yourself to the recycling system. Next time, try bringing something to hold on to.",
-              "result": "lose"
+              "type": "traverse",
+              "path": [
+                [500, 714],
+                [535, 662],
+                [575, 626],
+                [615, 610],
+                [660, 616]
+              ],
+              "seconds": 0.8,
+              "sprite_set": "walk"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 0.8,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "Then you're not."
+                },
+                {
+                  "type": "traverse",
+                  "path": [
+                    [660, 474],
+                    [664, 520],
+                    [668, 620],
+                    [672, 800],
+                    [674, 980]
+                  ],
+                  "seconds": 1.4,
+                  "sprite_set": "rope"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 1.5,
+                  "effects": [
+                    {
+                      "type": "play_sound",
+                      "sound": "drop"
+                    },
+                    {
+                      "type": "delay_then",
+                      "seconds": 0.5,
+                      "effects": [
+                        {
+                          "type": "message",
+                          "text": "You fall into the drainage pit, tumbling through the dark until the impact drives the air from your lungs. The last thing you see is the amber fluid closing over your face."
+                        },
+                        {
+                          "type": "game_over",
+                          "title": "Look Before You Leap",
+                          "reason": "The Choir thank you for returning yourself to the recycling system. Next time, try bringing something to hold on to.",
+                          "result": "lose"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -30308,7 +30363,12 @@
           "then": []
         }
       ],
-      "hiding_spot": false
+      "hiding_spot": false,
+      "walk_to": {
+        "x": 500,
+        "y": 714,
+        "facing": "right"
+      }
     },
     {
       "id": "walkway_railing",
@@ -44952,7 +45012,7 @@
         }
       ],
       "period": 120,
-      "first_at": 120,
+      "first_at": 60,
       "warn_seconds": 5,
       "warn_sound": "patrol",
       "enter_sound": "patrol",
@@ -45042,7 +45102,8 @@
           "title": "Caught",
           "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every two minutes, and you can hear them coming. Watch the clock, leave the room, or hide."
         }
-      ]
+      ],
+      "nearby_sound": "patrol_far"
     }
   ]
 }
