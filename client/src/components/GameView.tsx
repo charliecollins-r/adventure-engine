@@ -250,6 +250,26 @@ export function GameView({
     />
   );
 
+  // Patrol units walking through this room (scenario.patrols), scaled by the floor's depth like the character.
+  const patrolEls = engine.getPatrolSightings().filter((p) => p.sprite).map((p) => (
+    <SpriteObject
+      key={`patrol:${p.id}`}
+      patrolId={p.id}
+      passThrough
+      opacity={p.opacity}
+      sprite={{ ...p.sprite!, scale: p.sprite!.scale * (layered ? depthScaleAt(walkArea, p.y) : 1), flip: p.flip !== !!p.sprite!.flip }}
+      shadow={p.shadow}
+      scenarioId={scenarioId}
+      x={p.x}
+      y={p.y}
+      scaleX={SCALE_X}
+      scaleY={SCALE_Y}
+      cursor={cursor}
+      onClick={() => {}}
+      layerZ={layered ? depthZ(p.y) : 5}
+    />
+  ));
+
   const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (onCycleVerb) onCycleVerb();
@@ -289,13 +309,15 @@ export function GameView({
       <AmbientCanvas lighting={engine.getLighting(view)} width={VIEW_WIDTH} height={VIEW_HEIGHT} />
 
       {/* Character sprite (classic views); walking views draw it in the depth layer below */}
-      {!layered && characterEl}
+      {!layered && !engine.isHiding() && characterEl}
+      {!layered && patrolEls}
 
       {/* Walking views: sprite objects + character, sorted by base. The layer itself takes no clicks. */}
       {layered && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 4, pointerEvents: 'none' }}>
           {objects.filter((o) => o.sprite).map(spriteEl)}
-          {characterEl}
+          {!engine.isHiding() && characterEl}
+          {patrolEls}
         </div>
       )}
 

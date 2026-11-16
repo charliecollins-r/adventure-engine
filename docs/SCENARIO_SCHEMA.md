@@ -831,7 +831,8 @@ Conditions gate when interactions, events, and phase transitions fire.
 | `time_after` | `seconds` | Seconds since game start > value *(not implemented: no game clock yet, so the engine treats it as true)* |
 | `time_before` | `seconds` | Seconds since game start < value *(not implemented, treated as true)* |
 | `item_count` | `count` | Player has >= count items in inventory |
-| `is_hiding` | — | Player is currently in a hiding spot |
+| `is_hiding` | — | Player is currently in a hiding spot (`start_hiding`; any HAND, MOVE or item use, or walking, ends it) |
+| `patrol_near` | `patrol` | That patrol is about to come into, or is in, the room the player is in (see [Patrols](#patrols-and-the-game-clock)) |
 | `not_hiding` | — | Player is NOT hiding |
 | `killer_is` | `state` | Killer AI is in this state *(stub: always false until the killer AI exists)* |
 | `widget_solved` | `widget` | The puzzle widget with this id has been solved |
@@ -1324,6 +1325,59 @@ Everything below is plain JSON; The Harvest Act 1 uses all of it (see `scenarios
 5. **The same guard blocks rooms.** Show a guard object on a nav hotspot's view and give the nav's Move interaction a `when: [flag_is guard_here]` variant that refuses ("The drone's lens sweeps the doorway. Not now.") before the normal one. Clear the flag from an event, a distraction item, or another room.
 
 The soft-lock search resets noise to 0 between states, so noise-based deaths never show up as soft-locks; keep noise logic out of goal-critical interactions so the search stays small.
+
+### Patrols and the game clock
+
+A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on the game clock. The player can learn its rhythm (turn on the clock display), hear it coming, and get out of its way or hide. It is a cheap, readable source of urgency that needs no AI.
+
+**The game clock** counts seconds of play. It runs only while the player is in control: it stops during the intro and the wake-up, for dialogue, puzzle widgets and close-up overlays, on death screens and while the browser tab is hidden. `"setting": { "clock": { "show": true } }` shows it in the title bar as `Time m:ss`. Undo puts the clock back with everything else.
+
+```json
+"patrols": [{
+  "id": "hunter_patrol",
+  "when": [ { "type": "flag_not", "flag": "alarm_hunters_out" } ],
+  "period": 120, "first_at": 120, "warn_seconds": 5,
+  "warn_sound": "patrol", "enter_sound": "patrol", "notice_seconds": 1.5,
+  "warn_message": "Metal legs, clicking closer. Something is coming this way.",
+  "sprite": { "file": "sprites/hunter_drone.png", "frame_width": 237, "frame_height": 600, "columns": 4, "rows": 1, "frame_rate": 4, "scale": 0.3 },
+  "shadow": { "width": 56, "height": 10, "opacity": 0.5, "offset_y": 22 },
+  "stops": [
+    { "views": ["act1_stasis_hold", "act1_cataloguer_closeup"], "enter": 0, "leave": 5, "path": [[985, 712], [560, 650], [285, 448]],
+      "warn_message": "...Get out of its way, or get back in your pod.", "safe_when": [ { "type": "flag_is", "flag": "on_far_ledge" } ] },
+    { "views": ["act1_containment_corridor"], "enter": 5, "leave": 10, "path": [[465, 745], [470, 600], [585, 392]] },
+    { "views": ["act1_feeding_station"], "enter": 10, "leave": 15, "path": [[515, 745], [745, 700], [790, 440]] },
+    { "views": ["act1_specimen_archive"], "enter": 15, "leave": 20, "path": [[500, 745], [420, 650], [300, 612]], "fade_out": true }
+  ],
+  "on_caught": [ { "type": "game_over", "result": "lose", "title": "Caught", "reason": "..." } ]
+}]
+```
+
+| Field | Meaning |
+|-------|---------|
+| `period` | Seconds between the starts of two sweeps |
+| `first_at` | Clock time of the first sweep (default: one `period` in) |
+| `when` | It patrols only while these conditions hold (switch it off for a chase, an alarm, an act change) |
+| `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
+| `warn_seconds` | Warning before it comes into the player's room (default 5): `warn_sound` plays and the room's `warn_message` shows |
+| `enter_sound` | Plays when it comes into the player's room |
+| `notice_seconds` | How long it takes to notice a player who is in its room and not hiding (default 1.5), then `on_caught` runs |
+| `sprite`, `shadow` | How it is drawn while it walks through the player's room (scaled by the floor's `depth_scale`; it never takes clicks) |
+
+Rules that keep it fair (and soft-lock free):
+
+- **Every room on the route needs a way out of it or a hiding spot.** Check the timing: a room whose only exit leads into the room the patrol is in *now* is a trap unless it has a hiding spot (The Harvest's archive is a dead end behind the feeding station, so it has the benches).
+- **Hiding spots answer to `patrol_near`.** Put the hiding interaction first on the object, so it wins while the patrol is close and the ordinary interaction runs the rest of the time:
+
+```json
+{ "verb": "hand", "when": [ { "type": "patrol_near", "patrol": "hunter_patrol" } ],
+  "then": [ { "type": "message", "text": "You climb back into your pod... Hold still." }, { "type": "start_hiding" } ] }
+```
+
+  While hiding, the player is not drawn and the patrol walks past. Any HAND, MOVE or item use, or walking, ends hiding; LOOK and TALK do not.
+- **Teach it in the death text.** "They pass every two minutes, and you can hear them coming. Watch the clock, leave the room, or hide." With Undo, a death costs a few seconds.
+- Patrols run on real time, which the soft-lock search does not model; keep them out of goal-critical logic (they only kill, and death has Undo).
+
+Tests: `client/src/engine/ScenarioEngine.patrol.test.ts`, browser `scenarios/the-harvest/scripts/playthrough/patrol.cjs` (other browser suites load with `?noPatrols`).
 
 
 

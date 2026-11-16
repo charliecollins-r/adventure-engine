@@ -207,6 +207,7 @@ An empty `when` array always passes — unconditional interactions fire regardle
 | `all_of` | Logical AND — all sub-conditions must pass | `conditions[]` | Implemented |
 | `any_of` | Logical OR — at least one sub-condition must pass | `conditions[]` | Implemented |
 | `widget_solved` | A puzzle widget has been solved | `widget` | Implemented |
+| `patrol_near` | A patrol is about to come into, or is in, the player's room | `patrol` | Implemented |
 | `killer_is` | Killer AI is in a specific state | *(stub)* | **Stub — returns `false`** |
 | `time_after` / `time_before` | Game clock past / before a time | *(not read)* | **Not implemented** (unknown types fall through to `true`) |
 
@@ -361,6 +362,10 @@ The soft-lock search models an open widget with three actions: the correct entry
 ### Scenario Validator (`tools/validate-scenario.mjs`)
 
 Static checks for mistakes that parse fine but silently break play. It scans for duplicate keys with its own tokenizer, because `JSON.parse` keeps the last duplicate. It also flags `use_item` interactions with no `item` (because of the first-match rule above they can never fire), object IDs used where item IDs belong, unknown item/object/view references, ambient lights missing numeric fields, missing asset files, and off-canvas hotspots and sprite anchors. `--views <prefix>` scopes the object checks to one act.
+
+### Game Clock and Patrols
+
+`ScenarioEngine` keeps `_clock` (seconds of play). The engine never reads real time: `ScenarioPlayer` runs a `requestAnimationFrame` loop that calls `advanceClock(dt)` (dt capped at 0.25 s) while the player is in control, and stops it for the intro, the wake-up, dialogue, widgets, close-up overlays, game over and a hidden tab. `advanceClock` runs `scenario.patrols`: `patrolStatus()` works out, for the room the player is in, whether a patrol is approaching (within `warn_seconds` of a leg's `enter`) or here (between `enter` and `leave`) in the current or next sweep. On approach it queues `warn_sound` (a `setting.sounds` key or a path) and sets the warning message, once per leg; when it comes in it queues `enter_sound`; while it is here and the player is neither hiding nor covered by the leg's `safe_when`, a per-patrol timer counts up (at most 0.25 s per call) and at `notice_seconds` runs `on_caught`. It returns true when the UI should redraw (and play pending sounds). `getPatrolSightings()` gives GameView each patrol in the player's room with its position along its `path` (even pace), mirroring and fade; GameView draws it with `SpriteObject` (`passThrough`, scaled by `depth_scale`) and hides the character while `isHiding()`. Hiding ends on any non-LOOK/TALK interaction and when a walk starts (`stopHiding()`). The clock is part of `snapshot()`/`restore()`, so Undo after a patrol death rewinds time too. `patrolsEnabled = false` (the `?noPatrols` URL parameter) switches patrols off for tools and long browser tests. `time_after`/`time_before` still do not read the clock.
 
 ### Soft-Lock Search (`tools/softlock-search.mjs`)
 

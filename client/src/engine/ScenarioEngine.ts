@@ -16,7 +16,15 @@ import type {
   DialogueChoice,
   PuzzleWidget,
   WidgetSubmitResult,
+  Patrol,
+  ObjectSprite,
+  CharacterShadow,
 } from './types';
+
+/** A patrol unit walking through the room the player is in, for the UI to draw. */
+export interface PatrolSighting {
+  id: string; sprite?: ObjectSprite; shadow?: CharacterShadow; x: number; y: number; flip: boolean; opacity: number;
+}
 
 /** Opaque engine state from ScenarioEngine.snapshot(). */
 export interface EngineSnapshot {
@@ -25,7 +33,7 @@ export interface EngineSnapshot {
   gameOver: GameOverResult | null; phase: string | null; hiding: boolean; characterOverride: Partial<CharacterPlacement> | null;
   characterPos: StandPoint | null; posHistory: (StandPoint | null)[]; eventsFired: string[]; eventsActive: string[];
   widgetAttempts: Record<string, number>; solvedWidgets: Record<string, boolean>; equipped: [string, string][];
-  score: number; scoredIds: string[];
+  score: number; scoredIds: string[]; clock: number;
 }
 
 export class ScenarioEngine {
@@ -71,6 +79,16 @@ export class ScenarioEngine {
   private _traverse: { path: StandPoint[]; seconds?: number; sprite_set?: string; end: StandPoint } | null = null;
   /** play_animation counters per object: a change restarts that object's sprite from its first frame. */
   private animationRuns: Record<string, number> = {};
+  /** Seconds of play (setting.clock); advanced by the UI with advanceClock(). */
+  private _clock = 0;
+  /** Patrol warnings already given ("patrol:sweep:stop"), so each is given once. */
+  private patrolWarned = new Set<string>();
+  /** Patrols that have come into the player's room on this leg ("patrol:sweep:stop"). */
+  private patrolEntered = new Set<string>();
+  /** Seconds each patrol has had the player in plain sight. */
+  private patrolSeen: Record<string, number> = {};
+  /** Tools (tests, the soft-lock search) can switch patrols off. */
+  patrolsEnabled = true;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -387,6 +405,8 @@ export class ScenarioEngine {
     }
 
     const actualVerb = verb === 'use' && itemId ? 'use_item' : verb;
+    // Doing anything physical brings you out of hiding (looking and talking don't).
+    if (actualVerb !== 'look' && actualVerb !== 'talk') this._isHiding = false;
 
     let matched = this.findMatchingInteraction(obj.interactions, actualVerb, itemId);
 
@@ -447,6 +467,113 @@ export class ScenarioEngine {
   }
 
   getScore(): number { return this._score; }
+
+  // ── Game clock and patrols ──────────────────────────────────────────────
+
+  /** Seconds of play so far. */
+  getClock(): number { return this._clock; }
+
+  isHiding(): boolean { return this._isHiding; }
+
+  /** Come out of hiding (the player starts walking). */
+  stopHiding(): void { this._isHiding = false; }
+
+  /** Where a patrol is in its cycle at time t, relative to the room the player is in. */
+  private patrolStatus(p: Patrol, t: number = this._clock): {
+    sweep: number; u: number; here: boolean; approaching: boolean; stop: number;
+  } | null {
+    if (!this.patrolsEnabled || !p.period || !p.stops?.length) return null;
+    if (!this.evaluateConditions(p.when)) return null;
+    const first = p.first_at ?? p.period;
+    if (t < first - (p.warn_seconds ?? 5)) return null;
+    const warn = p.warn_seconds ?? 5;
+    const view = this._currentViewId;
+    // The sweep under way, and the next one (whose warning may already have started).
+    for (const sweep of [Math.floor((t - first) / p.period), Math.floor((t - first) / p.period) + 1]) {
+      if (sweep < 0) continue;
+      const u = t - (first + sweep * p.period);
+      for (let i = 0; i < p.stops.length; i++) {
+        const s = p.stops[i];
+        if (!s.views.includes(view)) continue;
+        if (u >= s.enter && u < s.leave) return { sweep, u, here: true, approaching: false, stop: i };
+        if (u >= s.enter - warn && u < s.enter) return { sweep, u, here: false, approaching: true, stop: i };
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Move the game clock on by `seconds` and run the patrols: a warning (sound + message) when one is
+   * about to come into the player's room, its enter sound when it does, and on_caught when it has had
+   * him in plain sight for notice_seconds. Returns true when something changed that needs a redraw.
+   */
+  advanceClock(seconds: number): boolean {
+    if (this._gameOver || seconds <= 0) return false;
+    this._clock += seconds;
+    let changed = false;
+    for (const p of this.scenario.patrols ?? []) {
+      const st = this.patrolStatus(p);
+      if (!st) { this.patrolSeen[p.id] = 0; continue; }
+      const key = `${p.id}:${st.sweep}:${st.stop}`;
+      const stop = p.stops[st.stop];
+      if (st.approaching && !this.patrolWarned.has(key)) {
+        this.patrolWarned.add(key);
+        const text = stop.warn_message ?? p.warn_message;
+        if (text) this._messages = [text];
+        if (p.warn_sound) this._pendingSounds.push(this.scenario.setting.sounds?.[p.warn_sound] ?? p.warn_sound);
+        changed = true;
+      }
+      if (st.here) {
+        if (!this.patrolEntered.has(key)) {
+          this.patrolEntered.add(key);
+          this.patrolWarned.add(key);
+          if (p.enter_sound) this._pendingSounds.push(this.scenario.setting.sounds?.[p.enter_sound] ?? p.enter_sound);
+          changed = true;
+        }
+        const safe = this._isHiding || (stop.safe_when?.length ? this.evaluateConditions(stop.safe_when) : false);
+        this.patrolSeen[p.id] = safe ? 0 : (this.patrolSeen[p.id] ?? 0) + Math.min(seconds, 0.25); // a jump in the clock never counts as being seen for long
+        if (this.patrolSeen[p.id] >= (p.notice_seconds ?? 1.5)) {
+          this.patrolSeen[p.id] = 0;
+          const msgs = this.applyEffects(p.on_caught ?? []);
+          if (msgs.length) this._messages = msgs;
+          this.checkGameEndConditions();
+          return true;
+        }
+      } else {
+        this.patrolSeen[p.id] = 0;
+      }
+    }
+    return changed;
+  }
+
+  /** Patrol units walking through the player's room right now, with where to draw them. */
+  getPatrolSightings(): PatrolSighting[] {
+    const out: PatrolSighting[] = [];
+    for (const p of this.scenario.patrols ?? []) {
+      const st = this.patrolStatus(p);
+      if (!st?.here) continue;
+      const s = p.stops[st.stop];
+      const path = s.path?.length ? s.path : [[480, 600] as [number, number]];
+      const f = Math.max(0, Math.min(1, (st.u - s.enter) / Math.max(0.001, s.leave - s.enter)));
+      // even pace along the whole route
+      const lens = path.slice(1).map((q, i) => Math.hypot(q[0] - path[i][0], q[1] - path[i][1]));
+      const total = lens.reduce((a, b) => a + b, 0);
+      let d = f * total, x = path[0][0], y = path[0][1];
+      for (let i = 0; i < lens.length; i++) {
+        if (d <= lens[i] || i === lens.length - 1) {
+          const k = lens[i] ? Math.min(1, d / lens[i]) : 1;
+          x = path[i][0] + (path[i + 1][0] - path[i][0]) * k;
+          y = path[i][1] + (path[i + 1][1] - path[i][1]) * k;
+          break;
+        }
+        d -= lens[i];
+      }
+      const left = s.leave - st.u;
+      const opacity = s.fade_out ? Math.max(0, Math.min(1, left)) : 1;
+      out.push({ id: p.id, sprite: p.sprite, shadow: p.shadow, x, y, flip: !!s.flip, opacity });
+    }
+    return out;
+  }
 
   /** The transition sound the last set_view asked for, once (undefined = use the view's default). */
   /** The route of the last traverse effect (for the UI to animate), once. The engine has already moved him to its end. */
@@ -724,6 +851,11 @@ export class ScenarioEngine {
         return false;
       case 'widget_solved':
         return !!(c.widget && this.solvedWidgets[c.widget]);
+      case 'patrol_near': {
+        const p = this.scenario.patrols?.find((x) => x.id === c.patrol);
+        const st = p ? this.patrolStatus(p) : null;
+        return !!st && (st.approaching || st.here);
+      }
       default:
         return true;
     }
@@ -1015,7 +1147,7 @@ export class ScenarioEngine {
       gameOver: this._gameOver, phase: this._currentPhaseId, hiding: this._isHiding, characterOverride: this._characterOverride,
       characterPos: this._characterPos, posHistory: this.posHistory, eventsFired: [...this.eventsFired], eventsActive: [...this.eventsActive],
       widgetAttempts: this.widgetAttempts, solvedWidgets: this.solvedWidgets, equipped: [...this.equippedItems],
-      score: this._score, scoredIds: [...this.scoredIds],
+      score: this._score, scoredIds: [...this.scoredIds], clock: this._clock,
     });
   }
 
@@ -1028,6 +1160,7 @@ export class ScenarioEngine {
     this._characterPos = s.characterPos; this.posHistory = s.posHistory; this.eventsFired = new Set(s.eventsFired); this.eventsActive = new Set(s.eventsActive);
     this.widgetAttempts = s.widgetAttempts; this.solvedWidgets = s.solvedWidgets; this.equippedItems = new Map(s.equipped);
     this._score = s.score; this.scoredIds = new Set(s.scoredIds); this._transitionSound = undefined;
+    this._clock = s.clock ?? 0; this.patrolSeen = {};
     this._messages = []; this._pendingSounds = []; this._dialoguePrompt = null; this._dialogueChoices = [];
     this._activeWidgetId = null; this._closeupImage = null;
     this.epoch++;

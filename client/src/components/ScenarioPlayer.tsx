@@ -182,6 +182,13 @@ const styles: Record<string, CSSProperties> = {
   },
 };
 
+/** Seconds of play as m:ss (or h:mm:ss). */
+function formatClock(seconds: number): string {
+  const t = Math.floor(seconds);
+  const h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), sec = String(t % 60).padStart(2, '0');
+  return h ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
+}
+
 export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const engineRef = useRef<ScenarioEngine>(new ScenarioEngine(scenario));
   const [, setVersion] = useState(0);
@@ -196,6 +203,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       debug: params.has('debug') || isDev,
       isDev,
       forceTutorial: params.has('tutorial'),
+      noPatrols: params.has('noPatrols'),
     };
   })());
 
@@ -435,6 +443,31 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     engine.clearPendingSounds();
   }, [engine, playSound]);
 
+  // ── Game clock (setting.clock) and patrols (scenario.patrols) ─────────────
+  // The clock runs only while the player is in control: not during the intro or the wake-up, and it
+  // stops for dialogue, puzzle widgets, close-up overlays, death screens and a hidden tab.
+  useEffect(() => { if (dev.noPatrols) engine.patrolsEnabled = false; }, [engine, dev.noPatrols]);
+  const clockOn = !showIntro && (!standupSet || standingUp);
+  useEffect(() => {
+    if (!clockOn) return;
+    let last = performance.now();
+    let lastSecond = Math.floor(engine.getClock());
+    let frame = 0;
+    const step = (now: number) => {
+      const dt = Math.min(0.25, (now - last) / 1000);
+      last = now;
+      const paused = document.hidden || engine.isGameOver() || !!engine.getDialogue() || !!engine.getActiveWidget() || !!engine.getCloseupImage();
+      if (!paused) {
+        if (engine.advanceClock(dt)) { playPendingSounds(); bump(); }
+        else if (engine.getPatrolSightings().length || Math.floor(engine.getClock()) !== lastSecond) bump();
+        lastSecond = Math.floor(engine.getClock());
+      }
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [clockOn, engine, bump, playPendingSounds]);
+
   const prevViewRef = useRef(engine.currentViewId);
   useEffect(() => {
     const currentView = engine.currentViewId;
@@ -668,6 +701,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       if (walkRef.current?.locked) return true;   // crossing a rope: ignore clicks until he's across
       const area = walkableNow();
       if (!area) return false;
+      engine.stopHiding(); // walking brings him out of hiding
       const placed = engine.getCharacterPlacement()!;
       const from = walkRef.current && pose?.x !== undefined && pose?.y !== undefined ? { x: pose.x, y: pose.y } : { x: placed.x, y: placed.y };
       cancelAnimationFrame(rafRef.current);
@@ -1016,6 +1050,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           <NoiseIndicator level={noiseLevel} />
           {(scenario.setting.max_score || engine.getScore() > 0) && (
             <span style={styles.score} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</span>
+          )}
+          {scenario.setting.clock?.show && (
+            <span style={styles.score} data-clock title="Time played">Time {formatClock(engine.getClock())}</span>
           )}
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>

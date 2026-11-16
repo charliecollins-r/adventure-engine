@@ -1,7 +1,7 @@
 // Runs every browser suite one after another (they share the dev server, so never in parallel).
 // Usage: node run-all.cjs   (dev server on :5173)
 const { spawnSync } = require('child_process');
-const suites = ['regression', 'intro', 'alarm', 'rope', 'prisoner', 'features', 'noise', 'walk', 'full'];
+const suites = ['regression', 'intro', 'alarm', 'rope', 'prisoner', 'features', 'noise', 'patrol', 'walk', 'full'];
 const results = [];
 for (const s of suites) {
   const t0 = Date.now();

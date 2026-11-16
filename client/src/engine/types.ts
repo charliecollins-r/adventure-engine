@@ -85,6 +85,9 @@ export interface Setting {
   };
   /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
   tutorial?: Tutorial;
+  /** The game clock: seconds of play (it stops during the intro, dialogue, puzzle widgets, close-ups and death screens).
+   *  Patrols run on it. `show: true` puts the elapsed time (m:ss) in the title bar, so players can learn a patrol's rhythm. */
+  clock?: { show?: boolean };
 }
 
 /** A point or offset in the 960x720 authoring space. */
@@ -303,6 +306,8 @@ export interface Condition {
   count?: number;
   conditions?: Condition[];
   widget?: string;
+  /** patrol_near: the patrol's id. True while it is about to come into, or is in, the room the player is in. */
+  patrol?: string;
 }
 
 export interface DialogueChoice {
@@ -651,6 +656,53 @@ export interface Scenario {
   hints?: Hint[];
   solution_paths?: SolutionPath[];
   character?: CharacterConfig;
+  /** Patrolling units on the game clock (setting.clock): each sweeps a fixed route of rooms on a fixed cycle. */
+  patrols?: Patrol[];
+}
+
+/** One leg of a patrol: the room it sweeps and when. */
+export interface PatrolStop {
+  /** The room (and any close-ups that belong to it): being in any of these views counts as being in its way. */
+  views: string[];
+  /** Seconds into the sweep it comes in and leaves. */
+  enter: number;
+  leave: number;
+  /** Its route across the room (960x720 feet positions), walked at an even pace from enter to leave. */
+  path?: PointXY[];
+  /** Draw it mirrored on this leg (a sheet drawn facing right then walks left). */
+  flip?: boolean;
+  /** Fade it out over the last second of the leg (it ends its sweep here). */
+  fade_out?: boolean;
+  /** Overrides the patrol's warn_message for this room. */
+  warn_message?: string;
+  /** Besides hiding: while these hold you are safe from it in this room (you are up on a ledge it passes under). */
+  safe_when?: Condition[];
+}
+
+export interface Patrol {
+  id: string;
+  name?: string;
+  /** It patrols only while these hold. */
+  when?: Condition[];
+  /** Seconds between the starts of two sweeps. */
+  period: number;
+  /** Game-clock time of the first sweep. Default: one period in. */
+  first_at?: number;
+  stops: PatrolStop[];
+  /** Seconds of warning before it comes into the room you are in. Default 5. */
+  warn_seconds?: number;
+  /** Played (setting.sounds key or file) when it is about to come into your room. */
+  warn_sound?: string;
+  warn_message?: string;
+  /** Played when it comes into your room. */
+  enter_sound?: string;
+  /** Seconds it takes to notice you once you are in its room and not hidden. Default 1.5. */
+  notice_seconds?: number;
+  /** How it looks while it walks through your room. */
+  sprite?: ObjectSprite;
+  shadow?: CharacterShadow;
+  /** What happens when it notices you (usually a game_over). */
+  on_caught: Effect[];
 }
 
 export interface GameOverResult {

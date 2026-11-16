@@ -6,7 +6,7 @@ by overwriting the file at the same path (prompts: docs/ART_GUIDE.md and the sce
     cd scenarios/the-harvest && python3 scripts/make_placeholder_assets.py      # needs NumPy, Pillow and ffmpeg
 
 Writes: audio/music_stasis.mp3, music_explore.mp3, music_ducts.mp3, sting_earth.mp3, crawl.mp3, drop_thud.mp3,
-score.mp3, death_sting.mp3; items/wedding_ring.png, items/crew_datapad.png.
+score.mp3, death_sting.mp3, patrol_skitter.mp3 (the hunter patrol coming closer); items/wedding_ring.png, items/crew_datapad.png.
 Deterministic (seeded).
 """
 import math, subprocess, sys, tempfile, os, wave
@@ -96,8 +96,20 @@ def death_sting():  # a death: a heavy low hit, then a dissonant cluster sliding
 def score():
     a, b = bell(784, 0.7, 4), bell(1046.5, 0.9, 3.5); x = np.zeros(int(1.2 * SR)); x[:len(a)] += a; i = int(0.12 * SR); x[i:i + len(b)] += b; return x
 
+def patrol_skitter():  # the cataloguer patrol coming closer: many metal feet ticking, a servo whine, getting louder
+    dur = 3.6; tt = t(dur); n = len(tt); x = np.zeros(n)
+    pos = 0.0
+    while pos < dur - 0.05:  # leg ticks at an uneven gallop, quickening
+        i = int(pos * SR); m = min(int(0.03 * SR), n - i); k = np.arange(m) / SR
+        tick = bandpass(rng.normal(size=m), 1800, 6500) * np.exp(-k * 260) + 0.6 * np.sin(2 * np.pi * rng.uniform(2200, 3400) * k) * np.exp(-k * 180)
+        x[i:i + m] += tick * rng.uniform(0.5, 1.0)
+        pos += rng.choice([0.055, 0.07, 0.09, 0.12]) * (1 - 0.35 * pos / dur)
+    whine = np.sin(2 * np.pi * (520 + 90 * np.sin(2 * np.pi * 1.7 * tt)) * tt) * 0.12 + np.sin(2 * np.pi * 1040 * tt) * 0.04
+    x = x * 0.9 + whine * (0.4 + 0.6 * tt / dur)
+    return lowpass(x * (0.25 + 0.75 * (tt / dur) ** 1.4) * np.minimum(1, (dur - tt) / 0.15), 9000)
+
 os.makedirs('audio', exist_ok=True)
-for name, fn in [('music_stasis', music_stasis), ('music_explore', music_explore), ('music_ducts', music_ducts), ('sting_earth', sting_earth),
+for name, fn in [('patrol_skitter', patrol_skitter), ('music_stasis', music_stasis), ('music_explore', music_explore), ('music_ducts', music_ducts), ('sting_earth', sting_earth),
                  ('crawl', crawl), ('drop_thud', drop_thud), ('score', score), ('death_sting', death_sting)]:
     write_mp3(f'audio/{name}.mp3', fn(), '96k' if name.startswith('music') else '128k')
 

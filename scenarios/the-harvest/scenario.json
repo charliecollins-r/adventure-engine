@@ -81,7 +81,8 @@
       "score": "audio/score.mp3",
       "sting_earth": "audio/sting_earth.mp3",
       "death": "audio/death_sting.mp3",
-      "intro_voice": "audio/voice/ambient_stasis.mp3"
+      "intro_voice": "audio/voice/ambient_stasis.mp3",
+      "patrol": "audio/patrol_skitter.mp3"
     },
     "wake": {
       "hold_seconds": 1.8,
@@ -825,7 +826,10 @@
         ],
         "tail": 1.5
       }
-    ]
+    ],
+    "clock": {
+      "show": true
+    }
   },
   "character": {
     "sprite_sets": {
@@ -11909,6 +11913,24 @@
       "initial_state": "open",
       "initially_visible": true,
       "interactions": [
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "patrol_near",
+              "patrol": "hunter_patrol"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You climb back into your cracked pod, pull your knees up and go limp in the drained fluid, a specimen like all the others. Hold still."
+            },
+            {
+              "type": "start_hiding"
+            }
+          ]
+        },
         {
           "verb": "hand",
           "when": [
@@ -30847,6 +30869,24 @@
       "initially_visible": true,
       "interactions": [
         {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "patrol_near",
+              "patrol": "hunter_patrol"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You drop flat behind the benches and press your cheek to the cold floor. Don't breathe."
+            },
+            {
+              "type": "start_hiding"
+            }
+          ]
+        },
+        {
           "verb": "look",
           "when": [],
           "then": [
@@ -30866,7 +30906,8 @@
             }
           ]
         }
-      ]
+      ],
+      "hiding_spot": true
     },
     {
       "id": "enclosure_monitors",
@@ -44898,6 +44939,110 @@
       ],
       "total_noise_estimate": 208,
       "estimated_time_seconds": 7200
+    }
+  ],
+  "patrols": [
+    {
+      "id": "hunter_patrol",
+      "name": "Hunter drone on its rounds",
+      "when": [
+        {
+          "type": "flag_not",
+          "flag": "alarm_hunters_out"
+        }
+      ],
+      "period": 120,
+      "first_at": 120,
+      "warn_seconds": 5,
+      "warn_sound": "patrol",
+      "enter_sound": "patrol",
+      "notice_seconds": 1.5,
+      "warn_message": "A low hum and the tick of jointed legs, coming closer. Something is coming this way.",
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.3
+      },
+      "shadow": {
+        "width": 56,
+        "height": 10,
+        "opacity": 0.5,
+        "offset_y": 22
+      },
+      "stops": [
+        {
+          "views": [
+            "act1_stasis_hold",
+            "act1_cataloguer_closeup"
+          ],
+          "enter": 0,
+          "leave": 5,
+          "path": [
+            [985, 712],
+            [560, 650],
+            [285, 448]
+          ],
+          "warn_message": "A hum and a fast tick of metal legs from the far side of the hold: a hunter drone on its rounds, coming this way. Get out of its way, or get back in your pod.",
+          "safe_when": [
+            {
+              "type": "flag_is",
+              "flag": "on_far_ledge"
+            }
+          ]
+        },
+        {
+          "views": [
+            "act1_containment_corridor"
+          ],
+          "enter": 5,
+          "leave": 10,
+          "path": [
+            [465, 745],
+            [470, 600],
+            [585, 392]
+          ],
+          "warn_message": "The hunter drone's legs, ticking up from the Stasis Hold. Get out of the corridor."
+        },
+        {
+          "views": [
+            "act1_feeding_station"
+          ],
+          "enter": 10,
+          "leave": 15,
+          "path": [
+            [515, 745],
+            [745, 700],
+            [790, 440]
+          ],
+          "warn_message": "The hunter drone, ticking along the corridor towards you. Get out of its path."
+        },
+        {
+          "views": [
+            "act1_specimen_archive"
+          ],
+          "enter": 15,
+          "leave": 20,
+          "path": [
+            [500, 745],
+            [420, 650],
+            [300, 612]
+          ],
+          "fade_out": true,
+          "warn_message": "The hunter drone is at the archive door. There's nowhere to run in here: hide."
+        }
+      ],
+      "on_caught": [
+        {
+          "type": "game_over",
+          "result": "lose",
+          "title": "Caught",
+          "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every two minutes, and you can hear them coming. Watch the clock, leave the room, or hide."
+        }
+      ]
     }
   ]
 }

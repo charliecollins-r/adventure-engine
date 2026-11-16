@@ -732,9 +732,12 @@ Conditions gate when interactions, events, and phases fire. A `when` array is AN
 | `noise_below` | `threshold` | Noise level < threshold | `{"type": "noise_below", "threshold": 20}` |
 | `item_count` | `count` | Player has >= count items | `{"type": "item_count", "count": 3}` |
 | `is_hiding` | — | Player is hiding | `{"type": "is_hiding"}` |
+| `patrol_near` | `patrol` | That patrol is about to come into, or is in, the player's room | `{"type": "patrol_near", "patrol": "hunter_patrol"}` |
 | `not_hiding` | — | Player is NOT hiding | `{"type": "not_hiding"}` |
 | `widget_solved` | `widget` | A puzzle widget has been solved | `{"type": "widget_solved", "widget": "vault_lock"}` |
 | `killer_is` | `state` | Killer AI is in named state (planned: always false for now) | `{"type": "killer_is", "state": "searching"}` |
+
+**Patrols (timed danger, no code).** A top-level `patrols` array makes a unit sweep a fixed route of rooms on the game clock: every `period` seconds it walks through each room in `stops` (its `enter`/`leave` seconds and a `path` to walk), warns the player `warn_seconds` before it comes into their room (a sound and a message), and runs `on_caught` if it finds them there and not hiding. Turn on `"setting": { "clock": { "show": true } }` so players can learn the rhythm. Every room on the route needs a way out or a hiding spot whose hiding interaction is gated by `patrol_near`. Full reference: SCENARIO_SCHEMA → "Patrols and the game clock".
 
 ### Composite Conditions
 

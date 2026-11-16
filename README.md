@@ -165,7 +165,7 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 
 **Audio & Atmosphere** — Per-room ambient audio with automatic crossfading on navigation, layered ambient tracks, sound effects on item pickup and room transitions (plus named sounds via `play_sound`), JSON-driven ambient lighting with pulsing light sources.
 
-**Advanced Features** — Hiding spots and a noise meter, hotspot animations (glimmer, pulse), 15 working condition types (`killer_is` is a stub until the killer AI exists) plus the `any_of` / `all_of` composites, 25+ effect types. Specified in the schema but not built yet: the AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), timed events, and the non-keypad puzzle widgets.
+**Advanced Features** — Hiding spots and a noise meter, patrols on a game clock (a unit sweeps a route of rooms every few minutes, you hear it coming, and you leave or hide), hotspot animations (glimmer, pulse), 16 working condition types (`killer_is` is a stub until the killer AI exists) plus the `any_of` / `all_of` composites, 25+ effect types. Specified in the schema but not built yet: the AI antagonist (patrol timers, noise thresholds, evidence awareness, personality), timed events, and the non-keypad puzzle widgets.
 
 ---
 
@@ -201,6 +201,7 @@ A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6
 - **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot, holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
 - **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → vent maze → airlock
+- **Hunter patrol** — every two minutes a hunter drone sweeps the rooms you start in; the title-bar clock lets you learn its rhythm, and you hear it 5 seconds before it comes in
 - **Glyph keypad** — an overlay puzzle widget with alien-glyph keys; wrong guesses make noise
 - **Verified solvable** — the soft-lock search finds no unwinnable state in Act 1
 - **Per-room ambient audio** — distinct soundscapes per room (lab ambience, industrial ventilation, eerie harmonics, dead silence in the morgue)

@@ -16,6 +16,12 @@ interface SpriteObjectProps {
   objectId?: string;
   /** Walking views: z-index in the shared depth layer (sorted by the sprite's base). */
   layerZ?: number;
+  /** Not clickable: clicks go through to whatever is behind it (a patrol walking past). */
+  passThrough?: boolean;
+  /** 0..1, for fading in or out. Default 1. */
+  opacity?: number;
+  /** Exposed as data-patrol for automated playtests. */
+  patrolId?: string;
 }
 
 export function SpriteObject({
@@ -30,6 +36,9 @@ export function SpriteObject({
   onClick,
   objectId,
   layerZ,
+  passThrough,
+  opacity,
+  patrolId,
 }: SpriteObjectProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -71,7 +80,8 @@ export function SpriteObject({
     backgroundRepeat: 'no-repeat',
     transform: sprite.flip ? 'scaleX(-1)' : undefined,
     imageRendering: 'auto',
-    pointerEvents: 'auto',
+    pointerEvents: passThrough ? 'none' : 'auto',
+    opacity: opacity ?? 1,
     zIndex: layerZ ?? 4,
     cursor,
     outline: 'none',
@@ -86,7 +96,7 @@ export function SpriteObject({
     height: `${shadow.height ?? 6}px`,
     borderRadius: '50%',
     background: `radial-gradient(ellipse, ${shColor} 0%, ${shColor} 40%, transparent 100%)`,
-    opacity: shadow.opacity ?? 0.6,
+    opacity: (shadow.opacity ?? 0.6) * (opacity ?? 1),
     transform: shadow.skew_x ? `skewX(${shadow.skew_x}deg)` : undefined,
     pointerEvents: 'none',
     zIndex: layerZ !== undefined ? 1 : 4,
@@ -100,7 +110,9 @@ export function SpriteObject({
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
-      <div data-object-hotspot data-object-id={objectId} style={style} onClick={handleClick} />
+      {passThrough
+        ? <div data-patrol={patrolId} style={style} />
+        : <div data-object-hotspot data-object-id={objectId} style={style} onClick={handleClick} />}
     </>
   );
 }

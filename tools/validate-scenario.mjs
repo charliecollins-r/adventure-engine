@@ -82,6 +82,7 @@ function conds(cs, ctx) {
     if (c.type === 'object_state' && !objIds.has(c.object)) errors.push(`${ctx}: condition on unknown object "${c.object}"`);
     if (c.type === 'widget_solved' && !widgetIds.has(c.widget)) errors.push(`${ctx}: widget_solved on unknown widget "${c.widget}"`);
     if (c.type === 'view_is' && !viewIds.has(c.view)) errors.push(`${ctx}: condition on unknown view "${c.view}"`);
+    if (c.type === 'patrol_near' && !(s.patrols || []).some((p) => p.id === c.patrol)) errors.push(`${ctx}: patrol_near on unknown patrol "${c.patrol}"`);
     if (c.type === 'flag_is' || c.type === 'flag_not') { if (!flagsRead.has(c.flag)) flagsRead.set(c.flag, ctx); }
     conds(c.conditions, ctx);
   }
@@ -192,6 +193,26 @@ for (const o of s.objects) if (scopeObjs.has(o.id)) for (const it of o.interacti
 for (const i of required) if (scopedItemRefs.has(i) && !granted.has(i)) warnings.push(`item "${i}" is required somewhere but nothing grants it`);
 // events: their effects set flags and show/hide objects; their triggers read flags
 for (const ev of s.events || []) { effs(ev.effects, `event ${ev.id}`); if (ev.trigger && ev.trigger.type !== 'timer') conds([ev.trigger], `event ${ev.id}`); }
+// patrols: rooms exist, legs make sense, sounds and sprites exist, and you're warned before each leg
+for (const p of s.patrols || []) {
+  const ctx = `patrol ${p.id}`;
+  if (!(p.period > 0)) errors.push(`${ctx}: "period" must be a positive number of seconds`);
+  if (!p.stops?.length) errors.push(`${ctx}: no stops`);
+  const snd = (k, f) => { if (k && !(s.setting?.sounds || {})[k]) asset(k, `${ctx} ${f}`); };
+  snd(p.warn_sound, 'warn_sound'); snd(p.enter_sound, 'enter_sound');
+  if (p.sprite) asset(p.sprite.file, `${ctx} sprite`);
+  if (!p.on_caught?.length) warnings.push(`${ctx}: no on_caught effects, so it never catches anyone`);
+  effs(p.on_caught, ctx); conds(p.when, ctx);
+  (p.stops || []).forEach((st, i) => {
+    const sc = `${ctx} stop #${i + 1}`;
+    for (const v of st.views || []) if (!viewIds.has(v)) errors.push(`${sc}: unknown view "${v}"`);
+    if (!(st.leave > st.enter)) errors.push(`${sc}: "leave" must be after "enter"`);
+    if (st.leave > p.period) errors.push(`${sc}: leaves at ${st.leave}s, after the next sweep starts (period ${p.period}s)`);
+    if (!st.warn_message && !p.warn_message && !p.warn_sound) warnings.push(`${sc}: no warning (warn_message or warn_sound): the player can't hear it coming`);
+    conds(st.safe_when, sc);
+    for (const q of st.path || []) if (!Array.isArray(q) || q.length !== 2) errors.push(`${sc}: path points must be [x, y]`);
+  });
+}
 for (const [f, ctx] of flagsRead) if (!flagsSet.has(f)) warnings.push(`flag "${f}" is read (${ctx}) but never set or initialised`);
 
 // ---- walkable areas (docs/WALKABLE_AREAS.md): uses the real engine + geometry, bundled ----

@@ -5,7 +5,8 @@ async function start(opts = {}) {
   const p = await b.newPage({ viewport: { width: 1400, height: 900 } });
   p.on('console', m => { if (m.type() === 'error') console.log('CONSOLE ERR', m.text()); });
   p.on('pageerror', e => console.log('PAGE ERR', e.message));
-  await p.goto('http://localhost:5173/?dev');
+  // patrols (scenario.patrols) are off unless a suite asks for them: long suites would get caught
+  await p.goto(opts.patrols ? 'http://localhost:5173/?dev' : 'http://localhost:5173/?dev&noPatrols');
   await p.waitForTimeout(2500);
   const vp = await p.evaluate(() => { const d = [...document.querySelectorAll('div')].find(d => { const r = d.getBoundingClientRect(); return Math.round(r.width) === 960 && Math.round(r.height) === 540; }); const r = d.getBoundingClientRect(); return { x: r.x, y: r.y }; });
   const g = { b, p, vp, verb: 'look', log: [] };
