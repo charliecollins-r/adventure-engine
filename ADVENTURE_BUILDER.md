@@ -1795,6 +1795,7 @@ The tool extracts text from these sources in your scenario JSON:
 | Category | Source | Typical Use |
 |----------|--------|-------------|
 | `intro` | `setting.intro_text[]` | Opening narration |
+| `intro` | `setting.intro_scenes[].lines[]` | Intro cinematic lines (the clip goes in each line's `voice`) |
 | `ambient` | `setting.ambient_text`, phase ambient text | Room descriptions |
 | `message` | Interaction `response` / `message` effects | All gameplay text |
 | `dialogue` | Messages inside `show_dialogue` choices | Conversation responses |

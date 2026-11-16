@@ -103,6 +103,26 @@ function effs(es, ctx) {
 }
 const asset = (p, ctx) => { if (p && !existsSync(join(dir, p))) errors.push(`${ctx}: missing file ${p}`); };
 
+// Intro cinematic: every file exists, lights are complete, sprites have frames, lines have text
+(s.setting?.intro_scenes || []).forEach((sc, i) => {
+  const ctx = `intro scene #${i + 1}`;
+  asset(sc.background, ctx); asset(sc.sound, ctx); asset(sc.loop, ctx); if (sc.music) asset(sc.music, ctx);
+  (sc.lines || []).forEach((l, j) => {
+    if (!l.text) errors.push(`${ctx} line #${j + 1}: no text`);
+    asset(l.voice, `${ctx} line #${j + 1}`);
+  });
+  (sc.sprites || []).forEach((sp, j) => {
+    asset(sp.file, `${ctx} sprite #${j + 1}`);
+    for (const k of ['frame_width', 'frame_height', 'columns', 'frame_rate', 'scale']) if (typeof sp[k] !== 'number') errors.push(`${ctx} sprite #${j + 1}: missing numeric "${k}"`);
+    if (!Array.isArray(sp.at) || sp.at.length !== 2) errors.push(`${ctx} sprite #${j + 1}: "at" must be [x, y]`);
+    (sp.frames || []).forEach(f => { if (f >= sp.columns) errors.push(`${ctx} sprite #${j + 1}: frame ${f} is past column ${sp.columns - 1}`); });
+  });
+  (sc.ambient_lighting?.lights || []).forEach((l, j) => {
+    for (const k of ['x', 'y', 'radius', 'pulse_speed', 'pulse_amount', 'alpha']) if (typeof l[k] !== 'number') errors.push(`${ctx}: ambient light #${j + 1} missing numeric "${k}"`);
+  });
+  if (!sc.background && !(sc.lines || []).length) warnings.push(`${ctx}: no background and no lines (an empty black screen)`);
+});
+
 if (!viewIds.has(s.setting?.initial_view)) errors.push(`setting.initial_view "${s.setting?.initial_view}" is not a view`);
 for (const v of scopeViews) {
   for (const o of v.objects) if (!objIds.has(o)) errors.push(`view ${v.id}: lists unknown object "${o}"`);

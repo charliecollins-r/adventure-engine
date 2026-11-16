@@ -353,6 +353,7 @@ adventure-engine/
 |           +-- KeypadWidget.tsx      Keypad puzzle widget overlay
 |           +-- CloseupOverlay.tsx    Detail image overlay
 |           +-- InventoryPanel.tsx    Item display and selection (+ ItemIcon.tsx)
+|           +-- IntroCinematic.tsx    Animated intro cinematic (setting.intro_scenes)
 |           +-- IntroSequence.tsx     Opening narration (+ EyeOpenTransition.tsx)
 |           +-- DevPanel.tsx          In-game developer tools panel (?dev)
 |           +-- NoiseIndicator.tsx    Noise level meter

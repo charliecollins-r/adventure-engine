@@ -5,6 +5,7 @@ import { ScenarioEngine, type EngineSnapshot } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
 import { GameView } from './GameView';
 import { IntroSequence } from './IntroSequence';
+import { IntroCinematic } from './IntroCinematic';
 import { InventoryPanel } from './InventoryPanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
@@ -202,7 +203,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const [showIntro, setShowIntro] = useState(() => {
     if (dev.skipIntro) return false;
-    return !!scenario.setting.intro_text?.length;
+    return !!(scenario.setting.intro_scenes?.length || scenario.setting.intro_text?.length);
   });
   const [eyeOpen, setEyeOpen] = useState(false);
   const [skipEyeTransition] = useState(() => dev.skipIntro);
@@ -904,6 +905,17 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     engine.dismissCloseup();
     bump();
   }, [engine, bump]);
+
+  if (showIntro && scenario.setting.intro_scenes?.length) {
+    return (
+      <IntroCinematic
+        scenes={scenario.setting.intro_scenes}
+        scenarioId={scenario.metadata.id}
+        title={scenario.metadata.title}
+        onComplete={() => setShowIntro(false)}
+      />
+    );
+  }
 
   if (showIntro && scenario.setting.intro_text?.length) {
     return (

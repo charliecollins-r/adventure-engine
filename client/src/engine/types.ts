@@ -50,6 +50,8 @@ export interface Setting {
   room_style: RoomStyle;
   ambient_audio?: string | string[];
   intro_text?: string[];
+  /** Animated intro cinematic: painted scenes with sprites, lights, particles, narration and sound. Replaces intro_text when present. */
+  intro_scenes?: IntroScene[];
   sounds?: SoundEffects;
   /** Death screens offer "Undo last move" (back to just before the fatal action). Default true. */
   allow_undo?: boolean;
@@ -65,6 +67,95 @@ export interface Setting {
   music_volume?: number;
   /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
   tutorial?: Tutorial;
+}
+
+/** A point or offset in the 960x720 authoring space. */
+export type XY = [number, number];
+
+/** One line of intro narration or dialogue. */
+export interface IntroLine {
+  text: string;
+  /** Spoken audio for the line; the line lasts as long as the clip. Without one it lasts 0.06 s per character (3 s minimum). */
+  voice?: string;
+  /** "narration" (default, gold), "radio" (a transmission: italic, cool colour; the voice gets a radio filter) or "card" (large, centred). */
+  style?: 'narration' | 'radio' | 'card';
+  /** Radio voices only: how degraded the signal is, 0 (clean) to 1 (barely there). Default 0.3. */
+  static?: number;
+  /** Seconds of silence before this line. Default 0.4. */
+  pause?: number;
+}
+
+/** An animated sprite placed in an intro scene (bottom-centre anchored, like object sprites). */
+export interface IntroSprite {
+  file: string;
+  frame_width: number;
+  frame_height: number;
+  columns: number;
+  /** Which row of the sheet to play. Default 0. */
+  row?: number;
+  /** Frame order to play (column indices), e.g. [0,0,0,1,0,0,2]. Default: every column in order. */
+  frames?: number[];
+  frame_rate: number;
+  /** false: play once and hold the last frame. Default true. */
+  loop?: boolean;
+  scale: number;
+  /** Feet (bottom-centre) in 960x720 coordinates. */
+  at: XY;
+  /** Glide to another spot (and optionally another scale) over `seconds`, eased. */
+  move?: { to: XY; scale?: number; seconds: number; delay?: number };
+  /** Gentle floating: bob up and down by `amount` px every `period` seconds. */
+  bob?: { amount: number; period: number };
+  /** Fixed rotation in degrees (e.g. -90 to lay a figure down). */
+  rotate?: number;
+  /** Continuous rotation in degrees per second (tumbling). */
+  spin?: number;
+  flip?: boolean;
+  /** Seconds after the scene starts before it appears, and when it disappears. */
+  delay?: number;
+  until?: number;
+  /** Fade in/out time in seconds. Default 0.4. */
+  fade?: number;
+  opacity?: number;
+  /** CSS filter applied to the sprite (e.g. "sepia(0.6) brightness(0.9)" to sit it inside amber fluid). */
+  filter?: string;
+}
+
+/** Procedural effects drawn over an intro scene. Areas are [x, y, width, height] in 960x720 coordinates. */
+export type IntroEffect =
+  | { type: 'particles'; motion: 'rise' | 'fall' | 'drift' | 'twinkle'; area: [number, number, number, number];
+      count: number; size?: number; color: [number, number, number]; alpha?: number; speed?: number; delay?: number }
+  | { type: 'shade'; color?: [number, number, number]; from: number; to: number; seconds: number;
+      direction?: 'down' | 'up' | 'none'; area?: [number, number, number, number]; delay?: number }
+  | { type: 'sweep'; area: [number, number, number, number]; color: [number, number, number]; period: number;
+      alpha?: number; delay?: number }
+  | { type: 'sparks'; at: XY; color?: [number, number, number]; every: number; delay?: number; until?: number }
+  | { type: 'shake'; amount: number; delay?: number; until?: number };
+
+export interface IntroCamera {
+  /** zoom 1 = the whole picture; x/y shift the view (960x720 units). Interpolated (eased) over `seconds`. */
+  from?: { zoom?: number; x?: number; y?: number };
+  to?: { zoom?: number; x?: number; y?: number };
+  seconds?: number;
+}
+
+/** One shot of the intro cinematic. */
+export interface IntroScene {
+  /** Painted background (any 16:9 size). Omit for black, where lines are shown large and centred. */
+  background?: string;
+  camera?: IntroCamera;
+  sprites?: IntroSprite[];
+  ambient_lighting?: AmbientLighting;
+  effects?: IntroEffect[];
+  lines?: IntroLine[];
+  /** One-shot sound when the scene starts, and a sound looped while it lasts. */
+  sound?: string;
+  loop?: string;
+  /** Music: a file switches track (the same file keeps playing across scenes), null stops it, omitted keeps whatever is playing. */
+  music?: string | null;
+  /** Minimum seconds on screen (it also lasts until its lines are done). */
+  hold?: number;
+  /** How this scene hands over to the next: fade through black (default), cut, or a white flash. */
+  transition?: 'fade' | 'cut' | 'flash';
 }
 
 /** What finishes a tutorial step. `next` shows a button; the rest advance when the player does it. */

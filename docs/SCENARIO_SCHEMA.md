@@ -172,6 +172,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `ambient_text` | string | yes | Atmospheric text shown when no message is on screen. |
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
+| `intro_scenes` | IntroScene[] | no | An animated intro cinematic, used instead of `intro_text`. See "Intro Cinematic" below. |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
 | `music` | string | no | Background music on its own channel (a path). It keeps playing across rooms and only changes when a view names a different track (view `music`; `null` there = no music). |
 | `music_volume` | number | no | Music volume 0..1. Default `0.3`. |
@@ -2098,3 +2099,64 @@ This creates urgency without an explicit timer. The player who explores early an
 ## Complete Example
 
 See `examples/surgeons-attic.json` for a full playable scenario using all features described in this specification.
+
+---
+
+## Intro Cinematic
+
+`setting.intro_scenes` plays an animated opening before the game: painted scenes with sprites, glowing lights, particles, a slow camera, narration lines (with optional voice clips), music and sound. It replaces `intro_text` when both exist. The player clicks (or presses Space/Enter) to move to the next line and can skip the whole intro at any time. Coordinates are the usual 960x720 space; sprites are anchored by their feet (bottom-centre).
+
+```json
+"intro_scenes": [
+  {
+    "background": "intro/backgrounds/intro_taken.webp",
+    "music": "intro/audio/music_intro.mp3",
+    "sound": "intro/audio/sfx_taken.mp3",
+    "camera": { "from": { "zoom": 1.0 }, "to": { "zoom": 1.14, "y": -60 }, "seconds": 11 },
+    "sprites": [
+      { "file": "intro/sprites/eva_tumble.png", "frame_width": 300, "frame_height": 300, "columns": 2, "frame_rate": 2,
+        "scale": 0.3, "at": [560, 720], "move": { "to": [575, 170], "scale": 0.08, "seconds": 9 }, "spin": 150 }
+    ],
+    "ambient_lighting": { "lights": [ { "x": 0.5, "y": 0.13, "radius": 0.3, "color": [230, 255, 170], "alpha": 0.35, "pulse_speed": 0.8, "pulse_amount": 0.25 } ] },
+    "effects": [ { "type": "particles", "motion": "rise", "area": [360, 130, 260, 590], "count": 60, "color": [240, 255, 200] } ],
+    "lines": [
+      { "text": "It did not attack. It harvested.", "voice": "intro/audio/narr_04.mp3" },
+      { "text": "Outrider, respond. Outrider—", "style": "radio", "static": 0.85 }
+    ],
+    "hold": 10,
+    "transition": "flash"
+  }
+]
+```
+
+**Scene fields**
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `background` | string | Painting (any 16:9 size, cover-fitted). Omit for a black card: lines are then shown large and centred. |
+| `camera` | `{from, to, seconds}` | `zoom` (1 = whole picture) and `x`/`y` offsets in 960x720 units, eased from `from` to `to`. |
+| `sprites` | IntroSprite[] | Animated figures (below). Drawn pixel-crisp. |
+| `ambient_lighting` | AmbientLighting | Same format as views: pulsing glows (veins, beams, lamps). |
+| `effects` | IntroEffect[] | Procedural effects (below). |
+| `lines` | IntroLine[] | Shown one after another at the bottom of the screen. |
+| `sound` / `loop` | string | A one-shot sound when the scene starts; a sound looped while it lasts. |
+| `music` | string \| null | A file switches track (the same file keeps playing across scenes), `null` stops the music, omitted keeps what is playing. |
+| `hold` | number | Minimum seconds on screen; the scene also lasts until its lines are done. |
+| `transition` | `fade` \| `cut` \| `flash` | How it hands over to the next scene. Default `fade` (through black). |
+
+**IntroLine**: `text` (use `\n` for line breaks), `voice` (an audio clip; the line lasts as long as the clip, otherwise 0.06 s per character, at least 3 s), `style` (`narration` gold serif, the default; `radio`, a transmission in italic monospace marked RADIO whose voice gets a band-pass filter, crackle and, above 0.45, dropouts; `card`, large and centred), `static` (radio only, 0 clean to 1 barely there, default 0.3), `pause` (seconds of silence before the line, default 0.4).
+
+**IntroSprite**: `file`, `frame_width`, `frame_height`, `columns`, `row` (default 0), `frames` (column order, e.g. `[0,0,0,1,0,0,2]` for an idle made of edits), `frame_rate`, `loop` (default true), `scale` (same meaning as object sprites), `at` (feet, `[x, y]`), `move` (`{to, scale?, seconds, delay?}`, eased), `bob` (`{amount, period}`: floating), `rotate` (fixed degrees, e.g. -90 to lay a figure down), `spin` (degrees per second, about the sprite's centre), `flip`, `delay`/`until` (seconds after the scene starts), `fade` (in/out seconds, default 0.4), `opacity`, `filter` (a CSS filter such as `"sepia(0.8) brightness(0.8)"` to sit a figure inside coloured fluid).
+
+**IntroEffect** (areas are `[x, y, width, height]`):
+
+| `type` | Fields | Use |
+|--------|--------|-----|
+| `particles` | `motion` (`rise`, `fall`, `drift`, `twinkle`), `area`, `count`, `color`, `size`, `alpha`, `speed`, `delay` | Bubbles, motes in a beam, floating debris, twinkling stars |
+| `shade` | `color`, `from`, `to`, `seconds`, `direction` (`down`, `up`, `none`), `area`, `delay` | Darken part of the picture over time (stars going out) |
+| `sweep` | `area`, `color`, `period`, `alpha`, `delay` | A scanning line moving up and down |
+| `sparks` | `at`, `color`, `every`, `delay`, `until` | Bursts of sparks from a point (a tool at work) |
+| `shake` | `amount`, `delay`, `until` | Camera shake |
+
+**Making one**: paint the establishing shot first, then make later shots as edits of it (the same recipe as rooms that belong together, ART_GUIDE → "Case Study: The Vent Maze"); paint the space where a figure goes empty and add the figure as a sprite; animate sprites as one base frame plus edits (ART_GUIDE → "Idle animations"). The validator checks every intro file and sprite field. The Harvest's intro (7 scenes) is the worked example; `scenarios/the-harvest/scripts/playthrough/intro.cjs` tests it in the browser.
+

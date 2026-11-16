@@ -374,6 +374,7 @@ The `id` MUST match the folder name.
 
 - `ambient_audio` can be a string (single track) or array (layered tracks that play simultaneously)
 - `intro_text` array = multi-screen intro the player clicks through before gameplay starts
+- `intro_scenes` = an animated intro cinematic instead (painted scenes, sprites, glows, particles, camera, narration with voice clips, radio lines, music). Worth it for a flagship scenario: show what the player loses before the game takes it away. Full reference: SCENARIO_SCHEMA → "Intro Cinematic"
 - `sounds` paths are relative to the scenario folder. `room_transition`, `item_pickup`, `intro_voice`, `noise` (any noise jump of 3+) and `combine` (a successful combination; defaults to `item_pickup`) play automatically; any other key (e.g. `"discovery"`) can be played with `{ "type": "play_sound", "sound": "discovery" }`
 
 ### Views

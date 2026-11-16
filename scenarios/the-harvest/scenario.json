@@ -113,7 +113,587 @@
     "noise_sound_min": 6,
     "music": "audio/music_explore.mp3",
     "music_volume": 0.28,
-    "max_score": 93
+    "max_score": 93,
+    "intro_scenes": [
+      {
+        "background": "intro/backgrounds/intro_orbit.webp",
+        "music": "intro/audio/music_intro.mp3",
+        "loop": "intro/audio/sfx_breath_loop.mp3",
+        "camera": {
+          "from": {
+            "zoom": 1.0
+          },
+          "to": {
+            "zoom": 1.08,
+            "x": -30,
+            "y": -10
+          },
+          "seconds": 16
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 0,
+            "frame_rate": 2,
+            "scale": 0.3,
+            "at": [205, 430],
+            "bob": {
+              "amount": 7,
+              "period": 4.5
+            },
+            "rotate": -8
+          }
+        ],
+        "ambient_lighting": {
+          "lights": [
+            {
+              "x": 0.97,
+              "y": 0.04,
+              "radius": 0.22,
+              "color": [
+                255,
+                214,
+                160
+              ],
+              "alpha": 0.3,
+              "pulse_speed": 0.15,
+              "pulse_amount": 0.3,
+              "phase": 0
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "particles",
+            "motion": "twinkle",
+            "area": [
+              0,
+              0,
+              600,
+              380
+            ],
+            "count": 26,
+            "size": 2,
+            "color": [
+              255,
+              255,
+              255
+            ],
+            "alpha": 0.8
+          }
+        ],
+        "lines": [
+          {
+            "text": "High above home, the only sound is your own breathing.",
+            "pause": 1.2
+          },
+          {
+            "text": "Relay satellite LUMEN-7 had been silent for nine days. Your job was to find out why."
+          },
+          {
+            "text": "Outrider, Relay Control. LUMEN-7 is still dark on our end. How's it looking out there?",
+            "style": "radio",
+            "static": 0.15
+          }
+        ],
+        "hold": 12
+      },
+      {
+        "background": "intro/backgrounds/intro_panel.webp",
+        "loop": "intro/audio/sfx_breath_loop.mp3",
+        "camera": {
+          "from": {
+            "zoom": 1.04,
+            "x": 20
+          },
+          "to": {
+            "zoom": 1.0,
+            "x": 0
+          },
+          "seconds": 14
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 0,
+            "frame_rate": 2,
+            "scale": 0.72,
+            "at": [420, 655],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "until": 10.5,
+            "fade": 0.3
+          },
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 1,
+            "frame_rate": 2,
+            "scale": 0.72,
+            "at": [420, 655],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "delay": 10.5,
+            "fade": 0.3,
+            "frames": [
+              0
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "type": "sparks",
+            "at": [590, 330],
+            "every": 1.7,
+            "until": 10
+          },
+          {
+            "type": "shade",
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "from": 0,
+            "to": 0.9,
+            "seconds": 9,
+            "delay": 3,
+            "direction": "down",
+            "area": [
+              0,
+              0,
+              470,
+              520
+            ]
+          }
+        ],
+        "lines": [
+          {
+            "text": "Inside the panel, the circuits were not burned. They had been picked clean... as if something had been reading them.",
+            "pause": 1.0
+          },
+          {
+            "text": "Copy, Outrider. Take your time. The long-range array's acting up again. Probably the cold.",
+            "style": "radio",
+            "static": 0.3
+          }
+        ],
+        "hold": 12
+      },
+      {
+        "background": "intro/backgrounds/intro_shadow.webp",
+        "sound": "intro/audio/sfx_swell.mp3",
+        "camera": {
+          "from": {
+            "zoom": 1.0
+          },
+          "to": {
+            "zoom": 1.1,
+            "y": -30
+          },
+          "seconds": 12
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 1,
+            "frame_rate": 2,
+            "scale": 0.2,
+            "at": [150, 480],
+            "bob": {
+              "amount": 4,
+              "period": 4
+            },
+            "rotate": 10
+          }
+        ],
+        "ambient_lighting": {
+          "lights": [
+            {
+              "x": 0.47,
+              "y": 0.16,
+              "radius": 0.3,
+              "color": [
+                70,
+                255,
+                190
+              ],
+              "alpha": 0.22,
+              "pulse_speed": 0.35,
+              "pulse_amount": 0.5,
+              "phase": 0
+            },
+            {
+              "x": 0.22,
+              "y": 0.22,
+              "radius": 0.18,
+              "color": [
+                70,
+                255,
+                190
+              ],
+              "alpha": 0.14,
+              "pulse_speed": 0.27,
+              "pulse_amount": 0.6,
+              "phase": 1.5
+            },
+            {
+              "x": 0.78,
+              "y": 0.2,
+              "radius": 0.18,
+              "color": [
+                70,
+                255,
+                190
+              ],
+              "alpha": 0.14,
+              "pulse_speed": 0.31,
+              "pulse_amount": 0.6,
+              "phase": 3.1
+            }
+          ]
+        },
+        "lines": [
+          {
+            "text": "Then the stars went out. Not all at once. One at a time... as if something were swallowing them.",
+            "pause": 1.4
+          },
+          {
+            "text": "Outrider... we're seeing... long-range is showing... something big. Something very big, right on top of you—",
+            "style": "radio",
+            "static": 0.7
+          }
+        ],
+        "hold": 10
+      },
+      {
+        "background": "intro/backgrounds/intro_taken.webp",
+        "sound": "intro/audio/sfx_taken.mp3",
+        "music": null,
+        "camera": {
+          "from": {
+            "zoom": 1.0
+          },
+          "to": {
+            "zoom": 1.14,
+            "y": -60
+          },
+          "seconds": 11
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 1,
+            "frame_rate": 2,
+            "scale": 0.3,
+            "at": [560, 720],
+            "move": {
+              "to": [575, 170],
+              "scale": 0.08,
+              "seconds": 9,
+              "delay": 0.5
+            },
+            "spin": 150
+          }
+        ],
+        "ambient_lighting": {
+          "lights": [
+            {
+              "x": 0.5,
+              "y": 0.13,
+              "radius": 0.3,
+              "color": [
+                230,
+                255,
+                170
+              ],
+              "alpha": 0.35,
+              "pulse_speed": 0.8,
+              "pulse_amount": 0.25,
+              "phase": 0
+            },
+            {
+              "x": 0.53,
+              "y": 0.65,
+              "radius": 0.22,
+              "color": [
+                230,
+                255,
+                170
+              ],
+              "alpha": 0.14,
+              "pulse_speed": 0.5,
+              "pulse_amount": 0.3,
+              "phase": 1
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "particles",
+            "motion": "rise",
+            "area": [
+              360,
+              130,
+              260,
+              590
+            ],
+            "count": 60,
+            "size": 3,
+            "color": [
+              240,
+              255,
+              200
+            ],
+            "alpha": 0.85,
+            "speed": 60
+          },
+          {
+            "type": "particles",
+            "motion": "drift",
+            "area": [
+              420,
+              260,
+              380,
+              220
+            ],
+            "count": 10,
+            "size": 4,
+            "color": [
+              200,
+              200,
+              210
+            ],
+            "alpha": 0.7,
+            "speed": 6
+          },
+          {
+            "type": "shake",
+            "amount": 3,
+            "delay": 1,
+            "until": 10
+          }
+        ],
+        "lines": [
+          {
+            "text": "It did not attack. It harvested.",
+            "pause": 0.8
+          },
+          {
+            "text": "The satellite, the Outrider... and you. Gathered up like fruit."
+          },
+          {
+            "text": "Outrider, respond. Outrider—",
+            "style": "radio",
+            "static": 0.85
+          }
+        ],
+        "hold": 10,
+        "transition": "flash"
+      },
+      {
+        "background": "backgrounds/act1_processing_lab.webp",
+        "sound": "intro/audio/sfx_scan.mp3",
+        "music": "audio/music_stasis.mp3",
+        "camera": {
+          "from": {
+            "zoom": 1.06
+          },
+          "to": {
+            "zoom": 1.0
+          },
+          "seconds": 12
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 1,
+            "frame_rate": 2,
+            "scale": 0.42,
+            "at": [470, 520],
+            "rotate": -90,
+            "frames": [
+              0
+            ]
+          },
+          {
+            "file": "sprites/cataloguer_robot.png",
+            "frame_width": 339,
+            "frame_height": 562,
+            "columns": 4,
+            "frame_rate": 2,
+            "scale": 0.42,
+            "at": [780, 640]
+          }
+        ],
+        "ambient_lighting": {
+          "lights": [
+            {
+              "x": 0.49,
+              "y": 0.42,
+              "radius": 0.18,
+              "color": [
+                90,
+                255,
+                170
+              ],
+              "alpha": 0.25,
+              "pulse_speed": 0.4,
+              "pulse_amount": 0.3,
+              "phase": 0
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "sweep",
+            "area": [
+              300,
+              360,
+              360,
+              150
+            ],
+            "color": [
+              110,
+              255,
+              180
+            ],
+            "period": 3.2,
+            "alpha": 0.55
+          }
+        ],
+        "lines": [
+          {
+            "text": "You were catalogued. Weighed. Measured.",
+            "pause": 1.0
+          },
+          {
+            "text": "Your suit was taken apart, seam by seam, and filed separately."
+          }
+        ],
+        "hold": 10
+      },
+      {
+        "background": "intro/backgrounds/intro_pods.webp",
+        "loop": "intro/audio/sfx_underwater.mp3",
+        "camera": {
+          "from": {
+            "zoom": 1.0
+          },
+          "to": {
+            "zoom": 1.12,
+            "y": -10
+          },
+          "seconds": 13
+        },
+        "sprites": [
+          {
+            "file": "sprites/character_idle.png",
+            "frame_width": 300,
+            "frame_height": 410,
+            "columns": 12,
+            "row": 1,
+            "frame_rate": 2,
+            "scale": 0.78,
+            "at": [482, 548],
+            "bob": {
+              "amount": 5,
+              "period": 6
+            },
+            "frames": [
+              0
+            ],
+            "opacity": 0.85,
+            "filter": "sepia(0.8) saturate(1.6) hue-rotate(-12deg) brightness(0.8)"
+          }
+        ],
+        "ambient_lighting": {
+          "lights": [
+            {
+              "x": 0.5,
+              "y": 0.45,
+              "radius": 0.22,
+              "color": [
+                255,
+                176,
+                60
+              ],
+              "alpha": 0.18,
+              "pulse_speed": 0.2,
+              "pulse_amount": 0.35,
+              "phase": 0
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "particles",
+            "motion": "rise",
+            "area": [
+              418,
+              110,
+              135,
+              440
+            ],
+            "count": 18,
+            "size": 3,
+            "color": [
+              255,
+              236,
+              180
+            ],
+            "alpha": 0.7,
+            "speed": 25
+          }
+        ],
+        "lines": [
+          {
+            "text": "Then they filed you away, with hundreds of others, in a pod of warm amber fluid.",
+            "pause": 1.0
+          },
+          {
+            "text": "And you slept."
+          }
+        ],
+        "hold": 10
+      },
+      {
+        "sound": "intro/audio/sfx_glass_crack.mp3",
+        "music": null,
+        "lines": [
+          {
+            "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.",
+            "style": "card",
+            "pause": 1.2
+          },
+          {
+            "text": "And somewhere below this ship,\nEarth is still turning.\n\nFind a way out.",
+            "style": "card"
+          }
+        ]
+      }
+    ]
   },
   "character": {
     "sprite_sets": {

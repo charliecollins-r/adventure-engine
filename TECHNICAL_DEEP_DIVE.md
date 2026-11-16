@@ -473,7 +473,8 @@ Win conditions are checked first — if both a win and lose condition are true s
 App
 ├── ScenarioLoader (reads scenarios/manifest.json; auto-launches a single scenario)
 └── ScenarioPlayer (game orchestrator)
-    ├── IntroSequence (paged setting.intro_text, before play)
+    ├── IntroCinematic (setting.intro_scenes: animated intro on one canvas, before play)
+    ├── IntroSequence (paged setting.intro_text, before play, when there is no cinematic)
     ├── Title Bar
     │   ├── Scenario Title + NoiseIndicator
     │   ├── DEV toggle (?dev only), Debug toggle
@@ -953,7 +954,7 @@ The `ScenarioEngine` constructor receives the full scenario JSON object and init
 
 ### 5. Gameplay Begins
 
-If `setting.intro_text` is set, `IntroSequence` pages through it first; then the viewport fades in from black (with the `standup` sprite set, if the scenario has one). The engine's initial view is rendered. If the first phase has `on_enter` effects, those fire immediately (e.g., opening narrative message).
+If `setting.intro_scenes` is set, `IntroCinematic` plays it first: one 1920x1080 canvas draws the cover-fitted background under an eased camera transform, the sprites (frame, position, scale, rotation and opacity come from the pure `engine/introTimeline.ts`, unit-tested), the lights and the effects every animation frame, with the line text as DOM on top. Lines are sequenced by their voice clip's length (or text length); radio voices go through a Web Audio band-pass, a waveshaper and a crackle noise source. Otherwise, if `setting.intro_text` is set, `IntroSequence` pages through it first; then the viewport fades in from black (with the `standup` sprite set, if the scenario has one). The engine's initial view is rendered. If the first phase has `on_enter` effects, those fire immediately (e.g., opening narrative message).
 
 ---
 
@@ -1046,6 +1047,8 @@ cd server && mvn spring-boot:run
 | `client/src/components/DialogueOverlay.tsx` | `show_dialogue` choice modal |
 | `client/src/components/KeypadWidget.tsx` | Keypad puzzle widget overlay |
 | `client/src/components/TutorialCoach.tsx` | First-play tips from `setting.tutorial`; `ScenarioPlayer` advances them via `tutorialEvent(trigger)` from its verb, walk, interaction, inventory and hint handlers |
+| `client/src/components/IntroCinematic.tsx` | Animated intro cinematic (`setting.intro_scenes`) |
+| `client/src/engine/introTimeline.ts` | Pure intro timing: line length, camera, sprite state (+ tests) |
 | `client/src/components/IntroSequence.tsx` | Paged intro text |
 | `client/src/components/EyeOpenTransition.tsx` | Fade-from-black on game start |
 | `client/src/components/NoiseIndicator.tsx` | Noise level meter |
