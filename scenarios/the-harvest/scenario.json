@@ -80,7 +80,14 @@
       "drop": "audio/drop_thud.mp3",
       "score": "audio/score.mp3",
       "sting_earth": "audio/sting_earth.mp3",
-      "death": "audio/death_sting.mp3"
+      "death": "audio/death_sting.mp3",
+      "intro_voice": "audio/voice/ambient_stasis.mp3"
+    },
+    "wake": {
+      "hold_seconds": 1.8,
+      "fade_seconds": 7,
+      "voice_delay": 2.2,
+      "blink": true
     },
     "tutorial": {
       "steps": [
@@ -42707,7 +42714,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Your eyes open to green light and the smell of chemicals. Fluid drains from your cracked stasis pod, pooling on the organic-metallic floor. You're cold. Weak. Alone among hundreds of pods holding dead things from a dozen worlds. Something hums in the walls — the ship is alive."
+          "text": "A subsonic hum vibrates through your bones. Amber fluid drains from your cracked pod, pooling on the organic-metallic floor. Bioluminescent veins pulse in the walls. Somewhere, something clicks — precise, mechanical, patient."
         },
         {
           "type": "play_sound",

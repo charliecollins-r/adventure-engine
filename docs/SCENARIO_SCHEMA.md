@@ -173,6 +173,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
 | `intro_scenes` | IntroScene[] | no | An animated intro cinematic, used instead of `intro_text`. See "Intro Cinematic" below. |
+| `wake` | object | no | How play begins after the intro: `hold_seconds` of black (default 0.2), the eyes opening over `fade_seconds` (default: the length of `sounds.intro_voice`), `blink` (open halfway, flutter shut, then open fully), and `voice_delay` seconds before `sounds.intro_voice` describes the room. A `standup` sprite set gets up as that voice ends, and the tutorial waits until then. Make the first phase's `on_enter` message the same words the voice speaks. |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
 | `music` | string | no | Background music on its own channel (a path). It keeps playing across rooms and only changes when a view names a different track (view `music`; `null` there = no music). |
 | `music_volume` | number | no | Music volume 0..1. Default `0.3`. |

@@ -71,6 +71,18 @@ export interface Setting {
   music?: string;
   /** Music volume, 0..1. Default 0.3. */
   music_volume?: number;
+  /** How the game opens after the intro: the eyes open (fade from black), sounds.intro_voice describes the room,
+   *  and the player stands up (the `standup` sprite set) as the voice ends. */
+  wake?: {
+    /** Seconds of black before the eyes start to open. Default 0.2. */
+    hold_seconds?: number;
+    /** Seconds the eyes take to open. Default: the whole voice (or 4 s without one). */
+    fade_seconds?: number;
+    /** Seconds of black and stillness before the voice starts. Default 0. */
+    voice_delay?: number;
+    /** The eyes open halfway, flutter shut, then open for real. Default false. */
+    blink?: boolean;
+  };
   /** Optional first-play tutorial: short tips that advance when the player does the thing. Skippable. */
   tutorial?: Tutorial;
 }

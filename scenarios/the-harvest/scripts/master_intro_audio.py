@@ -1,4 +1,5 @@
-"""Master the intro's audio to consistent loudness, so voices sit clearly above effects and music.
+"""Master the intro's audio (and the in-game narration in audio/voice/) to consistent loudness, so voices sit
+clearly above effects, ambience and music.
 
     cd scenarios/the-harvest && python3 scripts/master_intro_audio.py     # needs ffmpeg
 
@@ -46,3 +47,13 @@ for f in sorted(x for x in glob.glob('intro/audio/*.mp3') if not x.endswith('bed
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false',
                     '-b:a', '160k', f], check=True)
     print(f'{name}: {measured:6.1f} -> {target} LUFS ({gain:+.1f} dB)')
+
+# In-game narration (audio/voice/*.mp3): the same treatment, originals kept in audio/voice/source/.
+os.makedirs('audio/voice/source', exist_ok=True)
+for f in sorted(glob.glob('audio/voice/*.mp3')):
+    name = os.path.basename(f); src = f'audio/voice/source/{name}'
+    if not os.path.exists(src): shutil.copy(f, src)
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -16 - measured
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f], check=True)
+    print(f'voice/{name}: {measured:6.1f} -> -16 LUFS ({gain:+.1f} dB)')

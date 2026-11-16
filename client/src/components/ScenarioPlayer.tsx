@@ -262,12 +262,17 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const voiceDurationValid = introVoiceDurationMs != null && introVoiceDurationMs > 0;
   const timingReady = !hasIntroVoice || introVoiceDurationMs != null;
 
+  const wake = scenario.setting.wake;
+  const voiceDelayMs = (wake?.voice_delay ?? 0) * 1000;
+  // He gets up as the room description ends (or after 3 s without one).
   const standupDelayMs = voiceDurationValid
-    ? Math.max(introVoiceDurationMs - standupAnimMs, 2000)
+    ? Math.max(voiceDelayMs + introVoiceDurationMs - standupAnimMs, 2000)
     : (standupSet ? 3000 : 0);
-  const fadeDurationMs = standupSet
-    ? standupDelayMs + standupAnimMs
-    : (voiceDurationValid ? introVoiceDurationMs : 4000);
+  const fadeDurationMs = wake?.fade_seconds != null
+    ? wake.fade_seconds * 1000
+    : standupSet
+      ? standupDelayMs + standupAnimMs
+      : (voiceDurationValid ? introVoiceDurationMs : 4000);
 
   useEffect(() => {
     const introVoicePath = scenario.setting.sounds?.intro_voice;
@@ -396,8 +401,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     if (!eyeOpen) return;
     const introVoice = scenario.setting.sounds?.intro_voice;
-    if (introVoice) playSound(introVoice);
-  }, [eyeOpen, playSound, scenario]);
+    if (!introVoice) return;
+    const t = window.setTimeout(() => playSound(introVoice), voiceDelayMs);
+    return () => clearTimeout(t);
+  }, [eyeOpen, playSound, scenario, voiceDelayMs]);
 
   useEffect(() => {
     if (!standingUp) return;
@@ -434,14 +441,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   useEffect(() => {
     if (showIntro || !tutorialSteps.length) return;
+    // wait until the player is on their feet (the wake-up narration has had its moment)
+    if (standupSet && !standingUp) return;
     if ((dev.isDev || dev.skipIntro) && !dev.forceTutorial) return;
     let done = false;
     try { done = !dev.forceTutorial && localStorage.getItem(tutorialKey) === '1'; } catch { /* no storage */ }
     if (done) return;
-    const t = setTimeout(() => setTutIndex((i) => (i === null ? 0 : i)), 1500);
+    const t = setTimeout(() => setTutIndex((i) => (i === null ? 0 : i)), standupSet ? standupAnimMs + 1200 : 1500);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showIntro]);
+  }, [showIntro, standingUp]);
   useEffect(() => { if (inventoryOpen) tutorialEvent('items_opened'); }, [inventoryOpen, tutIndex, tutorialEvent]);
 
   // A loud action is heard: play setting.sounds.noise when the noise level jumps by 3 or more.
@@ -1062,7 +1071,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         </div>
 
         {/* Eye-open animation scoped to viewport */}
-        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} durationMs={fadeDurationMs} />}
+        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
       </div>
 
       {/* Inventory + text feedback below viewport */}
