@@ -313,7 +313,8 @@
             "voice": "intro/audio/radio_02.mp3"
           }
         ],
-        "hold": 12
+        "hold": 12,
+        "sound": "intro/audio/sfx_tool.mp3"
       },
       {
         "background": "intro/backgrounds/intro_shadow.webp",

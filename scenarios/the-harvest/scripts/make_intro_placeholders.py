@@ -2,10 +2,11 @@
 
     cd scenarios/the-harvest && python3 scripts/make_intro_placeholders.py      # needs NumPy and ffmpeg
 
-Writes intro/audio/music_intro.mp3 and the sfx_*.mp3 clips. Overwrite any of them with real audio at the same path.
+Writes intro/audio/music_intro.mp3 and the sfx_*.mp3 clips that do not exist yet (real audio is never overwritten;
+pass --force to regenerate every stand-in).
 Deterministic (seeded).
 """
-import os, subprocess, tempfile, wave
+import os, subprocess, sys, tempfile, wave
 import numpy as np
 
 SR = 44100
@@ -16,6 +17,7 @@ def band(x, lo, hi):
     X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); X[(f < lo) | (f > hi)] = 0; return np.fft.irfft(X, len(x))
 def noise(sec): return rng.normal(size=int(sec * SR))
 def write(path, x, br='128k'):
+    if os.path.exists(path) and '--force' not in sys.argv: return
     x = np.clip(x / (np.abs(x).max() + 1e-9) * 0.8, -1, 1)
     with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f: tmp = f.name
     w = wave.open(tmp, 'wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((x * 32767).astype(np.int16).tobytes()); w.close()
