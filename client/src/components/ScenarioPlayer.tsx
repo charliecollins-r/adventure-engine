@@ -277,17 +277,27 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const introVoicePath = scenario.setting.sounds?.intro_voice;
     if (!introVoicePath) return;
-    const audio = new Audio(resolveAsset(scenario.metadata.id, introVoicePath));
+    const audio = new Audio();
+    audio.preload = 'metadata';
+    let settled = false;
+    const settle = (ms: number) => { if (!settled) { settled = true; setIntroVoiceDurationMs(ms); } };
     const onMeta = () => {
       const dur = audio.duration * 1000;
-      if (Number.isFinite(dur) && dur > 0) {
-        setIntroVoiceDurationMs(dur);
-      } else {
-        setIntroVoiceDurationMs(-1);
-      }
+      settle(Number.isFinite(dur) && dur > 0 ? dur : -1);
     };
+    const onError = () => settle(-1);
     audio.addEventListener('loadedmetadata', onMeta);
-    return () => audio.removeEventListener('loadedmetadata', onMeta);
+    audio.addEventListener('error', onError);
+    audio.src = resolveAsset(scenario.metadata.id, introVoicePath);
+    audio.load();
+    // Some browsers (Safari, low-power modes) don't load an audio file's length until it plays.
+    // Never let the wake-up wait on it: after 2 s, go ahead without knowing the length.
+    const fallback = window.setTimeout(() => settle(-1), 2000);
+    return () => {
+      clearTimeout(fallback);
+      audio.removeEventListener('loadedmetadata', onMeta);
+      audio.removeEventListener('error', onError);
+    };
   }, [scenario]);
 
   useEffect(() => {

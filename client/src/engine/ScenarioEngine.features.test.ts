@@ -83,3 +83,56 @@ describe('delayed effects', () => {
     expect(redraws).toBe(1);
   });
 });
+
+describe('traverse, floor variants and tool mode (regressions)', () => {
+  const make2 = () => new ScenarioEngine({
+    schema_version: '1.0', metadata: { id: 'rope', title: 'Rope' }, setting: { initial_view: 'a' }, flags: {}, items: [],
+    character: { sprite_sets: { idle: { file: 'i.png', columns: 1, rows: 1 } }, frame_width: 10, frame_height: 10, scale: 1 },
+    views: [{
+      id: 'a', background_key: 'a', objects: ['line', 'door'],
+      character: { x: 100, y: 600, sprite_set: 'idle' },
+      walk_area: { floor: [[50, 550], [300, 550], [300, 700], [50, 700]] },
+      walk_area_variants: [{ when: [{ type: 'flag_is', flag: 'ledge', value: 'true' }], walk_area: { floor: [[700, 450], [800, 450], [800, 500], [700, 500]] } }],
+    }],
+    objects: [
+      obj('line', [
+        { verb: 'hand', when: [{ type: 'flag_not', flag: 'ledge', value: 'true' }], then: [
+          { type: 'traverse', path: [[200, 600], [500, 520], [750, 480]], seconds: 2, facing: 'right' },
+          { type: 'set_flag', flag: 'ledge', value: 'true' },
+          { type: 'hide_object', object: 'line' },
+          { type: 'delay_then', seconds: 2, effects: [{ type: 'show_object', object: 'line' }] }] },
+      ]),
+      obj('door', []),
+    ],
+  } as unknown as Scenario);
+
+  it('traverse puts him at the end of the route and hands the route to the UI once', () => {
+    const e = make2();
+    e.interact('line', 'hand');
+    expect(e.getCharacterPosition()).toMatchObject({ x: 750, y: 480, facing: 'right' });
+    const route = e.takeTraverse();
+    expect(route?.path).toHaveLength(3);
+    expect(route?.seconds).toBe(2);
+    expect(e.takeTraverse()).toBeNull();
+  });
+
+  it('a floor variant replaces the floor when its condition holds', () => {
+    const e = make2();
+    expect(e.getWalkArea()?.floor[0]).toEqual([50, 550]);
+    e.interact('line', 'hand');
+    expect(e.getWalkArea()?.floor[0]).toEqual([700, 450]);
+  });
+
+  it('in tool mode delay_then applies at once (the soft-lock search relies on this)', () => {
+    const e = make2();
+    e.immediateDelays = true;
+    e.interact('line', 'hand');
+    expect(e.getVisibleObjects().some((o) => o.id === 'line')).toBe(true);
+  });
+
+  it('normally delay_then waits', () => {
+    const e = make2();
+    e.interact('line', 'hand');
+    expect(e.getVisibleObjects().some((o) => o.id === 'line')).toBe(false);
+  });
+});
