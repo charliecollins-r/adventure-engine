@@ -22,6 +22,8 @@ const H = 1080;
 const SX = W / 960;
 const SY = H / 720;
 const FADE_S = 0.7;
+/** The title card: a slow fade up out of black, a hold, a fade down. */
+const TITLE_MS = 5000;
 /** Default music volume (scene.music_volume overrides). Music and loops are ducked to DUCK while a voice speaks. */
 const MUSIC_VOLUME = 0.5;
 const LOOP_VOLUME = 0.7;
@@ -117,7 +119,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
 
   // Title card, then the first scene.
   useEffect(() => {
-    later(() => goTo(0, 'fade'), 2600);
+    later(() => goTo(0, 'fade'), TITLE_MS);
     return () => {
       clearTimers(); stopVoice();
       for (const t of sceneTracks.current) t.audio.pause();
@@ -552,7 +554,7 @@ const styles: Record<string, CSSProperties> = {
   title: {
     position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
     fontFamily: 'Georgia, serif', fontSize: 'clamp(22px, 4vw, 44px)', letterSpacing: '6px', color: '#c0a030',
-    textTransform: 'uppercase', textShadow: '0 0 24px rgba(192,160,48,0.35)', animation: 'intro-title 2.6s ease-in-out both',
+    textTransform: 'uppercase', textShadow: '0 0 24px rgba(192,160,48,0.35)', animation: `intro-title ${TITLE_MS}ms ease-in-out both`,
   },
   band: {
     position: 'absolute', left: 0, right: 0, bottom: 0, padding: '5% 8% 3.5%',
@@ -589,6 +591,6 @@ const styles: Record<string, CSSProperties> = {
 if (typeof document !== 'undefined' && !document.getElementById('intro-cinematic-kf')) {
   const el = document.createElement('style');
   el.id = 'intro-cinematic-kf';
-  el.textContent = '@keyframes intro-title { 0% { opacity: 0 } 30% { opacity: 1 } 75% { opacity: 1 } 100% { opacity: 0 } }';
+  el.textContent = '@keyframes intro-title { 0% { opacity: 0 } 12% { opacity: 0 } 50% { opacity: 1 } 80% { opacity: 1 } 100% { opacity: 0 } }';
   document.head.appendChild(el);
 }

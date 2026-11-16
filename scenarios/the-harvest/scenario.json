@@ -480,7 +480,15 @@
             "pause": 1
           }
         ],
-        "tail": 1
+        "tail": 1,
+        "music": "intro/audio/music_dread.mp3",
+        "music_volume": 0.6,
+        "sounds": [
+          {
+            "file": "intro/audio/sting_dread.mp3",
+            "volume": 0.95
+          }
+        ]
       },
       {
         "background": "intro/backgrounds/intro_taken.webp",

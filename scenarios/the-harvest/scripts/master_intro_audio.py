@@ -12,11 +12,11 @@ import glob, os, re, shutil, subprocess
 
 # integrated loudness targets (LUFS): voices on top, events below, beds well below
 TARGETS = {
-    'narr_': -16, 'radio_': -17,
+    'narr_': -16, 'radio_': -20,          # the radio sits a little under the narrator
     'sfx_taken': -20, 'sfx_swell': -21, 'sfx_glass_crack': -21,
     'sfx_heartbeat_fast': -24, 'sfx_scan': -25, 'sfx_tool': -26,
     'sfx_underwater': -27, 'sfx_breath_loop': -30,
-    'music_intro': -22,
+    'music_intro': -22, 'music_dread': -24, 'sting_dread': -19,
 }
 os.makedirs('intro/audio/source', exist_ok=True)
 

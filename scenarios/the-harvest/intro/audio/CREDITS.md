@@ -9,6 +9,6 @@ non-commercial use only; a paid ElevenLabs plan is needed before any commercial 
 | `radio_01..04.mp3` | ElevenLabs text-to-speech, voice "Emily E. – Operator / Public Announcement" ([elevenlabs.io](https://elevenlabs.io)) |
 | `sfx_breath_loop.mp3`, `sfx_tool.mp3`, `sfx_swell.mp3`, `sfx_taken.mp3` | ElevenLabs sound effects ([elevenlabs.io](https://elevenlabs.io)) |
 | `bed_stargazer.mp3` | "Stargazer" remix of Tim Kahn's freesound #702910 by Timbre (https://freesound.org/s/703557/), CC BY-NC 4.0; looped and level-matched |
-| `music_intro.mp3` (currently unused), `sfx_heartbeat_fast.mp3`, `sfx_scan.mp3`, `sfx_underwater.mp3`, `sfx_glass_crack.mp3` | Procedural stand-ins synthesised for this project (`scripts/make_intro_placeholders.py`), Creative Commons 0 |
+| `music_dread.mp3`, `sting_dread.mp3`, `music_intro.mp3` (currently unused), `sfx_heartbeat_fast.mp3`, `sfx_scan.mp3`, `sfx_underwater.mp3`, `sfx_glass_crack.mp3` | Procedural stand-ins synthesised for this project (`scripts/make_intro_placeholders.py`), Creative Commons 0 |
 
 `source/` holds the untouched originals; the files here are loudness-mastered from them by `scripts/master_intro_audio.py`.

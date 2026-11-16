@@ -2,7 +2,7 @@
 
     cd scenarios/the-harvest && python3 scripts/make_intro_placeholders.py      # needs NumPy and ffmpeg
 
-Writes intro/audio/music_intro.mp3 and the sfx_*.mp3 clips that do not exist yet (real audio is never overwritten;
+Writes intro/audio/music_intro.mp3, music_dread.mp3, sting_dread.mp3 and the sfx_*.mp3 clips that do not exist yet (real audio is never overwritten;
 pass --force to regenerate every stand-in).
 Deterministic (seeded).
 """
@@ -85,9 +85,31 @@ def glass_crack():
     i = int(1.4 * SR); m = len(x) - i; add(x, i, 0.3 * band(noise(4), 300, 3000)[:m] * np.linspace(0, 1, m))
     return x
 
+def dread_sting():  # the ship revealed: a heavy hit and a screeching dissonant cluster that hangs and dies
+    dur = 6.5; tt = t(dur); n = len(tt)
+    hit = np.sin(2 * np.pi * (46 - 14 * tt) * tt) * np.exp(-tt * 2.2) + 0.6 * band(noise(dur), 40, 500) * np.exp(-tt * 5)
+    cluster = np.zeros(n)
+    for f in (98, 103.8, 146.8, 155.6, 207.7, 220):            # minor seconds stacked: no consonance anywhere
+        trem = 0.75 + 0.25 * np.sin(2 * np.pi * (7 + f % 3) * tt)
+        cluster += np.sin(2 * np.pi * f * tt + f) * trem
+    cluster *= np.minimum(1, tt / 0.04) * np.exp(-tt * 0.45) / 6
+    screech = band(noise(dur), 2400, 5200) * np.exp(-tt * 1.4) * np.minimum(1, tt / 0.3) * 0.25
+    return hit + 0.9 * cluster + screech
+def music_dread():  # under the ship and the abduction: a low beating cluster, a slow throb, distant groans; loopable
+    dur = 40; tt = t(dur)
+    x = sum(np.sin(2 * np.pi * f * tt + i) for i, f in enumerate((41.2, 43.65, 55, 58.27))) / 4
+    x *= 0.7 + 0.3 * np.sin(2 * np.pi * 0.5 * tt) ** 2                    # a slow throb
+    x += 0.35 * band(noise(dur), 30, 160) * (0.6 + 0.4 * np.sin(2 * np.pi * 0.07 * tt))
+    for s0 in (6.0, 19.0, 31.0):                                         # distant metal groans
+        i = int(s0 * SR); g = t(4.0)
+        add(x, i, 0.25 * np.sin(2 * np.pi * (70 + 25 * np.sin(2 * np.pi * 0.4 * g)) * g) * np.sin(np.pi * g / 4.0))
+    n = 3 * SR; r = np.linspace(0, 1, n); y = x[:-n].copy(); y[:n] = x[:n] * r + x[-n:] * (1 - r)   # seamless loop
+    return y
+
 os.makedirs('intro/audio', exist_ok=True)
 write('intro/audio/music_intro.mp3', music_intro(), '96k')
 for name, fn in [('sfx_breath_loop', breath_loop), ('sfx_swell', swell), ('sfx_taken', taken), ('sfx_heartbeat_fast', heartbeat_fast),
-                 ('sfx_scan', scan), ('sfx_underwater', underwater), ('sfx_glass_crack', glass_crack)]:
+                 ('sfx_scan', scan), ('sfx_underwater', underwater), ('sfx_glass_crack', glass_crack),
+                 ('sting_dread', dread_sting), ('music_dread', music_dread)]:
     write(f'intro/audio/{name}.mp3', fn())
 print('intro placeholder audio written')
