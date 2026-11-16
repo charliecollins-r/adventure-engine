@@ -73,3 +73,20 @@ export function hash01(k: number, n: number, salt = 0): number {
   const v = Math.sin(k * 127.1 + n * 311.7 + salt * 74.7) * 43758.5453;
   return v - Math.floor(v);
 }
+
+/** When the scene's moments happened, in seconds since the scene started (null: not yet). */
+export interface CueTimes {
+  /** lines[i]: when line i (0-based) appeared. */
+  lines: (number | undefined)[];
+  /** When the last line finished. */
+  end: number | null;
+}
+
+/** Seconds since scene start at which a cue ("start", "line:N" 1-based, "end") happened, or null if it hasn't yet. */
+export function cueSeconds(cue: string | undefined, times: CueTimes): number | null {
+  if (!cue || cue === 'start') return 0;
+  if (cue === 'end') return times.end;
+  const m = /^line:(\d+)$/.exec(cue);
+  if (m) return times.lines[Number(m[1]) - 1] ?? null;
+  return 0; // unknown cue: treat as start (the validator reports it)
+}

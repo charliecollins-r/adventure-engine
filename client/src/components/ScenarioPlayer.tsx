@@ -313,7 +313,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const view = engine.getCurrentView();
     const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
-    const files = raw ? (Array.isArray(raw) ? raw : [raw]) : [];
+    // nothing from the rooms plays while the intro is up (the intro has its own sound)
+    const files = showIntro ? [] : raw ? (Array.isArray(raw) ? raw : [raw]) : [];
     const key = files.join('|');
 
     if (key === prevAudioKey.current) return;

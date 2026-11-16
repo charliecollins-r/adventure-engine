@@ -18,6 +18,7 @@
       "survival"
     ],
     "version": "1.0",
+    "credits": "Voices and sound effects by ElevenLabs (elevenlabs.io)",
     "patterns_used": [
       "1-gateway-puzzle",
       "2-dependency-chain",
@@ -72,7 +73,6 @@
       "room_transition": "audio/door_open_close.wav",
       "item_pickup": "audio/item_pickup.wav",
       "discovery": "audio/discovery.wav",
-      "intro_voice": "audio/voice/ambient_stasis.mp3",
       "noise": "audio/noise_clang.mp3",
       "alarm": "audio/alarm.mp3",
       "curator": "audio/curator_steps.mp3",
@@ -117,7 +117,6 @@
     "intro_scenes": [
       {
         "background": "intro/backgrounds/intro_orbit.webp",
-        "music": "intro/audio/music_intro.mp3",
         "loop": "intro/audio/sfx_breath_loop.mp3",
         "camera": {
           "from": {
@@ -140,8 +139,8 @@
             "frames": [
               0
             ],
-            "scale": 0.31,
-            "at": [205, 440],
+            "scale": 0.33,
+            "at": [330, 450],
             "bob": {
               "amount": 7,
               "period": 4.5
@@ -185,6 +184,14 @@
               255
             ],
             "alpha": 0.8
+          },
+          {
+            "type": "rope",
+            "from": [578, 432],
+            "to_sprite": 0,
+            "offset": [32, -169],
+            "sag": 70,
+            "width": 2
           }
         ],
         "lines": [
@@ -197,10 +204,11 @@
             "text": "Outrider, Relay Control. LUMEN-7 is still dark on our end. How's it looking out there?",
             "style": "radio",
             "static": 0.15,
-            "voice": "intro/audio/radio_01.mp3"
+            "voice": "intro/audio/radio_01.mp3",
+            "pause": 0.8
           }
         ],
-        "hold": 12
+        "tail": 1.5
       },
       {
         "background": "intro/backgrounds/intro_panel.webp",
@@ -232,8 +240,27 @@
               "amount": 4,
               "period": 5
             },
-            "until": 9,
-            "fade": 0.15
+            "until_cue": "line:2",
+            "fade": 0.01
+          },
+          {
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
+            "frames": [
+              0
+            ],
+            "scale": 0.8,
+            "at": [505, 690],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "cue": "line:2",
+            "until": 4.6,
+            "fade": 0.01
           },
           {
             "file": "intro/sprites/eva.png",
@@ -250,9 +277,10 @@
               "amount": 4,
               "period": 5
             },
-            "delay": 9,
-            "until": 11,
-            "fade": 0.15
+            "cue": "line:2",
+            "delay": 4.6,
+            "until_cue": "end",
+            "fade": 0.01
           },
           {
             "file": "intro/sprites/eva.png",
@@ -269,28 +297,29 @@
               "amount": 4,
               "period": 5
             },
-            "delay": 11,
-            "fade": 0.15
+            "cue": "end",
+            "fade": 0.01
           }
         ],
         "effects": [
           {
             "type": "sparks",
             "at": [640, 330],
-            "every": 1.7,
-            "until": 9
+            "every": 1.4,
+            "until": 8
           },
           {
             "type": "shade",
+            "cue": "line:2",
+            "delay": 0.8,
             "color": [
               0,
               0,
               0
             ],
             "from": 0,
-            "to": 0.9,
-            "seconds": 9,
-            "delay": 3,
+            "to": 0.92,
+            "seconds": 6,
             "direction": "down",
             "area": [
               0,
@@ -298,23 +327,59 @@
               470,
               520
             ]
+          },
+          {
+            "type": "rope",
+            "from": [650, 505],
+            "to_sprite": 0,
+            "offset": [32, -169],
+            "sag": 30,
+            "width": 3
+          },
+          {
+            "type": "rope",
+            "from": [650, 505],
+            "to_sprite": 1,
+            "offset": [32, -169],
+            "sag": 30,
+            "width": 3
+          },
+          {
+            "type": "rope",
+            "from": [650, 505],
+            "to_sprite": 2,
+            "offset": [32, -169],
+            "sag": 30,
+            "width": 3
+          },
+          {
+            "type": "rope",
+            "from": [650, 505],
+            "to_sprite": 3,
+            "offset": [32, -169],
+            "sag": 30,
+            "width": 3
           }
         ],
         "lines": [
           {
             "text": "Inside the panel, the circuits were not burned. They had been picked clean... as if something had been reading them.",
-            "pause": 1,
+            "pause": 0.8,
             "voice": "intro/audio/narr_02.mp3"
           },
           {
             "text": "Copy, Outrider. Take your time. The long-range array's acting up again. Probably the cold.",
             "style": "radio",
             "static": 0.3,
-            "voice": "intro/audio/radio_02.mp3"
+            "voice": "intro/audio/radio_02.mp3",
+            "pause": 0.9
           }
         ],
-        "hold": 12,
-        "sound": "intro/audio/sfx_tool.mp3"
+        "sound": "intro/audio/sfx_tool.mp3",
+        "music": "intro/audio/music_intro.mp3",
+        "music_loop": false,
+        "music_volume": 0.5,
+        "tail": 2
       },
       {
         "background": "intro/backgrounds/intro_shadow.webp",
@@ -397,22 +462,22 @@
         "lines": [
           {
             "text": "Then the stars went out. Not all at once. One at a time... as if something were swallowing them.",
-            "pause": 1.4,
+            "pause": 1,
             "voice": "intro/audio/narr_03.mp3"
           },
           {
             "text": "Outrider... we're seeing... long-range is showing... something big. Something very big, right on top of you—",
             "style": "radio",
             "static": 0.7,
-            "voice": "intro/audio/radio_03.mp3"
+            "voice": "intro/audio/radio_03.mp3",
+            "pause": 1
           }
         ],
-        "hold": 10
+        "tail": 1
       },
       {
         "background": "intro/backgrounds/intro_taken.webp",
         "sound": "intro/audio/sfx_taken.mp3",
-        "music": null,
         "camera": {
           "from": {
             "zoom": 1
@@ -429,7 +494,7 @@
             "frame_width": 386,
             "frame_height": 419,
             "columns": 5,
-            "frame_rate": 0.6,
+            "frame_rate": 0.45,
             "frames": [
               3,
               3,
@@ -438,13 +503,13 @@
               4
             ],
             "loop": false,
-            "scale": 0.32,
-            "at": [560, 720],
+            "scale": 0.42,
+            "at": [470, 650],
             "move": {
-              "to": [575, 170],
-              "scale": 0.08,
-              "seconds": 9,
-              "delay": 0.5
+              "to": [482, 110],
+              "scale": 0.05,
+              "seconds": 12.5,
+              "delay": 0.6
             },
             "spin": 150
           }
@@ -524,7 +589,7 @@
             "type": "shake",
             "amount": 3,
             "delay": 1,
-            "until": 10
+            "until": 14
           }
         ],
         "lines": [
@@ -537,11 +602,19 @@
             "text": "Outrider, respond. Outrider—",
             "style": "radio",
             "static": 0.85,
-            "voice": "intro/audio/radio_04.mp3"
+            "voice": "intro/audio/radio_04.mp3",
+            "pause": 0.6
           }
         ],
-        "hold": 10,
-        "transition": "flash"
+        "transition": "flash",
+        "tail": 0.6,
+        "sounds": [
+          {
+            "file": "intro/audio/sfx_heartbeat_fast.mp3",
+            "cue": "line:2",
+            "volume": 0.8
+          }
+        ]
       },
       {
         "background": "intro/backgrounds/intro_catalogue.webp",
@@ -636,11 +709,12 @@
         "lines": [
           {
             "text": "You were catalogued. Weighed. Measured.\nYour suit was taken apart, seam by seam, and filed separately.",
-            "pause": 1,
+            "pause": 1.2,
             "voice": "intro/audio/narr_05.mp3"
           }
         ],
-        "hold": 10
+        "music_volume": 0.28,
+        "tail": 1.5
       },
       {
         "background": "intro/backgrounds/intro_pods.webp",
@@ -721,7 +795,7 @@
             "voice": "intro/audio/narr_06.mp3"
           }
         ],
-        "hold": 10
+        "tail": 2.2
       },
       {
         "sound": "intro/audio/sfx_glass_crack.mp3",
@@ -730,10 +804,11 @@
           {
             "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\n\nAnd somewhere below this ship,\nEarth is still turning.\n\nFind a way out.",
             "style": "card",
-            "pause": 1.2,
+            "pause": 2.4,
             "voice": "intro/audio/narr_07.mp3"
           }
-        ]
+        ],
+        "tail": 1.5
       }
     ]
   },

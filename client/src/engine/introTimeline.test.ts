@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { lineSeconds, cameraAt, spriteAt, ease } from './introTimeline';
+import { lineSeconds, cameraAt, spriteAt, ease, cueSeconds } from './introTimeline';
 import type { IntroSprite } from './types';
 
 const sprite = (extra: Partial<IntroSprite> = {}): IntroSprite => ({
@@ -39,5 +39,17 @@ describe('intro timeline', () => {
     const s = sprite({ frames: [0, 0, 3], frame_rate: 1 });
     expect([0, 1, 2, 3].map((t) => spriteAt(s, t + 0.1).column)).toEqual([0, 0, 3, 0]);
     expect(spriteAt({ ...s, loop: false }, 10).column).toBe(3);
+  });
+});
+
+describe('intro cues', () => {
+  it('resolves start, line:N and end, and null until they happen', () => {
+    const times = { lines: [0.8, 12.4], end: null };
+    expect(cueSeconds(undefined, times)).toBe(0);
+    expect(cueSeconds('start', times)).toBe(0);
+    expect(cueSeconds('line:2', times)).toBe(12.4);
+    expect(cueSeconds('line:3', times)).toBeNull();
+    expect(cueSeconds('end', times)).toBeNull();
+    expect(cueSeconds('end', { lines: [], end: 20 })).toBe(20);
   });
 });

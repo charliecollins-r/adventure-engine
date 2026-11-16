@@ -435,6 +435,12 @@ adventure-engine/
 
 ## Attribution
 
+### Voices and AI-generated sound
+
+[![Voices by ElevenLabs](https://img.shields.io/badge/voices%20by-ElevenLabs-black)](https://elevenlabs.io)
+
+The Harvest's narration (voice "Silas – Weathered Villain"), Mission Control radio voice ("Emily E. – Operator") and several intro sound effects were generated with **[ElevenLabs](https://elevenlabs.io)**. They were made on ElevenLabs' free plan, which requires attribution and allows non-commercial use only; a paid plan is needed before any commercial release. The game also shows "Voices and sound effects by ElevenLabs (elevenlabs.io)" on The Harvest's main-menu card (`metadata.credits`). File-by-file list: `scenarios/the-harvest/intro/audio/CREDITS.md`.
+
 ### Audio
 
 - **Item pickup chime** (`item_pickup.wav`): [Synth glockenspiel bell item money gold coin pick up.wav](https://freesound.org/s/531175/) by ryusa — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)

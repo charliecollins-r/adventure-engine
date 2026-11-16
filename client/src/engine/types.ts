@@ -8,6 +8,8 @@ export interface Metadata {
   tags: string[];
   version: string;
   patterns_used?: string[];
+  /** A short credits line shown on the scenario's main-menu card, e.g. "Voices by ElevenLabs (elevenlabs.io)". */
+  credits?: string;
 }
 
 export interface RoomStyle {
@@ -110,7 +112,12 @@ export interface IntroSprite {
   /** Continuous rotation in degrees per second (tumbling). */
   spin?: number;
   flip?: boolean;
-  /** Seconds after the scene starts before it appears, and when it disappears. */
+  /** When its clock starts: "start" (default), "line:N" (when line N, 1-based, appears) or "end" (when the last line is done).
+   *  delay/until/move/spin all count from this moment, so the action stays in step with the voices. */
+  cue?: IntroCue;
+  /** Hide it (fading out over `fade`) once this cue is reached. */
+  until_cue?: IntroCue;
+  /** Seconds after its cue before it appears, and when it disappears. */
   delay?: number;
   until?: number;
   /** Fade in/out time in seconds. Default 0.4. */
@@ -120,8 +127,22 @@ export interface IntroSprite {
   filter?: string;
 }
 
+/** A moment in an intro scene: "start", "line:N" (line N appears, 1-based) or "end" (all lines done). */
+export type IntroCue = string;
+
+/** A sound placed on an intro scene's timeline. */
+export interface IntroSound {
+  file: string;
+  /** When to play it (default "start"), plus `delay` seconds. */
+  cue?: IntroCue;
+  delay?: number;
+  /** 0..1, default 0.9. Loops are ducked under voices; one-shots are not. */
+  volume?: number;
+  loop?: boolean;
+}
+
 /** Procedural effects drawn over an intro scene. Areas are [x, y, width, height] in 960x720 coordinates. */
-export type IntroEffect =
+export type IntroEffect = { cue?: IntroCue } & (
   | { type: 'particles'; motion: 'rise' | 'fall' | 'drift' | 'twinkle'; area: [number, number, number, number];
       count: number; size?: number; color: [number, number, number]; alpha?: number; speed?: number; delay?: number }
   | { type: 'shade'; color?: [number, number, number]; from: number; to: number; seconds: number;
@@ -129,7 +150,13 @@ export type IntroEffect =
   | { type: 'sweep'; area: [number, number, number, number]; color: [number, number, number]; period: number;
       alpha?: number; delay?: number }
   | { type: 'sparks'; at: XY; color?: [number, number, number]; every: number; delay?: number; until?: number }
-  | { type: 'shake'; amount: number; delay?: number; until?: number };
+  | { type: 'shake'; amount: number; delay?: number; until?: number }
+  /** A sagging line (a tether, a cable) from a fixed point to a point or to a sprite (its feet plus `offset`, which
+   *  is in sprite pixels, scaled with it), so it follows the sprite as it bobs. Drawn behind the sprites. */
+  | { type: 'rope'; from: XY; to?: XY; to_sprite?: number; offset?: XY; sag?: number; color?: [number, number, number];
+      width?: number; delay?: number; until?: number });
+// every effect also takes `cue` (see IntroCue): its delay/until count from that moment
+
 
 export interface IntroCamera {
   /** zoom 1 = the whole picture; x/y shift the view (960x720 units). Interpolated (eased) over `seconds`. */
@@ -147,13 +174,21 @@ export interface IntroScene {
   ambient_lighting?: AmbientLighting;
   effects?: IntroEffect[];
   lines?: IntroLine[];
-  /** One-shot sound when the scene starts, and a sound looped while it lasts. */
+  /** One-shot sound when the scene starts, and a sound looped while it lasts (a loop carries on into the next scene if it uses the same file). */
   sound?: string;
   loop?: string;
-  /** Music: a file switches track (the same file keeps playing across scenes), null stops it, omitted keeps whatever is playing. */
+  /** More sounds, each on a cue (see IntroSound). */
+  sounds?: IntroSound[];
+  /** Music: a file switches track (crossfaded; the same file keeps playing across scenes), null fades it out, omitted keeps whatever is playing. */
   music?: string | null;
+  /** false: play the track once (a scored cue that builds to an ending). Default true. */
+  music_loop?: boolean;
+  /** Music volume 0..1, default 0.5. Music is ducked under voices. */
+  music_volume?: number;
   /** Minimum seconds on screen (it also lasts until its lines are done). */
   hold?: number;
+  /** Seconds to stay after the last line is done, before the transition. Default 1. */
+  tail?: number;
   /** How this scene hands over to the next: fade through black (default), cut, or a white flash. */
   transition?: 'fade' | 'cut' | 'flash';
 }

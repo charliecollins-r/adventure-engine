@@ -5,9 +5,9 @@
  * Click / Space / Enter: next line. Escape or "skip intro": straight to the game.
  */
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
-import type { IntroScene, IntroLine, IntroEffect, LightSource } from '../engine/types';
+import type { IntroScene, IntroLine, IntroEffect, IntroSound, LightSource } from '../engine/types';
 import { resolveAsset } from '../engine/assetResolver';
-import { cameraAt, spriteAt, lineSeconds, hash01 } from '../engine/introTimeline';
+import { cameraAt, spriteAt, lineSeconds, hash01, cueSeconds, type CueTimes } from '../engine/introTimeline';
 
 interface Props {
   scenes: IntroScene[];
@@ -22,7 +22,27 @@ const H = 1080;
 const SX = W / 960;
 const SY = H / 720;
 const FADE_S = 0.7;
-const MUSIC_VOLUME = 0.35;
+/** Default music volume (scene.music_volume overrides). Music and loops are ducked to DUCK while a voice speaks. */
+const MUSIC_VOLUME = 0.5;
+const LOOP_VOLUME = 0.7;
+const SOUND_VOLUME = 0.9;
+/** While a voice speaks: music drops to MUSIC_DUCK, loops to LOOP_DUCK (gently, so beds don't pump between lines). */
+const MUSIC_DUCK = 0.4;
+const LOOP_DUCK = 0.7;
+const VOICE_VOLUME = 1.0;
+
+/** A playing clip and the volume it should sit at before ducking and fades. */
+interface Track { file: string; audio: HTMLAudioElement; base: number; ducked: boolean; gain: number }
+
+/** Ramp a track's own gain (0..1) to `to` over `ms`, then optionally stop it. */
+function ramp(t: Track, to: number, ms: number, stop = false) {
+  const from = t.gain; const t0 = performance.now();
+  const id = window.setInterval(() => {
+    const k = Math.min(1, (performance.now() - t0) / Math.max(1, ms));
+    t.gain = from + (to - from) * k;
+    if (k >= 1) { clearInterval(id); if (stop) { t.audio.pause(); t.audio.src = ''; } }
+  }, 30);
+}
 
 type Phase = 'title' | 'scene' | 'out' | 'in' | 'done';
 
@@ -35,17 +55,34 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
   const [phase, setPhase] = useState<Phase>('title');
   const sceneStart = useRef(performance.now());
   const fade = useRef({ color: '0,0,0', alpha: 1, from: 1, to: 0, start: performance.now(), seconds: FADE_S });
-  const music = useRef<{ file: string; audio: HTMLAudioElement } | null>(null);
-  const loopAudio = useRef<HTMLAudioElement | null>(null);
+  const music = useRef<Track | null>(null);
+  /** The current scene's sounds and loops (faded out when the scene ends, unless the next scene loops the same file). */
+  const sceneTracks = useRef<Track[]>([]);
   const voice = useRef<HTMLAudioElement | null>(null);
+  /** 0 = no voice, 1 = a voice is speaking; eased every frame and mapped to MUSIC_DUCK / LOOP_DUCK. */
+  const duck = useRef(0);
+  const cues = useRef<CueTimes>({ lines: [], end: null });
+  const playedSounds = useRef(new Set<number>());
   const audioCtx = useRef<AudioContext | null>(null);
   const timers = useRef<number[]>([]);
   const lineDone = useRef(false);
+  const lineToken = useRef(0);
   const finished = useRef(false);
 
   const url = useCallback((p: string) => resolveAsset(scenarioId, p), [scenarioId]);
   const later = (fn: () => void, ms: number) => { timers.current.push(window.setTimeout(fn, ms)); };
   const clearTimers = () => { timers.current.forEach(clearTimeout); timers.current = []; };
+
+  /** Start a scene sound (one-shot or loop). Loops are ducked under voices; one-shots play as authored. */
+  const playTrack = (snd: IntroSound) => {
+    const a = new Audio(url(snd.file));
+    a.loop = !!snd.loop;
+    const t: Track = { file: snd.file, audio: a, base: snd.volume ?? (snd.loop ? LOOP_VOLUME : SOUND_VOLUME), ducked: !!snd.loop, gain: 1 };
+    a.volume = t.base * (t.ducked ? 1 - (1 - LOOP_DUCK) * duck.current : 1);
+    a.play().catch(() => {});
+    if (!snd.loop) a.addEventListener('ended', () => { sceneTracks.current = sceneTracks.current.filter((x) => x !== t); });
+    sceneTracks.current.push(t);
+  };
 
   // Preload every picture the cinematic uses.
   useEffect(() => {
@@ -70,13 +107,9 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     finished.current = true;
     clearTimers();
     stopVoice();
-    loopAudio.current?.pause();
-    const m = music.current?.audio;
-    if (m) {
-      const start = m.volume;
-      let k = 0;
-      const id = window.setInterval(() => { k++; m.volume = Math.max(0, start * (1 - k / 10)); if (k >= 10) { m.pause(); clearInterval(id); } }, 60);
-    }
+    for (const t of sceneTracks.current) ramp(t, 0, 500, true);
+    sceneTracks.current = [];
+    if (music.current) { ramp(music.current, 0, 600, true); music.current = null; }
     setPhase('done');
     fade.current = { color: '0,0,0', alpha: fade.current.alpha, from: fade.current.alpha, to: 1, start: performance.now(), seconds: 0.6 };
     window.setTimeout(onComplete, 650);
@@ -86,7 +119,9 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
   useEffect(() => {
     later(() => goTo(0, 'fade'), 2600);
     return () => {
-      clearTimers(); stopVoice(); loopAudio.current?.pause(); music.current?.audio.pause();
+      clearTimers(); stopVoice();
+      for (const t of sceneTracks.current) t.audio.pause();
+      music.current?.audio.pause();
       audioCtx.current?.close().catch(() => {});
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -95,6 +130,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
   const playVoice = (line: IntroLine, onEnd: () => void): Promise<number | null> => new Promise((resolve) => {
     if (!line.voice) { resolve(null); return; }
     const a = new Audio(url(line.voice));
+    a.volume = VOICE_VOLUME;
     voice.current = a;
     let settled = false;
     const done = (v: number | null) => { if (!settled) { settled = true; resolve(v); } };
@@ -121,16 +157,17 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
         for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (Math.random() < 0.02 ? 1 : 0.25);
         const noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
         const nf = ctx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 2200;
-        const ng = ctx.createGain(); ng.gain.value = 0.05 + amount * 0.25;
+        const ng = ctx.createGain(); ng.gain.value = 0.015 + amount * 0.06;
         noise.connect(nf).connect(ng).connect(ctx.destination);
         noise.start();
         a.addEventListener('ended', () => noise.stop());
         a.addEventListener('pause', () => { try { noise.stop(); } catch { /* already stopped */ } });
+        // a bad signal drops out briefly now and then, never long enough to lose a word
         if (amount > 0.45) {
           const id = window.setInterval(() => {
             if (a.paused) { clearInterval(id); return; }
-            gain.gain.setTargetAtTime(Math.random() < amount * 0.35 ? 0.05 : 1, ctx.currentTime, 0.02);
-          }, 180);
+            gain.gain.setTargetAtTime(Math.random() < amount * 0.12 ? 0.3 : 1, ctx.currentTime, 0.03);
+          }, 260);
         }
         ctx.resume().catch(() => {});
       } catch { /* no Web Audio: play it clean */ }
@@ -142,11 +179,16 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     const scene = scenes[si];
     const line = scene?.lines?.[li];
     if (!line) { endScene(si); return; }
+    stopVoice();
+    const token = ++lineToken.current;
     lineDone.current = false;
+    cues.current.lines[li] = (performance.now() - sceneStart.current) / 1000;
     setLineIndex(li);
     setLineVisible(true);
+    // Each line ends exactly once: by its clip's 'ended', or by the safety timer if the clip never reports.
+    // The token stops a late timer from a finished line ending (and re-starting) the line after it.
     const next = () => {
-      if (lineDone.current) return;
+      if (token !== lineToken.current || lineDone.current) return;
       lineDone.current = true;
       setLineVisible(false);
       const nextLine = scene.lines?.[li + 1];
@@ -162,7 +204,8 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
   const endScene = (si: number) => {
     const scene = scenes[si];
     const elapsed = (performance.now() - sceneStart.current) / 1000;
-    const wait = Math.max(0, (scene.hold ?? 0) - elapsed);
+    if (cues.current.end == null) cues.current.end = elapsed;
+    const wait = Math.max(scene.tail ?? 1, (scene.hold ?? 0) - elapsed);
     later(() => goTo(si + 1, scene.transition ?? 'fade'), wait * 1000);
   };
 
@@ -171,24 +214,34 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     if (si >= scenes.length) { finish(); return; }
     const begin = () => {
       stopVoice();
-      loopAudio.current?.pause();
-      loopAudio.current = null;
       const scene = scenes[si];
       sceneStart.current = performance.now();
+      cues.current = { lines: [], end: null };
+      playedSounds.current = new Set();
       setSceneIndex(si);
       setLineIndex(-1);
       setLineVisible(false);
       setPhase('scene');
-      // music: a file switches track (same file keeps playing), null stops, omitted keeps
-      if (scene.music === null) { music.current?.audio.pause(); music.current = null; }
+      // Music: crossfade on a new file, fade out on null, carry on when omitted or the same.
+      if (scene.music === null) { if (music.current) { ramp(music.current, 0, 1500, true); music.current = null; } }
       else if (scene.music && music.current?.file !== scene.music) {
-        music.current?.audio.pause();
-        const m = new Audio(url(scene.music)); m.loop = true; m.volume = MUSIC_VOLUME;
-        m.play().catch(() => {});
-        music.current = { file: scene.music, audio: m };
+        if (music.current) ramp(music.current, 0, 1500, true);
+        const m = new Audio(url(scene.music)); m.loop = scene.music_loop !== false;
+        const t: Track = { file: scene.music, audio: m, base: scene.music_volume ?? MUSIC_VOLUME, ducked: true, gain: 0 };
+        m.volume = 0; m.play().catch(() => {});
+        ramp(t, 1, 1500);
+        music.current = t;
+      } else if (music.current && scene.music_volume != null) music.current.base = scene.music_volume;
+      // The previous scene's sounds fade out, except a loop this scene loops too (it just carries on).
+      const keep = scene.loop;
+      const carried: Track[] = [];
+      for (const t of sceneTracks.current) {
+        if (keep && t.file === keep && t.audio.loop) carried.push(t);
+        else ramp(t, 0, 700, true);
       }
-      if (scene.sound) { const s = new Audio(url(scene.sound)); s.volume = 0.8; s.play().catch(() => {}); }
-      if (scene.loop) { const l = new Audio(url(scene.loop)); l.loop = true; l.volume = 0.6; l.play().catch(() => {}); loopAudio.current = l; }
+      sceneTracks.current = carried;
+      if (scene.loop && !carried.length) playTrack({ file: scene.loop, loop: true, volume: LOOP_VOLUME });
+      if (scene.sound) playTrack({ file: scene.sound, volume: SOUND_VOLUME });
       const color = transition === 'flash' ? '255,255,255' : '0,0,0';
       fade.current = { color, alpha: transition === 'cut' ? 0 : 1, from: transition === 'cut' ? 0 : 1, to: 0,
         start: performance.now(), seconds: transition === 'flash' ? 1.0 : FADE_S };
@@ -206,6 +259,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     if (phase !== 'scene' || lineIndex < 0 || lineDone.current) return;
     stopVoice();
     clearTimers();
+    lineToken.current++;
     lineDone.current = true;
     setLineVisible(false);
     const scene = scenes[sceneIndex];
@@ -233,7 +287,24 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
         ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, W, H);
         const scene = scenes[sceneIndex];
-        if (scene && phase !== 'title') drawScene(ctx, scene, (now - sceneStart.current) / 1000, images.current);
+        const t = (now - sceneStart.current) / 1000;
+        // mixer: ease the duck toward its target, apply it to music and loops
+        const speaking = voice.current && !voice.current.paused ? 1 : 0;
+        // dip quickly when a voice starts, recover slowly after it ends
+        duck.current += (speaking - duck.current) * (speaking ? 0.12 : 0.025);
+        const mix = (tr: Track, depth: number) => {
+          const d = tr.ducked ? 1 - (1 - depth) * duck.current : 1;
+          tr.audio.volume = Math.max(0, Math.min(1, tr.base * tr.gain * d));
+        };
+        if (music.current) mix(music.current, MUSIC_DUCK);
+        sceneTracks.current.forEach((tr) => mix(tr, LOOP_DUCK));
+        // cue-placed sounds
+        if (scene && phase === 'scene') (scene.sounds ?? []).forEach((snd, i) => {
+          if (playedSounds.current.has(i)) return;
+          const at = cueSeconds(snd.cue, cues.current);
+          if (at != null && t >= at + (snd.delay ?? 0)) { playedSounds.current.add(i); playTrack(snd); }
+        });
+        if (scene && phase !== 'title') drawScene(ctx, scene, t, images.current, cues.current);
         const f = fade.current;
         const k = Math.min(1, (now - f.start) / 1000 / f.seconds);
         f.alpha = f.from + (f.to - f.from) * k;
@@ -279,11 +350,14 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
 
 // ── drawing ───────────────────────────────────────────────────────────────
 
-function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, images: Map<string, HTMLImageElement>) {
+function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, images: Map<string, HTMLImageElement>, cueTimes: CueTimes) {
+  /** Seconds since this thing's cue, or null if the cue hasn't happened. */
+  const since = (cue?: string) => { const c = cueSeconds(cue, cueTimes); return c == null ? null : t - c; };
   const cam = cameraAt(scene.camera, t);
   let shakeX = 0, shakeY = 0;
   for (const e of scene.effects ?? []) {
-    if (e.type === 'shake' && t >= (e.delay ?? 0) && t < (e.until ?? Infinity)) {
+    const et = since(e.cue);
+    if (e.type === 'shake' && et != null && et >= (e.delay ?? 0) && et < (e.until ?? Infinity)) {
       shakeX += (Math.random() * 2 - 1) * e.amount * SX;
       shakeY += (Math.random() * 2 - 1) * e.amount * SY;
     }
@@ -302,18 +376,62 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
     ctx.drawImage(bg, (W - dw) / 2, (H - dh) / 2, dw, dh);
   }
 
-  for (const e of scene.effects ?? []) if (e.type === 'shade') drawEffect(ctx, e, t, 0);
+  for (const e of scene.effects ?? []) { const et = since(e.cue); if (e.type === 'shade' && et != null) drawEffect(ctx, e, et, 0); }
 
-  for (const sp of scene.sprites ?? []) {
-    const st = spriteAt(sp, t);
+  // where every sprite is this frame (ropes attach to them)
+  const states = (scene.sprites ?? []).map((sp) => {
+    const st0 = since(sp.cue);
+    if (st0 == null) return null;
+    const st = spriteAt(sp, st0);
+    const gone = since(sp.until_cue ?? undefined);
+    if (sp.until_cue && gone != null) st.opacity *= Math.max(0, 1 - gone / Math.max(0.01, sp.fade ?? 0.4));
+    return st;
+  });
+
+  for (const e of scene.effects ?? []) {
+    if (e.type !== 'rope') continue;
+    const et = since(e.cue);
+    if (et == null || et < (e.delay ?? 0) || et >= (e.until ?? Infinity)) continue;
+    let to = e.to;
+    let alpha = 1;
+    if (e.to_sprite != null) {
+      const st = states[e.to_sprite];
+      if (!st || !st.visible) continue;
+      const [ox, oy] = e.offset ?? [0, 0];
+      to = [st.x + ox * st.scale, st.y + oy * st.scale];
+      alpha = st.opacity;
+    }
+    if (!to) continue;
+    const [x1, y1] = [e.from[0] * SX, e.from[1] * SY];
+    const [x2, y2] = [to[0] * SX, to[1] * SY];
+    const sag = (e.sag ?? 40) * SY;
+    const [r, g, b] = e.color ?? [230, 120, 40];
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.lineCap = 'round';
+    ctx.lineWidth = (e.width ?? 3) * SX + 2;
+    ctx.strokeStyle = 'rgba(20,12,8,0.9)';
+    const path = () => { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.quadraticCurveTo((x1 + x2) / 2, Math.max(y1, y2) + sag, x2, y2); };
+    path(); ctx.stroke();
+    ctx.lineWidth = (e.width ?? 3) * SX;
+    ctx.strokeStyle = `rgb(${r},${g},${b})`;
+    path(); ctx.stroke();
+    ctx.restore();
+  }
+
+  for (let i = 0; i < (scene.sprites ?? []).length; i++) {
+    const sp = scene.sprites![i];
+    const st = states[i];
+    if (!st) continue;
     const img = images.get(sp.file);
-    if (!st.visible || !img?.complete || !img.naturalWidth) continue;
+    if (!st.visible || st.opacity <= 0 || !img?.complete || !img.naturalWidth) continue;
     const dw = sp.frame_width * st.scale * 2;
     const dh = sp.frame_height * st.scale * 2;
     ctx.save();
     ctx.globalAlpha = st.opacity;
     if (sp.filter) ctx.filter = sp.filter;
-    ctx.imageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     // rotate about the sprite's centre; (x, y) is its feet
     ctx.translate(st.x * SX, st.y * SY - dh / 2);
     if (st.rotation) ctx.rotate((st.rotation * Math.PI) / 180);
@@ -324,7 +442,7 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
   }
 
   for (const light of scene.ambient_lighting?.lights ?? []) drawLight(ctx, light, t);
-  (scene.effects ?? []).forEach((e, k) => { if (e.type !== 'shade' && e.type !== 'shake') drawEffect(ctx, e, t, k); });
+  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if (et != null && e.type !== 'shade' && e.type !== 'shake' && e.type !== 'rope') drawEffect(ctx, e, et, k); });
 }
 
 function drawLight(ctx: CanvasRenderingContext2D, light: LightSource, t: number) {

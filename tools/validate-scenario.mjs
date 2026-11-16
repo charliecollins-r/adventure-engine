@@ -107,6 +107,16 @@ const asset = (p, ctx) => { if (p && !existsSync(join(dir, p))) errors.push(`${c
 (s.setting?.intro_scenes || []).forEach((sc, i) => {
   const ctx = `intro scene #${i + 1}`;
   asset(sc.background, ctx); asset(sc.sound, ctx); asset(sc.loop, ctx); if (sc.music) asset(sc.music, ctx);
+  const nLines = (sc.lines || []).length;
+  const cueOk = (c, where) => {
+    if (c == null || c === 'start' || c === 'end') return;
+    const m = /^line:(\d+)$/.exec(c);
+    if (!m) errors.push(`${ctx} ${where}: cue "${c}" must be "start", "end" or "line:N"`);
+    else if (+m[1] < 1 || +m[1] > nLines) errors.push(`${ctx} ${where}: cue "${c}" but the scene has ${nLines} line(s)`);
+  };
+  (sc.sounds || []).forEach((snd, j) => { asset(snd.file, `${ctx} sound #${j + 1}`); cueOk(snd.cue, `sound #${j + 1}`); });
+  (sc.effects || []).forEach((e, j) => cueOk(e.cue, `effect #${j + 1}`));
+  (sc.sprites || []).forEach((sp, j) => { cueOk(sp.cue, `sprite #${j + 1}`); cueOk(sp.until_cue, `sprite #${j + 1} until_cue`); });
   (sc.lines || []).forEach((l, j) => {
     if (!l.text) errors.push(`${ctx} line #${j + 1}: no text`);
     asset(l.voice, `${ctx} line #${j + 1}`);

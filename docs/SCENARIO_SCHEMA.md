@@ -2139,14 +2139,18 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 | `ambient_lighting` | AmbientLighting | Same format as views: pulsing glows (veins, beams, lamps). |
 | `effects` | IntroEffect[] | Procedural effects (below). |
 | `lines` | IntroLine[] | Shown one after another at the bottom of the screen. |
-| `sound` / `loop` | string | A one-shot sound when the scene starts; a sound looped while it lasts. |
-| `music` | string \| null | A file switches track (the same file keeps playing across scenes), `null` stops the music, omitted keeps what is playing. |
+| `sound` / `loop` | string | A one-shot sound when the scene starts; a sound looped while it lasts (a loop the next scene also uses carries on without a restart). When the scene ends its sounds fade out instead of bleeding into the next one. |
+| `sounds` | IntroSound[] | More sounds on cues: `{ file, cue?, delay?, volume?, loop? }`. |
+| `music` | string \| null | A file crossfades to that track (the same file keeps playing across scenes), `null` fades the music out, omitted keeps what is playing. |
+| `music_loop` | boolean | `false` plays the track once: a scored cue that builds to an ending. Default true. |
+| `music_volume` | number | 0..1, default 0.5. |
 | `hold` | number | Minimum seconds on screen; the scene also lasts until its lines are done. |
+| `tail` | number | Seconds to stay after the last line is done, before the transition. Default 1. |
 | `transition` | `fade` \| `cut` \| `flash` | How it hands over to the next scene. Default `fade` (through black). |
 
 **IntroLine**: `text` (use `\n` for line breaks), `voice` (an audio clip; the line lasts as long as the clip, otherwise 0.06 s per character, at least 3 s), `style` (`narration` gold serif, the default; `radio`, a transmission in italic monospace marked RADIO whose voice gets a band-pass filter, crackle and, above 0.45, dropouts; `card`, large and centred), `static` (radio only, 0 clean to 1 barely there, default 0.3), `pause` (seconds of silence before the line, default 0.4).
 
-**IntroSprite**: `file`, `frame_width`, `frame_height`, `columns`, `row` (default 0), `frames` (column order, e.g. `[0,0,0,1,0,0,2]` for an idle made of edits), `frame_rate`, `loop` (default true), `scale` (same meaning as object sprites), `at` (feet, `[x, y]`), `move` (`{to, scale?, seconds, delay?}`, eased), `bob` (`{amount, period}`: floating), `rotate` (fixed degrees, e.g. -90 to lay a figure down), `spin` (degrees per second, about the sprite's centre), `flip`, `delay`/`until` (seconds after the scene starts), `fade` (in/out seconds, default 0.4), `opacity`, `filter` (a CSS filter such as `"sepia(0.8) brightness(0.8)"` to sit a figure inside coloured fluid).
+**IntroSprite**: `file`, `frame_width`, `frame_height`, `columns`, `row` (default 0), `frames` (column order, e.g. `[0,0,0,1,0,0,2]` for an idle made of edits), `frame_rate`, `loop` (default true), `scale` (same meaning as object sprites), `at` (feet, `[x, y]`), `move` (`{to, scale?, seconds, delay?}`, eased), `bob` (`{amount, period}`: floating), `rotate` (fixed degrees, e.g. -90 to lay a figure down), `spin` (degrees per second, about the sprite's centre), `flip`, `cue` (when its clock starts: `"start"`, `"line:N"` when line N appears, 1-based, or `"end"` when the last line is done; `delay`, `until`, `move` and `spin` count from it), `until_cue` (fade it out once that cue is reached), `delay`/`until` (seconds after its cue), `fade` (in/out seconds, default 0.4), `opacity`, `filter` (a CSS filter such as `"sepia(0.8) brightness(0.8)"` to sit a figure inside coloured fluid).
 
 **IntroEffect** (areas are `[x, y, width, height]`):
 
@@ -2157,6 +2161,16 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 | `sweep` | `area`, `color`, `period`, `alpha`, `delay` | A scanning line moving up and down |
 | `sparks` | `at`, `color`, `every`, `delay`, `until` | Bursts of sparks from a point (a tool at work) |
 | `shake` | `amount`, `delay`, `until` | Camera shake |
+| `rope` | `from`, `to` or `to_sprite` (+ `offset` in sprite pixels), `sag`, `color`, `width` | A sagging tether or cable; with `to_sprite` it follows that sprite as it bobs |
+
+Every effect also takes `cue`.
+
+**Cue everything to the voices.** Lines last as long as their clips, so a pose change or an effect timed in fixed seconds drifts out of step as soon as a clip is re-recorded. Put it on a cue instead: The Harvest's pilot keeps working while Mission Control says all is well (`until_cue: "line:2"`), the stars die during that line (`cue: "line:2"`), and he looks up in alarm when it ends (`cue: "end"`).
+
+**The mix.** Voices play at full volume; music and loops duck under them (music to 40%, loops to 70%) and recover slowly between lines; one-shot sounds play as authored. Master the files so voices are clearly the loudest: The Harvest's `scripts/master_intro_audio.py` gains every clip to a loudness target (voices -16 LUFS, events -20 to -26, beds -27 to -30). Nothing from the rooms (ambient audio, music) plays during the intro.
 
 **Making one**: paint the establishing shot first, then make later shots as edits of it (the same recipe as rooms that belong together, ART_GUIDE → "Case Study: The Vent Maze"); paint the space where a figure goes empty and add the figure as a sprite; animate sprites as one base frame plus edits (ART_GUIDE → "Idle animations"). The validator checks every intro file and sprite field. The Harvest's intro (7 scenes) is the worked example; `scenarios/the-harvest/scripts/playthrough/intro.cjs` tests it in the browser.
 
+### Credits
+
+`metadata.credits` (string, optional) is a short credits line shown on the scenario's main-menu card, e.g. `"Voices and sound effects by ElevenLabs (elevenlabs.io)"`. Use it for any third-party service or asset whose terms require visible attribution.

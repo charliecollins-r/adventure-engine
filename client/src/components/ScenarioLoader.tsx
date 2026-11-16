@@ -24,6 +24,7 @@ interface ScenarioMeta {
   description: string;
   difficulty?: string;
   estimated_minutes?: number;
+  credits?: string;
   loading: boolean;
   error?: string;
 }
@@ -80,6 +81,12 @@ const styles: Record<string, CSSProperties> = {
     color: '#8a7a5a',
     lineHeight: '1.5',
     marginBottom: '12px',
+  },
+  cardCredits: {
+    fontSize: '0.7rem',
+    fontFamily: 'monospace',
+    color: '#6a5a40',
+    marginTop: '6px',
   },
   cardMeta: {
     fontSize: '0.75rem',
@@ -180,6 +187,7 @@ export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
                         description: data.metadata?.description ?? '',
                         difficulty: data.metadata?.difficulty,
                         estimated_minutes: data.metadata?.estimated_minutes,
+                        credits: data.metadata?.credits,
                         loading: false,
                       }
                     : m,
@@ -267,6 +275,7 @@ export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
                   {meta.difficulty && <span>{meta.difficulty}</span>}
                   {meta.estimated_minutes && <span> · ~{meta.estimated_minutes} min</span>}
                 </div>
+                {meta.credits && <div data-credits style={styles.cardCredits}>{meta.credits}</div>}
               </>
             )}
             {loadingId === meta.id && <div style={styles.loadingCard}>Loading scenario...</div>}
