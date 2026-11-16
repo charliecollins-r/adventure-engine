@@ -189,11 +189,9 @@
         ],
         "lines": [
           {
-            "text": "High above home, the only sound is your own breathing.",
-            "pause": 1.2
-          },
-          {
-            "text": "Relay satellite LUMEN-7 had been silent for nine days. Your job was to find out why."
+            "text": "High above home, the only sound is your own breathing.\nRelay satellite LUMEN-7 had been silent for nine days. Your job was to find out why.",
+            "pause": 1.2,
+            "voice": "intro/audio/narr_01.mp3"
           },
           {
             "text": "Outrider, Relay Control. LUMEN-7 is still dark on our end. How's it looking out there?",
@@ -304,7 +302,8 @@
         "lines": [
           {
             "text": "Inside the panel, the circuits were not burned. They had been picked clean... as if something had been reading them.",
-            "pause": 1.0
+            "pause": 1.0,
+            "voice": "intro/audio/narr_02.mp3"
           },
           {
             "text": "Copy, Outrider. Take your time. The long-range array's acting up again. Probably the cold.",
@@ -395,7 +394,8 @@
         "lines": [
           {
             "text": "Then the stars went out. Not all at once. One at a time... as if something were swallowing them.",
-            "pause": 1.4
+            "pause": 1.4,
+            "voice": "intro/audio/narr_03.mp3"
           },
           {
             "text": "Outrider... we're seeing... long-range is showing... something big. Something very big, right on top of you—",
@@ -525,11 +525,9 @@
         ],
         "lines": [
           {
-            "text": "It did not attack. It harvested.",
-            "pause": 0.8
-          },
-          {
-            "text": "The satellite, the Outrider... and you. Gathered up like fruit."
+            "text": "It did not attack. It harvested.\nThe satellite, the Outrider... and you. Gathered up like fruit.",
+            "pause": 0.8,
+            "voice": "intro/audio/narr_04.mp3"
           },
           {
             "text": "Outrider, respond. Outrider—",
@@ -632,11 +630,9 @@
         ],
         "lines": [
           {
-            "text": "You were catalogued. Weighed. Measured.",
-            "pause": 1.0
-          },
-          {
-            "text": "Your suit was taken apart, seam by seam, and filed separately."
+            "text": "You were catalogued. Weighed. Measured.\nYour suit was taken apart, seam by seam, and filed separately.",
+            "pause": 1.0,
+            "voice": "intro/audio/narr_05.mp3"
           }
         ],
         "hold": 10
