@@ -33603,13 +33603,13 @@
       "initial_state": "default",
       "initially_visible": false,
       "sprite": {
-        "file": "sprites/cataloguer_robot.png",
-        "frame_width": 339,
-        "frame_height": 562,
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
         "columns": 4,
         "rows": 1,
         "frame_rate": 4,
-        "scale": 0.24
+        "scale": 0.25
       },
       "walk_to": false,
       "interactions": [
@@ -33645,7 +33645,13 @@
           "response": "Its lens snaps toward your voice. You stop talking.",
           "then": []
         }
-      ]
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
     },
     {
       "id": "nav_vent_maze_a1_north",

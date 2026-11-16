@@ -106,7 +106,7 @@ Ask for a horizontal strip: *"N frames in a single horizontal row, evenly spaced
 
 ### Guards: one reusable sprite (The Harvest hunter drone)
 
-A guard is a hidden object with a sprite that a widget's `on_max_fail` (or any effect) shows and the room's exit hides again. The same art can block a doorway: place a second object over the door and gate the nav. See SCENARIO_SCHEMA → "Pattern: noise, guards and hiding". The Harvest currently uses the cataloguer sprite as a placeholder (`lab_hunter_drone`). This is the prompt for its real art:
+A guard is a hidden object with a sprite that a widget's `on_max_fail` (or any effect) shows and the room's exit hides again. The same art can block a doorway: place a second object over the door and gate the nav. See SCENARIO_SCHEMA → "Pattern: noise, guards and hiding". The Harvest's `lab_hunter_drone` uses `sprites/hunter_drone.png`, made from this prompt (Gemini returned all four frames side by side in one image; `scenarios/the-harvest/scripts/build_hunter_drone.py` cuts the quarters and keys them with one shared crop):
 
 ```
 Game character sprite sheet in the style of 1990s Sierra On-Line King's Quest V VGA pixel art: visible hand-placed pixels, limited 256-color palette, crisp dark outlines, flat shading with stepped dithered gradients. NOT painterly, NOT airbrushed, NOT 3D rendered.
