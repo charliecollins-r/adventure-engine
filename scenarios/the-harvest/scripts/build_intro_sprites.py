@@ -17,11 +17,13 @@ RAW = 'intro/sprites/raw'
 SHEETS = {
     'pod_float': ('blue', ['base', 'a', 'b'], 0.5, 'feet'),
     'specimen_limp': ('blue', ['base', 'a'], 0.5, 'none'),
-    'eva_float': ('green', ['base', 'a', 'b'], 0.5, 'none'),
-    'eva_work': ('green', ['base', 'a', 'b'], 0.5, 'none'),
-    'eva_look_up': ('green', ['a', 'base'], 0.5, 'none'),
-    'eva_tumble': ('green', ['base', 'a'], 0.5, 'none'),
+    # every spacesuit pose is an edit of one base, so they share one sheet (frame indices in the JSON);
+    # frames marked optional are appended when their raw files exist
+    'eva': ('green', ['work', 'glance', 'alarm', 'tumble', 'limp'], 0.5, 'none'),
 }
+OPTIONAL = {'eva': ['float', 'float_wave', 'float_look']}
+# pixels past this x (in raw frame pixels) are cut: Gemini paints a bit of the satellite at the right edge
+CLIP_RIGHT = {'eva': 960}
 
 def load(name):
     for ext in ('png', 'webp', 'jpg'):
@@ -50,11 +52,14 @@ def feet_info(rgba):
     return feet, span, cx
 
 for sprite, (backdrop, order, out_scale, align) in SHEETS.items():
+    order = order + [n for n in OPTIONAL.get(sprite, []) if load(f'{sprite}_{n}') is not None]
     names = sorted(set(order))
     raws = {n: load(f'{sprite}_{n}') for n in names}
     if any(v is None for v in raws.values()):
         print(f'{sprite}: raw frames missing, skipped'); continue
     keyed = {n: key(a, backdrop) for n, a in raws.items()}
+    if sprite in CLIP_RIGHT:
+        for im in keyed.values(): im[:, CLIP_RIGHT[sprite]:, 3] = 0
     if align == 'feet':
         bf, bspan, bcx = feet_info(keyed['base'])
         H, W = keyed['base'].shape[:2]

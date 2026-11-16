@@ -132,19 +132,21 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 0,
-            "frame_rate": 2,
-            "scale": 0.3,
-            "at": [205, 430],
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
+            "frames": [
+              0
+            ],
+            "scale": 0.31,
+            "at": [205, 440],
             "bob": {
               "amount": 7,
               "period": 4.5
             },
-            "rotate": -8
+            "rotate": -6
           }
         ],
         "ambient_lighting": {
@@ -217,47 +219,67 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 0,
-            "frame_rate": 2,
-            "scale": 0.72,
-            "at": [420, 655],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "until": 10.5,
-            "fade": 0.3
-          },
-          {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 1,
-            "frame_rate": 2,
-            "scale": 0.72,
-            "at": [420, 655],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "delay": 10.5,
-            "fade": 0.3,
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
             "frames": [
               0
-            ]
+            ],
+            "scale": 0.8,
+            "at": [505, 690],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "until": 9,
+            "fade": 0.15
+          },
+          {
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
+            "frames": [
+              1
+            ],
+            "scale": 0.8,
+            "at": [505, 690],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "delay": 9,
+            "until": 11,
+            "fade": 0.15
+          },
+          {
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
+            "frames": [
+              2
+            ],
+            "scale": 0.8,
+            "at": [505, 690],
+            "bob": {
+              "amount": 4,
+              "period": 5
+            },
+            "delay": 11,
+            "fade": 0.15
           }
         ],
         "effects": [
           {
             "type": "sparks",
-            "at": [590, 330],
+            "at": [640, 330],
             "every": 1.7,
-            "until": 10
+            "until": 9
           },
           {
             "type": "shade",
@@ -307,19 +329,21 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 1,
-            "frame_rate": 2,
-            "scale": 0.2,
-            "at": [150, 480],
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0,
+            "frames": [
+              2
+            ],
+            "scale": 0.22,
+            "at": [150, 485],
             "bob": {
               "amount": 4,
               "period": 4
             },
-            "rotate": 10
+            "rotate": 8
           }
         ],
         "ambient_lighting": {
@@ -397,13 +421,20 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 1,
-            "frame_rate": 2,
-            "scale": 0.3,
+            "file": "intro/sprites/eva.png",
+            "frame_width": 386,
+            "frame_height": 419,
+            "columns": 5,
+            "frame_rate": 0.6,
+            "frames": [
+              3,
+              3,
+              3,
+              3,
+              4
+            ],
+            "loop": false,
+            "scale": 0.32,
             "at": [560, 720],
             "move": {
               "to": [575, 170],
