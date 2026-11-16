@@ -26,7 +26,7 @@ const inGame = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     await p.waitForTimeout(450);
   }
   await p.waitForTimeout(2500);
-  if (lines.length < 12) fail(`only ${lines.length} lines shown: ${JSON.stringify(lines)}`); else ok(`${lines.length} lines, clicked through`);
+  if (lines.length < 10) fail(`only ${lines.length} lines shown: ${JSON.stringify(lines)}`); else ok(`${lines.length} lines, clicked through`);
   if (!lines.some((l) => /RADIO/.test(l))) fail('no radio line'); else ok('radio lines are marked');
   if (!(await inGame(p))) fail('the game did not start after the last line'); else ok('the game starts after the cinematic');
 

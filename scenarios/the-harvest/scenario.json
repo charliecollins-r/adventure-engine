@@ -711,11 +711,9 @@
         ],
         "lines": [
           {
-            "text": "Then they filed you away, with hundreds of others, in a pod of warm amber fluid.",
-            "pause": 1.0
-          },
-          {
-            "text": "And you slept."
+            "text": "Then they filed you away, with hundreds of others, in a pod of warm amber fluid.\nAnd you slept.",
+            "pause": 1.0,
+            "voice": "intro/audio/narr_06.mp3"
           }
         ],
         "hold": 10
@@ -725,13 +723,10 @@
         "music": null,
         "lines": [
           {
-            "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.",
+            "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\n\nAnd somewhere below this ship,\nEarth is still turning.\n\nFind a way out.",
             "style": "card",
-            "pause": 1.2
-          },
-          {
-            "text": "And somewhere below this ship,\nEarth is still turning.\n\nFind a way out.",
-            "style": "card"
+            "pause": 1.2,
+            "voice": "intro/audio/narr_07.mp3"
           }
         ]
       }
