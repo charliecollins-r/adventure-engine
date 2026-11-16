@@ -255,6 +255,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     ? ((standupSet.columns ?? 1) / (standupSet.frame_rate || 3)) * 1000 + 200
     : 0;
 
+  // Delayed effects (delay_then) change state between clicks: redraw when they fire.
+  useEffect(() => { engine.setChangeListener(bump); return () => engine.setChangeListener(null); }, [engine, bump]);
+
   const hasIntroVoice = !!scenario.setting.sounds?.intro_voice;
   const voiceDurationValid = introVoiceDurationMs != null && introVoiceDurationMs > 0;
   const timingReady = !hasIntroVoice || introVoiceDurationMs != null;
@@ -897,6 +900,21 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
   const gameOverResult = engine.getGameOverResult();
+  // The end of the game has its own sound (setting.sounds.death / win), and the music fades out under it.
+  const endKey = gameOverResult ? (gameOverResult.won ? 'win' : 'death') : null;
+  const prevEndKey = useRef<string | null>(null);
+  useEffect(() => {
+    if (endKey === prevEndKey.current) return;
+    prevEndKey.current = endKey;
+    const m = musicRef.current;
+    if (!endKey) { if (m && m.paused && !muted) m.play().catch(() => {}); return; }
+    const file = scenario.setting.sounds?.[endKey];
+    if (file) playSound(file);
+    if (m && endKey === 'death') {
+      const start = m.volume; let k = 0;
+      const id = window.setInterval(() => { k++; m.volume = Math.max(0, start * (1 - k / 15)); if (k >= 15) { clearInterval(id); m.pause(); m.volume = start; } }, 60);
+    }
+  }, [endKey, scenario, playSound, muted]);
   const closeupImage = engine.getCloseupImage();
   const dialogue = engine.getDialogue();
   const activeWidget = engine.getActiveWidget();

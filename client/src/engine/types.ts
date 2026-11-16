@@ -27,6 +27,10 @@ export interface SoundEffects {
   noise?: string;
   /** Played when two items are combined successfully. Default: item_pickup. */
   combine?: string;
+  /** Played when the game ends in a death (game_over result "lose"); the music fades out under it. */
+  death?: string;
+  /** Played when the game ends in a win (game_over result "win" or a win condition). */
+  win?: string;
   [key: string]: string | undefined;
 }
 
@@ -189,6 +193,8 @@ export interface IntroScene {
   hold?: number;
   /** Seconds to stay after the last line is done, before the transition. Default 1. */
   tail?: number;
+  /** Seconds the scene takes to fade in. Default 0.7 (1 after a flash; 3.5 for the first scene, out of black). */
+  fade_in?: number;
   /** How this scene hands over to the next: fade through black (default), cut, or a white flash. */
   transition?: 'fade' | 'cut' | 'flash';
 }

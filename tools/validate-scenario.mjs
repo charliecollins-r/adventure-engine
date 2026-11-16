@@ -190,6 +190,8 @@ if (s.character) for (const [k, ss] of Object.entries(s.character.sprite_sets ||
 const scopedItemRefs = new Set();
 for (const o of s.objects) if (scopeObjs.has(o.id)) for (const it of o.interactions || []) if (it.item) scopedItemRefs.add(it.item);
 for (const i of required) if (scopedItemRefs.has(i) && !granted.has(i)) warnings.push(`item "${i}" is required somewhere but nothing grants it`);
+// events: their effects set flags and show/hide objects; their triggers read flags
+for (const ev of s.events || []) { effs(ev.effects, `event ${ev.id}`); if (ev.trigger && ev.trigger.type !== 'timer') conds([ev.trigger], `event ${ev.id}`); }
 for (const [f, ctx] of flagsRead) if (!flagsSet.has(f)) warnings.push(`flag "${f}" is read (${ctx}) but never set or initialised`);
 
 // ---- walkable areas (docs/WALKABLE_AREAS.md): uses the real engine + geometry, bundled ----

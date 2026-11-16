@@ -244,7 +244,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
       if (scene.sound) playTrack({ file: scene.sound, volume: SOUND_VOLUME });
       const color = transition === 'flash' ? '255,255,255' : '0,0,0';
       fade.current = { color, alpha: transition === 'cut' ? 0 : 1, from: transition === 'cut' ? 0 : 1, to: 0,
-        start: performance.now(), seconds: transition === 'flash' ? 1.0 : FADE_S };
+        start: performance.now(), seconds: scene.fade_in ?? (si === 0 ? 3.5 : transition === 'flash' ? 1.0 : FADE_S) };
       later(() => showLine(si, 0), ((scene.lines?.[0]?.pause ?? 0.8) * 1000));
     };
     if (transition === 'cut' || si === 0) { begin(); return; }

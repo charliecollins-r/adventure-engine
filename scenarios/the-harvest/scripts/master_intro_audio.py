@@ -18,7 +18,23 @@ TARGETS = {
     'music_intro': -22,
 }
 os.makedirs('intro/audio/source', exist_ok=True)
-for f in sorted(glob.glob('intro/audio/*.mp3')):
+
+# The intro's ambient bed: "Stargazer" (audio/ambient_vastness.wav, credits in the README), made seamlessly loopable
+# (the last 6 s crossfaded into the start) and mastered quiet, well under the voices.
+BED_SRC, BED = 'audio/ambient_vastness.wav', 'intro/audio/bed_stargazer.mp3'
+import numpy as np, wave
+raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', BED_SRC, '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
+x = np.frombuffer(raw, np.int16).reshape(-1, 2).astype(np.float32)
+n = 6 * 44100                                   # crossfade the last 6 s into the first 6 s
+ramp = np.linspace(0, 1, n)[:, None]
+loop = x[:-n].copy(); loop[:n] = x[:n] * ramp + x[-n:] * (1 - ramp)
+tmp = 'intro/audio/source/_bed.wav'
+w = wave.open(tmp, 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(44100); w.writeframes(np.clip(loop, -32768, 32767).astype(np.int16).tobytes()); w.close()
+out = subprocess.run(['ffmpeg', '-nostats', '-i', tmp, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+g = -27 - float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1])
+subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', tmp, '-af', f'volume={g:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', BED], check=True)
+os.remove(tmp); print(f'{BED}: looped, -27 LUFS')
+for f in sorted(x for x in glob.glob('intro/audio/*.mp3') if not x.endswith('bed_stargazer.mp3')):
     name = os.path.basename(f)
     src = f'intro/audio/source/{name}'
     if not os.path.exists(src): shutil.copy(f, src)

@@ -51,6 +51,8 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   await L.go(g, 'act1_lab_terminal_closeup'); await L.A(g, 'hand', 'lab_terminal_keypad'); await g.p.waitForTimeout(300);
   for (const k of ['fern', 'curl', 'sprout', 'sprout']) { await g.p.click(`button[data-key="${k}"]`); await g.p.waitForTimeout(80); }
   await g.p.waitForTimeout(700); await L.dismiss(g);
+  // the override waits until you carry what the ducts and the airlock demand
+  await g.p.evaluate(() => window.__engine.applyEffects(['surgical_probe', 'emergency_suit_helmet', 'containment_key_card'].map((item) => ({ type: 'add_item', item }))));
   await L.go(g, 'act1_security_closeup'); const press = await L.A(g, 'hand', 'sec_closeup_override_button'); await L.dismiss(g);
   if (!/Four arms\. A blur\. Gone\./.test(press || '')) fail('override: no prisoner on the feed'); else ok('override: the prisoner escapes on the security feed');
   await L.go(g, 'act1_vent_junction'); await L.dismiss(g);

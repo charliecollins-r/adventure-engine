@@ -66,3 +66,20 @@ describe('engine features for set pieces', () => {
     expect(e.getVisibleObjects().map((o) => o.id)).toContain('fan');
   });
 });
+
+describe('delayed effects', () => {
+  it('a delay_then ending the game tells the UI to redraw when it fires', async () => {
+    const e = new ScenarioEngine({
+      schema_version: '1.0', metadata: { id: 'delay', title: 'Delay' }, setting: { initial_view: 'a' }, flags: {}, items: [],
+      views: [{ id: 'a', background_key: 'a', objects: ['trap'] }],
+      objects: [obj('trap', [{ verb: 'hand', when: [], then: [{ type: 'delay_then', seconds: 0.05, effects: [{ type: 'game_over', result: 'lose', reason: 'Got you.' }] }] }])],
+    } as unknown as Scenario);
+    let redraws = 0;
+    e.setChangeListener(() => { redraws++; });
+    e.interact('trap', 'hand');
+    expect(e.getGameOverResult()).toBeFalsy();
+    await new Promise((r) => setTimeout(r, 120));
+    expect(e.getGameOverResult()).toBeTruthy();
+    expect(redraws).toBe(1);
+  });
+});

@@ -6,10 +6,10 @@ by overwriting the file at the same path (prompts: docs/ART_GUIDE.md and the sce
     cd scenarios/the-harvest && python3 scripts/make_placeholder_assets.py      # needs NumPy, Pillow and ffmpeg
 
 Writes: audio/music_stasis.mp3, music_explore.mp3, music_ducts.mp3, sting_earth.mp3, crawl.mp3, drop_thud.mp3,
-score.mp3; items/wedding_ring.png, items/crew_datapad.png.
+score.mp3, death_sting.mp3; items/wedding_ring.png, items/crew_datapad.png.
 Deterministic (seeded).
 """
-import math, subprocess, tempfile, os, wave
+import math, subprocess, sys, tempfile, os, wave
 import numpy as np
 from PIL import Image, ImageDraw
 
@@ -17,6 +17,7 @@ SR = 44100
 rng = np.random.default_rng(7)
 
 def write_mp3(path, x, br='128k'):
+    if os.path.exists(path) and '--force' not in sys.argv: return   # never overwrite real audio
     x = np.clip(x / (np.abs(x).max() + 1e-9) * 0.8, -1, 1)
     with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f: tmp = f.name
     w = wave.open(tmp, 'wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((x * 32767).astype(np.int16).tobytes()); w.close()
@@ -86,12 +87,18 @@ def crawl():  # a soft scuff of cloth and knees on ribbed metal
 def drop_thud():
     n = int(0.8 * SR); tt = np.arange(n) / SR
     return np.sin(2 * np.pi * (70 - 30 * tt) * tt) * np.exp(-tt * 7) + 0.3 * bandpass(rng.normal(size=n), 100, 900) * np.exp(-tt * 18)
+def death_sting():  # a death: a heavy low hit, then a dissonant cluster sliding down into silence
+    dur = 4.5; tt = t(dur); n = len(tt)
+    hit = np.sin(2 * np.pi * (48 - 18 * tt) * tt) * np.exp(-tt * 3.2) + 0.5 * bandpass(rng.normal(size=n), 60, 700) * np.exp(-tt * 9)
+    cluster = sum(np.sin(2 * np.pi * f * (1 - 0.07 * tt) * tt) for f in (220, 233.1, 311.1, 329.6)) / 4
+    cluster *= np.minimum(1, tt / 0.15) * np.exp(-tt * 0.9) * 0.45
+    return lowpass(hit + cluster, 4000)
 def score():
     a, b = bell(784, 0.7, 4), bell(1046.5, 0.9, 3.5); x = np.zeros(int(1.2 * SR)); x[:len(a)] += a; i = int(0.12 * SR); x[i:i + len(b)] += b; return x
 
 os.makedirs('audio', exist_ok=True)
 for name, fn in [('music_stasis', music_stasis), ('music_explore', music_explore), ('music_ducts', music_ducts), ('sting_earth', sting_earth),
-                 ('crawl', crawl), ('drop_thud', drop_thud), ('score', score)]:
+                 ('crawl', crawl), ('drop_thud', drop_thud), ('score', score), ('death_sting', death_sting)]:
     write_mp3(f'audio/{name}.mp3', fn(), '96k' if name.startswith('music') else '128k')
 
 # ── Item icons on the standard 326x273 canvas (pixel art, scaled up 5x) ───────────────────────

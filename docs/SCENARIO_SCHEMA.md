@@ -180,7 +180,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `noise_sound_min` | number | no | Smallest rise in noise that plays `sounds.noise`. Default `3`. |
 | `max_score` | number | no | Total points available. Shows "Score: x of max" in the title bar and on the end screen. Points come from the `add_score` effect. |
 | `allow_undo` | boolean | no | Death screens offer **Undo last move**, which puts the game back to just before the fatal action. Default `true`; set `false` for a hardcore scenario. |
-| `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events, `noise` whenever the noise level jumps by 3 or more, and `combine` when two items are combined successfully (falls back to `item_pickup`); any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
+| `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events, `noise` whenever the noise level jumps by 3 or more, `combine` when two items are combined successfully (falls back to `item_pickup`), `death` when the game ends in a death (the music fades out under it) and `win` when it ends in a win; any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
 | `tutorial` | object | no | First-play tips: `{ "steps": [{ "text": "...", "done_when": "verb_changed" }] }`. Shown one at a time in the top-left of the picture after the intro; each moves on when the player does what `done_when` names: `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (shows a button). The box is click-through, has **Skip tutorial**, and is remembered per scenario in the browser. Hidden in `?dev`/`?skipIntro` mode unless the URL has `?tutorial`. |
 
 ### Views
@@ -1280,6 +1280,16 @@ Events are evaluated after every player action (interaction, item use, combinati
 
 *Not implemented yet:* triggers whose type starts with `time_` (`time_after`, `time_before`) need the game clock and are skipped, and `trigger_event` is still a no-op.
 
+### Pattern: the alarm escape (a one-way door with guards)
+
+A point of no return made physical. In The Harvest, pressing the security override sounds the alarm; back in the corridor an event opens the floor grate (hide the closed grate, show the open one), and from then on every room the player came from holds a hunter: entering one shows the guard, then `delay_then` (about 1.5 s, so the player sees what got them) ends the game with a death that names the way out. Undo puts them back in the corridor.
+
+Make it fair:
+1. **Gate the point of no return on what lies beyond it.** The override button only works while the player carries everything the rest of the act needs (`has_item` for each); otherwise it refuses with a warning ("there will be no coming back up here"), and the close-up's hints name what's missing one at a time.
+2. **Leave any room that pays off the moment open.** The Feeding Station stays unguarded because the escaped prisoner's scratched route waits there.
+3. **Make the way out unmistakable**: the open grate glows (a light in the alarm `lighting_variants`), the corridor message ends "The vent. Now.", and the corridor hint says so.
+4. **Check it**: the soft-lock search can't see deaths that come through `delay_then`, so test the guarded rooms in the browser (`scripts/playthrough/alarm.cjs`) and run the search on a copy where they kill instantly.
+
 ### Pattern: noise, guards and hiding (tension without a clock)
 
 Everything below is plain JSON; The Harvest Act 1 uses all of it (see `scenarios/the-harvest/scripts/playthrough/noise.cjs` for the browser test).
@@ -2146,6 +2156,7 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 | `music_volume` | number | 0..1, default 0.5. |
 | `hold` | number | Minimum seconds on screen; the scene also lasts until its lines are done. |
 | `tail` | number | Seconds to stay after the last line is done, before the transition. Default 1. |
+| `fade_in` | number | Seconds the scene takes to fade in. Default 0.7 (1 after a flash); the first scene fades in slowly out of black (3.5 s). Give its first line a `pause` of about 3 s so the picture is established before anyone speaks. |
 | `transition` | `fade` \| `cut` \| `flash` | How it hands over to the next scene. Default `fade` (through black). |
 
 **IntroLine**: `text` (use `\n` for line breaks), `voice` (an audio clip; the line lasts as long as the clip, otherwise 0.06 s per character, at least 3 s), `style` (`narration` gold serif, the default; `radio`, a transmission in italic monospace marked RADIO whose voice gets a band-pass filter, crackle and, above 0.45, dropouts; `card`, large and centred), `static` (radio only, 0 clean to 1 barely there, default 0.3), `pause` (seconds of silence before the line, default 0.4).

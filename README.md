@@ -453,7 +453,7 @@ The Harvest's narration (voice "Silas – Weathered Villain"), Mission Control r
 - **Cold fridge hum** (`ambient_cold.wav`): [Fridge 2](https://freesound.org/people/freekit/) by freekit — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
 - **Industrial ventilation** (`ambient_industrial.wav`): Large ventilation system by kevp888 — License: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
 - **Eerie ambient** (`haunted.wav`): Haunted by RCH (2015)
-- **Stargazer ambient** (`ambient_vastness.wav`): Stargazer remix of Tim Kahn's freesound #702910 by Timbre — License: [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+- **Stargazer ambient** (`ambient_vastness.wav`): Stargazer remix of Tim Kahn's freesound #702910 by Timbre — License: [Attribution NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/); also the intro's ambient bed (`intro/audio/bed_stargazer.mp3`, looped and level-matched)
 
 ---
 

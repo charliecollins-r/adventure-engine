@@ -83,7 +83,7 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     await A('look', 'lab_terminal_screen');
     await go('act1_security_hub'); await A('look', 'security_console'); view = 'act1_security_closeup'; await shot('16_security_closeup_armed'); await A('look', 'sec_closeup_override_button'); await A('hand', 'sec_closeup_override_button');
     // 10. Vents
-    await go('act1_containment_corridor'); await A('move', 'vent_cover'); view = 'act1_ventilation_shaft'; await shot('17_vent_shaft'); await lookAll(view);
+    await go('act1_containment_corridor'); await A('move', 'vent_cover_open'); view = 'act1_ventilation_shaft'; await shot('17_vent_shaft'); await lookAll(view);
     await A('hand', 'wall_scratches'); await L.hint(g, 'shaft');
     await A('move', 'nav_act1_vent_entry_to_act1_vent_junction'); view = 'act1_vent_junction'; await shot('18_vent_junction'); await lookAll(view); await L.hint(g, 'junction');
     // side trip to the skeleton (route computed from vent_maze_grid.json)

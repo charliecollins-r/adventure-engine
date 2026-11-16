@@ -38,6 +38,8 @@ export class ScenarioEngine {
   private inventory: string[];
   private _noiseLevel: number;
   private _messages: string[];
+  /** Called when state changes outside an action (a delay_then firing), so the UI can redraw. */
+  private changeListener: (() => void) | null = null;
   private viewHistory: string[];
   private _gameOver: GameOverResult | null;
   private _currentPhaseId: string | null;
@@ -275,6 +277,11 @@ export class ScenarioEngine {
       }
     }
     return overlays;
+  }
+
+  /** Register a callback for state changes that happen outside an action (delayed effects). */
+  setChangeListener(fn: (() => void) | null): void {
+    this.changeListener = fn;
   }
 
   getFlags(): Readonly<Record<string, string>> {
@@ -883,6 +890,7 @@ export class ScenarioEngine {
               const delayMessages = this.applyEffects(delayedEffects);
               this._messages.push(...delayMessages);
               this.checkGameEndConditions();
+              this.changeListener?.();
             }, delayMs);
           }
           break;

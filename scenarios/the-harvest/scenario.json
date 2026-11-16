@@ -79,7 +79,8 @@
       "crawl": "audio/crawl.mp3",
       "drop": "audio/drop_thud.mp3",
       "score": "audio/score.mp3",
-      "sting_earth": "audio/sting_earth.mp3"
+      "sting_earth": "audio/sting_earth.mp3",
+      "death": "audio/death_sting.mp3"
     },
     "tutorial": {
       "steps": [
@@ -197,7 +198,7 @@
         "lines": [
           {
             "text": "High above home, the only sound is your own breathing.\nRelay satellite LUMEN-7 had been silent for nine days. Your job was to find out why.",
-            "pause": 1.2,
+            "pause": 3.2,
             "voice": "intro/audio/narr_01.mp3"
           },
           {
@@ -208,7 +209,9 @@
             "pause": 0.8
           }
         ],
-        "tail": 1.5
+        "tail": 1.5,
+        "music": "intro/audio/bed_stargazer.mp3",
+        "music_volume": 0.55
       },
       {
         "background": "intro/backgrounds/intro_panel.webp",
@@ -376,9 +379,6 @@
           }
         ],
         "sound": "intro/audio/sfx_tool.mp3",
-        "music": "intro/audio/music_intro.mp3",
-        "music_loop": false,
-        "music_volume": 0.5,
         "tail": 2
       },
       {
@@ -900,7 +900,8 @@
         "cataloguer_robot",
         "specimen_tag_hook",
         "walkway_railing",
-        "nav_act1_stasis_hold_to_act1_containment_corridor"
+        "nav_act1_stasis_hold_to_act1_containment_corridor",
+        "alarm_hunter_stasis_hold"
       ],
       "background_key": "act1_stasis_hold",
       "background_file": "backgrounds/act1_stasis_hold.webp",
@@ -1285,7 +1286,8 @@
         "corridor_drag_marks",
         "corridor_organic_growth",
         "nav_act1_processing_lab_to_act1_containment_corridor",
-        "lab_hunter_drone"
+        "lab_hunter_drone",
+        "alarm_hunter_processing_lab"
       ],
       "ambient_audio": "audio/ambient_lab.mp3",
       "background_key": "act1_processing_lab",
@@ -1562,7 +1564,8 @@
         "nav_act1_containment_corridor_to_act1_processing_lab",
         "nav_act1_containment_corridor_to_act1_feeding_station",
         "nav_act1_containment_corridor_to_act1_security_hub",
-        "vent_cover"
+        "vent_cover",
+        "vent_cover_open"
       ],
       "background_key": "act1_containment_corridor",
       "background_file": "backgrounds/act1_containment_corridor.webp",
@@ -1642,6 +1645,16 @@
               "value": "true"
             }
           ]
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "alarm_hunters_out",
+              "value": "true"
+            }
+          ],
+          "text": "The grate is open and the hunters are out. They are in the rooms you came from. Go down the vent."
         }
       ],
       "character": {
@@ -1818,6 +1831,19 @@
                 "pulse_speed": 2.2,
                 "pulse_amount": 0.6,
                 "alpha": 0.2
+              },
+              {
+                "x": 0.49,
+                "y": 0.8,
+                "radius": 0.09,
+                "color": [
+                  255,
+                  50,
+                  30
+                ],
+                "alpha": 0.45,
+                "pulse_speed": 1,
+                "pulse_amount": 0.35
               }
             ],
             "flicker": true
@@ -1837,7 +1863,8 @@
         "morgue_drain_channel",
         "dead_goblin",
         "morgue_carcass_hook",
-        "nav_act1_morgue_to_act1_feeding_station"
+        "nav_act1_morgue_to_act1_feeding_station",
+        "alarm_hunter_morgue"
       ],
       "background_key": "act1_morgue",
       "background_file": "backgrounds/act1_morgue.webp",
@@ -7376,7 +7403,8 @@
         "overturned_chair",
         "emergency_cabinet",
         "nav_act1_security_hub_to_act1_containment_corridor",
-        "security_black_cat"
+        "security_black_cat",
+        "alarm_hunter_security_hub"
       ],
       "background_key": "act1_security_hub",
       "background_file": "backgrounds/act1_security_hub.webp",
@@ -7648,20 +7676,6 @@
           ]
         },
         {
-          "text": "The deck's locks are open, including the vent grate in the corridor floor. Don't forget the key cards in the drawer unit on the Security Hub wall.",
-          "when": [
-            {
-              "type": "flag_is",
-              "flag": "security_locks_overridden",
-              "value": "true"
-            },
-            {
-              "type": "not_has_item",
-              "item": "containment_key_card"
-            }
-          ]
-        },
-        {
           "text": "The deck's locks are open, including the vent grate in the corridor floor.",
           "when": [
             {
@@ -7674,6 +7688,48 @@
               "item": "containment_key_card"
             }
           ]
+        },
+        {
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "emergency_suit_helmet"
+            }
+          ],
+          "text": "Once the alarm goes, you can't come back for things. The air in the deep ducts isn't safe to breathe. Is there anything on this deck that would help with that?"
+        },
+        {
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "surgical_probe"
+            }
+          ],
+          "text": "Once the alarm goes, you can't come back for things. Something in the ducts spins very fast. A thin, strong tool from the processing lab might stop it."
+        },
+        {
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "not_has_item",
+              "item": "containment_key_card"
+            }
+          ],
+          "text": "Once the alarm goes, you can't come back for things. Doors on the far side of the ducts will want a key card. There's one on this deck."
         }
       ],
       "enter_sound": null
@@ -7688,7 +7744,8 @@
         "holographic_display",
         "right_crystal_wall",
         "archive_benches",
-        "nav_act1_specimen_archive_to_act1_feeding_station"
+        "nav_act1_specimen_archive_to_act1_feeding_station",
+        "alarm_hunter_specimen_archive"
       ],
       "background_key": "act1_specimen_archive",
       "background_file": "backgrounds/act1_specimen_archive.webp",
@@ -27147,6 +27204,86 @@
       ]
     },
     {
+      "id": "vent_cover_open",
+      "name": "Open Vent",
+      "description": "The grate lies askew beside a square hole. Red light and warm air pour up from the shaft.",
+      "position": {
+        "x": 454,
+        "y": 595
+      },
+      "size": {
+        "width": 110,
+        "height": 73
+      },
+      "visual": {
+        "color": "rgba(160, 40, 30, 0.3)",
+        "label": "Open vent"
+      },
+      "sprite": {
+        "file": "sprites/vent_cover_open.png",
+        "frame_width": 1424,
+        "frame_height": 581,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.1
+      },
+      "initial_state": "open",
+      "initially_visible": false,
+      "hiding_spot": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The grate has slid off its seat. Below, the shaft glows red with emergency light, and the air coming up is warm and moving. Everything else on this deck is coming for you. Down is the only way."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [],
+          "then": [
+            {
+              "type": "set_view",
+              "view": "act1_ventilation_shaft",
+              "at": {
+                "x": 494,
+                "y": 720,
+                "facing": "down"
+              }
+            },
+            {
+              "type": "message",
+              "text": "You heave the unlocked grate aside and squeeze into the ventilation shaft. Red emergency lights cast everything in crimson below."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The released grate lifts with a groan of metal. Beneath it, the ventilation shaft drops into darkness pierced by red emergency light."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your voice falls into the shaft and comes back thin and red. Nothing answers from below. Everything up here is answering."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "nav_act1_ventilation_shaft_to_act1_containment_corridor",
       "name": "Back to Corridor",
       "description": "The vent shaft opening leads back up to the containment corridor.",
@@ -31257,7 +31394,20 @@
           "when": [
             {
               "type": "flag_not",
-              "flag": "security_locks_overridden"
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "has_item",
+              "item": "surgical_probe"
+            },
+            {
+              "type": "has_item",
+              "item": "emergency_suit_helmet"
+            },
+            {
+              "type": "has_item",
+              "item": "containment_key_card"
             }
           ],
           "then": [
@@ -31295,6 +31445,39 @@
             {
               "type": "show_object",
               "object": "prisoner_cage_scratches"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "security_locks_overridden",
+              "value": "true"
+            },
+            {
+              "type": "any_of",
+              "conditions": [
+                {
+                  "type": "not_has_item",
+                  "item": "surgical_probe"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "emergency_suit_helmet"
+                },
+                {
+                  "type": "not_has_item",
+                  "item": "containment_key_card"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Your palm hovers over the button. The moment this goes, every hunter on the deck comes running, and there will be no coming back up here for anything you left behind. You're not ready. Think about what's waiting down in those ducts, and on the other side of them."
             }
           ]
         },
@@ -41544,6 +41727,241 @@
         "height": 8
       },
       "layer": "front"
+    },
+    {
+      "id": "alarm_hunter_stasis_hold",
+      "name": "Hunter Drone",
+      "description": "A hunter drone, answering the alarm.",
+      "position": {
+        "x": 460,
+        "y": 690
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.25
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's already looking at you."
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
+    },
+    {
+      "id": "alarm_hunter_processing_lab",
+      "name": "Hunter Drone",
+      "description": "A hunter drone, answering the alarm.",
+      "position": {
+        "x": 470,
+        "y": 470
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.25
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's already looking at you."
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
+    },
+    {
+      "id": "alarm_hunter_security_hub",
+      "name": "Hunter Drone",
+      "description": "A hunter drone, answering the alarm.",
+      "position": {
+        "x": 560,
+        "y": 705
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.25
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's already looking at you."
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
+    },
+    {
+      "id": "alarm_hunter_morgue",
+      "name": "Hunter Drone",
+      "description": "A hunter drone, answering the alarm.",
+      "position": {
+        "x": 780,
+        "y": 560
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.25
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's already looking at you."
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
+    },
+    {
+      "id": "alarm_hunter_specimen_archive",
+      "name": "Hunter Drone",
+      "description": "A hunter drone, answering the alarm.",
+      "position": {
+        "x": 250,
+        "y": 625
+      },
+      "size": {
+        "width": 80,
+        "height": 120
+      },
+      "visual": {
+        "color": "rgba(200, 60, 60, 0.2)",
+        "label": "Hunter drone"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "sprite": {
+        "file": "sprites/hunter_drone.png",
+        "frame_width": 237,
+        "frame_height": 600,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 4,
+        "scale": 0.25
+      },
+      "walk_to": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "It's already looking at you."
+            }
+          ]
+        }
+      ],
+      "shadow": {
+        "width": 40,
+        "height": 8,
+        "opacity": 0.5,
+        "offset_y": 22
+      }
     }
   ],
   "puzzle_widgets": [
@@ -43187,6 +43605,272 @@
           "type": "set_view",
           "view": "act1_curator_glimpse",
           "sound": null
+        }
+      ]
+    },
+    {
+      "id": "alarm_vent_opens",
+      "one_shot": true,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_containment_corridor"
+          },
+          {
+            "type": "flag_is",
+            "flag": "security_locks_overridden",
+            "value": "true"
+          },
+          {
+            "type": "flag_not",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "alarm_hunters_out",
+          "value": "true"
+        },
+        {
+          "type": "hide_object",
+          "object": "vent_cover"
+        },
+        {
+          "type": "show_object",
+          "object": "vent_cover_open"
+        },
+        {
+          "type": "play_sound",
+          "sound": "noise"
+        },
+        {
+          "type": "message",
+          "text": "The alarm is everywhere now. With a hiss and a clang, the bio-bolts on the floor grate let go and it lurches off its seat. Red light pours up out of the shaft. Behind the doors on this corridor, something is moving. Fast. Clicking. The vent. Now."
+        }
+      ]
+    },
+    {
+      "id": "alarm_stasis_hold",
+      "one_shot": false,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_stasis_hold"
+          },
+          {
+            "type": "flag_is",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "alarm_hunter_stasis_hold"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
+        },
+        {
+          "type": "message",
+          "text": "A hunter drone is drifting between the pods, its lens sweeping. It finds you before the door has finished opening."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 1.6,
+          "effects": [
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "A hunter drone is drifting between the pods, its lens sweeping. It finds you before the door has finished opening. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alarm_processing_lab",
+      "one_shot": false,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_processing_lab"
+          },
+          {
+            "type": "flag_is",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "alarm_hunter_processing_lab"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
+        },
+        {
+          "type": "message",
+          "text": "Two lenses turn toward the doorway at once. The lab is full of hunters, and they were waiting for exactly this."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 1.6,
+          "effects": [
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "Two lenses turn toward the doorway at once. The lab is full of hunters, and they were waiting for exactly this. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alarm_security_hub",
+      "one_shot": false,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_security_hub"
+          },
+          {
+            "type": "flag_is",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "alarm_hunter_security_hub"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
+        },
+        {
+          "type": "message",
+          "text": "You go back for one last look. So does the hunter drone that is already hovering over the console."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 1.6,
+          "effects": [
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "You go back for one last look. So does the hunter drone that is already hovering over the console. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alarm_morgue",
+      "one_shot": false,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_morgue"
+          },
+          {
+            "type": "flag_is",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "alarm_hunter_morgue"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
+        },
+        {
+          "type": "message",
+          "text": "Something is already bent over the open drawers, sorting. A hunter drone lifts from the slab and turns its lens on the doorway."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 1.6,
+          "effects": [
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "Something is already bent over the open drawers, sorting. A hunter drone lifts from the slab and turns its lens on the doorway. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alarm_specimen_archive",
+      "one_shot": false,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "view_is",
+            "view": "act1_specimen_archive"
+          },
+          {
+            "type": "flag_is",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "alarm_hunter_specimen_archive"
+        },
+        {
+          "type": "play_sound",
+          "sound": "alarm"
+        },
+        {
+          "type": "message",
+          "text": "The hologram is still spinning. In its light, a hunter drone drifts between the shelves, and it has already seen you."
+        },
+        {
+          "type": "delay_then",
+          "seconds": 1.6,
+          "effects": [
+            {
+              "type": "game_over",
+              "result": "lose",
+              "title": "Caught",
+              "reason": "The hologram is still spinning. In its light, a hunter drone drifts between the shelves, and it has already seen you. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+            }
+          ]
         }
       ]
     }
