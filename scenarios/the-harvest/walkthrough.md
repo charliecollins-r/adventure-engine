@@ -33,7 +33,7 @@ All screenshots on this page come from a scripted playthrough of the current bui
 3. **Security Hub** (Corridor → right door). HAND the **Key Card Drawer** on the right wall (key card) and the **Emergency Cabinet** (helmet).
 4. **Morgue** (Corridor → far end → Feeding Station → left). HAND the **Carcass Hook** in the open drawer.
 5. **Combine** the **Restraint Strap** and the **Carcass Hook** → **Grappling Line**.
-6. **Stasis Hold.** USE the **Grappling Line** ON the gap, then LOOK at the cataloguer robot. The specimen displays show the code: **fern, double curl, sprouting snake, sprouting snake**.
+6. **Stasis Hold.** USE the **Grappling Line** ON the gap to rig it, HAND the rigged line to climb across to the cataloguer's ledge, then LOOK at the cataloguer robot. The specimen displays show the code: **fern, double curl, sprouting snake, sprouting snake**.
 7. **Processing Lab.** LOOK (or HAND) the screens to reach the terminal. HAND the keypad and press the four glyphs in that order. The terminal reports that the **emergency override is armed**.
 8. **Security Hub.** LOOK (or HAND) the console. HAND the glowing red **override button**: every lock on the deck opens.
 9. **Corridor.** MOVE into the floor vent. In the shaft, HAND the **wall scratches** (map).
@@ -81,7 +81,7 @@ The code is a **knowledge gate**: you can try to brute-force the keypad (4,096 c
 - **The gap.** LOOK tells you the far railing looks solid. HAND kills you. The answer is a grappling line (step 5).
 - **Drainage channel.** HAND fails (the fluid slips through your fingers). USE the *Empty Sample Jar* on it for a *Stasis Fluid Vial* (optional).
 
-After you rig the line, the strap stays across the gap and the robot is in reach:
+After you rig the line, the strap stays across the gap. HAND it and you climb across to the robot's ledge (HAND it again to climb back; the exit can't be reached from the ledge):
 
 ![Line rigged across the gap](walkthrough/14_stasis_rigged.webp)
 
@@ -290,7 +290,7 @@ Full details, every use and the in-game text for each item: the **[item compendi
 
 ## Common stuck points
 
-**"How do I get across the gap?"** Build a grappling line: cut a strap in the Processing Lab with the surgical probe, pull the hook from the morgue drawer, combine them, use the line on the gap.
+**"How do I get across the gap?"** Build a grappling line: cut a strap in the Processing Lab with the surgical probe, pull the hook from the morgue drawer, combine them, use the line on the gap, then HAND the line to climb across.
 
 **"The keypad wants four characters."** They're on the specimen displays across the Stasis Hold gap: fern, double curl, sprouting snake, sprouting snake.
 
