@@ -6,12 +6,12 @@ by overwriting the file at the same path (prompts: docs/ART_GUIDE.md and the sce
     cd scenarios/the-harvest && python3 scripts/make_placeholder_assets.py      # needs NumPy, Pillow and ffmpeg
 
 Writes: audio/music_stasis.mp3, music_explore.mp3, music_ducts.mp3, sting_earth.mp3, crawl.mp3, drop_thud.mp3,
-score.mp3; closeups/earth_siphon.webp; items/wedding_ring.png, items/crew_datapad.png.
+score.mp3; items/wedding_ring.png, items/crew_datapad.png.
 Deterministic (seeded).
 """
 import math, subprocess, tempfile, os, wave
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw
 
 SR = 44100
 rng = np.random.default_rng(7)
@@ -93,27 +93,6 @@ os.makedirs('audio', exist_ok=True)
 for name, fn in [('music_stasis', music_stasis), ('music_explore', music_explore), ('music_ducts', music_ducts), ('sting_earth', sting_earth),
                  ('crawl', crawl), ('drop_thud', drop_thud), ('score', score)]:
     write_mp3(f'audio/{name}.mp3', fn(), '96k' if name.startswith('music') else '128k')
-
-# ── Earth close-up: the airlock window, opened up, with the siphon beams ─────────────────────
-src = Image.open('backgrounds/act1_airlock_bay.webp').convert('RGB')
-earth = src.crop((18, 28, 330, 468)).resize((int(312 * 2.4), int(440 * 2.4)), Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.8))
-W, H = 1920, 1080
-bg = Image.new('RGB', (W, H), (4, 6, 16)); d = ImageDraw.Draw(bg)
-for _ in range(900):
-    x, y = rng.integers(0, W), rng.integers(0, H); v = int(rng.integers(80, 255)); d.point((int(x), int(y)), fill=(v, v, min(255, v + 20)))
-ex = (W - earth.width) // 2; ey = H - earth.height + 40
-bg.paste(earth, (ex, ey))
-beams = Image.new('RGBA', (W, H), (0, 0, 0, 0)); bd = ImageDraw.Draw(beams)
-for k in range(7):
-    x0 = int(W * (0.2 + 0.1 * k + rng.uniform(-0.03, 0.03))); x1 = ex + int(earth.width * (0.18 + 0.11 * k)); y1 = ey + int(earth.height * (0.32 + 0.05 * math.sin(k * 1.7)))
-    for wdt, a in ((26, 22), (12, 60), (4, 170)):
-        bd.line([(x0, -10), (x1, y1)], fill=(160, 255, 230, a), width=wdt)
-beams = beams.filter(ImageFilter.GaussianBlur(3))
-bg = Image.alpha_composite(bg.convert('RGBA'), beams)
-vig = Image.new('L', (W, H), 0); vd = ImageDraw.Draw(vig); vd.ellipse((-W * 0.15, -H * 0.2, W * 1.15, H * 1.25), fill=255)
-vig = vig.filter(ImageFilter.GaussianBlur(120)); dark = Image.new('RGBA', (W, H), (2, 4, 10, 255))
-bg = Image.composite(bg, dark, vig).convert('RGB')
-bg.save('closeups/earth_siphon.webp', quality=90)
 
 # ── Item icons on the standard 326x273 canvas (pixel art, scaled up 5x) ───────────────────────
 def icon(draw_fn, path):
