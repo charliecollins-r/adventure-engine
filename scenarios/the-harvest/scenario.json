@@ -524,18 +524,19 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 1,
-            "frame_rate": 2,
-            "scale": 0.42,
-            "at": [470, 520],
-            "rotate": -90,
+            "file": "intro/sprites/specimen_limp.png",
+            "frame_width": 626,
+            "frame_height": 112,
+            "columns": 2,
             "frames": [
-              0
-            ]
+              0,
+              0,
+              1,
+              1
+            ],
+            "frame_rate": 1,
+            "scale": 0.27,
+            "at": [455, 500]
           },
           {
             "file": "sprites/cataloguer_robot.png",
@@ -609,23 +610,22 @@
         },
         "sprites": [
           {
-            "file": "sprites/character_idle.png",
-            "frame_width": 300,
-            "frame_height": 410,
-            "columns": 12,
-            "row": 1,
-            "frame_rate": 2,
-            "scale": 0.78,
+            "file": "intro/sprites/pod_float.png",
+            "frame_width": 306,
+            "frame_height": 586,
+            "columns": 3,
+            "frames": [
+              1
+            ],
+            "frame_rate": 0,
+            "scale": 0.57,
             "at": [482, 548],
             "bob": {
               "amount": 5,
               "period": 6
             },
-            "frames": [
-              0
-            ],
-            "opacity": 0.85,
-            "filter": "sepia(0.8) saturate(1.6) hue-rotate(-12deg) brightness(0.8)"
+            "opacity": 0.88,
+            "filter": "sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(0.85)"
           }
         ],
         "ambient_lighting": {
