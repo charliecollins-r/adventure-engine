@@ -103,7 +103,8 @@ Every change should move toward this: schema-driven features (rule 8), documenta
 │   ├── softlock-search.mjs           ← Exhaustive state-space soft-lock search using the real engine
 │   ├── preview-hotspots.mjs          ← Render a view (or a raw new image) at 960×540 with hotspots/sprites/character/floor drawn on (--grid, --floor, --ghosts, --clean)
 │   ├── arrival-spots.mjs             ← Fill set_view "at" for every door into a walking view (he arrives by the exit that leads back)
-│   └── generate-voiceover.mjs        ← ElevenLabs TTS batch generator for scenario narration
+│   ├── generate-voiceover.mjs        ← ElevenLabs TTS batch generator for scenario narration
+│   └── generate-intro-speech.mjs     ← ElevenLabs TTS for unvoiced intro_scenes lines (run locally; writes clips + voice paths)
 ├── .claude/skills/scenario-builder/SKILL.md ← AI agent guide to building a scenario package
 ├── ADVENTURE_BUILDER.md               ← Third-party developer guide (KEEP IN SYNC)
 ├── TECHNICAL_DEEP_DIVE.md             ← Engine internals deep reference (KEEP IN SYNC)

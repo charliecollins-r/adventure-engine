@@ -121,7 +121,7 @@
         "loop": "intro/audio/sfx_breath_loop.mp3",
         "camera": {
           "from": {
-            "zoom": 1.0
+            "zoom": 1
           },
           "to": {
             "zoom": 1.08,
@@ -210,7 +210,7 @@
             "x": 20
           },
           "to": {
-            "zoom": 1.0,
+            "zoom": 1,
             "x": 0
           },
           "seconds": 14
@@ -302,7 +302,7 @@
         "lines": [
           {
             "text": "Inside the panel, the circuits were not burned. They had been picked clean... as if something had been reading them.",
-            "pause": 1.0,
+            "pause": 1,
             "voice": "intro/audio/narr_02.mp3"
           },
           {
@@ -318,7 +318,7 @@
         "sound": "intro/audio/sfx_swell.mp3",
         "camera": {
           "from": {
-            "zoom": 1.0
+            "zoom": 1
           },
           "to": {
             "zoom": 1.1,
@@ -411,7 +411,7 @@
         "music": null,
         "camera": {
           "from": {
-            "zoom": 1.0
+            "zoom": 1
           },
           "to": {
             "zoom": 1.14,
@@ -548,7 +548,7 @@
             "x": 10
           },
           "to": {
-            "zoom": 1.0
+            "zoom": 1
           },
           "seconds": 12
         },
@@ -631,7 +631,7 @@
         "lines": [
           {
             "text": "You were catalogued. Weighed. Measured.\nYour suit was taken apart, seam by seam, and filed separately.",
-            "pause": 1.0,
+            "pause": 1,
             "voice": "intro/audio/narr_05.mp3"
           }
         ],
@@ -642,7 +642,7 @@
         "loop": "intro/audio/sfx_underwater.mp3",
         "camera": {
           "from": {
-            "zoom": 1.0
+            "zoom": 1
           },
           "to": {
             "zoom": 1.12,
@@ -712,7 +712,7 @@
         "lines": [
           {
             "text": "Then they filed you away, with hundreds of others, in a pod of warm amber fluid.\nAnd you slept.",
-            "pause": 1.0,
+            "pause": 1,
             "voice": "intro/audio/narr_06.mp3"
           }
         ],
