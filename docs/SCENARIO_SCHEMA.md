@@ -1357,10 +1357,10 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 | `period` | Seconds between the starts of two sweeps |
 | `first_at` | Clock time of the first sweep (default: one `period` in) |
 | `when` | It patrols only while these conditions hold (switch it off for a chase, an alarm, an act change) |
-| `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
+| `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `nearby_message` (shown, with `nearby_sound`, to a player next door while it walks through this room: "Out in the corridor, metal legs tick past the door..."), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
 | `warn_seconds` | Warning before it comes into the player's room (default 5): `warn_sound` plays and the room's `warn_message` shows |
 | `enter_sound` | Plays when it comes into the player's room |
-| `nearby_sound` | Plays when it comes into a room next door to the player's (any room with a Move exit into it, either way): the player hears it pass through the wall. Use a quieter, muffled clip |
+| `nearby_sound` | Plays when it comes into a room next door to the player's (any room with a Move exit into it, either way): the player hears it pass through the wall, and the leg's `nearby_message` names where it is. A close-up sub-view (one with `back_label`) counts as the room it was opened from. Use a clip a little softer than `enter_sound`, but clearly audible |
 | `notice_seconds` | How long it takes to notice a player who is in its room and not hiding (default 1.5), then `on_caught` runs |
 | `sprite`, `shadow` | How it is drawn while it walks through the player's room (scaled by the floor's `depth_scale`; it never takes clicks) |
 

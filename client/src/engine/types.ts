@@ -675,6 +675,8 @@ export interface PatrolStop {
   fade_out?: boolean;
   /** Overrides the patrol's warn_message for this room. */
   warn_message?: string;
+  /** Shown to a player next door while it walks through this room (with the patrol's nearby_sound). */
+  nearby_message?: string;
   /** Besides hiding: while these hold you are safe from it in this room (you are up on a ledge it passes under). */
   safe_when?: Condition[];
 }

@@ -61,15 +61,21 @@ const page = (g) => g.p.evaluate(() => document.body.innerText);
   if (await over(g) || v !== 'act1_processing_lab') fail(`escape to the lab failed (view ${v})`); else ok('ducking into the lab: it passes the corridor');
   await g.b.close();
 
-  // 3b. Next door you hear it pass (muffled): from the Security Hub while it walks the corridor
-  g = await fresh();
-  await L.go(g, 'act1_security_hub'); await L.dismiss(g);
-  await setClock(g, 64.5); await g.p.evaluate(() => { window.__plays = []; });
-  await g.p.waitForTimeout(1200); // it comes into the corridor at 65
-  const heard = await g.p.evaluate(() => window.__plays);
-  if (!heard.includes('patrol_skitter_far.mp3')) fail(`not heard from next door: ${heard}`); else ok('heard through the wall from the Security Hub');
-  if (await over(g)) fail('caught next door');
-  await g.b.close();
+  // 3b. Next door you hear it pass, and are told so: from the Processing Lab (and its terminal close-up) while it walks the corridor
+  for (const [room, closeup] of [['act1_processing_lab', null], ['act1_processing_lab', 'act1_lab_terminal_closeup'], ['act1_security_hub', null]]) {
+    g = await fresh();
+    await L.go(g, room); await L.dismiss(g);
+    if (closeup) { await g.p.evaluate((v) => window.__engine.navigateToView(v), closeup); }
+    await setClock(g, 64.5); await g.p.evaluate(() => { window.__plays = []; });
+    await g.p.waitForTimeout(1200); // it comes into the corridor at 65
+    const heard = await g.p.evaluate(() => window.__plays);
+    const where = closeup || room;
+    if (!heard.includes('patrol_skitter_far.mp3')) fail(`not heard from ${where}: ${heard}`);
+    else if (!/Out in the corridor, metal legs tick past the door/.test(await page(g))) fail(`no "out in the corridor" line in ${where}`);
+    else ok(`heard and told from ${where}`);
+    if (await over(g)) fail(`caught in ${where}`);
+    await g.b.close();
+  }
 
   // 4. It is drawn on its route in each room (screenshots), and the timer stops on the death screen
   g = await fresh();

@@ -45052,7 +45052,8 @@
               "type": "flag_is",
               "flag": "on_far_ledge"
             }
-          ]
+          ],
+          "nearby_message": "From the Stasis Hold, the hum of a hunter drone and the tick of its legs along the walkway."
         },
         {
           "views": [
@@ -45065,7 +45066,8 @@
             [470, 600],
             [585, 392]
           ],
-          "warn_message": "The hunter drone's legs, ticking up from the Stasis Hold. Get out of the corridor."
+          "warn_message": "The hunter drone's legs, ticking up from the Stasis Hold. Get out of the corridor.",
+          "nearby_message": "Out in the corridor, metal legs tick past the door: a hunter drone on its rounds. Stay where you are until it's gone."
         },
         {
           "views": [
@@ -45078,7 +45080,8 @@
             [745, 700],
             [790, 440]
           ],
-          "warn_message": "The hunter drone, ticking along the corridor towards you. Get out of its path."
+          "warn_message": "The hunter drone, ticking along the corridor towards you. Get out of its path.",
+          "nearby_message": "Through the wall, a hunter drone ticks across the Feeding Station. Stay put."
         },
         {
           "views": [
@@ -45092,7 +45095,8 @@
             [300, 612]
           ],
           "fade_out": true,
-          "warn_message": "The hunter drone is at the archive door. There's nowhere to run in here: hide."
+          "warn_message": "The hunter drone is at the archive door. There's nowhere to run in here: hide.",
+          "nearby_message": "The drone's legs tick away into the Specimen Archive, and fade."
         }
       ],
       "on_caught": [

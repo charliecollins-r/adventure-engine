@@ -532,6 +532,17 @@ export class ScenarioEngine {
     return !!this.neighbourIndex.get(a)?.has(b);
   }
 
+  /** The room the player is in: a close-up sub-view (one with a back_label) counts as the room it was opened from. */
+  private playerRoom(): string {
+    let id = this._currentViewId;
+    for (let i = this.viewHistory.length - 1; i >= 0; i--) {
+      const v = this.scenario.views.find((x) => x.id === id);
+      if (!v?.back_label) break;
+      id = this.viewHistory[i];
+    }
+    return id;
+  }
+
   /** The leg of the sweep under way, if a patrol is walking through some room right now. */
   private patrolLeg(p: Patrol, t: number = this._clock): { sweep: number; stop: number } | null {
     if (!this.patrolsEnabled || !p.period || !p.stops?.length || !this.evaluateConditions(p.when)) return null;
@@ -560,8 +571,11 @@ export class ScenarioEngine {
         const key = leg && `${p.id}:${leg.sweep}:${leg.stop}`;
         if (leg && key && !this.patrolHeard.has(key)) {
           this.patrolHeard.add(key);
-          if (p.stops[leg.stop].views.some((v) => this.isNeighbour(v, this._currentViewId))) {
+          const room = this.playerRoom();
+          const stop = p.stops[leg.stop];
+          if (!stop.views.includes(room) && stop.views.some((v) => this.isNeighbour(v, room))) {
             this._pendingSounds.push(this.scenario.setting.sounds?.[p.nearby_sound] ?? p.nearby_sound);
+            if (stop.nearby_message) this._messages = [stop.nearby_message];
             changed = true;
           }
         }

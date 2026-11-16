@@ -7,7 +7,7 @@
 | `discovery.wav` | Synthesised for this project (a rising four-note chime) | Creative Commons 0 |
 | `voice/*.mp3` | ElevenLabs text-to-speech, voice "Silas – Weathered Villain" ([elevenlabs.io](https://elevenlabs.io)); attribution required, non-commercial on the free plan | ElevenLabs terms |
 | `death_sting.mp3` | Synthesised for this project (a low hit and a falling dissonant cluster) | Creative Commons 0 |
-| `patrol_skitter.mp3` | Synthesised for this project (metal leg ticks and a servo whine, getting closer) | Creative Commons 0 |
-| `patrol_skitter_far.mp3` | `patrol_skitter.mp3`, muffled and quieter (heard through a wall), made with ffmpeg | Creative Commons 0 |
+| `patrol_skitter.mp3` | Synthesised for this project (metal leg ticks and a servo whine, getting closer; loudness-normalised with ffmpeg) | Creative Commons 0 |
+| `patrol_skitter_far.mp3` | `patrol_skitter.mp3`, softened with a slight room echo (heard through a wall), made with ffmpeg | Creative Commons 0 |
 
 Intro cinematic audio: see `../intro/audio/CREDITS.md`.

@@ -17,9 +17,11 @@ function scenario(extra: Record<string, unknown> = {}): Scenario {
       { id: 'a', background_key: 'a', objects: ['to_b', 'pod'] },
       { id: 'b', background_key: 'b', objects: ['to_a', 'to_side', 'to_c'] },
       { id: 'c', background_key: 'c', objects: ['to_b'] },
-      { id: 'side', background_key: 's', objects: ['to_b'] },
+      { id: 'side', background_key: 's', objects: ['to_b', 'desk'] },
+      { id: 'side_close', background_key: 'sc', back_label: 'Side room', objects: [] },
     ],
     objects: [
+      obj('desk', [{ verb: 'look', when: [], then: [{ type: 'set_view', view: 'side_close' }] }]),
       obj('to_a', go('a')), obj('to_b', go('b')), obj('to_c', go('c')), obj('to_side', go('side')),
       obj('pod', [
         { verb: 'hand', when: [{ type: 'patrol_near', patrol: 'bot' }], then: [{ type: 'message', text: 'You hide.' }, { type: 'start_hiding' }] },
@@ -31,7 +33,7 @@ function scenario(extra: Record<string, unknown> = {}): Scenario {
       notice_seconds: 1.5,
       stops: [
         { views: ['a'], enter: 0, leave: 5, path: [[900, 700], [300, 450]] },
-        { views: ['b'], enter: 5, leave: 10, safe_when: [{ type: 'flag_is', flag: 'up_high' }] },
+        { views: ['b'], enter: 5, leave: 10, nearby_message: 'Next door, legs tick past.', safe_when: [{ type: 'flag_is', flag: 'up_high' }] },
         { views: ['c'], enter: 10, leave: 15, fade_out: true },
       ],
       on_caught: [{ type: 'game_over', reason: 'Filed.' }],
@@ -148,10 +150,18 @@ describe('game clock and patrols', () => {
     expect(e.getPendingSounds()).not.toContain('far');
     run(e, 5); // 125.2: it comes into b, next door
     expect(e.getPendingSounds().filter((x) => x === 'far')).toHaveLength(1);
+    expect(e.getMessages()).toEqual(['Next door, legs tick past.']);
     e.clearPendingSounds();
     run(e, 3);
     expect(e.getPendingSounds()).not.toContain('far');
     expect(e.isGameOver()).toBe(false);
+  });
+
+  it('a close-up counts as the room it was opened from', () => {
+    const e = new ScenarioEngine(scenario());
+    e.interact('to_b', 'move'); e.interact('to_side', 'move'); e.interact('desk', 'look'); // side_close, opened from side
+    run(e, 125.2);
+    expect(e.getMessages()).toEqual(['Next door, legs tick past.']);
   });
 
   it('undo puts the clock back with everything else', () => {
