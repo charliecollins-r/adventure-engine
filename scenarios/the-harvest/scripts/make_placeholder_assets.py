@@ -6,7 +6,7 @@ by overwriting the file at the same path (prompts: docs/ART_GUIDE.md and the sce
     cd scenarios/the-harvest && python3 scripts/make_placeholder_assets.py      # needs NumPy, Pillow and ffmpeg
 
 Writes: audio/music_stasis.mp3, music_explore.mp3, music_ducts.mp3, sting_earth.mp3, crawl.mp3, drop_thud.mp3,
-score.mp3; closeups/earth_siphon.webp; sprites/curator_silhouette.png; items/wedding_ring.png, items/crew_datapad.png.
+score.mp3; closeups/earth_siphon.webp; items/wedding_ring.png, items/crew_datapad.png.
 Deterministic (seeded).
 """
 import math, subprocess, tempfile, os, wave
@@ -114,15 +114,6 @@ vig = Image.new('L', (W, H), 0); vd = ImageDraw.Draw(vig); vd.ellipse((-W * 0.15
 vig = vig.filter(ImageFilter.GaussianBlur(120)); dark = Image.new('RGBA', (W, H), (2, 4, 10, 255))
 bg = Image.composite(bg, dark, vig).convert('RGB')
 bg.save('closeups/earth_siphon.webp', quality=90)
-
-# ── Curator silhouette (placeholder until real art): tall, thin, too many joints, two amber lenses ─
-S = 3; w, h = 44, 150; im = Image.new('RGBA', (w, h), (0, 0, 0, 0)); dd = ImageDraw.Draw(im)
-body = (34, 26, 44, 255); edge = (70, 58, 90, 255)
-dd.polygon([(22, 10), (30, 26), (27, 70), (25, 112), (19, 112), (17, 70), (14, 26)], fill=body, outline=edge)   # head + torso
-dd.line([(17, 30), (6, 62), (9, 98), (5, 120)], fill=body, width=3); dd.line([(27, 30), (38, 64), (34, 100), (39, 122)], fill=body, width=3)  # arms
-dd.line([(20, 110), (16, 132), (19, 149)], fill=body, width=3); dd.line([(24, 110), (29, 132), (26, 149)], fill=body, width=3)  # legs
-for ex2 in (19, 25): dd.rectangle([ex2, 17, ex2 + 1, 18], fill=(255, 176, 40, 255))
-im = im.resize((w * S, h * S), Image.NEAREST); os.makedirs('sprites', exist_ok=True); im.save('sprites/curator_silhouette.png')
 
 # ── Item icons on the standard 326x273 canvas (pixel art, scaled up 5x) ───────────────────────
 def icon(draw_fn, path):
