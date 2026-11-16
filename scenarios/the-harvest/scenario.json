@@ -643,14 +643,14 @@
           {
             "file": "intro/sprites/pod_float.png",
             "frame_width": 306,
-            "frame_height": 586,
+            "frame_height": 602,
             "columns": 3,
             "frames": [
               1
             ],
             "frame_rate": 0,
-            "scale": 0.57,
-            "at": [482, 548],
+            "scale": 0.43,
+            "at": [482, 542],
             "bob": {
               "amount": 5,
               "period": 6
