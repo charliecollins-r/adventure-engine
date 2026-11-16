@@ -68,7 +68,7 @@ export class ScenarioEngine {
   /** The transition sound chosen by the last set_view (undefined = use the view's default). */
   private _transitionSound: string | null | undefined = undefined;
   /** A traverse effect waiting for the UI to animate it. */
-  private _traverse: { path: StandPoint[]; seconds?: number; sprite_set?: string } | null = null;
+  private _traverse: { path: StandPoint[]; seconds?: number; sprite_set?: string; end: StandPoint } | null = null;
   /** play_animation counters per object: a change restarts that object's sprite from its first frame. */
   private animationRuns: Record<string, number> = {};
 
@@ -450,7 +450,7 @@ export class ScenarioEngine {
 
   /** The transition sound the last set_view asked for, once (undefined = use the view's default). */
   /** The route of the last traverse effect (for the UI to animate), once. The engine has already moved him to its end. */
-  takeTraverse(): { path: StandPoint[]; seconds?: number; sprite_set?: string } | null {
+  takeTraverse(): { path: StandPoint[]; seconds?: number; sprite_set?: string; end: StandPoint } | null {
     const t = this._traverse; this._traverse = null; return t;
   }
 
@@ -828,9 +828,11 @@ export class ScenarioEngine {
           // State moves to the end at once; the UI animates the route from takeTraverse().
           if (e.path && e.path.length) {
             const path = e.path.map(([x, y]) => ({ x, y }));
-            const end = path[path.length - 1];
-            this._characterPos = { x: end.x, y: end.y, ...(e.facing ? { facing: e.facing } : {}) };
-            this._traverse = { path, seconds: e.seconds, sprite_set: e.sprite_set };
+            // `at` is where his feet end up when the route is drawn from another point (hands on a rope)
+            const last = path[path.length - 1];
+            const end = { x: e.at?.x ?? last.x, y: e.at?.y ?? last.y, ...((e.at?.facing ?? e.facing) ? { facing: e.at?.facing ?? e.facing } : {}) };
+            this._characterPos = end;
+            this._traverse = { path, seconds: e.seconds, sprite_set: e.sprite_set, end };
           }
           break;
         case 'play_animation':

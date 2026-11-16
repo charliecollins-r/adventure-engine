@@ -49,7 +49,7 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   await L.setVerb(g, 'hand'); const pt2 = L.sp(g, lx, ly); await g.p.mouse.click(pt2.x, pt2.y);
   await g.p.waitForTimeout(6500); await L.dismiss(g);
   const [rx, ry] = await feet();
-  if (await flag('on_far_ledge') === 'true' || rx > 480) fail(`not back: flag ${await flag('on_far_ledge')} feet ${rx},${ry}`); else ok(`climbed back (${rx},${ry})`);
+  if (await flag('on_far_ledge') === 'true' || rx > 520) fail(`not back: flag ${await flag('on_far_ledge')} feet ${rx},${ry}`); else ok(`climbed back (${rx},${ry})`);
   const leave = await L.A(g, 'move', 'nav_act1_stasis_hold_to_act1_containment_corridor'); await g.p.waitForTimeout(600);
   if ((await view()) !== 'act1_containment_corridor') fail(`could not leave: ${leave}`); else ok('and walk out of the room');
 

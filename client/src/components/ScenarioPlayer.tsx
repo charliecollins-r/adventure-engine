@@ -517,7 +517,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     },
     [engine, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
-  const traverseRef = useRef<(r: { path: Pt[]; seconds?: number; sprite_set?: string }) => void>(() => {});
+  const traverseRef = useRef<(r: { path: Pt[]; seconds?: number; sprite_set?: string; end: Pt & { facing?: Facing } }) => void>(() => {});
   const runRef = useRef(runInteraction);
   runRef.current = runInteraction;
 
@@ -540,6 +540,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     /** A traverse: fixed route, fixed speed, no footsteps, and clicks are ignored until it ends. */
     locked?: boolean;
     speed?: number;
+    /** Where his feet end up (a traverse drawn by the hands ends with him standing elsewhere). */
+    endAt?: Pt & { facing?: Facing };
   }
   const [pose, setPose] = useState<Partial<CharacterPlacement> | null>(null);
   const walkRef = useRef<WalkJob | null>(null);
@@ -589,6 +591,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [engine, pose]);
 
   const finishWalk = useCallback((job: WalkJob) => {
+    if (job.endAt) {
+      engine.setCharacterPosition({ x: job.endAt.x, y: job.endAt.y, facing: job.endAt.facing });
+      walkRef.current = null; setPose(null); bump();
+      return;
+    }
     const end = job.path[job.path.length - 1];
     const prev = job.path.length > 1 ? job.path[job.path.length - 2] : end;
     const dx = end.x - prev.x;
@@ -697,7 +704,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const len = pathLength(route.path);
     const job: WalkJob = {
       path: route.path, travelled: 0, last: performance.now(), viewId: engine.getCurrentView().id, area, walkSet,
-      pending: null, stepAt: 0, walkTime: 0, lastFrame: -1, shown: 0, locked: true,
+      pending: null, stepAt: 0, walkTime: 0, lastFrame: -1, shown: 0, locked: true, endAt: route.end,
       speed: route.seconds ? len / route.seconds : undefined,
     };
     walkRef.current = job;
