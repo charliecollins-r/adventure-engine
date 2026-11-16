@@ -208,7 +208,7 @@ LOOK through the crack: stars. MOVE through the hatch to drop into the Airlock B
 
 ![Airlock Bay](walkthrough/24_airlock_bay.webp)
 
-LOOK at the viewport (the planet and the energy siphons) and the empty docking clamps (your ship, the *Outrider*, is gone). USE the **Containment Key Card** ON the **override panel**. The shutters fold back from the great window and you see Earth with the siphon beams falling on it; click it for the **End of Act 1** screen, with your score out of 93.
+LOOK at the viewport (the planet and the energy siphons) and the empty docking clamps (your ship, the *Outrider*, is gone). USE the **Containment Key Card** ON the **override panel**. The shutters fold back from the great window and you see Earth with the siphon beams falling on it; click it for the **End of Act 1** screen, with your score out of 95.
 
 ---
 

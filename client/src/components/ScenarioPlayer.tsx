@@ -500,10 +500,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         if (useSound) playSound(useSound);
       }
       playPendingSounds();
+      // a traverse effect (a rope, a ladder): animate him along its route
+      const route = engine.takeTraverse();
+      if (route) traverseRef.current(route);
       bump();
     },
     [engine, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
+  const traverseRef = useRef<(r: { path: Pt[]; seconds?: number; sprite_set?: string }) => void>(() => {});
   const runRef = useRef(runInteraction);
   runRef.current = runInteraction;
 
@@ -523,6 +527,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     walkTime: number;
     lastFrame: number;
     shown: number;
+    /** A traverse: fixed route, fixed speed, no footsteps, and clicks are ignored until it ends. */
+    locked?: boolean;
+    speed?: number;
   }
   const [pose, setPose] = useState<Partial<CharacterPlacement> | null>(null);
   const walkRef = useRef<WalkJob | null>(null);
@@ -561,6 +568,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   /** Stop walking where he is (his current spot becomes his position). */
   const stopWalk = useCallback(() => {
+    if (walkRef.current?.locked) return;
     cancelAnimationFrame(rafRef.current);
     const job = walkRef.current;
     walkRef.current = null;
@@ -595,10 +603,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const dt = Math.min(0.05, Math.max(0, (now - job.last) / 1000));
     job.last = now;
     const here = pointAlong(job.path, job.travelled).pt;
-    const speed = (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y);
+    const speed = job.speed ?? (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y);
     job.travelled += speed * dt;
     job.walkTime += dt;
-    const steps = stepConfig(job.area, job.walkSet);
+    const steps = job.locked ? null : stepConfig(job.area, job.walkSet);
     const ws = scenario.character?.sprite_sets[job.walkSet];
     const motion = scenario.character?.walk_motion ?? 'paced';
     const synced = motion !== 'smooth' && !!ws && (ws.frame_rate ?? 0) > 0;
@@ -640,6 +648,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   /** Walk to `target` (snapped onto the floor), then run `pending` if given. Returns false if he can't walk here. */
   const startWalk = useCallback(
     (target: { x: number; y: number }, pending: WalkJob['pending'], finalFacing?: Facing): boolean => {
+      if (walkRef.current?.locked) return true;   // crossing a rope: ignore clicks until he's across
       const area = walkableNow();
       if (!area) return false;
       const placed = engine.getCharacterPlacement()!;
@@ -666,6 +675,26 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     [engine, scenario, pose, walkableNow, finishWalk, tutorialEvent],
   );
 
+  /** Carry him along a traverse route (the engine has already put him at its end). */
+  traverseRef.current = (route) => {
+    const area = engine.getWalkArea();
+    if (!area || route.path.length < 2) return;
+    cancelAnimationFrame(rafRef.current);
+    const placed = engine.getCharacterPlacement();
+    const sets = scenario.character?.sprite_sets ?? {};
+    const idle = placed?.sprite_set ?? 'idle';
+    const walkSet = route.sprite_set ?? sets[idle]?.walk ?? (sets.walk ? 'walk' : idle);
+    const len = pathLength(route.path);
+    const job: WalkJob = {
+      path: route.path, travelled: 0, last: performance.now(), viewId: engine.getCurrentView().id, area, walkSet,
+      pending: null, stepAt: 0, walkTime: 0, lastFrame: -1, shown: 0, locked: true,
+      speed: route.seconds ? len / route.seconds : undefined,
+    };
+    walkRef.current = job;
+    setPose({ x: route.path[0].x, y: route.path[0].y, facing: placed?.facing, sprite_set: walkSet, frame: 0 });
+    rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
+  };
+
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
 
   /** Turn to face an object without moving (Look/Talk in a walking view). */
@@ -682,6 +711,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const handleObjectClick = useCallback(
     (objectId: string) => {
+      if (walkRef.current?.locked) return;   // he's mid-crossing: hands full
       const itemId = selectedItem ?? undefined;
       const verb = itemId ? 'use_item' : activeVerb;
       if (itemId) setSelectedItem(null);

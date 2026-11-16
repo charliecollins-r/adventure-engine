@@ -40,3 +40,32 @@ bg = Image.open(sys.argv[3]).convert('RGBA').resize((960, 540))
 small = im.resize((W//SS, H//SS), Image.LANCZOS)
 bg.alpha_composite(small, (box[0], box[1]))
 bg.crop((500, 290, 820, 470)).resize((960, 540), Image.NEAREST).save(sys.argv[4])
+
+# ── The line under load: sprites/grappling_line_bounce.png ─────────────────────────────────
+# FRAMES frames of the same line with a person's weight on it, the dip moving from the near end to the far end.
+# Played once (frame_rate = FRAMES / crossing seconds) while the player crosses, then the resting line returns.
+# Also prints the weight point of each frame in 960x720 JSON coordinates: the crossing path in scenario.json
+# (the traverse effect on gap_grappling_line) follows these points, so his hands/feet stay on the line.
+FRAMES, DIP = 8, 22 * SS
+base = bez(a, ctrl, eye, n=200)
+sheet = Image.new('RGBA', (W * FRAMES, H), (0, 0, 0, 0))
+path = []
+for k in range(FRAMES):
+    t = 0.06 + 0.88 * k / (FRAMES - 1)
+    i = round(t * 200); wx, wy = base[i][0], base[i][1] + DIP
+    seg = bez(a, ((a[0] + wx) / 2, (a[1] + wy) / 2 + 4 * SS), (wx, wy), 40) + bez((wx, wy), ((wx + eye[0]) / 2, (wy + eye[1]) / 2 + 4 * SS), eye, 40)[1:]
+    fr = Image.new('RGBA', (W, H), (0, 0, 0, 0)); dd = ImageDraw.Draw(fr)
+    dd.line(seg, fill=(38, 14, 10, 255), width=6 * SS, joint='curve')
+    dd.line(seg, fill=(132, 52, 38, 255), width=4 * SS, joint='curve')
+    dd.line([(x, y - SS) for x, y in seg], fill=(178, 92, 64, 255), width=SS)
+    dd.ellipse([a[0] - 3 * SS, a[1] - 3 * SS, a[0] + 3 * SS, a[1] + 3 * SS], fill=(120, 46, 34, 255), outline=(38, 14, 10, 255), width=SS)
+    fr.alpha_composite(hook, (hx, hy))
+    sheet.alpha_composite(fr, (k * W, 0))
+    sx, sy = box[0] + wx / SS, box[1] + wy / SS
+    path.append([round(sx), round(sy / 0.75)])
+sheet.save('sprites/grappling_line_bounce.png')
+back = Image.new('RGBA', sheet.size, (0, 0, 0, 0))          # the same frames in reverse, for the way back
+for k in range(FRAMES): back.paste(sheet.crop(((FRAMES - 1 - k) * W, 0, (FRAMES - k) * W, H)), (k * W, 0))
+back.save('sprites/grappling_line_bounce_back.png')
+print('bounce sheet', sheet.size, f'{FRAMES} frames of {W}x{H}')
+print('weight path (json):', path)

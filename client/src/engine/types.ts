@@ -246,6 +246,9 @@ export interface View {
   enter_sound?: string | null;
   /** Turns on click-to-walk for this view. See docs/WALKABLE_AREAS.md. */
   walk_area?: WalkArea;
+  /** Other floors for this view, chosen by state: the first whose `when` matches replaces walk_area
+   *  (e.g. a ledge reached by climbing across a line). */
+  walk_area_variants?: { when: Condition[]; walk_area: WalkArea }[];
 }
 
 /** An [x, y] point in 960x720 authoring space. */
@@ -312,6 +315,9 @@ export interface Effect {
   type: string;
   /** set_view: where the character appears in the new view (walking views). */
   at?: StandPoint;
+  /** traverse: the route the character is carried along (960x720 feet positions), ignoring the floor. */
+  path?: PointXY[];
+
   text?: string;
   flag?: string;
   value?: string;
@@ -554,6 +560,9 @@ export interface SpriteSet {
   loop?: boolean;
   /** Sprite set to use while walking when this set is current. Default: a set named "walk". */
   walk?: string;
+  /** "top": the character's point is the top-centre of the frame (hands on a rope he hangs from), not the feet.
+   *  For hanging and climbing poses used with the traverse effect. No shadow is drawn. Default "feet". */
+  anchor?: 'feet' | 'top';
 }
 
 export interface CharacterShadow {

@@ -167,6 +167,7 @@ console.log(`cone of influence: ${coneFlags.length} flags, ${coneStates.length} 
 
 // ---- compact state <-> engine ------------------------------------------
 const base = new ScenarioEngine(scenario);
+base.immediateDelays = true;   // delayed effects (a line coming back, a guard catching you) happen in the same step
 const baseSnap = JSON.stringify({ flags: base.flags, objectStates: base.objectStates, objectVisibility: base.objectVisibility });
 const encode = e => JSON.stringify([
   e._currentViewId, e.viewHistory.at(-1) || '',

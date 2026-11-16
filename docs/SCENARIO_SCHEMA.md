@@ -173,7 +173,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
 | `intro_scenes` | IntroScene[] | no | An animated intro cinematic, used instead of `intro_text`. See "Intro Cinematic" below. |
-| `wake` | object | no | How play begins after the intro: `hold_seconds` of black (default 0.2), the eyes opening over `fade_seconds` (default: the length of `sounds.intro_voice`), `blink` (open halfway, flutter shut, then open fully), and `voice_delay` seconds before `sounds.intro_voice` describes the room. A `standup` sprite set gets up as that voice ends, and the tutorial waits until then. Make the first phase's `on_enter` message the same words the voice speaks. |
+| `wake` | object | no | How play begins after the intro: `hold_seconds` of black (default 0.2), the eyes opening over `fade_seconds` (default: the length of `sounds.intro_voice`), `blink` (open halfway, flutter shut, then open fully), and `voice_delay` seconds before `sounds.intro_voice` describes the room. A `standup` sprite set gets up as that voice ends, and the tutorial waits until then. Make the first phase's `on_enter` message the same words the voice speaks (check by speaking rate: about 12–13 characters per second for a calm narrator). |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
 | `music` | string | no | Background music on its own channel (a path). It keeps playing across rooms and only changes when a view names a different track (view `music`; `null` there = no music). |
 | `music_volume` | number | no | Music volume 0..1. Default `0.3`. |
@@ -570,7 +570,7 @@ An optional root-level `character` block defines the player sprite. Each view th
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `sprite_sets` | object | yes | Named sheets. Each: `file`, `columns` (frames per row), `rows`, `frame_rate` (fps, `0` = static), `directions` (one row per direction, in order; default `["down","left","right","up"]`), `loop` (default `true`; `false` plays once and holds the last frame). |
+| `sprite_sets` | object | yes | Named sheets. Each: `file`, `columns` (frames per row), `rows`, `frame_rate` (fps, `0` = static), `directions` (one row per direction, in order; default `["down","left","right","up"]`), `loop` (default `true`; `false` plays once and holds the last frame). | A set can also take `anchor: "top"`: the character's point is the top-centre of the frame (his hands on a rope he hangs from) instead of his feet, with no shadow; use it for hanging and climbing poses on a `traverse`.
 | `frame_width`, `frame_height` | number | yes | Frame size in pixels, shared by every set. |
 | `scale` | number | no | Render scale. On screen the sprite is `frame_width × scale` wide. |
 | `shadow` | object | no | Default shadow (see [Sprite Shadows](#sprite-shadows)). |
@@ -606,6 +606,7 @@ Optional, per view. A view with a `walk_area` lets the player walk; a view witho
 | `walk_area.floor` | `[x, y][]` | yes | The outline of the floor, in 960x720 space, points in order around the edge (either direction). At least 3 points; must not cross itself. Points on the outline count as floor. |
 | `walk_area.blocked` | `[x, y][][]` | no | Areas inside the floor the character walks around (a table, a pit). Each is an outline like `floor`. |
 | `walk_area.depth_scale` | object | no | `{ far_y, far, near_y, near }`: the character is drawn at `far` × his normal scale when his feet are at `far_y`, and `near` × at `near_y`, blended in between and held beyond. Omit for constant size. |
+| `walk_area_variants` | array | no | Other floors for the same view, chosen by state: `[{ when, walk_area }]`; the first whose `when` matches replaces `walk_area`. Use it for a second place to stand that is reached a special way (a ledge across a pit, the top of a ladder): set a flag as you get there, and that flag's floor becomes the one he walks on. Block the room's exits while he's there (a Move interaction on the exit, `when` the flag, with a message). |
 
 The view's `character.x`/`y` is where he appears on entering and must be on the floor.
 
@@ -891,6 +892,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `open_widget` | `widget` | Open an overlay puzzle widget (e.g. a `keypad`) by id. See Puzzle Widgets → Overlay Widgets. |
 | `set_view` | `view`, `at`?, `sound`? | Switch to a different view (closeup or back to main). `sound` names the transition sound for this move (`null` = silent), overriding the view's `enter_sound`. |
 | `add_score` | `points`, `id`? | Add points to the score. With `id`, awarded only once per id (safe to put on repeatable interactions). |
+| `traverse` | `path`, `seconds`, `sprite_set`, `facing` | Carry the character along a fixed route (feet positions, 960x720), ignoring the floor: a rope, a ladder, a ledge. The engine puts him at the end at once; the player animates the route over `seconds` (clicks are ignored until he arrives) using `sprite_set` (default his walk set). Pair it with a `set_flag` that switches `walk_area_variants`, a `play_animation` on the thing he's crossing, and a `delay_then` of the same `seconds` to restore it. |
 | `play_animation` | `object` | Show the object and restart its sprite from the first frame (pair with `sprite.loop: false` for one-shot set pieces: a fan grinding to a halt, a hatch dropping open). |
 | `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` (all optional) | Override the player sprite placement for the rest of the session. See [Character Sprite](#character-sprite). |
 | `equip_item` / `unequip_item` | `item` | Equip or unequip a held item that has a `wearable` overlay (`{slot, sprite_file, frame_width, frame_height, offset_x, offset_y, scale?, auto_equip?}`), drawn on top of the character. `add_item` auto-equips when `auto_equip` is true; `remove_item` unequips. |

@@ -75,6 +75,7 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     await L.combine(g, 'Restraint Strap', 'Carcass Hook'); rec('combine', 'strap+hook', await L.msg(g)); await L.dismiss(g);
     await L.openInv(g); await g.p.screenshot({ path: 'shots/13_inventory.png', clip: { x: g.vp.x, y: g.vp.y, width: 960, height: 540 } });
     await go('act1_stasis_hold'); await U('empty_sample_jar', 'pod_drainage_channel'); await U('grappling_line', 'platform_gap'); await shot('14_stasis_rigged');
+    await A('hand', 'gap_grappling_line'); await g.p.waitForTimeout(6000); await shot('14b_stasis_ledge');
     await A('look', 'cataloguer_robot'); view = 'act1_cataloguer_closeup'; await shot('15_cataloguer_closeup'); await lookAll(view);
     // 9. Terminal + override
     await go('act1_processing_lab'); await shot('15a_lab_drag_marks'); await go('act1_containment_corridor'); await go('act1_processing_lab'); await shot('15b_lab_growth');

@@ -86,6 +86,7 @@ export function CharacterSprite({
   const sheetW = cols * fw * scale;
   const sheetH = spriteSet.rows * fh * scale;
 
+  const hanging = spriteSet.anchor === 'top';
   const flipH = placement.flip_h ?? false;
   const mirrorFacing = facing === 'left' && !directions.includes('left');
   const interactive = !!placement.object_id && !!onObjectClick;
@@ -93,7 +94,7 @@ export function CharacterSprite({
   const style: CSSProperties = {
     position: 'absolute',
     left: `${screenX - (renderW / 2)}px`,
-    top: `${screenY - renderH}px`,
+    top: `${hanging ? screenY : screenY - renderH}px`,
     width: `${renderW}px`,
     height: `${renderH}px`,
     backgroundImage: `url(${resolveAsset(scenarioId, spriteSet.file)})`,
@@ -111,7 +112,7 @@ export function CharacterSprite({
     ? (e: React.MouseEvent) => { e.stopPropagation(); onObjectClick!(placement.object_id!); }
     : undefined;
 
-  const shadow = placement.shadow ?? config.shadow;
+  const shadow = hanging ? undefined : (placement.shadow ?? config.shadow);
   const shColor = shadow?.color ?? 'rgba(0,0,0,0.5)';
   const shW = (shadow?.width ?? renderW * 0.6 / depthScale) * depthScale;
   const shH = (shadow?.height ?? 6) * depthScale;

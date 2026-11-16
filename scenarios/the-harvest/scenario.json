@@ -121,7 +121,7 @@
     "noise_sound_min": 6,
     "music": "audio/music_explore.mp3",
     "music_volume": 0.28,
-    "max_score": 93,
+    "max_score": 95,
     "intro_scenes": [
       {
         "background": "intro/backgrounds/intro_orbit.webp",
@@ -904,6 +904,8 @@
         "occupied_pods",
         "platform_gap",
         "gap_grappling_line",
+        "gap_line_bounce_back",
+        "gap_line_bounce",
         "cataloguer_robot",
         "specimen_tag_hook",
         "walkway_railing",
@@ -1062,8 +1064,33 @@
               "type": "flag_not",
               "flag": "lab_code_known",
               "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "on_far_ledge",
+              "value": "true"
             }
           ]
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "gap_crossed",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "on_far_ledge",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lab_code_known",
+              "value": "true"
+            }
+          ],
+          "text": "Your line is rigged across the pit. HAND it to climb over to the cataloguer."
         }
       ],
       "ambient_lighting": {
@@ -1182,9 +1209,42 @@
           [542, 720],
           [475, 719],
           [161, 715]
-        ]
+        ],
+        "depth_scale": {
+          "far_y": 470,
+          "far": 0.62,
+          "near_y": 627,
+          "near": 1
+        }
       },
-      "music": "audio/music_stasis.mp3"
+      "music": "audio/music_stasis.mp3",
+      "walk_area_variants": [
+        {
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "on_far_ledge",
+              "value": "true"
+            }
+          ],
+          "walk_area": {
+            "floor": [
+              [728, 476],
+              [760, 470],
+              [790, 477],
+              [788, 494],
+              [752, 498],
+              [729, 492]
+            ],
+            "depth_scale": {
+              "far_y": 470,
+              "far": 0.62,
+              "near_y": 627,
+              "near": 1
+            }
+          }
+        }
+      ]
     },
     {
       "id": "act1_cataloguer_closeup",
@@ -14189,6 +14249,58 @@
           "verb": "look",
           "when": [
             {
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "on_far_ledge",
+                  "value": "true"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The cataloguer is still across the pit, sorting its jars. Its displays are too far away to read from here. Your line is rigged: HAND it to climb across."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "all_of",
+              "conditions": [
+                {
+                  "type": "flag_is",
+                  "flag": "gap_crossed",
+                  "value": "true"
+                },
+                {
+                  "type": "flag_not",
+                  "flag": "on_far_ledge",
+                  "value": "true"
+                }
+              ]
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "You can't reach it from this side. The line is rigged: HAND it to climb across."
+            }
+          ]
+        },
+        {
+          "verb": "look",
+          "when": [
+            {
               "type": "flag_not",
               "flag": "gap_crossed"
             }
@@ -26270,13 +26382,35 @@
       "hiding_spot": false,
       "interactions": [
         {
+          "verb": "move",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "on_far_ledge",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "The doorway is on the other side of the pit. You'll have to climb back across the line first."
+            }
+          ]
+        },
+        {
           "verb": "look",
           "response": "A dark archway between the pod racks leads deeper into the vessel. Faint orange light flickers from beyond.",
           "then": []
         },
         {
           "verb": "move",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "on_far_ledge",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "conditional_effect",
@@ -30042,7 +30176,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You swing the hook in a widening circle and let it fly. It clangs off the far railing and slides, then the barb bites. You haul until the line is taut and lash your end to the torn stump of railing on this side. Then, hand over hand with your legs hooked over the strap, you shimmy across the pit. The strap creaks. Fluid drips somewhere far below. Then there's metal under your boots. You're across, and the cataloguer is within reach."
+              "text": "You swing the hook in a widening circle and let it fly. It clangs off the far railing and slides, then the barb bites. You haul until the line is taut and lash your end to the torn stump of railing on this side. It sags a little in the middle. It'll hold. Probably. Now you just have to trust it with your whole weight."
             },
             {
               "type": "remove_item",
@@ -33660,17 +33794,138 @@
           "then": [
             {
               "type": "message",
-              "text": "Your line is still there, the hook bitten deep into the far railing. You can cross whenever you need to."
+              "text": "Your line, the hook bitten deep into the far railing and your end lashed to the stump. It sags a little in the middle. HAND it to climb across."
             }
           ]
         },
         {
           "verb": "hand",
-          "when": [],
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "on_far_ledge",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "message",
-              "text": "You give the line a tug. Rock solid. Better to leave it rigged in case you need to cross again."
+              "text": "You grab the line, swing your legs up and hook them over it, and go hand over hand above the pit. The strap creaks and dips under you. Don't look down. You look down. Then there's metal under your boots."
+            },
+            {
+              "type": "hide_object",
+              "object": "gap_grappling_line"
+            },
+            {
+              "type": "play_animation",
+              "object": "gap_line_bounce"
+            },
+            {
+              "type": "traverse",
+              "path": [
+                [412, 668],
+                [500, 638],
+                [545, 596],
+                [565, 579],
+                [590, 576],
+                [616, 571],
+                [641, 565],
+                [667, 557],
+                [692, 547],
+                [718, 535],
+                [743, 522],
+                [756, 500],
+                [742, 486]
+              ],
+              "seconds": 4.2,
+              "facing": "right"
+            },
+            {
+              "type": "set_flag",
+              "flag": "on_far_ledge",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 4.2,
+              "effects": [
+                {
+                  "type": "hide_object",
+                  "object": "gap_line_bounce"
+                },
+                {
+                  "type": "show_object",
+                  "object": "gap_grappling_line"
+                }
+              ]
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "rope_crossed"
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "on_far_ledge",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Back over the pit, hand over hand. It's no easier the second time, but at least you know the line holds."
+            },
+            {
+              "type": "hide_object",
+              "object": "gap_grappling_line"
+            },
+            {
+              "type": "play_animation",
+              "object": "gap_line_bounce_back"
+            },
+            {
+              "type": "traverse",
+              "path": [
+                [742, 486],
+                [756, 500],
+                [743, 522],
+                [718, 535],
+                [692, 547],
+                [667, 557],
+                [641, 565],
+                [616, 571],
+                [590, 576],
+                [565, 579],
+                [545, 596],
+                [500, 638],
+                [412, 668]
+              ],
+              "seconds": 4.2,
+              "facing": "down"
+            },
+            {
+              "type": "set_flag",
+              "flag": "on_far_ledge",
+              "value": "false"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 4.2,
+              "effects": [
+                {
+                  "type": "hide_object",
+                  "object": "gap_line_bounce_back"
+                },
+                {
+                  "type": "show_object",
+                  "object": "gap_grappling_line"
+                }
+              ]
             }
           ]
         },
@@ -33684,7 +33939,12 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": {
+        "x": 412,
+        "y": 668,
+        "facing": "right"
+      }
     },
     {
       "id": "prisoner_cage_scratches",
@@ -41970,6 +42230,68 @@
         "opacity": 0.5,
         "offset_y": 22
       }
+    },
+    {
+      "id": "gap_line_bounce",
+      "name": "Grappling Line",
+      "description": "Your grappling line, taking your weight.",
+      "position": {
+        "x": 664,
+        "y": 592
+      },
+      "size": {
+        "width": 256,
+        "height": 171
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Grappling line"
+      },
+      "sprite": {
+        "file": "sprites/grappling_line_bounce.png",
+        "frame_width": 512,
+        "frame_height": 256,
+        "columns": 8,
+        "rows": 1,
+        "frame_rate": 1.9,
+        "scale": 0.5,
+        "loop": false
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "walk_to": false,
+      "interactions": []
+    },
+    {
+      "id": "gap_line_bounce_back",
+      "name": "Grappling Line",
+      "description": "Your grappling line, taking your weight.",
+      "position": {
+        "x": 664,
+        "y": 592
+      },
+      "size": {
+        "width": 256,
+        "height": 171
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Grappling line"
+      },
+      "sprite": {
+        "file": "sprites/grappling_line_bounce_back.png",
+        "frame_width": 512,
+        "frame_height": 256,
+        "columns": 8,
+        "rows": 1,
+        "frame_rate": 1.9,
+        "scale": 0.5,
+        "loop": false
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "walk_to": false,
+      "interactions": []
     }
   ],
   "puzzle_widgets": [
@@ -42715,7 +43037,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "A subsonic hum vibrates through your bones. Amber fluid drains from your cracked pod, pooling on the organic-metallic floor. Bioluminescent veins pulse in the walls. Somewhere, something clicks — precise, mechanical, patient."
+          "text": "Your eyes open to green light and the smell of chemicals. Fluid drains from your cracked stasis pod, pooling on the organic-metallic floor. You're cold. Weak. Alone among hundreds of pods holding dead things from a dozen worlds. Something hums in the walls — the ship is alive."
         },
         {
           "type": "play_sound",

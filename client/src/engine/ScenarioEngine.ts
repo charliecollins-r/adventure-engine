@@ -38,6 +38,8 @@ export class ScenarioEngine {
   private inventory: string[];
   private _noiseLevel: number;
   private _messages: string[];
+  /** Tools (the soft-lock search) set this: delay_then effects then apply at once instead of on a timer. */
+  immediateDelays = false;
   /** Called when state changes outside an action (a delay_then firing), so the UI can redraw. */
   private changeListener: (() => void) | null = null;
   private viewHistory: string[];
@@ -65,6 +67,8 @@ export class ScenarioEngine {
   private scoredIds = new Set<string>();
   /** The transition sound chosen by the last set_view (undefined = use the view's default). */
   private _transitionSound: string | null | undefined = undefined;
+  /** A traverse effect waiting for the UI to animate it. */
+  private _traverse: { path: StandPoint[]; seconds?: number; sprite_set?: string } | null = null;
   /** play_animation counters per object: a change restarts that object's sprite from its first frame. */
   private animationRuns: Record<string, number> = {};
 
@@ -177,8 +181,9 @@ export class ScenarioEngine {
   getWalkArea(): WalkArea | null {
     const view = this.getCurrentView();
     if (!view.walk_area || !view.character || !this.scenario.character) return null;
-    if (!Array.isArray(view.walk_area.floor) || view.walk_area.floor.length < 3) return null;
-    return view.walk_area;
+    const area = view.walk_area_variants?.find((v) => this.evaluateConditions(v.when))?.walk_area ?? view.walk_area;
+    if (!Array.isArray(area.floor) || area.floor.length < 3) return null;
+    return area;
   }
 
   /** Record where the character now stands in the current view (called when a walk ends). */
@@ -444,6 +449,11 @@ export class ScenarioEngine {
   getScore(): number { return this._score; }
 
   /** The transition sound the last set_view asked for, once (undefined = use the view's default). */
+  /** The route of the last traverse effect (for the UI to animate), once. The engine has already moved him to its end. */
+  takeTraverse(): { path: StandPoint[]; seconds?: number; sprite_set?: string } | null {
+    const t = this._traverse; this._traverse = null; return t;
+  }
+
   takeTransitionSound(): string | null | undefined {
     const s = this._transitionSound; this._transitionSound = undefined; return s;
   }
@@ -813,6 +823,16 @@ export class ScenarioEngine {
           this._score += e.points ?? 0;
           break;
 
+        case 'traverse':
+          // Carry the character along a fixed route (a rope, a ladder, a ledge), ignoring the floor.
+          // State moves to the end at once; the UI animates the route from takeTraverse().
+          if (e.path && e.path.length) {
+            const path = e.path.map(([x, y]) => ({ x, y }));
+            const end = path[path.length - 1];
+            this._characterPos = { x: end.x, y: end.y, ...(e.facing ? { facing: e.facing } : {}) };
+            this._traverse = { path, seconds: e.seconds, sprite_set: e.sprite_set };
+          }
+          break;
         case 'play_animation':
           if (e.object) {
             this.objectVisibility[e.object] = true;
@@ -881,7 +901,9 @@ export class ScenarioEngine {
           break;
 
         case 'delay_then':
-          if (e.effects) {
+          if (e.effects && this.immediateDelays) {
+            messages.push(...this.applyEffects(e.effects));
+          } else if (e.effects) {
             const delayMs = (e.seconds ?? 0) * 1000;
             const delayedEffects = e.effects;
             const epoch = this.epoch;
