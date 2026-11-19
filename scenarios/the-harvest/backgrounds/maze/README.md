@@ -24,7 +24,10 @@ until then the game still uses the v3 frames in `backgrounds/`.
 | `maze_z3_t.webp` | 16 | The Purge Core: left, right |
 | `maze_z3_cross.webp` | 17 | The Purge Core: ahead, left, right |
 | `maze_camp.webp` | 18 | The Escapee's Camp (zone 2): a dead end |
+| `maze_valve_closed.webp` | 19 | The Heart Valve, closed (zone 2): a heart valve (three leaflets in a cartilage ring); no way on until it opens |
+| `maze_valve_open.webp` | 20 | The Heart Valve, open (zone 2): ahead |
 | `maze_nursery.webp` | 21 | The Nursery (zone 2): a dead end; the glowing sacs are lower right |
+| `maze_cache.webp` | 22 | The Collector's Cache (zone 3): a dead end; the membrane alcove is in the back wall |
 
 The v3 frames `act1_vent_maze_lf/rf/lt/rt.webp` remain the ahead+side and bend screens; right-handed ones are mirrors.
 Every v4 frame is an edit of `act1_vent_maze_lf.webp` with the same camera, ceiling, floor and pipes, so one hotspot
