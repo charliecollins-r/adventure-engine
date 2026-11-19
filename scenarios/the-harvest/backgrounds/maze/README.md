@@ -32,3 +32,9 @@ until then the game still uses the v3 frames in `backgrounds/`.
 The v3 frames `act1_vent_maze_lf/rf/lt/rt.webp` remain the ahead+side and bend screens; right-handed ones are mirrors.
 Every v4 frame is an edit of `act1_vent_maze_lf.webp` with the same camera, ceiling, floor and pipes, so one hotspot
 and floor geometry fits them all.
+| `maze_grate_office.webp` | 23 | Looking down through the grate into the Curator's office (zone 3) |
+| `maze_shaft.webp` | 24 | The Vertical Shaft (zone 2): the hole in the floor; the rope knuckle is on the right wall |
+
+The sealed-back lips (runbook steps 25-27) are raw blue-screen pictures in `sprites/raw/maze_back_sealed.png`
+(zone 1) and `maze_z2_back_sealed.png` (the Gut). The generator keys them, squashes them to about half height and
+sets them into the bottom edge of every duct screen with no way back (checked by eye over the straight screens).
