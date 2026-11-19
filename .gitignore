@@ -33,3 +33,4 @@ Thumbs.db
 # Playthrough harness output (screenshots, logs)
 shots/
 full_log.json
+__pycache__/
