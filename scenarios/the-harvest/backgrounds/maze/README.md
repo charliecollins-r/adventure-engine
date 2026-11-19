@@ -36,5 +36,5 @@ and floor geometry fits them all.
 | `maze_shaft.webp` | 24 | The Vertical Shaft (zone 2): the hole in the floor; the rope knuckle is on the right wall |
 
 The sealed-back lips (runbook steps 25-27) are raw blue-screen pictures in `sprites/raw/maze_back_sealed.png`
-(zone 1) and `maze_z2_back_sealed.png` (the Gut). The generator keys them, squashes them to about half height and
+(zone 1), `maze_z2_back_sealed.png` (the Gut) and `maze_z3_back_sealed.png` (the Purge Core). The generator keys them, squashes them to about half height and
 sets them into the bottom edge of every duct screen with no way back (checked by eye over the straight screens).
