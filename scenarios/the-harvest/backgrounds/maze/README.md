@@ -24,6 +24,7 @@ until then the game still uses the v3 frames in `backgrounds/`.
 | `maze_z3_t.webp` | 16 | The Purge Core: left, right |
 | `maze_z3_cross.webp` | 17 | The Purge Core: ahead, left, right |
 | `maze_camp.webp` | 18 | The Escapee's Camp (zone 2): a dead end |
+| `maze_nursery.webp` | 21 | The Nursery (zone 2): a dead end; the glowing sacs are lower right |
 
 The v3 frames `act1_vent_maze_lf/rf/lt/rt.webp` remain the ahead+side and bend screens; right-handed ones are mirrors.
 Every v4 frame is an edit of `act1_vent_maze_lf.webp` with the same camera, ceiling, floor and pipes, so one hotspot
