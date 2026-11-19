@@ -11402,34 +11402,6 @@
       ]
     },
     {
-      "id": "cat_hair",
-      "name": "Shadow Cat Fur",
-      "description": "A tuft of impossibly soft black fur. It shimmers faintly with an iridescent purple sheen.",
-      "icon": "fur",
-      "examine": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A small tuft of black fur that seems to absorb light. When you tilt it, it shimmers with deep purple and violet hues. It's unnaturally soft — like holding a piece of shadow."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You roll the fur between your fingers. It's warm, almost alive. For a moment you smell something like ozone and old libraries."
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "crew_datapad",
       "name": "Choir Crew Datapad",
       "description": "A Choir-make datapad recovered from a dead crew member in the vents. Still faintly glowing.",
@@ -11849,11 +11821,7 @@
           "then": [
             {
               "type": "message",
-              "text": "You reach out carefully. The cat allows a single stroke along its back, then slips away into the shadows like smoke. A tuft of dark fur clings to your fingers."
-            },
-            {
-              "type": "add_item",
-              "item": "cat_hair"
+              "text": "You crouch and hold out a hand. The cat considers it for a long moment, then pushes its head into your palm and leans its whole weight against your shin, purring like a small engine. For a second the ship is very far away. Then it trots off into the shadows, tail up, and looks back once, as if to make sure you'll remember it."
             },
             {
               "type": "set_flag",
@@ -12343,36 +12311,6 @@
             {
               "type": "message",
               "text": "You mutter to yourself, studying the stained surface. \"Whatever they did here... they did it to a lot of us.\""
-            }
-          ]
-        },
-        {
-          "verb": "use_item",
-          "item": "cat_hair",
-          "when": [
-            {
-              "type": "has_item",
-              "item": "cat_hair"
-            }
-          ],
-          "then": [
-            {
-              "type": "message",
-              "text": "You place the cat hair on the examination table's analysis plate. The table hums and a readout appears above it: 'Sol-3 Felis catus. Batch 7. Status: PROCESSED.' Processed. And yet a black cat is sitting in the corridor, very much alive, looking smug about it. It got out. So can you."
-            },
-            {
-              "type": "play_sound",
-              "sound": "discovery"
-            },
-            {
-              "type": "set_flag",
-              "flag": "cat_fate_known",
-              "value": "true"
-            },
-            {
-              "type": "add_score",
-              "points": 2,
-              "id": "cat_fate_known"
             }
           ]
         }
@@ -42078,6 +42016,11 @@
             {
               "type": "message",
               "text": "It allows exactly one scratch behind the ear. Then, holding your gaze, it pushes a stylus off the edge of the console. On purpose."
+            },
+            {
+              "type": "add_score",
+              "points": 2,
+              "id": "cat_followed"
             }
           ]
         },

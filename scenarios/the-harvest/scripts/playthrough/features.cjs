@@ -29,7 +29,14 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
     await L.A(g, 'move', 'nav_act1_containment_corridor_to_act1_feeding_station'); await L.clearCutaways(g); await L.dismiss(g);
     await L.A(g, 'move', 'nav_act1_feeding_station_to_act1_containment_corridor'); await L.dismiss(g);
   }
-  if (await visible('black_cat')) { await L.A(g, 'hand', 'black_cat'); await L.dismiss(g); }
+  if (!(await visible('black_cat'))) fail('no cat in the corridor on the second visit'); else {
+    const items0 = await g.p.evaluate(() => window.__engine.getInventoryIds().length);
+    const pet = await L.A(g, 'hand', 'black_cat'); await L.dismiss(g);
+    const items1 = await g.p.evaluate(() => window.__engine.getInventoryIds().length);
+    const petted = await g.p.evaluate(() => window.__engine.getFlags().cat_petted);
+    if (!/purring/.test(pet || '') || petted !== 'true') fail(`petting the cat: ${pet}`); else ok('HAND pets the cat: it purrs, and remembers you');
+    if (items1 !== items0) fail('petting the cat still gives an item'); else ok('no cat hair any more');
+  }
   await L.go(g, 'act1_security_hub'); await L.dismiss(g);
   if (!(await visible('security_black_cat'))) fail('no cat on the security console'); else {
     const c = await L.A(g, 'hand', 'security_black_cat'); await L.dismiss(g);

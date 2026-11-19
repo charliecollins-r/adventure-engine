@@ -197,7 +197,7 @@ A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6
 
 **Act 1 is fully playable** with:
 - **30 views** — 9 rooms (Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay), 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and an 18-screen vent maze (5 painted landmark rooms and 13 duct cells, with a readable map)
-- **17 items** — 16 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft
+- **16 items** — 15 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft
 - **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot, holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
 - **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → vent maze → airlock
@@ -415,7 +415,7 @@ adventure-engine/
 - [x] Minimal HUD (cursor verbs, collapsible inventory, ambient text)
 - [x] Room name labels in viewport
 - [x] Back navigation for closeup views
-- [x] Act 1 of The Harvest fully solvable (30 views, 17 items, walkthrough)
+- [x] Act 1 of The Harvest fully solvable (30 views, 16 items, walkthrough)
 - [x] Per-room ambient audio with crossfading
 - [x] Sprite shadow system (directional shadows with per-view overrides)
 - [x] Visual editor with shadow sliders and sprite positioning

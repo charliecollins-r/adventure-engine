@@ -95,7 +95,7 @@ LOOK or HAND the robot to open the **specimen close-up**. Every display shows th
 
 Five exits: Stasis Hold (back), Processing Lab (left), Security Hub (right), Feeding Station (far end) and the **floor vent**, which stays locked until you press the override.
 
-**Come back later:** on your second visit a black cat is sitting near the right wall. HAND it for *Shadow Cat Fur* (optional lore).
+**Come back later:** on your second visit a black cat is sitting near the right wall. HAND it to pet it: it purrs, leans on your leg and slips away, then turns up on the Security Hub console (HAND it there too). A cat you petted remembers you later. If you only look at it, talk to it or grab at it, nothing comes of it.
 
 ### 3. Processing Lab
 
@@ -114,7 +114,7 @@ HAND the keypad: eight glyph keys, four slots. A wrong code flashes red and cost
 
 Enter **fern, double curl, sprouting snake, sprouting snake** and the terminal unlocks. A line of red script reports that the emergency override at the security console is **armed**. LOOK at the screen afterwards for the big reveal: the ship's next harvesting stop is Earth.
 
-**Come back later:** the lab changes while you're away. Fresh drag marks appear on your second visit, and a patch of glowing growth on the wall on your third. USE the glass shard on the growth to find a message from a previous prisoner, and USE the cat fur on the examination tables to learn what happened to the cat.
+**Come back later:** the lab changes while you're away. Fresh drag marks appear on your second visit, and a patch of glowing growth on the wall on your third. USE the glass shard on the growth to find a message from a previous prisoner.
 
 ![The lab on a later visit](walkthrough/15b_lab_growth.webp)
 
@@ -282,7 +282,6 @@ Full details, every use and the in-game text for each item: the **[item compendi
 | Pod Glass Shard | Stasis Hold | HAND Broken Pod | Lore |
 | Crew Datapad | Collapsed Section | HAND skeleton | Lore |
 | Specimen Tag | Stasis Hold | HAND tag on your pod | Lore |
-| Shadow Cat Fur | Corridor (2nd visit) | HAND the cat | Lore |
 
 **Careful with:** the tendril (the hologram uses it up, and later acts want it), the stasis fluid (the archive reader uses it up) and the nutrient paste (feeding the prisoner uses it up). None of them matter for Act 1.
 
