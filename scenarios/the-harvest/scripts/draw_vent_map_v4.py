@@ -16,14 +16,14 @@ S = 64                       # cell pitch
 ML, MT = 70, 330             # margins (top holds the gas/fan/exit stack and the title)
 W = G['width']
 ROWS = max(int(k.split(',')[1]) for k in G['cells']) + 1
-PANEL = 380
+PANEL = 440
 IMG_W, IMG_H = ML + W * S + 60 + PANEL, MT + ROWS * S + 120
 ZONE = {'1': ('The Outer Ducts', (243, 220, 214), (150, 52, 44)),
         '2': ('The Gut', (220, 237, 222), (70, 132, 82)),
         '3': ('The Purge Core', (247, 226, 202), (206, 110, 30))}
 INK, QUIET, ROUTE, SHORT = (36, 30, 28), (120, 110, 104), (255, 255, 255), (40, 110, 220)
-LETTER = {'collapsed': 'X', 'camp': 'C', 'nursery': 'N', 'shaft': 'S', 'cache': 'K', 'seam': 'E', 'grate': 'G'}
-NAME = {'collapsed': 'Collapsed Section (datapad, chip)', 'camp': "Escapee's Camp (map piece, journal)",
+LETTER = {'lever': 'L', 'collapsed': 'X', 'camp': 'C', 'nursery': 'N', 'shaft': 'S', 'cache': 'K', 'seam': 'E', 'grate': 'G'}
+NAME = {'lever': 'Lever: unlocks the door into the Gut', 'collapsed': 'Collapsed Section (datapad, chip)', 'camp': "Escapee's Camp (map piece, journal)",
         'nursery': 'Nursery (a seed; an egg-sac death)', 'shaft': 'Vertical Shaft (shortcut, needs the line)',
         'cache': "Collector's Cache (multitool)", 'seam': 'Hull seam (a view of Earth)',
         'grate': "Grate over the Curator's office"}
@@ -110,13 +110,18 @@ dr.text((jx, jy + 1), 'J', font=font(22, True), fill=ZONE['1'][2], anchor='mm')
 dr.line([(jx, jy + 22), (jx, jy + 60)], fill=ZONE['1'][2], width=14)
 dr.text((jx, jy + 78), 'Entry Shaft (copy the map) ← corridor vent', font=font(14, True), fill=INK, anchor='mm')
 ex, ey = ctr(*G['exit'])
-stack = ['Gas Chamber', 'Fan Room', 'Exit → Airlock Bay']
+stack = ['Fan Room', 'Exit → Airlock Bay']
 dr.line([(ex, ey - 22), (ex, ey - 70 - 46 * (len(stack) - 1))], fill=ZONE['3'][2], width=14)
 for i, nm in enumerate(stack):
     yy = ey - 70 - i * 46
     dr.rounded_rectangle([ex - 80, yy - 16, ex + 80, yy + 16], 8, fill=(255, 255, 255), outline=ZONE['3'][2], width=3)
     dr.text((ex, yy), nm, font=font(14, True), fill=INK, anchor='mm')
 
+# the Gas Chamber, on the door into the Gut
+(gx0, gy0), (gx1, gy1) = [ctr(*c) for c in G['gas_chamber']]
+gcy = (gy0 + gy1) // 2
+dr.rounded_rectangle([gx0 - 24, gcy - 13, gx0 + 24, gcy + 13], 6, fill=(255, 255, 255), outline=(120, 120, 40), width=3)
+dr.text((gx0, gcy + 1), 'GAS', font=font(12, True), fill=(120, 120, 40), anchor='mm')
 # gates
 mx, my = ctr(*G['gates']['outer_to_gut'][1])
 dr.ellipse([mx + 12, my + 6, mx + 32, my + 26], fill=(255, 255, 255), outline=ZONE['2'][2], width=3)
@@ -153,12 +158,14 @@ key_row(py, lambda x, y: (dr.rounded_rectangle([x - 12, y - 12, x + 12, y + 12],
 key_row(py, lambda x, y: (dr.rounded_rectangle([x - 12, y - 12, x + 12, y + 12], 5, fill=(30, 26, 24)), dr.text((x, y + 1), '☠', font=font(18), fill=(255, 255, 255), anchor='mm')), 'purge duct (deadly; skull on the map)'); py += 34
 key_row(py, lambda x, y: dr.ellipse([x - 14, y - 14, x + 14, y + 14], outline=(30, 26, 24), width=3), 'breathing duct: pass on the inhale'); py += 34
 key_row(py, lambda x, y: dr.line([(x - 14, y), (x + 14, y)], fill=SHORT, width=5), 'shortcut (V = Heart Valve, S = shaft)'); py += 44
-for k in ('collapsed', 'camp', 'nursery', 'shaft', 'cache', 'seam', 'grate'):
-    z = '1' if k == 'collapsed' else '2' if k in ('camp', 'nursery', 'shaft') else '3'
+for k in ('lever', 'collapsed', 'camp', 'nursery', 'shaft', 'cache', 'seam', 'grate'):
+    z = '1' if k in ('lever', 'collapsed') else '2' if k in ('camp', 'nursery', 'shaft') else '3'
     key_row(py, lambda x, y, k=k, c=ZONE[z][2]: (dr.rounded_rectangle([x - 13, y - 13, x + 13, y + 13], 6, fill=(255, 255, 255), outline=c, width=3), dr.text((x, y + 1), LETTER[k], font=font(15, True), fill=c, anchor='mm')), NAME[k]); py += 32
 py += 10
 key_row(py, lambda x, y: dr.text((x, y), 'J', font=font(18, True), fill=ZONE['1'][2], anchor='mm'), 'Junction (the way in)'); py += 30
 key_row(py, lambda x, y: dr.text((x, y), 'M', font=font(18, True), fill=ZONE['2'][2], anchor='mm'), 'Mouth of the Gut: the Keth-Vari waits'); py += 30
+key_row(py, lambda x, y: (dr.rounded_rectangle([x - 16, y - 11, x + 16, y + 11], 5, fill=(255, 255, 255), outline=(120, 120, 40), width=3), dr.text((x, y + 1), 'GAS', font=font(9, True), fill=(120, 120, 40), anchor='mm')), 'Gas Chamber: the helmet gets you through,'); py += 20
+dr.text((px + 44, py), 'then the Gut tears it off. Locked until the lever.', font=font(14), fill=INK, anchor='lm'); py += 30
 dr.text((px, py + 14), 'North is up. Each square is one screen.', font=font(13), fill=QUIET)
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)

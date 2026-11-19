@@ -7,7 +7,7 @@ Rules it obeys:
 - Fixed compass: the camera faces north, so a cell is drawn by its openings other than south, and every
   subset of {N, W, E} now has a painting (dead end, straight, bend, ahead+side, T, crossroads). South open or
   closed is shown by the floor running off the screen or by the sealed lip.
-- Zones run south to north: 1 The Outer Ducts (rows 0-3), 2 The Gut (rows 4-8), 3 The Purge Core (rows 9-12).
+- Zones run south to north: 1 The Outer Ducts (rows 0-2), 2 The Gut (rows 3-7), 3 The Purge Core (rows 8-11).
   Each zone is a random spanning tree plus a few loops, joined to the next by one gate.
 - The Gut is split into a west half (on the map) and an east half (torn off the map). The long way to the Purge
   Core runs through the torn half; the Heart Valve (west half) and the Vertical Shaft (east half, a one-way drop)
@@ -15,6 +15,10 @@ Rules it obeys:
 - Painted special rooms are dead ends entered from the south (their paintings look north at a back wall):
   Collapsed Section (zone 1), Escapee's Camp and Nursery (torn half), Vertical Shaft (east half),
   Collector's Cache, hull seam and the grate over the Curator's office (zone 3).
+- The Outer Ducts' door into the Gut is on the far west side, through the Gas Chamber (the helmet gets you through,
+  then the Gut's entrance tears it off). It opens only after a lever on the far east side is pulled, so the
+  route crosses the zone twice.
+- Breathing ducts (pass on the inhale) start in the Gut; the Purge Core has more, plus the chase.
 - Purge ducts are dead-end side branches (deadly; warned by LOOK and a skull on the map). In the Purge Core two
   cells on the route "breathe" (pass on the inhale).
 
@@ -25,13 +29,13 @@ Usage (from scenarios/the-harvest):
 import collections, json, os, random, sys
 
 W = 13
-ZONES = {1: range(0, 4), 2: range(4, 9), 3: range(9, 13)}
+ZONES = {1: range(0, 3), 2: range(3, 8), 3: range(8, 12)}
 JUNCTION = (6, 0)
 TORN_X = 7                                    # the Gut's east half (x >= 7) is torn off the map
 D = {'N': (0, 1), 'S': (0, -1), 'E': (1, 0), 'W': (-1, 0)}
 OPP = {'N': 'S', 'S': 'N', 'E': 'W', 'W': 'E'}
-HOLES = {1: 8, 2: 12, 3: 12}                  # solid rock per zone, so the zones hold ~44 / ~53 / ~40 duct cells
-LOOPS = {1: 7, 2: 9, 3: 8}                    # extra ducts on top of the tree: loops and crossroads to get a little lost in
+HOLES = {1: 6, 2: 12, 3: 10}                  # solid rock per zone, so the zones hold ~33 / ~53 / ~42 duct cells
+LOOPS = {1: 5, 2: 9, 3: 8}                    # extra ducts on top of the tree: loops and crossroads to get a little lost in
 
 
 def zone_of(c):
@@ -107,6 +111,8 @@ def layout(seed):
     g23 = [(a, step(a, 'N')) for a in east if a[1] == ZONES[2].stop - 1 and step(a, 'N') in cells]
     valve = [(a, step(a, 'N')) for a in west if a[1] == ZONES[2].stop - 1 and step(a, 'N') in cells]
     if not (g12 and g23 and valve): return None
+    g12 = [e for e in g12 if e[0][0] <= 2]               # the door into the Gut is on the far WEST side...
+    if not g12: return None
     gate12 = r.choice(g12); gate23 = r.choice(g23); valve_e = r.choice(valve)
     link(*gate12); link(*gate23)
     # the region can only be left through the gates: drop any other edge between zones
@@ -140,6 +146,7 @@ def layout(seed):
         cells.add(c); adj[c].add(step(c, 'S')); adj[step(c, 'S')].add(c); dist[c] = dist[step(c, 'S')] + 1
         return c
     special = {}
+    special['lever'] = place(nook(1, lambda c: c[0] >= W - 3), key=lambda c: c[0] * 10 + dist[step(c, 'S')])   # ...and its lever on the far EAST side
     special['collapsed'] = place(nook(1), key=lambda c: dist[step(c, 'S')])
     special['camp'] = place(nook(2, lambda c: c[0] >= TORN_X), key=lambda c: dist[step(c, 'S')])     # deepest in the torn half
     special['nursery'] = place(nook(2, lambda c: c[0] >= TORN_X), key=lambda c: dist[step(c, 'S')])
@@ -155,15 +162,20 @@ def layout(seed):
         if len(pool) < n: return None
         for c in r.sample(pool, n): used.add(c); purge.append(c)
     # the route (no shortcuts) and the shortcuts
-    route = [exit_c]
-    while route[-1] != JUNCTION:
-        c = route[-1]; route.append(min(adj[c], key=lambda n: dist.get(n, 1e9)))
-    route.reverse()
+    # the route: junction -> the lever (far east) -> back west to the Gas Chamber door -> ... -> the way out
+    lever = special['lever']
+    def path(src, dst, d):
+        out = [dst]
+        while out[-1] != src:
+            c = out[-1]; out.append(min(adj[c], key=lambda n: d.get(n, 1e9)))
+        return out[::-1]
+    d_lever = bfs(lever)
+    route = path(JUNCTION, lever, dist) + path(lever, exit_c, d_lever)[1:]
+    breathing = [c for c in route if zone_of(c) == 2][4::7][:2] + [c for c in route if zone_of(c) == 3][2::5][:3]
     if any(c in purge for c in route): return None
     shaft_land = min((c for c in cells if zone_of(c) == 3), key=lambda c: abs(c[0] - special['shaft'][0]) + c[1])
-    d_valve = bfs(JUNCTION, extra=[valve_e])
-    d_shaft = bfs(JUNCTION, extra=[(special['shaft'], shaft_land)])
-    breathing = [c for c in route if zone_of(c) == 3][2::4][:2]
+    d_valve = {exit_c: dist[lever] + bfs(lever, extra=[valve_e])[exit_c]}
+    d_shaft = {exit_c: dist[lever] + bfs(lever, extra=[(special['shaft'], shaft_land)])[exit_c]}
     zone_len = {z: sum(1 for c in route if zone_of(c) == z) for z in ZONES}
     return dict(seed=seed, cells=cells, adj=adj, special=special, purge=purge, breathing=breathing, route=route,
                 exit=exit_c, gate12=gate12, gate23=gate23, valve=valve_e, shaft_land=shaft_land,
@@ -172,7 +184,7 @@ def layout(seed):
 
 def score(L):
     zl = L['zone_len']
-    s = -abs(zl[1] - 14) * 2 - abs(zl[2] - 22) * 2 - abs(zl[3] - 18) * 2       # target lengths per zone
+    s = -abs(zl[1] - 16) * 2 - abs(zl[2] - 22) * 2 - abs(zl[3] - 18) * 2       # target lengths per zone
     cross = sum(1 for c in L['cells'] if {'N', 'E', 'W'} <= {d for d in 'NEW' if step(c, d) in L['adj'][c]})
     s += min(cross, 14) * 1.5                                                     # crossroads: places to get a little lost
     s += min(L['route_len'] - L['valve_len'], 12) + min(L['route_len'] - L['shaft_len'], 12)   # shortcuts save time
@@ -198,6 +210,7 @@ def main():
         'special': {k: list(v) for k, v in L['special'].items()},
         'purge': [list(c) for c in L['purge']], 'breathing': [list(c) for c in L['breathing']],
         'gates': {'outer_to_gut': [list(c) for c in L['gate12']], 'gut_to_core': [list(c) for c in L['gate23']]},
+        'gas_chamber': [list(c) for c in L['gate12']],     # the Gas Chamber sits on the door into the Gut; the helmet is lost there
         'shortcuts': {'heart_valve': [list(c) for c in L['valve']], 'vertical_shaft': [list(L['special']['shaft']), list(L['shaft_land'])]},
         'route': [list(c) for c in L['route']],
         'stats': {'duct_cells': len(L['cells']), 'route_moves': L['route_len'], 'with_valve': L['valve_len'], 'with_shaft': L['shaft_len'],
