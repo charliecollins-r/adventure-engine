@@ -1,4 +1,4 @@
-"""Design a vent maze v4 layout (three zones, ~95 duct screens) and write scripts/vent_maze_v4_grid.json.
+"""Design a vent maze v4 layout (three zones, ~140 duct screens) and write scripts/vent_maze_v4_grid.json.
 
 A proposal generator for the maze in the "Vent Maze v4: Map and Player Journey" doc. Not wired into the game yet:
 build_vent_maze.py still reads the v3 grid (vent_maze_grid.json).
@@ -7,7 +7,7 @@ Rules it obeys:
 - Fixed compass: the camera faces north, so a cell is drawn by its openings other than south, and every
   subset of {N, W, E} now has a painting (dead end, straight, bend, ahead+side, T, crossroads). South open or
   closed is shown by the floor running off the screen or by the sealed lip.
-- Zones run south to north: 1 The Outer Ducts (rows 0-2), 2 The Gut (rows 3-6), 3 The Purge Core (rows 7-9).
+- Zones run south to north: 1 The Outer Ducts (rows 0-3), 2 The Gut (rows 4-8), 3 The Purge Core (rows 9-12).
   Each zone is a random spanning tree plus a few loops, joined to the next by one gate.
 - The Gut is split into a west half (on the map) and an east half (torn off the map). The long way to the Purge
   Core runs through the torn half; the Heart Valve (west half) and the Vertical Shaft (east half, a one-way drop)
@@ -24,14 +24,14 @@ Usage (from scenarios/the-harvest):
 """
 import collections, json, os, random, sys
 
-W = 11
-ZONES = {1: range(0, 3), 2: range(3, 7), 3: range(7, 10)}
-JUNCTION = (5, 0)
-TORN_X = 6                                    # the Gut's east half (x >= 6) is torn off the map
+W = 13
+ZONES = {1: range(0, 4), 2: range(4, 9), 3: range(9, 13)}
+JUNCTION = (6, 0)
+TORN_X = 7                                    # the Gut's east half (x >= 7) is torn off the map
 D = {'N': (0, 1), 'S': (0, -1), 'E': (1, 0), 'W': (-1, 0)}
 OPP = {'N': 'S', 'S': 'N', 'E': 'W', 'W': 'E'}
-HOLES = {1: 4, 2: 7, 3: 9}                    # solid rock per zone, so the zones hold ~30 / ~40 / ~22 duct cells
-LOOPS = {1: 2, 2: 3, 3: 3}
+HOLES = {1: 8, 2: 12, 3: 12}                  # solid rock per zone, so the zones hold ~44 / ~53 / ~40 duct cells
+LOOPS = {1: 7, 2: 9, 3: 8}                    # extra ducts on top of the tree: loops and crossroads to get a little lost in
 
 
 def zone_of(c):
@@ -103,9 +103,9 @@ def layout(seed):
     edges = {e for e in edges if not (JUNCTION in e and step(JUNCTION, 'N') in e)}
     link(JUNCTION, step(JUNCTION, 'W')); link(JUNCTION, step(JUNCTION, 'E'))
     # zone gates: 1 -> 2 (the mouth of the Gut, in the west half), 2 -> 3 (the long way, from the torn east half)
-    g12 = [(a, step(a, 'N')) for a in cells if a[1] == 2 and step(a, 'N') in west]
-    g23 = [(a, step(a, 'N')) for a in east if a[1] == 6 and step(a, 'N') in cells]
-    valve = [(a, step(a, 'N')) for a in west if a[1] == 6 and step(a, 'N') in cells]
+    g12 = [(a, step(a, 'N')) for a in cells if a[1] == ZONES[1].stop - 1 and step(a, 'N') in west]
+    g23 = [(a, step(a, 'N')) for a in east if a[1] == ZONES[2].stop - 1 and step(a, 'N') in cells]
+    valve = [(a, step(a, 'N')) for a in west if a[1] == ZONES[2].stop - 1 and step(a, 'N') in cells]
     if not (g12 and g23 and valve): return None
     gate12 = r.choice(g12); gate23 = r.choice(g23); valve_e = r.choice(valve)
     link(*gate12); link(*gate23)
@@ -125,7 +125,7 @@ def layout(seed):
     dist = bfs(JUNCTION)
     if any(c not in dist for c in cells): return None
     # the way out: a zone 3 cell on the top row, as far from the junction as possible
-    top = [c for c in cells if c[1] == 9]
+    top = [c for c in cells if c[1] == ZONES[3].stop - 1]
     if not top: return None
     exit_c = max(top, key=lambda c: dist[c])
     # painted dead-end rooms: rock cells right above a duct in the same zone become rooms entered from the south
@@ -172,7 +172,9 @@ def layout(seed):
 
 def score(L):
     zl = L['zone_len']
-    s = -abs(zl[1] - 12) * 2 - abs(zl[2] - 18) * 2 - abs(zl[3] - 15) * 2       # target lengths per zone
+    s = -abs(zl[1] - 14) * 2 - abs(zl[2] - 22) * 2 - abs(zl[3] - 18) * 2       # target lengths per zone
+    cross = sum(1 for c in L['cells'] if {'N', 'E', 'W'} <= {d for d in 'NEW' if step(c, d) in L['adj'][c]})
+    s += min(cross, 14) * 1.5                                                     # crossroads: places to get a little lost
     s += min(L['route_len'] - L['valve_len'], 12) + min(L['route_len'] - L['shaft_len'], 12)   # shortcuts save time
     dead = sum(1 for c in L['cells'] if len(L['adj'][c]) == 1)
     s += min(dead, 22) * 0.5
@@ -199,7 +201,8 @@ def main():
         'shortcuts': {'heart_valve': [list(c) for c in L['valve']], 'vertical_shaft': [list(L['special']['shaft']), list(L['shaft_land'])]},
         'route': [list(c) for c in L['route']],
         'stats': {'duct_cells': len(L['cells']), 'route_moves': L['route_len'], 'with_valve': L['valve_len'], 'with_shaft': L['shaft_len'],
-                  'route_moves_by_zone': L['zone_len'], 'dead_ends': sum(1 for c in L['cells'] if len(L['adj'][c]) == 1)},
+                  'route_moves_by_zone': L['zone_len'], 'dead_ends': sum(1 for c in L['cells'] if len(L['adj'][c]) == 1),
+                  'crossroads': sum(1 for c in L['cells'] if {'N', 'E', 'W'} <= {d for d in 'NEW' if step(c, d) in L['adj'][c]})},
     }
     p = os.path.join(os.path.dirname(__file__), 'vent_maze_v4_grid.json')
     json.dump(out, open(p, 'w'), indent=1)
