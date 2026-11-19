@@ -22,11 +22,15 @@ ZONE = {'1': ('The Outer Ducts', (243, 220, 214), (150, 52, 44)),
         '2': ('The Gut', (220, 237, 222), (70, 132, 82)),
         '3': ('The Purge Core', (247, 226, 202), (206, 110, 30))}
 INK, QUIET, ROUTE, SHORT = (36, 30, 28), (120, 110, 104), (255, 255, 255), (40, 110, 220)
-LETTER = {'lever': 'L', 'collapsed': 'X', 'camp': 'C', 'nursery': 'N', 'shaft': 'S', 'cache': 'K', 'seam': 'E', 'grate': 'G'}
-NAME = {'lever': 'Lever: unlocks the door into the Gut', 'collapsed': 'Collapsed Section (datapad, chip)', 'camp': "Escapee's Camp (map piece, journal)",
-        'nursery': 'Nursery (a seed; an egg-sac death)', 'shaft': 'Vertical Shaft (shortcut, needs the line)',
-        'cache': "Collector's Cache (multitool)", 'seam': 'Hull seam (a view of Earth)',
+LETTER = {'lever': 'L', 'collapsed': 'X', 'vera': 'H', 'chapel': 'P', 'hollow': 'A', 'camp': 'C', 'nursery': 'N', 'shaft': 'S',
+          'cache': 'K', 'seam': 'E', 'grate': 'G'}
+NAME = {'lever': 'Lever: unlocks the door into the Gut', 'collapsed': 'Collapsed Section (datapad, chip)',
+        'vera': 'Vera, the woman in the wall (good)', 'chapel': "The Penitent's chapel, 2 deep (wary)",
+        'hollow': "The Archivist's hollow, 2 deep (neutral)", 'camp': "Escapee's Camp, 2 deep (map piece, journal)",
+        'nursery': 'Nursery, 3 deep (the Keth-Vari brood)', 'shaft': 'Vertical Shaft (shortcut, needs the line)',
+        'cache': "Collector's Cache, 2 deep (multitool)", 'seam': 'Hull seam (a view of Earth)',
         'grate': "Grate over the Curator's office"}
+PATROL = (150, 70, 170)
 
 
 def font(sz, bold=False):
@@ -44,7 +48,7 @@ def ctr(x, y):
 
 
 cells = {tuple(map(int, k.split(','))): v for k, v in G['cells'].items()}
-special = {tuple(v): k for k, v in G['special'].items()}
+special = {tuple(c): (k, i, len(ch)) for k, ch in G['rooms'].items() for i, c in enumerate(ch)}
 purge = {tuple(c) for c in G['purge']}
 breathing = {tuple(c) for c in G['breathing']}
 D = {'N': (0, 1), 'S': (0, -1), 'E': (1, 0), 'W': (-1, 0)}
@@ -86,13 +90,19 @@ for (ax, ay), (bx, by) in zip(route, route[1:]):
         t0, t1 = i / n, min(1, (i + 1) / n)
         dr.line([(ax + (bx - ax) * t0, ay + (by - ay) * t0), (ax + (bx - ax) * t1, ay + (by - ay) * t1)], fill=ROUTE, width=4)
 
+# Warden patrol loops (drawn under the screens)
+for side, loop in G['patrols'].items():
+    pts = [ctr(*c) for c in loop] + [ctr(*loop[0])]
+    dr.line(pts, fill=PATROL, width=22, joint='curve')
 # cells
 for (x, y), ops in cells.items():
     col = ZONE[zone_of(y)][2]
     cx, cy = ctr(x, y)
     if (x, y) in special:
+        name, i, depth = special[(x, y)]
         dr.rounded_rectangle([cx - 22, cy - 22, cx + 22, cy + 22], 9, fill=(255, 255, 255), outline=col, width=4)
-        dr.text((cx, cy + 1), LETTER[special[(x, y)]], font=font(22, True), fill=col, anchor='mm')
+        dr.text((cx - (5 if depth > 1 else 0), cy + 1), LETTER[name], font=font(22, True), fill=col, anchor='mm')
+        if depth > 1: dr.text((cx + 12, cy + 9), str(i + 1), font=font(12, True), fill=col, anchor='mm')
     elif (x, y) in purge:
         dr.rounded_rectangle([cx - 17, cy - 17, cx + 17, cy + 17], 6, fill=(30, 26, 24))
         dr.text((cx, cy + 1), '☠', font=font(24), fill=(255, 255, 255), anchor='mm')
@@ -137,6 +147,14 @@ for p, q in zip(pts, pts[1:]): dr.line([p, q], fill=SHORT, width=4)
 lx, ly = pts[-1]
 dr.polygon([(lx - 8, ly + 2), (lx + 8, ly + 2), (lx, ly - 10)] if pts[-1][1] < pts[-2][1] else [(lx - 2, ly - 8), (lx - 2, ly + 8), (lx - 14, ly)], fill=SHORT)
 
+# the Mimic
+mmx, mmy = ctr(*G['npcs']['mimic'])
+dr.ellipse([mmx - 15, mmy - 15, mmx + 15, mmy + 15], fill=(200, 40, 40), outline=(255, 255, 255), width=2)
+dr.text((mmx, mmy + 1), '?', font=font(18, True), fill=(255, 255, 255), anchor='mm')
+for side, loop in G['patrols'].items():
+    lx, ly = ctr(*min(loop, key=lambda c: (-c[1], c[0])))
+    dr.rounded_rectangle([lx - 20, ly - 44, lx + 20, ly - 26], 5, fill=PATROL)
+    dr.text((lx, ly - 35), 'W' + ('1' if side == 'w' else '2'), font=font(12, True), fill=(255, 255, 255), anchor='mm')
 # coordinates
 for x in range(W):
     dr.text((ML + x * S + S // 2, MT + ROWS * S + 6), str(x), font=font(11), fill=QUIET, anchor='mt')
@@ -144,7 +162,7 @@ for x in range(W):
 # title + key
 st = G['stats']
 dr.text((ML - 10, 22), 'Vent maze v4: a sample layout', font=font(26, True), fill=INK)
-dr.text((ML - 10, 58), f"{st['duct_cells']} screens · main route {st['route_moves']} moves "
+dr.text((ML - 10, 58), f"{st['screens']} screens ({st['screens_by_zone']['1']} / {st['screens_by_zone']['2']} / {st['screens_by_zone']['3']}) · main route {st['route_moves']} moves "
         f"({st['route_moves_by_zone']['1']} / {st['route_moves_by_zone']['2']} / {st['route_moves_by_zone']['3']} by zone) · "
         f"{st['with_valve']} with the Heart Valve · {st['with_shaft']} with the Vertical Shaft", font=font(15), fill=QUIET)
 px, py = ML + W * S + 70, MT - 40
@@ -157,16 +175,19 @@ key_row(py, lambda x, y: [dr.line([(x - 14, y), (x - 8, y)], fill=(90, 90, 90), 
 key_row(py, lambda x, y: (dr.rounded_rectangle([x - 12, y - 12, x + 12, y + 12], 5, fill=(150, 52, 44)), dr.line([(x - 9, y + 8), (x + 9, y + 8)], fill=(255, 255, 255), width=3)), 'sealed behind (the lip): no way south'); py += 34
 key_row(py, lambda x, y: (dr.rounded_rectangle([x - 12, y - 12, x + 12, y + 12], 5, fill=(30, 26, 24)), dr.text((x, y + 1), '☠', font=font(18), fill=(255, 255, 255), anchor='mm')), 'purge duct (deadly; skull on the map)'); py += 34
 key_row(py, lambda x, y: dr.ellipse([x - 14, y - 14, x + 14, y + 14], outline=(30, 26, 24), width=3), 'breathing duct: pass on the inhale'); py += 34
-key_row(py, lambda x, y: dr.line([(x - 14, y), (x + 14, y)], fill=SHORT, width=5), 'shortcut (V = Heart Valve, S = shaft)'); py += 44
-for k in ('lever', 'collapsed', 'camp', 'nursery', 'shaft', 'cache', 'seam', 'grate'):
-    z = '1' if k in ('lever', 'collapsed') else '2' if k in ('camp', 'nursery', 'shaft') else '3'
+key_row(py, lambda x, y: dr.line([(x - 14, y), (x + 14, y)], fill=SHORT, width=5), 'shortcut (V = Heart Valve, S = shaft)'); py += 34
+key_row(py, lambda x, y: dr.line([(x - 14, y), (x + 14, y)], fill=PATROL, width=12), 'Warden patrol loop (W1, W2) on the game clock'); py += 34
+key_row(py, lambda x, y: (dr.ellipse([x - 13, y - 13, x + 13, y + 13], fill=(200, 40, 40)), dr.text((x, y + 1), '?', font=font(15, True), fill=(255, 255, 255), anchor='mm')), 'the Mimic (bad): a voice in a dead end'); py += 44
+for k in ('lever', 'collapsed', 'vera', 'chapel', 'hollow', 'camp', 'nursery', 'shaft', 'cache', 'seam', 'grate'):
+    z = '1' if k in ('lever', 'collapsed') else '2' if k in ('vera', 'chapel', 'hollow', 'camp', 'nursery', 'shaft') else '3'
     key_row(py, lambda x, y, k=k, c=ZONE[z][2]: (dr.rounded_rectangle([x - 13, y - 13, x + 13, y + 13], 6, fill=(255, 255, 255), outline=c, width=3), dr.text((x, y + 1), LETTER[k], font=font(15, True), fill=c, anchor='mm')), NAME[k]); py += 32
 py += 10
 key_row(py, lambda x, y: dr.text((x, y), 'J', font=font(18, True), fill=ZONE['1'][2], anchor='mm'), 'Junction (the way in)'); py += 30
 key_row(py, lambda x, y: dr.text((x, y), 'M', font=font(18, True), fill=ZONE['2'][2], anchor='mm'), 'Mouth of the Gut: the Keth-Vari waits'); py += 30
 key_row(py, lambda x, y: (dr.rounded_rectangle([x - 16, y - 11, x + 16, y + 11], 5, fill=(255, 255, 255), outline=(120, 120, 40), width=3), dr.text((x, y + 1), 'GAS', font=font(9, True), fill=(120, 120, 40), anchor='mm')), 'Gas Chamber: the helmet gets you through,'); py += 20
 dr.text((px + 44, py), 'then the Gut tears it off. Locked until the lever.', font=font(14), fill=INK, anchor='lm'); py += 30
-dr.text((px, py + 14), 'North is up. Each square is one screen.', font=font(13), fill=QUIET)
+dr.text((px, py + 14), 'North is up. Each square is one screen. Numbers in a', font=font(13), fill=QUIET)
+dr.text((px, py + 32), 'room are its levels: 1 opens from the duct, 2 lies behind 1.', font=font(13), fill=QUIET)
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 im.save(OUT)
