@@ -928,6 +928,16 @@ export class ScenarioEngine {
     }
   }
 
+  /** Run a list of effects outside any interaction (setting.dev_skip, tools). Returns the messages they produced. */
+  runEffects(effects: Effect[]): string[] {
+    this._messages = [];
+    this._pendingSounds = [];
+    const messages = this.applyEffects(effects);
+    if (messages.length) this._messages = messages;
+    this.checkGameEndConditions();
+    return messages;
+  }
+
   private applyEffects(effects: Effect[]): string[] {
     const messages: string[] = [];
 

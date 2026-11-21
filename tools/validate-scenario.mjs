@@ -193,6 +193,7 @@ for (const o of s.objects) if (scopeObjs.has(o.id)) for (const it of o.interacti
 for (const i of required) if (scopedItemRefs.has(i) && !granted.has(i)) warnings.push(`item "${i}" is required somewhere but nothing grants it`);
 // events: their effects set flags and show/hide objects; their triggers read flags
 for (const ev of s.events || []) { effs(ev.effects, `event ${ev.id}`); if (ev.trigger && ev.trigger.type !== 'timer') conds([ev.trigger], `event ${ev.id}`); }
+effs(s.setting?.dev_skip?.effects, 'setting.dev_skip');
 // patrols: rooms exist, legs make sense, sounds and sprites exist, and you're warned before each leg
 for (const p of s.patrols || []) {
   const ctx = `patrol ${p.id}`;

@@ -53,6 +53,124 @@
     ]
   },
   "setting": {
+    "dev_skip": {
+      "label": "Skip to the maze",
+      "effects": [
+        {
+          "type": "add_item",
+          "item": "surgical_probe"
+        },
+        {
+          "type": "add_item",
+          "item": "emergency_suit_helmet"
+        },
+        {
+          "type": "add_item",
+          "item": "containment_key_card"
+        },
+        {
+          "type": "add_item",
+          "item": "stasis_fluid_vial"
+        },
+        {
+          "type": "add_item",
+          "item": "grappling_line"
+        },
+        {
+          "type": "add_item",
+          "item": "nutrient_paste_tube"
+        },
+        {
+          "type": "add_item",
+          "item": "pod_glass_shard"
+        },
+        {
+          "type": "add_item",
+          "item": "specimen_tag"
+        },
+        {
+          "type": "add_item",
+          "item": "severed_neural_tendril"
+        },
+        {
+          "type": "add_item",
+          "item": "data_crystal_personal_log"
+        },
+        {
+          "type": "add_item",
+          "item": "ventilation_map"
+        },
+        {
+          "type": "add_item",
+          "item": "wedding_ring"
+        },
+        {
+          "type": "set_flag",
+          "flag": "security_locks_overridden",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "terminal_unlocked",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "alarm_hunters_out",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "prisoner_freed",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "lab_code_known",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "gap_crossed",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "cat_petted",
+          "value": "true"
+        },
+        {
+          "type": "set_flag",
+          "flag": "emergency_helmet_taken",
+          "value": "true"
+        },
+        {
+          "type": "set_character",
+          "sprite_set": "idle_helmet"
+        },
+        {
+          "type": "hide_object",
+          "object": "vent_cover"
+        },
+        {
+          "type": "show_object",
+          "object": "vent_cover_open"
+        },
+        {
+          "type": "set_view",
+          "view": "act1_ventilation_shaft",
+          "at": {
+            "x": 494,
+            "y": 720,
+            "facing": "down"
+          }
+        },
+        {
+          "type": "message",
+          "text": "Skipped to the maze (testing only): you carry the Act 1 items and wear the helmet."
+        }
+      ]
+    },
     "initial_view": "act1_stasis_hold",
     "ambient_text": "A subsonic hum vibrates through your bones. Amber fluid drains from your cracked pod, pooling on the organic-metallic floor. Bioluminescent veins pulse in the walls. Somewhere, something clicks — precise, mechanical, patient.",
     "room_style": {

@@ -1326,6 +1326,14 @@ Everything below is plain JSON; The Harvest Act 1 uses all of it (see `scenarios
 
 The soft-lock search resets noise to 0 between states, so noise-based deaths never show up as soft-locks; keep noise logic out of goal-critical interactions so the search stays small.
 
+### Testing shortcut: `setting.dev_skip` (temporary)
+
+```json
+"dev_skip": { "label": "Skip to the maze", "effects": [ { "type": "add_item", "item": "surgical_probe" }, { "type": "set_view", "view": "act1_ventilation_shaft" } ] }
+```
+
+Puts a button in the player's title bar that runs `effects` (any effect types) at once, so a tester can jump past earlier content with the items and flags it would have earned. Undo goes back to before it. A testing aid only: remove it before publishing a scenario.
+
 ### Patrols and the game clock
 
 A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on the game clock. The player can learn its rhythm (turn on the clock display), hear it coming, and get out of its way or hide. It is a cheap, readable source of urgency that needs no AI.

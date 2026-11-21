@@ -88,6 +88,9 @@ export interface Setting {
   /** The game clock: seconds of play (it stops during the intro, dialogue, puzzle widgets, close-ups and death screens).
    *  Patrols run on it. `show: true` puts the elapsed time (m:ss) in the title bar, so players can learn a patrol's rhythm. */
   clock?: { show?: boolean };
+  /** TEMPORARY testing aid: a title-bar button that runs these effects (e.g. hand over everything and jump to a later
+   *  section). Remove from the scenario before release. */
+  dev_skip?: { label: string; effects: Effect[] };
 }
 
 /** A point or offset in the 960x720 authoring space. */

@@ -1064,6 +1064,23 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           )}
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {scenario.setting.dev_skip && !engine.isGameOver() && (
+            <button
+              data-dev-skip
+              title="Testing aid: runs setting.dev_skip"
+              style={{ ...styles.chromeButton, color: '#e09030', borderColor: '#5a3a18', whiteSpace: 'nowrap' }}
+              onClick={() => {
+                stopWalk();
+                undoRef.current = engine.snapshot();
+                engine.runEffects(scenario.setting.dev_skip!.effects);
+                setTutIndex(null);
+                playPendingSounds();
+                bump();
+              }}
+            >
+              {scenario.setting.dev_skip.label}
+            </button>
+          )}
           {dev.isDev && (
             <button
               style={{
