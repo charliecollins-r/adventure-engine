@@ -278,10 +278,10 @@ def layout(seed):
                 b = 8
             low = min(low, b); trace.append(b); prev = c
         return low, trace
-    def breath_search(cap):
+    def breath_search(cap, start_cell=None):
         # shortest way from the Belly to the exit when every screen costs a breath and folds/air rooms refill to cap;
         # breathing ducts give +3 on the way out. Returns (moves, path) or None.
-        start = (belly[0], cap); prev_s = {start: None}; q = collections.deque([start])
+        start = (start_cell or belly[0], cap); prev_s = {start: None}; q = collections.deque([start])
         while q:
             c, b = q.popleft()
             if c == exit_c:
@@ -306,6 +306,9 @@ def layout(seed):
         return None                                      # a fold to hide in on or beside every Warden loop
     shaft = rooms['shaft'][0]
     shaft_land = min((c for c in ducts if zone_of(c) == 3), key=lambda c: abs(c[0] - shaft[0]) + c[1])
+    # dying sends you back to the start of the zone, breath full: every way into the Purge Core must be winnable
+    core_entries = [gate23[1], valve_e[1], shaft_land]
+    if any(not breath_search(7, e) for e in core_entries): return None
     valve_len = dist[lever] + bfs(lever, extra=[valve_e])[exit_c]
     shaft_len = dist[lever] + bfs(lever, extra=[(shaft, shaft_land)])[exit_c]
     zone_len = {z: sum(1 for c in route if zone_of(c) == z) for z in ZONES}
