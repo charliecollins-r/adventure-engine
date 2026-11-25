@@ -57,3 +57,12 @@ for f in sorted(glob.glob('audio/voice/*.mp3')):
     measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -16 - measured
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f], check=True)
     print(f'voice/{name}: {measured:6.1f} -> -16 LUFS ({gain:+.1f} dB)')
+
+# The new intro's voice lines (intro/audio/v2/, script in the "First Impression" doc): originals in intro/audio/v2/source/,
+# named by line id. Relay Control (c*) sits 4 dB under the pilot (p*, n*: the Silas voice, -16 like the room narration).
+for src in sorted(glob.glob('intro/audio/v2/source/*.mp3')):
+    name = os.path.basename(src); target = -20 if name.startswith('c') else -16
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = target - measured
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'intro/audio/v2/{name}'], check=True)
+    print(f'v2/{name}: {measured:6.1f} -> {target} LUFS ({gain:+.1f} dB)')
