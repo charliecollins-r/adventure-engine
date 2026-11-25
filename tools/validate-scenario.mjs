@@ -209,7 +209,7 @@ for (const p of s.patrols || []) {
     for (const v of st.views || []) if (!viewIds.has(v)) errors.push(`${sc}: unknown view "${v}"`);
     if (!(st.leave > st.enter)) errors.push(`${sc}: "leave" must be after "enter"`);
     if (st.leave > p.period) errors.push(`${sc}: leaves at ${st.leave}s, after the next sweep starts (period ${p.period}s)`);
-    if (!st.warn_message && !p.warn_message && !p.warn_sound) warnings.push(`${sc}: no warning (warn_message or warn_sound): the player can't hear it coming`);
+    if (!st.sense && !st.warn_message && !p.warn_message && !p.warn_sound) warnings.push(`${sc}: no warning (warn_message or warn_sound): the player can't hear it coming`);
     conds(st.safe_when, sc);
     for (const q of st.path || []) if (!Array.isArray(q) || q.length !== 2) errors.push(`${sc}: path points must be [x, y]`);
   });
