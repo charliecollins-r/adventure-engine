@@ -232,27 +232,104 @@
       "steps": [
         {
           "text": "Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.",
-          "done_when": "verb_changed"
+          "done_when": "verb_changed",
+          "prologue": "only",
+          "when": [
+            {
+              "type": "view_is",
+              "view": "intro_spacewalk"
+            }
+          ]
+        },
+        {
+          "text": "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
+          "done_when": "walked",
+          "prologue": "only",
+          "when": [
+            {
+              "type": "view_is",
+              "view": "intro_spacewalk"
+            }
+          ]
+        },
+        {
+          "text": "Hand works things. Use it on the gold body to open the service panel.",
+          "done_when": "handled",
+          "prologue": "only",
+          "when": [
+            {
+              "type": "view_is",
+              "view": "intro_spacewalk"
+            }
+          ]
+        },
+        {
+          "text": "Look (the eye) is always safe. Look inside the panel.",
+          "done_when": "looked",
+          "prologue": "only",
+          "when": [
+            {
+              "type": "view_is",
+              "view": "intro_panel_closeup"
+            }
+          ]
+        },
+        {
+          "text": "Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.",
+          "done_when": "verb_changed",
+          "prologue": "if_skipped"
         },
         {
           "text": "With the Move cursor (the feet), click the floor to walk there.",
-          "done_when": "walked"
+          "done_when": "walked",
+          "prologue": "if_skipped"
         },
         {
           "text": "Switch to Look (the eye) and click something to examine it. Looking is always safe.",
-          "done_when": "looked"
+          "done_when": "looked",
+          "prologue": "if_skipped"
         },
         {
           "text": "Hand picks things up and works them. Try the specimen tag hanging from your pod.",
-          "done_when": "item_taken"
+          "done_when": "item_taken",
+          "when": [
+            {
+              "type": "not_in_view",
+              "view": "intro_spacewalk"
+            },
+            {
+              "type": "not_in_view",
+              "view": "intro_panel_closeup"
+            }
+          ]
         },
         {
           "text": "What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.",
-          "done_when": "item_selected"
+          "done_when": "item_selected",
+          "when": [
+            {
+              "type": "not_in_view",
+              "view": "intro_spacewalk"
+            },
+            {
+              "type": "not_in_view",
+              "view": "intro_panel_closeup"
+            }
+          ]
         },
         {
           "text": "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.",
-          "done_when": "next"
+          "done_when": "next",
+          "when": [
+            {
+              "type": "not_in_view",
+              "view": "intro_spacewalk"
+            },
+            {
+              "type": "not_in_view",
+              "view": "intro_panel_closeup"
+            }
+          ]
         }
       ]
     },
@@ -264,17 +341,17 @@
     "intro_scenes": [
       {
         "background": "intro/backgrounds/intro_orbit.webp",
-        "loop": "intro/audio/sfx_breath_loop.mp3",
+        "loop": "intro/audio/v2/breath_loop.mp3",
         "camera": {
           "from": {
-            "zoom": 1
+            "zoom": 1.12,
+            "x": -40,
+            "y": -20
           },
           "to": {
-            "zoom": 1.08,
-            "x": -30,
-            "y": -10
+            "zoom": 1
           },
-          "seconds": 16
+          "seconds": 13
         },
         "sprites": [
           {
@@ -289,10 +366,9 @@
             "scale": 0.33,
             "at": [330, 450],
             "bob": {
-              "amount": 7,
+              "amount": 5,
               "period": 4.5
-            },
-            "rotate": -6
+            }
           }
         ],
         "ambient_lighting": {
@@ -331,638 +407,20 @@
               255
             ],
             "alpha": 0.8
-          },
-          {
-            "type": "rope",
-            "from": [578, 432],
-            "to_sprite": 0,
-            "offset": [32, -169],
-            "sag": 70,
-            "width": 2
           }
         ],
         "lines": [
           {
-            "text": "High above home, the only sound is your own breathing.\nRelay satellite LUMEN-7 had been silent for nine days. Your job was to find out why.",
-            "pause": 3.2,
-            "voice": "intro/audio/narr_01.mp3"
-          },
-          {
-            "text": "Outrider, Relay Control. LUMEN-7 is still dark on our end. How's it looking out there?",
-            "style": "radio",
-            "static": 0.15,
-            "voice": "intro/audio/radio_01.mp3",
-            "pause": 0.8
+            "text": "Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.",
+            "voice": "intro/audio/v2/n1.mp3",
+            "pause": 3.4
           }
         ],
-        "tail": 1.5,
         "music": "intro/audio/bed_stargazer.mp3",
-        "music_volume": 0.55
-      },
-      {
-        "background": "intro/backgrounds/intro_panel.webp",
-        "loop": "intro/audio/sfx_breath_loop.mp3",
-        "camera": {
-          "from": {
-            "zoom": 1.04,
-            "x": 20
-          },
-          "to": {
-            "zoom": 1,
-            "x": 0
-          },
-          "seconds": 14
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0,
-            "frames": [
-              0
-            ],
-            "scale": 0.8,
-            "at": [505, 690],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "until_cue": "line:2",
-            "fade": 0.01
-          },
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0,
-            "frames": [
-              0
-            ],
-            "scale": 0.8,
-            "at": [505, 690],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "cue": "line:2",
-            "until": 4.6,
-            "fade": 0.01
-          },
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0,
-            "frames": [
-              1
-            ],
-            "scale": 0.8,
-            "at": [505, 690],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "cue": "line:2",
-            "delay": 4.6,
-            "until_cue": "end",
-            "fade": 0.01
-          },
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0,
-            "frames": [
-              2
-            ],
-            "scale": 0.8,
-            "at": [505, 690],
-            "bob": {
-              "amount": 4,
-              "period": 5
-            },
-            "cue": "end",
-            "fade": 0.01
-          }
-        ],
-        "effects": [
-          {
-            "type": "sparks",
-            "at": [640, 330],
-            "every": 1.4,
-            "until": 8
-          },
-          {
-            "type": "shade",
-            "cue": "line:2",
-            "delay": 0.8,
-            "color": [
-              0,
-              0,
-              0
-            ],
-            "from": 0,
-            "to": 0.92,
-            "seconds": 6,
-            "direction": "down",
-            "area": [
-              0,
-              0,
-              470,
-              520
-            ]
-          },
-          {
-            "type": "rope",
-            "from": [650, 505],
-            "to_sprite": 0,
-            "offset": [32, -169],
-            "sag": 30,
-            "width": 3
-          },
-          {
-            "type": "rope",
-            "from": [650, 505],
-            "to_sprite": 1,
-            "offset": [32, -169],
-            "sag": 30,
-            "width": 3
-          },
-          {
-            "type": "rope",
-            "from": [650, 505],
-            "to_sprite": 2,
-            "offset": [32, -169],
-            "sag": 30,
-            "width": 3
-          },
-          {
-            "type": "rope",
-            "from": [650, 505],
-            "to_sprite": 3,
-            "offset": [32, -169],
-            "sag": 30,
-            "width": 3
-          }
-        ],
-        "lines": [
-          {
-            "text": "Inside the panel, the circuits were not burned. They had been picked clean... as if something had been reading them.",
-            "pause": 0.8,
-            "voice": "intro/audio/narr_02.mp3"
-          },
-          {
-            "text": "Copy, Outrider. Take your time. The long-range array's acting up again. Probably the cold.",
-            "style": "radio",
-            "static": 0.3,
-            "voice": "intro/audio/radio_02.mp3",
-            "pause": 0.9
-          }
-        ],
-        "sound": "intro/audio/sfx_tool.mp3",
-        "tail": 2
-      },
-      {
-        "background": "intro/backgrounds/intro_shadow.webp",
-        "sound": "intro/audio/sfx_swell.mp3",
-        "camera": {
-          "from": {
-            "zoom": 1
-          },
-          "to": {
-            "zoom": 1.1,
-            "y": -30
-          },
-          "seconds": 12
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0,
-            "frames": [
-              2
-            ],
-            "scale": 0.22,
-            "at": [150, 485],
-            "bob": {
-              "amount": 4,
-              "period": 4
-            },
-            "rotate": 8
-          }
-        ],
-        "ambient_lighting": {
-          "lights": [
-            {
-              "x": 0.47,
-              "y": 0.16,
-              "radius": 0.3,
-              "color": [
-                70,
-                255,
-                190
-              ],
-              "alpha": 0.22,
-              "pulse_speed": 0.35,
-              "pulse_amount": 0.5,
-              "phase": 0
-            },
-            {
-              "x": 0.22,
-              "y": 0.22,
-              "radius": 0.18,
-              "color": [
-                70,
-                255,
-                190
-              ],
-              "alpha": 0.14,
-              "pulse_speed": 0.27,
-              "pulse_amount": 0.6,
-              "phase": 1.5
-            },
-            {
-              "x": 0.78,
-              "y": 0.2,
-              "radius": 0.18,
-              "color": [
-                70,
-                255,
-                190
-              ],
-              "alpha": 0.14,
-              "pulse_speed": 0.31,
-              "pulse_amount": 0.6,
-              "phase": 3.1
-            }
-          ]
-        },
-        "lines": [
-          {
-            "text": "Then the stars went out. Not all at once. One at a time... as if something were swallowing them.",
-            "pause": 1,
-            "voice": "intro/audio/narr_03.mp3"
-          },
-          {
-            "text": "Outrider... we're seeing... long-range is showing... something big. Something very big, right on top of you—",
-            "style": "radio",
-            "static": 0.7,
-            "voice": "intro/audio/radio_03.mp3",
-            "pause": 1
-          }
-        ],
-        "tail": 1,
-        "music": "intro/audio/music_dread.mp3",
-        "music_volume": 0.6,
-        "sounds": [
-          {
-            "file": "intro/audio/sting_dread.mp3",
-            "volume": 0.95
-          }
-        ]
-      },
-      {
-        "background": "intro/backgrounds/intro_taken.webp",
-        "sound": "intro/audio/sfx_taken.mp3",
-        "camera": {
-          "from": {
-            "zoom": 1
-          },
-          "to": {
-            "zoom": 1.14,
-            "y": -60
-          },
-          "seconds": 11
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
-            "frame_rate": 0.45,
-            "frames": [
-              3,
-              3,
-              3,
-              3,
-              4
-            ],
-            "loop": false,
-            "scale": 0.42,
-            "at": [470, 650],
-            "move": {
-              "to": [482, 110],
-              "scale": 0.05,
-              "seconds": 12.5,
-              "delay": 0.6
-            },
-            "spin": 150
-          }
-        ],
-        "ambient_lighting": {
-          "lights": [
-            {
-              "x": 0.5,
-              "y": 0.13,
-              "radius": 0.3,
-              "color": [
-                230,
-                255,
-                170
-              ],
-              "alpha": 0.35,
-              "pulse_speed": 0.8,
-              "pulse_amount": 0.25,
-              "phase": 0
-            },
-            {
-              "x": 0.53,
-              "y": 0.65,
-              "radius": 0.22,
-              "color": [
-                230,
-                255,
-                170
-              ],
-              "alpha": 0.14,
-              "pulse_speed": 0.5,
-              "pulse_amount": 0.3,
-              "phase": 1
-            }
-          ]
-        },
-        "effects": [
-          {
-            "type": "particles",
-            "motion": "rise",
-            "area": [
-              360,
-              130,
-              260,
-              590
-            ],
-            "count": 60,
-            "size": 3,
-            "color": [
-              240,
-              255,
-              200
-            ],
-            "alpha": 0.85,
-            "speed": 60
-          },
-          {
-            "type": "particles",
-            "motion": "drift",
-            "area": [
-              420,
-              260,
-              380,
-              220
-            ],
-            "count": 10,
-            "size": 4,
-            "color": [
-              200,
-              200,
-              210
-            ],
-            "alpha": 0.7,
-            "speed": 6
-          },
-          {
-            "type": "shake",
-            "amount": 3,
-            "delay": 1,
-            "until": 14
-          }
-        ],
-        "lines": [
-          {
-            "text": "It did not attack. It harvested.\nThe satellite, the Outrider... and you. Gathered up like fruit.",
-            "pause": 0.8,
-            "voice": "intro/audio/narr_04.mp3"
-          },
-          {
-            "text": "Outrider, respond. Outrider—",
-            "style": "radio",
-            "static": 0.85,
-            "voice": "intro/audio/radio_04.mp3",
-            "pause": 0.6
-          }
-        ],
-        "transition": "flash",
-        "tail": 0.6,
-        "sounds": [
-          {
-            "file": "intro/audio/sfx_heartbeat_fast.mp3",
-            "cue": "line:2",
-            "volume": 0.8
-          }
-        ]
-      },
-      {
-        "background": "intro/backgrounds/intro_catalogue.webp",
-        "sound": "intro/audio/sfx_scan.mp3",
-        "music": "audio/music_stasis.mp3",
-        "camera": {
-          "from": {
-            "zoom": 1.06,
-            "x": 10
-          },
-          "to": {
-            "zoom": 1
-          },
-          "seconds": 12
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/specimen_limp.png",
-            "frame_width": 626,
-            "frame_height": 112,
-            "columns": 2,
-            "frames": [
-              0,
-              0,
-              1,
-              1
-            ],
-            "frame_rate": 1,
-            "scale": 0.36,
-            "at": [505, 438],
-            "rotate": -10
-          },
-          {
-            "file": "sprites/cataloguer_robot.png",
-            "frame_width": 339,
-            "frame_height": 562,
-            "columns": 4,
-            "frame_rate": 2,
-            "scale": 0.4,
-            "at": [840, 640]
-          }
-        ],
-        "ambient_lighting": {
-          "lights": [
-            {
-              "x": 0.59,
-              "y": 0.17,
-              "radius": 0.2,
-              "color": [
-                90,
-                255,
-                170
-              ],
-              "alpha": 0.22,
-              "pulse_speed": 0.4,
-              "pulse_amount": 0.3
-            },
-            {
-              "x": 0.52,
-              "y": 0.55,
-              "radius": 0.18,
-              "color": [
-                90,
-                255,
-                170
-              ],
-              "alpha": 0.12,
-              "pulse_speed": 0.25,
-              "pulse_amount": 0.3,
-              "phase": 1
-            }
-          ]
-        },
-        "effects": [
-          {
-            "type": "sweep",
-            "area": [
-              350,
-              330,
-              360,
-              130
-            ],
-            "color": [
-              110,
-              255,
-              180
-            ],
-            "period": 3.2,
-            "alpha": 0.5
-          }
-        ],
-        "lines": [
-          {
-            "text": "You were catalogued. Weighed. Measured.\nYour suit was taken apart, seam by seam, and filed separately.",
-            "pause": 1.2,
-            "voice": "intro/audio/narr_05.mp3"
-          }
-        ],
-        "music_volume": 0.28,
-        "tail": 1.5
-      },
-      {
-        "background": "intro/backgrounds/intro_pods.webp",
-        "loop": "intro/audio/sfx_underwater.mp3",
-        "camera": {
-          "from": {
-            "zoom": 1
-          },
-          "to": {
-            "zoom": 1.12,
-            "y": -10
-          },
-          "seconds": 13
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/pod_float.png",
-            "frame_width": 306,
-            "frame_height": 602,
-            "columns": 3,
-            "frames": [
-              1
-            ],
-            "frame_rate": 0,
-            "scale": 0.43,
-            "at": [482, 542],
-            "bob": {
-              "amount": 5,
-              "period": 6
-            },
-            "opacity": 0.88,
-            "filter": "sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(0.85)"
-          }
-        ],
-        "ambient_lighting": {
-          "lights": [
-            {
-              "x": 0.5,
-              "y": 0.45,
-              "radius": 0.22,
-              "color": [
-                255,
-                176,
-                60
-              ],
-              "alpha": 0.18,
-              "pulse_speed": 0.2,
-              "pulse_amount": 0.35,
-              "phase": 0
-            }
-          ]
-        },
-        "effects": [
-          {
-            "type": "particles",
-            "motion": "rise",
-            "area": [
-              418,
-              110,
-              135,
-              440
-            ],
-            "count": 18,
-            "size": 3,
-            "color": [
-              255,
-              236,
-              180
-            ],
-            "alpha": 0.7,
-            "speed": 25
-          }
-        ],
-        "lines": [
-          {
-            "text": "Then they filed you away, with hundreds of others, in a pod of warm amber fluid.\nAnd you slept.",
-            "pause": 1,
-            "voice": "intro/audio/narr_06.mp3"
-          }
-        ],
-        "tail": 2.2
-      },
-      {
-        "sound": "intro/audio/sfx_glass_crack.mp3",
-        "music": null,
-        "lines": [
-          {
-            "text": "Something has gone wrong.\nYour pod is cracked. The fluid is draining.\n\nAnd somewhere below this ship,\nEarth is still turning.\n\nFind a way out.",
-            "style": "card",
-            "pause": 2.4,
-            "voice": "intro/audio/narr_07.mp3"
-          }
-        ],
-        "tail": 1.5
+        "music_volume": 0.5,
+        "hold": 13,
+        "tail": 0.8,
+        "fade_in": 3.5
       }
     ],
     "clock": {
@@ -1142,7 +600,434 @@
           }
         ]
       }
-    ]
+    ],
+    "cutscenes": {
+      "abduction": [
+        {
+          "background": "intro/backgrounds/intro_shadow.webp",
+          "loop": "intro/audio/v2/breath_loop.mp3",
+          "sound": "intro/audio/v2/stars_out.mp3",
+          "camera": {
+            "from": {
+              "zoom": 1
+            },
+            "to": {
+              "zoom": 1.1,
+              "y": -30
+            },
+            "seconds": 14
+          },
+          "sprites": [
+            {
+              "file": "intro/sprites/eva.png",
+              "frame_width": 386,
+              "frame_height": 419,
+              "columns": 5,
+              "frame_rate": 0,
+              "frames": [
+                2
+              ],
+              "scale": 0.22,
+              "at": [150, 485],
+              "bob": {
+                "amount": 4,
+                "period": 4
+              },
+              "rotate": 8
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.47,
+                "y": 0.16,
+                "radius": 0.3,
+                "color": [
+                  70,
+                  255,
+                  190
+                ],
+                "alpha": 0.22,
+                "pulse_speed": 0.35,
+                "pulse_amount": 0.5,
+                "phase": 0
+              },
+              {
+                "x": 0.22,
+                "y": 0.22,
+                "radius": 0.18,
+                "color": [
+                  70,
+                  255,
+                  190
+                ],
+                "alpha": 0.14,
+                "pulse_speed": 0.27,
+                "pulse_amount": 0.6,
+                "phase": 1.5
+              },
+              {
+                "x": 0.78,
+                "y": 0.2,
+                "radius": 0.18,
+                "color": [
+                  70,
+                  255,
+                  190
+                ],
+                "alpha": 0.14,
+                "pulse_speed": 0.31,
+                "pulse_amount": 0.6,
+                "phase": 3.1
+              }
+            ]
+          },
+          "lines": [
+            {
+              "text": "“Control. The stars.”",
+              "voice": "intro/audio/v2/p5.mp3",
+              "pause": 2.6
+            },
+            {
+              "text": "Outrider, long-range is showing something. It's big. It's right on top of y—",
+              "voice": "intro/audio/v2/c3.mp3",
+              "style": "radio",
+              "static": 0.6,
+              "pause": 1.2
+            }
+          ],
+          "sounds": [
+            {
+              "file": "intro/audio/sting_dread.mp3",
+              "cue": "line:1",
+              "volume": 0.9
+            }
+          ],
+          "music": "intro/audio/music_dread.mp3",
+          "music_volume": 0.45,
+          "tail": 2.2,
+          "fade_in": 1.2
+        },
+        {
+          "background": "intro/backgrounds/intro_taken.webp",
+          "sound": "intro/audio/v2/harvest.mp3",
+          "camera": {
+            "from": {
+              "zoom": 1
+            },
+            "to": {
+              "zoom": 1.14,
+              "y": -60
+            },
+            "seconds": 9
+          },
+          "sprites": [
+            {
+              "file": "intro/sprites/eva.png",
+              "frame_width": 386,
+              "frame_height": 419,
+              "columns": 5,
+              "frame_rate": 0.45,
+              "frames": [
+                3,
+                3,
+                3,
+                3,
+                4
+              ],
+              "loop": false,
+              "scale": 0.42,
+              "at": [470, 650],
+              "move": {
+                "to": [482, 110],
+                "scale": 0.05,
+                "seconds": 8,
+                "delay": 0.4
+              },
+              "spin": 150
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.13,
+                "radius": 0.3,
+                "color": [
+                  230,
+                  255,
+                  170
+                ],
+                "alpha": 0.35,
+                "pulse_speed": 0.8,
+                "pulse_amount": 0.25,
+                "phase": 0
+              },
+              {
+                "x": 0.53,
+                "y": 0.65,
+                "radius": 0.22,
+                "color": [
+                  230,
+                  255,
+                  170
+                ],
+                "alpha": 0.14,
+                "pulse_speed": 0.5,
+                "pulse_amount": 0.3,
+                "phase": 1
+              }
+            ]
+          },
+          "effects": [
+            {
+              "type": "particles",
+              "motion": "rise",
+              "area": [
+                360,
+                130,
+                260,
+                590
+              ],
+              "count": 60,
+              "size": 3,
+              "color": [
+                240,
+                255,
+                200
+              ],
+              "alpha": 0.85,
+              "speed": 60
+            },
+            {
+              "type": "shake",
+              "amount": 3,
+              "delay": 0.5,
+              "until": 9
+            }
+          ],
+          "lines": [
+            {
+              "text": "“Control, something's pulling me in, I can't—”",
+              "voice": "intro/audio/v2/p6.mp3",
+              "pause": 0.6
+            }
+          ],
+          "hold": 7.5,
+          "tail": 0.4,
+          "transition": "flash"
+        },
+        {
+          "background": "intro/backgrounds/intro_catalogue.webp",
+          "sound": "intro/audio/v2/scan.mp3",
+          "camera": {
+            "from": {
+              "zoom": 1.06,
+              "x": 10
+            },
+            "to": {
+              "zoom": 1
+            },
+            "seconds": 9
+          },
+          "sprites": [
+            {
+              "file": "intro/sprites/specimen_limp.png",
+              "frame_width": 626,
+              "frame_height": 112,
+              "columns": 2,
+              "frames": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "frame_rate": 1,
+              "scale": 0.36,
+              "at": [505, 438],
+              "rotate": -10
+            },
+            {
+              "file": "sprites/cataloguer_robot.png",
+              "frame_width": 339,
+              "frame_height": 562,
+              "columns": 4,
+              "frame_rate": 2,
+              "scale": 0.4,
+              "at": [840, 640]
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.59,
+                "y": 0.17,
+                "radius": 0.2,
+                "color": [
+                  90,
+                  255,
+                  170
+                ],
+                "alpha": 0.22,
+                "pulse_speed": 0.4,
+                "pulse_amount": 0.3
+              },
+              {
+                "x": 0.52,
+                "y": 0.55,
+                "radius": 0.18,
+                "color": [
+                  90,
+                  255,
+                  170
+                ],
+                "alpha": 0.12,
+                "pulse_speed": 0.25,
+                "pulse_amount": 0.3,
+                "phase": 1
+              }
+            ]
+          },
+          "effects": [
+            {
+              "type": "sweep",
+              "area": [
+                350,
+                330,
+                360,
+                130
+              ],
+              "color": [
+                110,
+                255,
+                180
+              ],
+              "period": 3.2,
+              "alpha": 0.5
+            }
+          ],
+          "lines": [
+            {
+              "text": "Outrider, respond. Outrider, come back.",
+              "voice": "intro/audio/v2/c4.mp3",
+              "style": "radio",
+              "static": 0.55,
+              "pause": 2.2
+            }
+          ],
+          "music": null,
+          "hold": 7,
+          "tail": 1
+        },
+        {
+          "background": "intro/backgrounds/intro_pods.webp",
+          "loop": "intro/audio/v2/pod.mp3",
+          "camera": {
+            "from": {
+              "zoom": 1
+            },
+            "to": {
+              "zoom": 1.12,
+              "y": -10
+            },
+            "seconds": 9
+          },
+          "sprites": [
+            {
+              "file": "intro/sprites/pod_float.png",
+              "frame_width": 306,
+              "frame_height": 602,
+              "columns": 3,
+              "frames": [
+                1
+              ],
+              "frame_rate": 0,
+              "scale": 0.43,
+              "at": [482, 542],
+              "bob": {
+                "amount": 5,
+                "period": 6
+              },
+              "opacity": 0.88,
+              "filter": "sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(0.85)"
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.45,
+                "radius": 0.22,
+                "color": [
+                  255,
+                  176,
+                  60
+                ],
+                "alpha": 0.18,
+                "pulse_speed": 0.2,
+                "pulse_amount": 0.35,
+                "phase": 0
+              }
+            ]
+          },
+          "effects": [
+            {
+              "type": "particles",
+              "motion": "rise",
+              "area": [
+                418,
+                110,
+                135,
+                440
+              ],
+              "count": 18,
+              "size": 3,
+              "color": [
+                255,
+                236,
+                180
+              ],
+              "alpha": 0.7,
+              "speed": 25
+            }
+          ],
+          "lines": [
+            {
+              "text": "Outrider, respond. Outrider, come back.",
+              "voice": "intro/audio/v2/c4.mp3",
+              "style": "radio",
+              "static": 0.8,
+              "pause": 2.6
+            }
+          ],
+          "hold": 8,
+          "tail": 1.2
+        },
+        {
+          "sound": "intro/audio/v2/heartbeat.mp3",
+          "sounds": [
+            {
+              "file": "intro/audio/v2/glass.mp3",
+              "delay": 3.6
+            }
+          ],
+          "lines": [
+            {
+              "text": "Outrider, respond. Outrider, come back.",
+              "voice": "intro/audio/v2/c4.mp3",
+              "style": "radio",
+              "static": 0.95,
+              "pause": 1.0
+            }
+          ],
+          "hold": 7.5,
+          "tail": 0.3
+        }
+      ]
+    },
+    "prologue": {
+      "view": "intro_spacewalk"
+    }
   },
   "character": {
     "sprite_sets": {
@@ -1206,6 +1091,23 @@
           "right"
         ],
         "anchor": "top"
+      },
+      "eva": {
+        "file": "intro/sprites/eva.png",
+        "columns": 5,
+        "rows": 1,
+        "frame_rate": 0,
+        "directions": [
+          "right"
+        ],
+        "frame_width": 386,
+        "frame_height": 419,
+        "scale": 0.33,
+        "bob": {
+          "amount": 5,
+          "period": 4.5
+        },
+        "walk": "eva"
       }
     },
     "frame_width": 300,
@@ -18780,6 +18682,153 @@
         {
           "text": "Take it in. Then click anywhere.",
           "when": []
+        }
+      ]
+    },
+    {
+      "id": "intro_spacewalk",
+      "name": "LUMEN-7, High Orbit",
+      "background_key": "intro_spacewalk",
+      "background_file": "intro/backgrounds/intro_orbit.webp",
+      "objects": [
+        "sw_lumen_body",
+        "sw_outrider",
+        "sw_dish",
+        "sw_solar_wing",
+        "sw_earth"
+      ],
+      "character": {
+        "x": 330,
+        "y": 450,
+        "facing": "right",
+        "sprite_set": "eva",
+        "shadow": {
+          "opacity": 0
+        }
+      },
+      "walk_area": {
+        "floor": [
+          [60, 330],
+          [300, 300],
+          [470, 330],
+          [505, 470],
+          [430, 565],
+          [200, 600],
+          [60, 565]
+        ],
+        "motion": "smooth",
+        "speed": 0.55,
+        "footsteps": false
+      },
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.97,
+            "y": 0.04,
+            "radius": 0.22,
+            "color": [
+              255,
+              214,
+              160
+            ],
+            "alpha": 0.3,
+            "pulse_speed": 0.15,
+            "pulse_amount": 0.3,
+            "phase": 0
+          }
+        ]
+      },
+      "ambient_audio": "intro/audio/v2/breath_loop.mp3",
+      "ambient_text": "Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.",
+      "music": "intro/audio/bed_stargazer.mp3",
+      "enter_sound": null,
+      "on_enter": [
+        {
+          "type": "conditional_effect",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "sw_briefed",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "set_flag",
+              "flag": "sw_briefed",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 1.0,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
+                  "voice": "intro/audio/v2/c1.mp3",
+                  "style": "radio",
+                  "static": 0.2
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 7.79,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "“Eyes on it. Big, expensive, and not talking. Heading for the access panel.”",
+                  "voice": "intro/audio/v2/p1.mp3",
+                  "style": "comms"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        {
+          "text": "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."
+        }
+      ]
+    },
+    {
+      "id": "intro_panel_closeup",
+      "name": "LUMEN-7 Service Panel",
+      "background_key": "intro_panel_closeup",
+      "background_file": "intro/backgrounds/intro_panel.webp",
+      "objects": [
+        "pn_boards",
+        "pn_door",
+        "pn_handrail",
+        "pn_earth"
+      ],
+      "back_label": "LUMEN-7",
+      "ambient_text": "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
+      "ambient_audio": "intro/audio/v2/breath_loop.mp3",
+      "music": "intro/audio/bed_stargazer.mp3",
+      "enter_sound": "intro/audio/v2/panel.mp3",
+      "ambient_lighting": {
+        "lights": [
+          {
+            "x": 0.72,
+            "y": 0.45,
+            "radius": 0.2,
+            "color": [
+              120,
+              255,
+              160
+            ],
+            "alpha": 0.12,
+            "pulse_speed": 0.3,
+            "pulse_amount": 0.3,
+            "phase": 0
+          }
+        ]
+      },
+      "hints": [
+        {
+          "text": "LOOK inside the panel."
         }
       ]
     }
@@ -83707,6 +83756,611 @@
             {
               "type": "message",
               "text": "On a far rib above the city, a small black shape is licking a paw: the cat from upstairs. The Vesk won't touch it; they find its breathing strange. It goes where it likes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sw_lumen_body",
+      "name": "LUMEN-7",
+      "description": "LUMEN-7: a relay satellite the size of a delivery van, wrapped in gold foil. Its service panel is on this side.",
+      "position": {
+        "x": 525,
+        "y": 222
+      },
+      "size": {
+        "width": 165,
+        "height": 232
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "LUMEN-7"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "LUMEN-7. A relay satellite the size of a delivery van, wrapped in crinkled gold foil. Nine days of silence, and not a scratch on it. The service panel is on this side."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "“Panel's open. ...Huh.”",
+                  "voice": "intro/audio/v2/p3.mp3",
+                  "style": "comms"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 3.09,
+                  "effects": [
+                    {
+                      "type": "set_view",
+                      "view": "intro_panel_closeup"
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "“Panel's open. ...Huh.”",
+                  "voice": "intro/audio/v2/p3.mp3",
+                  "style": "comms"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 3.09,
+                  "effects": [
+                    {
+                      "type": "set_view",
+                      "view": "intro_panel_closeup"
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "You knock on the hull, twice. Nobody answers. It's a satellite."
+            }
+          ]
+        }
+      ],
+      "walk_to": {
+        "x": 462,
+        "y": 430,
+        "facing": "right"
+      }
+    },
+    {
+      "id": "sw_outrider",
+      "name": "The Outrider",
+      "description": "Your ship, docked at LUMEN-7's service port.",
+      "position": {
+        "x": 700,
+        "y": 382
+      },
+      "size": {
+        "width": 135,
+        "height": 168
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "The Outrider"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The Outrider, your ship, docked at LUMEN-7's service port. Small, old, and paid for."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "The airlock's right there. The job isn't done."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "then": [
+            {
+              "type": "message",
+              "text": "Not yet. Control wants eyes on that panel first."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "“Back soon,” you tell her. Ships like to hear it."
+            }
+          ]
+        }
+      ],
+      "walk_to": false
+    },
+    {
+      "id": "sw_dish",
+      "name": "Main Dish",
+      "description": "LUMEN-7's main dish.",
+      "position": {
+        "x": 482,
+        "y": 105
+      },
+      "size": {
+        "width": 135,
+        "height": 135
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Main Dish"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The main dish. Still pointed at Earth, still saying nothing."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "Hands off the dish. Control would never let you hear the end of it."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "You lean in to the dish and say “testing.” Somewhere, probably, nobody hears it."
+            }
+          ]
+        }
+      ],
+      "walk_to": false
+    },
+    {
+      "id": "sw_solar_wing",
+      "name": "Solar Wing",
+      "description": "LUMEN-7's solar wings.",
+      "position": {
+        "x": 318,
+        "y": 300
+      },
+      "size": {
+        "width": 205,
+        "height": 140
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Solar Wing"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "Solar wings, undamaged and soaking up the sun. The power's fine. That makes the silence worse."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You run a glove along the edge of a cell. Clean. Nobody's been out here but you."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "Nothing to say to a solar panel. You've tried before."
+            }
+          ]
+        }
+      ],
+      "walk_to": false
+    },
+    {
+      "id": "sw_earth",
+      "name": "Earth",
+      "description": "Home.",
+      "position": {
+        "x": 0,
+        "y": 500
+      },
+      "size": {
+        "width": 700,
+        "height": 220
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Earth"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "Home, all of it, every city light still on. Every time. You'd think you'd get used to it."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "It's a long way down. Keep one hand on the satellite."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "then": [
+            {
+              "type": "message",
+              "text": "Not today. The job's up here."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "You say hello to Earth. It doesn't answer, which makes it the best conversation you've had all week."
+            }
+          ]
+        }
+      ],
+      "walk_to": false
+    },
+    {
+      "id": "pn_boards",
+      "name": "Inside the Panel",
+      "description": "The inside of LUMEN-7's service panel.",
+      "position": {
+        "x": 598,
+        "y": 195
+      },
+      "size": {
+        "width": 186,
+        "height": 265
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Inside the Panel"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "sw_boards_seen",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_boards_seen",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "“Control, the boards are missing. All of them. Somebody unplugged this thing and took the parts home.”",
+                  "voice": "intro/audio/v2/p4.mp3",
+                  "style": "comms"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 6.95,
+                  "effects": [
+                    {
+                      "type": "message",
+                      "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
+                      "voice": "intro/audio/v2/c2.mp3",
+                      "style": "radio",
+                      "static": 0.35
+                    }
+                  ]
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 17.35,
+                  "effects": [
+                    {
+                      "type": "play_cutscene",
+                      "cutscene": "abduction",
+                      "wake": true,
+                      "then": [
+                        {
+                          "type": "set_view",
+                          "view": "act1_stasis_hold",
+                          "sound": null
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "message",
+                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "sw_boards_seen",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_boards_seen",
+                  "value": "true"
+                },
+                {
+                  "type": "message",
+                  "text": "“Control, the boards are missing. All of them. Somebody unplugged this thing and took the parts home.”",
+                  "voice": "intro/audio/v2/p4.mp3",
+                  "style": "comms"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 6.95,
+                  "effects": [
+                    {
+                      "type": "message",
+                      "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
+                      "voice": "intro/audio/v2/c2.mp3",
+                      "style": "radio",
+                      "static": 0.35
+                    }
+                  ]
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 17.35,
+                  "effects": [
+                    {
+                      "type": "play_cutscene",
+                      "cutscene": "abduction",
+                      "wake": true,
+                      "then": [
+                        {
+                          "type": "set_view",
+                          "view": "act1_stasis_hold",
+                          "sound": null
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "message",
+                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "“Control, you're going to want to see this.”"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pn_door",
+      "name": "Panel Door",
+      "description": "The service panel's door, hanging open.",
+      "position": {
+        "x": 785,
+        "y": 125
+      },
+      "size": {
+        "width": 135,
+        "height": 520
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Panel Door"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "The panel door, hanging open. The latches weren't forced. Somebody had the key, or didn't need one."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You swing the door a little. It moves like it was oiled yesterday."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pn_handrail",
+      "name": "Handrail",
+      "description": "A yellow and black handrail.",
+      "position": {
+        "x": 525,
+        "y": 485
+      },
+      "size": {
+        "width": 300,
+        "height": 110
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Handrail"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "A handrail. You keep one glove on it out of habit."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "You tighten your grip on the rail. Habit, mostly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pn_earth",
+      "name": "Earth",
+      "description": "Earth, over your shoulder.",
+      "position": {
+        "x": 0,
+        "y": 430
+      },
+      "size": {
+        "width": 380,
+        "height": 290
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Earth"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "Earth, over your shoulder. Still there. Good."
             }
           ]
         }

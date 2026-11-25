@@ -12,8 +12,13 @@ import { cameraAt, spriteAt, lineSeconds, hash01, cueSeconds, type CueTimes } fr
 interface Props {
   scenes: IntroScene[];
   scenarioId: string;
-  title: string;
+  /** The title card before the first scene; none for a mid-game cutscene. */
+  title?: string;
   onComplete: () => void;
+  /** Escape or "skip intro" (default: onComplete). */
+  onSkip?: () => void;
+  /** The skip button's label. Default "skip intro ›". */
+  skipLabel?: string;
 }
 
 const W = 1920;
@@ -48,7 +53,7 @@ function ramp(t: Track, to: number, ms: number, stop = false) {
 
 type Phase = 'title' | 'scene' | 'out' | 'in' | 'done';
 
-export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props) {
+export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, skipLabel }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const images = useRef(new Map<string, HTMLImageElement>());
   const [sceneIndex, setSceneIndex] = useState(-1);
@@ -104,6 +109,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     if (voice.current) { voice.current.pause(); voice.current = null; }
   };
 
+  const skipped = useRef(false);
   const finish = useCallback(() => {
     if (finished.current) return;
     finished.current = true;
@@ -114,12 +120,13 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     if (music.current) { ramp(music.current, 0, 600, true); music.current = null; }
     setPhase('done');
     fade.current = { color: '0,0,0', alpha: fade.current.alpha, from: fade.current.alpha, to: 1, start: performance.now(), seconds: 0.6 };
-    window.setTimeout(onComplete, 650);
-  }, [onComplete]);
+    window.setTimeout(skipped.current && onSkip ? onSkip : onComplete, 650);
+  }, [onComplete, onSkip]);
+  const skip = useCallback(() => { skipped.current = true; finish(); }, [finish]);
 
   // Title card, then the first scene.
   useEffect(() => {
-    later(() => goTo(0, 'fade'), TITLE_MS);
+    later(() => goTo(0, 'fade'), title ? TITLE_MS : 0);
     return () => {
       clearTimers(); stopVoice();
       for (const t of sceneTracks.current) t.audio.pause();
@@ -271,12 +278,12 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') finish();
+      if (e.key === 'Escape') skip();
       else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advance(); }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [advance, finish]);
+  }, [advance, skip]);
 
   // The render loop.
   useEffect(() => {
@@ -330,7 +337,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
     <div data-intro-cinematic style={styles.overlay} onClick={(e) => { if (!(e.target as HTMLElement).closest('[data-skip-intro]')) advance(); }}>
       <div style={styles.stage}>
         <canvas ref={canvasRef} width={W} height={H} style={styles.canvas} />
-        {phase === 'title' && <div style={styles.title}>{title}</div>}
+        {phase === 'title' && title && <div style={styles.title}>{title}</div>}
         {line && (
           <div data-intro-line style={{
             ...(card ? styles.card : styles.band),
@@ -344,7 +351,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete }: Props)
         )}
       </div>
       {phase !== 'done' && (
-        <button data-skip-intro style={styles.skip} onClick={finish}>skip intro ›</button>
+        <button data-skip-intro style={styles.skip} onClick={skip}>{skipLabel ?? 'skip intro ›'}</button>
       )}
     </div>
   );

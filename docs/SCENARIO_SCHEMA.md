@@ -182,7 +182,9 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `max_score` | number | no | Total points available. Shows "Score: x of max" in the title bar and on the end screen. Points come from the `add_score` effect. |
 | `allow_undo` | boolean | no | Death screens offer **Undo last move**, which puts the game back to just before the fatal action. Default `true`; set `false` for a hardcore scenario. |
 | `sounds` | object | no | Sound effect paths. `room_transition`, `item_pickup` and `intro_voice` are played by the engine on those events, `noise` whenever the noise level jumps by 3 or more, `combine` when two items are combined successfully (falls back to `item_pickup`), `death` when the game ends in a death (the music fades out under it) and `win` when it ends in a win; any other key (e.g. `discovery`) can be played by name with the `play_sound` effect. |
-| `tutorial` | object | no | First-play tips: `{ "steps": [{ "text": "...", "done_when": "verb_changed" }] }`. Shown one at a time in the top-left of the picture after the intro; each moves on when the player does what `done_when` names: `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (shows a button). The box is click-through, has **Skip tutorial**, and is remembered per scenario in the browser. Hidden in `?dev`/`?skipIntro` mode unless the URL has `?tutorial`. |
+| `tutorial` | object | no | First-play tips: `{ "steps": [{ "text": "...", "done_when": "verb_changed" }] }`. Shown one at a time in the top-left of the picture after the intro; each moves on when the player does what `done_when` names: `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (shows a button). The box is click-through, has **Skip tutorial**, and is remembered per scenario in the browser. Hidden in `?dev`/`?skipIntro` mode unless the URL has `?tutorial`. A step can also take `when` (conditions: the tip waits, hidden, until they hold, e.g. a `view_is`; a tip left behind in another room is passed over when a later one fits where the player is) and `prologue`: `"only"` (a prologue tip, dropped when the prologue ends) or `"if_skipped"` (shown only to a player who skipped the prologue, to repeat what it taught). Tips are numbered along the player's own route. |
+| `cutscenes` | object | no | Named cinematics, `{ "id": [IntroScene, ...] }` in the intro's format, played mid-game by the `play_cutscene` effect. See [Cutscenes and a playable prologue](#cutscenes-and-a-playable-prologue). |
+| `prologue` | object | no | `{ "view": "...", "skip_label"? }`: a playable opening. After the intro cinematic the game starts in `view` instead of `initial_view`, with no wake-up; a `play_cutscene` with `wake: true` ends it. See [Cutscenes and a playable prologue](#cutscenes-and-a-playable-prologue). |
 
 ### Views
 
@@ -215,6 +217,7 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `background_fit` | `"cover"` or `"contain"` | no | How the image fills the 960x540 viewport. Default `cover`. |
 | `objects` | string[] | yes | IDs of objects visible in this view. |
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
+| `ambient_text` | string | no | The idle line under the picture in this view, instead of `setting.ambient_text` (`""` for none). |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
 | `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
 | `ambient_audio` | string or string[] | no | Ambient audio track(s) for this view, overriding the scenario-level `setting.ambient_audio`. Loops continuously while the player is in this view. Falls back to `setting.ambient_audio` when not specified. |
@@ -572,8 +575,8 @@ An optional root-level `character` block defines the player sprite. Each view th
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `sprite_sets` | object | yes | Named sheets. Each: `file`, `columns` (frames per row), `rows`, `frame_rate` (fps, `0` = static), `directions` (one row per direction, in order; default `["down","left","right","up"]`), `loop` (default `true`; `false` plays once and holds the last frame). | A set can also take `anchor: "top"`: the character's point is the top-centre of the frame (his hands on a rope he hangs from) instead of his feet, with no shadow; use it for hanging and climbing poses on a `traverse`.
-| `frame_width`, `frame_height` | number | yes | Frame size in pixels, shared by every set. |
+| `sprite_sets` | object | yes | Named sheets. Each: `file`, `columns` (frames per row), `rows`, `frame_rate` (fps, `0` = static), `directions` (one row per direction, in order; default `["down","left","right","up"]`), `loop` (default `true`; `false` plays once and holds the last frame). | A set can also take its own `frame_width`, `frame_height` and `scale` (a sheet drawn at another size, like a spacesuit), `bob: {amount, period}` (a gentle float up and down, in pixels and seconds: drifting in orbit), and `anchor: "top"`: the character's point is the top-centre of the frame (his hands on a rope he hangs from) instead of his feet, with no shadow; use it for hanging and climbing poses on a `traverse`.
+| `frame_width`, `frame_height` | number | yes | Frame size in pixels, shared by every set unless a set gives its own. |
 | `scale` | number | no | Render scale. On screen the sprite is `frame_width × scale` wide. |
 | `shadow` | object | no | Default shadow (see [Sprite Shadows](#sprite-shadows)). |
 
@@ -878,7 +881,7 @@ Effects change the game world. They execute in order within an interaction's `th
 
 | Type | Fields | What It Does |
 |------|--------|-------------|
-| `message` | `text` | Show text to the player. The primary narrative vehicle. |
+| `message` | `text`, `voice`?, `style`?, `static`? | Show text to the player. The primary narrative vehicle. `voice` plays a clip with it. `style: "radio"` delivers it as a transmission (a RADIO tag and cool italic text; the voice goes through a band-pass radio filter, grittier as `static` rises from 0 to 1, default 0.3); `style: "comms"` is the player talking over his suit radio (a light helmet-mic filter on the voice, plain text). |
 | `add_item` | `item` | Add item to player's inventory. |
 | `remove_item` | `item` | Remove item from inventory. |
 | `set_state` | `object`, `state` | Change an object's state. |
@@ -905,7 +908,8 @@ Effects change the game world. They execute in order within an interaction's `th
 | `set_character` | `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` (all optional) | Override the player sprite placement for the rest of the session. See [Character Sprite](#character-sprite). |
 | `equip_item` / `unequip_item` | `item` | Equip or unequip a held item that has a `wearable` overlay (`{slot, sprite_file, frame_width, frame_height, offset_x, offset_y, scale?, auto_equip?}`), drawn on top of the character. `add_item` auto-equips when `auto_equip` is true; `remove_item` unequips. |
 | `play_sound` | `sound` | Play a sound: a key of `setting.sounds` (e.g. `"discovery"`), or a file path relative to the scenario folder. Keys with no match are tried as paths. |
-| `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |
+| `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. Chain voiced lines by delaying each by the clip lengths before it. |
+| `play_cutscene` | `cutscene`, `wake`?, `then`? | Play a `setting.cutscenes` entry full screen (skippable), then apply `then` (usually a `set_view`). With `wake: true` the wake-up staging (`setting.wake`) follows in the view `then` leads to, and the prologue ends. Anything still waiting in a `delay_then` is cancelled. |
 | `random_message` | `messages` | Show one message randomly from an array. Good for variety. |
 | `conditional_effect` | `when`, `then`, `else` | If condition is met, do `then` effects; otherwise do `else` effects. |
 | `meter_add` | `meter`, `amount` | Add to a meter (negative to spend), clamped to 0..max. |
@@ -1468,6 +1472,8 @@ Each `set_view` inside its `zone` brings it one move closer (to 0). Entering a s
 A patrol stop with **`sense`** notices the player only within `radius` (960x720 units) of where it is drawn, only while he walks (`only_while_moving`), never while `masked_when` holds (a wind that covers you), and never while he stands inside one of the floor's `walk_area.shadows` polygons. Make it loop on one wide screen with one stop covering its whole period (`first_at: 0`, `warn_seconds: 0`, `enter: 0`, `leave: period`). Walk it in a loop by making its `path` end where it starts.
 
 ### Floor scale and speed
+
+`walk_area.motion` (`"paced"`, `"stepped"` or `"smooth"`) overrides `character.walk_motion` on this floor: `"smooth"` for drifting in space, with `footsteps: false`.
 
 `walk_area.scale` draws the character (and patrols) at that size on this floor, on top of `depth_scale`: a speck crossing a city. Walking slows with size, so add `walk_area.speed` (a multiplier) to keep wide screens quick to cross.
 
@@ -2363,3 +2369,44 @@ Every effect also takes `cue`.
 ### Credits
 
 `metadata.credits` (string, optional) is a short credits line shown on the scenario's main-menu card, e.g. `"Voices and sound effects by ElevenLabs (elevenlabs.io)"`. Use it for any third-party service or asset whose terms require visible attribution.
+
+## Cutscenes and a playable prologue
+
+A cutscene is a cinematic in the intro's format (scenes with backgrounds, sprites, lights, effects, lines, voices, sounds and music) that plays in the middle of the game. Name it under `setting.cutscenes` and start it with the `play_cutscene` effect from any interaction, event or `delay_then`. It plays full screen (the rooms' ambience, music and clock wait), the player can click through lines or skip it, and when it ends its `then` effects apply.
+
+```json
+"cutscenes": {
+  "abduction": [
+    { "background": "intro/backgrounds/intro_shadow.webp", "sound": "intro/audio/v2/stars_out.mp3",
+      "lines": [ { "text": "\u201cControl. The stars.\u201d", "voice": "intro/audio/v2/p5.mp3" },
+                 { "text": "Outrider, long-range is showing something...", "voice": "intro/audio/v2/c3.mp3", "style": "radio", "static": 0.6 } ] }
+  ]
+}
+...
+{ "type": "play_cutscene", "cutscene": "abduction", "wake": true,
+  "then": [ { "type": "set_view", "view": "act1_stasis_hold", "sound": null } ] }
+```
+
+A cutscene has no title card (that is only for the intro). Without `wake`, play returns to the game where `then` leaves it.
+
+### A playable prologue
+
+`setting.prologue: { "view": "..." }` makes the opening playable. The flow is:
+
+1. The intro cinematic (`intro_scenes`). End it on the same picture as the prologue's first view, so the cut into play feels seamless.
+2. The game starts in `prologue.view`, not `initial_view`, with a short fade up and no wake-up. The clock is stopped (patrols wait), and a **Skip intro** button in the title bar (label: `skip_label`) jumps straight to `initial_view` and the wake-up.
+3. The prologue is ordinary views, objects and interactions. Use `on_enter` with a flag guard for the opening radio call, and voiced `message` effects with `style` for dialogue.
+4. A `play_cutscene` with `wake: true` ends it. The cutscene plays, its `then` effects move the player into the game, and the wake-up staging (`setting.wake`: black, the eyes opening, `sounds.intro_voice`, standing up) follows.
+5. The first phase's `on_enter` (its opening message) runs when the game proper begins: at the wake-up, not at load.
+
+Skipping the intro cinematic (its skip button or Escape) skips the prologue too. `?skipIntro`, `?view` and `?dev` skip both.
+
+**Teaching in the prologue.** Give tutorial tips `prologue: "only"` and a `when` naming the prologue's views, so they teach the verbs where they are needed (right-click on the spacewalk, Move to drift, Hand on the panel, Look inside). Repeat the basics as `prologue: "if_skipped"` tips for players who skip. Give the in-game tips a `when` that keeps them out of the prologue's views (`not_in_view`).
+
+**The Harvest's opening** (about 80 seconds; `scenarios/the-harvest/scripts/build_intro_v2.py` writes it):
+- The cold open: the title, then Earth and LUMEN-7 fade up with the pilot's breathing, and one line of his voice-over.
+- The spacewalk (`intro_spacewalk`): the pilot drifts in his spacesuit (sprite set `eva`, with its own frame size, a `bob`, and a `smooth` walk with no footsteps). Relay Control calls (`style: "radio"`) and he answers (`style: "comms"`).
+- The panel close-up (`intro_panel_closeup`): the boards are gone.
+- The cutscene `abduction`: the stars go out, the harvest, then "Outrider, respond" fainter each time over the cataloguing, the pods and the dark.
+- Then the wake-up in the Stasis Hold.
+

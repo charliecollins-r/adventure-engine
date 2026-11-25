@@ -94,6 +94,14 @@ export interface Setting {
   /** Buttons beside the verbs for things the player does to himself (hold your breath and listen, squeeze the lung-sac).
    *  Each runs its effects like an interaction; shown while `when` holds. See SCENARIO_SCHEMA → Player actions. */
   actions?: PlayerAction[];
+  /** Named cinematics, in the same format as intro_scenes, that the play_cutscene effect plays in the middle of the
+   *  game (full screen, skippable). See SCENARIO_SCHEMA → Cutscenes and a playable prologue. */
+  cutscenes?: Record<string, IntroScene[]>;
+  /** A playable opening before the real start: after the intro cinematic the game begins in `view` (not initial_view),
+   *  with no wake-up. The prologue ends with a play_cutscene effect that has `wake: true` (the wake-up staging then plays
+   *  in whatever view its `then` effects lead to). While it runs, the clock is stopped and a "Skip intro" button jumps
+   *  straight to initial_view and the wake-up. Skipped entirely with ?skipIntro, ?view or ?dev. */
+  prologue?: { view: string; skip_label?: string };
 }
 
 /** A HUD button that runs effects (setting.actions). */
@@ -325,6 +333,11 @@ export type TutorialTrigger =
 export interface TutorialStep {
   text: string;
   done_when: TutorialTrigger;
+  /** "only": a prologue tip, dropped once the prologue is over (played or skipped). "if_skipped": shown only to a
+   *  player who skipped the prologue (it repeats what the prologue taught). Default: always. */
+  prologue?: 'only' | 'if_skipped';
+  /** The tip waits (hidden) until these hold, e.g. a view_is, so tips can follow the player from a prologue into the game. */
+  when?: Condition[];
 }
 
 export interface Tutorial {
@@ -337,6 +350,8 @@ export interface View {
   background_key: string;
   background_file?: string;
   background_fit?: 'cover' | 'contain';
+  /** The idle line under the picture in this view (shown when there is no message), instead of setting.ambient_text; "" for none. */
+  ambient_text?: string;
   objects: string[];
   back_label?: string;
   room_animation?: string;
@@ -377,6 +392,8 @@ export interface WalkArea {
   footsteps?: Footsteps | false;
   /** Draw the character at this size here (multiplies depth_scale): a tiny figure crossing a vast place. Default 1. */
   scale?: number;
+  /** How the character moves on this floor, overriding character.walk_motion ("smooth" for drifting in space). */
+  motion?: 'paced' | 'stepped' | 'smooth';
   /** Walking speed multiplier on this floor (on top of the scale, which already slows a small figure). Default 1. */
   speed?: number;
   /** Shadows on the floor: standing still inside one hides you from sensing patrols. */
@@ -490,6 +507,16 @@ export interface Effect {
   layers?: { image: string; when?: Condition[] }[];
   /** set_checkpoint: the death screen offers no "Undo last move" while this checkpoint is set (restart from it instead). */
   no_undo?: boolean;
+  /** play_cutscene: the setting.cutscenes entry to play. */
+  cutscene?: string;
+  /** play_cutscene: after it, play the wake-up staging (setting.wake) in the view its `then` effects lead to,
+   *  and end the prologue. */
+  wake?: boolean;
+  /** message: how the line is delivered. "radio": a transmission (RADIO tag, cool italic text; the voice gets a
+   *  band-pass radio filter). "comms": the player talking over his suit radio (a light helmet-mic filter on the voice). */
+  style?: 'radio' | 'comms';
+  /** message with style "radio": how degraded the signal is, 0 (clean) to 1. Default 0.3. */
+  static?: number;
   /** sense: how many screens away it reaches, plus a bigger reach while conditions hold. */
   radius?: number;
   bonus?: { when: Condition[]; radius: number };
@@ -706,6 +733,13 @@ export interface SpriteSet {
   /** "top": the character's point is the top-centre of the frame (hands on a rope he hangs from), not the feet.
    *  For hanging and climbing poses used with the traverse effect. No shadow is drawn. Default "feet". */
   anchor?: 'feet' | 'top';
+  /** This sheet's own frame size and scale, when it differs from character.frame_width/frame_height/scale
+   *  (a spacesuit sheet drawn at another size). */
+  frame_width?: number;
+  frame_height?: number;
+  scale?: number;
+  /** Bob gently up and down while this set is shown (floating in space, treading water): pixels and seconds per bob. */
+  bob?: { amount: number; period: number };
 }
 
 export interface CharacterShadow {

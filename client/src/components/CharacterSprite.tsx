@@ -43,9 +43,9 @@ export function CharacterSprite({
   const spriteSet = config.sprite_sets[placement.sprite_set];
   if (!spriteSet) return null;
 
-  const fw = config.frame_width;
-  const fh = config.frame_height;
-  const scale = (config.scale ?? 1) * depthScale;
+  const fw = spriteSet.frame_width ?? config.frame_width;
+  const fh = spriteSet.frame_height ?? config.frame_height;
+  const scale = (spriteSet.scale ?? config.scale ?? 1) * depthScale;
   const frameRate = spriteSet.frame_rate ?? 6;
   const isStatic = placement.frame !== undefined || frameRate <= 0;
 
@@ -106,6 +106,10 @@ export function CharacterSprite({
     zIndex: layerZ ?? 5,
     cursor: interactive ? cursor : undefined,
     transform: (flipH || mirrorFacing) ? 'scaleX(-1)' : undefined,
+    ...(spriteSet.bob ? {
+      ['--kq-bob' as string]: `${-spriteSet.bob.amount * scaleY}px`,
+      animation: `kq-char-bob ${spriteSet.bob.period}s ease-in-out infinite`,
+    } : {}),
   };
 
   const handleClick = interactive
@@ -156,6 +160,7 @@ export function CharacterSprite({
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
+      {spriteSet.bob && <style>{'@keyframes kq-char-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 var(--kq-bob); } }'}</style>}
       <div data-object-hotspot style={style} onClick={handleClick} />
       {overlayElements}
     </>

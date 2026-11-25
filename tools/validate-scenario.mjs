@@ -115,6 +115,9 @@ function effs(es, ctx) {
     if (e.type === 'meter_transfer' && !meterIds.has(e.to)) errors.push(`${ctx}: meter_transfer to unknown meter "${e.to}"`);
     if (['pursuer_divert', 'pursuer_reset'].includes(e.type) && !pursuerIds.has(e.pursuer)) errors.push(`${ctx}: ${e.type} on unknown pursuer "${e.pursuer}"`);
     if (e.type === 'set_checkpoint' && !e.id) errors.push(`${ctx}: set_checkpoint has no "id"`);
+    if (e.type === 'play_cutscene' && !s.setting?.cutscenes?.[e.cutscene]) errors.push(`${ctx}: play_cutscene for unknown cutscene "${e.cutscene}" (setting.cutscenes)`);
+    if (e.type === 'message' && e.style && !['radio', 'comms'].includes(e.style)) errors.push(`${ctx}: message style "${e.style}" must be "radio" or "comms"`);
+    if (e.type === 'message' && e.voice) asset(e.voice, `${ctx} message voice`);
     if (e.type === 'sense') for (const k of e.kinds || []) {
       if (k.patrol && !patrolIds.has(k.patrol)) errors.push(`${ctx}: sense kind "${k.label}" on unknown patrol "${k.patrol}"`);
       for (const v of k.views || []) if (!viewIds.has(v)) errors.push(`${ctx}: sense kind "${k.label}" names unknown view "${v}"`);
@@ -164,9 +167,10 @@ for (const w of s.puzzle_widgets || []) if (w.widget_type === 'rhythm') {
   for (const x of w.config?.extra_phrases || []) { if (!/^[LS]+$/.test(x.pattern || '')) errors.push(`widget ${w.id}: extra phrase "${x.pattern}" must be L and S`); conds(x.when, `widget ${w.id}`); }
 }
 
-// Intro cinematic: every file exists, lights are complete, sprites have frames, lines have text
-(s.setting?.intro_scenes || []).forEach((sc, i) => {
-  const ctx = `intro scene #${i + 1}`;
+// Intro cinematic and cutscenes: every file exists, lights are complete, sprites have frames, lines have text
+const cinematics = [['intro', s.setting?.intro_scenes || []], ...Object.entries(s.setting?.cutscenes || {}).map(([id, scs]) => [`cutscene ${id}`, scs])];
+for (const [what, scenes] of cinematics) scenes.forEach((sc, i) => {
+  const ctx = `${what} scene #${i + 1}`;
   asset(sc.background, ctx); asset(sc.sound, ctx); asset(sc.loop, ctx); if (sc.music) asset(sc.music, ctx);
   const nLines = (sc.lines || []).length;
   const cueOk = (c, where) => {
@@ -195,6 +199,16 @@ for (const w of s.puzzle_widgets || []) if (w.widget_type === 'rhythm') {
 });
 
 if (!viewIds.has(s.setting?.initial_view)) errors.push(`setting.initial_view "${s.setting?.initial_view}" is not a view`);
+// A prologue starts in its own view and must end with a play_cutscene that wakes the player
+if (s.setting?.prologue) {
+  if (!viewIds.has(s.setting.prologue.view)) errors.push(`setting.prologue.view "${s.setting.prologue.view}" is not a view`);
+  if (!JSON.stringify(s).includes('"wake":true')) warnings.push('setting.prologue: no play_cutscene with "wake": true, so the prologue never ends (only Skip intro leaves it)');
+}
+(s.setting?.tutorial?.steps || []).forEach((st, i) => {
+  conds(st.when, `tutorial tip #${i + 1}`);
+  if (st.prologue && !['only', 'if_skipped'].includes(st.prologue)) errors.push(`tutorial tip #${i + 1}: prologue must be "only" or "if_skipped"`);
+  if (st.prologue && !s.setting?.prologue) warnings.push(`tutorial tip #${i + 1}: marked prologue "${st.prologue}" but the scenario has no setting.prologue`);
+});
 for (const v of scopeViews) {
   for (const o of v.objects) if (!objIds.has(o)) errors.push(`view ${v.id}: lists unknown object "${o}"`);
   asset(v.background_file, `view ${v.id}`);

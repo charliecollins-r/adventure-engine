@@ -214,6 +214,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     if (dev.skipIntro) return false;
     return !!(scenario.setting.intro_scenes?.length || scenario.setting.intro_text?.length);
   });
+  // A playable prologue (setting.prologue): after the intro cinematic the game starts in the prologue's view, with no
+  // wake-up; a play_cutscene with `wake: true` ends it. Skipped with the intro (?skipIntro, ?view, ?dev).
+  const prologue = scenario.setting.prologue;
+  const [prologueActive, setPrologueActive] = useState(() => !!prologue && !dev.skipIntro && !!scenario.views.find((v) => v.id === prologue.view));
+  /** The prologue was played through to its cutscene (not skipped): "if_skipped" tutorial tips stay hidden. */
+  const [prologuePlayed, setProloguePlayed] = useState(false);
+  /** The wake-up staging (setting.wake) may run: at once without a prologue, after the prologue's cutscene with one. */
+  const [wakeArmed, setWakeArmed] = useState(() => !prologueActive);
+  /** A short fade up from black as the prologue's first view appears. */
+  const [prologueFade, setPrologueFade] = useState(false);
   const [eyeOpen, setEyeOpen] = useState(false);
   const [skipEyeTransition] = useState(() => dev.skipIntro);
   const [activeVerb, setActiveVerb] = useState('look');
@@ -235,17 +245,52 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     setTutIndex(null);
     try { localStorage.setItem(tutorialKey, '1'); } catch { /* storage unavailable: just hide it */ }
   }, [tutorialKey]);
+  // Tips marked `prologue: "only"` belong to the prologue; `"if_skipped"` ones repeat its lessons for a player who skipped it.
+  const prologueRef = useRef({ active: prologueActive, played: prologuePlayed });
+  prologueRef.current = { active: prologueActive, played: prologuePlayed };
+  const stepApplies = useCallback((i: number) => {
+    const st = tutorialSteps[i];
+    if (!st) return false;
+    if (st.prologue === 'only') return prologueRef.current.active;
+    if (st.prologue === 'if_skipped') return !prologueRef.current.active && !prologueRef.current.played;
+    return true;
+  }, [tutorialSteps]);
+  /** The first tip from `from` on that applies, or null. */
+  const nextTip = useCallback((from: number) => {
+    for (let j = from; j < tutorialSteps.length; j++) if (stepApplies(j)) return j;
+    return null;
+  }, [tutorialSteps.length, stepApplies]);
   const advanceTutorial = useCallback(() => {
     const i = tutRef.current;
     if (i === null) return;
-    if (i + 1 >= tutorialSteps.length) finishTutorial();
-    else setTutIndex(i + 1);
-  }, [tutorialSteps.length, finishTutorial]);
-  /** Tell the tutorial the player just did something; the current tip moves on if it was waiting for that. */
+    const j = nextTip(i + 1);
+    if (j === null) finishTutorial();
+    else setTutIndex(j);
+  }, [nextTip, finishTutorial]);
+  /** Tell the tutorial the player just did something; the current tip moves on if it was waiting for that (and showing). */
   const tutorialEvent = useCallback((t: TutorialTrigger) => {
     const i = tutRef.current;
-    if (i !== null && tutorialSteps[i]?.done_when === t) advanceTutorial();
+    if (i !== null && tutorialSteps[i]?.done_when === t && engineRef.current.checkConditions(tutorialSteps[i].when)) advanceTutorial();
   }, [tutorialSteps, advanceTutorial]);
+  // A tip waiting in a room the player has left (its `when` no longer holds) is passed over when a later one fits here:
+  // a player who opened the panel without first drifting around still gets the panel's tip.
+  const viewNow = engineRef.current.currentViewId;
+  useEffect(() => {
+    const i = tutRef.current;
+    const eng = engineRef.current;
+    if (i === null || eng.checkConditions(tutorialSteps[i]?.when)) return;
+    for (let j = i + 1; j < tutorialSteps.length; j++) {
+      if (stepApplies(j) && eng.checkConditions(tutorialSteps[j].when)) { setTutIndex(j); return; }
+    }
+  }, [viewNow, tutorialSteps, stepApplies]);
+  // When the prologue ends, its own tips are dropped.
+  useEffect(() => {
+    if (prologueActive) return;
+    const i = tutRef.current;
+    if (i === null || stepApplies(i)) return;
+    const j = nextTip(i);
+    if (j === null) finishTutorial(); else setTutIndex(j);
+  }, [prologueActive, stepApplies, nextTip, finishTutorial]);
   const [walkthroughHighlights, setWalkthroughHighlights] = useState<string[]>([]);
   const [devPanelOpen, setDevPanelOpen] = useState(() => dev.isDev);
   const audioRefs = useRef<HTMLAudioElement[]>([]);
@@ -256,7 +301,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   (window as unknown as Record<string, unknown>).__setHighlights = (ids: string[]) => { setWalkthroughHighlights(ids); };
   (window as unknown as Record<string, unknown>).__setDebug = (on: boolean) => { setDebugMode(on); };
 
-  const [standingUp, setStandingUp] = useState(() => dev.skipIntro);
+  const [standingUp, setStandingUp] = useState(() => dev.skipIntro || prologueActive);
   const [introVoiceDurationMs, setIntroVoiceDurationMs] = useState<number | null>(null);
 
   const standupSet = scenario.character?.sprite_sets?.['standup'];
@@ -310,6 +355,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     };
   }, [scenario]);
 
+  // Without a prologue to play (none, or skipped by ?skipIntro/?view/?dev), the game proper begins now.
+  useEffect(() => { if (!prologueActive) { engine.beginGame(); bump(); } }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (dev.startView) {
       engine.navigateToView(dev.startView);
@@ -318,14 +366,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!showIntro && !eyeOpen && timingReady) {
+    if (!showIntro && wakeArmed && !eyeOpen && timingReady) {
       if (standupSet) {
         engine.setCharacterOverride({ sprite_set: 'standup', frame: 0 });
         bump();
       }
       setEyeOpen(true);
     }
-  }, [showIntro, eyeOpen, engine, bump, scenario, standupSet, timingReady]);
+  }, [showIntro, wakeArmed, eyeOpen, engine, bump, scenario, standupSet, timingReady]);
 
   useEffect(() => {
     if (!eyeOpen || standingUp || !standupSet) return;
@@ -337,12 +385,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     return () => clearTimeout(timer);
   }, [eyeOpen, standingUp, engine, bump, standupSet, standupDelayMs]);
 
+  const cutscene = engine.getCutscene();
+  /** A full-screen cinematic is up (the intro or a cutscene): the rooms' sound and the clock wait. */
+  const cinematicUp = showIntro || !!cutscene;
   const prevAudioKey = useRef<string>('');
   useEffect(() => {
     const view = engine.getCurrentView();
     const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
     // nothing from the rooms plays while the intro is up (the intro has its own sound)
-    const files = showIntro ? [] : raw ? (Array.isArray(raw) ? raw : [raw]) : [];
+    const files = cinematicUp ? [] : raw ? (Array.isArray(raw) ? raw : [raw]) : [];
     const key = files.join('|');
 
     if (key === prevAudioKey.current) return;
@@ -374,14 +425,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const musicFile = (() => { const v = engine.getCurrentView(); return v.music !== undefined ? v.music : scenario.setting.music ?? null; })();
   useEffect(() => {
     const cur = musicRef.current;
-    if (cur && cur.dataset.file === (musicFile ?? '')) return;
+    if (cur && cur.dataset.file === (musicFile ?? '') && !cinematicUp) return;
     if (cur) { cur.pause(); cur.src = ''; musicRef.current = null; }
-    if (!musicFile || showIntro) return;
+    if (!musicFile || cinematicUp) return;
     const a = new Audio(resolveAsset(scenario.metadata.id, musicFile));
     a.dataset.file = musicFile; a.loop = true; a.volume = scenario.setting.music_volume ?? 0.3; a.muted = muted;
     a.play().catch(() => {});
     musicRef.current = a;
-  }, [musicFile, showIntro, muted, scenario]);
+  }, [musicFile, cinematicUp, muted, scenario]);
   useEffect(() => () => { musicRef.current?.pause(); }, []);
 
   useEffect(() => {
@@ -402,12 +453,38 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     }
   }, []);
 
+  /** Voices delivered over a radio (message style "radio") or a suit mic ("comms") go through a filter. */
+  const voiceCtx = useRef<AudioContext | null>(null);
+  const routeVoice = useCallback((audio: HTMLAudioElement, style: 'radio' | 'comms', signal = 0.3) => {
+    try {
+      const ctx = voiceCtx.current ?? (voiceCtx.current = new AudioContext());
+      if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+      const radio = style === 'radio';
+      const src = ctx.createMediaElementSource(audio);
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = radio ? 450 : 170;
+      const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = radio ? 3300 : 7000;
+      const pk = ctx.createBiquadFilter(); pk.type = 'peaking'; pk.frequency.value = radio ? 1800 : 2600; pk.Q.value = 0.8; pk.gain.value = radio ? 6 : 3;
+      src.connect(hp).connect(lp).connect(pk);
+      if (radio) {
+        // a little grit, more for a worse signal
+        const sh = ctx.createWaveShaper(); const k = 2 + 30 * Math.max(0, Math.min(1, signal)); const n = 1024; const curve = new Float32Array(n);
+        for (let i = 0; i < n; i++) { const x = (i * 2) / n - 1; curve[i] = ((1 + k) * x) / (1 + k * Math.abs(x)); }
+        sh.curve = curve;
+        const g = ctx.createGain(); g.gain.value = 0.8;
+        pk.connect(sh).connect(g).connect(ctx.destination);
+      } else pk.connect(ctx.destination);
+    } catch { /* no Web Audio: play it plain */ }
+  }, []);
+  useEffect(() => () => { voiceCtx.current?.close().catch(() => {}); }, []);
+
   const playSound = useCallback(
     (file: string) => {
       if (muted) return;
-      const isVoice = file.includes('voice/');
+      const lineStyle = engineRef.current.getLineStyle(file);
+      const isVoice = file.includes('voice/') || !!lineStyle;
       const audio = new Audio(resolveAsset(scenarioId, file));
       audio.volume = isVoice ? 0.9 : 0.5;
+      if (lineStyle) routeVoice(audio, lineStyle.style, lineStyle.static);
       if (isVoice) {
         stopVoice();
         voiceRef.current = audio;
@@ -415,7 +492,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       }
       audio.play().catch(() => {});
     },
-    [scenarioId, muted, stopVoice],
+    [scenarioId, muted, stopVoice, routeVoice],
   );
 
   useEffect(() => {
@@ -427,7 +504,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [eyeOpen, playSound, scenario, voiceDelayMs]);
 
   useEffect(() => {
-    if (!standingUp) return;
+    if (!standingUp || !wakeArmed) return;
     const standupSet = scenario.character?.sprite_sets?.['standup'];
     if (!standupSet) return;
     const frameRate = standupSet.frame_rate || 3;
@@ -437,7 +514,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       bump();
     }, duration);
     return () => clearTimeout(timer);
-  }, [standingUp, engine, bump, scenario]);
+  }, [standingUp, wakeArmed, engine, bump, scenario]);
 
   const playPendingSounds = useCallback(() => {
     const sounds = engine.getPendingSounds();
@@ -449,7 +526,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   // The clock runs only while the player is in control: not during the intro or the wake-up, and it
   // stops for dialogue, puzzle widgets, close-up overlays, death screens and a hidden tab.
   useEffect(() => { if (dev.noPatrols) engine.patrolsEnabled = false; }, [engine, dev.noPatrols]);
-  const clockOn = !showIntro && (!standupSet || standingUp);
+  const clockOn = !cinematicUp && !prologueActive && (!standupSet || standingUp);
   useEffect(() => {
     if (!clockOn) return;
     let last = performance.now();
@@ -492,7 +569,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     let done = false;
     try { done = !dev.forceTutorial && localStorage.getItem(tutorialKey) === '1'; } catch { /* no storage */ }
     if (done) return;
-    const t = setTimeout(() => setTutIndex((i) => (i === null ? 0 : i)), standupSet ? standupAnimMs + 1200 : 1500);
+    const first = nextTip(0);
+    if (first === null) return;
+    const t = setTimeout(() => setTutIndex((i) => (i === null ? first : i)), standupSet && !prologueActive ? standupAnimMs + 1200 : 1500);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showIntro, standingUp]);
@@ -674,7 +753,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     job.walkTime += dt;
     const steps = job.locked ? null : stepConfig(job.area, job.walkSet);
     const ws = scenario.character?.sprite_sets[job.walkSet];
-    const motion = scenario.character?.walk_motion ?? 'paced';
+    const motion = job.area.motion ?? scenario.character?.walk_motion ?? 'paced';
     const synced = motion !== 'smooth' && !!ws && (ws.frame_rate ?? 0) > 0;
     let shownAt = job.travelled;
     let frame: number | undefined;
@@ -929,6 +1008,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     walkRef.current = null;
     setPose(null);
     engineRef.current = new ScenarioEngine(scenario);
+    engineRef.current.beginGame();   // a restart starts in the ship, past any prologue
     setActiveVerb('look');
     setSelectedItem(null);
     setInventoryOpen(false);
@@ -1027,6 +1107,67 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     bump();
   }, [engine, bump]);
 
+  // ── Prologue and cutscenes ─────────────────────────────────────────────────
+  /** Start the wake-up staging (setting.wake) in the current view; the prologue is over. */
+  const startWake = useCallback(() => {
+    engineRef.current.beginGame();
+    setPrologueActive(false);
+    setWakeArmed(true);
+    setEyeOpen(false);
+    setStandingUp(false);
+  }, []);
+  /** The intro cinematic ended: into the prologue's first view (or the wake-up, without a prologue). */
+  const handleIntroComplete = useCallback(() => {
+    setShowIntro(false);
+    if (!prologueActive || !prologue) return;
+    engine.runEffects([{ type: 'set_view', view: prologue.view, sound: null }]);
+    prevViewRef.current = engine.currentViewId;
+    setPrologueFade(true);
+    playPendingSounds();
+    bump();
+  }, [engine, prologue, prologueActive, playPendingSounds, bump]);
+  /** Skip the prologue (from the intro's skip button or the title-bar button): straight to the real start and the wake-up. */
+  const skipPrologue = useCallback(() => {
+    setShowIntro(false);
+    if (!prologueActive) return;
+    cancelAnimationFrame(rafRef.current);
+    walkRef.current = null;
+    setPose(null);
+    stopVoice();
+    engine.cancelDelays();
+    if (engine.getCutscene()) engine.finishCutscene();
+    if (engine.currentViewId !== scenario.setting.initial_view) {
+      engine.runEffects([{ type: 'set_view', view: scenario.setting.initial_view, sound: null }]);
+    }
+    engine.clearPendingSounds();
+    engine.dismissMessages();
+    prevViewRef.current = engine.currentViewId;   // startWake → beginGame() shows the opening message
+    undoRef.current = null;
+    setSelectedItem(null);
+    startWake();
+    bump();
+  }, [engine, prologueActive, scenario, stopVoice, startWake, bump]);
+  /** A cutscene ended (or was skipped): its `then` effects, and the wake-up if it asked for one. */
+  const handleCutsceneEnd = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    walkRef.current = null;
+    setPose(null);
+    const { wake } = engine.finishCutscene();
+    prevViewRef.current = engine.currentViewId;
+    undoRef.current = null;
+    if (wake) { setProloguePlayed(true); startWake(); }
+    playPendingSounds();
+    bump();
+  }, [engine, startWake, playPendingSounds, bump]);
+  const endPrologueFade = useCallback(() => setPrologueFade(false), []);
+
+  /** The tips this player will see, in order: the prologue's own, or the ones repeating it for a player who skipped it. */
+  const sawPrologue = prologueActive || prologuePlayed;
+  const tipRoute = tutorialSteps.map((_, i) => i).filter((i) => {
+    const pr = tutorialSteps[i].prologue;
+    return pr === 'only' ? sawPrologue : pr === 'if_skipped' ? !sawPrologue : true;
+  });
+
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
   const noiseLevel = engine.getNoiseLevel();
@@ -1049,7 +1190,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const closeupImage = engine.getCloseupImage();
   const dialogue = engine.getDialogue();
   const activeWidget = engine.getActiveWidget();
-  const ambientText = scenario.setting.ambient_text;
+  const ambientText = engine.getCurrentView().ambient_text ?? scenario.setting.ambient_text;
 
   const handleCloseupDismiss = useCallback(() => {
     engine.dismissCloseup();
@@ -1062,7 +1203,20 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         scenes={scenario.setting.intro_scenes}
         scenarioId={scenario.metadata.id}
         title={scenario.metadata.title}
-        onComplete={() => setShowIntro(false)}
+        onComplete={handleIntroComplete}
+        onSkip={skipPrologue}
+      />
+    );
+  }
+
+  if (cutscene && scenario.setting.cutscenes?.[cutscene.id]?.length) {
+    return (
+      <IntroCinematic
+        key={cutscene.id}
+        scenes={scenario.setting.cutscenes[cutscene.id]}
+        scenarioId={scenario.metadata.id}
+        onComplete={handleCutsceneEnd}
+        skipLabel={cutscene.wake ? 'skip intro ›' : 'skip ›'}
       />
     );
   }
@@ -1072,7 +1226,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       <IntroSequence
         pages={scenario.setting.intro_text}
         title={scenario.metadata.title}
-        onComplete={() => setShowIntro(false)}
+        onComplete={handleIntroComplete}
       />
     );
   }
@@ -1115,6 +1269,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               {a.label}
             </button>
           ))}
+          {prologueActive && !showIntro && (
+            <button data-skip-prologue title="Skip the opening and start in the ship"
+              style={{ ...styles.chromeButton, color: '#c0a030', borderColor: '#5a4a30', whiteSpace: 'nowrap' }}
+              onClick={skipPrologue}>
+              {prologue?.skip_label ?? 'Skip intro ›'}
+            </button>
+          )}
           {scenario.setting.dev_skip && !engine.isGameOver() && (
             <button
               data-dev-skip
@@ -1207,8 +1368,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           characterPose={pose}
         />
 
-        {tutIndex !== null && (
-          <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} />
+        {tutIndex !== null && !(wakeArmed && !standingUp) && engine.checkConditions(tutorialSteps[tutIndex]?.when) && (
+          <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} number={tipRoute.indexOf(tutIndex) + 1} total={tipRoute.length} />
         )}
 
         {/* Bottom HUD overlay — hint button only */}
@@ -1231,7 +1392,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         </div>
 
         {/* Eye-open animation scoped to viewport */}
-        {!skipEyeTransition && <EyeOpenTransition active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
+        {prologueFade && <EyeOpenTransition active durationMs={900} holdMs={0} onComplete={endPrologueFade} />}
+        {!skipEyeTransition && wakeArmed && <EyeOpenTransition key={prologuePlayed ? 'after-prologue' : 'start'} active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
       </div>
 
       {/* Inventory + text feedback below viewport */}
@@ -1283,11 +1445,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         {/* Messages or ambient text */}
         {messages.length > 0 ? (
           <div style={{ ...styles.messagePanel, width: '100%' }} onClick={handleDismiss}>
-            {messages.map((msg, i) => (
-              <p key={i} style={styles.messageText}>
-                {msg}
-              </p>
-            ))}
+            {messages.map((msg, i) => {
+              const ls = engine.getLineStyle(msg);
+              return ls?.style === 'radio' ? (
+                <p key={i} data-radio-line style={{ ...styles.messageText, fontStyle: 'italic', color: '#9ad0e0' }}>
+                  <span style={{ fontSize: '10px', letterSpacing: '2px', color: '#5a8a9a', marginRight: '8px', fontStyle: 'normal' }}>RADIO</span>{msg}
+                </p>
+              ) : (
+                <p key={i} style={styles.messageText}>{msg}</p>
+              );
+            })}
             <div style={styles.dismissHint}>click to dismiss</div>
           </div>
         ) : ambientText ? (

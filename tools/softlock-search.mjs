@@ -189,6 +189,7 @@ console.log(`cone of influence: ${coneFlags.length} flags, ${coneStates.length} 
 const base = new ScenarioEngine(scenario);
 base.immediateDelays = true;   // delayed effects (a line coming back, a guard catching you) happen in the same step
 base.patrolsEnabled = false;
+base.autoCutscenes = true;     // a cutscene's `then` effects apply at once
 if (fromDevSkip) {
   if (!scenario.setting.dev_skip) { console.error('--from-dev-skip: the scenario has no setting.dev_skip'); process.exit(1); }
   base.runEffects(scenario.setting.dev_skip.effects);

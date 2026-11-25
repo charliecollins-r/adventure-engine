@@ -65,7 +65,7 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     // click through the narration to hear every radio line
     for (let i = 0; i < 14; i++) {
       await p.waitForFunction(() => { const el = document.querySelector('[data-intro-line]'); return el && getComputedStyle(el).opacity === '1'; }, null, { timeout: 25000 }).catch(() => {});
-      const dup = await p.evaluate(() => { const live = window.__plays.filter((x) => !x.el.paused && /radio_|narr_/.test(x.src)).map((x) => x.src); return live.length !== new Set(live).size ? live : null; });
+      const dup = await p.evaluate(() => { const live = window.__plays.filter((x) => !x.el.paused && /radio_|narr_|\/v2\/[cpn]\d/.test(x.src)).map((x) => x.src); return live.length !== new Set(live).size ? live : null; });
       if (dup) { fail('a voice line plays twice at once: ' + dup); break; }
       const room = await p.evaluate(() => (document.querySelector('[data-intro-cinematic]') ? window.__plays.filter((x) => !x.el.paused && /haunted|ambient_lab|ambient_industrial/.test(x.src)).map((x) => x.src) : []));
       if (room.length) { fail('room ambience plays under the intro: ' + room); break; }

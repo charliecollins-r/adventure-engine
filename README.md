@@ -196,6 +196,7 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6 are in the JSON so far) including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
 
 **Act 1 is fully playable** with:
+- **A playable opening** — a short cold open, then you *play* the spacewalk at relay satellite LUMEN-7 (drift with Move, open the panel with Hand, look inside) while Relay Control talks to you on the radio; the tutorial teaches the verbs right there. Then the stars go out, a cutscene carries you off, and you wake in the Stasis Hold. Fully voiced (ElevenLabs), skippable at every step
 - **199 views** — 9 rooms (Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay), 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and **The Colony**, a 180-screen vent maze in three zones: the Outer Ducts, the Gut (the Vesk colony's home, with the Warren, a city you cross as a speck) and the Purge Core
 - **The Colony** — a breath meter (every screen costs a breath; cold folds and breathing ducts refill it; Listen spends one to hear what's near), Wardens that hunt you until you win over the colony's Queen, a stealth crossing of the Warren on the lung's wind, an Audience where you answer the Queen in breath (a rhythm puzzle), the purge surge, the Curator reaching in at the Purge Core's grates, a race to the Purge Heart, and zone checkpoints so a death costs a zone, never the game
 - **23 items in Act 1** — the original 16 (15 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft) and 7 from the vents (lung-sac, call-stone, hollowed tag, the Queen's egg, a claw ring, Vera's patch, the Choir multitool)
@@ -232,6 +233,9 @@ Give a view a floor outline and the player walks, King's Quest V style: Move wal
 
 ### Object Sprites
 Animated sprite sheets on world objects — pacing prisoners, spinning holograms, scanning robots. Defined via `sprite` field in object JSON with frame dimensions, animation rate, and scale. Bottom-center anchored with JSON-configurable shadows matching the character shadow system.
+
+### Cutscenes and a Playable Prologue
+Cinematics are not just for the intro: `setting.cutscenes` holds named scenes in the intro's format, and the `play_cutscene` effect plays one mid-game. `setting.prologue` makes the opening playable: the game starts in a prologue view with its own tutorial tips and a Skip intro button, and a cutscene with `wake: true` hands over to the real start. Voiced lines can be delivered over the radio or a helmet mic (`message.style`), each with its own audio filter.
 
 ### Closeup Overlays
 Detail images displayed in a dismissable framed overlay for examining objects up close (The Harvest's ventilation map). For close-ups the player can click into, use a sub-view with a back button: the cataloguer robot in The Harvest opens a specimen close-up whose displays show the four-glyph code for the lab terminal keypad.

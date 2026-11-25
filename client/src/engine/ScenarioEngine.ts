@@ -122,6 +122,12 @@ export class ScenarioEngine {
   private liveMoving = false;
   /** Last phase seen per cycle (for its sound and message). */
   private cyclePhaseSeen: Record<string, string> = {};
+  /** A cutscene waiting to be played by the UI (play_cutscene). */
+  private _pendingCutscene: { id: string; wake: boolean; then: Effect[] } | null = null;
+  /** How message lines are delivered (style "radio"/"comms"), keyed by text and by voice file. */
+  private lineStyles = new Map<string, { style: 'radio' | 'comms'; static?: number }>();
+  /** Headless runs (tests, the soft-lock search): play_cutscene applies its `then` effects at once. */
+  autoCutscenes = false;
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -165,8 +171,19 @@ export class ScenarioEngine {
     for (const m of scenario.meters ?? []) this.meterValues[m.id] = m.initial ?? m.max;
     for (const p of scenario.pursuers ?? []) this.pursuerState[p.id] = { distance: p.start_distance, humming: false, hum: 0 };
 
-    if (this._currentPhaseId && scenario.phases?.[0]?.on_enter) {
-      this.applyEffects(scenario.phases[0].on_enter);
+    // With a playable prologue, the game proper (the first phase's on_enter) begins when the prologue ends: beginGame().
+    if (!scenario.setting.prologue) this.beginGame();
+  }
+
+  private gameBegun = false;
+  /** Run the first phase's on_enter (its opening message and sound), once. The constructor does this unless the
+   *  scenario has a prologue; then the UI calls it when the prologue ends or is skipped. */
+  beginGame(): void {
+    if (this.gameBegun) return;
+    this.gameBegun = true;
+    if (this._currentPhaseId && this.scenario.phases?.[0]?.on_enter) {
+      this._messages = [];
+      this.applyEffects(this.scenario.phases[0].on_enter);
     }
   }
 
@@ -349,6 +366,37 @@ export class ScenarioEngine {
 
   getNoiseLevel(): number {
     return this._noiseLevel;
+  }
+
+  /** The cutscene play_cutscene asked for, waiting for the UI to play it. */
+  getCutscene(): { id: string; wake: boolean } | null {
+    return this._pendingCutscene ? { id: this._pendingCutscene.id, wake: this._pendingCutscene.wake } : null;
+  }
+
+  /** The UI finished (or skipped) the cutscene: apply its `then` effects. Returns whether the wake-up should follow. */
+  finishCutscene(): { wake: boolean } {
+    const c = this._pendingCutscene;
+    this._pendingCutscene = null;
+    if (!c) return { wake: false };
+    this.epoch++;   // nothing timed before the cutscene carries on after it
+    this._messages = [];
+    this.runEffects(c.then);
+    return { wake: c.wake };
+  }
+
+  /** Cancel every delay_then still waiting (leaving a prologue, skipping a scene). */
+  cancelDelays(): void {
+    this.epoch++;
+  }
+
+  /** Evaluate conditions against the current state (for the UI: tutorial tips that wait for a view). */
+  checkConditions(conditions: Condition[] | undefined): boolean {
+    return this.evaluateConditions(conditions);
+  }
+
+  /** How a message line or voice clip is delivered ("radio", "comms"), if the message effect said. */
+  getLineStyle(textOrVoice: string): { style: 'radio' | 'comms'; static?: number } | null {
+    return this.lineStyles.get(textOrVoice) ?? null;
   }
 
   getMessages(): string[] {
@@ -1307,6 +1355,10 @@ export class ScenarioEngine {
             messages.push(e.text);
             this._messages.push(e.text);
             if (e.voice) this._pendingSounds.push(e.voice);
+            if (e.style) {
+              this.lineStyles.set(e.text, { style: e.style, static: e.static });
+              if (e.voice) this.lineStyles.set(e.voice, { style: e.style, static: e.static });
+            }
           }
           break;
 
@@ -1481,8 +1533,7 @@ export class ScenarioEngine {
             const epoch = this.epoch;
             setTimeout(() => {
               if (epoch !== this.epoch) return;
-              const delayMessages = this.applyEffects(delayedEffects);
-              this._messages.push(...delayMessages);
+              this.applyEffects(delayedEffects);   // message effects add their own lines to _messages
               this.checkGameEndConditions();
               this.changeListener?.();
             }, delayMs);
@@ -1560,6 +1611,13 @@ export class ScenarioEngine {
           const n = Math.max(0, Math.min(this.meterValues[from.id] ?? 0, room, e.amount ?? Infinity));
           this.changeMeter(from.id, -n, messages);
           this.changeMeter(to.id, n, messages);
+          break;
+        }
+
+        case 'play_cutscene': {
+          if (!e.cutscene) break;
+          if (this.autoCutscenes) { messages.push(...this.applyEffects(e.then ?? [])); break; }
+          this._pendingCutscene = { id: e.cutscene, wake: !!e.wake, then: e.then ?? [] };
           break;
         }
 

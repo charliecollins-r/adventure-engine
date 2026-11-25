@@ -814,6 +814,7 @@ Effects change the game world. They execute in order within a `then` array.
 | Type | Fields | What It Does |
 |------|--------|-------------|
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects |
+| `play_cutscene` | `cutscene`, `wake`?, `then`? | Play a named cinematic from `setting.cutscenes` (same format as the intro), then apply `then`. `wake: true` ends a playable prologue with the wake-up (see SCENARIO_SCHEMA → Cutscenes and a playable prologue) |
 | `conditional_effect` | `when`, `then`, `else` | If conditions met, do `then`; otherwise do `else` |
 | `trigger_event` | `event` | Fire a named event (not implemented yet; condition-triggered events work) |
 | `visual_cue` | `cue` | Visual effect: `"shake"`, `"flash"`, `"flicker"` (planned) |
@@ -1293,6 +1294,8 @@ Teach new players the controls with a few tips that advance as they do things:
   ] }
 }
 ```
+
+Tips can also wait for a room (`when`, e.g. `[{"type": "view_is", "view": "intro_spacewalk"}]`), and with a playable prologue (`setting.prologue`) mark its tips `"prologue": "only"` and the ones that repeat them for skippers `"prologue": "if_skipped"`.
 
 `done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL.
 

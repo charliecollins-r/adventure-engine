@@ -1,0 +1,303 @@
+"""Write The Harvest's new opening into scenario.json (idempotent; safe to re-run).
+
+    cd scenarios/the-harvest && python3 scripts/build_intro_v2.py
+
+The opening, about 80 seconds (design: the "First Impression" doc):
+  1. Cold open (setting.intro_scenes): the title, then Earth and LUMEN-7 fade up with the pilot's breathing; one line of
+     his own voice-over (N1). It ends on exactly the picture the game starts on, so the cut is seamless.
+  2. The spacewalk (view intro_spacewalk, the prologue): playable. Relay Control asks for eyes on the satellite (C1),
+     the pilot answers (P1). The tutorial teaches the verbs here: right-click, MOVE to drift, HAND the panel (P3).
+  3. The panel (view intro_panel_closeup): LOOK or HAND inside. The boards are gone (P4); Control can't explain it (C2).
+  4. The cutscene "abduction" (setting.cutscenes): the stars go out (P5, C3), the harvest (P6), then "Outrider,
+     respond" under the cataloguing, the pods and the dark (C4, fainter each time). Then the wake-up in the Stasis Hold.
+
+Voices: the pilot is the Silas voice (the same voice that narrates the rooms) with a helmet-mic filter on lines he says
+to Control (message style "comms"); Relay Control is the Emily voice through the radio filter (style "radio").
+Audio lives in intro/audio/v2/ (mastered by master_intro_audio.py).
+"""
+import json, re
+
+PATH = 'scenario.json'
+A = 'intro/audio/v2/'
+SPACE = 'intro_spacewalk'
+PANEL = 'intro_panel_closeup'
+
+# Clip lengths in seconds (measured), so lines follow each other without overlapping.
+LEN = {'c1': 6.19, 'p1': 6.92, 'p3': 2.59, 'p4': 6.35, 'c2': 9.40}
+
+C1 = "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it."
+P1 = "“Eyes on it. Big, expensive, and not talking. Heading for the access panel.”"
+P3 = "“Panel's open. ...Huh.”"
+P4 = "“Control, the boards are missing. All of them. Somebody unplugged this thing and took the parts home.”"
+C2 = "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great."
+P5 = "“Control. The stars.”"
+C3 = "Outrider, long-range is showing something. It's big. It's right on top of y—"
+P6 = "“Control, something's pulling me in, I can't—”"
+C4 = "Outrider, respond. Outrider, come back."
+
+EVA = {'file': 'intro/sprites/eva.png', 'frame_width': 386, 'frame_height': 419, 'columns': 5, 'frame_rate': 0}
+SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
+START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
+EVA_SCALE = 0.33
+
+
+def msg(text, voice=None, style=None, static=None):
+    m = {'type': 'message', 'text': text}
+    if voice: m['voice'] = A + voice + '.mp3'
+    if style: m['style'] = style
+    if static is not None: m['static'] = static
+    return m
+
+
+def later(seconds, *effects):
+    return {'type': 'delay_then', 'seconds': round(seconds, 2), 'effects': list(effects)}
+
+
+def obj(oid, name, desc, pos, size, interactions, **extra):
+    o = {'id': oid, 'name': name, 'description': desc, 'position': {'x': pos[0], 'y': pos[1]},
+         'size': {'width': size[0], 'height': size[1]}, 'visual': {'color': 'transparent', 'label': name},
+         'initial_state': 'default', 'interactions': interactions}
+    o.update(extra)
+    return o
+
+
+def say(verb, text, **extra):
+    return {'verb': verb, 'then': [msg(text)], **extra}
+
+
+# ── 1. Cold open ──────────────────────────────────────────────────────────────
+COLD_OPEN = [{
+    'background': 'intro/backgrounds/intro_orbit.webp',
+    'loop': A + 'breath_loop.mp3',
+    'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1}, 'seconds': 13},
+    'sprites': [{**EVA, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
+    'ambient_lighting': {'lights': [SUN]},
+    'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
+    'lines': [{'text': 'Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.', 'voice': A + 'n1.mp3', 'pause': 3.4}],
+    'music': 'intro/audio/bed_stargazer.mp3', 'music_volume': 0.5,
+    'hold': 13, 'tail': 0.8, 'fade_in': 3.5,
+}]
+
+# ── 4. The abduction ──────────────────────────────────────────────────────────
+ABDUCTION = [
+    {   # the stars go out: no narrator, the pilot sees it, Control is cut off
+        'background': 'intro/backgrounds/intro_shadow.webp',
+        'loop': A + 'breath_loop.mp3',
+        'sound': A + 'stars_out.mp3',
+        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.1, 'y': -30}, 'seconds': 14},
+        'sprites': [{**EVA, 'frames': [2], 'scale': 0.22, 'at': [150, 485], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
+        'ambient_lighting': {'lights': [
+            {'x': 0.47, 'y': 0.16, 'radius': 0.3, 'color': [70, 255, 190], 'alpha': 0.22, 'pulse_speed': 0.35, 'pulse_amount': 0.5, 'phase': 0},
+            {'x': 0.22, 'y': 0.22, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.27, 'pulse_amount': 0.6, 'phase': 1.5},
+            {'x': 0.78, 'y': 0.2, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.31, 'pulse_amount': 0.6, 'phase': 3.1}]},
+        'lines': [
+            {'text': P5, 'voice': A + 'p5.mp3', 'pause': 2.6},
+            {'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.6, 'pause': 1.2},
+        ],
+        'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'cue': 'line:1', 'volume': 0.9}],
+        'music': 'intro/audio/music_dread.mp3', 'music_volume': 0.45,
+        'tail': 2.2, 'fade_in': 1.2,
+    },
+    {   # the harvest beam
+        'background': 'intro/backgrounds/intro_taken.webp',
+        'sound': A + 'harvest.mp3',
+        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.14, 'y': -60}, 'seconds': 9},
+        'sprites': [{**EVA, 'frame_rate': 0.45, 'frames': [3, 3, 3, 3, 4], 'loop': False, 'scale': 0.42, 'at': [470, 650],
+                     'move': {'to': [482, 110], 'scale': 0.05, 'seconds': 8, 'delay': 0.4}, 'spin': 150}],
+        'ambient_lighting': {'lights': [
+            {'x': 0.5, 'y': 0.13, 'radius': 0.3, 'color': [230, 255, 170], 'alpha': 0.35, 'pulse_speed': 0.8, 'pulse_amount': 0.25, 'phase': 0},
+            {'x': 0.53, 'y': 0.65, 'radius': 0.22, 'color': [230, 255, 170], 'alpha': 0.14, 'pulse_speed': 0.5, 'pulse_amount': 0.3, 'phase': 1}]},
+        'effects': [
+            {'type': 'particles', 'motion': 'rise', 'area': [360, 130, 260, 590], 'count': 60, 'size': 3, 'color': [240, 255, 200], 'alpha': 0.85, 'speed': 60},
+            {'type': 'shake', 'amount': 3, 'delay': 0.5, 'until': 9}],
+        'lines': [{'text': P6, 'voice': A + 'p6.mp3', 'pause': 0.6}],
+        'hold': 7.5, 'tail': 0.4, 'transition': 'flash',
+    },
+    {   # catalogued: Control calls into nothing
+        'background': 'intro/backgrounds/intro_catalogue.webp',
+        'sound': A + 'scan.mp3',
+        'camera': {'from': {'zoom': 1.06, 'x': 10}, 'to': {'zoom': 1}, 'seconds': 9},
+        'sprites': [
+            {'file': 'intro/sprites/specimen_limp.png', 'frame_width': 626, 'frame_height': 112, 'columns': 2, 'frames': [0, 0, 1, 1], 'frame_rate': 1, 'scale': 0.36, 'at': [505, 438], 'rotate': -10},
+            {'file': 'sprites/cataloguer_robot.png', 'frame_width': 339, 'frame_height': 562, 'columns': 4, 'frame_rate': 2, 'scale': 0.4, 'at': [840, 640]}],
+        'ambient_lighting': {'lights': [
+            {'x': 0.59, 'y': 0.17, 'radius': 0.2, 'color': [90, 255, 170], 'alpha': 0.22, 'pulse_speed': 0.4, 'pulse_amount': 0.3},
+            {'x': 0.52, 'y': 0.55, 'radius': 0.18, 'color': [90, 255, 170], 'alpha': 0.12, 'pulse_speed': 0.25, 'pulse_amount': 0.3, 'phase': 1}]},
+        'effects': [{'type': 'sweep', 'area': [350, 330, 360, 130], 'color': [110, 255, 180], 'period': 3.2, 'alpha': 0.5}],
+        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.55, 'pause': 2.2}],
+        'music': None, 'hold': 7, 'tail': 1,
+    },
+    {   # filed away in a pod
+        'background': 'intro/backgrounds/intro_pods.webp',
+        'loop': A + 'pod.mp3',
+        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'y': -10}, 'seconds': 9},
+        'sprites': [{'file': 'intro/sprites/pod_float.png', 'frame_width': 306, 'frame_height': 602, 'columns': 3, 'frames': [1], 'frame_rate': 0,
+                     'scale': 0.43, 'at': [482, 542], 'bob': {'amount': 5, 'period': 6}, 'opacity': 0.88,
+                     'filter': 'sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(0.85)'}],
+        'ambient_lighting': {'lights': [{'x': 0.5, 'y': 0.45, 'radius': 0.22, 'color': [255, 176, 60], 'alpha': 0.18, 'pulse_speed': 0.2, 'pulse_amount': 0.35, 'phase': 0}]},
+        'effects': [{'type': 'particles', 'motion': 'rise', 'area': [418, 110, 135, 440], 'count': 18, 'size': 3, 'color': [255, 236, 180], 'alpha': 0.7, 'speed': 25}],
+        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.8, 'pause': 2.6}],
+        'hold': 8, 'tail': 1.2,
+    },
+    {   # the dark: a heartbeat, the glass gives
+        'sound': A + 'heartbeat.mp3',
+        'sounds': [{'file': A + 'glass.mp3', 'delay': 3.6}],
+        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.95, 'pause': 1.0}],
+        'hold': 7.5, 'tail': 0.3,
+    },
+]
+
+# ── 2. The spacewalk ──────────────────────────────────────────────────────────
+SPACE_VIEW = {
+    'id': SPACE, 'name': 'LUMEN-7, High Orbit',
+    'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
+    'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
+    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0}},
+    'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [505, 470], [430, 565], [200, 600], [60, 565]],
+                  'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
+    'ambient_lighting': {'lights': [SUN]},
+    'ambient_audio': A + 'breath_loop.mp3',
+    'ambient_text': 'Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.',
+    'music': 'intro/audio/bed_stargazer.mp3',
+    'enter_sound': None,
+    'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
+        {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
+        later(1.0, msg(C1, 'c1', 'radio', 0.2)),
+        later(1.0 + LEN['c1'] + 0.6, msg(P1, 'p1', 'comms')),
+    ]}],
+    'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
+}
+
+OPEN_PANEL = [
+    {'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_panel_open', 'value': 'true'}],
+     'then': [{'type': 'set_flag', 'flag': 'sw_panel_open', 'value': 'true'}, msg(P3, 'p3', 'comms'),
+              later(LEN['p3'] + 0.5, {'type': 'set_view', 'view': PANEL})],
+     'else': [{'type': 'set_view', 'view': PANEL}]},
+]
+
+SPACE_OBJECTS = [
+    obj('sw_lumen_body', 'LUMEN-7', "LUMEN-7: a relay satellite the size of a delivery van, wrapped in gold foil. Its service panel is on this side.",
+        (525, 222), (165, 232), [
+            say('look', "LUMEN-7. A relay satellite the size of a delivery van, wrapped in crinkled gold foil. Nine days of silence, and not a scratch on it. The service panel is on this side."),
+            {'verb': 'hand', 'then': OPEN_PANEL},
+            {'verb': 'move', 'then': OPEN_PANEL},
+            say('talk', "You knock on the hull, twice. Nobody answers. It's a satellite."),
+        ], walk_to={'x': 462, 'y': 430, 'facing': 'right'}),
+    obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168), [
+        say('look', "The Outrider, your ship, docked at LUMEN-7's service port. Small, old, and paid for."),
+        say('hand', "The airlock's right there. The job isn't done."),
+        say('move', "Not yet. Control wants eyes on that panel first."),
+        say('talk', "“Back soon,” you tell her. Ships like to hear it."),
+    ], walk_to=False),
+    obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135), [
+        say('look', "The main dish. Still pointed at Earth, still saying nothing."),
+        say('hand', "Hands off the dish. Control would never let you hear the end of it."),
+        say('talk', "You lean in to the dish and say “testing.” Somewhere, probably, nobody hears it."),
+    ], walk_to=False),
+    obj('sw_solar_wing', 'Solar Wing', "LUMEN-7's solar wings.", (318, 300), (205, 140), [
+        say('look', "Solar wings, undamaged and soaking up the sun. The power's fine. That makes the silence worse."),
+        say('hand', "You run a glove along the edge of a cell. Clean. Nobody's been out here but you."),
+        say('talk', "Nothing to say to a solar panel. You've tried before."),
+    ], walk_to=False),
+    obj('sw_earth', 'Earth', "Home.", (0, 500), (700, 220), [
+        say('look', "Home, all of it, every city light still on. Every time. You'd think you'd get used to it."),
+        say('hand', "It's a long way down. Keep one hand on the satellite."),
+        say('move', "Not today. The job's up here."),
+        say('talk', "You say hello to Earth. It doesn't answer, which makes it the best conversation you've had all week."),
+    ], walk_to=False),
+]
+
+# ── 3. The panel ──────────────────────────────────────────────────────────────
+BOARDS_GONE = [
+    {'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_boards_seen', 'value': 'true'}],
+     'then': [{'type': 'set_flag', 'flag': 'sw_boards_seen', 'value': 'true'}, msg(P4, 'p4', 'comms'),
+              later(LEN['p4'] + 0.6, msg(C2, 'c2', 'radio', 0.35)),
+              later(LEN['p4'] + 0.6 + LEN['c2'] + 1.0,
+                    {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
+                     'then': [{'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
+     'else': [msg("Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.")]},
+]
+
+PANEL_VIEW = {
+    'id': PANEL, 'name': 'LUMEN-7 Service Panel',
+    'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel.webp',
+    'objects': ['pn_boards', 'pn_door', 'pn_handrail', 'pn_earth'],
+    'back_label': 'LUMEN-7',
+    'ambient_text': "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
+    'ambient_audio': A + 'breath_loop.mp3',
+    'music': 'intro/audio/bed_stargazer.mp3',
+    'enter_sound': A + 'panel.mp3',
+    'ambient_lighting': {'lights': [{'x': 0.72, 'y': 0.45, 'radius': 0.2, 'color': [120, 255, 160], 'alpha': 0.12, 'pulse_speed': 0.3, 'pulse_amount': 0.3, 'phase': 0}]},
+    'hints': [{'text': 'LOOK inside the panel.'}],
+}
+
+PANEL_OBJECTS = [
+    obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
+        {'verb': 'look', 'then': BOARDS_GONE},
+        {'verb': 'hand', 'then': BOARDS_GONE},
+        say('talk', "“Control, you're going to want to see this.”"),
+    ]),
+    obj('pn_door', 'Panel Door', "The service panel's door, hanging open.", (785, 125), (135, 520), [
+        say('look', "The panel door, hanging open. The latches weren't forced. Somebody had the key, or didn't need one."),
+        say('hand', "You swing the door a little. It moves like it was oiled yesterday."),
+    ]),
+    obj('pn_handrail', 'Handrail', "A yellow and black handrail.", (525, 485), (300, 110), [
+        say('look', "A handrail. You keep one glove on it out of habit."),
+        say('hand', "You tighten your grip on the rail. Habit, mostly."),
+    ]),
+    obj('pn_earth', 'Earth', "Earth, over your shoulder.", (0, 430), (380, 290), [
+        say('look', "Earth, over your shoulder. Still there. Good."),
+    ]),
+]
+
+# ── Tutorial: the verbs on the spacewalk, the rest in the Stasis Hold ─────────
+IN_SHIP = [{'type': 'not_in_view', 'view': SPACE}, {'type': 'not_in_view', 'view': PANEL}]
+TUTORIAL = [
+    {'text': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
+     'done_when': 'verb_changed', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
+    {'text': "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
+     'done_when': 'walked', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
+    {'text': 'Hand works things. Use it on the gold body to open the service panel.',
+     'done_when': 'handled', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
+    {'text': 'Look (the eye) is always safe. Look inside the panel.',
+     'done_when': 'looked', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': PANEL}]},
+    {'text': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
+     'done_when': 'verb_changed', 'prologue': 'if_skipped'},
+    {'text': 'With the Move cursor (the feet), click the floor to walk there.', 'done_when': 'walked', 'prologue': 'if_skipped'},
+    {'text': 'Switch to Look (the eye) and click something to examine it. Looking is always safe.', 'done_when': 'looked', 'prologue': 'if_skipped'},
+    {'text': 'Hand picks things up and works them. Try the specimen tag hanging from your pod.', 'done_when': 'item_taken', 'when': IN_SHIP},
+    {'text': 'What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.',
+     'done_when': 'item_selected', 'when': IN_SHIP},
+    {'text': "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.", 'done_when': 'next', 'when': IN_SHIP},
+]
+
+
+def main():
+    with open(PATH) as f:
+        s = json.load(f)
+    st = s['setting']
+    st['intro_scenes'] = COLD_OPEN
+    st['cutscenes'] = {**st.get('cutscenes', {}), 'abduction': ABDUCTION}
+    st['prologue'] = {'view': SPACE}
+    st['tutorial'] = {'steps': TUTORIAL}
+    s['character']['sprite_sets']['eva'] = {
+        'file': 'intro/sprites/eva.png', 'columns': 5, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
+        'frame_width': 386, 'frame_height': 419, 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva'}
+
+    new_views = [SPACE_VIEW, PANEL_VIEW]
+    ids = {v['id'] for v in new_views}
+    s['views'] = [v for v in s['views'] if v['id'] not in ids] + new_views
+    new_objs = SPACE_OBJECTS + PANEL_OBJECTS
+    oids = {o['id'] for o in new_objs}
+    s['objects'] = [o for o in s['objects'] if o['id'] not in oids] + new_objs
+
+    # canonical format: indent=2, [x, y] number pairs on one line
+    out = json.dumps(s, indent=2, ensure_ascii=False)
+    out = re.sub(r'\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\s*\]', r'[\1, \2]', out)
+    with open(PATH, 'w') as f:
+        f.write(out + '\n')
+    print(f'intro v2: cold open, {len(ABDUCTION)}-scene abduction cutscene, views {SPACE} + {PANEL}, {len(new_objs)} objects, {len(TUTORIAL)} tutorial tips')
+
+
+if __name__ == '__main__':
+    main()

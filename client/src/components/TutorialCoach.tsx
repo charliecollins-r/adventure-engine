@@ -6,6 +6,9 @@ interface TutorialCoachProps {
   index: number;
   onNext: () => void;
   onSkip: () => void;
+  /** "Tip n of total" when not every step is on this player's route (prologue tips vs. tips for those who skipped it). */
+  number?: number;
+  total?: number;
 }
 
 /**
@@ -13,14 +16,14 @@ interface TutorialCoachProps {
  * play (the box is click-through; only its buttons take clicks): each tip moves on when the player does what it says (or with the button on `next` tips).
  * "Skip tutorial" is always there for veterans and is remembered per scenario.
  */
-export function TutorialCoach({ steps, index, onNext, onSkip }: TutorialCoachProps) {
+export function TutorialCoach({ steps, index, onNext, onSkip, number, total }: TutorialCoachProps) {
   const step = steps[index];
   if (!step) return null;
   const last = index === steps.length - 1;
   return (
     <div style={styles.box} role="status" aria-live="polite" data-tutorial-step={index}>
       <div style={styles.head}>
-        <span style={styles.count}>Tip {index + 1} of {steps.length}</span>
+        <span style={styles.count}>Tip {number ?? index + 1} of {total ?? steps.length}</span>
         <button style={styles.skip} onClick={onSkip} data-tutorial-skip>Skip tutorial</button>
       </div>
       <div style={styles.text}>{step.text}</div>
