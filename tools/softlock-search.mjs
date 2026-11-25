@@ -198,8 +198,10 @@ if (fromDevSkip) {
   console.log(`starting from setting.dev_skip: ${base._currentViewId}`);
 }
 const baseSnap = JSON.stringify({ flags: base.flags, objectStates: base.objectStates, objectVisibility: base.objectVisibility });
+const VIEWBACK = new Set(scenario.views.filter((v) => v.back_label).map((v) => v.id));
 const encode = e => JSON.stringify([
-  e._currentViewId, e.viewHistory.at(-1) || '',
+  // the previous view only matters where the game shows a Back button (close-ups with a back_label)
+  e._currentViewId, (VIEWBACK.has(e._currentViewId) && e.viewHistory.at(-1)) || '',
   coneFlags.map(f => e.flags[f] ?? ''), coneStates.map(s => e.objectStates[s] ?? ''), coneVis.map(v => (e.objectVisibility[v] === false ? 0 : 1)),
   e.inventory.filter(i => coneItems.has(i)).sort(), e._dialoguePrompt ? [e._dialoguePrompt, e._dialogueChoices] : 0,
   e._activeWidgetId || 0, Object.keys(e.solvedWidgets || {}).filter(k => e.solvedWidgets[k]).sort(),
@@ -246,7 +248,7 @@ function actions(e) {
     if (relevant.has('#' + inv[i])) out.push([`EXAMINE ${inv[i]}`, x => x.examineItem(inv[i], 'look')]);
     for (let j = i + 1; j < inv.length; j++) if (relevant.has(`+${inv[i]}+${inv[j]}`) || relevant.has(`+${inv[j]}+${inv[i]}`)) out.push([`COMBINE ${inv[i]} + ${inv[j]}`, x => x.combineItems(inv[i], inv[j])]);
   }
-  if (e.canGoBack()) out.push(['BACK', x => x.navigateBack()]);
+  if (e.canGoBack() && VIEWBACK.has(e._currentViewId)) out.push(['BACK', x => x.navigateBack()]);
   for (const a of e.getActions ? e.getActions() : []) if (relevant.has('!' + a.id)) out.push([`ACTION ${a.id}`, x => x.runAction(a.id)]);
   return out;
 }
