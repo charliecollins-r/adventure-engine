@@ -64,36 +64,38 @@ def obj(oid, name, desc, pos, size, interactions, **extra):
 
 # Every line the player can hear in the opening, by id. The clip for a line is intro/audio/v2/voice/<id>.mp3 (the Silas
 # voice); a line is wired to its clip as soon as the file exists, so re-run this script after adding clips.
-# s* = the pilot (narration in his own voice, or “quoted” words he says out loud), t* = the tutorial tips.
+# s* = the pilot: his thoughts in the first person, or “quoted” words he says out loud; w01 = waking up; t* = the tutorial tips.
 VOICE_DIR = A + 'voice/'
 LINES = {
     # the spacewalk
-    's01': "LUMEN-7. A relay satellite the size of a delivery van, wrapped in crinkled gold foil. Nine days of silence, and not a scratch on it. The service panel is on this side.",
-    's02': "You knock on the hull, twice. Nobody answers. It's a satellite.",
-    's03': "The Outrider, your ship, docked at LUMEN-7's service port. Small, old, and paid for.",
-    's04': "The airlock's right there. The job isn't done.",
-    's05': "\u201cBack soon,\u201d you tell her. Ships like to hear it.",
-    's06': "The main dish. Still pointed at Earth, still saying nothing.",
-    's07': "Hands off the dish. Control would never let you hear the end of it.",
-    's08': "You lean in to the dish and say \u201ctesting.\u201d Somewhere, probably, nobody hears it.",
-    's09': "Solar wings, undamaged and soaking up the sun. The power's fine. That makes the silence worse.",
-    's10': "You run a glove along the edge of a cell. Clean. Nobody's been out here but you.",
-    's11': "Nothing to say to a solar panel. You've tried before.",
-    's12': "Home, all of it, every city light still on. Every time. You'd think you'd get used to it.",
-    's13': "It's a long way down. Keep one hand on the satellite.",
-    's14': "You say hello to Earth. It doesn't answer, which makes it the best conversation you've had all week.",
+    's01': "LUMEN-7. A relay the size of a delivery van, wrapped in gold foil. Nine days of silence, and not a scratch on her. The service panel's on this side.",
+    's02': "I knock on the hull, twice. Nobody home. It's a satellite. What did I expect?",
+    's03': "The Outrider. My ship. Small, old, and paid for.",
+    's04': "The airlock's right there. But the job's not done.",
+    's05': "\u201cBack soon,\u201d I tell her. Ships like to hear it.",
+    's06': "The main dish. Still pointed at Earth. Still saying nothing.",
+    's07': "Hands off the dish. Control would never let me hear the end of it.",
+    's08': "I lean in and say \u201ctesting.\u201d Somewhere, probably, nobody hears it.",
+    's09': "Solar wings, clean and soaking up the sun. The power's fine. That makes the silence worse.",
+    's10': "I run a glove along the edge of a cell. Not a mark. Nobody's been out here but me.",
+    's11': "Nothing to say to a solar panel. I've tried.",
+    's12': "Home. All of it, every city light still on. Every time. You'd think I'd get used to it.",
+    's13': "It's a long way down. One hand on the satellite.",
+    's14': "I say hello to Earth. It doesn't answer. Best conversation I've had all week.",
     # the panel
     's15': "\u201cControl, you're going to want to see this.\u201d",
     's16': "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.",
-    's17': "The panel door, hanging open. The latches weren't forced. Somebody had the key, or didn't need one.",
-    's18': "You swing the door a little. It moves like it was oiled yesterday.",
+    's17': "The panel door. The latches weren't forced. Somebody had the key. Or didn't need one.",
+    's18': "I swing the door a little. It moves like it was oiled yesterday.",
     's19': "Nothing to say to a door. Not out loud, anyway.",
-    's20': "A handrail. You keep one glove on it out of habit.",
-    's21': "You tighten your grip on the rail. Habit, mostly.",
-    's22': "You thank the handrail. It's the most reliable thing up here.",
-    's23': "Earth, over your shoulder. Still there. Good.",
-    's24': "Earth's a long way past your glove. Back to the panel.",
+    's20': "A handrail. I keep one glove on it. Habit.",
+    's21': "I tighten my grip on the rail. Habit, mostly.",
+    's22': "I thank the handrail. Most reliable thing up here.",
+    's23': "Earth, over my shoulder. Still there. Good.",
+    's24': "Earth's a long way past my glove. Back to the panel.",
     's25': "\u201cHold on down there. Won't be long.\u201d",
+    # the wake-up, in his own head (replaces the narrator's "Your eyes open..." once w01.mp3 exists)
+    'w01': "Green light. A chemical smell. My pod's cracked open, and whatever they kept me in is running out across the floor. I'm cold. Weak. And not alone: hundreds of pods, full of dead things from a dozen worlds. Something hums in the walls. This ship is alive.",
     # tutorial tips (t01-t04 on the spacewalk; t05-t07 only for players who skipped it; t08-t10 in the Stasis Hold)
     't01': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
     't02': "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
@@ -339,6 +341,10 @@ def main():
     st['cutscenes'] = {**st.get('cutscenes', {}), 'abduction': ABDUCTION}
     st['prologue'] = {'view': SPACE}
     st['tutorial'] = {'steps': TUTORIAL}
+    # The wake-up line is his own thought once its clip is recorded: the first phase's opening message and the wake voice.
+    if voice_of('w01'):
+        s['phases'][0]['on_enter'][0]['text'] = LINES['w01']
+        st.setdefault('sounds', {})['intro_voice'] = voice_of('w01')
     s['character']['sprite_sets']['eva'] = {
         'file': 'intro/sprites/eva.png', 'columns': 5, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
         'frame_width': 386, 'frame_height': 419, 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva'}
