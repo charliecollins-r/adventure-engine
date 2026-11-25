@@ -1180,13 +1180,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     prevEndKey.current = endKey;
     const m = musicRef.current;
     if (!endKey) { if (m && m.paused && !muted) m.play().catch(() => {}); return; }
-    const file = scenario.setting.sounds?.[endKey];
+    // a death's own sound (game_over `sound`), else the scenario's death / win sound
+    const file = gameOverResult?.sound ?? scenario.setting.sounds?.[endKey];
     if (file) playSound(file);
     if (m && endKey === 'death') {
       const start = m.volume; let k = 0;
       const id = window.setInterval(() => { k++; m.volume = Math.max(0, start * (1 - k / 15)); if (k >= 15) { clearInterval(id); m.pause(); m.volume = start; } }, 60);
     }
-  }, [endKey, scenario, playSound, muted]);
+  }, [endKey, gameOverResult?.sound, scenario, playSound, muted]);
   const closeupImage = engine.getCloseupImage();
   const dialogue = engine.getDialogue();
   const activeWidget = engine.getActiveWidget();

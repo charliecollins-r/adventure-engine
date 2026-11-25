@@ -100,6 +100,18 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     await p.close();
   }
 
+  // 7. A death with its own sound plays that sound, not the generic sting (the gap jump: the fall)
+  {
+    const p = await page(b);
+    await p.goto(URL + '?dev'); await p.waitForTimeout(3000);
+    await p.evaluate(() => { window.__engine.applyEffects([{ type: 'game_over', result: 'lose', title: 'Sliced', reason: 'test', sound: 'audio/deaths/fan.mp3' }]); window.__bump(); });
+    await p.waitForTimeout(800);
+    const own = await p.evaluate(() => window.__plays.some((x) => x.src === 'fan.mp3'));
+    const generic = await p.evaluate(() => window.__plays.some((x) => x.src === 'death_sting.mp3'));
+    if (!own || generic) fail(`a death with its own sound played ${own ? '' : 'nothing of its own'}${generic ? ' and the generic sting' : ''}`); else ok('a death plays its own sound');
+    await p.close();
+  }
+
   console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL REGRESSION TESTS PASSED');
   await b.close(); process.exit(failures ? 1 : 0);
 })();

@@ -490,7 +490,8 @@ export interface Effect {
   flip_h?: boolean;
   prompt?: string;
   choices?: DialogueChoice[];
-  /** play_sound: a setting.sounds key or path. set_view: the transition sound for this move (null = silent). */
+  /** play_sound: a setting.sounds key or path. set_view: the transition sound for this move (null = silent).
+   *  game_over: this death's own sound (a key or path), instead of setting.sounds.death. */
   sound?: string | null;
   /** add_score: points to add; with `id`, awarded only once per id. */
   points?: number;
@@ -898,6 +899,8 @@ export interface GameOverResult {
   text: string;
   /** Heading for the end screen (game_over effect `title`); default "Game Over" / "You Escaped". */
   title?: string;
+  /** This ending's own sound (game_over effect `sound`), played instead of setting.sounds.death / win. */
+  sound?: string;
 }
 
 export interface InteractionResult {

@@ -892,7 +892,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `add_noise` | `amount` | Add to noise level (clamped 0-100). |
 | `set_noise` | `amount` | Set noise to exact value (clamped 0-100). |
 | `advance_phase` | `phase` | Jump to a specific game phase. |
-| `game_over` | `result` (`"win"`/`"lose"`), `reason` (the text shown), optional `title` (the heading; default "Game Over" / "You Escaped") | End the game. |
+| `game_over` | `result` (`"win"`/`"lose"`), `reason` (the text shown), optional `title` (the heading; default "Game Over" / "You Escaped"), optional `sound` (this ending's own sound, a `setting.sounds` key or a path; default `sounds.death` / `sounds.win`) | End the game. Give each kind of death its own sound: the fan, the gas, the fall. |
 | `start_hiding` | — | Player enters hiding. |
 | `stop_hiding` | — | Player leaves hiding. |
 | `transform_item` | `item`, `into` | Replace one inventory item with another, in the same inventory slot. |

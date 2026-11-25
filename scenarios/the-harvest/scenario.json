@@ -21788,7 +21788,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "The hunter drone was waiting for exactly that. It pins you against the terminal until the Curator comes for you."
+              "reason": "The hunter drone was waiting for exactly that. It pins you against the terminal until the Curator comes for you.",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         },
@@ -39383,7 +39384,8 @@
                           "type": "game_over",
                           "title": "Look Before You Leap",
                           "reason": "The Choir thank you for returning yourself to the recycling system. Next time, try bringing something to hold on to.",
-                          "result": "lose"
+                          "result": "lose",
+                          "sound": "audio/deaths/fall_gap.mp3"
                         }
                       ]
                     }
@@ -41593,7 +41595,8 @@
               "type": "game_over",
               "title": "Toxic Curiosity",
               "reason": "You lean in for a closer look. So does the gas. Next time, wear the hat.",
-              "result": "lose"
+              "result": "lose",
+              "sound": "audio/deaths/gas.mp3"
             }
           ]
         },
@@ -41689,7 +41692,8 @@
               "type": "game_over",
               "title": "Toxic Death",
               "reason": "You hold your breath, which works for about nine seconds. The ship's poisoned air does the rest. That helmet in Security would have looked very good on you.",
-              "result": "lose"
+              "result": "lose",
+              "sound": "audio/deaths/gas.mp3"
             }
           ]
         },
@@ -41908,7 +41912,8 @@
               "type": "game_over",
               "title": "Sliced",
               "reason": "You walked into a giant spinning fan. The kind with blades. On the bright side, the ship's ventilation is working perfectly. Next time, find something to jam it with.",
-              "result": "lose"
+              "result": "lose",
+              "sound": "audio/deaths/fan.mp3"
             }
           ]
         },
@@ -43584,7 +43589,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "The hunter drone pins you to the floor in a blink and holds you there, humming, until the Curator arrives."
+              "reason": "The hunter drone pins you to the floor in a blink and holds you there, humming, until the Curator arrives.",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         },
@@ -85996,7 +86002,8 @@
           "type": "game_over",
           "result": "lose",
           "title": "Caught",
-          "reason": "The clicking stops right behind you. Long, cold fingers close around your shoulders. The Curator carries you back to the stasis hold without a sound, and this time it seals the pod."
+          "reason": "The clicking stops right behind you. Long, cold fingers close around your shoulders. The Curator carries you back to the stasis hold without a sound, and this time it seals the pod.",
+          "sound": "audio/deaths/caught_curator.mp3"
         }
       ]
     },
@@ -86126,7 +86133,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "A hunter drone is drifting between the pods, its lens sweeping. It finds you before the door has finished opening. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+              "reason": "A hunter drone is drifting between the pods, its lens sweeping. It finds you before the door has finished opening. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         }
@@ -86170,7 +86178,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "Two lenses turn toward the doorway at once. The lab is full of hunters, and they were waiting for exactly this. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+              "reason": "Two lenses turn toward the doorway at once. The lab is full of hunters, and they were waiting for exactly this. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         }
@@ -86214,7 +86223,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "You go back for one last look. So does the hunter drone that is already hovering over the console. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+              "reason": "You go back for one last look. So does the hunter drone that is already hovering over the console. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         }
@@ -86258,7 +86268,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "Something is already bent over the open drawers, sorting. A hunter drone lifts from the slab and turns its lens on the doorway. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+              "reason": "Something is already bent over the open drawers, sorting. A hunter drone lifts from the slab and turns its lens on the doorway. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         }
@@ -86302,7 +86313,8 @@
               "type": "game_over",
               "result": "lose",
               "title": "Caught",
-              "reason": "The hologram is still spinning. In its light, a hunter drone drifts between the shelves, and it has already seen you. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)"
+              "reason": "The hologram is still spinning. In its light, a hunter drone drifts between the shelves, and it has already seen you. The alarm was your one chance, and the way out was the open vent in the corridor floor. (Undo, then take the vent.)",
+              "sound": "audio/deaths/caught_drone.mp3"
             }
           ]
         }
@@ -87388,7 +87400,8 @@
           "type": "game_over",
           "result": "lose",
           "title": "Caught",
-          "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every minute, and you can hear them coming. Watch the clock, leave the room, or hide."
+          "reason": "The hunter drone stops dead. Its eye swings round, finds you and goes from amber to red. It doesn't hurry: it pins you to the floor with two legs and hums until the Curator comes to collect you.\n\nThe drones sweep these rooms every minute, and you can hear them coming. Watch the clock, leave the room, or hide.",
+          "sound": "audio/deaths/caught_drone.mp3"
         }
       ],
       "nearby_sound": "patrol_far"

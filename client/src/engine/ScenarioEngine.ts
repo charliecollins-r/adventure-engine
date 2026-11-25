@@ -1502,6 +1502,7 @@ export class ScenarioEngine {
             conditionId: 'effect_triggered',
             text: e.reason ?? (e.result === 'win' ? 'You win!' : 'Game over.'),
             ...(e.title ? { title: e.title } : {}),
+            ...(e.sound ? { sound: this.scenario.setting.sounds?.[e.sound] ?? e.sound } : {}),
           };
           break;
 

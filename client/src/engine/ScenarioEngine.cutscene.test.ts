@@ -67,6 +67,15 @@ describe('cutscenes', () => {
     expect(e.getMessages().filter((m) => m === 'later')).toHaveLength(1);
   });
 
+  it('a death can carry its own sound (a path, or a setting.sounds key)', () => {
+    const e = new ScenarioEngine(mini());
+    e.runEffects([{ type: 'game_over', result: 'lose', reason: 'x', sound: 'audio/deaths/fan.mp3' }]);
+    expect(e.getGameOverResult()?.sound).toBe('audio/deaths/fan.mp3');
+    const f = new ScenarioEngine(mini());
+    f.runEffects([{ type: 'game_over', result: 'lose', reason: 'x' }]);
+    expect(f.getGameOverResult()?.sound).toBeUndefined();
+  });
+
   it('finishing a cutscene cancels anything still timed from before it', async () => {
     const e = new ScenarioEngine(mini());
     e.navigateToView('space');

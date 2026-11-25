@@ -118,6 +118,7 @@ function effs(es, ctx) {
     if (e.type === 'play_cutscene' && !s.setting?.cutscenes?.[e.cutscene]) errors.push(`${ctx}: play_cutscene for unknown cutscene "${e.cutscene}" (setting.cutscenes)`);
     if (e.type === 'message' && e.style && !['radio', 'comms'].includes(e.style)) errors.push(`${ctx}: message style "${e.style}" must be "radio" or "comms"`);
     if (e.type === 'message' && e.voice) asset(e.voice, `${ctx} message voice`);
+    if (e.type === 'game_over' && e.sound && !s.setting?.sounds?.[e.sound]) asset(e.sound, `${ctx} game_over sound`);
     if (e.type === 'sense') for (const k of e.kinds || []) {
       if (k.patrol && !patrolIds.has(k.patrol)) errors.push(`${ctx}: sense kind "${k.label}" on unknown patrol "${k.patrol}"`);
       for (const v of k.views || []) if (!viewIds.has(v)) errors.push(`${ctx}: sense kind "${k.label}" names unknown view "${v}"`);

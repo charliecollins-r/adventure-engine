@@ -77,3 +77,15 @@ for src in sorted(glob.glob('intro/audio/v2/source/*.mp3')):
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'intro/audio/v2/{name}'], check=True)
     if src.endswith('_loop.wav'): os.remove(src)
     print(f'v2/{name}: {measured:6.1f} -> {target} LUFS ({gain:+.1f} dB)')
+
+# Death sounds (audio/deaths/, one per kind of death; prompts in the "First Impression" doc): originals in
+# audio/deaths/source/, mastered to -18 LUFS, a little over the room ambience, with a short fade at the end.
+os.makedirs('audio/deaths/source', exist_ok=True)
+for src in sorted(glob.glob('audio/deaths/source/*.mp3')):
+    name = os.path.basename(src)
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -18 - measured
+    dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', src], capture_output=True, text=True).stdout)
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af',
+                    f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false,afade=t=out:st={max(0, dur - 0.4):.2f}:d=0.4', '-b:a', '160k', f'audio/deaths/{name}'], check=True)
+    print(f'deaths/{name}: {measured:6.1f} -> -18 LUFS ({gain:+.1f} dB)')

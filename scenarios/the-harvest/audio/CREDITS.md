@@ -9,5 +9,6 @@
 | `death_sting.mp3` | Synthesised for this project (a low hit and a falling dissonant cluster) | Creative Commons 0 |
 | `patrol_skitter.mp3` | Synthesised for this project (metal leg ticks and a servo whine, getting closer; loudness-normalised with ffmpeg) | Creative Commons 0 |
 | `patrol_skitter_far.mp3` | `patrol_skitter.mp3`, softened with a slight room echo (heard through a wall), made with ffmpeg | Creative Commons 0 |
+| `deaths/caught_drone.mp3`, `deaths/caught_curator.mp3`, `deaths/fall_gap.mp3`, `deaths/gas.mp3`, `deaths/fan.mp3` | ElevenLabs sound effects ([elevenlabs.io](https://elevenlabs.io)); originals in `deaths/source/`, mastered by `scripts/master_intro_audio.py` | ElevenLabs terms (see README → Attribution) |
 
 Intro cinematic audio: see `../intro/audio/CREDITS.md`.
