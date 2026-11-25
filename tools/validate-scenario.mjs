@@ -66,6 +66,10 @@ const itemIds = new Set(s.items.map(x => x.id));
 const objIds = new Set(s.objects.map(x => x.id));
 const viewIds = new Set(s.views.map(x => x.id));
 const widgetIds = new Set((s.puzzle_widgets || []).map(w => w.id));
+const meterIds = new Set((s.meters || []).map(m => m.id));
+const cycleIds = new Set((s.cycles || []).map(c => c.id));
+const pursuerIds = new Set((s.pursuers || []).map(p => p.id));
+const patrolIds = new Set((s.patrols || []).map(p => p.id));
 const scopeViews = s.views.filter(v => v.id.startsWith(prefix));
 const scopeObjs = new Set(scopeViews.flatMap(v => v.objects));
 const openedWidgets = new Set();
@@ -84,6 +88,14 @@ function conds(cs, ctx) {
     if (c.type === 'view_is' && !viewIds.has(c.view)) errors.push(`${ctx}: condition on unknown view "${c.view}"`);
     if (c.type === 'patrol_near' && !(s.patrols || []).some((p) => p.id === c.patrol)) errors.push(`${ctx}: patrol_near on unknown patrol "${c.patrol}"`);
     if (c.type === 'flag_is' || c.type === 'flag_not') { if (!flagsRead.has(c.flag)) flagsRead.set(c.flag, ctx); }
+    if ((c.type === 'meter_below' || c.type === 'meter_above') && !meterIds.has(c.meter)) errors.push(`${ctx}: ${c.type} on unknown meter "${c.meter}"`);
+    if (c.type === 'cycle_is') {
+      const cy = (s.cycles || []).find((x) => x.id === c.cycle);
+      if (!cy) errors.push(`${ctx}: cycle_is on unknown cycle "${c.cycle}"`);
+      else if (!cy.phases.some((ph) => ph.id === c.phase)) errors.push(`${ctx}: cycle_is "${c.cycle}" has no phase "${c.phase}"`);
+    }
+    if (c.type === 'patrol_active' && !patrolIds.has(c.patrol)) errors.push(`${ctx}: patrol_active on unknown patrol "${c.patrol}"`);
+    if (c.type === 'pursuer_near' && !pursuerIds.has(c.pursuer)) errors.push(`${ctx}: pursuer_near on unknown pursuer "${c.pursuer}"`);
     conds(c.conditions, ctx);
   }
 }
@@ -98,11 +110,59 @@ function effs(es, ctx) {
     if (e.type === 'set_flag') flagsSet.add(e.flag);
     if (e.type === 'open_widget') { if (!widgetIds.has(e.widget)) errors.push(`${ctx}: open_widget for unknown widget "${e.widget}"`); else openedWidgets.add(e.widget); }
     if (e.type === 'show_closeup' && e.image && !existsSync(join(dir, e.image))) errors.push(`${ctx}: closeup image missing: ${e.image}`);
+    for (const l of e.layers || []) { if (!existsSync(join(dir, l.image || ''))) errors.push(`${ctx}: closeup layer image missing: ${l.image}`); conds(l.when, ctx); }
+    if (['meter_add', 'meter_set', 'meter_transfer'].includes(e.type) && !meterIds.has(e.meter)) errors.push(`${ctx}: ${e.type} on unknown meter "${e.meter}"`);
+    if (e.type === 'meter_transfer' && !meterIds.has(e.to)) errors.push(`${ctx}: meter_transfer to unknown meter "${e.to}"`);
+    if (['pursuer_divert', 'pursuer_reset'].includes(e.type) && !pursuerIds.has(e.pursuer)) errors.push(`${ctx}: ${e.type} on unknown pursuer "${e.pursuer}"`);
+    if (e.type === 'set_checkpoint' && !e.id) errors.push(`${ctx}: set_checkpoint has no "id"`);
+    if (e.type === 'sense') for (const k of e.kinds || []) {
+      if (k.patrol && !patrolIds.has(k.patrol)) errors.push(`${ctx}: sense kind "${k.label}" on unknown patrol "${k.patrol}"`);
+      for (const v of k.views || []) if (!viewIds.has(v)) errors.push(`${ctx}: sense kind "${k.label}" names unknown view "${v}"`);
+    }
+    if (e.type === 'sense') conds(e.bonus?.when, ctx);
     conds(e.when, ctx); effs(e.then, ctx); effs(e.else, ctx); effs(e.effects, ctx);
     for (const ch of e.choices || []) { conds(ch.when, ctx); effs(ch.then, ctx); }
   }
 }
 const asset = (p, ctx) => { if (p && !existsSync(join(dir, p))) errors.push(`${ctx}: missing file ${p}`); };
+
+// Meters, cycles, pursuers, player actions (SCENARIO_SCHEMA: Meters ... Rhythm widget)
+for (const m of s.meters || []) {
+  const ctx = `meter ${m.id}`;
+  if (typeof m.max !== 'number' || m.max <= 0) errors.push(`${ctx}: "max" must be a positive number`);
+  conds(m.active_when, ctx); conds(m.visible_when, ctx); effs(m.on_empty, ctx + ' on_empty');
+  for (const w of m.warnings || []) { if (typeof w.at !== 'number') errors.push(`${ctx}: a warning has no numeric "at"`); if (w.sound && !s.setting.sounds?.[w.sound]) asset(w.sound, ctx); }
+  if (m.cost_per_move && !m.on_empty?.length) warnings.push(`${ctx}: costs per move but has no on_empty (running out does nothing)`);
+}
+for (const c of s.cycles || []) {
+  const ctx = `cycle ${c.id}`;
+  if (!c.phases?.length) errors.push(`${ctx}: no phases`);
+  for (const ph of c.phases || []) if (!(ph.seconds > 0)) errors.push(`${ctx} phase ${ph.id}: "seconds" must be > 0`);
+  for (const v of c.views || []) if (!viewIds.has(v)) errors.push(`${ctx}: unknown view "${v}"`);
+  conds(c.when, ctx);
+}
+for (const p of s.pursuers || []) {
+  const ctx = `pursuer ${p.id}`;
+  for (const v of [...(p.zone || []), ...(p.strike_views || [])]) if (!viewIds.has(v)) errors.push(`${ctx}: unknown view "${v}"`);
+  for (const v of p.strike_views || []) if (!(p.zone || []).includes(v)) errors.push(`${ctx}: strike view "${v}" is outside its zone`);
+  if (!p.on_strike?.length) errors.push(`${ctx}: no on_strike`);
+  if (!p.hum_message && !p.hum_sound) warnings.push(`${ctx}: no hum_message or hum_sound: the player gets no warning before it strikes`);
+  conds(p.when, ctx); effs(p.on_strike, ctx + ' on_strike');
+}
+for (const a of s.setting?.actions || []) { conds(a.when, `action ${a.id}`); effs(a.effects, `action ${a.id}`); }
+for (const v of s.views) {
+  if (v.on_enter) effs(v.on_enter, `view ${v.id} on_enter`);
+  for (const id of v.objects || []) {
+    const o = s.objects.find((x) => x.id === id);
+    if (o?.sprite?.sync_cycle && !cycleIds.has(o.sprite.sync_cycle)) errors.push(`object ${id}: sprite.sync_cycle on unknown cycle "${o.sprite.sync_cycle}"`);
+    for (const f of o?.sprite?.frame_when || []) { conds(f.when, `object ${id} frame_when`); if (f.frame >= (o.sprite.columns || 1)) errors.push(`object ${id}: frame_when frame ${f.frame} is past the sheet's last column`); }
+  }
+}
+for (const w of s.puzzle_widgets || []) if (w.widget_type === 'rhythm') {
+  const ph = w.config?.phrases;
+  if (!Array.isArray(ph) || !ph.length || ph.some((p) => !/^[LS]+$/.test(p))) errors.push(`widget ${w.id}: rhythm "phrases" must be strings of L and S`);
+  for (const x of w.config?.extra_phrases || []) { if (!/^[LS]+$/.test(x.pattern || '')) errors.push(`widget ${w.id}: extra phrase "${x.pattern}" must be L and S`); conds(x.when, `widget ${w.id}`); }
+}
 
 // Intro cinematic: every file exists, lights are complete, sprites have frames, lines have text
 (s.setting?.intro_scenes || []).forEach((sc, i) => {

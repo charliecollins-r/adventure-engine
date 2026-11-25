@@ -87,14 +87,39 @@ const SKIP = new Set(['lab_startup_display', 'security_console', 'cataloguer_rob
     await go('act1_containment_corridor'); await A('move', 'vent_cover_open'); view = 'act1_ventilation_shaft'; await shot('17_vent_shaft'); await lookAll(view);
     await A('hand', 'wall_scratches'); await L.hint(g, 'shaft');
     await A('move', 'nav_act1_vent_entry_to_act1_vent_junction'); view = 'act1_vent_junction'; await shot('18_vent_junction'); await lookAll(view); await L.hint(g, 'junction');
-    // side trip to the skeleton (route computed from vent_maze_grid.json)
-    for (const st of L.mazeRoute('J', 'COLL')) { await A('move', st.nav); view = st.view; }
-    await shot('19_vent_collapsed'); await lookAll(view); await A('hand', 'collapsed_skeleton'); await A('hand', 'collapsed_skeleton');
-    for (const st of L.mazeRoute('COLL', 'J')) { await A('move', st.nav); view = st.view; }
-    // main route to the gas chamber (computed; the last step enters the gas)
-    { const r = L.mazeRoute('J', 'GAS'); for (const st of r.slice(0, -1)) { await A('move', st.nav); view = st.view; } await L.hint(g, view); globalThis.__lastNav = r[r.length - 1].nav; }
-    await A('move', globalThis.__lastNav); view = 'act1_vent_gas_chamber'; await shot('20_vent_gas'); await lookAll(view);
-    await A('move', 'nav_act1_vent_gas_to_act1_vent_fan_room'); view = 'act1_vent_fan_room'; await shot('21_vent_fan'); await lookAll(view);
+    // the vent maze v6: the shortest route from scripts/vent_maze_v6_grid.json, with the story a player meets on it
+    {
+      const V6 = L.v6; const route = V6.grid().route; let doneColl = false, doneVera = false;
+      await V6.closeups(g); await L.dismiss(g);
+      for (let i = 1; i < route.length; i++) {
+        const c = route[i], here = route[i - 1].join(',');
+        if (here === '11,0' && !doneColl) {   // side trip to the Choir engineer's skeleton
+          doneColl = true; await V6.walk(g, [11, 0], [11, 1]); view = await V6.cur(g); await shot('19_vent_collapsed'); await lookAll(view);
+          await A('hand', 'collapsed_skeleton'); await A('hand', 'collapsed_skeleton'); await V6.walk(g, [11, 1], [11, 0]);
+        }
+        if (here === '1,7' && !doneVera) {    // Vera teaches the greeting
+          doneVera = true; await V6.walk(g, [1, 7], [0, 10]); view = await V6.cur(g); await shot('20c_vera'); await lookAll(view);
+          await A('talk', 'v6_vera'); await V6.choose(g, 'How do I talk to them'); rec('vera', 'greeting', await L.msg(g)); await L.dismiss(g);
+          await V6.walk(g, [0, 10], [1, 7]);
+        }
+        if (c.join(',') === '9,10') { await A('talk', 'v6_guard'); await V6.choose(g, 'Breathe long, short, long'); await L.dismiss(g); }
+        if (c.join(',') === '9,11') {
+          await A('talk', 'v6_queen'); await shot('20d_audience'); await V6.answerQueen(g); await L.dismiss(g);
+          await A('talk', 'v6_queen'); await V6.choose(g, 'Let them take it'); await L.dismiss(g);
+          await A('talk', 'v6_queen'); await V6.choose(g, 'Swear it'); rec('queen', 'vow', await L.msg(g)); await L.dismiss(g);
+        }
+        const target = await V6.viewOf(g, c);
+        if (target === (await V6.cur(g))) continue;
+        if (!(await V6.goTo(g, target))) { console.log('ERR could not reach', target, 'from', await V6.cur(g)); break; }
+        view = target;
+        if (await g.p.evaluate(() => window.__engine.getPursuer('v6_curator')?.humming)) { await g.p.click('[data-action="listen"]'); await L.dismiss(g); }
+        if (c.join(',') === '14,1') { await shot('19b_vent_lever'); await A('hand', 'v6_lever'); }
+        if (c.join(',') === '1,2') { await shot('20_vent_gas'); await lookAll(view); }
+        if (c.join(',') === '0,3') { await shot('20b_warren'); await L.hint(g, 'warren'); }
+        if (c.join(',') === '9,11') await shot('20e_purge_core');
+      }
+      view = 'act1_vent_fan_room'; await shot('21_vent_fan'); await lookAll(view);
+    }
     await U('surgical_probe', 'fan_mechanism'); await shot('22_vent_fan_jammed');
     await A('move', 'vent_fan'); view = 'act1_vent_exit'; await shot('23_vent_exit'); await lookAll(view);
     await A('move', 'exit_hatch'); view = 'act1_airlock_bay'; await shot('24_airlock_bay'); await lookAll(view);

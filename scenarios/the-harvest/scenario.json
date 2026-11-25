@@ -1073,14 +1073,14 @@
                 ]
               },
               {
-                "label": "A scorched hiss (a purge duct)",
+                "label": "A scorched hiss (a purge duct opens off that screen)",
                 "views": [
-                  "act1_v6_0_1",
-                  "act1_v6_6_7",
-                  "act1_v6_6_11",
-                  "act1_v6_6_6",
-                  "act1_v6_12_6",
-                  "act1_v6_14_11"
+                  "act1_v6_12_5",
+                  "act1_v6_14_12",
+                  "act1_v6_1_1",
+                  "act1_v6_5_11",
+                  "act1_v6_5_7",
+                  "act1_v6_7_6"
                 ]
               },
               {
@@ -2913,6 +2913,21 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3634,6 +3649,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3690,6 +3735,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4405,6 +4480,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4461,6 +4566,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4518,6 +4653,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5333,6 +5498,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6001,6 +6196,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6057,6 +6282,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6112,6 +6367,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6702,6 +6987,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6757,6 +7072,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7613,6 +7958,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7668,6 +8043,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7723,6 +8128,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8108,6 +8543,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8647,6 +9112,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8703,6 +9198,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8758,6 +9283,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9501,6 +10056,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9557,6 +10142,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10124,6 +10739,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10179,6 +10824,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10807,6 +11482,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11452,6 +12157,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11507,6 +12242,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12221,6 +12986,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go right (east) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12277,6 +13072,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12332,6 +13157,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go back (south) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12710,6 +13565,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go straight ahead (north) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12765,6 +13650,36 @@
         {
           "text": "These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.",
           "when": []
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the lever, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_not",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "The Keth-Vari's scratched route says: toward the gas door, go left (west) from here.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vent_route_known",
+              "value": "true"
+            },
+            {
+              "type": "flag_is",
+              "flag": "lever_pulled",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -13844,7 +14759,7 @@
           [20, 486]
         ],
         "scale": 0.26,
-        "speed": 2,
+        "speed": 2.0,
         "shadows": [
           [
             [285, 440],
@@ -14434,7 +15349,7 @@
           [302, 515],
           [263, 528]
         ],
-        "scale": 1
+        "scale": 1.0
       },
       "character": {
         "x": 480,
@@ -14577,7 +15492,7 @@
           [150, 652]
         ],
         "scale": 0.25,
-        "speed": 2
+        "speed": 2.0
       },
       "character": {
         "x": 480,
@@ -40323,12 +41238,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_6_0"
             },
             {
               "type": "message",
@@ -40412,12 +41322,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_0"
             },
             {
               "type": "message",
@@ -40740,12 +41645,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_2"
             },
             {
               "type": "message",
@@ -40809,12 +41709,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_2"
             },
             {
               "type": "message",
@@ -41339,12 +42234,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_14"
             }
           ]
         }
@@ -41691,12 +42581,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_0"
             },
             {
               "type": "message",
@@ -43481,12 +44366,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber",
-              "at": {
-                "x": 491,
-                "y": 495,
-                "facing": "down"
-              }
+              "view": "act1_vent_gas_chamber"
             }
           ]
         },
@@ -43549,7 +44429,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -43625,12 +44505,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_0_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_6"
             }
           ]
         },
@@ -43740,12 +44615,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_5"
             }
           ]
         },
@@ -43820,7 +44690,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -43860,12 +44730,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_6"
             }
           ]
         },
@@ -43989,12 +44854,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_8"
             }
           ]
         },
@@ -44056,12 +44916,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_7"
             }
           ]
         },
@@ -44124,7 +44979,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -44226,12 +45081,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_8"
             }
           ]
         },
@@ -44293,12 +45143,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_7"
             }
           ]
         },
@@ -44396,12 +45241,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_vera",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_vera"
             }
           ]
         },
@@ -44511,12 +45351,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_9",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_9"
             }
           ]
         },
@@ -44626,12 +45461,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_0_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_8"
             }
           ]
         },
@@ -44694,12 +45524,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_13"
             }
           ]
         },
@@ -44761,12 +45586,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_1_12"
             }
           ]
         },
@@ -44829,7 +45649,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -44962,12 +45782,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_14"
             }
           ]
         },
@@ -45029,12 +45844,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_12"
             }
           ]
         },
@@ -45096,12 +45906,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_fan_room",
-              "at": {
-                "x": 480,
-                "y": 710,
-                "facing": "down"
-              }
+              "view": "act1_vent_fan_room"
             }
           ]
         },
@@ -45163,12 +45968,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_13"
             }
           ]
         },
@@ -45323,12 +46123,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_1"
             }
           ]
         },
@@ -45390,12 +46185,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_0"
             }
           ]
         },
@@ -45458,7 +46248,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -45566,12 +46356,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_1"
             }
           ]
         },
@@ -45633,12 +46418,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_0"
             }
           ]
         },
@@ -45762,12 +46542,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_5"
             }
           ]
         },
@@ -45830,7 +46605,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -45870,12 +46645,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_7"
             }
           ]
         },
@@ -45937,12 +46707,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_6",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_6"
             }
           ]
         },
@@ -46004,12 +46769,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_6",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_6"
             }
           ]
         },
@@ -46072,7 +46832,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -46112,12 +46872,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_8"
             }
           ]
         },
@@ -46179,12 +46934,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_7"
             }
           ]
         },
@@ -46266,12 +47016,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_7"
             }
           ]
         },
@@ -46363,12 +47108,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_6"
             }
           ]
         },
@@ -46430,12 +47170,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_9"
             }
           ]
         },
@@ -46497,12 +47232,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_8"
             }
           ]
         },
@@ -46564,12 +47294,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_7"
             }
           ]
         },
@@ -46631,12 +47356,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_10"
             }
           ]
         },
@@ -46760,12 +47480,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_9"
             }
           ]
         },
@@ -46827,12 +47542,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_8"
             }
           ]
         },
@@ -46894,12 +47604,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_10"
             }
           ]
         },
@@ -46961,12 +47666,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_9"
             }
           ]
         },
@@ -47143,12 +47843,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_12"
             }
           ]
         },
@@ -47210,12 +47905,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_11"
             }
           ]
         },
@@ -47278,7 +47968,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -47411,12 +48101,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_12"
             }
           ]
         },
@@ -47540,12 +48225,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_1_11"
             }
           ]
         },
@@ -47722,12 +48402,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_1"
             }
           ]
         },
@@ -47789,12 +48464,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_0"
             }
           ]
         },
@@ -47857,7 +48527,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -47897,12 +48567,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_2"
             }
           ]
         },
@@ -47964,12 +48629,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_1",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_1"
             }
           ]
         },
@@ -48031,12 +48691,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_0"
             }
           ]
         },
@@ -48098,12 +48753,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber",
-              "at": {
-                "x": 480,
-                "y": 710,
-                "facing": "down"
-              }
+              "view": "act1_vent_gas_chamber"
             }
           ]
         },
@@ -48165,12 +48815,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_2"
             }
           ]
         },
@@ -48232,12 +48877,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_1"
             }
           ]
         },
@@ -48299,12 +48939,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_4"
             }
           ]
         },
@@ -48367,7 +49002,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -48407,12 +49042,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_5"
             }
           ]
         },
@@ -48474,12 +49104,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat",
-              "at": {
-                "x": 800,
-                "y": 650,
-                "facing": "left"
-              }
+              "view": "act1_v6_warren_throat"
             }
           ]
         },
@@ -48541,12 +49166,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_4"
             }
           ]
         },
@@ -48608,12 +49228,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_3"
             }
           ]
         },
@@ -48675,12 +49290,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_5"
             }
           ]
         },
@@ -48804,12 +49414,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_4"
             }
           ]
         },
@@ -48871,12 +49476,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_6"
             }
           ]
         },
@@ -48939,7 +49539,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -49094,12 +49694,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_8"
             }
           ]
         },
@@ -49181,12 +49776,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_7"
             }
           ]
         },
@@ -49279,7 +49869,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -49319,12 +49909,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_9"
             }
           ]
         },
@@ -49498,12 +50083,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_7"
             }
           ]
         },
@@ -49565,12 +50145,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_10"
             }
           ]
         },
@@ -49632,12 +50207,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_9"
             }
           ]
         },
@@ -49699,12 +50269,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_9",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_9"
             }
           ]
         },
@@ -49766,12 +50331,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_8"
             }
           ]
         },
@@ -49833,12 +50393,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_10",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_10"
             }
           ]
         },
@@ -49900,12 +50455,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_10",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_10"
             }
           ]
         },
@@ -49967,12 +50517,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_9"
             }
           ]
         },
@@ -50096,12 +50641,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_11"
             }
           ]
         },
@@ -50163,12 +50703,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_11"
             }
           ]
         },
@@ -50231,7 +50766,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -50308,12 +50843,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_13"
             }
           ]
         },
@@ -50424,12 +50954,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_1_12"
             }
           ]
         },
@@ -50540,12 +51065,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_11"
             }
           ]
         },
@@ -50608,12 +51128,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_13"
             }
           ]
         },
@@ -50737,12 +51252,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_2"
             }
           ]
         },
@@ -50804,12 +51314,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_2"
             }
           ]
         },
@@ -50872,7 +51377,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -50912,12 +51417,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_4"
             }
           ]
         },
@@ -50980,7 +51480,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -51082,12 +51582,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_4"
             }
           ]
         },
@@ -51149,12 +51644,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_4"
             }
           ]
         },
@@ -51216,12 +51706,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_3"
             }
           ]
         },
@@ -51319,12 +51804,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_5"
             }
           ]
         },
@@ -51434,12 +51914,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_5"
             }
           ]
         },
@@ -51549,12 +52024,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_4"
             }
           ]
         },
@@ -51653,12 +52123,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_9"
             }
           ]
         },
@@ -51788,12 +52253,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_8"
             }
           ]
         },
@@ -51903,12 +52363,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_8"
             }
           ]
         },
@@ -51983,7 +52438,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -52023,12 +52478,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_10"
             }
           ]
         },
@@ -52090,12 +52540,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_9"
             }
           ]
         },
@@ -52219,12 +52664,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_10"
             }
           ]
         },
@@ -52348,12 +52788,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_9"
             }
           ]
         },
@@ -52530,12 +52965,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_seam",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_seam"
             }
           ]
         },
@@ -52597,12 +53027,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_11"
             }
           ]
         },
@@ -52727,7 +53152,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -52922,12 +53347,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_2_13"
             }
           ]
         },
@@ -52990,7 +53410,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -53160,12 +53580,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_14"
             }
           ]
         },
@@ -53276,12 +53691,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_13"
             }
           ]
         },
@@ -53344,12 +53754,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_0"
             }
           ]
         },
@@ -53412,7 +53817,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -53452,12 +53857,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_2",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_2"
             }
           ]
         },
@@ -53519,12 +53919,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_1",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_1"
             }
           ]
         },
@@ -53587,7 +53982,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -53627,12 +54022,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_2"
             }
           ]
         },
@@ -53694,12 +54084,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_1",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_1"
             }
           ]
         },
@@ -53761,12 +54146,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_4"
             }
           ]
         },
@@ -53829,7 +54209,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -53869,12 +54249,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_5"
             }
           ]
         },
@@ -53936,12 +54311,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_4"
             }
           ]
         },
@@ -54065,12 +54435,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_3"
             }
           ]
         },
@@ -54194,12 +54559,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_4_4"
             }
           ]
         },
@@ -54261,12 +54621,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_6",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_6"
             }
           ]
         },
@@ -54329,7 +54684,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -54451,12 +54806,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_8"
             }
           ]
         },
@@ -54549,7 +54899,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -54625,12 +54975,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_10",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_10"
             }
           ]
         },
@@ -54740,12 +55085,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_10",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_10"
             }
           ]
         },
@@ -54820,7 +55160,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -54897,12 +55237,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_11"
             }
           ]
         },
@@ -55013,12 +55348,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_11"
             }
           ]
         },
@@ -55093,7 +55423,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -55195,12 +55525,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_14"
             }
           ]
         },
@@ -55263,7 +55588,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -55396,12 +55721,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_1"
             }
           ]
         },
@@ -55463,12 +55783,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_0"
             }
           ]
         },
@@ -55530,12 +55845,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_6_0"
             }
           ]
         },
@@ -55598,7 +55908,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -55638,12 +55948,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_1",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_1"
             }
           ]
         },
@@ -55705,12 +56010,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_0"
             }
           ]
         },
@@ -55834,12 +56134,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_3",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_6_3"
             }
           ]
         },
@@ -55902,7 +56197,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -55978,12 +56273,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_5"
             }
           ]
         },
@@ -56093,12 +56383,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_4"
             }
           ]
         },
@@ -56208,12 +56493,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_3"
             }
           ]
         },
@@ -56276,12 +56556,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_6"
             }
           ]
         },
@@ -56520,12 +56795,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_6",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_6"
             }
           ]
         },
@@ -56587,12 +56857,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_5"
             }
           ]
         },
@@ -56690,12 +56955,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_7",
-              "at": {
-                "x": 480,
-                "y": 680,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_7"
             }
           ]
         }
@@ -56763,12 +57023,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_8"
             }
           ]
         },
@@ -56899,7 +57154,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -56975,12 +57230,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_6",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_6"
             }
           ]
         }
@@ -57048,12 +57298,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_9"
             }
           ]
         },
@@ -57135,12 +57380,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_8"
             }
           ]
         },
@@ -57294,12 +57534,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_7"
             }
           ]
         },
@@ -57476,12 +57711,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_10"
             }
           ]
         },
@@ -57543,12 +57773,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_9",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_6_9"
             }
           ]
         },
@@ -57610,12 +57835,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_8"
             }
           ]
         },
@@ -57739,12 +57959,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_9"
             }
           ]
         },
@@ -57921,12 +58136,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_12"
             }
           ]
         },
@@ -58119,7 +58329,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -58314,12 +58524,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_11"
             }
           ]
         },
@@ -58381,12 +58586,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_14"
             }
           ]
         },
@@ -58511,7 +58711,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -58551,12 +58751,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_1"
             }
           ]
         },
@@ -58618,12 +58813,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_5_0"
             }
           ]
         },
@@ -58685,12 +58875,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction",
-              "at": {
-                "x": 198,
-                "y": 534,
-                "facing": "right"
-              }
+              "view": "act1_vent_junction"
             }
           ]
         },
@@ -58753,7 +58938,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -58793,12 +58978,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_2",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_2"
             }
           ]
         },
@@ -58860,12 +59040,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_0"
             }
           ]
         },
@@ -58927,12 +59102,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_7_2"
             }
           ]
         },
@@ -58994,12 +59164,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_1",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_1"
             }
           ]
         },
@@ -59061,12 +59226,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_chapel",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_chapel"
             }
           ]
         },
@@ -59128,12 +59288,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_3",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_5_3"
             }
           ]
         },
@@ -59196,7 +59351,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -59272,12 +59427,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_5_8"
             }
           ]
         },
@@ -59387,12 +59537,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_7_8"
             }
           ]
         },
@@ -59467,7 +59612,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -59507,12 +59652,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_5_9"
             }
           ]
         },
@@ -59575,7 +59715,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -59792,12 +59932,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_7_13"
             }
           ]
         },
@@ -59860,7 +59995,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -59937,12 +60072,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_5_14"
             }
           ]
         },
@@ -60053,12 +60183,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_7_14"
             }
           ]
         },
@@ -60169,12 +60294,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_6_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_13"
             }
           ]
         },
@@ -60237,12 +60357,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_6_2"
             }
           ]
         },
@@ -60304,12 +60419,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_2"
             }
           ]
         },
@@ -60372,7 +60482,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -60474,12 +60584,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_4"
             }
           ]
         },
@@ -60542,7 +60647,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -60618,12 +60723,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_6"
             }
           ]
         },
@@ -60733,12 +60833,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_5"
             }
           ]
         },
@@ -60848,12 +60943,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_4"
             }
           ]
         },
@@ -60916,12 +61006,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_7"
             }
           ]
         },
@@ -61113,12 +61198,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_8"
             }
           ]
         },
@@ -61180,12 +61260,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_6",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_6"
             }
           ]
         },
@@ -61309,12 +61384,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_7"
             }
           ]
         },
@@ -61412,12 +61482,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_8"
             }
           ]
         }
@@ -61485,12 +61550,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_14"
             }
           ]
         },
@@ -61552,12 +61612,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_6_13"
             }
           ]
         },
@@ -61619,12 +61674,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_13"
             }
           ]
         },
@@ -61687,7 +61737,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -61789,12 +61839,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_14"
             }
           ]
         },
@@ -61856,12 +61901,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_13"
             }
           ]
         },
@@ -62016,12 +62056,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_1"
             }
           ]
         },
@@ -62083,12 +62118,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction",
-              "at": {
-                "x": 768,
-                "y": 546,
-                "facing": "left"
-              }
+              "view": "act1_vent_junction"
             }
           ]
         },
@@ -62150,12 +62180,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_0"
             }
           ]
         },
@@ -62218,7 +62243,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -62258,12 +62283,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_2",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_2"
             }
           ]
         },
@@ -62325,12 +62345,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_1"
             }
           ]
         },
@@ -62392,12 +62407,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_0"
             }
           ]
         },
@@ -62459,12 +62469,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_2"
             }
           ]
         },
@@ -62526,12 +62531,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_1"
             }
           ]
         },
@@ -62593,12 +62593,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_5"
             }
           ]
         },
@@ -62660,12 +62655,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_4"
             }
           ]
         },
@@ -62727,12 +62717,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_4"
             }
           ]
         },
@@ -62795,7 +62780,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -63012,12 +62997,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_5"
             }
           ]
         },
@@ -63079,12 +63059,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_4"
             }
           ]
         },
@@ -63297,12 +63272,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_8"
             }
           ]
         },
@@ -63412,12 +63382,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_7"
             }
           ]
         },
@@ -63492,7 +63457,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -63532,12 +63497,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_9"
             }
           ]
         },
@@ -63697,12 +63657,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_8"
             }
           ]
         }
@@ -63770,12 +63725,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_10"
             }
           ]
         },
@@ -63837,12 +63787,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_8"
             }
           ]
         },
@@ -64019,12 +63964,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_9"
             }
           ]
         },
@@ -64183,12 +64123,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_12"
             }
           ]
         },
@@ -64299,12 +64234,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_11"
             }
           ]
         },
@@ -64379,7 +64309,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -64419,12 +64349,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_13"
             }
           ]
         },
@@ -64641,12 +64566,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_14"
             }
           ]
         },
@@ -64708,12 +64628,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_13"
             }
           ]
         },
@@ -64775,12 +64690,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_13"
             }
           ]
         },
@@ -64842,12 +64752,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_12"
             }
           ]
         },
@@ -64909,12 +64814,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_14"
             }
           ]
         },
@@ -65038,12 +64938,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_13"
             }
           ]
         },
@@ -65105,12 +65000,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_1"
             }
           ]
         },
@@ -65172,12 +65062,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_0"
             }
           ]
         },
@@ -65239,12 +65124,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_0"
             }
           ]
         },
@@ -65307,7 +65187,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -65347,12 +65227,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_1"
             }
           ]
         },
@@ -65414,12 +65289,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_1",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_1"
             }
           ]
         },
@@ -65481,12 +65351,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_0"
             }
           ]
         },
@@ -65584,12 +65449,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_4"
             }
           ]
         },
@@ -65699,12 +65559,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_3",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_3"
             }
           ]
         },
@@ -65779,7 +65634,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -65819,12 +65674,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_4"
             }
           ]
         },
@@ -65886,12 +65736,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_4"
             }
           ]
         },
@@ -66015,12 +65860,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_5"
             }
           ]
         },
@@ -66083,7 +65923,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -66123,12 +65963,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_6",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_6"
             }
           ]
         },
@@ -66191,7 +66026,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -66231,12 +66066,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_eggs",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_court_eggs"
             }
           ]
         },
@@ -66360,12 +66190,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_7"
             }
           ]
         },
@@ -66428,7 +66253,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -66530,12 +66355,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_11"
             }
           ]
         },
@@ -66597,12 +66417,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_queen",
-              "at": {
-                "x": 480,
-                "y": 600,
-                "facing": "down"
-              }
+              "view": "act1_v6_court_queen"
             }
           ]
         },
@@ -66726,12 +66541,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_13"
             }
           ]
         },
@@ -66793,12 +66603,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_10_13"
             }
           ]
         },
@@ -66861,7 +66666,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -66938,12 +66743,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_14"
             }
           ]
         },
@@ -67054,12 +66854,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_13"
             }
           ]
         },
@@ -67122,12 +66917,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_1"
             }
           ]
         },
@@ -67189,12 +66979,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_0"
             }
           ]
         },
@@ -67256,12 +67041,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_0"
             }
           ]
         },
@@ -67324,7 +67104,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -67364,12 +67144,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_1"
             }
           ]
         },
@@ -67431,12 +67206,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_0"
             }
           ]
         },
@@ -67498,12 +67268,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_4"
             }
           ]
         },
@@ -67628,7 +67393,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -67730,12 +67495,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_4"
             }
           ]
         },
@@ -67797,12 +67557,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_4"
             }
           ]
         },
@@ -67864,12 +67619,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_3"
             }
           ]
         },
@@ -67967,12 +67717,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_6"
             }
           ]
         },
@@ -68082,12 +67827,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_5"
             }
           ]
         },
@@ -68197,12 +67937,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_4"
             }
           ]
         },
@@ -68265,12 +68000,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_7"
             }
           ]
         },
@@ -68332,12 +68062,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_6",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_6"
             }
           ]
         },
@@ -68461,12 +68186,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_8"
             }
           ]
         },
@@ -68528,12 +68248,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_7"
             }
           ]
         },
@@ -68595,12 +68310,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_6",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_6"
             }
           ]
         },
@@ -68682,12 +68392,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_8"
             }
           ]
         },
@@ -68779,12 +68484,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_7"
             }
           ]
         },
@@ -68846,12 +68546,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_12"
             }
           ]
         },
@@ -68913,12 +68608,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_11"
             }
           ]
         },
@@ -68980,12 +68670,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_11"
             }
           ]
         },
@@ -69048,7 +68733,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -69088,12 +68773,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_13"
             }
           ]
         },
@@ -69217,12 +68897,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_11"
             }
           ]
         },
@@ -69284,12 +68959,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_13"
             }
           ]
         },
@@ -69351,12 +69021,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_13"
             }
           ]
         },
@@ -69418,12 +69083,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_12"
             }
           ]
         },
@@ -69485,12 +69145,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_collapsed",
-              "at": {
-                "x": 480,
-                "y": 710,
-                "facing": "down"
-              }
+              "view": "act1_vent_collapsed"
             }
           ]
         },
@@ -69552,12 +69207,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_0"
             }
           ]
         },
@@ -69619,12 +69269,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_0"
             }
           ]
         },
@@ -69687,7 +69332,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -69727,12 +69372,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_4"
             }
           ]
         },
@@ -69795,7 +69435,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -69835,12 +69475,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_6"
             }
           ]
         },
@@ -69964,12 +69599,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_5"
             }
           ]
         },
@@ -70032,7 +69662,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -70187,12 +69817,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_5"
             }
           ]
         },
@@ -70336,12 +69961,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_9"
             }
           ]
         },
@@ -70423,12 +70043,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_8"
             }
           ]
         },
@@ -70520,12 +70135,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_8"
             }
           ]
         },
@@ -70588,7 +70198,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -70648,12 +70258,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_9"
             }
           ]
         },
@@ -70745,12 +70350,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_8"
             }
           ]
         },
@@ -70812,12 +70412,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_11"
             }
           ]
         },
@@ -70879,12 +70474,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_11"
             }
           ]
         },
@@ -70947,7 +70537,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -71117,12 +70707,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_13"
             }
           ]
         },
@@ -71233,12 +70818,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_12"
             }
           ]
         },
@@ -71349,12 +70929,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_12_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_12"
             }
           ]
         },
@@ -71429,7 +71004,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -71469,12 +71044,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_14"
             }
           ]
         },
@@ -71536,12 +71106,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_13"
             }
           ]
         },
@@ -71603,12 +71168,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_13",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_13"
             }
           ]
         },
@@ -71794,12 +71354,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_13"
             }
           ]
         },
@@ -71861,12 +71416,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_1"
             }
           ]
         },
@@ -71928,12 +71478,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_0"
             }
           ]
         },
@@ -71995,12 +71540,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_13_0"
             }
           ]
         },
@@ -72063,7 +71603,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -72103,12 +71643,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_13_1"
             }
           ]
         },
@@ -72170,12 +71705,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_0"
             }
           ]
         },
@@ -72237,12 +71767,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_4"
             }
           ]
         },
@@ -72305,7 +71830,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -72345,12 +71870,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_5"
             }
           ]
         },
@@ -72412,12 +71932,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_13_4"
             }
           ]
         },
@@ -72479,12 +71994,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_3"
             }
           ]
         },
@@ -72614,12 +72124,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_5"
             }
           ]
         },
@@ -72681,12 +72186,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_4"
             }
           ]
         },
@@ -72748,12 +72248,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_9"
             }
           ]
         },
@@ -72815,12 +72310,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_8"
             }
           ]
         },
@@ -72902,12 +72392,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_13_8"
             }
           ]
         },
@@ -73000,7 +72485,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -73040,12 +72525,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_10",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_10"
             }
           ]
         },
@@ -73127,12 +72607,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_9",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_9"
             }
           ]
         },
@@ -73224,12 +72699,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_8"
             }
           ]
         },
@@ -73291,12 +72761,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_9"
             }
           ]
         },
@@ -73473,12 +72938,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_12"
             }
           ]
         },
@@ -73540,12 +73000,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_11"
             }
           ]
         },
@@ -73608,7 +73063,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -73648,12 +73103,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_13",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_13"
             }
           ]
         },
@@ -73777,12 +73227,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_13_12"
             }
           ]
         },
@@ -73844,12 +73289,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_11"
             }
           ]
         },
@@ -73973,12 +73413,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_13"
             }
           ]
         },
@@ -74040,12 +73475,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_12"
             }
           ]
         },
@@ -74144,12 +73574,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_14"
             }
           ]
         },
@@ -74260,12 +73685,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_12_13",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_13"
             }
           ]
         },
@@ -74328,12 +73748,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_1"
             }
           ]
         },
@@ -74395,12 +73810,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_12_0"
             }
           ]
         },
@@ -74462,12 +73872,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_0",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_0"
             }
           ]
         },
@@ -74530,7 +73935,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -74570,12 +73975,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_2",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_2"
             }
           ]
         },
@@ -74637,12 +74037,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_1",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_12_1"
             }
           ]
         },
@@ -74704,12 +74099,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_0"
             }
           ]
         },
@@ -74771,12 +74161,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_2",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_2"
             }
           ]
         },
@@ -74838,12 +74223,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_1"
             }
           ]
         },
@@ -74905,12 +74285,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_4"
             }
           ]
         },
@@ -74972,12 +74347,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_3",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_3"
             }
           ]
         },
@@ -75040,7 +74410,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -75080,12 +74450,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_camp",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_camp"
             }
           ]
         },
@@ -75147,12 +74512,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_12_4"
             }
           ]
         },
@@ -75276,12 +74636,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_3"
             }
           ]
         },
@@ -75343,12 +74698,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_8"
             }
           ]
         },
@@ -75410,12 +74760,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_7"
             }
           ]
         },
@@ -75478,7 +74823,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -75518,12 +74863,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_hollow",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_hollow"
             }
           ]
         },
@@ -75605,12 +74945,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_12_8"
             }
           ]
         },
@@ -75702,12 +75037,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_7"
             }
           ]
         },
@@ -75769,12 +75099,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_cache"
             }
           ]
         },
@@ -75836,12 +75161,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_12_12"
             }
           ]
         },
@@ -75903,12 +75223,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_12"
             }
           ]
         },
@@ -75971,7 +75286,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -76011,12 +75326,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_lever",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_lever"
             }
           ]
         },
@@ -76078,12 +75388,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_0"
             }
           ]
         },
@@ -76146,7 +75451,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -76186,12 +75491,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_2",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_2"
             }
           ]
         },
@@ -76254,7 +75554,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -76356,12 +75656,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_3",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_3"
             }
           ]
         },
@@ -76424,7 +75719,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1
+        "scale": 1.0
       },
       "layer": "floor"
     },
@@ -76500,12 +75795,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_14_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_5"
             }
           ]
         },
@@ -76615,12 +75905,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_13_4",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_4"
             }
           ]
         },
@@ -76730,12 +76015,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_14_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_3"
             }
           ]
         },
@@ -76798,12 +76078,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_6",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_6"
             }
           ]
         },
@@ -76927,12 +76202,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_7"
             }
           ]
         },
@@ -76994,12 +76264,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_5"
             }
           ]
         },
@@ -77061,12 +76326,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_8",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_8"
             }
           ]
         },
@@ -77128,12 +76388,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_7"
             }
           ]
         },
@@ -77195,12 +76450,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_6",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_6"
             }
           ]
         },
@@ -77262,12 +76512,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_9"
             }
           ]
         },
@@ -77329,12 +76574,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_7"
             }
           ]
         },
@@ -77579,12 +76819,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_8"
             }
           ]
         },
@@ -77768,12 +77003,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_13_12"
             }
           ]
         },
@@ -77955,12 +77185,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_bridge",
-              "at": {
-                "x": 30,
-                "y": 486,
-                "facing": "right"
-              }
+              "view": "act1_v6_warren_bridge"
             }
           ]
         },
@@ -78022,12 +77247,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_dwellings",
-              "at": {
-                "x": 40,
-                "y": 700,
-                "facing": "right"
-              }
+              "view": "act1_v6_warren_dwellings"
             }
           ]
         },
@@ -78089,12 +77309,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_ledge",
-              "at": {
-                "x": 425,
-                "y": 621,
-                "facing": "down"
-              }
+              "view": "act1_v6_warren_ledge"
             }
           ]
         },
@@ -78156,12 +77371,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat",
-              "at": {
-                "x": 60,
-                "y": 640,
-                "facing": "right"
-              }
+              "view": "act1_v6_warren_throat"
             }
           ]
         },
@@ -78285,12 +77495,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_ledge",
-              "at": {
-                "x": 920,
-                "y": 700,
-                "facing": "left"
-              }
+              "view": "act1_v6_warren_ledge"
             }
           ]
         },
@@ -78352,12 +77557,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat",
-              "at": {
-                "x": 500,
-                "y": 700,
-                "facing": "down"
-              }
+              "view": "act1_v6_warren_throat"
             }
           ]
         },
@@ -78419,12 +77619,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_4"
             }
           ]
         },
@@ -78486,12 +77681,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_bridge",
-              "at": {
-                "x": 930,
-                "y": 486,
-                "facing": "left"
-              }
+              "view": "act1_v6_warren_bridge"
             }
           ]
         },
@@ -78553,12 +77743,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_dwellings",
-              "at": {
-                "x": 925,
-                "y": 700,
-                "facing": "left"
-              }
+              "view": "act1_v6_warren_dwellings"
             }
           ]
         },
@@ -78620,12 +77805,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_11"
             }
           ]
         },
@@ -78687,12 +77867,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_12"
             }
           ]
         },
@@ -78816,12 +77991,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_3"
             }
           ]
         },
@@ -78883,12 +78053,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_chapel",
-              "at": {
-                "x": 485,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_chapel"
             }
           ]
         },
@@ -78950,12 +78115,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood",
-              "at": {
-                "x": 480,
-                "y": 700,
-                "facing": "left"
-              }
+              "view": "act1_v6_court_brood"
             }
           ]
         },
@@ -79017,12 +78177,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_7"
             }
           ]
         },
@@ -79100,12 +78255,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_queen",
-              "at": {
-                "x": 480,
-                "y": 652,
-                "facing": "down"
-              }
+              "view": "act1_v6_court_queen"
             },
             {
               "type": "message",
@@ -79151,12 +78301,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_eggs",
-              "at": {
-                "x": 540,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_court_eggs"
             }
           ]
         },
@@ -79270,12 +78415,7 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_11",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_11"
             },
             {
               "type": "set_flag",
@@ -79373,12 +78513,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood",
-              "at": {
-                "x": 510,
-                "y": 560,
-                "facing": "left"
-              }
+              "view": "act1_v6_court_brood"
             }
           ]
         },
@@ -79502,12 +78637,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_4"
             }
           ]
         },
@@ -79569,12 +78699,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_camp",
-              "at": {
-                "x": 480,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_camp"
             }
           ]
         },
@@ -79698,12 +78823,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_8"
             }
           ]
         },
@@ -79765,12 +78885,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_hollow",
-              "at": {
-                "x": 475,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_hollow"
             }
           ]
         },
@@ -79832,12 +78947,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache_vault",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_cache_vault"
             }
           ]
         },
@@ -79899,12 +79009,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_13_12"
             }
           ]
         },
@@ -79966,12 +79071,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache",
-              "at": {
-                "x": 480,
-                "y": 530,
-                "facing": "down"
-              }
+              "view": "act1_v6_cache"
             }
           ]
         },
@@ -80033,12 +79133,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_0",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_0"
             }
           ]
         },
@@ -81137,23 +80232,13 @@
               "then": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve_open",
-                  "at": {
-                    "x": 336,
-                    "y": 688,
-                    "facing": "right"
-                  }
+                  "view": "act1_v6_valve_open"
                 }
               ],
               "else": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve",
-                  "at": {
-                    "x": 336,
-                    "y": 688,
-                    "facing": "right"
-                  }
+                  "view": "act1_v6_valve"
                 }
               ]
             }
@@ -81207,12 +80292,7 @@
               "then": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve_open",
-                  "at": {
-                    "x": 470,
-                    "y": 600,
-                    "facing": "down"
-                  }
+                  "view": "act1_v6_valve_open"
                 }
               ],
               "else": [
@@ -81252,12 +80332,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_7"
             }
           ]
         }
@@ -81289,12 +80364,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_7"
             }
           ]
         }
@@ -81411,12 +80481,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_7"
             },
             {
               "type": "message",
@@ -81452,12 +80517,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_8_7"
             }
           ]
         }
@@ -82003,12 +81063,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_drop_hole",
-              "at": {
-                "x": 150,
-                "y": 700,
-                "facing": "down"
-              }
+              "view": "act1_v6_drop_hole"
             },
             {
               "type": "message",
@@ -82054,12 +81109,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood",
-              "at": {
-                "x": 520,
-                "y": 630,
-                "facing": "left"
-              }
+              "view": "act1_v6_court_brood"
             }
           ]
         }
@@ -86746,7 +85796,7 @@
     },
     {
       "id": "v6_vent_2_12",
-      "offset": 0,
+      "offset": 0.0,
       "phases": [
         {
           "id": "in",
@@ -86793,7 +85843,7 @@
         },
         {
           "id": "out",
-          "seconds": 3,
+          "seconds": 3.0,
           "sound": "vent_scald"
         }
       ],
@@ -86850,7 +85900,7 @@
         },
         {
           "id": "out",
-          "seconds": 3,
+          "seconds": 3.0,
           "sound": "vent_scald"
         }
       ],

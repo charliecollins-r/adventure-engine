@@ -132,21 +132,82 @@ module.exports.U = async (g, item, id) => {
   if (!(await clickId(g, id))) { g.log.push(`[use ${item} on ${id}] NOT RENDERED`); return null; }
   const t = await msg(g); g.log.push(`[use ${item} on ${id}] ${t}`); return t;
 };
-// Route through the vent maze from the layout file: [{ nav, view }] steps from cell `from` to cell `to`.
-module.exports.mazeRoute = (from, to) => {
-  const grid = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'vent_maze_grid.json'), 'utf8'));
-  const C = grid.cells, purge = new Set(grid.purge);
-  const D = { N: [0, 1], S: [0, -1], E: [1, 0], W: [-1, 0] }, OPP = { N: 'S', S: 'N', E: 'W', W: 'E' }, WORD = { N: 'north', S: 'south', E: 'east', W: 'west' };
-  const at = {}; for (const [k, v] of Object.entries(C)) at[v[0].join(',')] = k;
-  const view = (c) => ({ J: 'act1_vent_junction', GAS: 'act1_vent_gas_chamber', COLL: 'act1_vent_collapsed', ENTRY: 'act1_ventilation_shaft' }[c] || `act1_vent_maze_${c.toLowerCase()}`);
-  const prev = { [from]: null }, q = [from];
-  while (q.length) { const c = q.shift(); if (c === to) break; for (const d of C[c][1]) { const [x, y] = C[c][0]; const n = at[[x + D[d][0], y + D[d][1]].join(',')]; if (n && !purge.has(n) && C[n][1].includes(OPP[d]) && !(n in prev) && n !== 'ENTRY') { prev[n] = [c, d]; q.push(n); } } }
-  const steps = []; for (let c = to; prev[c]; c = prev[c][0]) steps.unshift([prev[c][0], prev[c][1], c]);
-  return steps.map(([c, d, n]) => {
-    let nav = `nav_vent_maze_${c.toLowerCase()}_${WORD[d]}`;
-    if (c === 'J') nav = d === 'W' ? 'nav_act1_vent_junction_to_act1_vent_gas_chamber' : 'nav_act1_vent_junction_to_act1_vent_collapsed';
-    if (c === 'GAS') nav = 'nav_act1_vent_gas_to_act1_vent_junction';
-    if (c === 'COLL') nav = 'nav_act1_vent_collapsed_to_act1_vent_junction';
-    return { nav, view: view(n) };
-  });
-};
+
+// ── the vent maze v6 (vents.cjs, full.cjs): drive the real UI through the v6 grid ─────────────────────
+const V6GRID = () => JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'vent_maze_v6_grid.json'), 'utf8'));
+async function viewOf(g, c) {
+  return g.p.evaluate(([x, y]) => window.__engine.getScenario().views.find((v) => v.map_xy && v.map_xy[0] === x && v.map_xy[1] === 14 - y)?.id, c);
+}
+async function closeups(g) {
+  if (await g.p.evaluate(() => !!window.__engine.getCloseupImage())) {
+    await g.p.keyboard.press('Escape');
+    await g.p.waitForTimeout(300);
+  }
+}
+async function cur(g) { return g.p.evaluate(() => window.__engine.currentViewId); }
+async function flag(g, f) { return g.p.evaluate((f) => window.__engine.getFlags()[f], f); }
+
+/** Click the exit in this view that leads to `view`, after its breathing duct's in-breath if it has one. */
+async function goTo(g, view) {
+  const info = await g.p.evaluate((view) => {
+    const e = window.__engine;
+    const targets = (effs, out = []) => { for (const x of effs || []) { if (x.type === 'set_view' && x.view) out.push(x.view); targets(x.then, out); targets(x.else, out); targets(x.effects, out); } return out; };
+    const o = e.getVisibleObjects().find((o) => o.interactions.some((x) => x.verb === 'move' && targets(x.then).includes(view)));
+    if (!o) return null;
+    const cyc = o.interactions.flatMap((x) => x.when || []).find((c) => c.type === 'cycle_is');
+    return { id: o.id, cycle: cyc ? cyc.cycle : null };
+  }, view);
+  await closeups(g);
+  if (!info) { g.log.push(`[no exit from ${await cur(g)} to ${view}]`); return false; }
+  if (info.cycle) await g.p.waitForFunction((c) => window.__engine.getCyclePhase(c) === 'in' && window.__engine.getCycleProgress(c) < 0.4, info.cycle, { timeout: 20000 });
+  await module.exports.A(g, 'move', info.id);
+  await module.exports.settle(g);
+  await g.p.waitForTimeout(150);
+  return (await cur(g)) === view;
+}
+
+/** Answer the Queen: real mouse presses in time with her phrases. */
+async function answerQueen(g) {
+  const setup = await g.p.evaluate(() => window.__engine.getRhythmSetup());
+  const panel = await g.p.$('[data-rhythm-widget] > div');
+  const b = await panel.boundingBox();
+  await g.p.click('[data-rhythm-start]');
+  for (const pattern of setup.phrases) {
+    await g.p.waitForSelector('[data-rhythm-stage="answer"]', { timeout: 20000 });
+    const t0 = Date.now();
+    let due = 0;
+    for (const beat of pattern) {
+      const wait = due - (Date.now() - t0);
+      if (wait > 0) await g.p.waitForTimeout(wait);
+      await g.p.mouse.move(b.x + b.width / 2, b.y + b.height - 30);
+      await g.p.mouse.down();
+      await g.p.waitForTimeout(beat === 'L' ? 480 : 110);
+      await g.p.mouse.up();
+      due += setup.beatMs * (beat === 'L' ? 2 : 1);
+    }
+    await g.p.waitForTimeout(400);
+  }
+  await g.p.waitForSelector('[data-rhythm-widget]', { state: 'detached', timeout: 8000 });
+}
+
+async function choose(g, text) {
+  await g.p.click(`text=${text}`);
+  await g.p.waitForTimeout(400);
+}
+
+
+/** Shortest walk on the v6 grid between two cells (avoiding purge ducts and the Mimic). */
+function v6path(from, to) {
+  const G = V6GRID();
+  const D = { N: [0, 1], S: [0, -1], E: [1, 0], W: [-1, 0] }, OPP = { N: 'S', S: 'N', E: 'W', W: 'E' };
+  const bad = new Set([...G.purge.map(String), String(G.npcs.mimic)]);
+  const k = (c) => c.join(',');
+  const prev = { [k(from)]: null }, q = [from];
+  while (q.length) {
+    const c = q.shift(); if (k(c) === k(to)) break;
+    for (const d of G.cells[k(c)] || '') { const n = [c[0] + D[d][0], c[1] + D[d][1]]; if (!G.cells[k(n)] || !G.cells[k(n)].includes(OPP[d]) || bad.has(String(n)) || k(n) in prev) continue; prev[k(n)] = c; q.push(n); }
+  }
+  const out = []; for (let c = to; c && k(c) !== k(from); c = prev[k(c)]) out.unshift(c); return out;
+}
+async function v6walk(g, from, to) { for (const c of v6path(from, to)) { if (!(await goTo(g, await viewOf(g, c)))) return false; } return true; }
+module.exports.v6 = { grid: V6GRID, viewOf, cur, flag, closeups, goTo, answerQueen, choose, path: v6path, walk: v6walk };

@@ -369,6 +369,17 @@ Static checks for mistakes that parse fine but silently break play. It scans for
 
 Delayed effects (`delay_then`) can carry a `traverse`: the engine's change listener in ScenarioPlayer takes it (`takeTraverse()`) and animates it, plays pending sounds and redraws. The Harvest's gap jump chains two: the leap (walk pose) and, 0.8 s later, the fall (the `rope` pose, arms up) out of the bottom of the screen, then the death screen.
 
+### Meters, Cycles, Checkpoints, Pursuers and Sensing
+
+All in `ScenarioEngine.ts` (schema: `types.ts` `Meter`, `Cycle`, `Pursuer`, `RhythmConfig`, `PlayerAction`; tests: `ScenarioEngine.vents.test.ts`).
+
+- **Meters**: `meterValues` (initialised from `initial ?? max`) and `meterEmptied`. `changeMeter()` clamps, and gives any `warnings` the value drops past (only while `active_when` holds). The `set_view` effect calls `enterView()`: every meter with `cost_per_move` and `active_when` true is charged (not for views with `back_label`), then the view's `on_enter` effects run, then every pursuer takes a step. `checkMeters()` (start of `checkGameEndConditions()`) runs a meter's `on_empty` once when it is at 0 and active, again only after a refill. `getMeters()` is what the HUD draws.
+- **Cycles** are pure functions of the clock: `getCyclePhase(id)` and `getCycleProgress(id)` (offset, period = sum of phases; `''` while `when` fails). `advanceCycles()` (in `advanceClock`) gives a phase's sound/message on a change, only in the cycle's `views`. `getSpriteFrame(obj)` picks `frame_when`'s first match, else a `sync_cycle` frame; GameView passes it to `SpriteObject` as `fixedFrame`, and the clock loop redraws every frame while `hasCycleSprites()`.
+- **Checkpoints**: `set_checkpoint` stores `{id, label, noUndo, snap}` where `snap` is a `snapshot()` taken with no checkpoint set, so they never nest; snapshots carry the current checkpoint, so Undo restores whichever was set then. `restoreCheckpoint()` restores `snap` and re-sets the checkpoint. The death screen shows **Restart from** and hides Undo when `noUndo`.
+- **Pursuers**: `pursuerState[id] = {distance, humming, hum}`. `pursuerStep()` (per move): outside the zone or `when`, reset to `start_distance`; if it was humming, you left in time (reset to `reset_distance`, `lost_message`); a move with `silent_flag` set costs it nothing (the flag is cleared), else distance - 1; on a strike view with distance ≤ 1 it starts humming. `advancePursuers(dt)` (in `advanceClock`): a humming pursuer loses you if `silent_flag` is set, else strikes after `strike_seconds`.
+- **Sensing patrols**: in `advanceClock`, a stop with `sense` is safe unless the player (`livePos` from `setLivePosition()`, which ScenarioPlayer calls on every pose change; else the placement) is within `radius` of the drawn patrol, moving (if `only_while_moving`), not masked, and outside `walk_area.shadows` (point-in-polygon). `depthScaleAt()` multiplies in `walk_area.scale`; the walk speed also multiplies `walk_area.speed`.
+- **Sense, actions, rhythm, layers**: `sense()` breadth-first searches the exit graph (`isNeighbour`'s index) up to the radius and names the nearest view of each kind with a compass word from `map_xy`. `getActions()`/`runAction()` back the HUD buttons. `getRhythmSetup()` resolves phrases, tempo (slower after `slow_after` failures) and hint; `RhythmWidget.tsx` runs the call and response and calls `finishRhythm(solved)`. `show_closeup` resolves `layers` into `getCloseupLayers()`, drawn by `CloseupOverlay`.
+
 ### Soft-Lock Search (`tools/softlock-search.mjs`)
 
 Bundles this engine with esbuild and runs a breadth-first search over every reachable game state, using the real `interact` / `combineItems` / `selectDialogueChoice` / `navigateBack` methods. To keep the state space tractable it tracks only the goal's **cone of influence**: starting from the goal variable, it repeatedly adds every flag, object state, item and visibility read by an interaction group that writes a cone variable or changes the view. Interactions that only touch out-of-cone variables (lore flags, flavour text) are skipped. That projection is sound for reachability, because dropped variables can't change which goal-relevant effects fire. It then computes reverse reachability from goal states and reports every reachable non-terminal state that can no longer win, plus the action that doomed it and a path to it.
@@ -376,6 +387,8 @@ Bundles this engine with esbuild and runs a breadth-first search over every reac
 ```bash
 node tools/softlock-search.mjs scenarios/the-harvest/scenario.json --views act1 --goal "state:airlock_override_panel!=locked"
 ```
+
+Meters are part of the state (every move can cost them), cycles always read their first phase (the player can wait for an in-breath), patrols and pursuers are off (they run on real time and only kill; checkpoints recover), and `setting.actions` are actions like any other. `--from-dev-skip` starts from the state `setting.dev_skip` sets up, to search one section (the vent maze) on its own.
 
 ---
 

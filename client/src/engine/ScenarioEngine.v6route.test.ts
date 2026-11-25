@@ -35,7 +35,7 @@ function goTo(e: ScenarioEngine, view: string) {
   expect(e.currentViewId).toBe(view);
 }
 
-function viewOf(e: ScenarioEngine, c: [number, number]): string {
+function viewOf(_e: ScenarioEngine, c: [number, number]): string {
   const v = scenario.views.find((x) => x.map_xy && x.map_xy[0] === c[0] && x.map_xy[1] === 14 - c[1]);
   if (!v) throw new Error(`no view at ${c}`);
   return v.id;

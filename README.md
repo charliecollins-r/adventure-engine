@@ -196,11 +196,12 @@ The schema supports **30+ proven design patterns** drawn from classic adventures
 A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6 are in the JSON so far) including a hidden ending that rewards empathy across the entire game. The player wakes in a stasis pod aboard an alien harvester ship, escapes containment, navigates the ship, descends to a dying planet, explores a dead city, and confronts the parasitic Convergence in its nexus.
 
 **Act 1 is fully playable** with:
-- **30 views** — 9 rooms (Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay), 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and an 18-screen vent maze (5 painted landmark rooms and 13 duct cells, with a readable map)
-- **16 items** — 15 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft
+- **199 views** — 9 rooms (Stasis Hold, Containment Corridor, Processing Lab, Security Hub, Feeding Station, Morgue, Specimen Archive, Ventilation Shaft, Airlock Bay), 3 interactive close-ups (cataloguer specimens, lab terminal, security console), and **The Colony**, a 180-screen vent maze in three zones: the Outer Ducts, the Gut (the Vesk colony's home, with the Warren, a city you cross as a speck) and the Purge Core
+- **The Colony** — a breath meter (every screen costs a breath; cold folds and breathing ducts refill it; Listen spends one to hear what's near), Wardens that hunt you until you win over the colony's Queen, a stealth crossing of the Warren on the lung's wind, an Audience where you answer the Queen in breath (a rhythm puzzle), the purge surge, the Curator reaching in at the Purge Core's grates, a race to the Purge Heart, and zone checkpoints so a death costs a zone, never the game
+- **23 items in Act 1** — the original 16 (15 to find (pod glass shard, stasis fluid vial, specimen tag, surgical probe, restraint strap, carcass hook, containment key card, emergency helmet, ventilation map, and more, including two optional finds in the maze) plus a grappling line you craft) and 7 from the vents (lung-sac, call-stone, hollowed tag, the Queen's egg, a claw ring, Vera's patch, the Choir multitool)
 - **Animated NPCs** — caged alien prisoner (pacing animation), cataloguer robot, holographic display (spinning planets), shadow cat, vent cover grate
 - **Branching dialogue** — 4-way conversation choices that set different bond values affecting future acts
-- **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → vent maze → airlock
+- **Puzzle chains** — craft a grappling line → cross the walkway gap → read the glyph code → glyph keypad on the lab terminal → security override → the vents: the lever, the gas, the Warren, the Audience, the Purge Core → jam the Purge Heart → airlock
 - **Hunter patrol** — every minute, from a minute in, a hunter drone sweeps the rooms you start in; the title-bar clock lets you learn its rhythm, you hear it 5 seconds before it comes in, and you hear it pass from the rooms next door
 - **Glyph keypad** — an overlay puzzle widget with alien-glyph keys; wrong guesses make noise
 - **Verified solvable** — the soft-lock search finds no unwinnable state in Act 1
@@ -423,7 +424,8 @@ adventure-engine/
 - [x] Item icon images in inventory panel
 - [x] Keypad puzzle widget (overlay, image keys)
 - [x] Scenario validator and soft-lock search (Node tools)
-- [x] Vent maze: KQ-style labyrinth with a generated map
+- [x] Vent maze: KQ-style labyrinth with a generated map (v6 "The Colony": 180 screens, breath, stealth, a rhythm puzzle, a pursuer behind walls, zone checkpoints)
+- [x] Engine: meters, cycles, checkpoints, pursuers, sensing patrols, player actions, rhythm widget, close-up layers
 - [x] Events system: condition-triggered narrative beats (noise thresholds, flags)
 - [ ] Timed events (game clock for `time_after`)
 - [ ] Remaining puzzle widgets (dials, combination locks, toggles, sequences)

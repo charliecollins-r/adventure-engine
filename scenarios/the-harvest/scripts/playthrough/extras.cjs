@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
     await p.mouse.click(700, 450); await p.waitForTimeout(2500); await p.screenshot({ path: 'shots/00b_wake.png' }); await b.close(); }
   const g = await L.start(); await g.p.click('button:text-is("Debug ON")');
   const shot = async (n) => { await L.dismiss(g); await g.p.waitForTimeout(300); await g.p.screenshot({ path: `shots/${n}.png`, clip: { x: g.vp.x, y: g.vp.y, width: 960, height: 540 } }); };
-  for (const c of Object.keys(JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'vent_maze_grid.json'), 'utf8')).cells).filter((k) => /^[A-G][0-9]$/.test(k)).slice(0, 6)) { try { await L.go(g, `act1_vent_maze_${c.toLowerCase()}`); await shot(`maze_${c.toLowerCase()}`); } catch (e) {} }
+  for (const v of ['act1_v6_8_0', 'act1_v6_warren_ledge', 'act1_v6_5_8', 'act1_v6_court_queen', 'act1_v6_8_12', 'act1_v6_cache_vault']) { try { await L.go(g, v); await shot(`maze_${v.slice(8)}`); } catch (e) {} }
   await L.go(g, 'act1_vent_gas_chamber'); const t1 = await L.A(g, 'move', 'nav_act1_vent_gas_to_act1_vent_fan_room'); await g.p.waitForTimeout(1200); await g.p.screenshot({ path: 'shots/death_gas.png' });
   console.log('gas death:', (t1 || '').slice(0, 200));
   await g.b.close();

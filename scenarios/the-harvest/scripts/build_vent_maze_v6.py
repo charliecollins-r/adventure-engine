@@ -471,8 +471,13 @@ def duct_view(c):
     hints = [{'text': {1: 'These ducts all look alike. Count your turns on the map: the camera always faces north, so ahead is north, left west, right east.',
                        2: 'Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.',
                        3: 'No folds in the Core. Purge vents give air on their in-breath and kill on the out-breath. The Curator can only reach you at a grate, and hums one move before it can.'}[z], 'when': []}]
-    if z == 1 and c in TO_LEVER and not c == tuple(G['rooms']['lever'][0]):
-        pass
+    if z == 1:
+        # the Keth-Vari's scratched route (copied from its cage upstairs): the way to the lever, then to the gas door
+        for goal_dist, cond, what in ((TO_LEVER, [not_('lever_pulled')], 'the lever'), (TO_GASDOOR, [is_('lever_pulled')], 'the gas door')):
+            if c in goal_dist and goal_dist[c] > 0:
+                way = min((d for d, n in links(c) if n in goal_dist), key=lambda d: goal_dist[step(c, d)])
+                hints.append({'text': f"The Keth-Vari's scratched route says: toward {what}, go {SCREEN[way]} ({WORD[way]}) from here.",
+                              'when': [is_('vent_route_known')] + cond})
     view = {'id': vid(c), 'name': {1: 'The Outer Ducts', 2: 'The Gut', 3: 'The Purge Core'}[z], 'background_key': vid(c), 'background_file': bg,
             'objects': [o['id'] for o in objs], 'hints': hints, 'enter_sound': 'crawl', 'music': MUSIC[z], 'map_xy': [c[0], 14 - c[1]],
             'character': {'x': DUCT_CHAR[name] if not flip else 960 - DUCT_CHAR[name], 'y': 650, 'facing': 'up', 'sprite_set': 'idle'},

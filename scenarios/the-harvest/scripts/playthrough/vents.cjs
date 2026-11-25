@@ -10,65 +10,7 @@ const grid = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'vent_maze_v6
 const fails = [];
 const check = (ok, what) => { console.log(`${ok ? 'PASS' : 'FAIL'}  ${what}`); if (!ok) fails.push(what); };
 
-async function viewOf(g, c) {
-  return g.p.evaluate(([x, y]) => window.__engine.getScenario().views.find((v) => v.map_xy && v.map_xy[0] === x && v.map_xy[1] === 14 - y)?.id, c);
-}
-async function closeups(g) {
-  if (await g.p.evaluate(() => !!window.__engine.getCloseupImage())) {
-    await g.p.keyboard.press('Escape');
-    await g.p.waitForTimeout(300);
-  }
-}
-async function cur(g) { return g.p.evaluate(() => window.__engine.currentViewId); }
-async function flag(g, f) { return g.p.evaluate((f) => window.__engine.getFlags()[f], f); }
-
-/** Click the exit in this view that leads to `view`, after its breathing duct's in-breath if it has one. */
-async function goTo(g, view) {
-  const info = await g.p.evaluate((view) => {
-    const e = window.__engine;
-    const targets = (effs, out = []) => { for (const x of effs || []) { if (x.type === 'set_view' && x.view) out.push(x.view); targets(x.then, out); targets(x.else, out); targets(x.effects, out); } return out; };
-    const o = e.getVisibleObjects().find((o) => o.interactions.some((x) => x.verb === 'move' && targets(x.then).includes(view)));
-    if (!o) return null;
-    const cyc = o.interactions.flatMap((x) => x.when || []).find((c) => c.type === 'cycle_is');
-    return { id: o.id, cycle: cyc ? cyc.cycle : null };
-  }, view);
-  await closeups(g);
-  if (!info) { check(false, `an exit from ${await cur(g)} to ${view}`); return false; }
-  if (info.cycle) await g.p.waitForFunction((c) => window.__engine.getCyclePhase(c) === 'in' && window.__engine.getCycleProgress(c) < 0.4, info.cycle, { timeout: 20000 });
-  await L.A(g, 'move', info.id);
-  await L.settle(g);
-  await g.p.waitForTimeout(150);
-  return (await cur(g)) === view;
-}
-
-/** Answer the Queen: real mouse presses in time with her phrases. */
-async function answerQueen(g) {
-  const setup = await g.p.evaluate(() => window.__engine.getRhythmSetup());
-  const panel = await g.p.$('[data-rhythm-widget] > div');
-  const b = await panel.boundingBox();
-  await g.p.click('[data-rhythm-start]');
-  for (const pattern of setup.phrases) {
-    await g.p.waitForSelector('[data-rhythm-stage="answer"]', { timeout: 20000 });
-    const t0 = Date.now();
-    let due = 0;
-    for (const beat of pattern) {
-      const wait = due - (Date.now() - t0);
-      if (wait > 0) await g.p.waitForTimeout(wait);
-      await g.p.mouse.move(b.x + b.width / 2, b.y + b.height - 30);
-      await g.p.mouse.down();
-      await g.p.waitForTimeout(beat === 'L' ? 480 : 110);
-      await g.p.mouse.up();
-      due += setup.beatMs * (beat === 'L' ? 2 : 1);
-    }
-    await g.p.waitForTimeout(400);
-  }
-  await g.p.waitForSelector('[data-rhythm-widget]', { state: 'detached', timeout: 8000 });
-}
-
-async function choose(g, text) {
-  await g.p.click(`text=${text}`);
-  await g.p.waitForTimeout(400);
-}
+const { viewOf, cur, flag, closeups, goTo, answerQueen, choose } = L.v6;
 
 (async () => {
   // VENTS_PART=warren runs only the Warren and checkpoint checks

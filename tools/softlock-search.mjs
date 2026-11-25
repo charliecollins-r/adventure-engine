@@ -12,6 +12,8 @@
  *   --goal <expr>      state:<obj>=<v> | state:<obj>!=<v> | flag:<f>=<v> | item:<id> | view:<prefix>
  *   --max <n>          State cap (default 2,000,000)
  *   --verbose          Print the cone-of-influence variables
+ *   --from-dev-skip    Start from the state setting.dev_skip sets up (e.g. the top of the vent maze) instead of the
+ *                      scenario's start: search one section on its own
  *
  * Soundness: only variables in the goal's "cone of influence" are tracked — flags,
  * object states, item possession and object visibility that (transitively) gate an
@@ -41,6 +43,7 @@ const viewPrefix = arg('--views', '');
 const goalExpr = arg('--goal');
 const MAX = +arg('--max', 2000000);
 const verbose = args.includes('--verbose');
+const fromDevSkip = args.includes('--from-dev-skip');
 if (!goalExpr) { console.error('--goal is required'); process.exit(1); }
 
 // ---- bundle the real engine --------------------------------------------
@@ -78,6 +81,7 @@ function condReads(cs, r) {
     else if (c.type === 'object_state') r.add('state:' + c.object);
     else if (c.type === 'has_item' || c.type === 'not_has_item' || c.type === 'item_count') r.add('item:' + c.item);
     else if (c.type === 'widget_solved') r.add('wsolved:' + c.widget);
+    else if (c.type === 'meter_below' || c.type === 'meter_above') r.add('meter:' + c.meter);
     condReads(c.conditions, r);
   }
 }
@@ -90,6 +94,8 @@ function effRW(es, r, w) {
       case 'transform_item': w.add('item:' + e.item); w.add('item:' + e.into); break;
       case 'show_object': case 'hide_object': w.add('vis:' + e.object); break;
       case 'set_view': w.add('view'); break;
+      case 'meter_add': case 'meter_set': w.add('meter:' + e.meter); break;
+      case 'meter_transfer': w.add('meter:' + e.meter); w.add('meter:' + e.to); break;
       case 'game_over': w.add('gameover'); break;
       case 'show_dialogue': w.add('dialogue'); break;
       case 'open_widget': {
@@ -120,6 +126,10 @@ for (const o of scenario.objects) if (scopeObjs.has(o.id)) {
   for (const [k, list] of Object.entries(byKey)) addGroup(o.id + '|' + k, list, ['vis:' + o.id, ...(list[0].item ? ['item:' + list[0].item] : [])]);
 }
 for (const it of scenario.items) if (it.examine?.length) addGroup('#' + it.id, it.examine, ['item:' + it.id]);
+// setting.actions (hold your breath, squeeze the lung-sac): buttons the player can press anywhere they are shown
+for (const a of scenario.setting.actions || []) { const r = new Set(), w = new Set(); condReads(a.when, r); effRW(a.effects, r, w); groups.set('!' + a.id, { r, w }); }
+// meters are always part of the state (every move can cost them, and running out ends the game)
+const METERS = (scenario.meters || []).map((m) => m.id);
 for (const c of scenario.combinations || []) {
   const w = new Set(['item:' + c.result]); if (c.consumes) c.items.forEach(i => w.add('item:' + i));
   const r = new Set(c.items.map(i => 'item:' + i)); condReads(c.conditions, r);
@@ -152,7 +162,7 @@ while (grew) {
   grew = false;
   for (const [k, g] of groups) {
     if (relevant.has(k)) continue;
-    if ([...g.w].some(x => cone.has(x) || x === 'view')) {
+    if ([...g.w].some(x => cone.has(x) || x === 'view' || x.startsWith('meter:'))) {
       relevant.add(k); grew = true;
       for (const x of g.r) cone.add(x);
     }
@@ -168,15 +178,23 @@ console.log(`cone of influence: ${coneFlags.length} flags, ${coneStates.length} 
 // ---- compact state <-> engine ------------------------------------------
 const base = new ScenarioEngine(scenario);
 base.immediateDelays = true;   // delayed effects (a line coming back, a guard catching you) happen in the same step
+base.patrolsEnabled = false;
+if (fromDevSkip) {
+  if (!scenario.setting.dev_skip) { console.error('--from-dev-skip: the scenario has no setting.dev_skip'); process.exit(1); }
+  base.runEffects(scenario.setting.dev_skip.effects);
+  base._closeupImage = null; base._messages = [];
+  console.log(`starting from setting.dev_skip: ${base._currentViewId}`);
+}
 const baseSnap = JSON.stringify({ flags: base.flags, objectStates: base.objectStates, objectVisibility: base.objectVisibility });
 const encode = e => JSON.stringify([
   e._currentViewId, e.viewHistory.at(-1) || '',
   coneFlags.map(f => e.flags[f] ?? ''), coneStates.map(s => e.objectStates[s] ?? ''), coneVis.map(v => (e.objectVisibility[v] === false ? 0 : 1)),
   e.inventory.filter(i => coneItems.has(i)).sort(), e._dialoguePrompt ? [e._dialoguePrompt, e._dialogueChoices] : 0,
   e._activeWidgetId || 0, Object.keys(e.solvedWidgets || {}).filter(k => e.solvedWidgets[k]).sort(),
+  METERS.map((m) => e.meterValues?.[m] ?? 0),
 ]);
 function decode(k) {
-  const [view, back, f, s, v, inv, dlg, aw, solved] = JSON.parse(k);
+  const [view, back, f, s, v, inv, dlg, aw, solved, meters] = JSON.parse(k);
   const e = Object.create(ScenarioEngine.prototype);
   Object.assign(e, base);
   const b = JSON.parse(baseSnap);
@@ -185,6 +203,11 @@ function decode(k) {
   Object.assign(e, { _currentViewId: view, viewHistory: back ? [back] : [], inventory: [...inv], objectAnimations: {}, _gameOver: null, _messages: [], _pendingSounds: [], _noiseLevel: 0, _characterOverride: null, equippedItems: new Map() });
   e._dialoguePrompt = dlg ? dlg[0] : null; e._dialogueChoices = dlg ? dlg[1] : [];
   e._activeWidgetId = aw || null; e.widgetAttempts = {}; e.solvedWidgets = Object.fromEntries((solved || []).map(id => [id, true]));
+  // meters from the state; cycles always on their in-breath (the player can wait for it); no patrols, pursuers or checkpoints
+  e.meterValues = Object.fromEntries(METERS.map((m, i) => [m, meters?.[i] ?? 0])); e.meterEmptied = new Set();
+  e.pursuerState = JSON.parse(JSON.stringify(base.pursuerState || {})); e._checkpoint = null; e.patrolsEnabled = false;
+  e.getCyclePhase = (id) => ((scenario.cycles || []).find((c) => c.id === id)?.phases?.[0]?.id ?? '');
+  e._closeupImage = null; e._closeupLayers = [];
   return e;
 }
 function actions(e) {
@@ -212,6 +235,7 @@ function actions(e) {
     for (let j = i + 1; j < inv.length; j++) if (relevant.has(`+${inv[i]}+${inv[j]}`) || relevant.has(`+${inv[j]}+${inv[i]}`)) out.push([`COMBINE ${inv[i]} + ${inv[j]}`, x => x.combineItems(inv[i], inv[j])]);
   }
   if (e.canGoBack()) out.push(['BACK', x => x.navigateBack()]);
+  for (const a of e.getActions ? e.getActions() : []) if (relevant.has('!' + a.id)) out.push([`ACTION ${a.id}`, x => x.runAction(a.id)]);
   return out;
 }
 

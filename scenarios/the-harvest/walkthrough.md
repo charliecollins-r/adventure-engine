@@ -168,41 +168,22 @@ Exits: Morgue (left), Specimen Archive (right), Corridor (back).
 - **HAND the wall scratches** → *Ventilation Map*. LOOK at it in your inventory to see the whole maze. Strongly recommended.
 - Forward leads to the junction; back leads up into the corridor.
 
-### 9. The vent maze
+### 9. The vents: The Colony (v6)
 
-![Vent junction](walkthrough/18_vent_junction.webp)
+The vents are three zones, each with its own checkpoint: die in a zone and you start again at its entrance. The map (the escapee's, north-up, its Gut's east half torn off) shows the ducts but not where you are: the camera always faces north, so ahead is north, left west, right east.
 
-The ducts are a fixed-compass maze: **the camera always faces north**, so the tunnel straight ahead is north, the left opening is west, the right opening is east and the bottom edge (back) is south. There are 45 duct screens that look alike, 6 loops, 6 dead ends and 3 **purge ducts** that kill you. The map from the wall scratches shows the whole grid but not where you are, so keep count of your turns.
+**The Outer Ducts (start: the junction).** Dropping in, a Choir eye fills the grate above you: "Let the walls have it." The Gas Chamber door is far west, behind a Choir quarantine seal; its lever is far east. From the junction go east along the bottom row to the far end, then north into the **lever** room and pull it. Come back west past the junction (a side trip north off the east row reaches the Choir engineer's skeleton: datapad and access chip). Head west and up to the **Gas Chamber** (dead Vesk, the helmet keeps you alive), then its west end, the door. Go north through the seal: the colony's membrane tears your helmet off.
 
-![The ventilation map](walkthrough/vent_map.webp)
+**The Gut (start: the Warren ledge).** From here every screen costs a breath (9). Cold folds and rooms with air refill you; a cold draught tells you a fold is next door; **Listen** spends a breath to hear folds, breathing ducts, purge ducts and Wardens within 2 screens. Breathing ducts pull you through on the in-breath (+3) and shove you back on the out-breath: click the exit as the throat opens.
+1. **The Warren**, four screens of city at a tiny scale. Wardens crawl the lanes and notice anything that moves while the air is still: walk on the lung's in-breath (wind), stand still or stand in a pillar's shadow when it goes still. Ledge → bridge (north) → throat (east). If you were kind upstairs, the Keth-Vari waits in the dwellings and scratches the torn half onto your map.
+2. **The greeting.** The royal guard wants the colony's greeting: long, short, long. Vera teaches it (a short detour north-west from the west half: 4 screens, and her alcove has air), and so do the Archivist and the escapee's journal in the torn half.
+3. **Wardens W1 and W2** sweep loops on the clock; you hear them clicking 5 s ahead: get into a fold (HAND it) or out of the way. Every 3 minutes the **purge surge** rolls along the north rows (6 s warning): fold, or go south. Six membranes clench shut during a surge.
+4. The **Heart Valve** (stasis fluid, or the Penitent's song) is a shortcut from the west half to the court's side.
+5. **The Audience** (the court, three screens north, smaller each time): breathe the greeting at the guard; TALK to the Queen and answer her phrases (hold for long, tap for short); give up the tag ("Let them take it"); swear the vow (lung-sac, call-stone, an egg) or bargain (lung-sac). Then the wall behind her opens: the border into the Purge Core. After the alliance, Wardens stand aside and point the way, membranes stay open, two tunnels open and the drop-hole (with the grappling line) cuts the Core in half.
 
-![Vent maze route](walkthrough/vent_maze_route.webp)
+**The Purge Core (start: where you came in).** No folds: purge vents give air on their in-breath and kill on the out-breath (the cat, if you petted it, shows you when). The Curator hunts you from behind the walls and can reach in only at a **grate**; one move away it hums: leave within 6 s, **Listen** (holding your breath, it loses you) or tap the call-stone on the grate. Side trips: the **Cache** (the Choir multitool), the **hull seam** (air, and Earth), the grate over the **Curator's office** (learn its hum). About five screens from the Purge Heart the Curator turns for the controls: a race (it has its own checkpoint). Jam the Heart with the surgical probe or the multitool, squeeze through, and drop into the Airlock Bay.
 
-**The way out (gold), 18 moves from the junction:** right (east), ahead, right, ahead, ahead, ahead, left, ahead, left, **back**, left, **back**, left, ahead, ahead, ahead, left, ahead into the gas. (In compass terms: E, N, E, N, N, N, W, N, W, S, W, S, W, N, N, N, W, N.) Yes, it doubles back twice.
-
-**Purge ducts:** if an opening breathes scalding air and its mouth is scorched black (LOOK to check), don't go in. They're the small skulls on the map.
-
-**The skeleton (optional):** right (east), ahead, right, then ahead six times to the Collapsed Section in the north-east. HAND the skeleton for the *Crew Datapad*, and again for the hidden *Choir Access Chip*, which opens the Act 2 Shuttle Bay silently. Come back the same way, reversed.
-
-![Collapsed Section](walkthrough/19_vent_collapsed.webp)
-
-### 10. Gas-Filled Passage
-
-![Gas-Filled Passage](walkthrough/20_vent_gas.webp)
-
-With the helmet, MOVE forward: the visor seals and you walk through. Without it you die (both directions).
-
-### 11. Fan Chamber
-
-![Fan Chamber](walkthrough/21_vent_fan.webp)
-
-USE the **Surgical Probe** ON the **fan mechanism** (right side) to jam the blades (the probe is used up). Then MOVE into the fan to squeeze through. Walk in while it's spinning and you die.
-
-### 12. Exit Passage
-
-![Exit Passage](walkthrough/23_vent_exit.webp)
-
-LOOK through the crack: stars. MOVE through the hatch to drop into the Airlock Bay.
+Shortest route: 74 moves (66 with the Heart Valve, 64 with the drop-hole). Tested end to end by `client/src/engine/ScenarioEngine.v6route.test.ts` and `scripts/playthrough/vents.cjs`.
 
 ### 13. Airlock Bay (end of Act 1)
 

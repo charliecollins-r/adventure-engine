@@ -42,8 +42,8 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   const enc = await L.A(g, 'look', 'energy_barrier_enclosures'); await L.dismiss(g); if (!/barriers are down/.test(enc || '')) fail('enclosure look after escape'); else ok('enclosures describe the escape');
 
   // Duct hints now give directions
-  await L.go(g, 'act1_vent_maze_e1'); await L.dismiss(g); const h = await L.hint(g, 'e1');
-  if (!/scratched route says: from here, go/.test(h || '')) fail(`duct hint: ${h}`); else ok(`duct hint with the route: "${h}"`);
+  await L.go(g, 'act1_v6_8_0'); await L.dismiss(g); const h = await L.hint(g, 'v6 8,0');
+  if (!/scratched route says: toward the lever, go/.test(h || '')) fail(`duct hint: ${h}`); else ok(`duct hint with the route: "${h}"`);
 
   console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL PRISONER TESTS PASSED');
   await g.b.close(); process.exit(failures ? 1 : 0);

@@ -1,5 +1,7 @@
 # Vent Maze Design — Act 1
 
+> **Superseded by v6 "The Colony" (built).** The maze in the game is now v6: design doc https://claude.ai/artifact/TXbhA8E6UQGPiDsts5uGkS, interactive map https://claude.ai/artifact/GQf44LikYYCK5Knym4wD5Y, built by `scripts/build_vent_maze_v6.py` + `scripts/vent_story_v6.py` from `scripts/vent_maze_v6_grid.json`. This page describes v3 and is kept for its conventions (fixed compass, frames, fairness).
+
 ## Overview
 
 The vents between the Containment Corridor and the Airlock Bay are a **King's Quest desert–style labyrinth**: 48 near-identical duct screens on a fixed compass, with five painted landmark rooms (Junction, Gas Chamber, Fan Chamber, Collapsed Section, Exit Passage) inside it. It is meant to be genuinely hard: the shortest way out is 18 duct moves through 6 loops and past 6 dead ends, and three side ducts are **purge ducts** that kill you. The scratched **ventilation map** from the Vent Entry shows the whole grid, north-up, but no route and no "you are here": like KQ's desert, you keep track of your own turns.

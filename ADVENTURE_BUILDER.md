@@ -1035,6 +1035,7 @@ A maze is just many views that **share background files**. Nothing in the engine
 - **Make the map the key.** Give the player a map item whose examine shows a `show_closeup` image of the grid, and add a per-cell hint that only fires `has_item` map and names the right direction from that cell.
 - **Art.** Make the generic frames as edits of one "hero" frame, mirror for the right-handed variants, and preview each against the shared hotspot boxes with `tools/preview-hotspots.mjs --image`. The full step-by-step recipe, with prompts, is in [docs/ART_GUIDE.md → Case Study: The Vent Maze](docs/ART_GUIDE.md#case-study-the-vent-maze-rooms-that-belong-together).
 - **Fairness.** Make every passage two-way, and have nothing in a generic cell consume or block. Getting lost should cost time, never progress. Then prove it with `tools/softlock-search.mjs`.
+- **Bigger mazes.** The Harvest's v6 maze (`scripts/build_vent_maze_v6.py`) adds zones with their own checkpoints, a breath meter, breathing ducts on cycles, patrols you hide from in folds, and a pursuer behind the walls, all from one grid file. See "Breath, rhythms, checkpoints and hunters" below.
 
 ### Locked Navigation
 
@@ -1366,6 +1367,19 @@ Give a view a floor and the player can walk around it, King's Quest V style: **M
 - **Walk cycle**: the character's `walk` sprite set is used while walking; a sprite set can name its own (`"idle_helmet": { ..., "walk": "walk_helmet" }`). `character.walk_speed` sets the speed (default 150).
 
 Full reference: [SCENARIO_SCHEMA.md → Walkable Areas](docs/SCENARIO_SCHEMA.md#walkable-areas-click-to-walk). Design notes: [docs/WALKABLE_AREAS.md](docs/WALKABLE_AREAS.md).
+
+### Breath, rhythms, checkpoints and hunters *(implemented)*
+
+These general features built The Harvest's vent maze. Full fields: [SCENARIO_SCHEMA.md → Meters … Rhythm widget](docs/SCENARIO_SCHEMA.md#meters).
+
+- **Meters** (`meters`): a HUD counter with a `max`, a `cost_per_move` (taken on every `set_view` while `active_when` holds; close-ups are free), `warnings` (a line and a sound at a value) and `on_empty` (usually a `game_over`). Refill with `meter_set` in a view's **`on_enter`** effects (a room with air). `meter_transfer` pours one meter into another (a lung-sac into your breath). Conditions: `meter_below`, `meter_above`.
+- **Cycles** (`cycles`): a rhythm on the game clock with named phases (a lung breathing in and out). Gate an exit with `cycle_is`; make a sprite follow it with `sprite.sync_cycle`, or pick a still frame by state with `sprite.frame_when`. Give a timing-critical exit `walk_to: false` so it acts the moment the player clicks.
+- **Checkpoints** (`set_checkpoint`, `clear_checkpoint`): save a zone's start; the death screen offers **Restart from …**. With `no_undo` it hides Undo, so a death always goes back to a winnable state.
+- **Pursuers** (`pursuers`): hunt the player from behind walls, one step per move, and strike only at `strike_views` after a hum and `strike_seconds`. Leaving, or setting `silent_flag` (holding your breath), loses it; `pursuer_divert` sends it away.
+- **Sensing patrols**: a patrol stop with `sense: {radius, only_while_moving, masked_when}` notices only a player who moves close to it, not while a cycle masks him, and not in the floor's `shadows`. With `walk_area.scale` (a tiny figure) and `speed`, that's a King's Quest city crossing.
+- **Player actions** (`setting.actions`): HUD buttons that run effects (Listen, Squeeze the lung-sac). The **`sense`** effect names what is within N screens, with compass directions from each view's `map_xy`.
+- **Rhythm widget** (`widget_type: "rhythm"`): call and response in long and short presses, with retries, a slower tempo after failures and an optional hint.
+- **Map layers**: `show_closeup` with `layers: [{image, when}]` draws images over a map while their conditions hold (a torn half filled in, routes scratched on).
 
 ### Killer AI *(Planned)*
 
