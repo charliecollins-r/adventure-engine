@@ -37,7 +37,7 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   await L.dismiss(g);
   if (await visible('caged_prisoner')) fail('prisoner still in the cage after the override'); else ok('prisoner gone after the override');
   if (!(await visible('prisoner_cage_scratches'))) fail('no scratches left for a kept promise'); else ok('scratches left in the cage');
-  const look = await L.A(g, 'look', 'prisoner_cage_scratches'); await L.dismiss(g); if (!/kept its side/.test(look || '')) fail('scratches look text');
+  const look = await L.A(g, 'look', 'prisoner_cage_scratches'); await L.dismiss(g); if (!/kept its promise/.test(look || '')) fail('scratches look text');
   const take = await L.A(g, 'hand', 'prisoner_cage_scratches'); await L.dismiss(g); if (!/know the way through the ducts/.test(take || '')) fail('copying the route'); else ok('copied the route onto the map');
   const enc = await L.A(g, 'look', 'energy_barrier_enclosures'); await L.dismiss(g); if (!/barriers are down/.test(enc || '')) fail('enclosure look after escape'); else ok('enclosures describe the escape');
 

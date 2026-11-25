@@ -6,7 +6,10 @@
   "I snap a curved shard off the broken edge: some alien composite, light and razor-sharp. A crude tool, but a tool.": "audio/voice/pod_shard_hand.mp3",
   "Up close, the displays under the jars all show the same four alien characters, always in the same order. I learn their shapes by heart. A section code, probably.": "audio/voice/robot_look_first.mp3",
   "A bio-organic tag like a leaf of cartilage, etched with alien notation. A serial number for a collected specimen. Me.": "audio/voice/specimen_tag_look.mp3",
-  "I snap the tag free. On the back, seven alien marks in a ring, six already dark. I don't need a translator to read a countdown. I pocket it anyway.": "audio/voice/specimen_tag_hand.mp3"
+  "I snap the tag free. On the back, seven alien marks in a ring, six already dark. I don't need a translator to read a countdown. I pocket it anyway.": "audio/voice/specimen_tag_hand.mp3",
+  "A shallow floor channel draining slowly to the ship's recyclers. Amber stasis fluid pools here.": "audio/voice/drainage_look.mp3",
+  "Pods climb into the dark, specimens from dozens of worlds in amber. A few still pulse with life. All too high to reach.": "audio/voice/pods_look.mp3",
+  "The walkway feels like warm tree bark: grown, not forged. Drainage channels on both sides catch the fluid from damaged pods.": "audio/voice/walkway_look.mp3"
  },
  "lines": {
   "Your stasis pod is shattered. Search the wreckage — the broken glass and pooling fluid might be useful.": "Your pod is shattered. Search the wreckage: the broken glass and pooling fluid might be useful.",
