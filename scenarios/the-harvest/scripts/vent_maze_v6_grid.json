@@ -614,48 +614,64 @@
  ],
  "folds": [
   [
-   5,
-   8
+   1,
+   10
   ],
   [
-   8,
-   4
+   1,
+   12
   ],
   [
    2,
    6
   ],
   [
+   3,
+   10
+  ],
+  [
    5,
    5
   ],
   [
-   14,
+   5,
    8
   ],
   [
-   11,
-   5
-  ],
-  [
    5,
    10
   ],
   [
-   12,
-   10
+   6,
+   9
+  ],
+  [
+   8,
+   4
+  ],
+  [
+   8,
+   5
   ],
   [
    8,
    9
   ],
   [
-   8,
+   11,
    5
   ],
   [
-   1,
-   12
+   12,
+   10
+  ],
+  [
+   14,
+   8
+  ],
+  [
+   14,
+   10
   ]
  ],
  "breathing_zones": {
@@ -763,7 +779,7 @@
   ]
  },
  "breath": {
-  "max": 8,
+  "max": 9,
   "route_lowest": 2,
   "route_trace": [
    8,
@@ -1026,7 +1042,12 @@
    ]
   ],
   "worst_gut_screens_to_air": 3,
-  "worst_core_screens_to_fold_or_room": 8
+  "worst_core_screens_to_fold_or_room": 8,
+  "proofs_reached_with": {
+   "warren_to_border": 9,
+   "border_to_exit": 5,
+   "shaft_landing_to_exit": 5
+  }
  },
  "shortcuts": {
   "heart_valve": [
@@ -1387,5 +1408,227 @@
   "route_lowest_breath": 2,
   "grates": 10,
   "grates_on_route": 5
+ },
+ "surge": {
+  "period": 180,
+  "first_at": 150,
+  "leg_seconds": 7,
+  "warn_seconds": 6,
+  "legs": [
+   [
+    [
+     0,
+     9
+    ],
+    [
+     1,
+     10
+    ],
+    [
+     1,
+     9
+    ],
+    [
+     2,
+     10
+    ],
+    [
+     2,
+     9
+    ]
+   ],
+   [
+    [
+     3,
+     10
+    ],
+    [
+     3,
+     9
+    ],
+    [
+     4,
+     10
+    ],
+    [
+     5,
+     10
+    ],
+    [
+     5,
+     9
+    ]
+   ],
+   [
+    [
+     6,
+     9
+    ],
+    [
+     8,
+     10
+    ],
+    [
+     8,
+     9
+    ],
+    [
+     11,
+     9
+    ],
+    [
+     12,
+     10
+    ]
+   ],
+   [
+    [
+     12,
+     9
+    ],
+    [
+     14,
+     10
+    ],
+    [
+     14,
+     9
+    ]
+   ]
+  ],
+  "added_folds": [
+   [
+    1,
+    10
+   ],
+   [
+    3,
+    10
+   ],
+   [
+    6,
+    9
+   ],
+   [
+    14,
+    10
+   ]
+  ]
+ },
+ "membranes": [
+  {
+   "cells": [
+    [
+     2,
+     8
+    ],
+    [
+     3,
+     8
+    ]
+   ],
+   "half": "w",
+   "on_route": true
+  },
+  {
+   "cells": [
+    [
+     4,
+     8
+    ],
+    [
+     5,
+     8
+    ]
+   ],
+   "half": "w",
+   "on_route": true
+  },
+  {
+   "cells": [
+    [
+     1,
+     7
+    ],
+    [
+     2,
+     7
+    ]
+   ],
+   "half": "w",
+   "on_route": true
+  },
+  {
+   "cells": [
+    [
+     11,
+     9
+    ],
+    [
+     12,
+     9
+    ]
+   ],
+   "half": "e",
+   "on_route": false
+  },
+  {
+   "cells": [
+    [
+     10,
+     8
+    ],
+    [
+     11,
+     8
+    ]
+   ],
+   "half": "e",
+   "on_route": false
+  },
+  {
+   "cells": [
+    [
+     12,
+     8
+    ],
+    [
+     13,
+     8
+    ]
+   ],
+   "half": "e",
+   "on_route": false
+  }
+ ],
+ "tunnels": {
+  "pairs": [
+   [
+    [
+     7,
+     8
+    ],
+    [
+     8,
+     8
+    ]
+   ],
+   [
+    [
+     5,
+     6
+    ],
+    [
+     5,
+     7
+    ]
+   ]
+  ],
+  "saves_moves": 38,
+  "targets": [
+   "warren throat",
+   "Vera",
+   "the chapel"
+  ]
  }
 }
