@@ -59,10 +59,21 @@ for f in sorted(glob.glob('audio/voice/*.mp3')):
     print(f'voice/{name}: {measured:6.1f} -> -16 LUFS ({gain:+.1f} dB)')
 
 # The new intro's voice lines (intro/audio/v2/, script in the "First Impression" doc): originals in intro/audio/v2/source/,
-# named by line id. Relay Control (c*) sits 4 dB under the pilot (p*, n*: the Silas voice, -16 like the room narration).
+# named by line id (sound effects by name). Relay Control (c*) sits 4 dB under the pilot (p*, n*: the Silas voice, -16 like the room narration).
+# the new intro's sound effects, under the voices (same scale as TARGETS above)
+V2_SFX = {'breath_loop': -30, 'panel': -26, 'stars_out': -22, 'harvest': -20, 'scan': -25, 'pod': -27, 'heartbeat': -24, 'glass': -21}
 for src in sorted(glob.glob('intro/audio/v2/source/*.mp3')):
-    name = os.path.basename(src); target = -20 if name.startswith('c') else -16
+    name = os.path.basename(src)
+    target = V2_SFX.get(name[:-4], -20 if name.startswith('c') else -16)
+    if name == 'breath_loop.mp3':
+        # seamless loop: the last 1.5 s crossfaded into the start
+        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', src, '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
+        x = np.frombuffer(r, np.int16).reshape(-1, 2).astype(np.float32); n = int(1.5 * 44100); ramp = np.linspace(0, 1, n)[:, None]
+        lp = x[:-n].copy(); lp[:n] = x[:n] * ramp + x[-n:] * (1 - ramp)
+        src = 'intro/audio/v2/source/_loop.wav'
+        w = wave.open(src, 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(44100); w.writeframes(np.clip(lp, -32768, 32767).astype(np.int16).tobytes()); w.close()
     out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
     measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = target - measured
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'intro/audio/v2/{name}'], check=True)
+    if src.endswith('_loop.wav'): os.remove(src)
     print(f'v2/{name}: {measured:6.1f} -> {target} LUFS ({gain:+.1f} dB)')
