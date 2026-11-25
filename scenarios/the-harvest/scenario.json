@@ -260,7 +260,7 @@
     "noise_sound_min": 6,
     "music": "audio/music_explore.mp3",
     "music_volume": 0.28,
-    "max_score": 95,
+    "max_score": 125,
     "intro_scenes": [
       {
         "background": "intro/backgrounds/intro_orbit.webp",
@@ -2982,6 +2982,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3037,6 +3047,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3093,6 +3113,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3149,6 +3179,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3205,6 +3245,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3709,6 +3759,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3766,6 +3826,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3829,6 +3899,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3885,6 +3965,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -3942,6 +4032,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4004,6 +4104,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4463,6 +4573,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4520,6 +4640,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4576,6 +4706,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4632,6 +4772,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4700,6 +4850,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4756,6 +4916,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4813,6 +4983,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -4869,6 +5049,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5198,6 +5388,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5255,6 +5455,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5311,6 +5521,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5368,6 +5588,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5424,6 +5654,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5487,6 +5727,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5917,6 +6167,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -5974,6 +6234,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6029,6 +6299,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6084,6 +6364,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6140,6 +6430,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6202,6 +6502,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6503,6 +6813,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6559,6 +6879,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6621,6 +6951,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6689,6 +7029,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6752,6 +7102,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6829,6 +7189,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6897,6 +7267,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -6959,6 +7339,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7389,6 +7779,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7445,6 +7845,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7507,6 +7917,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7744,6 +8164,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7806,6 +8236,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7868,6 +8308,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7937,6 +8387,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -7993,6 +8453,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8346,6 +8816,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8415,6 +8895,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8484,6 +8974,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8540,6 +9040,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8602,6 +9112,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -8669,6 +9189,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9083,6 +9613,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9139,6 +9679,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9200,6 +9750,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9261,6 +9821,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9318,6 +9888,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9655,6 +10235,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9712,6 +10302,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9768,6 +10368,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9830,6 +10440,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9886,6 +10506,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -9941,6 +10571,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10222,6 +10862,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10280,6 +10930,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10347,6 +11007,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10410,6 +11080,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10465,6 +11145,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10872,6 +11562,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10928,6 +11628,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -10984,6 +11694,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11060,6 +11780,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11116,6 +11846,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11177,6 +11917,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11638,6 +12388,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11695,6 +12455,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11751,6 +12521,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -11807,6 +12587,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12031,6 +12821,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12087,6 +12887,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12142,6 +12952,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12197,6 +13017,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12253,6 +13083,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits to your left (west), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12315,6 +13155,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12382,6 +13232,16 @@
         {
           "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "enter_sound": "crawl",
@@ -12437,7 +13297,8 @@
       "background_file": "backgrounds/maze/maze_z2_deadend.webp",
       "objects": [
         "nav_v6_14_10_south",
-        "v6_sick_14_10"
+        "v6_sick_14_10",
+        "v6_mimic_skin"
       ],
       "hints": [
         {
@@ -12483,7 +13344,31 @@
           }
         ],
         "flicker": false
-      }
+      },
+      "on_enter": [
+        {
+          "type": "conditional_effect",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "meter_set",
+              "meter": "breath",
+              "value": "max"
+            },
+            {
+              "type": "meter_set",
+              "meter": "lungsac",
+              "value": "max"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "act1_v6_14_12",
@@ -12549,7 +13434,8 @@
         "nav_v6_0_3_south",
         "nav_v6_0_3_east",
         "nav_v6_0_3_north",
-        "v6_scout_warren"
+        "v6_scout_warren",
+        "v6_warren_cat"
       ],
       "enter_sound": "crawl",
       "music": "audio/music_gut.mp3",
@@ -12608,6 +13494,38 @@
           "when": [
             {
               "type": "flag_is",
+              "flag": "vera_fate",
+              "value": "mercy"
+            },
+            {
+              "type": "flag_not",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.4,
+                "radius": 0.5,
+                "color": [
+                  40,
+                  90,
+                  80
+                ],
+                "pulse_speed": 0.05,
+                "pulse_amount": 0.1,
+                "alpha": 0.18
+              }
+            ],
+            "flicker": false
+          }
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
               "flag": "vesk_allied",
               "value": "true"
             }
@@ -12639,6 +13557,16 @@
         },
         {
           "text": "The colony knows you now. Walk where you like.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
           "when": [
             {
               "type": "flag_is",
@@ -12730,6 +13658,38 @@
           "when": [
             {
               "type": "flag_is",
+              "flag": "vera_fate",
+              "value": "mercy"
+            },
+            {
+              "type": "flag_not",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.4,
+                "radius": 0.5,
+                "color": [
+                  40,
+                  90,
+                  80
+                ],
+                "pulse_speed": 0.05,
+                "pulse_amount": 0.1,
+                "alpha": 0.18
+              }
+            ],
+            "flicker": false
+          }
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
               "flag": "vesk_allied",
               "value": "true"
             }
@@ -12761,6 +13721,16 @@
         },
         {
           "text": "The colony knows you now. Walk where you like.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
           "when": [
             {
               "type": "flag_is",
@@ -12805,6 +13775,16 @@
         {
           "text": "Vera has lived down here for thirty years. TALK to her.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -12915,6 +13895,38 @@
           "when": [
             {
               "type": "flag_is",
+              "flag": "vera_fate",
+              "value": "mercy"
+            },
+            {
+              "type": "flag_not",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.4,
+                "radius": 0.5,
+                "color": [
+                  40,
+                  90,
+                  80
+                ],
+                "pulse_speed": 0.05,
+                "pulse_amount": 0.1,
+                "alpha": 0.18
+              }
+            ],
+            "flicker": false
+          }
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
               "flag": "vesk_allied",
               "value": "true"
             }
@@ -12946,6 +13958,16 @@
         },
         {
           "text": "The colony knows you now. Walk where you like.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
           "when": [
             {
               "type": "flag_is",
@@ -13030,6 +14052,38 @@
           "when": [
             {
               "type": "flag_is",
+              "flag": "vera_fate",
+              "value": "mercy"
+            },
+            {
+              "type": "flag_not",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ],
+          "lighting": {
+            "lights": [
+              {
+                "x": 0.5,
+                "y": 0.4,
+                "radius": 0.5,
+                "color": [
+                  40,
+                  90,
+                  80
+                ],
+                "pulse_speed": 0.05,
+                "pulse_amount": 0.1,
+                "alpha": 0.18
+              }
+            ],
+            "flicker": false
+          }
+        },
+        {
+          "when": [
+            {
+              "type": "flag_is",
               "flag": "vesk_allied",
               "value": "true"
             }
@@ -13061,6 +14115,16 @@
         },
         {
           "text": "The colony knows you now. Walk where you like.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "text": "A Warden waits to your right (east), head low, and turns to lead you toward the border.",
           "when": [
             {
               "type": "flag_is",
@@ -13210,6 +14274,16 @@
         {
           "text": "Someone keeps candles burning here. Go deeper.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -13277,6 +14351,16 @@
         {
           "text": "Someone keeps candles burning here. Go deeper.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "on_enter": [
@@ -13327,6 +14411,16 @@
         {
           "text": "The Queen's court. The royal guard wants the colony's greeting before it will let you deeper.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -13397,6 +14491,16 @@
         {
           "text": "The Queen's court. The royal guard wants the colony's greeting before it will let you deeper.",
           "when": []
+        },
+        {
+          "text": "A Warden waits straight ahead (north), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -13530,6 +14634,16 @@
         {
           "text": "Someone lived here once. Look at what she left.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -13598,6 +14712,16 @@
         {
           "text": "Someone lived here once. Look at what she left.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "on_enter": [
@@ -13648,6 +14772,16 @@
         {
           "text": "The walls are covered in ears. Something down here remembers.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "walk_area": {
@@ -13715,6 +14849,16 @@
         {
           "text": "The walls are covered in ears. Something down here remembers.",
           "when": []
+        },
+        {
+          "text": "A Warden waits back the way you came (south), head low, and turns to lead you toward the border.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "vesk_allied",
+              "value": "true"
+            }
+          ]
         }
       ],
       "on_enter": [
@@ -41492,133 +42636,6 @@
         "height": 8,
         "opacity": 0.5,
         "offset_y": 22
-      }
-    },
-    {
-      "id": "junction_keth_vari",
-      "name": "The Keth-Vari",
-      "description": "The four-armed prisoner you helped, waiting in the dark.",
-      "position": {
-        "x": 790,
-        "y": 520
-      },
-      "size": {
-        "width": 90,
-        "height": 70
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "The Keth-Vari"
-      },
-      "initial_state": "default",
-      "initially_visible": false,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
-            },
-            {
-              "type": "set_flag",
-              "flag": "keth_vari_waved",
-              "value": "true"
-            },
-            {
-              "type": "add_score",
-              "points": 2,
-              "id": "keth_vari_waved"
-            },
-            {
-              "type": "hide_object",
-              "object": "junction_keth_vari"
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
-            },
-            {
-              "type": "set_flag",
-              "flag": "keth_vari_waved",
-              "value": "true"
-            },
-            {
-              "type": "add_score",
-              "points": 2,
-              "id": "keth_vari_waved"
-            },
-            {
-              "type": "hide_object",
-              "object": "junction_keth_vari"
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
-            },
-            {
-              "type": "set_flag",
-              "flag": "keth_vari_waved",
-              "value": "true"
-            },
-            {
-              "type": "add_score",
-              "points": 2,
-              "id": "keth_vari_waved"
-            },
-            {
-              "type": "hide_object",
-              "object": "junction_keth_vari"
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Four arms wave from the shadows of the right-hand tunnel. The Keth-Vari! It points east, very firmly, twice, then scratches a fresh arrow into the duct wall, gives you something that is definitely a thumbs-up times two, and is gone."
-            },
-            {
-              "type": "set_flag",
-              "flag": "keth_vari_waved",
-              "value": "true"
-            },
-            {
-              "type": "add_score",
-              "points": 2,
-              "id": "keth_vari_waved"
-            },
-            {
-              "type": "hide_object",
-              "object": "junction_keth_vari"
-            }
-          ]
-        }
-      ],
-      "walk_to": false,
-      "sprite": {
-        "file": "sprites/caged_prisoner.png",
-        "frame_width": 248,
-        "frame_height": 173,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 3,
-        "scale": 0.32
       }
     },
     {
@@ -81707,6 +82724,78 @@
           ]
         }
       ]
+    },
+    {
+      "id": "v6_mimic_skin",
+      "name": "Shed skin",
+      "description": "A shed skin, and a Warden standing over it.",
+      "position": {
+        "x": 330,
+        "y": 470
+      },
+      "size": {
+        "width": 300,
+        "height": 140
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Shed skin"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The dead end is empty now: a long, torn shed skin, and a Warden standing over it like a guard over a grave. The Queen's guard dealt with the Mimic. The Warden lowers its head to you and doesn't move."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "\"Outrider, respond,\" you say, just to hear it. The Warden's slits flare. Nobody answers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v6_warren_cat",
+      "name": "The black cat",
+      "description": "A small black shape on a far rib.",
+      "position": {
+        "x": 880,
+        "y": 300
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "The black cat"
+      },
+      "initial_state": "default",
+      "initially_visible": false,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "On a far rib above the city, a small black shape is licking a paw: the cat from upstairs. The Vesk won't touch it; they find its breathing strange. It goes where it likes."
+            }
+          ]
+        }
+      ]
     }
   ],
   "puzzle_widgets": [
@@ -83343,41 +84432,6 @@
       ]
     },
     {
-      "id": "keth_vari_in_ducts",
-      "one_shot": true,
-      "trigger": {
-        "type": "all_of",
-        "conditions": [
-          {
-            "type": "flag_is",
-            "flag": "security_locks_overridden",
-            "value": "true"
-          },
-          {
-            "type": "any_of",
-            "conditions": [
-              {
-                "type": "flag_is",
-                "flag": "promised_freedom",
-                "value": "true"
-              },
-              {
-                "type": "flag_is",
-                "flag": "prisoner_fed",
-                "value": "true"
-              }
-            ]
-          }
-        ]
-      },
-      "effects": [
-        {
-          "type": "show_object",
-          "object": "junction_keth_vari"
-        }
-      ]
-    },
-    {
       "id": "curator_glimpse",
       "one_shot": true,
       "trigger": {
@@ -83948,6 +85002,45 @@
         {
           "type": "message",
           "text": "Through the walls, all across the Gut, the colony breathes in at once, and out. The Wardens have stopped hunting. The membranes are held open. On your map, new ducts appear in four-fingered scratches."
+        }
+      ]
+    },
+    {
+      "id": "v6_mimic_gone",
+      "one_shot": true,
+      "trigger": {
+        "type": "flag_is",
+        "flag": "vesk_allied",
+        "value": "true"
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "v6_mimic_skin"
+        }
+      ]
+    },
+    {
+      "id": "v6_warren_cat",
+      "one_shot": true,
+      "trigger": {
+        "type": "all_of",
+        "conditions": [
+          {
+            "type": "flag_is",
+            "flag": "cat_petted",
+            "value": "true"
+          },
+          {
+            "type": "view_is",
+            "view": "act1_v6_warren_ledge"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "type": "show_object",
+          "object": "v6_warren_cat"
         }
       ]
     }

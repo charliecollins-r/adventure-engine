@@ -3,7 +3,7 @@
 Imported by build_vent_maze_v6.py, which passes in its helpers. Every text here follows the "Vent Maze v6: The Colony"
 doc. Room geometry (exits, floors, people's hotspots) was read off the paintings on the 960x720 grid.
 """
-import copy
+import copy, json
 
 def S(o):
     return o
@@ -188,6 +188,9 @@ def build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it,
                 ckpt('outer', 'the vent junction')]
     V['act1_vent_junction']['map_xy'] = [J[0], 14 - J[1]]
     V['act1_vent_junction']['objects'] = [o for o in V['act1_vent_junction']['objects'] if o != 'junction_keth_vari']
+    # the v3 Keth-Vari wave at the junction is replaced by the Warren's Keth-Vari
+    s['objects'] = [o for o in s['objects'] if o['id'] != 'junction_keth_vari']
+    s['events'] = [e for e in s['events'] if 'junction_keth' not in json.dumps(e)]
     for oid, d in (('nav_act1_vent_junction_to_act1_vent_gas_chamber', 'W'), ('nav_act1_vent_junction_to_act1_vent_collapsed', 'E')):
         n = step(J, d)
         for x in O[oid]['interactions']:
@@ -562,6 +565,43 @@ def build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it,
     # ── 8. the alliance changes the Gut ──────────────────────────────────────────────────────────────
     s['events'].append({'id': 'v6_allied', 'one_shot': True, 'trigger': is_('vesk_allied'),
                         'effects': [msg('Through the walls, all across the Gut, the colony breathes in at once, and out. The Wardens have stopped hunting. The membranes are held open. On your map, new ducts appear in four-fingered scratches.')]})
+
+    # ── 8b. after the alliance: the Mimic's dead end, Wardens as guides, the cat, Vera's fate ──────────
+    mim = vid(K['MIMIC'])
+    add(obj('v6_mimic_skin', 'Shed skin', 'A shed skin, and a Warden standing over it.', (330, 470, 300, 140),
+            [it('look', [msg('The dead end is empty now: a long, torn shed skin, and a Warden standing over it like a guard over a grave. The Queen\'s guard dealt with the Mimic. The Warden lowers its head to you and doesn\'t move.')]),
+             it('talk', [msg('"Outrider, respond," you say, just to hear it. The Warden\'s slits flare. Nobody answers.')])], visible=False), mim)
+    s['events'].append({'id': 'v6_mimic_gone', 'one_shot': True, 'trigger': is_('vesk_allied'), 'effects': [{'type': 'show_object', 'object': 'v6_mimic_skin'}]})
+    NV[mim].setdefault('on_enter', []).append({'type': 'conditional_effect', 'when': [is_('vesk_allied')], 'then': list(REFILL)})
+    # allied Wardens wait at the next turn toward the border: a hint in every Gut duct
+    import collections
+    gut = [c for c in CELLS if 3 <= c[1] <= 10]
+    dist = {N3: 0}
+    q = collections.deque([N3])
+    while q:
+        c = q.popleft()
+        for d, n in links(c):
+            if n in gut and n not in dist and n != K['MIMIC']:
+                dist[n] = dist[c] + 1
+                q.append(n)
+    WORD = {'N': 'north', 'S': 'south', 'E': 'east', 'W': 'west'}
+    SCREEN = {'N': 'straight ahead', 'W': 'to your left', 'E': 'to your right', 'S': 'back the way you came'}
+    for c, dd in dist.items():
+        v = NV.get(vid(c))
+        if not v or dd == 0:
+            continue
+        way = min((d for d, n in links(c) if n in dist), key=lambda d: dist[step(c, d)])
+        v.setdefault('hints', []).append({'text': f'A Warden waits {SCREEN[way]} ({WORD[way]}), head low, and turns to lead you toward the border.', 'when': [is_('vesk_allied')]})
+    # the cat, if you petted it, sits on a far rib in the Warren
+    add(obj('v6_warren_cat', 'The black cat', 'A small black shape on a far rib.', (880, 300, 50, 50),
+            [it('look', [msg('On a far rib above the city, a small black shape is licking a paw: the cat from upstairs. The Vesk won\'t touch it; they find its breathing strange. It goes where it likes.')])],
+            visible=False), vid(warren[0]))
+    s['events'].append({'id': 'v6_warren_cat', 'one_shot': True, 'trigger': {'type': 'all_of', 'conditions': [is_('cat_petted'), {'type': 'view_is', 'view': vid(warren[0])}]},
+                        'effects': [{'type': 'show_object', 'object': 'v6_warren_cat'}]})
+    # mercy for Vera dims the Warren's lights
+    for c in warren:
+        NV[vid(c)]['lighting_variants'].insert(0, {'when': [is_('vera_fate', 'mercy'), not_('vesk_allied')],
+                                                   'lighting': {'lights': [{'x': 0.5, 'y': 0.4, 'radius': 0.5, 'color': [40, 90, 80], 'pulse_speed': 0.05, 'pulse_amount': 0.1, 'alpha': 0.18}], 'flicker': False}})
 
     # ── 9. the map: the escapee's, north-up, with layers ─────────────────────────────────────────────
     I = {i['id']: i for i in s['items']}

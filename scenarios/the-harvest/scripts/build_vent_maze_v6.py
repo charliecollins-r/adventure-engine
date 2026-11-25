@@ -529,6 +529,16 @@ ji = next(i for i, v in enumerate(s['views']) if v['id'] == 'act1_vent_junction'
 s['views'][ji + 1:ji + 1] = new_views
 s['objects'] += new_objs
 
+# the score: every add_score with an id counts once
+def scores(x, out):
+    if isinstance(x, dict):
+        if x.get('type') == 'add_score' and x.get('id'): out[x['id']] = max(out.get(x['id'], 0), x.get('points', 0))
+        for v in x.values(): scores(v, out)
+    elif isinstance(x, list):
+        for v in x: scores(v, out)
+    return out
+s['setting']['max_score'] = sum(scores(s, {}).values())
+
 # canonical format: indent=2, [x, y] number pairs on one line
 out = json.dumps(s, indent=2, ensure_ascii=False)
 out = re.sub(r'\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\s*\]', r'[\1, \2]', out)
