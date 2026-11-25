@@ -246,10 +246,11 @@ export function pointAlong(path: Pt[], d: number): { pt: Pt; leg: number; done: 
 
 /** Character scale multiplier at feet height y (1 without depth_scale). */
 export function depthScaleAt(area: WalkArea | null | undefined, y: number): number {
+  const k = area?.scale ?? 1;
   const ds = area?.depth_scale;
-  if (!ds || ds.near_y === ds.far_y) return 1;
+  if (!ds || ds.near_y === ds.far_y) return k;
   const t = Math.max(0, Math.min(1, (y - ds.far_y) / (ds.near_y - ds.far_y)));
-  return ds.far + t * (ds.near - ds.far);
+  return k * (ds.far + t * (ds.near - ds.far));
 }
 
 /** The direction of a movement or look vector (authoring space; vertical is drawn at 0.75). */

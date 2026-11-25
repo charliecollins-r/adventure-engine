@@ -11,6 +11,7 @@ import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
 import { DialogueOverlay } from './DialogueOverlay';
 import { KeypadWidget } from './KeypadWidget';
+import { RhythmWidget } from './RhythmWidget';
 import { EyeOpenTransition } from './EyeOpenTransition';
 import { DevPanel } from './DevPanel';
 import { TutorialCoach } from './TutorialCoach';
@@ -460,7 +461,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       const paused = document.hidden || engine.isGameOver() || !!engine.getDialogue() || !!engine.getActiveWidget() || !!engine.getCloseupImage();
       if (!paused) {
         if (engine.advanceClock(dt)) { playPendingSounds(); bump(); }
-        else if (engine.getPatrolSightings().length || Math.floor(engine.getClock()) !== lastSecond) bump();
+        else if (engine.getPatrolSightings().length || engine.hasCycleSprites() || Math.floor(engine.getClock()) !== lastSecond) bump();
         lastSecond = Math.floor(engine.getClock());
       }
       frame = requestAnimationFrame(step);
@@ -619,6 +620,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     a.play().catch(() => {});
   };
 
+  // Sensing patrols need to know where he is drawn and whether he is walking.
+  useEffect(() => {
+    const placed = engine.getCharacterPlacement();
+    const moving = !!pose && !walkRef.current?.locked;
+    engine.setLivePosition(pose?.x !== undefined && pose?.y !== undefined ? { x: pose.x, y: pose.y } : placed ? { x: placed.x, y: placed.y } : null, moving);
+  });
+
   /** Stop walking where he is (his current spot becomes his position). */
   const stopWalk = useCallback(() => {
     if (walkRef.current?.locked) return;
@@ -661,7 +669,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const dt = Math.min(0.05, Math.max(0, (now - job.last) / 1000));
     job.last = now;
     const here = pointAlong(job.path, job.travelled).pt;
-    const speed = job.speed ?? (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y);
+    const speed = job.speed ?? (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y) * (job.area.speed ?? 1);
     job.travelled += speed * dt;
     job.walkTime += dt;
     const steps = job.locked ? null : stepConfig(job.area, job.walkSet);
@@ -993,6 +1001,31 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     [engine, bump, playPendingSounds],
   );
   const handleWidgetClose = useCallback(() => { engine.closeWidget(); bump(); }, [engine, bump]);
+  const handleRhythmFinish = useCallback((solved: boolean) => {
+    undoRef.current = engine.snapshot();
+    engine.finishRhythm(solved);
+    playPendingSounds();
+    bump();
+  }, [engine, bump, playPendingSounds]);
+  /** setting.actions: a HUD button (hold your breath and listen). */
+  const handleAction = useCallback((id: string) => {
+    if (walkRef.current?.locked) return;
+    undoRef.current = engine.snapshot();
+    engine.runAction(id);
+    playPendingSounds();
+    bump();
+  }, [engine, bump, playPendingSounds]);
+  /** Death screen: back to the start of the zone (set_checkpoint). */
+  const handleCheckpoint = useCallback(() => {
+    cancelAnimationFrame(rafRef.current);
+    walkRef.current = null;
+    setPose(null);
+    engine.restoreCheckpoint();
+    undoRef.current = null;
+    setSelectedItem(null);
+    prevViewRef.current = engine.currentViewId;
+    bump();
+  }, [engine, bump]);
 
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
@@ -1062,8 +1095,26 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           {scenario.setting.clock?.show && (
             <span style={styles.score} data-clock title="Time played">Time {formatClock(engine.getClock())}</span>
           )}
+          {engine.getMeters().map((m) => (
+            <span key={m.id} data-meter={m.id} data-value={m.value} title={`${m.label}: ${m.value} of ${m.max}`}
+              style={{ ...styles.score, display: 'inline-flex', alignItems: 'center', gap: '3px', color: m.value <= Math.ceil(m.max / 3) ? '#e06040' : '#8a7a5a' }}>
+              {m.label}
+              {m.style === 'bar'
+                ? <span style={{ display: 'inline-block', width: 60, height: 7, border: '1px solid #5a4a30', marginLeft: 4 }}><span style={{ display: 'block', height: '100%', width: `${(100 * m.value) / Math.max(1, m.max)}%`, background: m.color ?? '#c0a030' }} /></span>
+                : Array.from({ length: m.max }, (_, i) => (
+                  <span key={i} style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 4, marginLeft: i ? 0 : 4, background: i < m.value ? (m.color ?? '#9ad0e0') : 'transparent', border: `1px solid ${m.color ?? '#5a7a8a'}` }} />
+                ))}
+            </span>
+          ))}
         </div>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {!engine.isGameOver() && engine.getActions().map((a) => (
+            <button key={a.id} data-action={a.id} title={a.title ?? a.label}
+              style={{ ...styles.chromeButton, color: '#9ad0e0', borderColor: '#2a4a5a', whiteSpace: 'nowrap' }}
+              onClick={() => handleAction(a.id)}>
+              {a.label}
+            </button>
+          ))}
           {scenario.setting.dev_skip && !engine.isGameOver() && (
             <button
               data-dev-skip
@@ -1248,6 +1299,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       {closeupImage && (
         <CloseupOverlay
           imageSrc={resolveAsset(scenario.metadata.id, closeupImage)}
+          layerSrcs={engine.getCloseupLayers().map((l) => resolveAsset(scenario.metadata.id, l))}
           onClose={handleCloseupDismiss}
         />
       )}
@@ -1273,6 +1325,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         />
       )}
 
+      {activeWidget && activeWidget.widget_type === 'rhythm' && engine.getRhythmSetup() && (
+        <RhythmWidget
+          key={`${activeWidget.id}:${engine.getRhythmSetup()!.beatMs}`}
+          setup={engine.getRhythmSetup()!}
+          playSound={(k) => playSound(scenario.setting.sounds?.[k] ?? k)}
+          onFinish={handleRhythmFinish}
+        />
+      )}
+
       {/* Game over overlay */}
       {gameOverResult && (
         <div style={styles.gameOver}>
@@ -1292,7 +1353,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             <div style={styles.gameOverScore}>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
           )}
           <div style={styles.gameOverButtons}>
-            {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && (
+            {!gameOverResult.won && engine.getCheckpoint() && (
+              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleCheckpoint} data-checkpoint autoFocus>
+                Restart from {engine.getCheckpoint()!.label}
+              </button>
+            )}
+            {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && !engine.getCheckpoint()?.noUndo && (
               <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleUndo} data-undo autoFocus>
                 Undo last move
               </button>

@@ -18,6 +18,10 @@ import type {
   WidgetSubmitResult,
   Patrol,
   ObjectSprite,
+  Meter,
+  Pursuer,
+  RhythmConfig,
+  PlayerAction,
   CharacterShadow,
 } from './types';
 
@@ -34,7 +38,19 @@ export interface EngineSnapshot {
   characterPos: StandPoint | null; posHistory: (StandPoint | null)[]; eventsFired: string[]; eventsActive: string[];
   widgetAttempts: Record<string, number>; solvedWidgets: Record<string, boolean>; equipped: [string, string][];
   score: number; scoredIds: string[]; clock: number;
+  meters?: Record<string, number>; meterEmptied?: string[];
+  pursuers?: Record<string, { distance: number; humming: boolean; hum: number }>;
+  checkpoint?: Checkpoint | null;
 }
+
+/** A saved zone start (set_checkpoint): the death screen restarts from here. */
+export interface Checkpoint { id: string; label: string; noUndo: boolean; snap: EngineSnapshot }
+
+/** A meter as the HUD draws it. */
+export interface MeterView { id: string; label: string; value: number; max: number; style: 'pips' | 'bar'; color?: string }
+
+/** What the rhythm widget plays and expects. */
+export interface RhythmSetup { phrases: string[]; beatMs: number; longMs: number; maxErrors: number; hint: boolean; config: RhythmConfig }
 
 export class ScenarioEngine {
   private scenario: Scenario;
@@ -93,6 +109,19 @@ export class ScenarioEngine {
   private neighbourIndex: Map<string, Set<string>> | null = null;
   /** Tools (tests, the soft-lock search) can switch patrols off. */
   patrolsEnabled = true;
+  /** Meter values by id, and meters whose on_empty has fired (until refilled). */
+  private meterValues: Record<string, number> = {};
+  private meterEmptied = new Set<string>();
+  /** Pursuer state: moves it needs to reach you, and whether it is humming at the grate you're on (seconds so far). */
+  private pursuerState: Record<string, { distance: number; humming: boolean; hum: number }> = {};
+  private _checkpoint: Checkpoint | null = null;
+  /** Images drawn over the open close-up (show_closeup layers). */
+  private _closeupLayers: string[] = [];
+  /** Where the character is drawn right now and whether he is walking (the UI reports it; sensing patrols use it). */
+  private livePos: { x: number; y: number } | null = null;
+  private liveMoving = false;
+  /** Last phase seen per cycle (for its sound and message). */
+  private cyclePhaseSeen: Record<string, string> = {};
 
   private objectIndex: Map<string, ScenarioObject>;
   private itemIndex: Map<string, Item>;
@@ -132,6 +161,9 @@ export class ScenarioEngine {
     for (const item of scenario.items) {
       this.itemIndex.set(item.id, item);
     }
+
+    for (const m of scenario.meters ?? []) this.meterValues[m.id] = m.initial ?? m.max;
+    for (const p of scenario.pursuers ?? []) this.pursuerState[p.id] = { distance: p.start_distance, humming: false, hum: 0 };
 
     if (this._currentPhaseId && scenario.phases?.[0]?.on_enter) {
       this.applyEffects(scenario.phases[0].on_enter);
@@ -472,6 +504,303 @@ export class ScenarioEngine {
 
   getScore(): number { return this._score; }
 
+
+  // ── Meters, cycles, pursuers, checkpoints, sensing, actions ─────────────
+
+  private meterDef(id: string | undefined): Meter | undefined {
+    return id ? this.scenario.meters?.find((m) => m.id === id) : undefined;
+  }
+
+  /** Change a meter by `delta` (clamped to 0..max), giving any warning it drops past. */
+  private changeMeter(id: string, delta: number, messages: string[]): void {
+    const m = this.meterDef(id);
+    if (!m || !delta) return;
+    const before = this.meterValues[id] ?? 0;
+    const after = Math.max(0, Math.min(m.max, before + delta));
+    this.meterValues[id] = after;
+    if (after > 0) this.meterEmptied.delete(id);
+    if (after < before && this.evaluateConditions(m.active_when)) {
+      for (const w of m.warnings ?? []) {
+        if (before > w.at && after <= w.at && after > 0) {
+          if (w.message) { messages.push(w.message); this._messages.push(w.message); }
+          if (w.sound) this._pendingSounds.push(this.scenario.setting.sounds?.[w.sound] ?? w.sound);
+        }
+      }
+    }
+  }
+
+  /** A meter that has run out while active runs its on_empty (once, until refilled). */
+  private checkMeters(): void {
+    for (const m of this.scenario.meters ?? []) {
+      if ((this.meterValues[m.id] ?? 0) > 0 || this.meterEmptied.has(m.id) || !m.on_empty?.length) continue;
+      if (!this.evaluateConditions(m.active_when)) continue;
+      this.meterEmptied.add(m.id);
+      const msgs = this.applyEffects(m.on_empty);
+      if (msgs.length) this._messages = [...this._messages.filter((x) => !msgs.includes(x)), ...msgs];
+      if (this._gameOver) return;
+    }
+  }
+
+  /** The meters to draw on the HUD now. */
+  getMeters(): MeterView[] {
+    return (this.scenario.meters ?? [])
+      .filter((m) => this.evaluateConditions(m.visible_when ?? m.active_when))
+      .map((m) => ({ id: m.id, label: m.label ?? m.id, value: this.meterValues[m.id] ?? 0, max: m.max, style: m.style ?? 'pips', color: m.color }));
+  }
+
+  getMeterValue(id: string): number { return this.meterValues[id] ?? 0; }
+
+  /** After set_view: meter costs, the view's on_enter effects, and pursuers moving a step. */
+  private enterView(): string[] {
+    const out: string[] = [];
+    const view = this.getCurrentView();
+    if (!view.back_label) {
+      for (const m of this.scenario.meters ?? []) {
+        if (m.cost_per_move && this.evaluateConditions(m.active_when)) this.changeMeter(m.id, -m.cost_per_move, out);
+      }
+    }
+    if (view.on_enter?.length) out.push(...this.applyEffects(view.on_enter));
+    for (const p of this.scenario.pursuers ?? []) out.push(...this.pursuerStep(p));
+    return out;
+  }
+
+  /** A pursuer hears the move: it comes a step closer (unless the player moved silently), and hums at a grate when close. */
+  private pursuerStep(p: Pursuer): string[] {
+    const st = this.pursuerState[p.id] ?? (this.pursuerState[p.id] = { distance: p.start_distance, humming: false, hum: 0 });
+    const here = this._currentViewId;
+    if (!this.evaluateConditions(p.when) || !p.zone.includes(here)) {
+      this.pursuerState[p.id] = { distance: p.start_distance, humming: false, hum: 0 };
+      return [];
+    }
+    const out: string[] = [];
+    if (st.humming) {
+      // You left the grate before it reached in: it gropes an empty duct and loses you.
+      st.humming = false; st.hum = 0; st.distance = p.reset_distance ?? p.start_distance;
+      if (p.lost_message) out.push(p.lost_message);
+    }
+    const silent = !!p.silent_flag && this.flags[p.silent_flag] === 'true';
+    if (silent) delete this.flags[p.silent_flag!];
+    else st.distance = Math.max(0, st.distance - 1);
+    if (p.strike_views.includes(here) && st.distance <= 1) {
+      st.humming = true; st.hum = 0;
+      if (p.hum_message) out.push(p.hum_message);
+      if (p.hum_sound) this._pendingSounds.push(this.scenario.setting.sounds?.[p.hum_sound] ?? p.hum_sound);
+    }
+    for (const m of out) this._messages.push(m);
+    return out;
+  }
+
+  /** Pursuers humming at the player's grate: after strike_seconds they reach in, unless he is holding his breath. */
+  private advancePursuers(seconds: number): boolean {
+    let changed = false;
+    for (const p of this.scenario.pursuers ?? []) {
+      const st = this.pursuerState[p.id];
+      if (!st?.humming) continue;
+      if (!p.zone.includes(this._currentViewId) || !this.evaluateConditions(p.when)) { st.humming = false; continue; }
+      st.hum += seconds;
+      if (p.silent_flag && this.flags[p.silent_flag] === 'true') {
+        delete this.flags[p.silent_flag];
+        st.humming = false; st.hum = 0; st.distance = p.reset_distance ?? p.start_distance;
+        if (p.lost_message) this._messages = [p.lost_message];
+        changed = true;
+        continue;
+      }
+      if (st.hum >= (p.strike_seconds ?? 4)) {
+        st.humming = false; st.hum = 0; st.distance = p.reset_distance ?? p.start_distance;
+        const msgs = this.applyEffects(p.on_strike);
+        if (msgs.length) this._messages = msgs;
+        this.checkGameEndConditions();
+        return true;
+      }
+    }
+    return changed;
+  }
+
+  /** Moves a pursuer needs to reach the player, and whether it is humming at his grate. */
+  getPursuer(id: string): { distance: number; humming: boolean } | null {
+    const st = this.pursuerState[id];
+    return st ? { distance: st.distance, humming: st.humming } : null;
+  }
+
+  /** The phase a cycle is in now ('' while its `when` doesn't hold). */
+  getCyclePhase(id: string, t: number = this._clock): string {
+    const c = this.scenario.cycles?.find((x) => x.id === id);
+    if (!c || !c.phases.length || !this.evaluateConditions(c.when)) return '';
+    const period = c.phases.reduce((a, ph) => a + ph.seconds, 0);
+    if (period <= 0) return c.phases[0].id;
+    let u = (((t + (c.offset ?? 0)) % period) + period) % period;
+    for (const ph of c.phases) { if (u < ph.seconds) return ph.id; u -= ph.seconds; }
+    return c.phases[c.phases.length - 1].id;
+  }
+
+  /** How far through its period a cycle is now, 0..1. */
+  getCycleProgress(id: string, t: number = this._clock): number {
+    const c = this.scenario.cycles?.find((x) => x.id === id);
+    if (!c) return 0;
+    const period = c.phases.reduce((a, ph) => a + ph.seconds, 0);
+    if (period <= 0) return 0;
+    return ((((t + (c.offset ?? 0)) % period) + period) % period) / period;
+  }
+
+  /** Cycle phase changes heard in the player's view (sound and message). */
+  private advanceCycles(): boolean {
+    let changed = false;
+    for (const c of this.scenario.cycles ?? []) {
+      const ph = this.getCyclePhase(c.id);
+      if (this.cyclePhaseSeen[c.id] === ph) continue;
+      const first = this.cyclePhaseSeen[c.id] === undefined;
+      this.cyclePhaseSeen[c.id] = ph;
+      if (first || !ph || !c.views?.includes(this._currentViewId)) continue;
+      const def = c.phases.find((x) => x.id === ph);
+      if (def?.sound) { this._pendingSounds.push(this.scenario.setting.sounds?.[def.sound] ?? def.sound); changed = true; }
+      if (def?.message) { this._messages = [def.message]; changed = true; }
+    }
+    return changed;
+  }
+
+  /** The frame a sprite object shows now when its frames are chosen by state or a cycle (undefined = animate as usual). */
+  getSpriteFrame(obj: ScenarioObject): number | undefined {
+    const sp = obj.sprite;
+    if (!sp) return undefined;
+    const f = sp.frame_when?.find((x) => this.evaluateConditions(x.when));
+    if (f) return f.frame;
+    if (sp.sync_cycle) return Math.min(sp.columns - 1, Math.floor(this.getCycleProgress(sp.sync_cycle) * sp.columns));
+    return undefined;
+  }
+
+  /** True when the current view has sprites driven by a cycle (the UI then redraws every frame). */
+  hasCycleSprites(): boolean {
+    return this.getVisibleObjects().some((o) => !!o.sprite?.sync_cycle);
+  }
+
+  /** The UI reports where the character is drawn and whether he is walking (sensing patrols use it). */
+  setLivePosition(pos: { x: number; y: number } | null, moving: boolean): void {
+    this.livePos = pos; this.liveMoving = moving;
+  }
+
+  private inShadow(pt: { x: number; y: number }): boolean {
+    const area = this.getWalkArea();
+    return (area?.shadows ?? []).some((poly) => {
+      let inside = false;
+      for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+        const [xi, yi] = poly[i], [xj, yj] = poly[j];
+        if ((yi > pt.y) !== (yj > pt.y) && pt.x < ((xj - xi) * (pt.y - yi)) / (yj - yi) + xi) inside = !inside;
+      }
+      return inside;
+    });
+  }
+
+  /** The saved zone start, if any. */
+  getCheckpoint(): { id: string; label: string; noUndo: boolean } | null {
+    const c = this._checkpoint;
+    return c ? { id: c.id, label: c.label, noUndo: c.noUndo } : null;
+  }
+
+  /** Back to the start of the zone (after a death). */
+  restoreCheckpoint(): boolean {
+    const cp = this._checkpoint;
+    if (!cp) return false;
+    this.restore(cp.snap);
+    this._checkpoint = cp;
+    return true;
+  }
+
+  /** Words for the direction from one map square to another. */
+  private static direction(dx: number, dy: number): string {
+    const ns = dy < 0 ? 'north' : dy > 0 ? 'south' : '';
+    const ew = dx > 0 ? 'east' : dx < 0 ? 'west' : '';
+    if (ns && ew) return Math.abs(dy) >= 2 * Math.abs(dx) ? ns : Math.abs(dx) >= 2 * Math.abs(dy) ? ew : ns + ew;
+    return ns || ew || 'right here';
+  }
+
+  /** The sense effect: what is within reach (screens through exits), with directions from map_xy. */
+  private sense(e: Effect): string {
+    const radius = e.radius ?? 2;
+    const reach = e.bonus && this.evaluateConditions(e.bonus.when) ? Math.max(radius, e.bonus.radius) : radius;
+    // breadth-first over the exits
+    const start = this._currentViewId;
+    const dist = new Map<string, number>([[start, 0]]);
+    let frontier = [start];
+    for (let d = 1; d <= reach; d++) {
+      const next: string[] = [];
+      for (const v of frontier) {
+        this.isNeighbour(v, v); // builds the index
+        for (const n of this.neighbourIndex?.get(v) ?? []) if (!dist.has(n)) { dist.set(n, d); next.push(n); }
+      }
+      frontier = next;
+    }
+    const here = this.scenario.views.find((v) => v.id === start)?.map_xy;
+    const parts: string[] = [];
+    for (const k of e.kinds ?? []) {
+      let views = k.views ?? [];
+      if (k.patrol) {
+        const p = this.scenario.patrols?.find((x) => x.id === k.patrol);
+        const leg = p && this.patrolLeg(p);
+        views = leg ? p!.stops[leg.stop].views : [];
+      }
+      let best: { v: string; d: number } | null = null;
+      for (const v of views) {
+        const d = dist.get(v);
+        if (d !== undefined && (!best || d < best.d)) best = { v, d };
+      }
+      if (!best) continue;
+      const at = this.scenario.views.find((v) => v.id === best!.v)?.map_xy;
+      const dir = here && at ? ScenarioEngine.direction(at[0] - here[0], at[1] - here[1]) : '';
+      const away = best.d === 0 ? 'right here' : best.d === 1 ? 'one screen away' : `${best.d} screens away`;
+      parts.push(`${k.label}${dir && best.d > 0 ? ` to the ${dir}` : ''}, ${away}.`);
+    }
+    return parts.length ? parts.join(' ') : (e.text ?? 'You hold your breath and listen. Nothing but the ship.');
+  }
+
+  /** setting.actions that can be used now. */
+  getActions(): PlayerAction[] {
+    return (this.scenario.setting.actions ?? []).filter((a) => this.evaluateConditions(a.when));
+  }
+
+  /** Run a setting.actions button. */
+  runAction(id: string): InteractionResult {
+    const a = this.getActions().find((x) => x.id === id);
+    if (!a || this._gameOver) return { success: false, messages: [], noiseGenerated: 0 };
+    this._messages = [];
+    this._pendingSounds = [];
+    const messages = this.applyEffects(a.effects);
+    this.checkGameEndConditions();
+    return { success: true, messages, noiseGenerated: 0 };
+  }
+
+  /** The open rhythm widget's phrases and timing. */
+  getRhythmSetup(): RhythmSetup | null {
+    const w = this.getActiveWidget();
+    if (!w || w.widget_type !== 'rhythm') return null;
+    const cfg = w.config as unknown as RhythmConfig;
+    const phrases = [...(cfg.phrases ?? [])];
+    for (const x of cfg.extra_phrases ?? []) if (this.evaluateConditions(x.when)) phrases.push(x.pattern);
+    const fails = this.widgetAttempts[w.id] ?? 0;
+    const slow = cfg.slow_after !== undefined && fails >= cfg.slow_after ? (cfg.slow_factor ?? 1.5) : 1;
+    return {
+      phrases, beatMs: (cfg.beat_ms ?? 700) * slow, longMs: cfg.long_ms ?? 300, maxErrors: cfg.max_errors ?? 3,
+      hint: !!cfg.hint_when?.length && this.evaluateConditions(cfg.hint_when), config: cfg,
+    };
+  }
+
+  /** The rhythm widget finished: run on_solve, or count a failed attempt and run on_fail. Closes the widget. */
+  finishRhythm(solved: boolean): string[] {
+    const w = this.getActiveWidget();
+    if (!w) return [];
+    this._activeWidgetId = null;
+    this._messages = [];
+    let msgs: string[];
+    if (solved) {
+      this.solvedWidgets[w.id] = true;
+      msgs = this.applyEffects(w.on_solve ?? []);
+    } else {
+      this.widgetAttempts[w.id] = (this.widgetAttempts[w.id] ?? 0) + 1;
+      msgs = this.applyEffects(w.on_fail ?? []);
+    }
+    this.checkGameEndConditions();
+    return msgs;
+  }
+
   // ── Game clock and patrols ──────────────────────────────────────────────
 
   /** Seconds of play so far. */
@@ -562,7 +891,8 @@ export class ScenarioEngine {
   advanceClock(seconds: number): boolean {
     if (this._gameOver || seconds <= 0) return false;
     this._clock += seconds;
-    let changed = false;
+    let changed = this.advanceCycles();
+    if (this.advancePursuers(seconds)) { if (this._gameOver) return true; changed = true; }
     for (const p of this.scenario.patrols ?? []) {
       const st = this.patrolStatus(p);
       // Heard through the wall: it comes into a room next door to the player's.
@@ -597,7 +927,16 @@ export class ScenarioEngine {
           if (p.enter_sound) this._pendingSounds.push(this.scenario.setting.sounds?.[p.enter_sound] ?? p.enter_sound);
           changed = true;
         }
-        const safe = this._isHiding || (stop.safe_when?.length ? this.evaluateConditions(stop.safe_when) : false);
+        let safe = this._isHiding || (stop.safe_when?.length ? this.evaluateConditions(stop.safe_when) : false);
+        if (!safe && stop.sense) {
+          // A sensing patrol only notices you close by, while you move (if so), when not masked, and out of the shadows.
+          const me = this.livePos ?? this.getCharacterPlacement();
+          const it = this.getPatrolSightings().find((x) => x.id === p.id);
+          const near = !!me && !!it && Math.hypot(me.x - it.x, me.y - it.y) <= stop.sense.radius;
+          const masked = !!stop.sense.masked_when?.length && this.evaluateConditions(stop.sense.masked_when);
+          const still = stop.sense.only_while_moving && !this.liveMoving;
+          safe = !near || masked || !!still || (!!me && this.inShadow(me));
+        }
         this.patrolSeen[p.id] = safe ? 0 : (this.patrolSeen[p.id] ?? 0) + Math.min(seconds, 0.25); // a jump in the clock never counts as being seen for long
         if (this.patrolSeen[p.id] >= (p.notice_seconds ?? 1.5)) {
           this.patrolSeen[p.id] = 0;
@@ -749,6 +1088,9 @@ export class ScenarioEngine {
   getCloseupImage(): string | null {
     return this._closeupImage;
   }
+
+  /** Images drawn over the open close-up, bottom first. */
+  getCloseupLayers(): string[] { return this._closeupLayers; }
 
   dismissCloseup(): void {
     this._closeupImage = null;
@@ -918,6 +1260,23 @@ export class ScenarioEngine {
         return false;
       case 'widget_solved':
         return !!(c.widget && this.solvedWidgets[c.widget]);
+      case 'meter_below':
+        return (this.meterValues[c.meter ?? ''] ?? 0) < (c.threshold ?? 0);
+      case 'meter_above':
+        return (this.meterValues[c.meter ?? ''] ?? 0) > (c.threshold ?? 0);
+      case 'cycle_is':
+        return !!c.cycle && this.getCyclePhase(c.cycle) === c.phase;
+      case 'patrol_active': {
+        const p = this.scenario.patrols?.find((x) => x.id === c.patrol);
+        return !!p && !!this.patrolLeg(p);
+      }
+      case 'pursuer_near': {
+        const p = this.scenario.pursuers?.find((x) => x.id === c.pursuer);
+        const st = p && this.pursuerState[p.id];
+        return !!p && !!st && this.evaluateConditions(p.when) && p.zone.includes(this._currentViewId) && st.distance <= (c.threshold ?? 1);
+      }
+      case 'checkpoint_is':
+        return this._checkpoint?.id === c.value;
       case 'patrol_near': {
         const p = this.scenario.patrols?.find((x) => x.id === c.patrol);
         const st = p ? this.patrolStatus(p) : null;
@@ -1023,6 +1382,7 @@ export class ScenarioEngine {
             this._transitionSound = 'sound' in e ? (e.sound ?? null) : undefined;
             const decay = this.scenario.setting.noise_decay ?? 0;
             if (decay > 0) this._noiseLevel = Math.max(0, this._noiseLevel - decay);
+            messages.push(...this.enterView());
           }
           break;
 
@@ -1080,6 +1440,7 @@ export class ScenarioEngine {
         case 'show_closeup':
           if (e.image) {
             this._closeupImage = e.image;
+            this._closeupLayers = (e.layers ?? []).filter((l) => this.evaluateConditions(l.when)).map((l) => l.image);
           }
           break;
 
@@ -1181,6 +1542,58 @@ export class ScenarioEngine {
           }
           break;
 
+        case 'meter_add':
+          if (e.meter) this.changeMeter(e.meter, e.amount ?? 0, messages);
+          break;
+
+        case 'meter_set': {
+          const m = this.meterDef(e.meter);
+          if (m) this.changeMeter(m.id, (e.value === 'max' || e.amount === undefined ? m.max : e.amount) - (this.meterValues[m.id] ?? 0), messages);
+          break;
+        }
+
+        case 'meter_transfer': {
+          // Pour from one meter into another: as much as fits (or `amount`).
+          const from = this.meterDef(e.meter), to = this.meterDef(e.to);
+          if (!from || !to) break;
+          const room = to.max - (this.meterValues[to.id] ?? 0);
+          const n = Math.max(0, Math.min(this.meterValues[from.id] ?? 0, room, e.amount ?? Infinity));
+          this.changeMeter(from.id, -n, messages);
+          this.changeMeter(to.id, n, messages);
+          break;
+        }
+
+        case 'set_checkpoint': {
+          if (!e.id) break;
+          // The saved state carries no checkpoint of its own (restoreCheckpoint puts this one back), so they never nest.
+          this._checkpoint = null;
+          const snap = this.snapshot();
+          this._checkpoint = { id: e.id, label: e.text ?? e.id, noUndo: !!e.no_undo, snap };
+          break;
+        }
+
+        case 'clear_checkpoint':
+          this._checkpoint = null;
+          break;
+
+        case 'pursuer_divert': {
+          const st = e.pursuer ? this.pursuerState[e.pursuer] : undefined;
+          if (st) { st.distance += e.amount ?? 3; st.humming = false; st.hum = 0; }
+          break;
+        }
+
+        case 'pursuer_reset': {
+          const p = this.scenario.pursuers?.find((x) => x.id === e.pursuer);
+          if (p) this.pursuerState[p.id] = { distance: p.start_distance, humming: false, hum: 0 };
+          break;
+        }
+
+        case 'sense': {
+          const text = this.sense(e);
+          if (text) { messages.push(text); this._messages.push(text); }
+          break;
+        }
+
         case 'visual_cue':
         case 'trigger_event':
           break;
@@ -1225,6 +1638,7 @@ export class ScenarioEngine {
       characterPos: this._characterPos, posHistory: this.posHistory, eventsFired: [...this.eventsFired], eventsActive: [...this.eventsActive],
       widgetAttempts: this.widgetAttempts, solvedWidgets: this.solvedWidgets, equipped: [...this.equippedItems],
       score: this._score, scoredIds: [...this.scoredIds], clock: this._clock,
+      meters: this.meterValues, meterEmptied: [...this.meterEmptied], pursuers: this.pursuerState, checkpoint: this._checkpoint,
     });
   }
 
@@ -1238,12 +1652,19 @@ export class ScenarioEngine {
     this.widgetAttempts = s.widgetAttempts; this.solvedWidgets = s.solvedWidgets; this.equippedItems = new Map(s.equipped);
     this._score = s.score; this.scoredIds = new Set(s.scoredIds); this._transitionSound = undefined;
     this._clock = s.clock ?? 0; this.patrolSeen = {};
+    if (s.meters) this.meterValues = s.meters;
+    this.meterEmptied = new Set(s.meterEmptied ?? []);
+    if (s.pursuers) this.pursuerState = s.pursuers;
+    this._checkpoint = s.checkpoint ?? null;
+    this.cyclePhaseSeen = {};
     this._messages = []; this._pendingSounds = []; this._dialoguePrompt = null; this._dialogueChoices = [];
     this._activeWidgetId = null; this._closeupImage = null;
     this.epoch++;
   }
 
   private checkGameEndConditions(): void {
+    if (this._gameOver) return;
+    this.checkMeters();
     if (this._gameOver) return;
     this.runEvents();
     if (this._gameOver) return;

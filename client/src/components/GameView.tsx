@@ -247,6 +247,7 @@ export function GameView({
       cursor={cursor}
       onClick={() => onObjectClick(obj.id)}
       layerZ={layered ? (obj.layer === 'floor' ? 2 : obj.layer === 'front' ? OBJ_FRONT_Z : depthZ(obj.position.y)) : undefined}
+      fixedFrame={engine.getSpriteFrame(obj)}
     />
   );
 

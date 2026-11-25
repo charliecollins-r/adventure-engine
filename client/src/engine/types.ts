@@ -91,6 +91,106 @@ export interface Setting {
   /** TEMPORARY testing aid: a title-bar button that runs these effects (e.g. hand over everything and jump to a later
    *  section). Remove from the scenario before release. */
   dev_skip?: { label: string; effects: Effect[] };
+  /** Buttons beside the verbs for things the player does to himself (hold your breath and listen, squeeze the lung-sac).
+   *  Each runs its effects like an interaction; shown while `when` holds. See SCENARIO_SCHEMA → Player actions. */
+  actions?: PlayerAction[];
+}
+
+/** A HUD button that runs effects (setting.actions). */
+export interface PlayerAction {
+  id: string;
+  label: string;
+  /** Tooltip. */
+  title?: string;
+  /** Shown only while these hold. */
+  when?: Condition[];
+  effects: Effect[];
+}
+
+/** A counter shown on the HUD (breath, a lung-sac, a countdown). See SCENARIO_SCHEMA → Meters. */
+export interface Meter {
+  id: string;
+  label?: string;
+  max: number;
+  /** Starting value. Default max. */
+  initial?: number;
+  /** Drawn on the HUD while these hold. Default: while active_when holds. */
+  visible_when?: Condition[];
+  /** cost_per_move is taken (and on_empty can fire) only while these hold. Default always. */
+  active_when?: Condition[];
+  /** Taken each time the player goes to another view (set_view), after the move; close-ups (views with a back_label) are free. */
+  cost_per_move?: number;
+  /** HUD look: "pips" (one dot per point, default) or "bar". */
+  style?: 'pips' | 'bar';
+  color?: string;
+  /** A message and/or sound when the value drops to `at` or below. */
+  warnings?: { at: number; message?: string; sound?: string }[];
+  /** Runs once when the value reaches 0 while active (again only after it has been refilled). */
+  on_empty?: Effect[];
+}
+
+/** A rhythm on the game clock (a lung breathing, vents firing). See SCENARIO_SCHEMA → Cycles. */
+export interface Cycle {
+  id: string;
+  /** The phases in order; the cycle's period is the sum of their seconds. */
+  phases: { id: string; seconds: number; sound?: string; message?: string }[];
+  /** Seconds added to the clock before working out the phase (to put cycles out of step). */
+  offset?: number;
+  /** Runs only while these hold (otherwise cycle_is is false for every phase). */
+  when?: Condition[];
+  /** A phase's sound and message are given only while the player is in one of these views (default: never). */
+  views?: string[];
+}
+
+/** Something that hunts the player from behind walls, one step per move, and can only reach him at marked views.
+ *  See SCENARIO_SCHEMA → Pursuers. */
+export interface Pursuer {
+  id: string;
+  name?: string;
+  /** It hunts only while these hold. */
+  when?: Condition[];
+  /** The views it hunts in; leaving them resets it to start_distance. */
+  zone: string[];
+  /** Views it can reach into (grates). */
+  strike_views: string[];
+  /** Moves it needs to reach you when you enter the zone. */
+  start_distance: number;
+  /** Where it falls back to after it reaches into an empty grate or you hold your breath through its hum. Default start_distance. */
+  reset_distance?: number;
+  /** Seconds between the hum and the strike. Default 4. */
+  strike_seconds?: number;
+  /** A flag the player sets to move silently (holding his breath): that move doesn't bring it closer, and set during
+   *  a hum it loses you. The engine clears it after it is used. */
+  silent_flag?: string;
+  hum_sound?: string;
+  hum_message?: string;
+  /** Said when it loses you (you held your breath, or left the grate in time). */
+  lost_message?: string;
+  on_strike: Effect[];
+}
+
+/** The rhythm widget (widget_type "rhythm"): call and response in long and short presses. */
+export interface RhythmConfig {
+  title?: string;
+  prompt?: string;
+  /** Phrases she breathes, in order: "L" long, "S" short (e.g. "LSL"). */
+  phrases: string[];
+  /** Extra phrases added while their conditions hold. */
+  extra_phrases?: { when: Condition[]; pattern: string }[];
+  /** Milliseconds per beat. Default 700. */
+  beat_ms?: number;
+  /** A press held at least this long counts as long. Default 300. */
+  long_ms?: number;
+  /** Mistakes allowed per phrase before the attempt fails. Default 3. */
+  max_errors?: number;
+  /** After this many failed attempts she breathes slower (beat_ms × slow_factor). */
+  slow_after?: number;
+  slow_factor?: number;
+  /** While these hold, the next beat is shown during your answer (a friend humming it). */
+  hint_when?: Condition[];
+  /** setting.sounds keys or files for her long and short beats. */
+  long_sound?: string;
+  short_sound?: string;
 }
 
 /** A point or offset in the 960x720 authoring space. */
@@ -255,6 +355,10 @@ export interface View {
   /** Other floors for this view, chosen by state: the first whose `when` matches replaces walk_area
    *  (e.g. a ledge reached by climbing across a line). */
   walk_area_variants?: { when: Condition[]; walk_area: WalkArea }[];
+  /** Effects run each time the player enters this view with set_view (after any meter cost): refills, a draught's line. */
+  on_enter?: Effect[];
+  /** This view's square on a grid map ([column, row], row 0 at the top = north). The sense effect uses it to name directions. */
+  map_xy?: XY;
 }
 
 /** An [x, y] point in 960x720 authoring space. */
@@ -271,6 +375,12 @@ export interface WalkArea {
   depth_scale?: { far_y: number; far: number; near_y: number; near: number };
   /** Footsteps for this view (e.g. a carpet), or false for silent walking. Default: character.footsteps. */
   footsteps?: Footsteps | false;
+  /** Draw the character at this size here (multiplies depth_scale): a tiny figure crossing a vast place. Default 1. */
+  scale?: number;
+  /** Walking speed multiplier on this floor (on top of the scale, which already slows a small figure). Default 1. */
+  speed?: number;
+  /** Shadows on the floor: standing still inside one hides you from sensing patrols. */
+  shadows?: PointXY[][];
 }
 
 /** Where the character stands (feet, bottom-center) and which way he faces. */
@@ -311,6 +421,12 @@ export interface Condition {
   widget?: string;
   /** patrol_near: the patrol's id. True while it is about to come into, or is in, the room the player is in. */
   patrol?: string;
+  /** meter_below / meter_above: the meter's id (compared with `threshold`). */
+  meter?: string;
+  /** cycle_is: the cycle's id (with `phase`). */
+  cycle?: string;
+  /** pursuer_near: the pursuer's id; true while it is `threshold` moves or fewer from reaching you. */
+  pursuer?: string;
 }
 
 export interface DialogueChoice {
@@ -364,6 +480,21 @@ export interface Effect {
   id?: string;
   voice?: string;
   widget?: string;
+  /** meter_add / meter_set / meter_transfer: the meter. */
+  meter?: string;
+  /** meter_transfer: the meter to fill. */
+  to?: string;
+  /** pursuer_divert / pursuer_reset: the pursuer. */
+  pursuer?: string;
+  /** show_closeup: images drawn over the close-up while their conditions hold (map layers). */
+  layers?: { image: string; when?: Condition[] }[];
+  /** set_checkpoint: the death screen offers no "Undo last move" while this checkpoint is set (restart from it instead). */
+  no_undo?: boolean;
+  /** sense: how many screens away it reaches, plus a bigger reach while conditions hold. */
+  radius?: number;
+  bonus?: { when: Condition[]; radius: number };
+  /** sense: what can be sensed: views where something is, or a patrol (where it is right now). */
+  kinds?: { label: string; views?: string[]; patrol?: string }[];
 }
 
 export interface Interaction {
@@ -387,6 +518,10 @@ export interface ObjectSprite {
   loop?: boolean;
   /** true: draw the sheet mirrored left-to-right (a figure drawn facing right then faces left). Default false. */
   flip?: boolean;
+  /** Frames follow a cycle instead of frame_rate: the first row's frames are spread over the cycle's period. */
+  sync_cycle?: string;
+  /** A still frame chosen by state: the first entry whose conditions hold (overrides animation). */
+  frame_when?: { when: Condition[]; frame: number }[];
 }
 
 export interface ScenarioObject {
@@ -661,6 +796,12 @@ export interface Scenario {
   character?: CharacterConfig;
   /** Patrolling units on the game clock (setting.clock): each sweeps a fixed route of rooms on a fixed cycle. */
   patrols?: Patrol[];
+  /** HUD counters (breath). */
+  meters?: Meter[];
+  /** Rhythms on the game clock. */
+  cycles?: Cycle[];
+  /** Hunters behind walls. */
+  pursuers?: Pursuer[];
 }
 
 /** One leg of a patrol: the room it sweeps and when. */
@@ -680,6 +821,10 @@ export interface PatrolStop {
   warn_message?: string;
   /** Shown to a player next door while it walks through this room (with the patrol's nearby_sound). */
   nearby_message?: string;
+  /** Sensing: instead of noticing anyone in the room, it notices the player only within `radius` (960x720 units) of
+   *  where it is drawn, only while he walks (if only_while_moving), not while masked_when holds (the wind), and not
+   *  while he stands in one of the floor's shadows. */
+  sense?: { radius: number; only_while_moving?: boolean; masked_when?: Condition[] };
   /** Besides hiding: while these hold you are safe from it in this room (you are up on a ledge it passes under). */
   safe_when?: Condition[];
 }

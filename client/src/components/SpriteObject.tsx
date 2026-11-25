@@ -22,6 +22,8 @@ interface SpriteObjectProps {
   opacity?: number;
   /** Exposed as data-patrol for automated playtests. */
   patrolId?: string;
+  /** Show this frame instead of animating (sprite.frame_when / sync_cycle, worked out by the engine). */
+  fixedFrame?: number;
 }
 
 export function SpriteObject({
@@ -39,6 +41,7 @@ export function SpriteObject({
   passThrough,
   opacity,
   patrolId,
+  fixedFrame,
 }: SpriteObjectProps) {
   const [currentFrame, setCurrentFrame] = useState(0);
   const animRef = useRef<number>(0);
@@ -46,7 +49,7 @@ export function SpriteObject({
   const { file, frame_width: fw, frame_height: fh, columns, rows, frame_rate, scale } = sprite;
 
   useEffect(() => {
-    if (frame_rate <= 0) return;
+    if (frame_rate <= 0 || fixedFrame !== undefined) return;
     let last = 0;
     const interval = 1000 / frame_rate;
     const tick = (time: number) => {
@@ -58,13 +61,14 @@ export function SpriteObject({
     };
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
-  }, [frame_rate, columns]);
+  }, [frame_rate, columns, fixedFrame !== undefined]);
 
   const renderW = fw * scale;
   const renderH = fh * scale;
   const screenX = x * scaleX;
   const screenY = y * scaleY;
-  const bgX = -(currentFrame * fw);
+  const shownFrame = fixedFrame ?? currentFrame;
+  const bgX = -(shownFrame * fw);
   const sheetW = columns * fw * scale;
   const sheetH = rows * fh * scale;
 
@@ -112,7 +116,7 @@ export function SpriteObject({
       {shadowStyle && <div style={shadowStyle} />}
       {passThrough
         ? <div data-patrol={patrolId} style={style} />
-        : <div data-object-hotspot data-object-id={objectId} style={style} onClick={handleClick} />}
+        : <div data-object-hotspot data-object-id={objectId} data-frame={shownFrame} style={style} onClick={handleClick} />}
     </>
   );
 }

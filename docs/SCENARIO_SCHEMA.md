@@ -221,6 +221,8 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `lighting_variants` | array | no | Lighting that replaces `ambient_lighting` while its conditions hold: `[{ "when": [conditions], "lighting": { "lights": [...] } }]`, the first match wins. Example: red alarm strobes after an override (`flag_is security_locks_overridden`). |
 | `enter_sound` | string or null | no | Sound played on entering this view (a `setting.sounds` key or a path). `null` or `""` = silent (close-ups). Default: `setting.sounds.room_transition`. A `set_view` with its own `sound` wins. |
 | `music` | string or null | no | Music for this view, overriding `setting.music`; `null` = silence. The same track carries on uninterrupted between rooms. |
+| `on_enter` | Effect[] | no | Effects run each time the player enters this view with `set_view`, after any meter cost: refill a meter, say a line ("A cold draught from the north"). |
+| `map_xy` | [col, row] | no | The view's square on a grid map (row 0 = north). The `sense` effect uses it to name directions. |
 | `ambient_lighting` | object | no | Per-view ambient lighting: `{ "lights": [...], "flicker": bool }`. Each light is `{ x, y, radius, color, pulse_speed, pulse_amount, alpha, phase? }`: `x`/`y` are 0-1 fractions of the viewport, `radius` is a fraction of its larger side, `color` is `[r, g, b]`, `pulse_speed`/`pulse_amount` (both required numbers) shape a slow breathing glow. Drawn on a canvas over the background. |
 
 ### View Hints
@@ -838,6 +840,11 @@ Conditions gate when interactions, events, and phase transitions fire.
 | `widget_solved` | `widget` | The puzzle widget with this id has been solved |
 | `view_is` | `view` | Player is on this view |
 | `not_in_view` | `view` | Player is NOT on this view |
+| `meter_below` / `meter_above` | `meter`, `threshold` | That meter's value is below / above threshold (see [Meters](#meters)) |
+| `cycle_is` | `cycle`, `phase` | That cycle is in that phase now (see [Cycles](#cycles)) |
+| `patrol_active` | `patrol` | That patrol is mid-sweep anywhere (not just in the player's room): a surge is under way |
+| `pursuer_near` | `pursuer`, `threshold` | The player is in that pursuer's zone and it is `threshold` moves or fewer from reaching him (see [Pursuers](#pursuers-behind-walls)) |
+| `checkpoint_is` | `value` | The saved zone start is this checkpoint id |
 
 ### Composite Conditions
 
@@ -888,7 +895,7 @@ Effects change the game world. They execute in order within an interaction's `th
 | `transform_item` | `item`, `into` | Replace one inventory item with another, in the same inventory slot. |
 | `trigger_event` | `event` | Manually fire a named event. *(Not implemented yet: no-op.)* |
 | `visual_cue` | `cue` | Client-side visual effect: `"shake"`, `"flash"`, `"flicker"`, `"dim"`, `"red_pulse"`. *(Not implemented yet: no-op.)* |
-| `show_closeup` | `image` | Show a framed close-up image overlay. Path relative to scenario folder (e.g. `"closeups/vent_map.webp"`). Player clicks to dismiss. For a close-up the player can interact with, use a sub-view with `back_label` instead. |
+| `show_closeup` | `image`, `layers`? | Show a framed close-up image overlay. `layers: [{image, when?}]` are drawn over it while their conditions hold (map layers: the routes the colony scratched onto your map). Path relative to scenario folder (e.g. `"closeups/vent_map.webp"`). Player clicks to dismiss. For a close-up the player can interact with, use a sub-view with `back_label` instead. |
 | `show_dialogue` | `prompt`, `choices` | Show a dialogue choice overlay. `prompt` is the situation text. `choices` is an array of `{label, when?, then}` objects — each choice has display text, optional conditions (hidden if not met), and effects to apply when selected. See Dialogue Choices section. |
 | `open_widget` | `widget` | Open an overlay puzzle widget (e.g. a `keypad`) by id. See Puzzle Widgets → Overlay Widgets. |
 | `set_view` | `view`, `at`?, `sound`? | Switch to a different view (closeup or back to main). `sound` names the transition sound for this move (`null` = silent), overriding the view's `enter_sound`. |
@@ -901,6 +908,14 @@ Effects change the game world. They execute in order within an interaction's `th
 | `delay_then` | `seconds`, `effects` | Wait N seconds, then apply nested effects. |
 | `random_message` | `messages` | Show one message randomly from an array. Good for variety. |
 | `conditional_effect` | `when`, `then`, `else` | If condition is met, do `then` effects; otherwise do `else` effects. |
+| `meter_add` | `meter`, `amount` | Add to a meter (negative to spend), clamped to 0..max. |
+| `meter_set` | `meter`, `amount` or `value: "max"` | Set a meter (refill it). |
+| `meter_transfer` | `meter`, `to`, `amount`? | Pour from one meter into another: as much as fits, or `amount` (squeeze the lung-sac into your breath). |
+| `set_checkpoint` | `id`, `text`, `no_undo`? | Save this moment as the zone start: the death screen offers **Restart from `text`**. With `no_undo`, it offers no Undo while the checkpoint is set. Put it last in its effect list. See [Checkpoints](#checkpoints). |
+| `clear_checkpoint` | — | Forget the zone start (back upstairs, where Undo rules). |
+| `pursuer_divert` | `pursuer`, `amount` | Send a pursuer `amount` moves further away (a knock on the walls far off). |
+| `pursuer_reset` | `pursuer` | Put a pursuer back to its start distance. |
+| `sense` | `radius`, `bonus`?, `kinds`, `text`? | Name what is within `radius` screens (through exits), with directions from the views' `map_xy`: "Cold air to the north, 2 screens away." `kinds` are `{label, views}` (things in views) or `{label, patrol}` (where a patrol is now). `bonus: {when, radius}` reaches further while it holds; `text` is said when nothing is in reach. |
 
 ### Notable Effects
 
@@ -1387,6 +1402,102 @@ Rules that keep it fair (and soft-lock free):
 - Patrols run on real time, which the soft-lock search does not model; keep them out of goal-critical logic (they only kill, and death has Undo).
 
 Tests: `client/src/engine/ScenarioEngine.patrol.test.ts`, browser `scenarios/the-harvest/scripts/playthrough/patrol.cjs` (other browser suites load with `?noPatrols`).
+
+### Meters
+
+A **meter** is a counter on the HUD with a maximum: breath, a lung-sac, a countdown. It can cost one per move, warn as it runs low, and do something when it runs out.
+
+```json
+"meters": [
+  { "id": "breath", "label": "Breath", "max": 9, "cost_per_move": 1,
+    "active_when": [ { "type": "flag_is", "flag": "in_thin_air" } ],
+    "warnings": [ { "at": 3, "message": "Your chest burns.", "sound": "cough" }, { "at": 1, "sound": "heartbeat" } ],
+    "on_empty": [ { "type": "game_over", "result": "lose", "title": "Out of air", "reason": "..." } ] },
+  { "id": "sac", "label": "Lung-sac", "max": 4, "initial": 0, "visible_when": [ { "type": "has_item", "item": "lung_sac" } ] }
+]
+```
+
+| Field | Meaning |
+|-------|---------|
+| `max`, `initial` | Range and start (default `max`) |
+| `cost_per_move` | Taken after each `set_view` while `active_when` holds. Close-up sub-views (with `back_label`) are free |
+| `active_when` | When it costs and can run out (default always) |
+| `visible_when` | When the HUD shows it (default: while active) |
+| `style`, `color` | `"pips"` (a dot per point, default) or `"bar"` |
+| `warnings[]` | `{at, message?, sound?}`: given once each time the value drops to `at` or below |
+| `on_empty` | Runs once when the value reaches 0 while active (again only after a refill) |
+
+Refill with a view's **`on_enter`** effects (run after every `set_view` into it, after the move's cost): `"on_enter": [ { "type": "meter_set", "meter": "breath", "value": "max" } ]`. The same hook carries any line a view should say on arrival ("A cold draught from the north").
+
+### Cycles
+
+A **cycle** is a rhythm on the game clock with named phases: a lung breathing in and out, a vent firing.
+
+```json
+"cycles": [ { "id": "gut_breath", "phases": [ { "id": "in", "seconds": 4, "sound": "lung_in" }, { "id": "out", "seconds": 3, "sound": "lung_out" } ],
+              "offset": 0, "views": ["warren_1", "warren_2"] } ]
+```
+
+`cycle_is` reads it. `offset` puts cycles out of step; `when` switches it off; a phase's `sound` and `message` are given only to a player in one of `views`. A sprite can follow a cycle: `"sprite": { ..., "sync_cycle": "gut_breath" }` spreads its frames over the period (a throat opening and closing), and `"frame_when": [ { "when": [...], "frame": 1 } ]` picks a still frame by state (a membrane shut during a surge).
+
+Gate an exit on a cycle with ordinary interactions: put the `cycle_is` one first.
+
+### Checkpoints
+
+`set_checkpoint` saves the whole game at a zone's start. On a death the end screen offers **Restart from (text)**, which puts everything back to that moment (items, flags, meters, the clock), keeping the checkpoint. `no_undo: true` hides **Undo last move** while it is set, so dying inside a zone sends you to its start (no soft-locks from a one-move undo into a doomed state). `clear_checkpoint` forgets it. Undo itself restores whichever checkpoint was set at the time.
+
+### Pursuers (behind walls)
+
+A **pursuer** hunts the player from the other side of the walls, one step per move, and can only reach him at marked views (grates). It is readable: it hums one move before it can strike.
+
+```json
+"pursuers": [ {
+  "id": "curator", "when": [ { "type": "flag_is", "flag": "in_core" } ],
+  "zone": ["core_1", "core_2", "..."], "strike_views": ["core_7", "core_12"],
+  "start_distance": 6, "reset_distance": 4, "strike_seconds": 4,
+  "silent_flag": "held_breath", "hum_sound": "curator_hum", "hum_message": "A low hum, right behind the grate.",
+  "lost_message": "The hum moves off down the wall.",
+  "on_strike": [ { "type": "game_over", "result": "lose", "title": "Recovered", "reason": "..." } ]
+} ]
+```
+
+Each `set_view` inside its `zone` brings it one move closer (to 0). Entering a strike view with it 1 move away or less starts the **hum**; after `strike_seconds` it reaches in (`on_strike`). Leave the screen in time, or set `silent_flag` (hold your breath) during the hum, and it loses you: it falls back to `reset_distance`. A move made with `silent_flag` set doesn't bring it closer (the flag is used up). `pursuer_divert` sends it away; leaving the zone resets it. `pursuer_near` reads it. For a race against it (it heading to a control room), use a meter that costs one per move.
+
+### Sensing patrols
+
+A patrol stop with **`sense`** notices the player only within `radius` (960x720 units) of where it is drawn, only while he walks (`only_while_moving`), never while `masked_when` holds (a wind that covers you), and never while he stands inside one of the floor's `walk_area.shadows` polygons. Make it loop on one wide screen with one stop covering its whole period (`first_at: 0`, `warn_seconds: 0`, `enter: 0`, `leave: period`). Walk it in a loop by making its `path` end where it starts.
+
+### Floor scale and speed
+
+`walk_area.scale` draws the character (and patrols) at that size on this floor, on top of `depth_scale`: a speck crossing a city. Walking slows with size, so add `walk_area.speed` (a multiplier) to keep wide screens quick to cross.
+
+### Player actions
+
+`setting.actions` are buttons on the HUD for things the player does to himself, shown while `when` holds:
+
+```json
+"actions": [ { "id": "listen", "label": "Listen", "title": "Hold your breath and listen (costs a breath)",
+  "when": [ { "type": "flag_is", "flag": "in_thin_air" } ],
+  "effects": [ { "type": "meter_add", "meter": "breath", "amount": -1 }, { "type": "set_flag", "flag": "held_breath" },
+               { "type": "sense", "radius": 2, "kinds": [ { "label": "Cold air", "views": ["fold_3", "fold_8"] } ] } ] } ]
+```
+
+### Rhythm widget
+
+`widget_type: "rhythm"` is call and response: she breathes a phrase of long and short beats, you answer it, holding the mouse button (or Space) for long and tapping for short, in time.
+
+```json
+{ "id": "queen_audience", "widget_type": "rhythm", "presentation": "overlay",
+  "config": { "title": "She Who Breathes For Us", "phrases": ["LSL", "SLSS", "LSSLS"],
+              "extra_phrases": [ { "when": [ { "type": "flag_is", "flag": "keth_enemy" } ], "pattern": "LLSSLS" } ],
+              "beat_ms": 650, "long_ms": 300, "max_errors": 3, "slow_after": 3, "slow_factor": 1.5,
+              "hint_when": [ { "type": "flag_is", "flag": "keth_ally" } ], "long_sound": "breath_long", "short_sound": "breath_short" },
+  "on_solve": [ ... ], "on_fail": [ ... ] }
+```
+
+A mistake (wrong length, or off the beat) makes her repeat the phrase; `max_errors` in one phrase fails the attempt (`on_fail`). After `slow_after` failed attempts she breathes `slow_factor` slower; while `hint_when` holds the next beat is lit during your answer.
+
+Tests for meters, cycles, checkpoints, pursuers, sensing patrols, sense, actions, the rhythm widget and map layers: `client/src/engine/ScenarioEngine.vents.test.ts`.
 
 
 

@@ -2,6 +2,8 @@ import { useEffect, useCallback, type CSSProperties } from 'react';
 
 interface CloseupOverlayProps {
   imageSrc: string;
+  /** Images drawn over it, bottom first (show_closeup layers: a map's scratched routes). */
+  layerSrcs?: string[];
   onClose: () => void;
 }
 
@@ -62,7 +64,7 @@ const KEYFRAMES = `
 
 let closeupStylesInjected = false;
 
-export function CloseupOverlay({ imageSrc, onClose }: CloseupOverlayProps) {
+export function CloseupOverlay({ imageSrc, layerSrcs, onClose }: CloseupOverlayProps) {
   useEffect(() => {
     if (!closeupStylesInjected) {
       closeupStylesInjected = true;
@@ -101,6 +103,9 @@ export function CloseupOverlay({ imageSrc, onClose }: CloseupOverlayProps) {
             (e.target as HTMLElement).style.display = 'none';
           }}
         />
+        {(layerSrcs ?? []).map((src) => (
+          <img key={src} src={src} alt="" data-closeup-layer style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', pointerEvents: 'none' }} />
+        ))}
         <div style={styles.closeHint}>click anywhere to close</div>
       </div>
     </div>
