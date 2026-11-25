@@ -238,6 +238,11 @@
             {
               "type": "view_is",
               "view": "intro_spacewalk"
+            },
+            {
+              "type": "flag_is",
+              "flag": "sw_briefed_done",
+              "value": "true"
             }
           ]
         },
@@ -249,6 +254,11 @@
             {
               "type": "view_is",
               "view": "intro_spacewalk"
+            },
+            {
+              "type": "flag_is",
+              "flag": "sw_briefed_done",
+              "value": "true"
             }
           ]
         },
@@ -260,6 +270,11 @@
             {
               "type": "view_is",
               "view": "intro_spacewalk"
+            },
+            {
+              "type": "flag_is",
+              "flag": "sw_briefed_done",
+              "value": "true"
             }
           ]
         },
@@ -18780,6 +18795,17 @@
                   "text": "“Eyes on it. Big, expensive, and not talking. Heading for the access panel.”",
                   "voice": "intro/audio/v2/p1.mp3",
                   "style": "comms"
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 15.31,
+              "effects": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_briefed_done",
+                  "value": "true"
                 }
               ]
             }
@@ -83770,7 +83796,7 @@
     {
       "id": "sw_lumen_body",
       "name": "LUMEN-7",
-      "description": "LUMEN-7: a relay satellite the size of a delivery van, wrapped in gold foil. Its service panel is on this side.",
+      "description": "LUMEN-7, a relay satellite.",
       "position": {
         "x": 525,
         "y": 222
@@ -83935,15 +83961,6 @@
           ]
         },
         {
-          "verb": "move",
-          "then": [
-            {
-              "type": "message",
-              "text": "Not yet. Control wants eyes on that panel first."
-            }
-          ]
-        },
-        {
           "verb": "talk",
           "then": [
             {
@@ -84084,15 +84101,6 @@
             {
               "type": "message",
               "text": "It's a long way down. Keep one hand on the satellite."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "then": [
-            {
-              "type": "message",
-              "text": "Not today. The job's up here."
             }
           ]
         },
@@ -84261,7 +84269,8 @@
           "then": [
             {
               "type": "message",
-              "text": "“Control, you're going to want to see this.”"
+              "text": "“Control, you're going to want to see this.”",
+              "style": "comms"
             }
           ]
         }
@@ -84302,6 +84311,15 @@
               "text": "You swing the door a little. It moves like it was oiled yesterday."
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "Nothing to say to a door. Not out loud, anyway."
+            }
+          ]
         }
       ]
     },
@@ -84340,6 +84358,15 @@
               "text": "You tighten your grip on the rail. Habit, mostly."
             }
           ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "You thank the handrail. It's the most reliable thing up here."
+            }
+          ]
         }
       ]
     },
@@ -84367,6 +84394,24 @@
             {
               "type": "message",
               "text": "Earth, over your shoulder. Still there. Good."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "message",
+              "text": "Earth's a long way past your glove. Back to the panel."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "“Hold on down there. Won't be long.”"
             }
           ]
         }

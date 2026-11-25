@@ -920,6 +920,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       return;
     }
     engine.dismissMessages();
+    // The opening has no unvoiced filler: an empty click there just clears the line.
+    if (prologueActive) { setSelectedItem(null); bump(); return; }
     const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
     if (selectedItem) {
       engine.showMessage(
@@ -962,7 +964,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       engine.showMessage(pick(pool));
       bump();
     }
-  }, [engine, activeVerb, selectedItem, bump, walkableNow, startWalk]);
+  }, [engine, activeVerb, selectedItem, bump, walkableNow, startWalk, prologueActive]);
 
   const VERB_ORDER = ['look', 'move', 'hand', 'talk'];
 
@@ -1212,6 +1214,23 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const pr = tutorialSteps[i].prologue;
     return pr === 'only' ? sawPrologue : pr === 'if_skipped' ? !sawPrologue : true;
   });
+  /** The current tip is on screen (not waiting for its room, the wake-up or a cinematic). */
+  const tipVisible = tutIndex !== null && !cinematicUp && !(wakeArmed && !standingUp) && engine.checkConditions(tutorialSteps[tutIndex]?.when);
+  // A tip with a voice speaks once, when it first shows, after whatever is being said has finished.
+  const tipVoiced = useRef(new Set<number>());
+  useEffect(() => {
+    const st = tutIndex !== null ? tutorialSteps[tutIndex] : null;
+    if (!tipVisible || !st?.voice || tipVoiced.current.has(tutIndex!)) return;
+    let t = 0;
+    const go = () => {
+      const v = voiceRef.current;
+      if (v && !v.paused && !v.ended) { t = window.setTimeout(go, 300); return; }
+      tipVoiced.current.add(tutIndex!);
+      playSound(st.voice!);
+    };
+    t = window.setTimeout(go, 500);
+    return () => clearTimeout(t);
+  }, [tipVisible, tutIndex, tutorialSteps, playSound]);
 
   const messages = engine.getMessages();
   const inventory = engine.getInventory();
@@ -1298,7 +1317,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               onClickPoint={(p) => { clickPointRef.current = p; }}
               characterPose={pose}
             />
-            {tutIndex !== null && engine.checkConditions(tutorialSteps[tutIndex]?.when) && (
+            {tipVisible && tutIndex !== null && (
               <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} number={tipRoute.indexOf(tutIndex) + 1} total={tipRoute.length} />
             )}
             {prologueFade && <EyeOpenTransition active durationMs={900} holdMs={0} onComplete={endPrologueFade} />}
@@ -1449,7 +1468,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           characterPose={pose}
         />
 
-        {tutIndex !== null && !(wakeArmed && !standingUp) && engine.checkConditions(tutorialSteps[tutIndex]?.when) && (
+        {tipVisible && tutIndex !== null && (
           <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} number={tipRoute.indexOf(tutIndex) + 1} total={tipRoute.length} />
         )}
 

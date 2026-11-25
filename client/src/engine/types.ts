@@ -336,6 +336,8 @@ export interface TutorialStep {
   /** "only": a prologue tip, dropped once the prologue is over (played or skipped). "if_skipped": shown only to a
    *  player who skipped the prologue (it repeats what the prologue taught). Default: always. */
   prologue?: 'only' | 'if_skipped';
+  /** A spoken version of the tip, played once when it first shows (after any line already being spoken). */
+  voice?: string;
   /** The tip waits (hidden) until these hold, e.g. a view_is, so tips can follow the player from a prologue into the game. */
   when?: Condition[];
 }

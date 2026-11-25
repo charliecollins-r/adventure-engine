@@ -59,7 +59,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
     check(await played(p, 'p1.mp3'), 'the pilot\'s voice plays');
-    check(await waitFor(p, () => /Right-click to change/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 6000), 'tip 1: right-click to change verbs');
+    check(await waitFor(p, () => /Right-click to change/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 9000), 'tip 1 (after the radio exchange): right-click to change verbs');
     check(/Tip 1 of 7/i.test(await tip(p)), `tips are numbered along this route ("${(await tip(p)).split('\n')[0]}")`);
     await shot(p, 'v2_02_spacewalk');
     check((await p.evaluate(() => window.__engine.getClock())) < 0.5, 'the game clock does not run on the spacewalk');

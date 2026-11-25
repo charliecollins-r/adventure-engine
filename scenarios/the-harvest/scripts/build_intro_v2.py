@@ -15,7 +15,7 @@ Voices: the pilot is the Silas voice (the same voice that narrates the rooms) wi
 to Control (message style "comms"); Relay Control is the Emily voice through the radio filter (style "radio").
 Audio lives in intro/audio/v2/ (mastered by master_intro_audio.py).
 """
-import json, re
+import json, os, re
 
 PATH = 'scenario.json'
 A = 'intro/audio/v2/'
@@ -61,8 +61,73 @@ def obj(oid, name, desc, pos, size, interactions, **extra):
     return o
 
 
-def say(verb, text, **extra):
-    return {'verb': verb, 'then': [msg(text)], **extra}
+# Every line the player can hear in the opening, by id. The clip for a line is intro/audio/v2/voice/<id>.mp3 (the Silas
+# voice); a line is wired to its clip as soon as the file exists, so re-run this script after adding clips.
+# s* = the pilot (narration in his own voice, or “quoted” words he says out loud), t* = the tutorial tips.
+VOICE_DIR = A + 'voice/'
+LINES = {
+    # the spacewalk
+    's01': "LUMEN-7. A relay satellite the size of a delivery van, wrapped in crinkled gold foil. Nine days of silence, and not a scratch on it. The service panel is on this side.",
+    's02': "You knock on the hull, twice. Nobody answers. It's a satellite.",
+    's03': "The Outrider, your ship, docked at LUMEN-7's service port. Small, old, and paid for.",
+    's04': "The airlock's right there. The job isn't done.",
+    's05': "\u201cBack soon,\u201d you tell her. Ships like to hear it.",
+    's06': "The main dish. Still pointed at Earth, still saying nothing.",
+    's07': "Hands off the dish. Control would never let you hear the end of it.",
+    's08': "You lean in to the dish and say \u201ctesting.\u201d Somewhere, probably, nobody hears it.",
+    's09': "Solar wings, undamaged and soaking up the sun. The power's fine. That makes the silence worse.",
+    's10': "You run a glove along the edge of a cell. Clean. Nobody's been out here but you.",
+    's11': "Nothing to say to a solar panel. You've tried before.",
+    's12': "Home, all of it, every city light still on. Every time. You'd think you'd get used to it.",
+    's13': "It's a long way down. Keep one hand on the satellite.",
+    's14': "You say hello to Earth. It doesn't answer, which makes it the best conversation you've had all week.",
+    # the panel
+    's15': "\u201cControl, you're going to want to see this.\u201d",
+    's16': "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.",
+    's17': "The panel door, hanging open. The latches weren't forced. Somebody had the key, or didn't need one.",
+    's18': "You swing the door a little. It moves like it was oiled yesterday.",
+    's19': "Nothing to say to a door. Not out loud, anyway.",
+    's20': "A handrail. You keep one glove on it out of habit.",
+    's21': "You tighten your grip on the rail. Habit, mostly.",
+    's22': "You thank the handrail. It's the most reliable thing up here.",
+    's23': "Earth, over your shoulder. Still there. Good.",
+    's24': "Earth's a long way past your glove. Back to the panel.",
+    's25': "\u201cHold on down there. Won't be long.\u201d",
+    # tutorial tips (t01-t04 on the spacewalk; t05-t07 only for players who skipped it; t08-t10 in the Stasis Hold)
+    't01': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
+    't02': "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
+    't03': 'Hand works things. Use it on the gold body to open the service panel.',
+    't04': 'Look (the eye) is always safe. Look inside the panel.',
+    't05': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
+    't06': 'With the Move cursor (the feet), click the floor to walk there.',
+    't07': 'Switch to Look (the eye) and click something to examine it. Looking is always safe.',
+    't08': 'Hand picks things up and works them. Try the specimen tag hanging from your pod.',
+    't09': 'What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.',
+    't10': "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.",
+}
+COMMS = {'s15'}   # said out loud to Control: the helmet-mic filter
+
+
+def voice_of(lid):
+    f = VOICE_DIR + lid + '.mp3'
+    return f if os.path.exists(f) else None
+
+
+def line(lid):
+    m = {'type': 'message', 'text': LINES[lid]}
+    if voice_of(lid): m['voice'] = voice_of(lid)
+    if lid in COMMS: m['style'] = 'comms'
+    return m
+
+
+def say(verb, lid, **extra):
+    return {'verb': verb, 'then': [line(lid)], **extra}
+
+
+def tip(lid, done_when, **extra):
+    t = {'text': LINES[lid], 'done_when': done_when, **extra}
+    if voice_of(lid): t['voice'] = voice_of(lid)
+    return t
 
 
 # ── 1. Cold open ──────────────────────────────────────────────────────────────
@@ -164,6 +229,8 @@ SPACE_VIEW = {
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
         later(1.0, msg(C1, 'c1', 'radio', 0.2)),
         later(1.0 + LEN['c1'] + 0.6, msg(P1, 'p1', 'comms')),
+        # the tips wait for this exchange to finish, so a spoken tip never talks over it
+        later(1.0 + LEN['c1'] + 0.6 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
     ]}],
     'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
 }
@@ -176,35 +243,20 @@ OPEN_PANEL = [
 ]
 
 SPACE_OBJECTS = [
-    obj('sw_lumen_body', 'LUMEN-7', "LUMEN-7: a relay satellite the size of a delivery van, wrapped in gold foil. Its service panel is on this side.",
-        (525, 222), (165, 232), [
-            say('look', "LUMEN-7. A relay satellite the size of a delivery van, wrapped in crinkled gold foil. Nine days of silence, and not a scratch on it. The service panel is on this side."),
-            {'verb': 'hand', 'then': OPEN_PANEL},
-            {'verb': 'move', 'then': OPEN_PANEL},
-            say('talk', "You knock on the hull, twice. Nobody answers. It's a satellite."),
-        ], walk_to={'x': 462, 'y': 430, 'facing': 'right'}),
-    obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168), [
-        say('look', "The Outrider, your ship, docked at LUMEN-7's service port. Small, old, and paid for."),
-        say('hand', "The airlock's right there. The job isn't done."),
-        say('move', "Not yet. Control wants eyes on that panel first."),
-        say('talk', "“Back soon,” you tell her. Ships like to hear it."),
-    ], walk_to=False),
-    obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135), [
-        say('look', "The main dish. Still pointed at Earth, still saying nothing."),
-        say('hand', "Hands off the dish. Control would never let you hear the end of it."),
-        say('talk', "You lean in to the dish and say “testing.” Somewhere, probably, nobody hears it."),
-    ], walk_to=False),
-    obj('sw_solar_wing', 'Solar Wing', "LUMEN-7's solar wings.", (318, 300), (205, 140), [
-        say('look', "Solar wings, undamaged and soaking up the sun. The power's fine. That makes the silence worse."),
-        say('hand', "You run a glove along the edge of a cell. Clean. Nobody's been out here but you."),
-        say('talk', "Nothing to say to a solar panel. You've tried before."),
-    ], walk_to=False),
-    obj('sw_earth', 'Earth', "Home.", (0, 500), (700, 220), [
-        say('look', "Home, all of it, every city light still on. Every time. You'd think you'd get used to it."),
-        say('hand', "It's a long way down. Keep one hand on the satellite."),
-        say('move', "Not today. The job's up here."),
-        say('talk', "You say hello to Earth. It doesn't answer, which makes it the best conversation you've had all week."),
-    ], walk_to=False),
+    obj('sw_lumen_body', 'LUMEN-7', "LUMEN-7, a relay satellite.", (525, 222), (165, 232), [
+        say('look', 's01'),
+        {'verb': 'hand', 'then': OPEN_PANEL},
+        {'verb': 'move', 'then': OPEN_PANEL},
+        say('talk', 's02'),
+    ], walk_to={'x': 462, 'y': 430, 'facing': 'right'}),
+    obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168),
+        [say('look', 's03'), say('hand', 's04'), say('talk', 's05')], walk_to=False),
+    obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135),
+        [say('look', 's06'), say('hand', 's07'), say('talk', 's08')], walk_to=False),
+    obj('sw_solar_wing', 'Solar Wing', "LUMEN-7's solar wings.", (318, 300), (205, 140),
+        [say('look', 's09'), say('hand', 's10'), say('talk', 's11')], walk_to=False),
+    obj('sw_earth', 'Earth', "Home.", (0, 500), (700, 220),
+        [say('look', 's12'), say('hand', 's13'), say('talk', 's14')], walk_to=False),
 ]
 
 # ── 3. The panel ──────────────────────────────────────────────────────────────
@@ -215,7 +267,7 @@ BOARDS_GONE = [
               later(LEN['p4'] + 0.6 + LEN['c2'] + 1.0,
                     {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
                      'then': [{'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
-     'else': [msg("Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.")]},
+     'else': [line('s16')]},
 ]
 
 PANEL_VIEW = {
@@ -235,40 +287,29 @@ PANEL_OBJECTS = [
     obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
         {'verb': 'look', 'then': BOARDS_GONE},
         {'verb': 'hand', 'then': BOARDS_GONE},
-        say('talk', "“Control, you're going to want to see this.”"),
+        say('talk', 's15'),
     ]),
-    obj('pn_door', 'Panel Door', "The service panel's door, hanging open.", (785, 125), (135, 520), [
-        say('look', "The panel door, hanging open. The latches weren't forced. Somebody had the key, or didn't need one."),
-        say('hand', "You swing the door a little. It moves like it was oiled yesterday."),
-    ]),
-    obj('pn_handrail', 'Handrail', "A yellow and black handrail.", (525, 485), (300, 110), [
-        say('look', "A handrail. You keep one glove on it out of habit."),
-        say('hand', "You tighten your grip on the rail. Habit, mostly."),
-    ]),
-    obj('pn_earth', 'Earth', "Earth, over your shoulder.", (0, 430), (380, 290), [
-        say('look', "Earth, over your shoulder. Still there. Good."),
-    ]),
+    obj('pn_door', 'Panel Door', "The service panel's door, hanging open.", (785, 125), (135, 520),
+        [say('look', 's17'), say('hand', 's18'), say('talk', 's19')]),
+    obj('pn_handrail', 'Handrail', "A yellow and black handrail.", (525, 485), (300, 110),
+        [say('look', 's20'), say('hand', 's21'), say('talk', 's22')]),
+    obj('pn_earth', 'Earth', "Earth, over your shoulder.", (0, 430), (380, 290),
+        [say('look', 's23'), say('hand', 's24'), say('talk', 's25')]),
 ]
 
 # ── Tutorial: the verbs on the spacewalk, the rest in the Stasis Hold ─────────
 IN_SHIP = [{'type': 'not_in_view', 'view': SPACE}, {'type': 'not_in_view', 'view': PANEL}]
 TUTORIAL = [
-    {'text': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
-     'done_when': 'verb_changed', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
-    {'text': "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
-     'done_when': 'walked', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
-    {'text': 'Hand works things. Use it on the gold body to open the service panel.',
-     'done_when': 'handled', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': SPACE}]},
-    {'text': 'Look (the eye) is always safe. Look inside the panel.',
-     'done_when': 'looked', 'prologue': 'only', 'when': [{'type': 'view_is', 'view': PANEL}]},
-    {'text': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
-     'done_when': 'verb_changed', 'prologue': 'if_skipped'},
-    {'text': 'With the Move cursor (the feet), click the floor to walk there.', 'done_when': 'walked', 'prologue': 'if_skipped'},
-    {'text': 'Switch to Look (the eye) and click something to examine it. Looking is always safe.', 'done_when': 'looked', 'prologue': 'if_skipped'},
-    {'text': 'Hand picks things up and works them. Try the specimen tag hanging from your pod.', 'done_when': 'item_taken', 'when': IN_SHIP},
-    {'text': 'What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.',
-     'done_when': 'item_selected', 'when': IN_SHIP},
-    {'text': "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.", 'done_when': 'next', 'when': IN_SHIP},
+    tip('t01', 'verb_changed', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
+    tip('t02', 'walked', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
+    tip('t03', 'handled', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
+    tip('t04', 'looked', prologue='only', when=[{'type': 'view_is', 'view': PANEL}]),
+    tip('t05', 'verb_changed', prologue='if_skipped'),
+    tip('t06', 'walked', prologue='if_skipped'),
+    tip('t07', 'looked', prologue='if_skipped'),
+    tip('t08', 'item_taken', when=IN_SHIP),
+    tip('t09', 'item_selected', when=IN_SHIP),
+    tip('t10', 'next', when=IN_SHIP),
 ]
 
 
