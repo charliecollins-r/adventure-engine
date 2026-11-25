@@ -97,6 +97,9 @@ export interface Setting {
   /** Named cinematics, in the same format as intro_scenes, that the play_cutscene effect plays in the middle of the
    *  game (full screen, skippable). See SCENARIO_SCHEMA → Cutscenes and a playable prologue. */
   cutscenes?: Record<string, IntroScene[]>;
+  /** Who tells the story in the engine's own lines (generic refusals, empty clicks): "second_person" (default: "You can't go
+   *  that way.") or "first_person" (the hero's thoughts: "I can't go that way."). Match it to how the scenario's text is written. */
+  narration?: 'first_person' | 'second_person';
   /** A playable opening before the real start: after the intro cinematic the game begins in `view` (not initial_view),
    *  with no wake-up. The prologue ends with a play_cutscene effect that has `wake: true` (the wake-up staging then plays
    *  in whatever view its `then` effects lead to). While it runs, the clock is stopped and a "Skip intro" button jumps

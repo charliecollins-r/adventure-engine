@@ -76,6 +76,15 @@ describe('cutscenes', () => {
     expect(f.getGameOverResult()?.sound).toBeUndefined();
   });
 
+  it('setting.narration first_person turns the engine\'s own lines into the hero\'s thoughts', () => {
+    const sc = mini();
+    expect(new ScenarioEngine(sc).narrate("You can't go that way.")).toBe("You can't go that way.");
+    sc.setting.narration = 'first_person';
+    const e = new ScenarioEngine(sc);
+    expect(e.narrate("You can't go that way.")).toBe("I can't go that way.");
+    expect(e.narrate('Your hand finds only empty air. Nothing catches your eye.')).toBe('My hand finds only empty air. Nothing catches my eye.');
+  });
+
   it('finishing a cutscene cancels anything still timed from before it', async () => {
     const e = new ScenarioEngine(mini());
     e.navigateToView('space');

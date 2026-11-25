@@ -485,7 +485,7 @@ export class ScenarioEngine {
 
     const obj = this.objectIndex.get(objectId);
     if (!obj) {
-      return { success: false, messages: [`You don't see that here.`], noiseGenerated: 0 };
+      return { success: false, messages: [this.narrate(`You don't see that here.`)], noiseGenerated: 0 };
     }
 
     const actualVerb = verb === 'use' && itemId ? 'use_item' : verb;
@@ -797,7 +797,7 @@ export class ScenarioEngine {
       const away = best.d === 0 ? 'right here' : best.d === 1 ? 'one screen away' : `${best.d} screens away`;
       parts.push(`${k.label}${dir && best.d > 0 ? ` to the ${dir}` : ''}, ${away}.`);
     }
-    return parts.length ? parts.join(' ') : (e.text ?? 'You hold your breath and listen. Nothing but the ship.');
+    return parts.length ? parts.join(' ') : (e.text ?? this.narrate('You hold your breath and listen. Nothing but the ship.'));
   }
 
   /** setting.actions that can be used now. */
@@ -1056,7 +1056,7 @@ export class ScenarioEngine {
     this._messages = [];
 
     if (!this.inventory.includes(itemA) || !this.inventory.includes(itemB)) {
-      return { success: false, messages: ["You don't have those items."], noiseGenerated: 0 };
+      return { success: false, messages: [this.narrate("You don't have those items.")], noiseGenerated: 0 };
     }
 
     const combo = this.scenario.combinations?.find(c => {
@@ -1072,7 +1072,7 @@ export class ScenarioEngine {
     }
 
     if (combo.conditions && !this.evaluateConditions(combo.conditions)) {
-      return { success: false, messages: ["You can't do that yet."], noiseGenerated: 0 };
+      return { success: false, messages: [this.narrate("You can't do that yet.")], noiseGenerated: 0 };
     }
 
     if (combo.consumes) {
@@ -1105,11 +1105,11 @@ export class ScenarioEngine {
 
     const item = this.itemIndex.get(itemId);
     if (!item) {
-      return { success: false, messages: ['You examine nothing.'], noiseGenerated: 0 };
+      return { success: false, messages: [this.narrate('You examine nothing.')], noiseGenerated: 0 };
     }
 
     if (!this.inventory.includes(itemId)) {
-      return { success: false, messages: ["You don't have that."], noiseGenerated: 0 };
+      return { success: false, messages: [this.narrate("You don't have that.")], noiseGenerated: 0 };
     }
 
     const matched = this.findMatchingInteraction(item.examine, verb);
@@ -1755,7 +1755,17 @@ export class ScenarioEngine {
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
+  /** An engine line in the scenario's voice: setting.narration "first_person" turns "You can't..." into "I can't...". */
+  narrate(line: string): string {
+    if (this.scenario.setting.narration !== 'first_person') return line;
+    return line.replace(/\bYour\b/g, 'My').replace(/\byour\b/g, 'my').replace(/\bYou\b/g, 'I').replace(/\byou\b/g, 'me');
+  }
+
   private getDefaultFailMessage(verb: string, objectName: string): string {
+    return this.narrate(this.defaultFailLine(verb, objectName));
+  }
+
+  private defaultFailLine(verb: string, objectName: string): string {
     switch (verb) {
       case 'move':
         return ScenarioEngine.pick([

@@ -1174,7 +1174,8 @@
     },
     "prologue": {
       "view": "intro_spacewalk"
-    }
+    },
+    "narration": "first_person"
   },
   "character": {
     "sprite_sets": {

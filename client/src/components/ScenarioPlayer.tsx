@@ -941,7 +941,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     engine.dismissMessages();
     // The opening has no unvoiced filler: an empty click there just clears the line.
     if (prologueActive) { setSelectedItem(null); bump(); return; }
-    const pick = (pool: string[]) => pool[Math.floor(Math.random() * pool.length)];
+    const pick = (pool: string[]) => engine.narrate(pool[Math.floor(Math.random() * pool.length)]);
     if (selectedItem) {
       engine.showMessage(
         pick([
