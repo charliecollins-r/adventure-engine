@@ -80,6 +80,31 @@ const styles: Record<string, CSSProperties> = {
     color: '#8a7a5a', fontFamily: 'monospace', fontSize: '12px', letterSpacing: '1px', padding: '6px 12px',
     borderRadius: '4px', cursor: 'pointer', zIndex: 55,
   },
+  // Full-screen play: the picture fills the window, controls are small and translucent at its edges.
+  fsContainer: { position: 'fixed', inset: 0, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  fsStage: { position: 'relative', width: 'min(100vw, calc(100vh * 16 / 9))', aspectRatio: '16 / 9', overflow: 'hidden' },
+  fsTop: {
+    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 70, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    padding: '8px 64px 8px 12px', pointerEvents: 'none',   // right: clear of the current-verb label
+  },
+  fsTopLeft: { pointerEvents: 'auto', opacity: 0.85 },
+  fsButton: {
+    pointerEvents: 'auto', background: 'rgba(8,8,6,0.55)', border: '1px solid rgba(120,100,60,0.45)', color: '#b8a878',
+    fontFamily: 'monospace', fontSize: '13px', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer', backdropFilter: 'blur(2px)',
+  },
+  fsMenu: {
+    position: 'absolute', top: 44, right: 64, zIndex: 80, minWidth: 190, padding: '12px', borderRadius: '6px',
+    background: 'rgba(10,9,7,0.92)', border: '1px solid rgba(120,100,60,0.5)', boxShadow: '0 6px 24px rgba(0,0,0,0.6)',
+  },
+  fsTray: {
+    position: 'absolute', left: 12, bottom: 50, zIndex: 70, maxWidth: 'min(720px, 70%)', borderRadius: '6px',
+    background: 'rgba(10,9,7,0.9)', border: '1px solid rgba(120,100,60,0.45)', boxShadow: '0 6px 24px rgba(0,0,0,0.6)', overflow: 'hidden',
+  },
+  fsLines: { position: 'absolute', left: '14%', right: '14%', bottom: 14, zIndex: 65 },
+  fsMessagePanel: {
+    background: 'rgba(6,6,5,0.72)', border: '1px solid rgba(120,100,60,0.3)', borderRadius: '6px', borderTop: '1px solid rgba(120,100,60,0.3)',
+    backdropFilter: 'blur(2px)', maxHeight: '28vh',
+  },
   messagePanel: {
     width: '960px',
     padding: '10px 16px',
@@ -229,6 +254,18 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [wakeArmed, setWakeArmed] = useState(() => !prologueActive);
   /** A short fade up from black as the prologue's first view appears. */
   const [prologueFade, setPrologueFade] = useState(false);
+  // Players get full-screen play: the picture fills the window and the controls are small pop-overs at its edges.
+  // ?dev (and ?framed) keep the framed layout with the title bar and panels, which the dev panel and the test suites use.
+  const fullscreen = !dev.isDev && !new URLSearchParams(window.location.search).has('framed');
+  const [stageScale, setStageScale] = useState(1);
+  const [hudMenuOpen, setHudMenuOpen] = useState(false);
+  useEffect(() => {
+    if (!fullscreen) return;
+    const fit = () => setStageScale(Math.min(window.innerWidth, (window.innerHeight * 16) / 9) / 960);
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, [fullscreen]);
   const [eyeOpen, setEyeOpen] = useState(false);
   const [skipEyeTransition] = useState(() => dev.skipIntro);
   const [activeVerb, setActiveVerb] = useState('look');
@@ -1259,19 +1296,95 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     );
   }
 
-  return (
-    <div style={{
-      ...styles.container,
-      ...(devPanelOpen ? { flexDirection: 'row' as const, alignItems: 'stretch', paddingTop: 0, height: '100vh', overflow: 'hidden' as const } : {}),
-    }}>
-      {/* Game column */}
-      <div style={devPanelOpen ? { flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', paddingTop: '8px', overflowY: 'auto' as const } : { width: '100%', display: 'contents' }}>
-      {/* Minimal title bar */}
-      <div style={styles.titleBar}>
-        <div style={styles.titleLeft}>
-          <div style={styles.title}>{scenario.metadata.title}</div>
-          <NoiseIndicator level={noiseLevel} />
+  const overlays = (
+    <>
+      {/* Closeup overlay */}
+      {closeupImage && (
+        <CloseupOverlay
+          imageSrc={resolveAsset(scenario.metadata.id, closeupImage)}
+          layerSrcs={engine.getCloseupLayers().map((l) => resolveAsset(scenario.metadata.id, l))}
+          onClose={handleCloseupDismiss}
+        />
+      )}
+
+      {/* Dialogue choice overlay */}
+      {dialogue && (
+        <DialogueOverlay
+          prompt={dialogue.prompt}
+          choices={dialogue.choices}
+          onSelect={handleDialogueSelect}
+        />
+      )}
+
+      {/* Puzzle widget overlay (keypad) */}
+      {activeWidget && activeWidget.widget_type === 'keypad' && (
+        <KeypadWidget
+          key={activeWidget.id}
+          widget={activeWidget}
+          scenarioId={scenario.metadata.id}
+          onKeyPress={handleWidgetKey}
+          onSubmit={handleWidgetSubmit}
+          onClose={handleWidgetClose}
+        />
+      )}
+
+      {activeWidget && activeWidget.widget_type === 'rhythm' && engine.getRhythmSetup() && (
+        <RhythmWidget
+          key={`${activeWidget.id}:${engine.getRhythmSetup()!.beatMs}`}
+          setup={engine.getRhythmSetup()!}
+          playSound={(k) => playSound(scenario.setting.sounds?.[k] ?? k)}
+          onFinish={handleRhythmFinish}
+        />
+      )}
+
+      {/* Game over overlay */}
+      {gameOverResult && (
+        <div style={styles.gameOver}>
+          <div
+            style={{
+              ...styles.gameOverResult,
+              color: gameOverResult.won ? '#44cc44' : '#cc4444',
+              textShadow: gameOverResult.won
+                ? '0 0 30px rgba(68, 204, 68, 0.4)'
+                : '0 0 30px rgba(204, 68, 68, 0.4)',
+            }}
+          >
+            {gameOverResult.title ?? (gameOverResult.won ? 'You Escaped' : 'Game Over')}
+          </div>
+          <div style={styles.gameOverText}>{gameOverResult.text}</div>
           {(scenario.setting.max_score || engine.getScore() > 0) && (
+            <div style={styles.gameOverScore}>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
+          )}
+          <div style={styles.gameOverButtons}>
+            {!gameOverResult.won && engine.getCheckpoint() && (
+              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleCheckpoint} data-checkpoint autoFocus>
+                Restart from {engine.getCheckpoint()!.label}
+              </button>
+            )}
+            {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && !engine.getCheckpoint()?.noUndo && (
+              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleUndo} data-undo autoFocus>
+                Undo last move
+              </button>
+            )}
+            <button style={styles.gameOverButton} onClick={handleRestart}>
+              {gameOverResult.won ? 'Play again' : 'Restart'}
+            </button>
+            <button style={styles.gameOverButton} onClick={onExit}>
+              Main menu
+            </button>
+          </div>
+        </div>
+      )}
+
+    </>
+  );
+
+  // ── Layout parts, shared by the framed (?dev) layout and full-screen play ──
+  const titleLeft = (
+        <div style={styles.titleLeft}>
+          {!fullscreen && <div style={styles.title}>{scenario.metadata.title}</div>}
+          {(!fullscreen || noiseLevel > 0) && <NoiseIndicator level={noiseLevel} />}
+          {(scenario.setting.max_score || engine.getScore() > 0) && !fullscreen && (
             <span style={styles.score} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</span>
           )}
           {scenario.setting.clock?.show && (
@@ -1289,8 +1402,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             </span>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {!engine.isGameOver() && !cinematicUp && engine.getActions().map((a) => (
+  );
+  const titleRight = (
+        <div style={fullscreen ? { display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'stretch' } : { display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {!fullscreen && !engine.isGameOver() && !cinematicUp && engine.getActions().map((a) => (
             <button key={a.id} data-action={a.id} title={a.title ?? a.label}
               style={{ ...styles.chromeButton, color: '#9ad0e0', borderColor: '#2a4a5a', whiteSpace: 'nowrap' }}
               onClick={() => handleAction(a.id)}>
@@ -1371,8 +1486,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             Menu
           </button>
         </div>
-      </div>
-
+  );
+  const viewport = (
+    <>
       {/* Game viewport with HUD overlays */}
       <div style={styles.gameArea}>
         <GameView
@@ -1424,6 +1540,100 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         {!skipEyeTransition && wakeArmed && <EyeOpenTransition key={prologuePlayed ? 'after-prologue' : 'start'} active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
       </div>
 
+    </>
+  );
+  const inventoryPanel = (
+            <InventoryPanel
+            items={inventory}
+            selectedItem={selectedItem}
+            scenarioId={scenario.metadata.id}
+            onItemSelect={handleItemSelect}
+            onItemExamine={handleItemExamine}
+            showCombineTip={!combinedOnce}
+          />
+  );
+  const messageBlock = (
+    <>
+        {/* Messages or ambient text */}
+        {cinematicUp ? null : messages.length > 0 ? (
+          <div style={{ ...styles.messagePanel, ...(fullscreen ? styles.fsMessagePanel : {}), width: '100%' }} onClick={handleDismiss}>
+            {messages.map((msg, i) => {
+              const ls = engine.getLineStyle(msg);
+              return ls?.style === 'radio' ? (
+                <p key={i} data-radio-line style={{ ...styles.messageText, fontStyle: 'italic', color: '#9ad0e0' }}>
+                  <span style={{ fontSize: '10px', letterSpacing: '2px', color: '#5a8a9a', marginRight: '8px', fontStyle: 'normal' }}>RADIO</span>{msg}
+                </p>
+              ) : (
+                <p key={i} style={styles.messageText}>{msg}</p>
+              );
+            })}
+            <div style={styles.dismissHint}>click to dismiss</div>
+          </div>
+        ) : ambientText && !fullscreen ? (
+          <div style={{ ...styles.ambientPanel, width: '100%' }}>{ambientText}</div>
+        ) : null}
+    </>
+  );
+
+  if (fullscreen) {
+    const hasLine = !cinematicUp && messages.length > 0;
+    return (
+      <div data-fullscreen style={styles.fsContainer}>
+        <div style={styles.fsStage} onClickCapture={(e) => { if (hudMenuOpen && !(e.target as HTMLElement).closest('[data-hud-menu-panel],[data-hud-menu]')) setHudMenuOpen(false); }}>
+          <div data-viewport style={{ position: 'absolute', left: 0, top: 0, width: 960, transform: `scale(${stageScale})`, transformOrigin: '0 0' }}>
+            {viewport}
+          </div>
+          {/* Top: what matters in play stays visible (noise, meters, time, actions); the rest is behind ☰ */}
+          <div style={styles.fsTop}>
+            <div style={styles.fsTopLeft}>{titleLeft}</div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              {!engine.isGameOver() && !cinematicUp && engine.getActions().map((a) => (
+                <button key={a.id} data-action={a.id} title={a.title ?? a.label} style={{ ...styles.fsButton, color: '#9ad0e0', borderColor: 'rgba(90,140,160,0.5)' }} onClick={() => handleAction(a.id)}>{a.label}</button>
+              ))}
+              <button data-hud-menu aria-label="Menu" aria-expanded={hudMenuOpen} style={styles.fsButton} onClick={() => setHudMenuOpen((o) => !o)}>☰</button>
+            </div>
+          </div>
+          {hudMenuOpen && (
+            <div data-hud-menu-panel style={styles.fsMenu} onClick={(e) => e.stopPropagation()}>
+              <div style={{ ...styles.title, marginBottom: 4 }}>{scenario.metadata.title}</div>
+              {(scenario.setting.max_score || engine.getScore() > 0) && (
+                <div style={{ ...styles.score, marginBottom: 6 }} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
+              )}
+              {titleRight}
+            </div>
+          )}
+          {/* Bottom: items behind a small tab, lines as subtitles over the picture */}
+          {!cinematicUp && (
+            <button data-items-tab style={{ ...styles.fsButton, position: 'absolute', left: 12, bottom: 12, zIndex: 70, color: inventoryOpen ? '#e0c060' : '#b8a878' }} onClick={() => setInventoryOpen((o) => !o)}>
+              {inventoryOpen ? '▾' : '▸'} Items{inventory.length > 0 ? ` (${inventory.length})` : ''}
+            </button>
+          )}
+          {!cinematicUp && inventoryOpen && (
+            <div data-items-tray style={styles.fsTray}>{inventoryPanel}</div>
+          )}
+          {hasLine && <div style={styles.fsLines}>{messageBlock}</div>}
+        </div>
+        {overlays}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      ...styles.container,
+      ...(devPanelOpen ? { flexDirection: 'row' as const, alignItems: 'stretch', paddingTop: 0, height: '100vh', overflow: 'hidden' as const } : {}),
+    }}>
+      {/* Game column */}
+      <div style={devPanelOpen ? { flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', paddingTop: '8px', overflowY: 'auto' as const } : { width: '100%', display: 'contents' }}>
+      {/* Minimal title bar */}
+      <div style={styles.titleBar}>
+        {titleLeft}
+        {titleRight}
+      </div>
+
+      {/* Game viewport with HUD overlays */}
+      {viewport}
+
       {/* Inventory + text feedback below viewport */}
       <div style={{ width: '960px', backgroundColor: '#0d0d0a' }}>
         {/* Inventory toggle tab */}
@@ -1461,112 +1671,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             borderBottom: inventoryOpen ? '1px solid rgba(42, 32, 24, 0.4)' : 'none',
           }}
         >
-          <InventoryPanel
-            items={inventory}
-            selectedItem={selectedItem}
-            scenarioId={scenario.metadata.id}
-            onItemSelect={handleItemSelect}
-            onItemExamine={handleItemExamine}
-            showCombineTip={!combinedOnce}
-          />
+          {inventoryPanel}
         </div>
-        {/* Messages or ambient text */}
-        {cinematicUp ? null : messages.length > 0 ? (
-          <div style={{ ...styles.messagePanel, width: '100%' }} onClick={handleDismiss}>
-            {messages.map((msg, i) => {
-              const ls = engine.getLineStyle(msg);
-              return ls?.style === 'radio' ? (
-                <p key={i} data-radio-line style={{ ...styles.messageText, fontStyle: 'italic', color: '#9ad0e0' }}>
-                  <span style={{ fontSize: '10px', letterSpacing: '2px', color: '#5a8a9a', marginRight: '8px', fontStyle: 'normal' }}>RADIO</span>{msg}
-                </p>
-              ) : (
-                <p key={i} style={styles.messageText}>{msg}</p>
-              );
-            })}
-            <div style={styles.dismissHint}>click to dismiss</div>
-          </div>
-        ) : ambientText ? (
-          <div style={{ ...styles.ambientPanel, width: '100%' }}>{ambientText}</div>
-        ) : null}
+        {messageBlock}
       </div>
 
-      {/* Closeup overlay */}
-      {closeupImage && (
-        <CloseupOverlay
-          imageSrc={resolveAsset(scenario.metadata.id, closeupImage)}
-          layerSrcs={engine.getCloseupLayers().map((l) => resolveAsset(scenario.metadata.id, l))}
-          onClose={handleCloseupDismiss}
-        />
-      )}
-
-      {/* Dialogue choice overlay */}
-      {dialogue && (
-        <DialogueOverlay
-          prompt={dialogue.prompt}
-          choices={dialogue.choices}
-          onSelect={handleDialogueSelect}
-        />
-      )}
-
-      {/* Puzzle widget overlay (keypad) */}
-      {activeWidget && activeWidget.widget_type === 'keypad' && (
-        <KeypadWidget
-          key={activeWidget.id}
-          widget={activeWidget}
-          scenarioId={scenario.metadata.id}
-          onKeyPress={handleWidgetKey}
-          onSubmit={handleWidgetSubmit}
-          onClose={handleWidgetClose}
-        />
-      )}
-
-      {activeWidget && activeWidget.widget_type === 'rhythm' && engine.getRhythmSetup() && (
-        <RhythmWidget
-          key={`${activeWidget.id}:${engine.getRhythmSetup()!.beatMs}`}
-          setup={engine.getRhythmSetup()!}
-          playSound={(k) => playSound(scenario.setting.sounds?.[k] ?? k)}
-          onFinish={handleRhythmFinish}
-        />
-      )}
-
-      {/* Game over overlay */}
-      {gameOverResult && (
-        <div style={styles.gameOver}>
-          <div
-            style={{
-              ...styles.gameOverResult,
-              color: gameOverResult.won ? '#44cc44' : '#cc4444',
-              textShadow: gameOverResult.won
-                ? '0 0 30px rgba(68, 204, 68, 0.4)'
-                : '0 0 30px rgba(204, 68, 68, 0.4)',
-            }}
-          >
-            {gameOverResult.title ?? (gameOverResult.won ? 'You Escaped' : 'Game Over')}
-          </div>
-          <div style={styles.gameOverText}>{gameOverResult.text}</div>
-          {(scenario.setting.max_score || engine.getScore() > 0) && (
-            <div style={styles.gameOverScore}>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
-          )}
-          <div style={styles.gameOverButtons}>
-            {!gameOverResult.won && engine.getCheckpoint() && (
-              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleCheckpoint} data-checkpoint autoFocus>
-                Restart from {engine.getCheckpoint()!.label}
-              </button>
-            )}
-            {!gameOverResult.won && scenario.setting.allow_undo !== false && undoRef.current && !engine.getCheckpoint()?.noUndo && (
-              <button style={{ ...styles.gameOverButton, borderColor: '#c0a030' }} onClick={handleUndo} data-undo autoFocus>
-                Undo last move
-              </button>
-            )}
-            <button style={styles.gameOverButton} onClick={handleRestart}>
-              {gameOverResult.won ? 'Play again' : 'Restart'}
-            </button>
-            <button style={styles.gameOverButton} onClick={onExit}>
-              Main menu
-            </button>
-          </div>
-        </div>
-      )}
+      {overlays}
 
       {/* Close game column wrapper */}
       </div>

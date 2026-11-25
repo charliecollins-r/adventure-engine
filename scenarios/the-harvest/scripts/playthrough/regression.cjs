@@ -83,7 +83,8 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     if (!card) fail('main menu has no Harvest card'); else { await card.click(); await p.waitForTimeout(1500); }
     if (!(await p.$('[data-intro-cinematic]'))) fail('Play did not start the intro'); else ok('main menu: Play starts the intro');
     await p.click('[data-skip-intro]'); await p.waitForTimeout(1500);
-    await p.click('button:has-text("Menu")'); await p.waitForTimeout(1500);
+    await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
+    await p.click('[data-hud-menu-panel] button:has-text("Menu")'); await p.waitForTimeout(1500);
     if (!(await p.$('[data-workshop]'))) fail('Menu did not return to the main menu'); else ok('the Menu button returns to the main menu');
     if (!/elevenlabs\.io/i.test(await p.evaluate(() => document.body.innerText))) fail('ElevenLabs credit missing on the menu'); else ok('the ElevenLabs credit shows on the menu');
     await p.close();

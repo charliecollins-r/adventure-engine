@@ -25,9 +25,9 @@ const played = (p, f) => p.evaluate((f) => window.__plays.some((x) => x.src === 
 const waitFor = async (p, fn, ms, arg) => p.waitForFunction(fn, arg, { timeout: ms }).then(() => true).catch(() => false);
 const shot = async (p, name) => { if (OUT) await p.screenshot({ path: `${OUT}/${name}.png` }); };
 
-// The whole opening plays in the game's own 960x540 picture box (k = screen px per view px).
+// Players get full-screen play: the 960x540 picture is scaled to the window (k = screen px per view px).
 async function viewport(p) {
-  return p.evaluate(() => { const d = [...document.querySelectorAll('div')].find((d) => { const r = d.getBoundingClientRect(); return Math.round(r.width) === 960 && Math.round(r.height) === 540; }); const r = d.getBoundingClientRect(); return { x: r.x, y: r.y, k: 1 }; });
+  return p.evaluate(() => { const r = document.querySelector('[data-viewport]').getBoundingClientRect(); return { x: r.x, y: r.y, k: r.width / 960 }; });
 }
 async function setVerb(g, v) {
   while (g.verb !== v) {
@@ -47,8 +47,8 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     const p = await page(b);
     await p.goto(PLAY);
     check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 5000), 'the cold open plays');
-    check(await p.evaluate(() => { const c = document.querySelector('[data-intro-cinematic]').getBoundingClientRect(); return Math.round(c.width) === 960 && Math.round(c.height) === 540; }), 'the cinematic plays inside the game\'s picture box');
-    check(!!(await p.$('button:has-text("Menu")')), 'the title bar is there from the title card on (one layout throughout)');
+    check(await p.evaluate(() => !!document.querySelector('[data-viewport] [data-intro-cinematic]')), 'the cinematic plays inside the game\'s own picture');
+    check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the title card on');
     check(await waitFor(p, () => /went quiet nine days ago/.test(document.body.innerText), 15000), 'the pilot\'s voice-over line shows');
     await shot(p, 'v2_01_cold_open');
     check(await waitFor(p, () => !document.querySelector('[data-intro-cinematic]'), 30000), 'the cold open hands over to the game');
@@ -99,7 +99,9 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => window.__plays.some((x) => x.src === 'ambient_stasis.mp3'), 8000), 'the wake-up narration plays');
     check(/Your eyes open to green light/.test(await text(p)), 'the wake-up message is the narrated text');
     check(!(await p.$('[data-skip-prologue]')), 'no skip intro button once the prologue is over');
-    check(!!(await p.$('[data-dev-skip]')) || !p, 'game-only controls come back with the Stasis Hold');
+    await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
+    check(!!(await p.$('[data-hud-menu-panel] [data-dev-skip]')), 'game-only controls come back with the Stasis Hold (in the menu)');
+    await p.click('[data-hud-menu]'); await p.waitForTimeout(200);
     check(!(await tip(p)), 'no tip while he lies there');
     check(await waitFor(p, () => /specimen tag/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 40000), 'after he stands: the next tip (take the specimen tag)');
     check(/Tip 5 of 7/i.test(await tip(p)), `numbering carries on ("${(await tip(p)).split('\n')[0]}")`);

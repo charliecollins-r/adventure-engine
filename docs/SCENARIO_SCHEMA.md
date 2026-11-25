@@ -580,7 +580,7 @@ An optional root-level `character` block defines the player sprite. Each view th
 | `scale` | number | no | Render scale. On screen the sprite is `frame_width × scale` wide. |
 | `shadow` | object | no | Default shadow (see [Sprite Shadows](#sprite-shadows)). |
 
-**Placement** (`view.character`): `x`, `y` (the sprite's **bottom-center**, i.e. the feet, in 960x720 space), `sprite_set`, optional `facing` (`"down"`, `"left"`, `"right"`, `"up"`), `frame` (show one fixed frame), `flip_h`, `shadow`. If a sheet has no `left` row, `facing: "left"` mirrors the `right` row.
+**Placement** (`view.character`): `x`, `y` (the sprite's **bottom-center**, i.e. the feet, in 960x720 space), `sprite_set`, optional `facing` (`"down"`, `"left"`, `"right"`, `"up"`), `frame` (show one fixed frame), `flip_h`, `shadow`, `scale` (draw him bigger or smaller in this view, e.g. close to the camera in a close-up; multiplies the set's scale). If a sheet has no `left` row, `facing: "left"` mirrors the `right` row.
 
 **Changing it at runtime**: the `set_character` effect overrides any of `x`, `y`, `facing`, `sprite_set`, `frame`, `flip_h` for the rest of the session (The Harvest switches to `idle_helmet` when the player takes the emergency helmet).
 
@@ -2353,6 +2353,7 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 |--------|--------|-----|
 | `particles` | `motion` (`rise`, `fall`, `drift`, `twinkle`), `area`, `count`, `color`, `size`, `alpha`, `speed`, `delay` | Bubbles, motes in a beam, floating debris, twinkling stars |
 | `shade` | `color`, `from`, `to`, `seconds`, `direction` (`down`, `up`, `none`), `area`, `delay` | Darken part of the picture over time (stars going out) |
+| `stars_out` | `area`, `count`, `seconds`, `from` (`right`, `left`, `top`), `size`, `color`, `delay` | Stars that wink out one by one in a front crossing the area, each flaring briefly before it dies: something vast sliding between you and them. Drawn behind the sprites; pair it with a `shade`. |
 | `sweep` | `area`, `color`, `period`, `alpha`, `delay` | A scanning line moving up and down |
 | `sparks` | `at`, `color`, `every`, `delay`, `until` | Bursts of sparks from a point (a tool at work) |
 | `shake` | `amount`, `delay`, `until` | Camera shake |

@@ -222,8 +222,8 @@ A full-length adventure spanning **5 acts, 70 views, and 7 designed endings** (6
 
 ## Engine Features
 
-### Minimal HUD
-No verb buttons: right-click cycles the verb and the cursor changes to match. Under the viewport sit a collapsible "Items" inventory tray (it opens on pickup) and the message line, which shows ambient text when idle. The hint "?" floats at the corner of the viewport and room names appear subtly in gold text.
+### Full-Screen Play, Minimal HUD
+The picture fills the screen from the title card to the end; the intro and cutscenes play in the same picture, so nothing jumps. No verb buttons: right-click cycles the verb and the cursor changes to match. Everything else is a small pop-over at the edges: an Items tab (it opens on pickup), lines as subtitles over the bottom of the picture, a ☰ menu for score, sound and the main menu, and the hint "?" in the corner. `?dev` shows the framed developer layout with the dev panel.
 
 ### Character Sprites
 Sierra-style sprite sheet rendering on top of backgrounds. Walk cycles, static poses, per-view placement, dynamic state changes via effects. Characters are positioned in the 960&times;720 coordinate space and rendered with `image-rendering: pixelated` for crisp pixel art. Configurable directional shadows with offset, opacity, size, and skew — global defaults with per-view overrides.
