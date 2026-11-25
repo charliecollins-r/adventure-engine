@@ -12,6 +12,8 @@
  *   --goal <expr>      state:<obj>=<v> | state:<obj>!=<v> | flag:<f>=<v> | item:<id> | view:<prefix>
  *   --max <n>          State cap (default 2,000,000)
  *   --verbose          Print the cone-of-influence variables
+ *   --ignore-meters    Meters never cost or run out (sound when running out only ever ends in a death that a checkpoint
+ *                      recovers from: then breath can't soft-lock, and leaving it out keeps the state space small)
  *   --from-dev-skip    Start from the state setting.dev_skip sets up (e.g. the top of the vent maze) instead of the
  *                      scenario's start: search one section on its own
  *
@@ -44,6 +46,7 @@ const goalExpr = arg('--goal');
 const MAX = +arg('--max', 2000000);
 const verbose = args.includes('--verbose');
 const fromDevSkip = args.includes('--from-dev-skip');
+const ignoreMeters = args.includes('--ignore-meters');
 if (!goalExpr) { console.error('--goal is required'); process.exit(1); }
 
 // ---- bundle the real engine --------------------------------------------
@@ -129,7 +132,8 @@ for (const it of scenario.items) if (it.examine?.length) addGroup('#' + it.id, i
 // setting.actions (hold your breath, squeeze the lung-sac): buttons the player can press anywhere they are shown
 for (const a of scenario.setting.actions || []) { const r = new Set(), w = new Set(); condReads(a.when, r); effRW(a.effects, r, w); groups.set('!' + a.id, { r, w }); }
 // meters are always part of the state (every move can cost them, and running out ends the game)
-const METERS = (scenario.meters || []).map((m) => m.id);
+if (ignoreMeters) for (const m of scenario.meters || []) { m.cost_per_move = 0; m.on_empty = []; }
+const METERS = ignoreMeters ? [] : (scenario.meters || []).map((m) => m.id);
 for (const c of scenario.combinations || []) {
   const w = new Set(['item:' + c.result]); if (c.consumes) c.items.forEach(i => w.add('item:' + i));
   const r = new Set(c.items.map(i => 'item:' + i)); condReads(c.conditions, r);
@@ -171,7 +175,11 @@ while (grew) {
 const coneFlags = [...cone].filter(x => x.startsWith('flag:')).map(x => x.slice(5));
 const coneStates = [...cone].filter(x => x.startsWith('state:')).map(x => x.slice(6));
 const coneItems = new Set([...cone].filter(x => x.startsWith('item:')).map(x => x.slice(5)));
-const coneVis = [...cone].filter(x => x.startsWith('vis:')).map(x => x.slice(4));
+// only visibilities something can change are state (the rest are constant)
+const visWritten = new Set(); for (const [, g] of groups) for (const x of g.w) if (x.startsWith('vis:')) visWritten.add(x);
+{ const scan = (es) => { for (const e of es || []) { if ((e.type === 'show_object' || e.type === 'hide_object') && e.object) visWritten.add('vis:' + e.object); scan(e.then); scan(e.else); scan(e.effects); for (const ch of e.choices || []) scan(ch.then); } };
+  for (const ev of scenario.events || []) scan(ev.effects); for (const m of scenario.meters || []) scan(m.on_empty); for (const v of scenario.views) scan(v.on_enter); }
+const coneVis = [...cone].filter(x => x.startsWith('vis:') && visWritten.has(x)).map(x => x.slice(4));
 if (verbose) console.log('cone:', [...cone].sort().join(' '), '\nobtainable items:', [...obtainable].sort().join(' '));
 console.log(`cone of influence: ${coneFlags.length} flags, ${coneStates.length} object states, ${coneItems.size} items, ${coneVis.length} visibilities; ${relevant.size}/${groups.size} interaction groups relevant`);
 

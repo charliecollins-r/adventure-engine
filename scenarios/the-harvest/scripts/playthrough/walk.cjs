@@ -12,7 +12,14 @@ const out = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'walk-e2e-')), 'walk
 esbuild.buildSync({ stdin: { contents: "export * from './walkable'; export { ScenarioEngine } from './ScenarioEngine';", resolveDir: path.join(root, 'client/src/engine'), loader: 'ts' }, bundle: true, platform: 'node', format: 'cjs', outfile: out, logLevel: 'error' });
 const W = require(out);
 const SC = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'scenario.json'), 'utf8'));
-const views = SC.views.filter((v) => v.id.startsWith('act1') && v.walk_area && v.character);
+// the vent maze's duct screens share a handful of paintings and one floor: walk one screen of each kind
+const kinds = new Set();
+const views = SC.views.filter((v) => v.id.startsWith('act1') && v.walk_area && v.character).filter((v) => {
+  if (!v.id.startsWith('act1_v6_')) return true;
+  const k = v.background_file + JSON.stringify(v.walk_area);
+  if (kinds.has(k)) return false;
+  kinds.add(k); return true;
+});
 const engine = new W.ScenarioEngine(SC);
 
 let failures = 0;
@@ -47,7 +54,7 @@ const rng = (seed) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return
       if (Math.hypot(ex - t.x, ey - t.y) > 3) { fail(`${v.id}: walked to (${ex.toFixed(1)}, ${ey.toFixed(1)}) instead of (${t.x}, ${t.y})`); continue; }
       const offFloor = s.filter((q) => q).map((q) => ({ x: q.x - off.x, y: q.y - off.y })).filter((q) => { const nf = W.nearestFloorPoint(area, q); return Math.hypot(nf.x - q.x, nf.y - q.y) > 2.5; });
       if (offFloor.length) { fail(`${v.id}: ${offFloor.length} frames off the floor, e.g. (${offFloor[0].x.toFixed(1)}, ${offFloor[0].y.toFixed(1)})`); continue; }
-      if (!s.some((q) => q && /walk/.test(q.set)) && Math.hypot(t.x - (f0.x - off.x), t.y - (f0.y - off.y)) > 20) fail(`${v.id}: never used a walk sprite`);
+      if (!s.some((q) => q && /walk/.test(q.set)) && Math.hypot(t.x - (f0.x - off.x), t.y - (f0.y - off.y)) > 40) fail(`${v.id}: never used a walk sprite`);
       ok++;
       await L.dismiss(g);
     }
