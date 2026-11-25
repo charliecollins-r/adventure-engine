@@ -14,6 +14,8 @@
  *   --verbose          Print the cone-of-influence variables
  *   --ignore-meters    Meters never cost or run out (sound when running out only ever ends in a death that a checkpoint
  *                      recovers from: then breath can't soft-lock, and leaving it out keeps the state space small)
+ *   --then '<json>'    With --from-dev-skip: then run these effects (a JSON array) to set up a later start, e.g. a zone's
+ *                      checkpoint (search a maze zone by zone when one-way doors separate them)
  *   --from-dev-skip    Start from the state setting.dev_skip sets up (e.g. the top of the vent maze) instead of the
  *                      scenario's start: search one section on its own
  *
@@ -190,6 +192,8 @@ base.patrolsEnabled = false;
 if (fromDevSkip) {
   if (!scenario.setting.dev_skip) { console.error('--from-dev-skip: the scenario has no setting.dev_skip'); process.exit(1); }
   base.runEffects(scenario.setting.dev_skip.effects);
+  const then = arg('--then', '');
+  if (then) base.runEffects(JSON.parse(then));
   base._closeupImage = null; base._messages = [];
   console.log(`starting from setting.dev_skip: ${base._currentViewId}`);
 }
