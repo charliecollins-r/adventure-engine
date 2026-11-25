@@ -53,7 +53,7 @@ const WRONG = ['spiral', 'trident', 'eyehook', 'twinbranch'];
   await L.A(g, 'move', 'nav_act1_processing_lab_to_act1_containment_corridor'); await L.dismiss(g);
   await L.A(g, 'move', 'nav_act1_containment_corridor_to_act1_stasis_hold'); await L.dismiss(g);
   const hide = await L.A(g, 'hand', 'broken_pod'); await L.dismiss(g);
-  if (!/curl up in the drained fluid/.test(hide || '')) fail(`hiding in the pod: ${hide}`); else ok('hide in the pod: the Curator passes');
+  if (!/curl up in my pod/.test(hide || '')) fail(`hiding in the pod: ${hide}`); else ok('hide in the pod: the Curator passes');
   const again = await L.A(g, 'hand', 'broken_pod'); await L.dismiss(g);
   if (/curl up/.test(again || '')) fail('hiding offered with no noise'); else ok('once quiet, the pod is just a pod again');
 
@@ -61,7 +61,7 @@ const WRONG = ['spiral', 'trident', 'eyehook', 'twinbranch'];
   await bruteForce(); await L.dismiss(g);
   await L.A(g, 'hand', 'lab_startup_display'); await g.p.waitForTimeout(800);
   const end = await page();
-  if (!/caught/i.test(end) || !/pins you against the terminal/.test(end)) { fail('no "Caught" game over'); console.log(end.slice(0, 900)); await L.shot(g, '/tmp/claude-0/-home-user-kings-quest-multiplayer/4cc8d1db-35ac-56b1-ae6a-78ba5f499869/scratchpad/caught'); } else ok('touching the guarded terminal: caught');
+  if (!/caught/i.test(end) || !/pins you to the terminal/.test(end)) { fail('no "Caught" game over'); console.log(end.slice(0, 900)); await L.shot(g, '/tmp/claude-0/-home-user-kings-quest-multiplayer/4cc8d1db-35ac-56b1-ae6a-78ba5f499869/scratchpad/caught'); } else ok('touching the guarded terminal: caught');
 
   console.log(failures ? `\n${failures} FAILURE(S)` : '\nALL NOISE TESTS PASSED');
   await g.b.close(); process.exit(failures ? 1 : 0);

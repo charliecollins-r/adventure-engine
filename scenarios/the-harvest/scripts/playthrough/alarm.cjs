@@ -25,14 +25,14 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   // 2. Ready: press it
   await give(['surgical_probe', 'emergency_suit_helmet', 'containment_key_card']);
   const press = await L.A(g, 'hand', 'sec_closeup_override_button'); await L.dismiss(g);
-  if (!/containment locks disengage/.test(press || '')) fail(`override: ${press}`); else ok('with the gear, the override fires');
+  if (!/every door, grate and seal/.test(press || '')) fail(`override: ${press}`); else ok('with the gear, the override fires');
 
   // 3. Back through the real doors: the grate opens in the corridor
   await L.go(g, 'act1_security_hub'); await L.dismiss(g);
   if (await visible('alarm_hunter_security_hub')) fail('hunter in security before leaving it'); else ok('security hub is still safe until you leave');
   await L.A(g, 'move', 'nav_act1_security_hub_to_act1_containment_corridor');
   const open = await L.msg(g);
-  if (!/The vent\. Now\./.test(open || '')) fail(`no vent-opening moment: ${open}`); else ok('back in the corridor: the alarm opens the grate');
+  if (!/The vent, now\./.test(open || '')) fail(`no vent-opening moment: ${open}`); else ok('back in the corridor: the alarm opens the grate');
   await L.dismiss(g);
   if (!(await visible('vent_cover_open')) || (await visible('vent_cover'))) fail('grate sprite did not switch to open'); else ok('the open grate replaces the closed one');
   if (OUT) await L.shot(g, `${OUT}/alarm_corridor`);
