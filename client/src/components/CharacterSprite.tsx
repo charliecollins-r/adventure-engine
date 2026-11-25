@@ -45,7 +45,7 @@ export function CharacterSprite({
 
   const fw = spriteSet.frame_width ?? config.frame_width;
   const fh = spriteSet.frame_height ?? config.frame_height;
-  const scale = (spriteSet.scale ?? config.scale ?? 1) * depthScale;
+  const scale = (spriteSet.scale ?? config.scale ?? 1) * (placement.scale ?? 1) * depthScale;
   const frameRate = spriteSet.frame_rate ?? 6;
   const isStatic = placement.frame !== undefined || frameRate <= 0;
 

@@ -19,6 +19,8 @@ interface Props {
   onSkip?: () => void;
   /** The skip button's label. Default "skip intro ›". */
   skipLabel?: string;
+  /** Play inside the game's picture box (the page keeps its title bar and panels) instead of full screen. */
+  embedded?: boolean;
 }
 
 const W = 1920;
@@ -53,7 +55,7 @@ function ramp(t: Track, to: number, ms: number, stop = false) {
 
 type Phase = 'title' | 'scene' | 'out' | 'in' | 'done';
 
-export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, skipLabel }: Props) {
+export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, skipLabel, embedded }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const images = useRef(new Map<string, HTMLImageElement>());
   const [sceneIndex, setSceneIndex] = useState(-1);
@@ -334,8 +336,8 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
   const card = !scene?.background || line?.style === 'card';
 
   return (
-    <div data-intro-cinematic style={styles.overlay} onClick={(e) => { if (!(e.target as HTMLElement).closest('[data-skip-intro]')) advance(); }}>
-      <div style={styles.stage}>
+    <div data-intro-cinematic style={embedded ? styles.overlayEmbedded : styles.overlay} onClick={(e) => { if (!(e.target as HTMLElement).closest('[data-skip-intro]')) advance(); }}>
+      <div style={embedded ? styles.stageEmbedded : styles.stage}>
         <canvas ref={canvasRef} width={W} height={H} style={styles.canvas} />
         {phase === 'title' && title && <div style={styles.title}>{title}</div>}
         {line && (
@@ -351,7 +353,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
         )}
       </div>
       {phase !== 'done' && (
-        <button data-skip-intro style={styles.skip} onClick={skip}>{skipLabel ?? 'skip intro ›'}</button>
+        <button data-skip-intro style={embedded ? { ...styles.skip, position: 'absolute', right: '10px', bottom: '10px' } : styles.skip} onClick={skip}>{skipLabel ?? 'skip intro ›'}</button>
       )}
     </div>
   );
@@ -385,7 +387,7 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
     ctx.drawImage(bg, (W - dw) / 2, (H - dh) / 2, dw, dh);
   }
 
-  for (const e of scene.effects ?? []) { const et = since(e.cue); if (e.type === 'shade' && et != null) drawEffect(ctx, e, et, 0); }
+  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if ((e.type === 'shade' || e.type === 'stars_out') && et != null) drawEffect(ctx, e, et, k); });  // behind the sprites
 
   // where every sprite is this frame (ropes attach to them)
   const states = (scene.sprites ?? []).map((sp) => {
@@ -451,7 +453,7 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
   }
 
   for (const light of scene.ambient_lighting?.lights ?? []) drawLight(ctx, light, t);
-  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if (et != null && e.type !== 'shade' && e.type !== 'shake' && e.type !== 'rope') drawEffect(ctx, e, et, k); });
+  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if (et != null && e.type !== 'shade' && e.type !== 'stars_out' && e.type !== 'shake' && e.type !== 'rope') drawEffect(ctx, e, et, k); });
 }
 
 function drawLight(ctx: CanvasRenderingContext2D, light: LightSource, t: number) {
@@ -486,6 +488,25 @@ function drawEffect(ctx: CanvasRenderingContext2D, e: IntroEffect, t: number, k:
       ctx.fillStyle = grad;
     } else ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
     ctx.fillRect(X, Y, Wd, Hd);
+    return;
+  }
+  if (e.type === 'stars_out') {
+    const [x, y, w, h] = e.area;
+    const [r, g, b] = e.color ?? [255, 255, 255];
+    for (let n = 0; n < e.count; n++) {
+      const rx = hash01(k, n, 1), ry = hash01(k, n, 2), rs = hash01(k, n, 3);
+      // each star dies when the front reaches it (with a little jitter), flaring briefly first
+      const along = e.from === 'left' ? rx : e.from === 'top' ? ry : 1 - rx;
+      const dies = e.seconds * Math.min(1, Math.max(0, along * 0.85 + rs * 0.15));
+      const left = dies - local;
+      if (left < -0.35) continue;
+      let alpha = 0.55 + 0.45 * Math.sin(local * (1.5 + rs * 3) + n);
+      if (left < 0) alpha *= Math.max(0, 1 + left / 0.35);
+      else if (left < 0.3) alpha = Math.min(1, alpha + (0.3 - left) * 2);
+      const s = (e.size ?? 2.5) * SX * (0.6 + rs * 0.9) * (left < 0.3 && left > 0 ? 1.6 : 1);
+      ctx.fillStyle = `rgba(${r},${g},${b},${Math.max(0, alpha)})`;
+      ctx.fillRect((x + rx * w) * SX - s / 2, (y + ry * h) * SY - s / 2, s, s);
+    }
     return;
   }
   if (e.type === 'particles') {
@@ -557,6 +578,8 @@ const styles: Record<string, CSSProperties> = {
     alignItems: 'center', justifyContent: 'center', userSelect: 'none', cursor: 'pointer',
   },
   stage: { position: 'relative', width: 'min(100vw, calc(100vh * 16 / 9))', aspectRatio: '16 / 9' },
+  overlayEmbedded: { position: 'absolute', inset: 0, background: '#000', zIndex: 60, userSelect: 'none', cursor: 'pointer', overflow: 'hidden' },
+  stageEmbedded: { position: 'relative', width: '100%', height: '100%' },
   canvas: { width: '100%', height: '100%', display: 'block' },
   title: {
     position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',

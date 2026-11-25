@@ -38,6 +38,7 @@ C4 = "Outrider, respond. Outrider, come back."
 EVA = {'file': 'intro/sprites/eva.png', 'frame_width': 386, 'frame_height': 419, 'columns': 5, 'frame_rate': 0}
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
+PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.33
 
 
@@ -145,23 +146,38 @@ COLD_OPEN = [{
 
 # ── 4. The abduction ──────────────────────────────────────────────────────────
 ABDUCTION = [
-    {   # the stars go out: no narrator, the pilot sees it, Control is cut off
-        'background': 'intro/backgrounds/intro_shadow.webp',
+    {   # the stars go out, seen from where he is: the same orbit picture as the spacewalk, the pilot at the panel
+        'background': 'intro/backgrounds/intro_orbit.webp',
         'loop': A + 'breath_loop.mp3',
         'sound': A + 'stars_out.mp3',
-        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.1, 'y': -30}, 'seconds': 14},
+        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'x': 70, 'y': 30}, 'seconds': 12},
+        'sprites': [
+            {**EVA, 'frames': [0], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
+            {**EVA, 'frames': [2], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
+        'ambient_lighting': {'lights': [SUN]},
+        'effects': [
+            # something vast slides across the sky: the stars go out in a front from the right, the light dims behind it
+            {'type': 'stars_out', 'area': [0, 0, 960, 330], 'count': 110, 'seconds': 7.5, 'delay': 0.6, 'from': 'right'},
+            {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.6, 'seconds': 8, 'delay': 1.2, 'direction': 'down', 'area': [0, 0, 960, 720]}],
+        'lines': [{'text': P5, 'voice': A + 'p5.mp3', 'pause': 4.2}],
+        'hold': 9.5, 'tail': 0.3, 'fade_in': 0.9, 'transition': 'cut',
+    },
+    {   # the harvester: revealed out of the dark, enormous and green; Control is cut off
+        'background': 'intro/backgrounds/intro_shadow.webp',
+        'loop': A + 'breath_loop.mp3',
+        'camera': {'from': {'zoom': 1.15, 'y': 40}, 'to': {'zoom': 1, 'y': 0}, 'seconds': 9},
         'sprites': [{**EVA, 'frames': [2], 'scale': 0.22, 'at': [150, 485], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
         'ambient_lighting': {'lights': [
             {'x': 0.47, 'y': 0.16, 'radius': 0.3, 'color': [70, 255, 190], 'alpha': 0.22, 'pulse_speed': 0.35, 'pulse_amount': 0.5, 'phase': 0},
             {'x': 0.22, 'y': 0.22, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.27, 'pulse_amount': 0.6, 'phase': 1.5},
             {'x': 0.78, 'y': 0.2, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.31, 'pulse_amount': 0.6, 'phase': 3.1}]},
-        'lines': [
-            {'text': P5, 'voice': A + 'p5.mp3', 'pause': 2.6},
-            {'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.6, 'pause': 1.2},
-        ],
-        'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'cue': 'line:1', 'volume': 0.9}],
+        'effects': [
+            {'type': 'shade', 'color': [0, 0, 0], 'from': 0.92, 'to': 0, 'seconds': 3.5, 'direction': 'none'},
+            {'type': 'shake', 'amount': 2, 'delay': 0.5, 'until': 8}],
+        'lines': [{'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.65, 'pause': 1.6}],
+        'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'volume': 0.9}],
         'music': 'intro/audio/music_dread.mp3', 'music_volume': 0.45,
-        'tail': 2.2, 'fade_in': 1.2,
+        'hold': 7, 'tail': 1.6, 'fade_in': 0.01,
     },
     {   # the harvest beam
         'background': 'intro/backgrounds/intro_taken.webp',
@@ -218,7 +234,7 @@ SPACE_VIEW = {
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
     'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0}},
-    'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [505, 470], [430, 565], [200, 600], [60, 565]],
+    'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
     'ambient_audio': A + 'breath_loop.mp3',
@@ -248,7 +264,7 @@ SPACE_OBJECTS = [
         {'verb': 'hand', 'then': OPEN_PANEL},
         {'verb': 'move', 'then': OPEN_PANEL},
         say('talk', 's02'),
-    ], walk_to={'x': 462, 'y': 430, 'facing': 'right'}),
+    ], walk_to={'x': PANEL_SPOT[0], 'y': PANEL_SPOT[1], 'facing': 'right'}),
     obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168),
         [say('look', 's03'), say('hand', 's04'), say('talk', 's05')], walk_to=False),
     obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135),
@@ -275,6 +291,8 @@ PANEL_VIEW = {
     'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel.webp',
     'objects': ['pn_boards', 'pn_door', 'pn_handrail', 'pn_earth'],
     'back_label': 'LUMEN-7',
+    # he is in the shot: big in the foreground, drill toward the open panel (the old intro's framing)
+    'character': {'x': 470, 'y': 735, 'facing': 'right', 'sprite_set': 'eva', 'frame': 0, 'scale': 2.3, 'shadow': {'opacity': 0}},
     'ambient_text': "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
     'ambient_audio': A + 'breath_loop.mp3',
     'music': 'intro/audio/bed_stargazer.mp3',

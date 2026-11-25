@@ -275,6 +275,10 @@ export interface IntroSound {
 export type IntroEffect = { cue?: IntroCue } & (
   | { type: 'particles'; motion: 'rise' | 'fall' | 'drift' | 'twinkle'; area: [number, number, number, number];
       count: number; size?: number; color: [number, number, number]; alpha?: number; speed?: number; delay?: number }
+  /** Stars that wink out one by one over `seconds`, in a front that crosses the area from `from` ("right" default,
+   *  "left", "top"): something vast passing between you and them. */
+  | { type: 'stars_out'; area: [number, number, number, number]; count: number; seconds: number; from?: 'right' | 'left' | 'top';
+      size?: number; color?: [number, number, number]; delay?: number }
   | { type: 'shade'; color?: [number, number, number]; from: number; to: number; seconds: number;
       direction?: 'down' | 'up' | 'none'; area?: [number, number, number, number]; delay?: number }
   | { type: 'sweep'; area: [number, number, number, number]; color: [number, number, number]; period: number;
@@ -797,6 +801,8 @@ export interface CharacterPlacement {
   flip_h?: boolean;
   object_id?: string;
   shadow?: CharacterShadow;
+  /** Draw him bigger or smaller in this view (a close-up where he is near the camera). Multiplies the set's scale. */
+  scale?: number;
 }
 
 export interface Hint {

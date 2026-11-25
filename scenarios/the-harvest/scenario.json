@@ -619,7 +619,7 @@
     "cutscenes": {
       "abduction": [
         {
-          "background": "intro/backgrounds/intro_shadow.webp",
+          "background": "intro/backgrounds/intro_orbit.webp",
           "loop": "intro/audio/v2/breath_loop.mp3",
           "sound": "intro/audio/v2/stars_out.mp3",
           "camera": {
@@ -627,10 +627,127 @@
               "zoom": 1
             },
             "to": {
-              "zoom": 1.1,
-              "y": -30
+              "zoom": 1.12,
+              "x": 70,
+              "y": 30
             },
-            "seconds": 14
+            "seconds": 12
+          },
+          "sprites": [
+            {
+              "file": "intro/sprites/eva.png",
+              "frame_width": 386,
+              "frame_height": 419,
+              "columns": 5,
+              "frame_rate": 0,
+              "frames": [
+                0
+              ],
+              "scale": 0.33,
+              "at": [482, 505],
+              "bob": {
+                "amount": 4,
+                "period": 4.5
+              },
+              "until_cue": "line:1",
+              "fade": 0.01
+            },
+            {
+              "file": "intro/sprites/eva.png",
+              "frame_width": 386,
+              "frame_height": 419,
+              "columns": 5,
+              "frame_rate": 0,
+              "frames": [
+                2
+              ],
+              "scale": 0.33,
+              "at": [482, 505],
+              "bob": {
+                "amount": 4,
+                "period": 4.5
+              },
+              "cue": "line:1",
+              "fade": 0.01
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.97,
+                "y": 0.04,
+                "radius": 0.22,
+                "color": [
+                  255,
+                  214,
+                  160
+                ],
+                "alpha": 0.3,
+                "pulse_speed": 0.15,
+                "pulse_amount": 0.3,
+                "phase": 0
+              }
+            ]
+          },
+          "effects": [
+            {
+              "type": "stars_out",
+              "area": [
+                0,
+                0,
+                960,
+                330
+              ],
+              "count": 110,
+              "seconds": 7.5,
+              "delay": 0.6,
+              "from": "right"
+            },
+            {
+              "type": "shade",
+              "color": [
+                0,
+                0,
+                0
+              ],
+              "from": 0,
+              "to": 0.6,
+              "seconds": 8,
+              "delay": 1.2,
+              "direction": "down",
+              "area": [
+                0,
+                0,
+                960,
+                720
+              ]
+            }
+          ],
+          "lines": [
+            {
+              "text": "“Control. The stars.”",
+              "voice": "intro/audio/v2/p5.mp3",
+              "pause": 4.2
+            }
+          ],
+          "hold": 9.5,
+          "tail": 0.3,
+          "fade_in": 0.9,
+          "transition": "cut"
+        },
+        {
+          "background": "intro/backgrounds/intro_shadow.webp",
+          "loop": "intro/audio/v2/breath_loop.mp3",
+          "camera": {
+            "from": {
+              "zoom": 1.15,
+              "y": 40
+            },
+            "to": {
+              "zoom": 1,
+              "y": 0
+            },
+            "seconds": 9
           },
           "sprites": [
             {
@@ -697,31 +814,46 @@
               }
             ]
           },
-          "lines": [
+          "effects": [
             {
-              "text": "“Control. The stars.”",
-              "voice": "intro/audio/v2/p5.mp3",
-              "pause": 2.6
+              "type": "shade",
+              "color": [
+                0,
+                0,
+                0
+              ],
+              "from": 0.92,
+              "to": 0,
+              "seconds": 3.5,
+              "direction": "none"
             },
+            {
+              "type": "shake",
+              "amount": 2,
+              "delay": 0.5,
+              "until": 8
+            }
+          ],
+          "lines": [
             {
               "text": "Outrider, long-range is showing something. It's big. It's right on top of y—",
               "voice": "intro/audio/v2/c3.mp3",
               "style": "radio",
-              "static": 0.6,
-              "pause": 1.2
+              "static": 0.65,
+              "pause": 1.6
             }
           ],
           "sounds": [
             {
               "file": "intro/audio/sting_dread.mp3",
-              "cue": "line:1",
               "volume": 0.9
             }
           ],
           "music": "intro/audio/music_dread.mp3",
           "music_volume": 0.45,
-          "tail": 2.2,
-          "fade_in": 1.2
+          "hold": 7,
+          "tail": 1.6,
+          "fade_in": 0.01
         },
         {
           "background": "intro/backgrounds/intro_taken.webp",
@@ -18726,8 +18858,9 @@
           [60, 330],
           [300, 300],
           [470, 330],
-          [505, 470],
-          [430, 565],
+          [520, 460],
+          [528, 525],
+          [430, 575],
           [200, 600],
           [60, 565]
         ],
@@ -18830,6 +18963,17 @@
         "pn_earth"
       ],
       "back_label": "LUMEN-7",
+      "character": {
+        "x": 470,
+        "y": 735,
+        "facing": "right",
+        "sprite_set": "eva",
+        "frame": 0,
+        "scale": 2.3,
+        "shadow": {
+          "opacity": 0
+        }
+      },
       "ambient_text": "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
       "ambient_audio": "intro/audio/v2/breath_loop.mp3",
       "music": "intro/audio/bed_stargazer.mp3",
@@ -83919,8 +84063,8 @@
         }
       ],
       "walk_to": {
-        "x": 462,
-        "y": 430,
+        "x": 482,
+        "y": 505,
         "facing": "right"
       }
     },
