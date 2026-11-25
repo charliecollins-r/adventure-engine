@@ -14,7 +14,7 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   await L.go(g, 'act1_stasis_hold'); await L.dismiss(g);
   await g.p.evaluate(() => window.__engine.applyEffects([{ type: 'add_item', item: 'grappling_line' }]));
   const rig = await L.U(g, 'Grappling Line', 'platform_gap'); await L.dismiss(g);
-  if (!/trust it with your whole weight/.test(rig || '')) fail(`rigging: ${rig}`); else ok('using the line on the gap rigs it (no crossing yet)');
+  if (!/trust it with my whole weight/.test(rig || '')) fail(`rigging: ${rig}`); else ok('using the line on the gap rigs it (no crossing yet)');
   if (await flag('on_far_ledge') === 'true') fail('crossed without HAND'); else ok('still on this side');
   const early = await L.A(g, 'look', 'cataloguer_robot'); await L.dismiss(g);
   if (!/too far away to read/.test(early || '')) fail(`robot from this side: ${early}`); else ok('the cataloguer is too far to read from this side');
