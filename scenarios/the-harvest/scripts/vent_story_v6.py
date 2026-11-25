@@ -13,14 +13,14 @@ def S(o):
 WARREN_FLOORS = [
     # H1 the ledge (foreground lip), H2 the sinew bridge, H3 the dwellings' ledge, H4 the throat's ledge
     {'floor': [[60, 610], [300, 615], [520, 625], [760, 612], [930, 600], [930, 700], [60, 700]], 'scale': 0.32, 'speed': 1.6},
-    {'floor': [[20, 448], [940, 448], [940, 486], [20, 486]], 'scale': 0.2, 'speed': 2.2,
+    {'floor': [[20, 448], [940, 448], [940, 486], [20, 486]], 'scale': 0.26, 'speed': 2.0,
      'shadows': [[[285, 440], [345, 440], [345, 492], [285, 492]], [[712, 440], [772, 440], [772, 492], [712, 492]]]},
     {'floor': [[30, 640], [300, 652], [640, 652], [930, 628], [930, 700], [30, 700]], 'scale': 0.3, 'speed': 1.7,
      'shadows': [[[200, 630], [290, 630], [290, 700], [200, 700]], [[560, 630], [650, 630], [650, 700], [560, 700]]]},
     {'floor': [[60, 640], [400, 660], [700, 652], [800, 630], [800, 700], [60, 700]], 'scale': 0.3, 'speed': 1.7,
      'shadows': [[[60, 640], [160, 640], [160, 700], [60, 700]]]},
 ]
-WARREN_CHAR = [(160, 660), (60, 470), (880, 660), (120, 670)]
+WARREN_CHAR = [(160, 660), (140, 470), (860, 660), (160, 670)]
 # exits per Warren screen: direction -> (box, label)
 WARREN_EXITS = [
     {'S': ((10, 380, 100, 160), '↓ Back to the gas door'), 'E': ((880, 560, 80, 140), 'Along the ledge (east) →'), 'N': ((330, 540, 190, 70), '↑ Down into the city (north)')},
@@ -40,7 +40,7 @@ ROOMS = {
     'nursery': [dict(bg='maze_nursery', name='The Egg Sacs', floor=True, char=(480, 650), north=(460, 170, 160, 260), scale=1.0),
                 dict(bg='maze_court_2', name='The Brood Chamber', floor=[[100, 560], [520, 560], [520, 700], [100, 700]], char=(220, 640),
                      north=(440, 40, 140, 260), scale=0.5, speed=1.3),
-                dict(bg='maze_court_3', name='The Queen', floor=[[120, 640], [840, 640], [840, 705], [120, 705]], char=(480, 690),
+                dict(bg='maze_court_3', name='The Queen', floor=[[150, 600], [800, 600], [800, 652], [150, 652]], char=(480, 640),
                      north=(380, 20, 200, 120), scale=0.25, speed=2.0)],
     'cache': [dict(bg='maze_cache', name='The Cache', floor=True, char=(560, 650), north=(380, 270, 200, 260)),
               dict(bg='maze_cache_vault', name="The Cache's Vault", floor=True, char=(480, 660))],
@@ -206,7 +206,7 @@ def build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it,
 
     # ── 2. the Outer Ducts: the lever, the Gas Chamber and its door ─────────────────────────────────
     lever_c = tuple(G['rooms']['lever'][0])
-    add(obj('v6_lever', 'Quarantine Lever', 'A heavy Choir lever on a corroded bronze plate.', (420, 330, 120, 330),
+    add(obj('v6_lever', 'Quarantine Lever', 'A heavy Choir lever on a corroded bronze plate.', (443, 210, 74, 264),
             [it('look', [msg('A heavy maintenance lever on a riveted bronze plate, its warning light a dull red. Stencilled beside it in Choir glyphs, and in a scratched human hand underneath: "GAS DOOR - WEST".')], when=[not_('lever_pulled')]),
              it('look', [msg('The lever is down and its light glows amber. Far to the west, the quarantine seal on the Gas Chamber door is open.')]),
              it('hand', [msg('You hang your whole weight on the lever. It grinds down, the light turns amber, and far away to the west something heavy unlocks with a boom that runs through every duct.'),
@@ -437,7 +437,7 @@ def build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it,
              it('talk', [msg('"Go, trader. We have our bargain." The wall behind her stands open.')]),
              it('hand', [msg('Her side is warm and vast, rising and falling. The brood go still around your hand. Then she breathes, and you are lifted off your feet and set down again.')]),
              it('use_item', [msg('She smells it and lets it go. She wants you, not your things.')], item='nutrient_paste_tube')],
-            walk_to={'x': 480, 'y': 690}), queen)
+            walk_to={'x': 480, 'y': 630}), queen)
     # the border: the Queen's wall into the Purge Core
     core_entry = lambda view, text, at=None: [setv(view, at=at), flag('in_core'), flag('in_thin_air'), {'type': 'meter_set', 'meter': 'breath', 'value': 'max'},
                                               {'type': 'conditional_effect', 'when': [is_('vesk_vow', 'swore')], 'then': [{'type': 'meter_set', 'meter': 'callstone', 'value': 'max'}]},
@@ -502,6 +502,7 @@ def build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it,
     fv = V['act1_vent_fan_room']
     fv['background_file'] = 'backgrounds/maze/maze_purge_heart.webp'
     fv['name'] = 'The Purge Heart'
+    fv['music'] = 'audio/music_core.mp3'
     fv['map_xy'] = [EXIT[0], 14 - EXIT[1]]
     O['vent_fan']['name'] = 'The Purge Heart'
     O['vent_fan']['position'] = {'x': 300, 'y': 70}

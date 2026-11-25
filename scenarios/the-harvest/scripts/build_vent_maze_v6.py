@@ -186,7 +186,7 @@ SPR = {
     'throat_n': lambda cyc: sheet('sprites/breathing_throat.png', 420, 562, 4, 0, 0.5, sync_cycle=cyc),
     'throat_side': lambda cyc: sheet('sprites/breathing_throat.png', 420, 562, 4, 0, 0.6, sync_cycle=cyc),
     'membrane': lambda when: sheet('sprites/membrane_door.png', 438, 455, 2, 0, 0.5, frame_when=when),
-    'lever': lambda when: sheet('sprites/lever.png', 352, 942, 2, 0, 0.33, frame_when=when),
+    'lever': lambda when: sheet('sprites/lever.png', 352, 942, 2, 0, 0.21, frame_when=when),
     'larvae': sheet('sprites/vesk_larvae.png', 815, 271, 4, 3, 0.32),
     'sick': sheet('sprites/vesk_sick.png', 1090, 411, 2, 0.7, 0.22),
     'worker': sheet('sprites/vesk_worker.png', 412, 282, 6, 2, 0.3),
@@ -228,7 +228,7 @@ def make_lips():
         a[..., 2] = np.minimum(a[..., 2], np.maximum(a[..., 0], a[..., 1]) + 18)
         im = Image.fromarray(a.astype('uint8'), 'RGBA')
         im = im.crop(im.getbbox())
-        im = im.resize((960, max(40, round(im.height * 960 / im.width * 0.5))), Image.LANCZOS)
+        im = im.resize((960, 52), Image.LANCZOS)
         im.save(os.path.join(ROOT, f'sprites/maze_back_sealed_{ZN[z]}.png'))
         sizes[z] = im.size
     return sizes
@@ -300,7 +300,7 @@ HIDE_FROM = [{'type': 'any_of', 'conditions': [{'type': 'patrol_near', 'patrol':
 CORE_VIEWS = [vid(c) for c in CELLS if zone(c) == 3 and c not in PURGE]
 s['pursuers'].append({
     'id': 'v6_curator', 'name': 'The Curator', 'when': [is_('in_core'), not_('heart_race'), not_('purge_stopped')],
-    'zone': CORE_VIEWS, 'strike_views': [vid(c) for c in sorted(GRATES)], 'start_distance': 5, 'reset_distance': 4, 'strike_seconds': 4,
+    'zone': CORE_VIEWS, 'strike_views': [vid(c) for c in sorted(GRATES)], 'start_distance': 5, 'reset_distance': 4, 'strike_seconds': 6,
     'silent_flag': 'held_breath', 'hum_sound': 'curator_hum',
     'hum_message': 'A low hum, right behind the grate. Something very large has stopped on the other side of it. Leave, or hold your breath, NOW.',
     'lost_message': 'Behind you a long grey hand gropes through the grate into an empty duct, and withdraws. The hum moves off down the wall.',
@@ -368,7 +368,22 @@ def exit_obj(c, d, box=None):
     inter += moves
     inter.append(it('hand', [msg(HAND_EXIT[z])]))
     inter.append(it('talk', [msg('Your whisper runs away down the duct and comes back as a dozen whispers.')]))
-    return obj(oid, f'Duct ({SCREEN[d]})', f'A duct leading {WORD[d]}.', box or BOX[d], inter, label=LABEL[d], nav=True)
+    extra = {}
+    bx = box or BOX[d]
+    if (c in BREATH_GUT or c in BREATH_CORE) and n not in PURGE:
+        extra['walk_to'] = False   # a breathing duct is a timing skill: you go the moment you click, not after a walk
+        if d != 'S':
+            cyc = 'v6_gut_breath' if c in BREATH_GUT else CORE_CYCLE[c]
+            sp = SPR['throat_n'](cyc) if d == 'N' else SPR['throat_side'](cyc)
+            extra['sprite'] = dict(sp, scale=round(min(bx[2] / 420, bx[3] * 0.75 / 562), 3))
+            extra['layer'] = 'floor'
+            inter[0] = it('look', [msg(look + ' Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, '
+                                       + ('it would blow you back.' if c in BREATH_GUT else 'it vents scalding air.') + ' Go the moment it opens.')])
+    if pair in MEMBRANES and d != 'S' and 'sprite' not in extra:
+        extra['sprite'] = dict(SPR['membrane']([{'when': [{'type': 'patrol_active', 'patrol': 'v6_surge'}, not_('vesk_allied')], 'frame': 1}, {'when': [], 'frame': 0}]),
+                               scale=round(min(bx[2] / 438, bx[3] * 0.75 / 455), 3))
+        extra['layer'] = 'floor'
+    return obj(oid, f'Duct ({SCREEN[d]})', f'A duct leading {WORD[d]}.', box or BOX[d], inter, label=LABEL[d], nav=True, **extra)
 
 
 def deco(c, oid, name, desc, box, sprite, interactions, **kw):
@@ -394,8 +409,8 @@ def duct_view(c):
     wall = closed[0] if closed else None
     # cold fold: set into a closed wall
     if c in FOLDS:
-        pos = {'W': (180, 560), 'E': (780, 560), 'N': (480, 470)}.get(wall, (150, 600))
-        sc = 0.21 if wall in ('W', 'E') else 0.15
+        pos = {'W': (180, 560), 'E': (780, 560), 'N': (480, 470)}.get(wall, (340, 470))
+        sc = 0.21 if wall in ('W', 'E') else 0.15 if wall == 'N' else 0.09
         objs.append(deco(c, f'v6_fold_{c[0]}_{c[1]}', 'Cold fold', 'A tall crease in the flesh of the wall, rimmed with frost.', (pos[0] - 68, pos[1] - 212, 136, 212),
                          dict(SPR['fold'], scale=sc),
                          [it('hand', [msg("You press yourself into the cold fold. The flesh closes over you, frost on your lips, and you keep very still."), {'type': 'start_hiding'}] + REFILL, when=HIDE_FROM),
@@ -403,25 +418,15 @@ def duct_view(c):
                           it('look', [msg('A crease in the wall where the hull\'s cold seeps in. Frost on its lips, mist curling out. Air, and a place to hide: HAND it to press into it.')]),
                           it('talk', [msg('Your breath fogs in the cold air. Somewhere far behind the fold, the hull ticks.')])],
                          walk_to={'x': 345 if pos[0] < 480 else 615, 'y': 640}))
-    # breathing ducts: a throat on each exit, synced to the cycle
-    if c in BREATH_GUT or c in BREATH_CORE:
-        cyc = 'v6_gut_breath' if c in BREATH_GUT else CORE_CYCLE[c]
-        for d in open_dirs:
-            x, y, w, h = BOX[d]
-            sp = SPR['throat_n'](cyc) if d == 'N' else SPR['throat_side'](cyc)
-            objs.append(deco(c, f'v6_throat_{c[0]}_{c[1]}_{WORD[d]}', 'Breathing throat', 'A ring of wet muscle around the duct mouth, opening and closing.',
-                             (x, y, w, h), dict(sp, scale=round(min(w / 420, h / 562), 3)),
-                             [it('look', [msg('The duct mouth is a ring of muscle that opens and closes with the ship\'s breath. On the in-breath it would pull you through; on the out-breath, '
-                                             + ('it would blow you back.' if c in BREATH_GUT else 'it vents scalding air.') + ' Go when it opens.')])],
-                             layer='floor'))
     # Core grates: cut from the grate painting, set into a closed wall (or the floor at a crossroads)
     if c in GRATES:
-        if wall == 'W': g = ('sprites/core_grate.png', 160, 470, 0.92)
-        elif wall == 'E': g = ('sprites/core_grate_r.png', 800, 470, 0.92)
-        elif wall == 'N': g = ('sprites/core_grate.png', 480, 430, 0.6)
-        else: g = ('sprites/core_grate.png', 200, 640, 0.55)
+        # the painted grate spans 960x720 x 40-250, y 105-470 (210 x 273 viewport px): the crop drawn at 0.7 matches it
+        if wall == 'W': g = ('sprites/core_grate.png', 145, 470, 0.7)
+        elif wall == 'E': g = ('sprites/core_grate_r.png', 815, 470, 0.7)
+        elif wall == 'N': g = ('sprites/core_grate.png', 480, 440, 0.45)
+        else: g = ('sprites/core_grate.png', 175, 620, 0.4)
         objs.append(deco(c, f'v6_grate_{c[0]}_{c[1]}', 'Grate', 'A thin grate onto a Choir hall, its light falling through in stripes.',
-                         (g[1] - 90, g[2] - 300, 180, 300), sheet(g[0], GW, GH, 1, 0, g[3]),
+                         (g[1] - round(GW * g[3] / 2), g[2] - round(GH * g[3] / 0.75), round(GW * g[3]), round(GH * g[3] / 0.75)), sheet(g[0], GW, GH, 1, 0, g[3]),
                          [it('look', [msg('Through the grate: a Choir hall, too tall to see the top of, lit cold and blue. Something very large could reach in here. Only here.')]),
                           it('hand', [msg('You touch the grate and pull your hand back at once. On the other side, something heard that.')]),
                           it('use_item', [{'type': 'meter_add', 'meter': 'callstone', 'amount': -1}, {'type': 'pursuer_divert', 'pursuer': 'v6_curator', 'amount': 4},
@@ -445,16 +450,6 @@ def duct_view(c):
                               it('hand', [msg('You reach into the nest. Every grub turns toward your hand at once.'),
                                           over('Bitten', 'Larvae nests sit in dead ends: skins, egg crust and wriggling. LOOK first, and leave them be. (After the Queen accepts you, they scatter from you instead.)')]),
                               it('talk', [msg('The heap goes quiet, listening. Then wriggles again.')])]))
-    # surge membranes on this screen's exits
-    for d in open_dirs + (['S'] if linked(c, 'S') else []):
-        pair = tuple(sorted((c, step(c, d))))
-        if pair in MEMBRANES and d != 'S':
-            x, y, w, h = BOX[d]
-            objs.append(deco(c, f'v6_membrane_{c[0]}_{c[1]}_{WORD[d]}', 'Membrane', 'A living membrane over the duct mouth.', (x, y, w, h),
-                             dict(SPR['membrane']([{'when': [{'type': 'patrol_active', 'patrol': 'v6_surge'}, not_('vesk_allied')], 'frame': 1}, {'when': [], 'frame': 0}]),
-                                  scale=round(min(w / 438, h / 455), 3)),
-                             [it('look', [msg('A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere.')])],
-                             layer='floor'))
     # alliance tunnels: a shut membrane in a wall that opens after the Audience
     for pair in TUNNELS:
         if c in pair:
@@ -521,10 +516,6 @@ for c in sorted(ROOMS):
     new_views.append(v)
     new_objs += objs
 
-# the Mimic's dead end exists only to be walked into after the alliance (before, the door into it kills)
-mv, mobjs = duct_view(MIMIC)
-new_views.append(mv)
-new_objs += mobjs
 
 # ── story: special rooms, people, the Audience, items, map, events ──────────────────────────────────────
 extra = story.build(s, O, V, G, vid, links, exit_obj, msg, flag, is_, not_, over, obj, it, REFILL, SPR, CELLS, step, zone,

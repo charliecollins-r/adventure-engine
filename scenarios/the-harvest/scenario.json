@@ -2976,9 +2976,7 @@
       "objects": [
         "nav_v6_0_5_north",
         "nav_v6_0_5_east",
-        "v6_lip_0_5",
-        "v6_throat_0_5_north",
-        "v6_throat_0_5_east"
+        "v6_lip_0_5"
       ],
       "hints": [
         {
@@ -3201,9 +3199,7 @@
       "objects": [
         "nav_v6_0_9_north",
         "nav_v6_0_9_east",
-        "nav_v6_0_9_south",
-        "v6_throat_0_9_north",
-        "v6_throat_0_9_east"
+        "nav_v6_0_9_south"
       ],
       "hints": [
         {
@@ -3827,8 +3823,7 @@
         "nav_v6_1_7_north",
         "nav_v6_1_7_west",
         "nav_v6_1_7_east",
-        "nav_v6_1_7_south",
-        "v6_membrane_1_7_east"
+        "nav_v6_1_7_south"
       ],
       "hints": [
         {
@@ -4699,8 +4694,7 @@
       "objects": [
         "nav_v6_2_7_north",
         "nav_v6_2_7_west",
-        "v6_lip_2_7",
-        "v6_membrane_2_7_west"
+        "v6_lip_2_7"
       ],
       "hints": [
         {
@@ -4756,8 +4750,7 @@
       "objects": [
         "nav_v6_2_8_north",
         "nav_v6_2_8_east",
-        "nav_v6_2_8_south",
-        "v6_membrane_2_8_east"
+        "nav_v6_2_8_south"
       ],
       "hints": [
         {
@@ -4990,8 +4983,6 @@
         "nav_v6_2_12_north",
         "nav_v6_2_12_west",
         "nav_v6_2_12_south",
-        "v6_throat_2_12_north",
-        "v6_throat_2_12_west",
         "v6_cat_2_12"
       ],
       "hints": [
@@ -5314,9 +5305,7 @@
       "objects": [
         "nav_v6_3_5_west",
         "nav_v6_3_5_east",
-        "nav_v6_3_5_south",
-        "v6_throat_3_5_west",
-        "v6_throat_3_5_east"
+        "nav_v6_3_5_south"
       ],
       "hints": [
         {
@@ -5373,11 +5362,7 @@
         "nav_v6_3_8_north",
         "nav_v6_3_8_west",
         "nav_v6_3_8_east",
-        "v6_lip_3_8",
-        "v6_throat_3_8_north",
-        "v6_throat_3_8_west",
-        "v6_throat_3_8_east",
-        "v6_membrane_3_8_west"
+        "v6_lip_3_8"
       ],
       "hints": [
         {
@@ -5705,7 +5690,6 @@
       "objects": [
         "nav_v6_3_14_east",
         "nav_v6_3_14_south",
-        "v6_throat_3_14_east",
         "v6_cat_3_14"
       ],
       "hints": [
@@ -6150,8 +6134,7 @@
       "objects": [
         "nav_v6_4_8_west",
         "nav_v6_4_8_east",
-        "v6_lip_4_8",
-        "v6_membrane_4_8_east"
+        "v6_lip_4_8"
       ],
       "hints": [
         {
@@ -6213,9 +6196,7 @@
       "objects": [
         "nav_v6_4_10_west",
         "nav_v6_4_10_east",
-        "v6_lip_4_10",
-        "v6_throat_4_10_west",
-        "v6_throat_4_10_east"
+        "v6_lip_4_10"
       ],
       "hints": [
         {
@@ -6278,8 +6259,6 @@
         "nav_v6_4_11_west",
         "nav_v6_4_11_east",
         "v6_lip_4_11",
-        "v6_throat_4_11_west",
-        "v6_throat_4_11_east",
         "v6_cat_4_11"
       ],
       "hints": [
@@ -6574,9 +6553,7 @@
       "objects": [
         "nav_v6_5_4_north",
         "nav_v6_5_4_west",
-        "nav_v6_5_4_south",
-        "v6_throat_5_4_north",
-        "v6_throat_5_4_west"
+        "nav_v6_5_4_south"
       ],
       "hints": [
         {
@@ -6846,8 +6823,7 @@
         "nav_v6_5_8_west",
         "nav_v6_5_8_east",
         "nav_v6_5_8_south",
-        "v6_fold_5_8",
-        "v6_membrane_5_8_west"
+        "v6_fold_5_8"
       ],
       "hints": [
         {
@@ -7463,9 +7439,7 @@
       "objects": [
         "nav_v6_6_8_west",
         "nav_v6_6_8_east",
-        "v6_lip_6_8",
-        "v6_throat_6_8_west",
-        "v6_throat_6_8_east"
+        "v6_lip_6_8"
       ],
       "hints": [
         {
@@ -7652,8 +7626,6 @@
         "nav_v6_6_14_west",
         "nav_v6_6_14_east",
         "nav_v6_6_14_south",
-        "v6_throat_6_14_west",
-        "v6_throat_6_14_east",
         "v6_cat_6_14"
       ],
       "hints": [
@@ -7828,9 +7800,7 @@
       "objects": [
         "nav_v6_7_5_north",
         "nav_v6_7_5_east",
-        "nav_v6_7_5_south",
-        "v6_throat_7_5_north",
-        "v6_throat_7_5_east"
+        "nav_v6_7_5_south"
       ],
       "hints": [
         {
@@ -8508,8 +8478,6 @@
         "nav_v6_8_7_north",
         "nav_v6_8_7_east",
         "v6_lip_8_7",
-        "v6_throat_8_7_north",
-        "v6_throat_8_7_east",
         "v6_valve_door_e"
       ],
       "hints": [
@@ -8758,8 +8726,6 @@
         "nav_v6_8_11_north",
         "nav_v6_8_11_east",
         "v6_lip_8_11",
-        "v6_throat_8_11_north",
-        "v6_throat_8_11_east",
         "v6_cat_8_11"
       ],
       "hints": [
@@ -9111,9 +9077,7 @@
       "objects": [
         "nav_v6_9_3_north",
         "nav_v6_9_3_east",
-        "v6_lip_9_3",
-        "v6_throat_9_3_north",
-        "v6_throat_9_3_east"
+        "v6_lip_9_3"
       ],
       "hints": [
         {
@@ -9517,7 +9481,6 @@
       "objects": [
         "nav_v6_9_14_west",
         "nav_v6_9_14_south",
-        "v6_throat_9_14_west",
         "v6_cat_9_14"
       ],
       "hints": [
@@ -9799,9 +9762,7 @@
       "objects": [
         "nav_v6_10_5_north",
         "nav_v6_10_5_east",
-        "nav_v6_10_5_south",
-        "v6_throat_10_5_north",
-        "v6_throat_10_5_east"
+        "nav_v6_10_5_south"
       ],
       "hints": [
         {
@@ -9974,8 +9935,7 @@
       "background_file": "backgrounds/maze/maze_z2_bend_r.webp",
       "objects": [
         "nav_v6_10_8_east",
-        "nav_v6_10_8_south",
-        "v6_membrane_10_8_east"
+        "nav_v6_10_8_south"
       ],
       "hints": [
         {
@@ -10444,8 +10404,7 @@
         "nav_v6_11_8_north",
         "nav_v6_11_8_west",
         "nav_v6_11_8_east",
-        "v6_lip_11_8",
-        "v6_membrane_11_8_west"
+        "v6_lip_11_8"
       ],
       "hints": [
         {
@@ -10500,8 +10459,7 @@
       "background_file": "backgrounds/maze/maze_z2_bend_r.webp",
       "objects": [
         "nav_v6_11_9_east",
-        "nav_v6_11_9_south",
-        "v6_membrane_11_9_east"
+        "nav_v6_11_9_south"
       ],
       "hints": [
         {
@@ -10629,9 +10587,6 @@
         "nav_v6_11_12_west",
         "nav_v6_11_12_east",
         "v6_lip_11_12",
-        "v6_throat_11_12_north",
-        "v6_throat_11_12_west",
-        "v6_throat_11_12_east",
         "v6_cat_11_12"
       ],
       "hints": [
@@ -11099,8 +11054,7 @@
         "nav_v6_12_8_north",
         "nav_v6_12_8_west",
         "nav_v6_12_8_east",
-        "v6_lip_12_8",
-        "v6_membrane_12_8_east"
+        "v6_lip_12_8"
       ],
       "hints": [
         {
@@ -11156,8 +11110,7 @@
       "objects": [
         "nav_v6_12_9_north",
         "nav_v6_12_9_west",
-        "nav_v6_12_9_south",
-        "v6_membrane_12_9_west"
+        "nav_v6_12_9_south"
       ],
       "hints": [
         {
@@ -11455,7 +11408,6 @@
       "objects": [
         "nav_v6_12_14_west",
         "nav_v6_12_14_south",
-        "v6_throat_12_14_west",
         "v6_cat_12_14"
       ],
       "hints": [
@@ -11849,8 +11801,7 @@
       "objects": [
         "nav_v6_13_8_north",
         "nav_v6_13_8_west",
-        "nav_v6_13_8_south",
-        "v6_membrane_13_8_west"
+        "nav_v6_13_8_south"
       ],
       "hints": [
         {
@@ -12130,9 +12081,7 @@
       "objects": [
         "nav_v6_14_4_north",
         "nav_v6_14_4_west",
-        "nav_v6_14_4_south",
-        "v6_throat_14_4_north",
-        "v6_throat_14_4_west"
+        "nav_v6_14_4_south"
       ],
       "hints": [
         {
@@ -12715,7 +12664,7 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [0, 10],
       "character": {
-        "x": 880,
+        "x": 860,
         "y": 660,
         "facing": "right",
         "sprite_set": "idle"
@@ -12902,7 +12851,7 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [1, 11],
       "character": {
-        "x": 60,
+        "x": 140,
         "y": 470,
         "facing": "right",
         "sprite_set": "idle"
@@ -12914,8 +12863,8 @@
           [940, 486],
           [20, 486]
         ],
-        "scale": 0.2,
-        "speed": 2.2,
+        "scale": 0.26,
+        "speed": 2,
         "shadows": [
           [
             [285, 440],
@@ -13021,7 +12970,7 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [1, 10],
       "character": {
-        "x": 120,
+        "x": 160,
         "y": 670,
         "facing": "right",
         "sprite_set": "idle"
@@ -13518,17 +13467,17 @@
       ],
       "walk_area": {
         "floor": [
-          [120, 640],
-          [840, 640],
-          [840, 705],
-          [120, 705]
+          [150, 600],
+          [800, 600],
+          [800, 652],
+          [150, 652]
         ],
         "scale": 0.25,
         "speed": 2
       },
       "character": {
         "x": 480,
-        "y": 690,
+        "y": 640,
         "facing": "up",
         "sprite_set": "idle"
       },
@@ -13972,61 +13921,6 @@
       }
     },
     {
-      "id": "act1_v6_14_10",
-      "name": "The Gut",
-      "background_key": "act1_v6_14_10",
-      "background_file": "backgrounds/maze/maze_z2_deadend.webp",
-      "objects": [
-        "nav_v6_14_10_south",
-        "v6_sick_14_10"
-      ],
-      "hints": [
-        {
-          "text": "Every screen here costs a breath. Plan from air to air: cold folds, rooms with air, breathing ducts on the in-breath. LISTEN costs a breath but tells you where air is.",
-          "when": []
-        }
-      ],
-      "enter_sound": "crawl",
-      "music": "audio/music_gut.mp3",
-      "map_xy": [14, 4],
-      "character": {
-        "x": 480,
-        "y": 650,
-        "facing": "up",
-        "sprite_set": "idle"
-      },
-      "walk_area": {
-        "floor": [
-          [336, 528],
-          [336, 688],
-          [624, 688],
-          [624, 528],
-          [697, 528],
-          [658, 515],
-          [302, 515],
-          [263, 528]
-        ]
-      },
-      "ambient_lighting": {
-        "lights": [
-          {
-            "x": 0.5,
-            "y": 0.3,
-            "radius": 0.5,
-            "color": [
-              70,
-              200,
-              140
-            ],
-            "pulse_speed": 0.18,
-            "pulse_amount": 0.25,
-            "alpha": 0.1
-          }
-        ],
-        "flicker": false
-      }
-    },
-    {
       "id": "act1_v6_valve",
       "name": "The Heart Valve",
       "background_key": "act1_v6_valve",
@@ -14336,7 +14230,7 @@
           [369, 568]
         ]
       },
-      "music": "audio/music_ducts.mp3",
+      "music": "audio/music_core.mp3",
       "enter_sound": "crawl",
       "map_xy": [1, 0]
     },
@@ -42611,7 +42505,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -42634,7 +42528,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -42647,8 +42541,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -42668,7 +42562,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -42743,15 +42637,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_0_5_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -42771,7 +42677,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -42846,7 +42752,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_0_5",
@@ -42858,7 +42776,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -42881,95 +42799,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_0_5_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_0_5_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
       },
       "layer": "floor"
     },
@@ -43076,12 +42910,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_5"
             }
           ]
         },
@@ -43251,7 +43080,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -43274,7 +43103,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -43318,12 +43147,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_9",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_9"
             }
           ]
         },
@@ -43488,8 +43312,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -43509,7 +43333,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -43584,15 +43408,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_0_9_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -43612,7 +43448,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -43687,7 +43523,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_0_9_south",
@@ -43790,91 +43638,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_0_9_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_0_9_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_0_12_north",
@@ -44020,7 +43785,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -44043,7 +43808,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -44056,12 +43821,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 160,
+        "x": 146,
         "y": 470
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 211,
+        "height": 363
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -44140,7 +43905,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.92
+        "scale": 0.7
       },
       "layer": "floor"
     },
@@ -44417,12 +44182,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 160,
+        "x": 146,
         "y": 470
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 211,
+        "height": 363
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -44501,7 +44266,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.92
+        "scale": 0.7
       },
       "layer": "floor"
     },
@@ -44649,7 +44414,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -44672,7 +44437,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -44918,12 +44683,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_5"
             }
           ]
         },
@@ -45026,7 +44786,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -45049,7 +44809,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -45268,7 +45028,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -45291,7 +45051,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -45438,8 +45198,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -45518,7 +45278,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_1_7_south",
@@ -45586,67 +45376,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_1_7_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_1_8_north",
@@ -45952,12 +45681,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_9",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_0_9"
             }
           ]
         },
@@ -46510,7 +46234,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -46533,7 +46257,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -46546,12 +46270,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 160,
+        "x": 146,
         "y": 470
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 211,
+        "height": 363
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -46630,7 +46354,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.92
+        "scale": 0.7
       },
       "layer": "floor"
     },
@@ -46737,12 +46461,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_2_12"
             }
           ]
         },
@@ -47094,7 +46813,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -47117,7 +46836,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -47604,7 +47323,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -47627,7 +47346,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -48006,12 +47725,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_5",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_5"
             }
           ]
         },
@@ -48181,7 +47895,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -48204,7 +47918,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -48399,8 +48113,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -48479,78 +48193,6 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_lip_2_7",
-      "name": "Sealed lip",
-      "description": "The duct behind you is sealed.",
-      "position": {
-        "x": 480,
-        "y": 720
-      },
-      "size": {
-        "width": 960,
-        "height": 205
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Sealed lip"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/maze_back_sealed_z2.png",
-        "frame_width": 960,
-        "frame_height": 205,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_membrane_2_7_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
       ],
       "sprite": {
         "file": "sprites/membrane_door.png",
@@ -48580,6 +48222,47 @@
             "frame": 0
           }
         ]
+      },
+      "layer": "floor"
+    },
+    {
+      "id": "v6_lip_2_7",
+      "name": "Sealed lip",
+      "description": "The duct behind you is sealed.",
+      "position": {
+        "x": 480,
+        "y": 720
+      },
+      "size": {
+        "width": 960,
+        "height": 52
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Sealed lip"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
+            }
+          ]
+        }
+      ],
+      "sprite": {
+        "file": "sprites/maze_back_sealed_z2.png",
+        "frame_width": 960,
+        "frame_height": 52,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -48655,8 +48338,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -48706,12 +48389,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_3_8"
             }
           ]
         },
@@ -48735,7 +48413,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_2_8_south",
@@ -48803,67 +48511,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_2_8_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_2_9_north",
@@ -49370,12 +49017,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_12",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_12"
             }
           ]
         },
@@ -49545,7 +49187,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -49568,7 +49210,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -49581,8 +49223,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -49602,7 +49244,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, soot-black, its seams glowing orange."
+              "text": "The duct runs on ahead, soot-black, its seams glowing orange. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -49678,15 +49320,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_vent_2_12"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_2_12_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -49706,7 +49360,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -49782,7 +49436,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_2_12"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_2_12_south",
@@ -49886,91 +49552,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_2_12_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_vent_2_12"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_2_12_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_2_12"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_2_13_east",
@@ -50075,12 +49658,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_2_12"
             }
           ]
         },
@@ -50250,7 +49828,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -50273,7 +49851,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -50358,7 +49936,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -50381,7 +49959,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -50425,12 +50003,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_5"
             }
           ]
         },
@@ -50662,8 +50235,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -50683,7 +50256,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -50758,15 +50331,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_3_5_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -50786,7 +50371,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -50861,7 +50446,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_3_5_south",
@@ -50964,99 +50561,16 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_3_5_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_3_5_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_3_8_north",
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -51076,7 +50590,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -51151,15 +50665,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_3_8_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -51179,7 +50705,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -51274,15 +50800,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_3_8_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -51302,7 +50840,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -51377,7 +50915,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_3_8",
@@ -51389,7 +50939,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -51412,198 +50962,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_3_8_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_3_8_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_3_8_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_membrane_3_8_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
       },
       "layer": "floor"
     },
@@ -51777,12 +51140,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_8",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_8"
             }
           ]
         },
@@ -51911,12 +51269,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_10",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_10"
             }
           ]
         },
@@ -52294,12 +51647,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_11",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_4_11"
             }
           ]
         },
@@ -52335,7 +51683,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -52358,7 +51706,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -52371,12 +51719,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 200,
-        "y": 640
+        "x": 175,
+        "y": 620
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 120,
+        "height": 207
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -52455,7 +51803,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.55
+        "scale": 0.4
       },
       "layer": "floor"
     },
@@ -52495,12 +51843,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_3_14"
             }
           ]
         },
@@ -52603,7 +51946,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -52626,7 +51969,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -52639,12 +51982,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 800,
+        "x": 816,
         "y": 470
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 211,
+        "height": 363
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -52723,7 +52066,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.92
+        "scale": 0.7
       },
       "layer": "floor"
     },
@@ -52732,8 +52075,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -52753,7 +52096,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the right wall, hot to look at."
+              "text": "A side duct in the right wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -52829,7 +52172,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_3_14"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_3_14_south",
@@ -52933,49 +52288,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_3_14_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_3_14"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_4_0_east",
@@ -53054,7 +52368,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -53077,7 +52391,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -53229,7 +52543,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -53252,7 +52566,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -53471,7 +52785,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -53494,7 +52808,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -53672,12 +52986,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_5_4"
             }
           ]
         },
@@ -53806,12 +53115,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_5"
             }
           ]
         },
@@ -53981,7 +53285,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -54004,7 +53308,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -54048,12 +53352,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_8"
             }
           ]
         },
@@ -54084,8 +53383,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -54164,78 +53463,6 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_lip_4_8",
-      "name": "Sealed lip",
-      "description": "The duct behind you is sealed.",
-      "position": {
-        "x": 480,
-        "y": 720
-      },
-      "size": {
-        "width": 960,
-        "height": 205
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Sealed lip"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/maze_back_sealed_z2.png",
-        "frame_width": 960,
-        "frame_height": 205,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_membrane_4_8_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
       ],
       "sprite": {
         "file": "sprites/membrane_door.png",
@@ -54269,12 +53496,53 @@
       "layer": "floor"
     },
     {
+      "id": "v6_lip_4_8",
+      "name": "Sealed lip",
+      "description": "The duct behind you is sealed.",
+      "position": {
+        "x": 480,
+        "y": 720
+      },
+      "size": {
+        "width": 960,
+        "height": 52
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Sealed lip"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
+            }
+          ]
+        }
+      ],
+      "sprite": {
+        "file": "sprites/maze_back_sealed_z2.png",
+        "frame_width": 960,
+        "frame_height": 52,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 1
+      },
+      "layer": "floor"
+    },
+    {
       "id": "nav_v6_4_10_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -54294,7 +53562,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -54369,15 +53637,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_4_10_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -54397,7 +53677,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -54472,7 +53752,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_4_10",
@@ -54484,7 +53776,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -54507,7 +53799,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -54516,96 +53808,12 @@
       "layer": "floor"
     },
     {
-      "id": "v6_throat_4_10_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_4_10_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
       "id": "nav_v6_4_11_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -54625,7 +53833,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -54701,15 +53909,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_4_11"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_4_11_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -54729,7 +53949,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the right wall, hot to look at."
+              "text": "A side duct in the right wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -54805,7 +54025,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_4_11"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_4_11",
@@ -54817,7 +54049,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -54840,95 +54072,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_4_11_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_4_11"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_4_11_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_4_11"
       },
       "layer": "floor"
     },
@@ -54968,12 +54116,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_3_14"
             }
           ]
         },
@@ -55076,7 +54219,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -55099,7 +54242,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -55113,11 +54256,11 @@
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
         "x": 480,
-        "y": 430
+        "y": 440
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 135,
+        "height": 233
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -55196,7 +54339,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.6
+        "scale": 0.45
       },
       "layer": "floor"
     },
@@ -55411,7 +54554,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -55434,7 +54577,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -55612,12 +54755,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_4"
             }
           ]
         },
@@ -55720,7 +54858,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -55743,7 +54881,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -55756,8 +54894,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -55777,7 +54915,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -55852,15 +54990,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_5_4_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -55880,7 +55030,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -55955,7 +55105,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_5_4_south",
@@ -56058,91 +55220,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_5_4_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_5_4_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_5_5_north",
@@ -56247,12 +55326,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_5_4"
             }
           ]
         },
@@ -56781,7 +55855,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -56804,7 +55878,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -56993,8 +56067,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -57073,7 +56147,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_5_8_east",
@@ -57111,12 +56215,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_8",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_6_8"
             }
           ]
         },
@@ -57214,8 +56313,8 @@
       "name": "Cold fold",
       "description": "A tall crease in the flesh of the wall, rimmed with frost.",
       "position": {
-        "x": 150,
-        "y": 600
+        "x": 340,
+        "y": 470
       },
       "size": {
         "width": 136,
@@ -57317,73 +56416,12 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.15
+        "scale": 0.09
       },
       "walk_to": {
         "x": 345,
         "y": 640
       }
-    },
-    {
-      "id": "v6_membrane_5_8_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_5_9_north",
@@ -57622,12 +56660,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_10",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_10"
             }
           ]
         },
@@ -57938,12 +56971,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_4_11"
             }
           ]
         },
@@ -58047,7 +57075,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -58070,7 +57098,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -58083,12 +57111,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 200,
-        "y": 640
+        "x": 175,
+        "y": 620
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 120,
+        "height": 207
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -58167,7 +57195,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.55
+        "scale": 0.4
       },
       "layer": "floor"
     },
@@ -58403,12 +57431,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_6_14"
             }
           ]
         },
@@ -58444,7 +57467,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -58467,7 +57490,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -58686,7 +57709,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -58709,7 +57732,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -59129,7 +58152,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -59152,7 +58175,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -59165,8 +58188,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -59186,7 +58209,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -59261,15 +58284,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_6_8_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -59289,7 +58324,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -59364,7 +58399,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_6_8",
@@ -59376,7 +58423,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -59399,95 +58446,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_6_8_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_6_8_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
       },
       "layer": "floor"
     },
@@ -59568,7 +58531,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -59591,7 +58554,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -59750,12 +58713,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_6_14"
             }
           ]
         },
@@ -59858,7 +58816,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -59881,7 +58839,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -59894,8 +58852,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -59915,7 +58873,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -59991,15 +58949,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_6_14"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_6_14_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -60019,7 +58989,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the right wall, hot to look at."
+              "text": "A side duct in the right wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -60095,7 +59065,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_6_14"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_6_14_south",
@@ -60199,91 +59181,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_6_14_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_6_14"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_6_14_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_6_14"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_7_2_west",
@@ -60429,7 +59328,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -60452,7 +59351,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -60496,12 +59395,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_5"
             }
           ]
         },
@@ -60604,7 +59498,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -60627,7 +59521,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -60640,8 +59534,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -60661,7 +59555,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -60736,15 +59630,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_7_5_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -60764,7 +59670,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -60839,7 +59745,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_7_5_south",
@@ -60942,91 +59860,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_7_5_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_7_5_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_7_6_north",
@@ -61199,12 +60034,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_7_5"
             }
           ]
         },
@@ -61400,12 +60230,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_8",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_6_8"
             }
           ]
         },
@@ -61818,7 +60643,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -61841,7 +60666,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -61885,12 +60710,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_14",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_6_14"
             }
           ]
         },
@@ -62056,11 +60876,11 @@
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
         "x": 480,
-        "y": 430
+        "y": 440
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 135,
+        "height": 233
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -62139,7 +60959,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.6
+        "scale": 0.45
       },
       "layer": "floor"
     },
@@ -62354,7 +61174,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -62377,7 +61197,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -62931,7 +61751,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -62954,7 +61774,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -62967,8 +61787,8 @@
       "name": "Cold fold",
       "description": "A tall crease in the flesh of the wall, rimmed with frost.",
       "position": {
-        "x": 150,
-        "y": 600
+        "x": 340,
+        "y": 470
       },
       "size": {
         "width": 136,
@@ -63070,7 +61890,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.15
+        "scale": 0.09
       },
       "walk_to": {
         "x": 345,
@@ -63113,12 +61933,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_7_5"
             }
           ]
         },
@@ -63398,8 +62213,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -63419,7 +62234,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -63494,15 +62309,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_8_7_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -63522,7 +62349,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -63597,7 +62424,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_8_7",
@@ -63609,7 +62448,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -63632,95 +62471,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_8_7_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_8_7_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
       },
       "layer": "floor"
     },
@@ -63827,12 +62582,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_7"
             }
           ]
         },
@@ -64348,8 +63098,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -64369,7 +63119,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, soot-black, its seams glowing orange."
+              "text": "The duct runs on ahead, soot-black, its seams glowing orange. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -64445,15 +63195,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_vent_8_11"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_8_11_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -64473,7 +63235,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the right wall, hot to look at."
+              "text": "A side duct in the right wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -64549,7 +63311,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_8_11"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_8_11",
@@ -64561,7 +63335,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -64584,95 +63358,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_8_11_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_vent_8_11"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_8_11_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_8_11"
       },
       "layer": "floor"
     },
@@ -64779,12 +63469,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_11",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_8_11"
             }
           ]
         },
@@ -64815,12 +63500,12 @@
       "name": "Grate",
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
-        "x": 160,
+        "x": 146,
         "y": 470
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 211,
+        "height": 363
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -64899,7 +63584,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.92
+        "scale": 0.7
       },
       "layer": "floor"
     },
@@ -65274,12 +63959,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_9_14"
             }
           ]
         },
@@ -65583,7 +64263,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -65606,7 +64286,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -65820,8 +64500,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -65841,7 +64521,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -65916,15 +64596,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_9_3_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -65944,7 +64636,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -66019,7 +64711,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_9_3",
@@ -66031,7 +64735,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -66054,95 +64758,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_9_3_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_9_3_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
       },
       "layer": "floor"
     },
@@ -66316,12 +64936,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_3",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_3"
             }
           ]
         },
@@ -66424,7 +65039,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -66447,7 +65062,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -66532,7 +65147,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -66555,7 +65170,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -66666,12 +65281,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_7"
             }
           ]
         },
@@ -66774,7 +65384,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -66797,7 +65407,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -66841,12 +65451,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_11",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_8_11"
             }
           ]
         },
@@ -66978,7 +65583,7 @@
               "view": "act1_v6_court_queen",
               "at": {
                 "x": 480,
-                "y": 640,
+                "y": 600,
                 "facing": "down"
               }
             }
@@ -67042,12 +65647,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_9_14"
             }
           ]
         },
@@ -67217,7 +65817,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -67240,7 +65840,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -67253,8 +65853,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -67274,7 +65874,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -67350,7 +65950,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_9_14"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_9_14_south",
@@ -67454,49 +66066,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_9_14_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_9_14"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_10_0_north",
@@ -67709,7 +66280,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -67732,7 +66303,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -67977,12 +66548,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_3",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_9_3"
             }
           ]
         },
@@ -68018,7 +66584,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -68041,7 +66607,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -68085,12 +66651,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_5",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_5"
             }
           ]
         },
@@ -68322,8 +66883,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -68343,7 +66904,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -68418,15 +66979,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_10_5_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -68446,7 +67019,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the right wall, rimmed with veins."
+              "text": "A soft opening in the right wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -68521,7 +67094,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_10_5_south",
@@ -68624,91 +67209,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_10_5_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_10_5_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_10_6_north",
@@ -68880,12 +67382,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_5",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_10_5"
             }
           ]
         },
@@ -69117,8 +67614,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -69197,7 +67694,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_10_8_south",
@@ -69265,67 +67792,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_10_8_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_10_11_north",
@@ -69538,7 +68004,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -69561,7 +68027,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -69672,12 +68138,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_12",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_11_12"
             }
           ]
         },
@@ -70182,7 +68643,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -70205,7 +68666,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -70290,7 +68751,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -70313,7 +68774,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -70424,12 +68885,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_5",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_10_5"
             }
           ]
         },
@@ -70532,7 +68988,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -70555,7 +69011,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -70568,8 +69024,8 @@
       "name": "Cold fold",
       "description": "A tall crease in the flesh of the wall, rimmed with frost.",
       "position": {
-        "x": 150,
-        "y": 600
+        "x": 340,
+        "y": 470
       },
       "size": {
         "width": 136,
@@ -70671,7 +69127,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.15
+        "scale": 0.09
       },
       "walk_to": {
         "x": 345,
@@ -70899,8 +69355,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -70979,7 +69435,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_11_8_east",
@@ -71058,7 +69544,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -71081,7 +69567,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -71090,73 +69576,12 @@
       "layer": "floor"
     },
     {
-      "id": "v6_membrane_11_8_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
-    },
-    {
       "id": "nav_v6_11_9_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -71235,7 +69660,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_11_9_south",
@@ -71303,67 +69758,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_11_9_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_11_11_west",
@@ -71509,7 +69903,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -71532,7 +69926,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -71546,11 +69940,11 @@
       "description": "A thin grate onto a Choir hall, its light falling through in stripes.",
       "position": {
         "x": 480,
-        "y": 430
+        "y": 440
       },
       "size": {
-        "width": 180,
-        "height": 300
+        "width": 135,
+        "height": 233
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -71629,7 +70023,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.6
+        "scale": 0.45
       },
       "layer": "floor"
     },
@@ -71638,8 +70032,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -71659,7 +70053,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, soot-black, its seams glowing orange."
+              "text": "The duct runs on ahead, soot-black, its seams glowing orange. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -71735,15 +70129,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_vent_11_12"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_11_12_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -71763,7 +70169,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -71839,15 +70245,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_11_12"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_11_12_east",
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -71867,7 +70285,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the right wall, hot to look at."
+              "text": "A side duct in the right wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -71943,7 +70361,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_11_12"
+      },
+      "layer": "floor"
     },
     {
       "id": "v6_lip_11_12",
@@ -71955,7 +70385,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -71978,137 +70408,11 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
         "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_11_12_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_vent_11_12"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_11_12_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_11_12"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_11_12_east",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_11_12"
       },
       "layer": "floor"
     },
@@ -72349,12 +70653,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_12",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_11_12"
             }
           ]
         },
@@ -72416,12 +70715,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_14",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_12_14"
             }
           ]
         },
@@ -72725,7 +71019,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -72748,7 +71042,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -72967,7 +71261,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -72990,7 +71284,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -73540,8 +71834,8 @@
       "name": "Duct (right)",
       "description": "A duct leading east.",
       "position": {
-        "x": 660,
-        "y": 187
+        "x": 762,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -73620,78 +71914,6 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_lip_12_8",
-      "name": "Sealed lip",
-      "description": "The duct behind you is sealed.",
-      "position": {
-        "x": 480,
-        "y": 720
-      },
-      "size": {
-        "width": 960,
-        "height": 205
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Sealed lip"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/maze_back_sealed_z2.png",
-        "frame_width": 960,
-        "frame_height": 205,
-        "columns": 1,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 1
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_membrane_12_8_east",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 762,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
       ],
       "sprite": {
         "file": "sprites/membrane_door.png",
@@ -73721,6 +71943,47 @@
             "frame": 0
           }
         ]
+      },
+      "layer": "floor"
+    },
+    {
+      "id": "v6_lip_12_8",
+      "name": "Sealed lip",
+      "description": "The duct behind you is sealed.",
+      "position": {
+        "x": 480,
+        "y": 720
+      },
+      "size": {
+        "width": 960,
+        "height": 52
+      },
+      "visual": {
+        "color": "rgba(0,0,0,0)",
+        "label": "Sealed lip"
+      },
+      "initial_state": "default",
+      "initially_visible": true,
+      "interactions": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "Behind you the duct is sealed with a ridged lip. No way back that way."
+            }
+          ]
+        }
+      ],
+      "sprite": {
+        "file": "sprites/maze_back_sealed_z2.png",
+        "frame_width": 960,
+        "frame_height": 52,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -73796,8 +72059,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -73876,7 +72139,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_12_9_south",
@@ -73944,67 +72237,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_12_9_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_12_10_south",
@@ -74332,7 +72564,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -74355,7 +72587,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -74466,12 +72698,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_12",
-              "at": {
-                "x": 697,
-                "y": 528,
-                "facing": "left"
-              }
+              "view": "act1_v6_11_12"
             }
           ]
         },
@@ -74667,12 +72894,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_14",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_12_14"
             }
           ]
         },
@@ -74837,8 +73059,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -74858,7 +73080,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A side duct in the left wall, hot to look at."
+              "text": "A side duct in the left wall, hot to look at. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it vents scalding air. Go the moment it opens."
             }
           ]
         },
@@ -74934,7 +73156,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_vent_12_14"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_12_14_south",
@@ -75038,49 +73272,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_12_14_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it vents scalding air. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_vent_12_14"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_13_0_north",
@@ -75293,7 +73486,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -75316,7 +73509,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -75803,7 +73996,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -75826,7 +74019,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -76004,12 +74197,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_4",
-              "at": {
-                "x": 263,
-                "y": 528,
-                "facing": "right"
-              }
+              "view": "act1_v6_14_4"
             }
           ]
         },
@@ -76246,7 +74434,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -76269,7 +74457,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -76349,8 +74537,8 @@
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -76429,7 +74617,37 @@
             }
           ]
         }
-      ]
+      ],
+      "sprite": {
+        "file": "sprites/membrane_door.png",
+        "frame_width": 438,
+        "frame_height": 455,
+        "columns": 2,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.468,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "patrol_active",
+                "patrol": "v6_surge"
+              },
+              {
+                "type": "flag_not",
+                "flag": "vesk_allied",
+                "value": "true"
+              }
+            ],
+            "frame": 1
+          },
+          {
+            "when": [],
+            "frame": 0
+          }
+        ]
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_13_8_south",
@@ -76497,67 +74715,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "v6_membrane_13_8_west",
-      "name": "Membrane",
-      "description": "A living membrane over the duct mouth.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Membrane"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A ring of pale membrane around the duct mouth, veined acid green. When a surge comes it clenches shut; after, it relaxes. Never the only way anywhere."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/membrane_door.png",
-        "frame_width": 438,
-        "frame_height": 455,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.468,
-        "frame_when": [
-          {
-            "when": [
-              {
-                "type": "patrol_active",
-                "patrol": "v6_surge"
-              },
-              {
-                "type": "flag_not",
-                "flag": "vesk_allied",
-                "value": "true"
-              }
-            ],
-            "frame": 1
-          },
-          {
-            "when": [],
-            "frame": 0
-          }
-        ]
-      },
-      "layer": "floor"
     },
     {
       "id": "nav_v6_13_12_north",
@@ -76770,7 +74927,7 @@
       },
       "size": {
         "width": 960,
-        "height": 174
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -76793,7 +74950,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z3.png",
         "frame_width": 960,
-        "frame_height": 174,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -76945,7 +75102,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -76968,7 +75125,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -77053,7 +75210,7 @@
       },
       "size": {
         "width": 960,
-        "height": 173
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -77076,7 +75233,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z1.png",
         "frame_width": 960,
-        "frame_height": 173,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -77120,12 +75277,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_4",
-              "at": {
-                "x": 480,
-                "y": 688,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_4"
             }
           ]
         },
@@ -77228,7 +75380,7 @@
       },
       "size": {
         "width": 960,
-        "height": 205
+        "height": 52
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -77251,7 +75403,7 @@
       "sprite": {
         "file": "sprites/maze_back_sealed_z2.png",
         "frame_width": 960,
-        "frame_height": 205,
+        "frame_height": 52,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
@@ -77264,8 +75416,8 @@
       "name": "Duct (straight ahead)",
       "description": "A duct leading north.",
       "position": {
-        "x": 380,
-        "y": 210
+        "x": 490,
+        "y": 465
       },
       "size": {
         "width": 220,
@@ -77285,7 +75437,7 @@
           "then": [
             {
               "type": "message",
-              "text": "The duct runs on ahead, wet and breathing."
+              "text": "The duct runs on ahead, wet and breathing. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -77360,15 +75512,27 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.34,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_14_4_west",
       "name": "Duct (left)",
       "description": "A duct leading west.",
       "position": {
-        "x": 95,
-        "y": 187
+        "x": 198,
+        "y": 534
       },
       "size": {
         "width": 205,
@@ -77388,7 +75552,7 @@
           "then": [
             {
               "type": "message",
-              "text": "A soft opening in the left wall, rimmed with veins."
+              "text": "A soft opening in the left wall, rimmed with veins. Its mouth is a ring of muscle that opens and closes with the breath: on the in-breath it would pull you through; on the out-breath, it would blow you back. Go the moment it opens."
             }
           ]
         },
@@ -77463,7 +75627,19 @@
             }
           ]
         }
-      ]
+      ],
+      "walk_to": false,
+      "sprite": {
+        "file": "sprites/breathing_throat.png",
+        "frame_width": 420,
+        "frame_height": 562,
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.463,
+        "sync_cycle": "v6_gut_breath"
+      },
+      "layer": "floor"
     },
     {
       "id": "nav_v6_14_4_south",
@@ -77566,91 +75742,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "id": "v6_throat_14_4_north",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 490,
-        "y": 465
-      },
-      "size": {
-        "width": 220,
-        "height": 255
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
       ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.454,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
-    },
-    {
-      "id": "v6_throat_14_4_west",
-      "name": "Breathing throat",
-      "description": "A ring of wet muscle around the duct mouth, opening and closing.",
-      "position": {
-        "x": 198,
-        "y": 534
-      },
-      "size": {
-        "width": 205,
-        "height": 347
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Breathing throat"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The duct mouth is a ring of muscle that opens and closes with the ship's breath. On the in-breath it would pull you through; on the out-breath, it would blow you back. Go when it opens."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/breathing_throat.png",
-        "frame_width": 420,
-        "frame_height": 562,
-        "columns": 4,
-        "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.488,
-        "sync_cycle": "v6_gut_breath"
-      },
-      "layer": "floor"
+      "walk_to": false
     },
     {
       "id": "nav_v6_14_5_north",
@@ -77755,12 +75848,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_4",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_14_4"
             }
           ]
         },
@@ -79118,12 +77206,7 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_9",
-              "at": {
-                "x": 490,
-                "y": 515,
-                "facing": "down"
-              }
+              "view": "act1_v6_0_9"
             }
           ]
         },
@@ -80003,7 +78086,7 @@
               "view": "act1_v6_court_queen",
               "at": {
                 "x": 480,
-                "y": 705,
+                "y": 652,
                 "facing": "down"
               }
             },
@@ -80965,138 +79048,16 @@
       ]
     },
     {
-      "id": "nav_v6_14_10_south",
-      "name": "Duct (back)",
-      "description": "A duct leading south.",
-      "position": {
-        "x": 150,
-        "y": 660
-      },
-      "size": {
-        "width": 660,
-        "height": 60
-      },
-      "visual": {
-        "color": "rgba(100, 130, 200, 0.2)",
-        "label": "↓ Back",
-        "nav": true
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "The way you came. The walls close in a little behind you, then relax."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "set_view",
-              "view": "act1_v6_14_9"
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Warm, wet and faintly pulsing, like the inside of a cheek."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Your whisper runs away down the duct and comes back as a dozen whispers."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "v6_sick_14_10",
-      "name": "Gassed Vesk",
-      "description": "A worker lying on its side, its skin blotched yellow-green.",
-      "position": {
-        "x": 495,
-        "y": 570
-      },
-      "size": {
-        "width": 230,
-        "height": 100
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Gassed Vesk"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "A worker lies curled on its side, skin greyed and blotched where the gas got it. Its breathing slits open and close in wet, broken rhythm. Every breath sounds like it costs something."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "You lay a hand on its side. It flinches, then goes still under your palm. It has nothing left to fight with."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "\"Hey. It's all right.\" Its slits flutter: long, short. Maybe it's trying to answer."
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/vesk_sick.png",
-        "frame_width": 1090,
-        "frame_height": 411,
-        "columns": 2,
-        "rows": 1,
-        "frame_rate": 0.7,
-        "scale": 0.22
-      }
-    },
-    {
       "id": "v6_lever",
       "name": "Quarantine Lever",
       "description": "A heavy Choir lever on a corroded bronze plate.",
       "position": {
         "x": 480,
-        "y": 660
+        "y": 474
       },
       "size": {
-        "width": 120,
-        "height": 330
+        "width": 74,
+        "height": 264
       },
       "visual": {
         "color": "rgba(0,0,0,0)",
@@ -81179,7 +79140,7 @@
         "columns": 2,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 0.33,
+        "scale": 0.21,
         "frame_when": [
           {
             "when": [
@@ -82964,7 +80925,7 @@
       ],
       "walk_to": {
         "x": 480,
-        "y": 690
+        "y": 630
       }
     },
     {
@@ -87925,7 +85886,7 @@
       ],
       "start_distance": 5,
       "reset_distance": 4,
-      "strike_seconds": 4,
+      "strike_seconds": 6,
       "silent_flag": "held_breath",
       "hum_sound": "curator_hum",
       "hum_message": "A low hum, right behind the grate. Something very large has stopped on the other side of it. Leave, or hold your breath, NOW.",
