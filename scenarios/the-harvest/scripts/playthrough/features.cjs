@@ -62,10 +62,12 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   await g.p.evaluate(() => window.__engine.applyEffects(['surgical_probe', 'emergency_suit_helmet', 'containment_key_card'].map((item) => ({ type: 'add_item', item }))));
   await L.go(g, 'act1_security_closeup'); const press = await L.A(g, 'hand', 'sec_closeup_override_button'); await L.dismiss(g);
   if (!/Four arms\. A blur\. Gone\./.test(press || '')) fail('override: no prisoner on the feed'); else ok('override: the prisoner escapes on the security feed');
-  await L.go(g, 'act1_vent_junction'); await L.dismiss(g);
-  if (!(await visible('junction_keth_vari'))) fail('no Keth-Vari at the junction'); else {
-    const w = await L.A(g, 'look', 'junction_keth_vari'); await L.dismiss(g);
-    if (!/points east/.test(w || '') || (await visible('junction_keth_vari'))) fail(`Keth-Vari wave: ${w}`); else ok('the Keth-Vari waves you east, then is gone');
+  // v6: a kind player's Keth-Vari waits in the Warren's dwellings and scratches the torn half onto the map
+  await g.p.evaluate(() => window.__engine.applyEffects([{ type: 'set_flag', flag: 'keth_path', value: 'ally' }, { type: 'set_flag', flag: 'in_thin_air', value: 'true' }]));
+  await L.go(g, 'act1_v6_warren_dwellings'); await L.dismiss(g); await L.A(g, 'look', 'v6_workers'); await L.dismiss(g);
+  if (!(await visible('v6_keth'))) fail('no Keth-Vari in the Warren dwellings'); else {
+    const w = await L.A(g, 'talk', 'v6_keth'); await L.dismiss(g);
+    if (!/torn half/.test(w || '') || (await g.p.evaluate(() => window.__engine.getFlags().keth_marks)) !== 'true') fail(`Keth-Vari marks: ${w}`); else ok('the Keth-Vari marks the torn half on your map');
   }
   const sEnd = await score(); ok(`score now ${sEnd[0]} of ${sEnd[1]}`);
 

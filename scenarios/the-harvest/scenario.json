@@ -14356,23 +14356,23 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [0, 11],
       "character": {
-        "x": 160,
+        "x": 170,
         "y": 660,
         "facing": "right",
         "sprite_set": "idle"
       },
       "walk_area": {
         "floor": [
-          [60, 610],
+          [120, 610],
           [300, 615],
           [520, 625],
           [760, 612],
-          [930, 600],
-          [930, 700],
-          [60, 700]
+          [860, 605],
+          [860, 700],
+          [120, 700]
         ],
         "scale": 0.32,
-        "speed": 1.6
+        "speed": 3
       },
       "on_enter": [
         {
@@ -14507,22 +14507,22 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [0, 10],
       "character": {
-        "x": 860,
+        "x": 840,
         "y": 660,
         "facing": "right",
         "sprite_set": "idle"
       },
       "walk_area": {
         "floor": [
-          [30, 640],
+          [100, 640],
           [300, 652],
           [640, 652],
-          [930, 628],
-          [930, 700],
-          [30, 700]
+          [870, 632],
+          [870, 700],
+          [100, 700]
         ],
         "scale": 0.3,
-        "speed": 1.7,
+        "speed": 3,
         "shadows": [
           [
             [200, 630],
@@ -14753,13 +14753,13 @@
       },
       "walk_area": {
         "floor": [
-          [20, 448],
-          [940, 448],
-          [940, 486],
-          [20, 486]
+          [80, 448],
+          [880, 448],
+          [880, 486],
+          [80, 486]
         ],
         "scale": 0.26,
-        "speed": 2.0,
+        "speed": 3.4,
         "shadows": [
           [
             [285, 440],
@@ -14907,22 +14907,22 @@
       "music": "audio/music_gut.mp3",
       "map_xy": [1, 10],
       "character": {
-        "x": 160,
+        "x": 170,
         "y": 670,
         "facing": "right",
         "sprite_set": "idle"
       },
       "walk_area": {
         "floor": [
-          [60, 640],
+          [120, 640],
           [400, 660],
           [700, 652],
           [800, 630],
-          [800, 700],
-          [60, 700]
+          [800, 690],
+          [120, 690]
         ],
         "scale": 0.3,
-        "speed": 1.7,
+        "speed": 3,
         "shadows": [
           [
             [60, 640],
@@ -15349,7 +15349,7 @@
           [302, 515],
           [263, 528]
         ],
-        "scale": 1.0
+        "scale": 1
       },
       "character": {
         "x": 480,
@@ -15492,7 +15492,7 @@
           [150, 652]
         ],
         "scale": 0.25,
-        "speed": 2.0
+        "speed": 2
       },
       "character": {
         "x": 480,
@@ -41238,7 +41238,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0"
+              "view": "act1_v6_6_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -41322,7 +41327,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0"
+              "view": "act1_v6_8_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             },
             {
               "type": "message",
@@ -41645,7 +41655,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_2"
+              "view": "act1_v6_0_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             },
             {
               "type": "message",
@@ -41709,7 +41724,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2"
+              "view": "act1_v6_2_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             },
             {
               "type": "message",
@@ -42234,7 +42254,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_14"
+              "view": "act1_v6_0_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         }
@@ -42581,7 +42606,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0"
+              "view": "act1_v6_11_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -44366,7 +44396,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber"
+              "view": "act1_vent_gas_chamber",
+              "at": {
+                "x": 491,
+                "y": 495,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -44429,7 +44464,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -44505,7 +44540,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_0_6"
+              "view": "act1_v6_0_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -44615,7 +44655,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_5"
+              "view": "act1_v6_1_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -44690,7 +44735,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -44730,7 +44775,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6"
+              "view": "act1_v6_1_6",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -44854,7 +44904,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_8"
+              "view": "act1_v6_0_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -44916,7 +44971,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7"
+              "view": "act1_v6_1_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -44979,7 +45039,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -45081,7 +45141,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8"
+              "view": "act1_v6_1_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -45143,7 +45208,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_7"
+              "view": "act1_v6_0_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45241,7 +45311,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_vera"
+              "view": "act1_v6_vera",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45351,7 +45426,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_9"
+              "view": "act1_v6_1_9",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -45461,7 +45541,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_0_8"
+              "view": "act1_v6_0_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45524,7 +45609,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_13"
+              "view": "act1_v6_0_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45586,7 +45676,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_12"
+              "view": "act1_v6_1_12",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -45649,7 +45744,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -45782,7 +45877,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_14"
+              "view": "act1_v6_0_14",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45844,7 +45944,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_12"
+              "view": "act1_v6_0_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45906,7 +46011,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_fan_room"
+              "view": "act1_vent_fan_room",
+              "at": {
+                "x": 480,
+                "y": 710,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -45968,7 +46078,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_13"
+              "view": "act1_v6_0_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -46123,7 +46238,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_1"
+              "view": "act1_v6_1_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -46185,7 +46305,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_0"
+              "view": "act1_v6_2_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -46248,7 +46373,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -46356,7 +46481,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1"
+              "view": "act1_v6_2_1",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -46418,7 +46548,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_0"
+              "view": "act1_v6_1_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -46542,7 +46677,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_5"
+              "view": "act1_v6_2_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -46605,7 +46745,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -46645,7 +46785,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7"
+              "view": "act1_v6_1_7",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -46707,7 +46852,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_6"
+              "view": "act1_v6_0_6",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -46769,7 +46919,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_6"
+              "view": "act1_v6_2_6",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -46832,7 +46987,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -46872,7 +47027,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8"
+              "view": "act1_v6_1_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -46934,7 +47094,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_7"
+              "view": "act1_v6_0_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -47016,7 +47181,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_7"
+              "view": "act1_v6_2_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -47108,7 +47278,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6"
+              "view": "act1_v6_1_6",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47170,7 +47345,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9"
+              "view": "act1_v6_1_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47232,7 +47412,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_8"
+              "view": "act1_v6_0_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -47294,7 +47479,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7"
+              "view": "act1_v6_1_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47356,7 +47546,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_10"
+              "view": "act1_v6_1_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47480,7 +47675,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9"
+              "view": "act1_v6_2_9",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -47542,7 +47742,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_8"
+              "view": "act1_v6_1_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47604,7 +47809,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10"
+              "view": "act1_v6_2_10",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -47666,7 +47876,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9"
+              "view": "act1_v6_1_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47843,7 +48058,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_12"
+              "view": "act1_v6_1_12",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -47905,7 +48125,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_11"
+              "view": "act1_v6_2_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -47968,7 +48193,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -48101,7 +48326,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_0_12"
+              "view": "act1_v6_0_12",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -48225,7 +48455,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_11"
+              "view": "act1_v6_1_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48402,7 +48637,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1"
+              "view": "act1_v6_2_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48464,7 +48704,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_0"
+              "view": "act1_v6_1_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -48527,7 +48772,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -48567,7 +48812,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2"
+              "view": "act1_v6_2_2",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48629,7 +48879,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_1"
+              "view": "act1_v6_1_1",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -48691,7 +48946,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_0"
+              "view": "act1_v6_2_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48753,7 +49013,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_gas_chamber"
+              "view": "act1_vent_gas_chamber",
+              "at": {
+                "x": 480,
+                "y": 710,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48815,7 +49080,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_2"
+              "view": "act1_v6_3_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -48877,7 +49147,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_1"
+              "view": "act1_v6_2_1",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -48939,7 +49214,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4"
+              "view": "act1_v6_2_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -49002,7 +49282,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -49042,7 +49322,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_5"
+              "view": "act1_v6_2_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -49104,7 +49389,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat"
+              "view": "act1_v6_warren_throat",
+              "at": {
+                "x": 800,
+                "y": 650,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -49166,7 +49456,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4"
+              "view": "act1_v6_3_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -49228,7 +49523,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_3"
+              "view": "act1_v6_2_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -49290,7 +49590,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_5"
+              "view": "act1_v6_1_5",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -49414,7 +49719,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4"
+              "view": "act1_v6_2_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -49476,7 +49786,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_6"
+              "view": "act1_v6_1_6",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -49539,7 +49854,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -49694,7 +50009,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_8"
+              "view": "act1_v6_2_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -49776,7 +50096,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_7"
+              "view": "act1_v6_1_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -49869,7 +50194,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -49909,7 +50234,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9"
+              "view": "act1_v6_2_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50083,7 +50413,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_7"
+              "view": "act1_v6_2_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50145,7 +50480,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10"
+              "view": "act1_v6_2_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50207,7 +50547,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_9"
+              "view": "act1_v6_1_9",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -50269,7 +50614,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_9"
+              "view": "act1_v6_3_9",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -50331,7 +50681,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_8"
+              "view": "act1_v6_2_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50393,7 +50748,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_10"
+              "view": "act1_v6_1_10",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -50455,7 +50815,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_10"
+              "view": "act1_v6_3_10",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -50517,7 +50882,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9"
+              "view": "act1_v6_2_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50641,7 +51011,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_1_11"
+              "view": "act1_v6_1_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -50703,7 +51078,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_11"
+              "view": "act1_v6_3_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -50766,7 +51146,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -50843,7 +51223,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_13"
+              "view": "act1_v6_2_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -50954,7 +51339,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_1_12"
+              "view": "act1_v6_1_12",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -51065,7 +51455,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_11"
+              "view": "act1_v6_2_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -51128,7 +51523,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_13"
+              "view": "act1_v6_3_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -51252,7 +51652,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_2"
+              "view": "act1_v6_2_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -51314,7 +51719,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_2"
+              "view": "act1_v6_4_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -51377,7 +51787,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -51417,7 +51827,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4"
+              "view": "act1_v6_3_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -51480,7 +51895,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -51582,7 +51997,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4"
+              "view": "act1_v6_2_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -51644,7 +52064,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4"
+              "view": "act1_v6_4_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -51706,7 +52131,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_3"
+              "view": "act1_v6_3_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -51804,7 +52234,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_5"
+              "view": "act1_v6_2_5",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -51914,7 +52349,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_5"
+              "view": "act1_v6_4_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -52024,7 +52464,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_4"
+              "view": "act1_v6_3_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -52123,7 +52568,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_9"
+              "view": "act1_v6_3_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -52253,7 +52703,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_2_8"
+              "view": "act1_v6_2_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -52363,7 +52818,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_8"
+              "view": "act1_v6_4_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -52438,7 +52898,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -52478,7 +52938,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_10"
+              "view": "act1_v6_3_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -52540,7 +53005,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_9"
+              "view": "act1_v6_2_9",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -52664,7 +53134,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_10"
+              "view": "act1_v6_2_10",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -52788,7 +53263,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_9"
+              "view": "act1_v6_3_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -52965,7 +53445,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_seam"
+              "view": "act1_v6_seam",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -53027,7 +53512,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_11"
+              "view": "act1_v6_2_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -53152,7 +53642,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -53347,7 +53837,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_13"
+              "view": "act1_v6_2_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -53410,7 +53905,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -53580,7 +54075,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_14"
+              "view": "act1_v6_4_14",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -53691,7 +54191,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_13"
+              "view": "act1_v6_3_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -53754,7 +54259,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0"
+              "view": "act1_v6_5_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -53817,7 +54327,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -53857,7 +54367,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_2"
+              "view": "act1_v6_4_2",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -53919,7 +54434,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_1"
+              "view": "act1_v6_5_1",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -53982,7 +54502,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -54022,7 +54542,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_2"
+              "view": "act1_v6_3_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -54084,7 +54609,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_1"
+              "view": "act1_v6_4_1",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -54146,7 +54676,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4"
+              "view": "act1_v6_4_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -54209,7 +54744,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -54249,7 +54784,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_5"
+              "view": "act1_v6_4_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -54311,7 +54851,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_4"
+              "view": "act1_v6_3_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -54435,7 +54980,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_3"
+              "view": "act1_v6_4_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -54559,7 +55109,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_4"
+              "view": "act1_v6_4_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -54621,7 +55176,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_6"
+              "view": "act1_v6_5_6",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -54684,7 +55244,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -54806,7 +55366,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8"
+              "view": "act1_v6_5_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -54899,7 +55464,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -54975,7 +55540,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_10"
+              "view": "act1_v6_3_10",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -55085,7 +55655,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_10"
+              "view": "act1_v6_5_10",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -55160,7 +55735,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -55237,7 +55812,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_3_11"
+              "view": "act1_v6_3_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -55348,7 +55928,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_11"
+              "view": "act1_v6_5_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -55423,7 +56008,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -55525,7 +56110,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_14"
+              "view": "act1_v6_5_14",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -55588,7 +56178,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -55721,7 +56311,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_1"
+              "view": "act1_v6_5_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -55783,7 +56378,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_0"
+              "view": "act1_v6_4_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -55845,7 +56445,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0"
+              "view": "act1_v6_6_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -55908,7 +56513,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -55948,7 +56553,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_1"
+              "view": "act1_v6_4_1",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -56010,7 +56620,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0"
+              "view": "act1_v6_5_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -56134,7 +56749,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_3"
+              "view": "act1_v6_6_3",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -56197,7 +56817,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -56273,7 +56893,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_5"
+              "view": "act1_v6_5_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -56383,7 +57008,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_4_4"
+              "view": "act1_v6_4_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -56493,7 +57123,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_3"
+              "view": "act1_v6_5_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -56556,7 +57191,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_6"
+              "view": "act1_v6_5_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -56795,7 +57435,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_6"
+              "view": "act1_v6_4_6",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -56857,7 +57502,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_5"
+              "view": "act1_v6_5_5",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -56955,7 +57605,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_7"
+              "view": "act1_v6_5_7",
+              "at": {
+                "x": 480,
+                "y": 680,
+                "facing": "down"
+              }
             }
           ]
         }
@@ -57023,7 +57678,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8"
+              "view": "act1_v6_5_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -57154,7 +57814,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -57230,7 +57890,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_6"
+              "view": "act1_v6_5_6",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         }
@@ -57298,7 +57963,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9"
+              "view": "act1_v6_5_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -57380,7 +58050,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_8"
+              "view": "act1_v6_4_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -57534,7 +58209,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_7"
+              "view": "act1_v6_5_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -57711,7 +58391,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_10"
+              "view": "act1_v6_5_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -57773,7 +58458,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_9"
+              "view": "act1_v6_6_9",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -57835,7 +58525,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_8"
+              "view": "act1_v6_5_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -57959,7 +58654,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9"
+              "view": "act1_v6_5_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -58136,7 +58836,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_12"
+              "view": "act1_v6_5_12",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -58329,7 +59034,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -58524,7 +59229,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_11"
+              "view": "act1_v6_5_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -58586,7 +59296,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_4_14"
+              "view": "act1_v6_4_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -58711,7 +59426,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -58751,7 +59466,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_1"
+              "view": "act1_v6_6_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -58813,7 +59533,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_0"
+              "view": "act1_v6_5_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -58875,7 +59600,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_junction",
+              "at": {
+                "x": 198,
+                "y": 534,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -58938,7 +59668,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -58978,7 +59708,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_2"
+              "view": "act1_v6_6_2",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -59040,7 +59775,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_0"
+              "view": "act1_v6_6_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -59102,7 +59842,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_2"
+              "view": "act1_v6_7_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -59164,7 +59909,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_1"
+              "view": "act1_v6_6_1",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -59226,7 +59976,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_chapel"
+              "view": "act1_v6_chapel",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -59288,7 +60043,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_3"
+              "view": "act1_v6_5_3",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -59351,7 +60111,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -59427,7 +60187,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_8"
+              "view": "act1_v6_5_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -59537,7 +60302,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_8"
+              "view": "act1_v6_7_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -59612,7 +60382,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -59652,7 +60422,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_9"
+              "view": "act1_v6_5_9",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -59715,7 +60490,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -59932,7 +60707,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13"
+              "view": "act1_v6_7_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -59995,7 +60775,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -60072,7 +60852,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_5_14"
+              "view": "act1_v6_5_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -60183,7 +60968,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_14"
+              "view": "act1_v6_7_14",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -60294,7 +61084,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_6_13"
+              "view": "act1_v6_6_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -60357,7 +61152,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_2"
+              "view": "act1_v6_6_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -60419,7 +61219,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_2"
+              "view": "act1_v6_8_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -60482,7 +61287,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -60584,7 +61389,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4"
+              "view": "act1_v6_8_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -60647,7 +61457,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -60723,7 +61533,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_6"
+              "view": "act1_v6_7_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -60833,7 +61648,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_5"
+              "view": "act1_v6_8_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -60943,7 +61763,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_4"
+              "view": "act1_v6_7_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61006,7 +61831,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7"
+              "view": "act1_v6_7_7",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61198,7 +62028,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_8"
+              "view": "act1_v6_7_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61260,7 +62095,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_6"
+              "view": "act1_v6_7_6",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61384,7 +62224,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7"
+              "view": "act1_v6_7_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61482,7 +62327,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_8"
+              "view": "act1_v6_8_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         }
@@ -61550,7 +62400,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_14"
+              "view": "act1_v6_7_14",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -61612,7 +62467,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_13"
+              "view": "act1_v6_6_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -61674,7 +62534,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13"
+              "view": "act1_v6_8_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -61737,7 +62602,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -61839,7 +62704,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_14"
+              "view": "act1_v6_8_14",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -61901,7 +62771,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13"
+              "view": "act1_v6_7_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62056,7 +62931,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1"
+              "view": "act1_v6_8_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62118,7 +62998,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_junction"
+              "view": "act1_vent_junction",
+              "at": {
+                "x": 768,
+                "y": 546,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -62180,7 +63065,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0"
+              "view": "act1_v6_9_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -62243,7 +63133,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -62283,7 +63173,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_2"
+              "view": "act1_v6_8_2",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62345,7 +63240,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1"
+              "view": "act1_v6_9_1",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -62407,7 +63307,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0"
+              "view": "act1_v6_8_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62469,7 +63374,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_2"
+              "view": "act1_v6_7_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -62531,7 +63441,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1"
+              "view": "act1_v6_8_1",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62593,7 +63508,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_5"
+              "view": "act1_v6_8_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -62655,7 +63575,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_4"
+              "view": "act1_v6_7_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -62717,7 +63642,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_4"
+              "view": "act1_v6_9_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -62780,7 +63710,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -62997,7 +63927,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_5"
+              "view": "act1_v6_9_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -63059,7 +63994,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4"
+              "view": "act1_v6_8_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -63272,7 +64212,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_8"
+              "view": "act1_v6_8_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -63382,7 +64327,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_7"
+              "view": "act1_v6_9_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -63457,7 +64407,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -63497,7 +64447,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_9"
+              "view": "act1_v6_8_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -63657,7 +64612,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_7_8"
+              "view": "act1_v6_7_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         }
@@ -63725,7 +64685,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_10"
+              "view": "act1_v6_8_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -63787,7 +64752,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_8"
+              "view": "act1_v6_8_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -63964,7 +64934,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_9"
+              "view": "act1_v6_8_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -64123,7 +65098,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_12"
+              "view": "act1_v6_8_12",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -64234,7 +65214,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_11"
+              "view": "act1_v6_9_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -64309,7 +65294,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -64349,7 +65334,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13"
+              "view": "act1_v6_8_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -64566,7 +65556,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_14"
+              "view": "act1_v6_8_14",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -64628,7 +65623,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_13"
+              "view": "act1_v6_7_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -64690,7 +65690,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_13"
+              "view": "act1_v6_9_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -64752,7 +65757,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_12"
+              "view": "act1_v6_8_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -64814,7 +65824,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_14"
+              "view": "act1_v6_7_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -64938,7 +65953,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13"
+              "view": "act1_v6_8_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -65000,7 +66020,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1"
+              "view": "act1_v6_9_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -65062,7 +66087,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_0"
+              "view": "act1_v6_8_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -65124,7 +66154,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0"
+              "view": "act1_v6_10_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -65187,7 +66222,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -65227,7 +66262,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_1"
+              "view": "act1_v6_8_1",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -65289,7 +66329,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_1"
+              "view": "act1_v6_10_1",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -65351,7 +66396,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0"
+              "view": "act1_v6_9_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -65449,7 +66499,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_4"
+              "view": "act1_v6_9_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -65559,7 +66614,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_3"
+              "view": "act1_v6_10_3",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -65634,7 +66694,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -65674,7 +66734,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_4"
+              "view": "act1_v6_8_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -65736,7 +66801,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4"
+              "view": "act1_v6_10_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -65860,7 +66930,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_5"
+              "view": "act1_v6_8_5",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -65923,7 +66998,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -65963,7 +67038,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_6"
+              "view": "act1_v6_10_6",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -66026,7 +67106,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -66066,7 +67146,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_eggs"
+              "view": "act1_v6_court_eggs",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -66190,7 +67275,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7"
+              "view": "act1_v6_10_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -66253,7 +67343,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -66355,7 +67445,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11"
+              "view": "act1_v6_10_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -66417,7 +67512,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_queen"
+              "view": "act1_v6_court_queen",
+              "at": {
+                "x": 480,
+                "y": 600,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -66541,7 +67641,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_13"
+              "view": "act1_v6_8_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -66603,7 +67708,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13"
+              "view": "act1_v6_10_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -66666,7 +67776,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -66743,7 +67853,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_8_14"
+              "view": "act1_v6_8_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -66854,7 +67969,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_13"
+              "view": "act1_v6_9_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -66917,7 +68037,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_1"
+              "view": "act1_v6_10_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -66979,7 +68104,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_0"
+              "view": "act1_v6_9_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -67041,7 +68171,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0"
+              "view": "act1_v6_11_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -67104,7 +68239,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -67144,7 +68279,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_1"
+              "view": "act1_v6_9_1",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -67206,7 +68346,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0"
+              "view": "act1_v6_10_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -67268,7 +68413,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4"
+              "view": "act1_v6_10_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -67393,7 +68543,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -67495,7 +68645,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_4"
+              "view": "act1_v6_9_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -67557,7 +68712,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_4"
+              "view": "act1_v6_11_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -67619,7 +68779,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_3"
+              "view": "act1_v6_10_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -67717,7 +68882,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_6"
+              "view": "act1_v6_10_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -67827,7 +68997,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_5"
+              "view": "act1_v6_11_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -67937,7 +69112,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_4"
+              "view": "act1_v6_10_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68000,7 +69180,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7"
+              "view": "act1_v6_10_7",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68062,7 +69247,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_6"
+              "view": "act1_v6_9_6",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -68186,7 +69376,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_8"
+              "view": "act1_v6_10_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68248,7 +69443,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_7"
+              "view": "act1_v6_9_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -68310,7 +69510,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_6"
+              "view": "act1_v6_10_6",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68392,7 +69597,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8"
+              "view": "act1_v6_11_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -68484,7 +69694,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_7"
+              "view": "act1_v6_10_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68546,7 +69761,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_12"
+              "view": "act1_v6_10_12",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68608,7 +69828,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_11"
+              "view": "act1_v6_9_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -68670,7 +69895,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_11"
+              "view": "act1_v6_11_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -68733,7 +69963,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -68773,7 +70003,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13"
+              "view": "act1_v6_10_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68897,7 +70132,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11"
+              "view": "act1_v6_10_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -68959,7 +70199,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_13"
+              "view": "act1_v6_9_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -69021,7 +70266,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13"
+              "view": "act1_v6_11_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -69083,7 +70333,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_12"
+              "view": "act1_v6_10_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -69145,7 +70400,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_vent_collapsed"
+              "view": "act1_vent_collapsed",
+              "at": {
+                "x": 480,
+                "y": 710,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -69207,7 +70467,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_0"
+              "view": "act1_v6_10_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -69269,7 +70534,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0"
+              "view": "act1_v6_12_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -69332,7 +70602,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -69372,7 +70642,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_4"
+              "view": "act1_v6_10_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -69435,7 +70710,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -69475,7 +70750,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_6"
+              "view": "act1_v6_11_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -69599,7 +70879,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_5"
+              "view": "act1_v6_12_5",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -69662,7 +70947,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -69817,7 +71102,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_5"
+              "view": "act1_v6_11_5",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -69961,7 +71251,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_9"
+              "view": "act1_v6_11_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -70043,7 +71338,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_8"
+              "view": "act1_v6_10_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -70135,7 +71435,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8"
+              "view": "act1_v6_12_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -70198,7 +71503,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -70258,7 +71563,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9"
+              "view": "act1_v6_12_9",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -70350,7 +71660,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8"
+              "view": "act1_v6_11_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -70412,7 +71727,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_11"
+              "view": "act1_v6_10_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -70474,7 +71794,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_11"
+              "view": "act1_v6_12_11",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -70537,7 +71862,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -70707,7 +72032,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_13"
+              "view": "act1_v6_11_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -70818,7 +72148,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_10_12"
+              "view": "act1_v6_10_12",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -70929,7 +72264,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_12_12"
+              "view": "act1_v6_12_12",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -71004,7 +72344,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -71044,7 +72384,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_14"
+              "view": "act1_v6_11_14",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71106,7 +72451,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_10_13"
+              "view": "act1_v6_10_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -71168,7 +72518,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_13"
+              "view": "act1_v6_12_13",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -71354,7 +72709,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13"
+              "view": "act1_v6_11_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71416,7 +72776,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_1"
+              "view": "act1_v6_12_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71478,7 +72843,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_0"
+              "view": "act1_v6_11_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -71540,7 +72910,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0"
+              "view": "act1_v6_13_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -71603,7 +72978,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -71643,7 +73018,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1"
+              "view": "act1_v6_13_1",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -71705,7 +73085,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0"
+              "view": "act1_v6_12_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71767,7 +73152,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4"
+              "view": "act1_v6_12_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71830,7 +73220,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -71870,7 +73260,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_5"
+              "view": "act1_v6_12_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -71932,7 +73327,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4"
+              "view": "act1_v6_13_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -71994,7 +73394,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_3"
+              "view": "act1_v6_12_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72124,7 +73529,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_5"
+              "view": "act1_v6_11_5",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -72186,7 +73596,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4"
+              "view": "act1_v6_12_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72248,7 +73663,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9"
+              "view": "act1_v6_12_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72310,7 +73730,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_8"
+              "view": "act1_v6_11_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -72392,7 +73817,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8"
+              "view": "act1_v6_13_8",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -72485,7 +73915,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -72525,7 +73955,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_10"
+              "view": "act1_v6_12_10",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72607,7 +74042,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_9"
+              "view": "act1_v6_11_9",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -72699,7 +74139,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8"
+              "view": "act1_v6_12_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72761,7 +74206,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_9"
+              "view": "act1_v6_12_9",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -72938,7 +74388,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12"
+              "view": "act1_v6_12_12",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73000,7 +74455,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_11"
+              "view": "act1_v6_11_11",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -73063,7 +74523,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -73103,7 +74563,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_13"
+              "view": "act1_v6_12_13",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73227,7 +74692,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12"
+              "view": "act1_v6_13_12",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -73289,7 +74759,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_11"
+              "view": "act1_v6_12_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73413,7 +74888,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_11_13"
+              "view": "act1_v6_11_13",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -73475,7 +74955,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12"
+              "view": "act1_v6_12_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73574,7 +75059,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_11_14"
+              "view": "act1_v6_11_14",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -73685,7 +75175,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_12_13"
+              "view": "act1_v6_12_13",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73748,7 +75243,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1"
+              "view": "act1_v6_13_1",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -73810,7 +75310,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_0"
+              "view": "act1_v6_12_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -73872,7 +75377,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_0"
+              "view": "act1_v6_14_0",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -73935,7 +75445,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -73975,7 +75485,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_2"
+              "view": "act1_v6_13_2",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74037,7 +75552,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_1"
+              "view": "act1_v6_12_1",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -74099,7 +75619,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0"
+              "view": "act1_v6_13_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74161,7 +75686,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_2"
+              "view": "act1_v6_14_2",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -74223,7 +75753,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_1"
+              "view": "act1_v6_13_1",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74285,7 +75820,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4"
+              "view": "act1_v6_13_4",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74347,7 +75887,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_3"
+              "view": "act1_v6_14_3",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -74410,7 +75955,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -74450,7 +75995,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_camp"
+              "view": "act1_v6_camp",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74512,7 +76062,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_4"
+              "view": "act1_v6_12_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -74636,7 +76191,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_3"
+              "view": "act1_v6_13_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74698,7 +76258,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8"
+              "view": "act1_v6_13_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74760,7 +76325,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7"
+              "view": "act1_v6_14_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -74823,7 +76393,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -74863,7 +76433,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_hollow"
+              "view": "act1_v6_hollow",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -74945,7 +76520,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_8"
+              "view": "act1_v6_12_8",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -75037,7 +76617,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_7"
+              "view": "act1_v6_13_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -75099,7 +76684,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache"
+              "view": "act1_v6_cache",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -75161,7 +76751,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_12_12"
+              "view": "act1_v6_12_12",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -75223,7 +76818,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_12"
+              "view": "act1_v6_14_12",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -75286,7 +76886,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -75326,7 +76926,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_lever"
+              "view": "act1_v6_lever",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -75388,7 +76993,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_0"
+              "view": "act1_v6_13_0",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -75451,7 +77061,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -75491,7 +77101,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_2"
+              "view": "act1_v6_13_2",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -75554,7 +77169,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -75656,7 +77271,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_3"
+              "view": "act1_v6_13_3",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -75719,7 +77339,7 @@
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,
-        "scale": 1.0
+        "scale": 1
       },
       "layer": "floor"
     },
@@ -75795,7 +77415,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_14_5"
+              "view": "act1_v6_14_5",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -75905,7 +77530,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_13_4"
+              "view": "act1_v6_13_4",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -76015,7 +77645,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_14_3"
+              "view": "act1_v6_14_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76078,7 +77713,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_6"
+              "view": "act1_v6_14_6",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76202,7 +77842,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7"
+              "view": "act1_v6_14_7",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76264,7 +77909,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_5"
+              "view": "act1_v6_14_5",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76326,7 +77976,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_8"
+              "view": "act1_v6_14_8",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76388,7 +78043,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_7"
+              "view": "act1_v6_13_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -76450,7 +78110,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_6"
+              "view": "act1_v6_14_6",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76512,7 +78177,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_9"
+              "view": "act1_v6_14_9",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76574,7 +78244,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_7"
+              "view": "act1_v6_14_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -76819,7 +78494,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_8"
+              "view": "act1_v6_14_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -77003,7 +78683,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12"
+              "view": "act1_v6_13_12",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -77185,7 +78870,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_bridge"
+              "view": "act1_v6_warren_bridge",
+              "at": {
+                "x": 80,
+                "y": 486,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -77247,7 +78937,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_dwellings"
+              "view": "act1_v6_warren_dwellings",
+              "at": {
+                "x": 100,
+                "y": 700,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -77309,7 +79004,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_ledge"
+              "view": "act1_v6_warren_ledge",
+              "at": {
+                "x": 425,
+                "y": 621,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -77371,7 +79071,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat"
+              "view": "act1_v6_warren_throat",
+              "at": {
+                "x": 120,
+                "y": 640,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -77495,7 +79200,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_ledge"
+              "view": "act1_v6_warren_ledge",
+              "at": {
+                "x": 860,
+                "y": 700,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -77557,7 +79267,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_throat"
+              "view": "act1_v6_warren_throat",
+              "at": {
+                "x": 500,
+                "y": 690,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -77619,7 +79334,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_2_4"
+              "view": "act1_v6_2_4",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         },
@@ -77681,7 +79401,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_bridge"
+              "view": "act1_v6_warren_bridge",
+              "at": {
+                "x": 880,
+                "y": 486,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -77743,7 +79468,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_warren_dwellings"
+              "view": "act1_v6_warren_dwellings",
+              "at": {
+                "x": 870,
+                "y": 700,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -77805,7 +79535,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_3_11"
+              "view": "act1_v6_3_11",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -77867,7 +79602,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_5_12"
+              "view": "act1_v6_5_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -77991,7 +79731,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_6_3"
+              "view": "act1_v6_6_3",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78053,7 +79798,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_chapel"
+              "view": "act1_v6_chapel",
+              "at": {
+                "x": 485,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78115,7 +79865,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood"
+              "view": "act1_v6_court_brood",
+              "at": {
+                "x": 480,
+                "y": 700,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -78177,7 +79932,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_9_7"
+              "view": "act1_v6_9_7",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78255,7 +80015,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_queen"
+              "view": "act1_v6_court_queen",
+              "at": {
+                "x": 480,
+                "y": 652,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -78301,7 +80066,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_eggs"
+              "view": "act1_v6_court_eggs",
+              "at": {
+                "x": 540,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78415,7 +80185,12 @@
             },
             {
               "type": "set_view",
-              "view": "act1_v6_9_11"
+              "view": "act1_v6_9_11",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             },
             {
               "type": "set_flag",
@@ -78513,7 +80288,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood"
+              "view": "act1_v6_court_brood",
+              "at": {
+                "x": 510,
+                "y": 560,
+                "facing": "left"
+              }
             }
           ]
         },
@@ -78637,7 +80417,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_4"
+              "view": "act1_v6_13_4",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78699,7 +80484,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_camp"
+              "view": "act1_v6_camp",
+              "at": {
+                "x": 480,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78823,7 +80613,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_8"
+              "view": "act1_v6_13_8",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78885,7 +80680,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_hollow"
+              "view": "act1_v6_hollow",
+              "at": {
+                "x": 475,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -78947,7 +80747,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache_vault"
+              "view": "act1_v6_cache_vault",
+              "at": {
+                "x": 480,
+                "y": 688,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -79009,7 +80814,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_13_12"
+              "view": "act1_v6_13_12",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -79071,7 +80881,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_cache"
+              "view": "act1_v6_cache",
+              "at": {
+                "x": 480,
+                "y": 530,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -79133,7 +80948,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_14_0"
+              "view": "act1_v6_14_0",
+              "at": {
+                "x": 490,
+                "y": 515,
+                "facing": "down"
+              }
             }
           ]
         },
@@ -80232,13 +82052,23 @@
               "then": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve_open"
+                  "view": "act1_v6_valve_open",
+                  "at": {
+                    "x": 336,
+                    "y": 688,
+                    "facing": "right"
+                  }
                 }
               ],
               "else": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve"
+                  "view": "act1_v6_valve",
+                  "at": {
+                    "x": 336,
+                    "y": 688,
+                    "facing": "right"
+                  }
                 }
               ]
             }
@@ -80292,7 +82122,12 @@
               "then": [
                 {
                   "type": "set_view",
-                  "view": "act1_v6_valve_open"
+                  "view": "act1_v6_valve_open",
+                  "at": {
+                    "x": 470,
+                    "y": 600,
+                    "facing": "down"
+                  }
                 }
               ],
               "else": [
@@ -80332,7 +82167,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7"
+              "view": "act1_v6_7_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         }
@@ -80364,7 +82204,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_7_7"
+              "view": "act1_v6_7_7",
+              "at": {
+                "x": 697,
+                "y": 528,
+                "facing": "left"
+              }
             }
           ]
         }
@@ -80481,7 +82326,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7"
+              "view": "act1_v6_8_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             },
             {
               "type": "message",
@@ -80517,7 +82367,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_8_7"
+              "view": "act1_v6_8_7",
+              "at": {
+                "x": 263,
+                "y": 528,
+                "facing": "right"
+              }
             }
           ]
         }
@@ -81063,7 +82918,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_drop_hole"
+              "view": "act1_v6_drop_hole",
+              "at": {
+                "x": 150,
+                "y": 700,
+                "facing": "down"
+              }
             },
             {
               "type": "message",
@@ -81109,7 +82969,12 @@
           "then": [
             {
               "type": "set_view",
-              "view": "act1_v6_court_brood"
+              "view": "act1_v6_court_brood",
+              "at": {
+                "x": 520,
+                "y": 630,
+                "facing": "left"
+              }
             }
           ]
         }
@@ -85796,7 +87661,7 @@
     },
     {
       "id": "v6_vent_2_12",
-      "offset": 0.0,
+      "offset": 0,
       "phases": [
         {
           "id": "in",
@@ -85843,7 +87708,7 @@
         },
         {
           "id": "out",
-          "seconds": 3.0,
+          "seconds": 3,
           "sound": "vent_scald"
         }
       ],
@@ -85900,7 +87765,7 @@
         },
         {
           "id": "out",
-          "seconds": 3.0,
+          "seconds": 3,
           "sound": "vent_scald"
         }
       ],
