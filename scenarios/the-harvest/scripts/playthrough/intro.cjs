@@ -25,17 +25,18 @@ const played = (p, f) => p.evaluate((f) => window.__plays.some((x) => x.src === 
 const waitFor = async (p, fn, ms, arg) => p.waitForFunction(fn, arg, { timeout: ms }).then(() => true).catch(() => false);
 const shot = async (p, name) => { if (OUT) await p.screenshot({ path: `${OUT}/${name}.png` }); };
 
+// The prologue plays full screen: its 960x540 game view is scaled to fit the window (k = screen px per view px).
 async function viewport(p) {
-  return p.evaluate(() => { const d = [...document.querySelectorAll('div')].find((d) => { const r = d.getBoundingClientRect(); return Math.round(r.width) === 960 && Math.round(r.height) === 540; }); const r = d.getBoundingClientRect(); return { x: r.x, y: r.y }; });
+  return p.evaluate(() => { const r = document.querySelector('[data-prologue-view]').getBoundingClientRect(); return { x: r.x, y: r.y, k: r.width / 960 }; });
 }
 async function setVerb(g, v) {
   while (g.verb !== v) {
-    await g.p.mouse.click(g.vp.x + 950, g.vp.y + 8, { button: 'right' });
+    await g.p.mouse.click(g.vp.x + 950 * g.vp.k, g.vp.y + 8 * g.vp.k, { button: 'right' });
     g.verb = VERBS[(VERBS.indexOf(g.verb) + 1) % 4];
     await g.p.waitForTimeout(150);
   }
 }
-const click = (g, x, y) => g.p.mouse.click(g.vp.x + x, g.vp.y + y * 0.75);
+const click = (g, x, y) => g.p.mouse.click(g.vp.x + x * g.vp.k, g.vp.y + y * 0.75 * g.vp.k);
 const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]')?.innerText ?? '');
 
 (async () => {
@@ -50,7 +51,10 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     await shot(p, 'v2_01_cold_open');
     check(await waitFor(p, () => !document.querySelector('[data-intro-cinematic]'), 30000), 'the cold open hands over to the game');
     check((await view(p)) === 'intro_spacewalk', 'the game starts on the spacewalk');
-    check(!!(await p.$('[data-skip-prologue]')), 'a Skip intro button is in the title bar');
+    check(!!(await p.$('[data-skip-prologue]')), 'a skip intro button is in the corner');
+    check(!(await p.$('button:has-text("Menu")')) && !(await p.$('button:has-text("Items")')), 'full screen: no title bar, no Items tray');
+    const vp0 = await viewport(p);
+    check(vp0.k > 1.2, `the spacewalk fills the screen (scale ${vp0.k.toFixed(2)})`);
     check(await waitFor(p, () => !!document.querySelector('[data-radio-line]'), 4000), 'Relay Control calls on the radio (RADIO line)');
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
@@ -94,7 +98,8 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => { const e = document.querySelector('[data-eye-open]'); return e && +getComputedStyle(e).opacity > 0.9; }, 3000), 'the wake-up starts in black');
     check(await waitFor(p, () => window.__plays.some((x) => x.src === 'ambient_stasis.mp3'), 8000), 'the wake-up narration plays');
     check(/Your eyes open to green light/.test(await text(p)), 'the wake-up message is the narrated text');
-    check(!(await p.$('[data-skip-prologue]')), 'no Skip intro button once the prologue is over');
+    check(!(await p.$('[data-skip-prologue]')), 'no skip intro button once the prologue is over');
+    check(!!(await p.$('button:has-text("Menu")')), 'the game interface appears with the Stasis Hold');
     check(!(await tip(p)), 'no tip while he lies there');
     check(await waitFor(p, () => /specimen tag/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 40000), 'after he stands: the next tip (take the specimen tag)');
     check(/Tip 5 of 7/i.test(await tip(p)), `numbering carries on ("${(await tip(p)).split('\n')[0]}")`);

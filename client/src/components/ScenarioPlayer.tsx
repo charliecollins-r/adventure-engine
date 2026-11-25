@@ -75,6 +75,34 @@ const styles: Record<string, CSSProperties> = {
     flexDirection: 'column' as const,
     pointerEvents: 'none' as const,
   },
+  prologueOverlay: {
+    position: 'fixed', inset: 0, background: '#000', zIndex: 2000, display: 'flex',
+    alignItems: 'center', justifyContent: 'center', userSelect: 'none',
+  },
+  prologueStage: { position: 'relative', width: 'min(100vw, calc(100vh * 16 / 9))', aspectRatio: '16 / 9', overflow: 'hidden' },
+  subtitleBand: {
+    position: 'absolute', left: 0, right: 0, bottom: 0, padding: '5% 8% 3.5%', zIndex: 50,
+    background: 'linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.45) 60%, rgba(0,0,0,0))',
+    textAlign: 'center', pointerEvents: 'none', animation: 'kq-subtitle-in 0.5s ease both',
+  },
+  subtitle: {
+    fontFamily: 'Georgia, serif', fontSize: 'clamp(13px, 1.9vw, 22px)', lineHeight: 1.6, color: '#e2cf96',
+    textShadow: '0 2px 4px #000', maxWidth: '900px', margin: '0 auto',
+  },
+  subtitleRadio: {
+    fontFamily: '"Courier New", monospace', fontStyle: 'italic', fontSize: 'clamp(12px, 1.7vw, 19px)',
+    lineHeight: 1.6, color: '#9fe3d6', textShadow: '0 0 6px rgba(80,220,200,0.4), 0 2px 3px #000',
+    maxWidth: '860px', margin: '0 auto',
+  },
+  subtitleRadioTag: {
+    display: 'inline-block', fontStyle: 'normal', fontSize: '0.65em', letterSpacing: '2px', padding: '1px 6px',
+    border: '1px solid rgba(159,227,214,0.6)', borderRadius: '3px', marginBottom: '4px', opacity: 0.8,
+  },
+  prologueSkip: {
+    position: 'fixed', right: '16px', bottom: '14px', background: 'rgba(0,0,0,0.4)', border: '1px solid #3a3020',
+    color: '#8a7a5a', fontFamily: 'monospace', fontSize: '12px', letterSpacing: '1px', padding: '6px 12px',
+    borderRadius: '4px', cursor: 'pointer', zIndex: 2001,
+  },
   messagePanel: {
     width: '960px',
     padding: '10px 16px',
@@ -1161,6 +1189,23 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   }, [engine, startWake, playPendingSounds, bump]);
   const endPrologueFade = useCallback(() => setPrologueFade(false), []);
 
+  // The prologue plays full screen, like the cinematic around it: no title bar, tray or message box.
+  const [stageScale, setStageScale] = useState(1);
+  useEffect(() => {
+    const fit = () => setStageScale(Math.min(window.innerWidth, (window.innerHeight * 16) / 9) / 960);
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+  // Its lines show as subtitles: the latest one, fading after it has been read.
+  const lastLine = engine.getMessages().slice(-1)[0] ?? null;
+  const [subtitleGone, setSubtitleGone] = useState<string | null>(null);
+  useEffect(() => {
+    if (!lastLine) return;
+    const t = window.setTimeout(() => setSubtitleGone(lastLine), Math.max(5000, lastLine.length * 75));
+    return () => clearTimeout(t);
+  }, [lastLine]);
+
   /** The tips this player will see, in order: the prologue's own, or the ones repeating it for a player who skipped it. */
   const sawPrologue = prologueActive || prologuePlayed;
   const tipRoute = tutorialSteps.map((_, i) => i).filter((i) => {
@@ -1232,6 +1277,48 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     );
   }
 
+  if (prologueActive) {
+    const sub = lastLine && lastLine !== subtitleGone ? lastLine : null;
+    const radio = sub ? engine.getLineStyle(sub)?.style === 'radio' : false;
+    return (
+      <div data-prologue style={styles.prologueOverlay}>
+        <style>{'@keyframes kq-subtitle-in { from { opacity: 0 } to { opacity: 1 } }'}</style>
+        <div style={styles.prologueStage}>
+          <div data-prologue-view style={{ position: 'absolute', left: 0, top: 0, width: 960, height: 540, transform: `scale(${stageScale})`, transformOrigin: '0 0' }}>
+            <GameView
+              engine={engine}
+              activeVerb={activeVerb}
+              selectedItem={selectedItem}
+              debugMode={debugMode}
+              walkthroughHighlights={walkthroughHighlights}
+              onObjectClick={handleObjectClick}
+              onEmptyClick={handleEmptyClick}
+              onCycleVerb={handleCycleVerb}
+              onNavigateBack={handleNavigateBack}
+              onClickPoint={(p) => { clickPointRef.current = p; }}
+              characterPose={pose}
+            />
+            {tutIndex !== null && engine.checkConditions(tutorialSteps[tutIndex]?.when) && (
+              <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} number={tipRoute.indexOf(tutIndex) + 1} total={tipRoute.length} />
+            )}
+            {prologueFade && <EyeOpenTransition active durationMs={900} holdMs={0} onComplete={endPrologueFade} />}
+          </div>
+          {sub && (
+            <div key={sub} data-subtitle style={styles.subtitleBand}>
+              <div data-radio-line={radio ? '' : undefined} style={radio ? styles.subtitleRadio : styles.subtitle}>
+                {radio && <span style={styles.subtitleRadioTag}>RADIO</span>}
+                {sub.split('\n').map((t, i) => <div key={i}>{t}</div>)}
+              </div>
+            </div>
+          )}
+        </div>
+        <button data-skip-prologue data-skip-intro style={styles.prologueSkip} onClick={skipPrologue}>
+          {prologue?.skip_label ?? 'skip intro ›'}
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       ...styles.container,
@@ -1270,13 +1357,6 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               {a.label}
             </button>
           ))}
-          {prologueActive && !showIntro && (
-            <button data-skip-prologue title="Skip the opening and start in the ship"
-              style={{ ...styles.chromeButton, color: '#c0a030', borderColor: '#5a4a30', whiteSpace: 'nowrap' }}
-              onClick={skipPrologue}>
-              {prologue?.skip_label ?? 'Skip intro ›'}
-            </button>
-          )}
           {scenario.setting.dev_skip && !engine.isGameOver() && (
             <button
               data-dev-skip
