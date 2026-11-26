@@ -286,6 +286,8 @@ export type IntroEffect = { cue?: IntroCue } & (
    *  "left", "top"): something vast passing between you and them. */
   | { type: 'stars_out'; area: [number, number, number, number]; count: number; seconds: number; from?: 'right' | 'left' | 'top';
       size?: number; color?: [number, number, number]; delay?: number }
+  /** Another painting cross-faded over the background (the same view with the stars gone), under the camera. */
+  | { type: 'backdrop'; image: string; from?: number; to?: number; seconds: number; delay?: number }
   | { type: 'shade'; color?: [number, number, number]; from: number; to: number; seconds: number;
       direction?: 'down' | 'up' | 'none'; area?: [number, number, number, number]; delay?: number }
   | { type: 'sweep'; area: [number, number, number, number]; color: [number, number, number]; period: number;
@@ -366,6 +368,9 @@ export interface View {
   background_key: string;
   background_file?: string;
   background_fit?: 'cover' | 'contain';
+  /** Seconds this view takes to fade up from black when you arrive (default 1.8); 0 cuts straight in. A short fade
+   *  lets an animation that starts on arrival (a door swinging open) be seen. */
+  enter_fade?: number;
   /** The idle line under the picture in this view (shown when there is no message), instead of setting.ambient_text; "" for none. */
   ambient_text?: string;
   objects: string[];
@@ -566,6 +571,8 @@ export interface ObjectSprite {
   sync_cycle?: string;
   /** A still frame chosen by state: the first entry whose conditions hold (overrides animation). */
   frame_when?: { when: Condition[]; frame: number }[];
+  /** true: clicks go through the picture to whatever is behind it (a figure in the foreground of a close-up). */
+  pass_through?: boolean;
 }
 
 export interface ScenarioObject {

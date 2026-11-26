@@ -103,6 +103,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
     for (const s of scenes) {
       if (s.background) files.add(s.background);
       for (const sp of s.sprites ?? []) files.add(sp.file);
+      for (const e of s.effects ?? []) if (e.type === 'backdrop') files.add(e.image);
     }
     for (const f of files) {
       const img = new Image();
@@ -395,6 +396,20 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(bg, (W - dw) / 2, (H - dh) / 2, dw, dh);
   }
+  // backdrop: a second painting cross-faded over the background
+  for (const e of scene.effects ?? []) {
+    if (e.type !== 'backdrop') continue;
+    const et = since(e.cue);
+    const img = images.get(e.image);
+    if (et == null || !img?.complete || !img.naturalWidth) continue;
+    const k = Math.min(1, Math.max(0, (et - (e.delay ?? 0)) / Math.max(0.001, e.seconds)));
+    const a = (e.from ?? 0) + ((e.to ?? 1) - (e.from ?? 0)) * k;
+    if (a <= 0) continue;
+    const s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+    ctx.globalAlpha = a;
+    ctx.drawImage(img, (W - img.naturalWidth * s) / 2, (H - img.naturalHeight * s) / 2, img.naturalWidth * s, img.naturalHeight * s);
+    ctx.globalAlpha = 1;
+  }
 
   (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if ((e.type === 'shade' || e.type === 'stars_out') && et != null) drawEffect(ctx, e, et, k); });  // behind the sprites
 
@@ -462,7 +477,7 @@ function drawScene(ctx: CanvasRenderingContext2D, scene: IntroScene, t: number, 
   }
 
   for (const light of scene.ambient_lighting?.lights ?? []) drawLight(ctx, light, t);
-  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if (et != null && e.type !== 'shade' && e.type !== 'stars_out' && e.type !== 'shake' && e.type !== 'rope') drawEffect(ctx, e, et, k); });
+  (scene.effects ?? []).forEach((e, k) => { const et = since(e.cue); if (et != null && e.type !== 'shade' && e.type !== 'stars_out' && e.type !== 'backdrop' && e.type !== 'shake' && e.type !== 'rope') drawEffect(ctx, e, et, k); });
 }
 
 function drawLight(ctx: CanvasRenderingContext2D, light: LightSource, t: number) {

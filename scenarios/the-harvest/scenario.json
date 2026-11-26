@@ -373,13 +373,13 @@
         },
         "sprites": [
           {
-            "file": "intro/sprites/eva.png",
-            "frame_width": 386,
-            "frame_height": 419,
-            "columns": 5,
+            "file": "intro/sprites/eva_drift.png",
+            "frame_width": 453,
+            "frame_height": 417,
+            "columns": 4,
             "frame_rate": 0,
             "frames": [
-              0
+              1
             ],
             "scale": 0.33,
             "at": [330, 450],
@@ -639,13 +639,30 @@
           },
           "sprites": [
             {
-              "file": "intro/sprites/eva.png",
-              "frame_width": 386,
-              "frame_height": 419,
-              "columns": 5,
+              "file": "intro/sprites/harvester_edge.png",
+              "frame_width": 2000,
+              "frame_height": 512,
+              "columns": 1,
               "frame_rate": 0,
               "frames": [
                 0
+              ],
+              "scale": 0.6,
+              "at": [1700, 250],
+              "move": {
+                "to": [430, 250],
+                "seconds": 9,
+                "delay": 0.4
+              }
+            },
+            {
+              "file": "intro/sprites/eva_drift.png",
+              "frame_width": 453,
+              "frame_height": 417,
+              "columns": 4,
+              "frame_rate": 0,
+              "frames": [
+                1
               ],
               "scale": 0.33,
               "at": [482, 505],
@@ -657,13 +674,13 @@
               "fade": 0.01
             },
             {
-              "file": "intro/sprites/eva.png",
-              "frame_width": 386,
-              "frame_height": 419,
-              "columns": 5,
+              "file": "intro/sprites/eva_drift.png",
+              "frame_width": 453,
+              "frame_height": 417,
+              "columns": 4,
               "frame_rate": 0,
               "frames": [
-                2
+                3
               ],
               "scale": 0.33,
               "at": [482, 505],
@@ -708,6 +725,14 @@
               "from": "right"
             },
             {
+              "type": "backdrop",
+              "image": "intro/backgrounds/intro_orbit_starless.webp",
+              "from": 0,
+              "to": 1,
+              "seconds": 7,
+              "delay": 0.8
+            },
+            {
               "type": "shade",
               "color": [
                 0,
@@ -715,7 +740,7 @@
                 0
               ],
               "from": 0,
-              "to": 0.6,
+              "to": 0.3,
               "seconds": 8,
               "delay": 1.2,
               "direction": "down",
@@ -1252,21 +1277,37 @@
         "anchor": "top"
       },
       "eva": {
-        "file": "intro/sprites/eva.png",
-        "columns": 5,
+        "file": "intro/sprites/eva_drift.png",
+        "columns": 4,
         "rows": 1,
         "frame_rate": 0,
         "directions": [
           "right"
         ],
-        "frame_width": 386,
-        "frame_height": 419,
+        "frame_width": 453,
+        "frame_height": 417,
         "scale": 0.33,
         "bob": {
           "amount": 5,
           "period": 4.5
         },
-        "walk": "eva"
+        "walk": "eva_drift"
+      },
+      "eva_drift": {
+        "file": "intro/sprites/eva_drift.png",
+        "columns": 4,
+        "rows": 1,
+        "frame_rate": 3,
+        "directions": [
+          "right"
+        ],
+        "frame_width": 453,
+        "frame_height": 417,
+        "scale": 0.33,
+        "bob": {
+          "amount": 4,
+          "period": 3
+        }
       }
     },
     "frame_width": 300,
@@ -18861,6 +18902,7 @@
         "y": 450,
         "facing": "right",
         "sprite_set": "eva",
+        "frame": 1,
         "shadow": {
           "opacity": 0
         }
@@ -18967,25 +19009,31 @@
       "id": "intro_panel_closeup",
       "name": "LUMEN-7 Service Panel",
       "background_key": "intro_panel_closeup",
-      "background_file": "intro/backgrounds/intro_panel.webp",
+      "background_file": "intro/backgrounds/intro_panel_empty.webp",
       "objects": [
+        "pn_door_swing",
+        "pn_pilot_open",
+        "pn_pilot_turn",
         "pn_boards",
         "pn_door",
         "pn_handrail",
         "pn_earth"
       ],
-      "back_label": "LUMEN-7",
-      "character": {
-        "x": 470,
-        "y": 735,
-        "facing": "right",
-        "sprite_set": "eva",
-        "frame": 0,
-        "scale": 2.3,
-        "shadow": {
-          "opacity": 0
+      "on_enter": [
+        {
+          "type": "delay_then",
+          "seconds": 1.2,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "sw_door_swung",
+              "value": "true"
+            }
+          ]
         }
-      },
+      ],
+      "enter_fade": 0.35,
+      "back_label": "LUMEN-7",
       "ambient_text": "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
       "ambient_audio": "intro/audio/v2/breath_loop.mp3",
       "music": "intro/audio/bed_stargazer.mp3",
@@ -84264,6 +84312,123 @@
       "walk_to": false
     },
     {
+      "id": "pn_door_swing",
+      "name": "Panel Door",
+      "description": "The service panel's door.",
+      "position": {
+        "x": 716,
+        "y": 664
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Panel Door"
+      },
+      "initial_state": "default",
+      "interactions": [],
+      "walk_to": false,
+      "sprite": {
+        "file": "intro/sprites/panel_door.png",
+        "frame_width": 626,
+        "frame_height": 605,
+        "columns": 8,
+        "rows": 1,
+        "frame_rate": 9,
+        "scale": 0.7031,
+        "loop": false,
+        "pass_through": true,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "flag_is",
+                "flag": "sw_door_swung",
+                "value": "true"
+              }
+            ],
+            "frame": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "pn_pilot_open",
+      "name": "You",
+      "description": "",
+      "position": {
+        "x": 359,
+        "y": 600
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "You"
+      },
+      "initial_state": "default",
+      "interactions": [],
+      "walk_to": false,
+      "sprite": {
+        "file": "intro/sprites/eva_panel_open.png",
+        "frame_width": 329,
+        "frame_height": 417,
+        "columns": 3,
+        "rows": 1,
+        "frame_rate": 2.4,
+        "scale": 0.82,
+        "loop": false,
+        "pass_through": true,
+        "frame_when": [
+          {
+            "when": [
+              {
+                "type": "flag_is",
+                "flag": "sw_door_swung",
+                "value": "true"
+              }
+            ],
+            "frame": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "pn_pilot_turn",
+      "name": "You",
+      "description": "",
+      "position": {
+        "x": 359,
+        "y": 600
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "You"
+      },
+      "initial_state": "default",
+      "interactions": [],
+      "walk_to": false,
+      "initially_visible": false,
+      "sprite": {
+        "file": "intro/sprites/eva_panel_turn.png",
+        "frame_width": 329,
+        "frame_height": 417,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.82,
+        "pass_through": true
+      }
+    },
+    {
       "id": "pn_boards",
       "name": "Inside the Panel",
       "description": "The inside of LUMEN-7's service panel.",
@@ -84298,6 +84463,14 @@
                   "type": "set_flag",
                   "flag": "sw_boards_seen",
                   "value": "true"
+                },
+                {
+                  "type": "hide_object",
+                  "object": "pn_pilot_open"
+                },
+                {
+                  "type": "show_object",
+                  "object": "pn_pilot_turn"
                 },
                 {
                   "type": "message",
@@ -84363,6 +84536,14 @@
                   "type": "set_flag",
                   "flag": "sw_boards_seen",
                   "value": "true"
+                },
+                {
+                  "type": "hide_object",
+                  "object": "pn_pilot_open"
+                },
+                {
+                  "type": "show_object",
+                  "object": "pn_pilot_turn"
                 },
                 {
                   "type": "message",

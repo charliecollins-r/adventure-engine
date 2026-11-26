@@ -181,7 +181,7 @@ for (const [what, scenes] of cinematics) scenes.forEach((sc, i) => {
     else if (+m[1] < 1 || +m[1] > nLines) errors.push(`${ctx} ${where}: cue "${c}" but the scene has ${nLines} line(s)`);
   };
   (sc.sounds || []).forEach((snd, j) => { asset(snd.file, `${ctx} sound #${j + 1}`); cueOk(snd.cue, `sound #${j + 1}`); });
-  (sc.effects || []).forEach((e, j) => cueOk(e.cue, `effect #${j + 1}`));
+  (sc.effects || []).forEach((e, j) => { cueOk(e.cue, `effect #${j + 1}`); if (e.type === 'backdrop') asset(e.image, `${ctx} effect #${j + 1} backdrop`); });
   (sc.sprites || []).forEach((sp, j) => { cueOk(sp.cue, `sprite #${j + 1}`); cueOk(sp.until_cue, `sprite #${j + 1} until_cue`); });
   (sc.lines || []).forEach((l, j) => {
     if (!l.text) errors.push(`${ctx} line #${j + 1}: no text`);

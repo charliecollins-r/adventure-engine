@@ -221,6 +221,7 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `background_fit` | `"cover"` or `"contain"` | no | How the image fills the 960x540 viewport. Default `cover`. |
 | `objects` | string[] | yes | IDs of objects visible in this view. |
 | `back_label` | string | no | Label for the "go back" action. Only on non-main views. |
+| `enter_fade` | number | no | Seconds this view takes to fade up from black on arrival (default 1.8; 0 cuts in). Keep it short where an animation starts on arrival, like a door swinging open. |
 | `ambient_text` | string | no | The idle line under the picture in this view, instead of `setting.ambient_text` (`""` for none). |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
 | `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
@@ -2358,6 +2359,7 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 |--------|--------|-----|
 | `particles` | `motion` (`rise`, `fall`, `drift`, `twinkle`), `area`, `count`, `color`, `size`, `alpha`, `speed`, `delay` | Bubbles, motes in a beam, floating debris, twinkling stars |
 | `shade` | `color`, `from`, `to`, `seconds`, `direction` (`down`, `up`, `none`), `area`, `delay` | Darken part of the picture over time (stars going out) |
+| `backdrop` | `image`, `from`, `to`, `seconds`, `delay` | Cross-fade a second painting over the background, under the camera (the same view with the stars gone). |
 | `stars_out` | `area`, `count`, `seconds`, `from` (`right`, `left`, `top`), `size`, `color`, `delay` | Stars that wink out one by one in a front crossing the area, each flaring briefly before it dies: something vast sliding between you and them. Drawn behind the sprites; pair it with a `shade`. |
 | `sweep` | `area`, `color`, `period`, `alpha`, `delay` | A scanning line moving up and down |
 | `sparks` | `at`, `color`, `every`, `delay`, `until` | Bursts of sparks from a point (a tool at work) |

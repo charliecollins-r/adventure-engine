@@ -174,9 +174,10 @@ export function GameView({
 
   const currentViewId = engine.getCurrentView().id;
   useEffect(() => {
-    if (prevViewRef.current !== null && prevViewRef.current !== currentViewId && fadeRooms) {
+    const fadeMs = (engine.getCurrentView().enter_fade ?? 1.8) * 1000;
+    if (prevViewRef.current !== null && prevViewRef.current !== currentViewId && fadeRooms && fadeMs > 0) {
       setTransitioning(true);
-      const timer = setTimeout(() => setTransitioning(false), 1800);
+      const timer = setTimeout(() => setTransitioning(false), fadeMs);
       prevViewRef.current = currentViewId;
       return () => clearTimeout(timer);
     }
@@ -249,6 +250,7 @@ export function GameView({
       scaleY={SCALE_Y}
       cursor={cursor}
       onClick={() => onObjectClick(obj.id)}
+      passThrough={!!obj.sprite!.pass_through}
       layerZ={layered ? (obj.layer === 'floor' ? 2 : obj.layer === 'front' ? OBJ_FRONT_Z : depthZ(obj.position.y)) : undefined}
       fixedFrame={engine.getSpriteFrame(obj)}
     />
@@ -523,7 +525,7 @@ export function GameView({
             width: '100%',
             height: '100%',
             backgroundColor: '#000',
-            animation: 'room-fade-in 1800ms ease-out forwards',
+            animation: `room-fade-in ${(view.enter_fade ?? 1.8) * 1000}ms ease-out forwards`,
             pointerEvents: 'none',
             zIndex: 20,
           }}

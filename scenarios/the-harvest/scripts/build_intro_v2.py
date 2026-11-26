@@ -40,6 +40,8 @@ SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.33
+# the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
+DRIFT = {'file': 'intro/sprites/eva_drift.png', 'frame_width': 453, 'frame_height': 417, 'columns': 4, 'frame_rate': 0}
 
 
 def msg(text, voice=None, style=None, static=None):
@@ -139,7 +141,7 @@ COLD_OPEN = [{
     'loop': A + 'breath_loop.mp3',
     # the push-in settles well before the scene ends, so its last frames are exactly the playable picture
     'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7},
-    'sprites': [{**EVA, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
+    'sprites': [{**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
     'ambient_lighting': {'lights': [SUN]},
     'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
     'lines': [{'text': 'Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.', 'voice': A + 'n1.mp3', 'pause': 3.4}],
@@ -156,13 +158,17 @@ ABDUCTION = [
         'sound': A + 'stars_out.mp3',
         'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'x': 70, 'y': 30}, 'seconds': 12},
         'sprites': [
-            {**EVA, 'frames': [0], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
-            {**EVA, 'frames': [2], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
+            # the harvester's leading edge slides across the sky from the right, swallowing the stars as it comes
+            {'file': 'intro/sprites/harvester_edge.png', 'frame_width': 2000, 'frame_height': 512, 'columns': 1, 'frame_rate': 0, 'frames': [0],
+             'scale': 0.6, 'at': [1700, 250], 'move': {'to': [430, 250], 'seconds': 9, 'delay': 0.4}},
+            {**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
+            {**DRIFT, 'frames': [3], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
         'ambient_lighting': {'lights': [SUN]},
         'effects': [
             # something vast slides across the sky: the stars go out in a front from the right, the light dims behind it
             {'type': 'stars_out', 'area': [0, 0, 960, 330], 'count': 110, 'seconds': 7.5, 'delay': 0.6, 'from': 'right'},
-            {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.6, 'seconds': 8, 'delay': 1.2, 'direction': 'down', 'area': [0, 0, 960, 720]}],
+            {'type': 'backdrop', 'image': 'intro/backgrounds/intro_orbit_starless.webp', 'from': 0, 'to': 1, 'seconds': 7, 'delay': 0.8},
+            {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.3, 'seconds': 8, 'delay': 1.2, 'direction': 'down', 'area': [0, 0, 960, 720]}],
         'lines': [{'text': P5, 'voice': A + 'p5.mp3', 'pause': 4.2}],
         'hold': 9.5, 'tail': 0.3, 'fade_in': 0.9, 'transition': 'cut',
     },
@@ -241,7 +247,7 @@ SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
-    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0}},
+    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'frame': 1, 'shadow': {'opacity': 0}},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
@@ -286,7 +292,9 @@ SPACE_OBJECTS = [
 # ── 3. The panel ──────────────────────────────────────────────────────────────
 BOARDS_GONE = [
     {'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_boards_seen', 'value': 'true'}],
-     'then': [{'type': 'set_flag', 'flag': 'sw_boards_seen', 'value': 'true'}, msg(P4, 'p4', 'comms'),
+     'then': [{'type': 'set_flag', 'flag': 'sw_boards_seen', 'value': 'true'},
+              {'type': 'hide_object', 'object': 'pn_pilot_open'}, {'type': 'show_object', 'object': 'pn_pilot_turn'},   # he turns to us
+              msg(P4, 'p4', 'comms'),
               later(LEN['p4'] + 0.6, msg(C2, 'c2', 'radio', 0.35)),
               later(LEN['p4'] + 0.6 + LEN['c2'] + 1.0,
                     {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
@@ -296,11 +304,12 @@ BOARDS_GONE = [
 
 PANEL_VIEW = {
     'id': PANEL, 'name': 'LUMEN-7 Service Panel',
-    'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel.webp',
-    'objects': ['pn_boards', 'pn_door', 'pn_handrail', 'pn_earth'],
+    'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel_empty.webp',
+    # the door and the pilot are sprites over the painting with its door removed: the door swings open as he pulls
+    'objects': ['pn_door_swing', 'pn_pilot_open', 'pn_pilot_turn', 'pn_boards', 'pn_door', 'pn_handrail', 'pn_earth'],
+    'on_enter': [later(1.2, {'type': 'set_flag', 'flag': 'sw_door_swung', 'value': 'true'})],
+    'enter_fade': 0.35,   # quick, so the door is seen swinging open
     'back_label': 'LUMEN-7',
-    # he is in the shot: big in the foreground, drill toward the open panel (the old intro's framing)
-    'character': {'x': 470, 'y': 735, 'facing': 'right', 'sprite_set': 'eva', 'frame': 0, 'scale': 2.3, 'shadow': {'opacity': 0}},
     'ambient_text': "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
     'ambient_audio': A + 'breath_loop.mp3',
     'music': 'intro/audio/bed_stargazer.mp3',
@@ -309,7 +318,19 @@ PANEL_VIEW = {
     'hints': [{'text': 'LOOK inside the panel.'}],
 }
 
+PILOT_AT_PANEL = {'x': 359, 'y': 600}   # his grab bar sits at the opening's left edge (sprite bottom-centre)
 PANEL_OBJECTS = [
+    obj('pn_door_swing', 'Panel Door', "The service panel's door.", (716, 664), (1, 1), [], walk_to=False,
+        sprite={'file': 'intro/sprites/panel_door.png', 'frame_width': 626, 'frame_height': 605, 'columns': 8, 'rows': 1, 'frame_rate': 9,
+                'scale': 0.7031, 'loop': False, 'pass_through': True,
+                'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 7}]}),
+    obj('pn_pilot_open', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False,
+        sprite={'file': 'intro/sprites/eva_panel_open.png', 'frame_width': 329, 'frame_height': 417, 'columns': 3, 'rows': 1, 'frame_rate': 2.4,
+                'scale': 0.82, 'loop': False, 'pass_through': True,
+                'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 2}]}),
+    obj('pn_pilot_turn', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False, initially_visible=False,
+        sprite={'file': 'intro/sprites/eva_panel_turn.png', 'frame_width': 329, 'frame_height': 417, 'columns': 1, 'rows': 1, 'frame_rate': 0,
+                'scale': 0.82, 'pass_through': True}),
     obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
         {'verb': 'look', 'then': BOARDS_GONE},
         {'verb': 'hand', 'then': BOARDS_GONE},
@@ -357,9 +378,13 @@ def main():
     if voice_of('w01'):
         s['phases'][0]['on_enter'][0]['text'] = LINES['w01']
         st.setdefault('sounds', {})['intro_voice'] = voice_of('w01')
+    # floating still (drift frame 1), and a slow swim as he moves
     s['character']['sprite_sets']['eva'] = {
-        'file': 'intro/sprites/eva.png', 'columns': 5, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
-        'frame_width': 386, 'frame_height': 419, 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva'}
+        'file': DRIFT['file'], 'columns': 4, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
+        'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva_drift'}
+    s['character']['sprite_sets']['eva_drift'] = {
+        'file': DRIFT['file'], 'columns': 4, 'rows': 1, 'frame_rate': 3, 'directions': ['right'],
+        'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 4, 'period': 3}}
 
     new_views = [SPACE_VIEW, PANEL_VIEW]
     ids = {v['id'] for v in new_views}
