@@ -22,6 +22,8 @@ interface GameViewProps {
   onClickPoint?: (point: { x: number; y: number }) => void;
   /** While walking: position, facing and sprite set that override the engine's placement. */
   characterPose?: Partial<CharacterPlacement> | null;
+  /** False: the next room change appears at once, without the fade from black (a cinematic cutting straight into play). */
+  fadeRooms?: boolean;
 }
 
 /** z-index in the walking depth layer: things whose base is lower on screen are drawn in front. */
@@ -41,7 +43,7 @@ function svgCursor(svg: string, hotX: number, hotY: number, fallback: string): s
   return `url("data:image/svg+xml,${svg}") ${hotX} ${hotY}, ${fallback}`;
 }
 
-const VERB_CURSORS: Record<string, string> = {
+export const VERB_CURSORS: Record<string, string> = {
   look: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 16Q16 4 30 16Q16 28 2 16Z' fill='%23c0a030' stroke='%23000' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='%231a1008'/><circle cx='14.5' cy='14' r='1.8' fill='%23fff'/></svg>", 16, 16, 'help'),
   move: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><ellipse cx='10' cy='9' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 10 9)'/><ellipse cx='22' cy='22' rx='5' ry='8' fill='%23c0a030' stroke='%23000' stroke-width='2' transform='rotate(-15 22 22)'/></svg>", 16, 28, 'crosshair'),
   hand: svgCursor("<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='6' y='14' width='20' height='15' rx='4' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='7' y='3' width='5' height='14' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='13.5' y='1' width='5' height='15' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/><rect x='20' y='3' width='5' height='14' rx='2.5' fill='%23c0a030' stroke='%23000' stroke-width='1.5'/></svg>", 16, 2, 'pointer'),
@@ -162,6 +164,7 @@ export function GameView({
   onNavigateBack,
   onClickPoint,
   characterPose,
+  fadeRooms = true,
 }: GameViewProps) {
   const [hoveredObject, setHoveredObject] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
@@ -171,7 +174,7 @@ export function GameView({
 
   const currentViewId = engine.getCurrentView().id;
   useEffect(() => {
-    if (prevViewRef.current !== null && prevViewRef.current !== currentViewId) {
+    if (prevViewRef.current !== null && prevViewRef.current !== currentViewId && fadeRooms) {
       setTransitioning(true);
       const timer = setTimeout(() => setTransitioning(false), 1800);
       prevViewRef.current = currentViewId;

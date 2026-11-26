@@ -365,9 +365,11 @@
             "y": -20
           },
           "to": {
-            "zoom": 1
+            "zoom": 1,
+            "x": 0,
+            "y": 0
           },
-          "seconds": 13
+          "seconds": 7
         },
         "sprites": [
           {
@@ -436,7 +438,8 @@
         "music_volume": 0.5,
         "hold": 13,
         "tail": 0.8,
-        "fade_in": 3.5
+        "fade_in": 3.5,
+        "transition": "cut"
       }
     ],
     "clock": {

@@ -3,7 +3,7 @@ import type { CharacterPlacement, Facing, Scenario, TutorialTrigger, WalkArea } 
 import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
 import { ScenarioEngine, type EngineSnapshot } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
-import { GameView } from './GameView';
+import { GameView, VERB_CURSORS } from './GameView';
 import { IntroSequence } from './IntroSequence';
 import { IntroCinematic } from './IntroCinematic';
 import { toggleFullscreen } from '../fullscreen';
@@ -259,6 +259,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [wakeArmed, setWakeArmed] = useState(() => !prologueActive);
   /** A short fade up from black as the prologue's first view appears. */
   const [prologueFade, setPrologueFade] = useState(false);
+  /** The cold open just cut into play: that one room change shows at once, with no fade from black. */
+  const [seamlessCut, setSeamlessCut] = useState(false);
   // Players get full-screen play: the picture fills the window and the controls are small pop-overs at its edges.
   // ?dev (and ?framed) keep the framed layout with the title bar and panels, which the dev panel and the test suites use.
   const fullscreen = !dev.isDev && !new URLSearchParams(window.location.search).has('framed');
@@ -302,14 +304,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   // ── First-play tutorial (setting.tutorial) ────────────────────────────────
   const tutorialSteps = scenario.setting.tutorial?.steps ?? [];
-  const tutorialKey = `kq-tutorial-done:${scenario.metadata.id}`;
+  // Tips show in every new game. "Skip tutorial" hides them for this game only; the ☰ menu's Tips switch is the one
+  // remembered choice (per scenario, in this browser).
+  const tipsOffKey = `kq-tips-off:${scenario.metadata.id}`;
+  const [tipsOff, setTipsOff] = useState(() => { try { return localStorage.getItem(tipsOffKey) === '1'; } catch { return false; } });
   const [tutIndex, setTutIndex] = useState<number | null>(null);
   const tutRef = useRef<number | null>(null);
   tutRef.current = tutIndex;
-  const finishTutorial = useCallback(() => {
-    setTutIndex(null);
-    try { localStorage.setItem(tutorialKey, '1'); } catch { /* storage unavailable: just hide it */ }
-  }, [tutorialKey]);
+  const finishTutorial = useCallback(() => { setTutIndex(null); }, []);
   // Tips marked `prologue: "only"` belong to the prologue; `"if_skipped"` ones repeat its lessons for a player who skipped it.
   const prologueRef = useRef({ active: prologueActive, played: prologuePlayed });
   prologueRef.current = { active: prologueActive, played: prologuePlayed };
@@ -632,7 +634,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     if (standupSet && !standingUp) return;
     if ((dev.isDev || dev.skipIntro) && !dev.forceTutorial) return;
     let done = false;
-    try { done = !dev.forceTutorial && localStorage.getItem(tutorialKey) === '1'; } catch { /* no storage */ }
+    done = !dev.forceTutorial && tipsOff;
     if (done) return;
     const first = nextTip(0);
     if (first === null) return;
@@ -1194,7 +1196,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     if (!prologueActive || !prologue) return;
     engine.runEffects([{ type: 'set_view', view: prologue.view, sound: null }]);
     prevViewRef.current = engine.currentViewId;
-    setPrologueFade(true);
+    // a cold open whose last shot cuts straight into play needs no fade; otherwise fade up from its black
+    if (scenario.setting.intro_scenes?.slice(-1)[0]?.transition !== 'cut') setPrologueFade(true);
+    else { setSeamlessCut(true); window.setTimeout(() => setSeamlessCut(false), 400); }
     playPendingSounds();
     bump();
   }, [engine, prologue, prologueActive, playPendingSounds, bump]);
@@ -1297,6 +1301,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       title={scenario.metadata.title}
       onComplete={handleIntroComplete}
       onSkip={skipPrologue}
+      cursor={VERB_CURSORS[activeVerb]}
+      onCycleVerb={handleCycleVerb}
     />
   ) : cutscene && scenario.setting.cutscenes?.[cutscene.id]?.length ? (
     <IntroCinematic
@@ -1306,6 +1312,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       scenarioId={scenario.metadata.id}
       onComplete={handleCutsceneEnd}
       skipLabel={cutscene.wake ? 'skip intro ›' : 'skip ›'}
+      cursor={VERB_CURSORS[activeVerb]}
+      onCycleVerb={handleCycleVerb}
     />
   ) : null;
 
@@ -1526,6 +1534,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           onNavigateBack={handleNavigateBack}
           onClickPoint={(p) => { clickPointRef.current = p; }}
           characterPose={pose}
+          fadeRooms={!seamlessCut}
         />
 
         {tipVisible && tutIndex !== null && (
@@ -1630,11 +1639,20 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               <button data-fullscreen-toggle style={{ ...styles.chromeButton, marginTop: 8, width: '100%' }} onClick={() => toggleFullscreen()}>
                 {isFullscreen ? 'Exit full screen (F)' : 'Full screen (F)'}
               </button>
+              <button data-tips-toggle style={{ ...styles.chromeButton, marginTop: 8, width: '100%' }} onClick={() => {
+                const off = !tipsOff;
+                setTipsOff(off);
+                try { if (off) localStorage.setItem(tipsOffKey, '1'); else localStorage.removeItem(tipsOffKey); } catch { /* no storage: this game only */ }
+                if (off) setTutIndex(null);
+                else if (tutRef.current === null) { const first = nextTip(0); if (first !== null) setTutIndex(first); }
+              }}>
+                {tipsOff ? 'Tips: off' : 'Tips: on'}
+              </button>
               {titleRight}
             </div>
           )}
           {/* Bottom: items behind a small tab, lines as subtitles over the picture */}
-          {!cinematicUp && (
+          {(
             <button data-items-tab data-hud-fade style={{ ...styles.fsButton, position: 'absolute', left: 12, bottom: 12, zIndex: 70, color: inventoryOpen ? '#e0c060' : '#b8a878' }} onClick={() => setInventoryOpen((o) => !o)}>
               {inventoryOpen ? '▾' : '▸'} Items{inventory.length > 0 ? ` (${inventory.length})` : ''}
             </button>

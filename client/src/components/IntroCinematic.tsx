@@ -21,6 +21,10 @@ interface Props {
   skipLabel?: string;
   /** Play inside the game's picture box (the page keeps its title bar and panels) instead of full screen. */
   embedded?: boolean;
+  /** The game's current verb cursor, so the cursor is the same from the first frame to play. */
+  cursor?: string;
+  /** Right-click: the game cycles its verb even during the cinematic. */
+  onCycleVerb?: () => void;
 }
 
 const W = 1920;
@@ -55,7 +59,7 @@ function ramp(t: Track, to: number, ms: number, stop = false) {
 
 type Phase = 'title' | 'scene' | 'out' | 'in' | 'done';
 
-export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, skipLabel, embedded }: Props) {
+export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, skipLabel, embedded, cursor, onCycleVerb }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const images = useRef(new Map<string, HTMLImageElement>());
   const [sceneIndex, setSceneIndex] = useState(-1);
@@ -112,7 +116,8 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
   };
 
   const skipped = useRef(false);
-  const finish = useCallback(() => {
+  /** `cut`: the last shot is the picture play starts on, so hand over at once with no fade to black. */
+  const finish = useCallback((cut = false) => {
     if (finished.current) return;
     finished.current = true;
     clearTimers();
@@ -121,6 +126,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
     sceneTracks.current = [];
     if (music.current) { ramp(music.current, 0, 600, true); music.current = null; }
     setPhase('done');
+    if (cut && !skipped.current) { onComplete(); return; }
     fade.current = { color: '0,0,0', alpha: fade.current.alpha, from: fade.current.alpha, to: 1, start: performance.now(), seconds: 0.6 };
     window.setTimeout(skipped.current && onSkip ? onSkip : onComplete, 650);
   }, [onComplete, onSkip]);
@@ -222,7 +228,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
 
   const goTo = (si: number, transition: 'fade' | 'cut' | 'flash') => {
     if (finished.current) return;
-    if (si >= scenes.length) { finish(); return; }
+    if (si >= scenes.length) { finish(scenes[scenes.length - 1]?.transition === 'cut'); return; }
     const begin = () => {
       stopVoice();
       const scene = scenes[si];
@@ -336,7 +342,9 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
   const card = !scene?.background || line?.style === 'card';
 
   return (
-    <div data-intro-cinematic style={embedded ? styles.overlayEmbedded : styles.overlay} onClick={(e) => { if (!(e.target as HTMLElement).closest('[data-skip-intro]')) advance(); }}>
+    <div data-intro-cinematic style={{ ...(embedded ? styles.overlayEmbedded : styles.overlay), ...(cursor ? { cursor } : {}) }}
+      onClick={(e) => { if (!(e.target as HTMLElement).closest('[data-skip-intro]')) advance(); }}
+      onContextMenu={(e) => { e.preventDefault(); onCycleVerb?.(); }}>
       <div style={embedded ? styles.stageEmbedded : styles.stage}>
         <canvas ref={canvasRef} width={W} height={H} style={styles.canvas} />
         {phase === 'title' && title && <div style={styles.title}>{title}</div>}

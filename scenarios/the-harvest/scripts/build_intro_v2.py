@@ -137,13 +137,15 @@ def tip(lid, done_when, **extra):
 COLD_OPEN = [{
     'background': 'intro/backgrounds/intro_orbit.webp',
     'loop': A + 'breath_loop.mp3',
-    'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1}, 'seconds': 13},
+    # the push-in settles well before the scene ends, so its last frames are exactly the playable picture
+    'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7},
     'sprites': [{**EVA, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
     'ambient_lighting': {'lights': [SUN]},
     'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
     'lines': [{'text': 'Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.', 'voice': A + 'n1.mp3', 'pause': 3.4}],
     'music': 'intro/audio/bed_stargazer.mp3', 'music_volume': 0.5,
     'hold': 13, 'tail': 0.8, 'fade_in': 3.5,
+    'transition': 'cut',   # the last shot is exactly the spacewalk's picture: play starts with no fade
 }]
 
 # ── 4. The abduction ──────────────────────────────────────────────────────────
