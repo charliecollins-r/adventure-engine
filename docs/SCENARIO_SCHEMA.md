@@ -145,6 +145,8 @@ Background images can be any resolution (1376x768 and 1920x1080 are common). The
 | `author` | string | no | Creator name or "ai-generated". |
 | `difficulty` | `"easy"` `"medium"` `"hard"` `"nightmare"` | yes | Affects expectations, not engine behavior. |
 | `estimated_minutes` | number | yes | Approximate play time. |
+| `credits` | string | no | A short credits line shown on the title screen ("Voices by ElevenLabs (elevenlabs.io)"). |
+| `cover` | string | no | A painting (path in the scenario folder) shown full screen behind the title-screen menu. Default: the first view's background. |
 | `tags` | string[] | no | Searchable tags for the marketplace. |
 | `version` | string | no | Scenario version for updates. |
 

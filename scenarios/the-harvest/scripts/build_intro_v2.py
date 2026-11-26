@@ -340,6 +340,10 @@ def main():
     st['intro_scenes'] = COLD_OPEN
     st['cutscenes'] = {**st.get('cutscenes', {}), 'abduction': ABDUCTION}
     st['prologue'] = {'view': SPACE}
+    s['metadata']['cover'] = 'intro/backgrounds/intro_orbit.webp'   # the title screen's painting
+    s['metadata']['description'] = ("A repair pilot on a routine spacewalk is plucked out of orbit by a living harvester ship. "
+                                    "He wakes in a cracked pod among a thousand stolen specimens. Earth is next on the list. Get out, and get home.")
+    s['metadata']['difficulty'] = 'Hard'
     st['narration'] = 'first_person'   # the engine's own lines in his voice too ("I can't go that way.")
     st['tutorial'] = {'steps': TUTORIAL}
     # The wake-up line is his own thought once its clip is recorded: the first phase's opening message and the wake voice.

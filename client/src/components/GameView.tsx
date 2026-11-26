@@ -278,6 +278,7 @@ export function GameView({
 
   return (
     <div
+      data-game-view
       style={{
         ...styles.viewport,
         backgroundColor: bgColor,

@@ -3,9 +3,9 @@
   "metadata": {
     "id": "the-harvest",
     "title": "The Harvest",
-    "description": "You wake in a stasis pod aboard a massive alien vessel. The Choir — eyeless bio-mechanical drones — are harvesters serving an ancient intelligence called The Convergence that consumes planets. Your pod malfunctioned. You're loose on a ship full of things that want you back in the jar. Below, a planet is being consumed alive.",
+    "description": "A repair pilot on a routine spacewalk is plucked out of orbit by a living harvester ship. He wakes in a cracked pod among a thousand stolen specimens. Earth is next on the list. Get out, and get home.",
     "author": "ai-generated",
-    "difficulty": "nightmare",
+    "difficulty": "Hard",
     "estimated_minutes": 540,
     "tags": [
       "sci-fi",
@@ -50,7 +50,8 @@
       "28-camouflage",
       "29-echo",
       "30-decay-clock"
-    ]
+    ],
+    "cover": "intro/backgrounds/intro_orbit.webp"
   },
   "setting": {
     "dev_skip": {

@@ -6,6 +6,7 @@ import { resolveAsset } from '../engine/assetResolver';
 import { GameView } from './GameView';
 import { IntroSequence } from './IntroSequence';
 import { IntroCinematic } from './IntroCinematic';
+import { toggleFullscreen } from '../fullscreen';
 import { InventoryPanel } from './InventoryPanel';
 import { NoiseIndicator } from './NoiseIndicator';
 import { CloseupOverlay } from './CloseupOverlay';
@@ -82,6 +83,10 @@ const styles: Record<string, CSSProperties> = {
   },
   // Full-screen play: the picture fills the window, controls are small and translucent at its edges.
   fsContainer: { position: 'fixed', inset: 0, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  fsAmbient: {
+    position: 'absolute', inset: '-40px', backgroundSize: 'cover', backgroundPosition: 'center',
+    filter: 'blur(28px) brightness(0.32) saturate(1.2)', pointerEvents: 'none',
+  },
   fsStage: { position: 'relative', width: 'min(100vw, calc(100vh * 16 / 9))', aspectRatio: '16 / 9', overflow: 'hidden' },
   fsTop: {
     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 70, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -259,6 +264,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const fullscreen = !dev.isDev && !new URLSearchParams(window.location.search).has('framed');
   const [stageScale, setStageScale] = useState(1);
   const [hudMenuOpen, setHudMenuOpen] = useState(false);
+  // Real browser full screen (☰ menu or F); the controls fade while the mouse rests, so the painting has the screen.
+  const [isFullscreen, setIsFullscreen] = useState(() => !!document.fullscreenElement);
+  const [hudIdle, setHudIdle] = useState(false);
+  const idleTimer = useRef(0);
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onFs = () => setIsFullscreen(!!document.fullscreenElement);
+    const wake = () => { setHudIdle(false); clearTimeout(idleTimer.current); idleTimer.current = window.setTimeout(() => setHudIdle(true), 3000); };
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey && !/INPUT|TEXTAREA/.test(t.tagName)) toggleFullscreen();
+    };
+    document.addEventListener('fullscreenchange', onFs);
+    window.addEventListener('mousemove', wake);
+    window.addEventListener('keydown', onKey);
+    wake();
+    return () => { document.removeEventListener('fullscreenchange', onFs); window.removeEventListener('mousemove', wake); window.removeEventListener('keydown', onKey); clearTimeout(idleTimer.current); };
+  }, [fullscreen]);
   useEffect(() => {
     if (!fullscreen) return;
     const fit = () => setStageScale(Math.min(window.innerWidth, (window.innerHeight * 16) / 9) / 960);
@@ -1578,13 +1601,18 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   if (fullscreen) {
     const hasLine = !cinematicUp && messages.length > 0;
     return (
-      <div data-fullscreen style={styles.fsContainer}>
+      <div data-fullscreen data-hud-idle={hudIdle && !hudMenuOpen && !inventoryOpen ? '' : undefined} style={styles.fsContainer}>
+        <style>{'[data-fullscreen][data-hud-idle] [data-hud-fade] { opacity: 0 !important; transition: opacity 0.8s ease; } [data-hud-fade] { transition: opacity 0.25s ease; } [data-fullscreen] [data-game-view] { border: none !important; border-radius: 0 !important; }'}</style>
+        {/* The bars around the 16:9 picture show a soft, dark blur of the room, so the screen is never boxed in black */}
+        {!cinematicUp && engine.getCurrentView().background_file && (
+          <div aria-hidden style={{ ...styles.fsAmbient, backgroundImage: `url(${resolveAsset(scenario.metadata.id, engine.getCurrentView().background_file!)})` }} />
+        )}
         <div style={styles.fsStage} onClickCapture={(e) => { if (hudMenuOpen && !(e.target as HTMLElement).closest('[data-hud-menu-panel],[data-hud-menu]')) setHudMenuOpen(false); }}>
           <div data-viewport style={{ position: 'absolute', left: 0, top: 0, width: 960, transform: `scale(${stageScale})`, transformOrigin: '0 0' }}>
             {viewport}
           </div>
           {/* Top: what matters in play stays visible (noise, meters, time, actions); the rest is behind ☰ */}
-          <div style={styles.fsTop}>
+          <div data-hud-fade style={styles.fsTop}>
             <div style={styles.fsTopLeft}>{titleLeft}</div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               {!engine.isGameOver() && !cinematicUp && engine.getActions().map((a) => (
@@ -1599,12 +1627,15 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               {(scenario.setting.max_score || engine.getScore() > 0) && (
                 <div style={{ ...styles.score, marginBottom: 6 }} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</div>
               )}
+              <button data-fullscreen-toggle style={{ ...styles.chromeButton, marginTop: 8, width: '100%' }} onClick={() => toggleFullscreen()}>
+                {isFullscreen ? 'Exit full screen (F)' : 'Full screen (F)'}
+              </button>
               {titleRight}
             </div>
           )}
           {/* Bottom: items behind a small tab, lines as subtitles over the picture */}
           {!cinematicUp && (
-            <button data-items-tab style={{ ...styles.fsButton, position: 'absolute', left: 12, bottom: 12, zIndex: 70, color: inventoryOpen ? '#e0c060' : '#b8a878' }} onClick={() => setInventoryOpen((o) => !o)}>
+            <button data-items-tab data-hud-fade style={{ ...styles.fsButton, position: 'absolute', left: 12, bottom: 12, zIndex: 70, color: inventoryOpen ? '#e0c060' : '#b8a878' }} onClick={() => setInventoryOpen((o) => !o)}>
               {inventoryOpen ? '▾' : '▸'} Items{inventory.length > 0 ? ` (${inventory.length})` : ''}
             </button>
           )}

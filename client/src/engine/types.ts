@@ -10,6 +10,8 @@ export interface Metadata {
   patterns_used?: string[];
   /** A short credits line shown on the scenario's main-menu card, e.g. "Voices by ElevenLabs (elevenlabs.io)". */
   credits?: string;
+  /** A painting (path in the scenario folder) for the title screen behind the menu. Default: the first view's background. */
+  cover?: string;
 }
 
 export interface RoomStyle {
