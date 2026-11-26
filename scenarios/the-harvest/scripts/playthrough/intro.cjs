@@ -86,13 +86,15 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => /The stars/.test(document.body.innerText), 8000), 'the pilot sees the stars go out');
     await shot(p, 'v2_04_stars');
     // click through the cutscene like an impatient player; the ship's room ambience must not play under it
-    let under = [];
+    let under = []; let titleSeen = false;
     for (let i = 0; i < 30 && (await view(p)) === null; i++) {
+      if (!titleSeen) titleSeen = await p.evaluate(() => /HARVEST/i.test(document.querySelector('[data-title-card]')?.innerText || ''));
       const u = await p.evaluate(() => (document.querySelector('[data-intro-cinematic]') ? window.__plays.filter((x) => !x.el.paused && /ambient_lab|haunted/.test(x.src)).map((x) => x.src) : []));
       if (u.length) under = u;
       await p.mouse.click(640, 300); await p.waitForTimeout(1500);
     }
     check(!under.length, `no room ambience under the cutscene ${under.join(',')}`);
+    check(titleSeen, 'the title card plays after the beam-up');
     check((await view(p)) === 'act1_stasis_hold', 'after the cutscene: the Stasis Hold');
     check(await played(p, 'harvest.mp3') && await played(p, 'c4.mp3'), 'the cutscene plays the harvest and "Outrider, respond"');
     check(await waitFor(p, () => { const e = document.querySelector('[data-eye-open]'); return e && +getComputedStyle(e).opacity > 0.9; }, 3000), 'the wake-up starts in black');

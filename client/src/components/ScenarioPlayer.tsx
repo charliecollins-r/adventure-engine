@@ -105,11 +105,18 @@ const styles: Record<string, CSSProperties> = {
     position: 'absolute', left: 12, bottom: 50, zIndex: 70, maxWidth: 'min(720px, 70%)', borderRadius: '6px',
     background: 'rgba(10,9,7,0.9)', border: '1px solid rgba(120,100,60,0.45)', boxShadow: '0 6px 24px rgba(0,0,0,0.6)', overflow: 'hidden',
   },
-  fsLines: { position: 'absolute', left: '14%', right: '14%', bottom: 14, zIndex: 65 },
+  // Lines read like subtitles: see-through, and clicks go straight through them to the room
+  fsLines: { position: 'absolute', left: '12%', right: '22%', bottom: 14, zIndex: 65, pointerEvents: 'none' },
   fsMessagePanel: {
-    background: 'rgba(6,6,5,0.72)', border: '1px solid rgba(120,100,60,0.3)', borderRadius: '6px', borderTop: '1px solid rgba(120,100,60,0.3)',
-    backdropFilter: 'blur(2px)', maxHeight: '28vh',
+    background: 'linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.25))', border: 'none', borderTop: 'none', borderRadius: '6px',
+    maxHeight: '28vh', cursor: 'inherit', textShadow: '0 1px 3px #000, 0 0 8px #000',
   },
+  // a slim icon strip flush with the right edge, so it hides as little of the room as possible
+  fsItems: {
+    position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', zIndex: 70,
+    borderRadius: '6px', background: 'rgba(8,7,5,0.3)',
+  },
+  fsItemsHead: { fontFamily: 'monospace', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: '#8a7a5a', padding: '6px 8px 0' },
   messagePanel: {
     width: '960px',
     padding: '10px 16px',
@@ -452,6 +459,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     return () => clearTimeout(timer);
   }, [eyeOpen, standingUp, engine, bump, standupSet, standupDelayMs]);
 
+  // Full screen: lines are subtitles. Nothing to click away; each fades once there has been time to read it.
+  const lineKey = fullscreen ? engine.getMessages().join('\n') : '';
+  useEffect(() => {
+    if (!lineKey) return;
+    const t = window.setTimeout(() => { if (engine.getMessages().join('\n') === lineKey) { engine.dismissMessages(); bump(); } }, Math.max(4500, lineKey.length * 70));
+    return () => clearTimeout(t);
+  }, [lineKey, engine, bump]);
   const cutscene = engine.getCutscene();
   /** A full-screen cinematic is up (the intro or a cutscene): the rooms' sound and the clock wait. */
   const cinematicUp = showIntro || !!cutscene;
@@ -1298,7 +1312,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       embedded
       scenes={scenario.setting.intro_scenes}
       scenarioId={scenario.metadata.id}
-      title={scenario.metadata.title}
+      title={scenario.setting.intro_title === false ? undefined : scenario.metadata.title}
       onComplete={handleIntroComplete}
       onSkip={skipPrologue}
       cursor={VERB_CURSORS[activeVerb]}
@@ -1599,7 +1613,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
                 <p key={i} style={styles.messageText}>{msg}</p>
               );
             })}
-            <div style={styles.dismissHint}>click to dismiss</div>
+            {!fullscreen && <div style={styles.dismissHint}>click to dismiss</div>}
           </div>
         ) : ambientText && !fullscreen ? (
           <div style={{ ...styles.ambientPanel, width: '100%' }}>{ambientText}</div>
@@ -1611,7 +1625,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const hasLine = !cinematicUp && messages.length > 0;
     return (
       <div data-fullscreen data-hud-idle={hudIdle && !hudMenuOpen && !inventoryOpen ? '' : undefined} style={styles.fsContainer}>
-        <style>{'[data-fullscreen][data-hud-idle] [data-hud-fade] { opacity: 0 !important; transition: opacity 0.8s ease; } [data-hud-fade] { transition: opacity 0.25s ease; } [data-fullscreen] [data-game-view] { border: none !important; border-radius: 0 !important; }'}</style>
+        <style>{'[data-fullscreen][data-hud-idle] [data-hud-fade] { opacity: 0 !important; transition: opacity 0.8s ease; } [data-hud-fade] { transition: opacity 0.25s ease; } [data-fullscreen][data-hud-idle] [data-hud-dim] { opacity: 0.45; transition: opacity 0.8s ease; } [data-hud-dim] { transition: opacity 0.25s ease; } [data-fullscreen] [data-game-view] { border: none !important; border-radius: 0 !important; }'}</style>
         {/* The bars around the 16:9 picture show a soft, dark blur of the room, so the screen is never boxed in black */}
         {!cinematicUp && engine.getCurrentView().background_file && (
           <div aria-hidden style={{ ...styles.fsAmbient, backgroundImage: `url(${resolveAsset(scenario.metadata.id, engine.getCurrentView().background_file!)})` }} />
@@ -1652,15 +1666,21 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             </div>
           )}
           {/* Bottom: items behind a small tab, lines as subtitles over the picture */}
-          {(
-            <button data-items-tab data-hud-fade style={{ ...styles.fsButton, position: 'absolute', left: 12, bottom: 12, zIndex: 70, color: inventoryOpen ? '#e0c060' : '#b8a878' }} onClick={() => setInventoryOpen((o) => !o)}>
-              {inventoryOpen ? '▾' : '▸'} Items{inventory.length > 0 ? ` (${inventory.length})` : ''}
-            </button>
+          {/* Items: a column on the right edge, always in reach; it dims (never hides) while the mouse rests */}
+          {inventory.length > 0 && (
+            <div data-items-tray data-hud-dim style={styles.fsItems}>
+              <InventoryPanel
+                items={inventory}
+                selectedItem={selectedItem}
+                scenarioId={scenario.metadata.id}
+                onItemSelect={handleItemSelect}
+                onItemExamine={handleItemExamine}
+                showCombineTip={!combinedOnce}
+                vertical
+              />
+            </div>
           )}
-          {!cinematicUp && inventoryOpen && (
-            <div data-items-tray style={styles.fsTray}>{inventoryPanel}</div>
-          )}
-          {hasLine && <div style={styles.fsLines}>{messageBlock}</div>}
+          {hasLine && <div data-lines style={styles.fsLines}>{messageBlock}</div>}
         </div>
         {overlays}
       </div>

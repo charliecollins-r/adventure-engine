@@ -198,6 +198,10 @@ ABDUCTION = [
         'lines': [{'text': P6, 'voice': A + 'p6.mp3', 'pause': 0.6}],
         'hold': 7.5, 'tail': 0.4, 'transition': 'flash',
     },
+    {   # the title, on black, straight out of the beam's white flash
+        'title_card': 'The Harvest',
+        'hold': 5.4, 'tail': 0.4, 'fade_in': 0.5,
+    },
     {   # catalogued: Control calls into nothing
         'background': 'intro/backgrounds/intro_catalogue.webp',
         'sound': A + 'scan.mp3',
@@ -340,6 +344,7 @@ def main():
         s = json.load(f)
     st = s['setting']
     st['intro_scenes'] = COLD_OPEN
+    st['intro_title'] = False   # the title card plays after the abduction instead (a title_card scene)
     st['cutscenes'] = {**st.get('cutscenes', {}), 'abduction': ABDUCTION}
     st['prologue'] = {'view': SPACE}
     s['metadata']['cover'] = 'intro/backgrounds/intro_orbit.webp'   # the title screen's painting

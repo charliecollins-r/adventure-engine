@@ -196,7 +196,7 @@ for (const [what, scenes] of cinematics) scenes.forEach((sc, i) => {
   (sc.ambient_lighting?.lights || []).forEach((l, j) => {
     for (const k of ['x', 'y', 'radius', 'pulse_speed', 'pulse_amount', 'alpha']) if (typeof l[k] !== 'number') errors.push(`${ctx}: ambient light #${j + 1} missing numeric "${k}"`);
   });
-  if (!sc.background && !(sc.lines || []).length) warnings.push(`${ctx}: no background and no lines (an empty black screen)`);
+  if (!sc.background && !(sc.lines || []).length && !sc.title_card) warnings.push(`${ctx}: no background and no lines (an empty black screen)`);
 });
 
 if (!viewIds.has(s.setting?.initial_view)) errors.push(`setting.initial_view "${s.setting?.initial_view}" is not a view`);

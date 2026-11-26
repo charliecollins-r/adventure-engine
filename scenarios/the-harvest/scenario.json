@@ -969,6 +969,12 @@
           "transition": "flash"
         },
         {
+          "title_card": "The Harvest",
+          "hold": 5.4,
+          "tail": 0.4,
+          "fade_in": 0.5
+        },
+        {
           "background": "intro/backgrounds/intro_catalogue.webp",
           "sound": "intro/audio/v2/scan.mp3",
           "camera": {
@@ -1179,7 +1185,8 @@
     "prologue": {
       "view": "intro_spacewalk"
     },
-    "narration": "first_person"
+    "narration": "first_person",
+    "intro_title": false
   },
   "character": {
     "sprite_sets": {

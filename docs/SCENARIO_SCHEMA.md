@@ -175,6 +175,7 @@ The setting defines the visual environment. Every scenario has a main view (the 
 | `room_style` | object | no | Fallback colors when no background image exists. |
 | `intro_text` | string[] | no | Pages of opening narration shown before play, one page per entry. |
 | `intro_scenes` | IntroScene[] | no | An animated intro cinematic, used instead of `intro_text`. See "Intro Cinematic" below. |
+| `intro_title` | boolean | no | Show the title card before the intro. Default `true`; `false` when a scene's `title_card` places it later. |
 | `wake` | object | no | How play begins after the intro: `hold_seconds` of black (default 0.2), the eyes opening over `fade_seconds` (default: the length of `sounds.intro_voice`), `blink` (open halfway, flutter shut, then open fully), and `voice_delay` seconds before `sounds.intro_voice` describes the room. A `standup` sprite set gets up as that voice ends, and the tutorial waits until then. Make the first phase's `on_enter` message the same words the voice speaks (check by speaking rate: about 12–13 characters per second for a calm narrator). |
 | `ambient_audio` | string or string[] | no | Looping ambient track(s) for every view that doesn't set its own. |
 | `music` | string | no | Background music on its own channel (a path). It keeps playing across rooms and only changes when a view names a different track (view `music`; `null` there = no music). |
@@ -2343,6 +2344,7 @@ See `examples/surgeons-attic.json` for a full playable scenario using all featur
 | `music_volume` | number | 0..1, default 0.5. |
 | `hold` | number | Minimum seconds on screen; the scene also lasts until its lines are done. |
 | `tail` | number | Seconds to stay after the last line is done, before the transition. Default 1. |
+| `title_card` | string | The adventure's title, large and gold, fading up, holding and fading down over 5 s (give the scene `hold` 5 or more). Use it to place the title after a dramatic opening beat, with `setting.intro_title: false` so it doesn't also play before the intro. |
 | `fade_in` | number | Seconds the scene takes to fade in. Default 0.7 (1 after a flash); the first scene fades in slowly out of black (3.5 s). Give its first line a `pause` of about 3 s so the picture is established before anyone speaks. |
 | `transition` | `fade` \| `cut` \| `flash` | How it hands over to the next scene. Default `fade` (through black). |
 

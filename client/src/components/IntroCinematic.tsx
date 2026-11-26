@@ -348,6 +348,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
       <div style={embedded ? styles.stageEmbedded : styles.stage}>
         <canvas ref={canvasRef} width={W} height={H} style={styles.canvas} />
         {phase === 'title' && title && <div style={styles.title}>{title}</div>}
+        {phase === 'scene' && scene?.title_card && <div key={`title-${sceneIndex}`} data-title-card style={styles.title}>{scene.title_card}</div>}
         {line && (
           <div data-intro-line style={{
             ...(card ? styles.card : styles.band),

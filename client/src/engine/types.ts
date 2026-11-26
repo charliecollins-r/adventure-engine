@@ -60,6 +60,8 @@ export interface Setting {
   intro_text?: string[];
   /** Animated intro cinematic: painted scenes with sprites, lights, particles, narration and sound. Replaces intro_text when present. */
   intro_scenes?: IntroScene[];
+  /** Show the scenario's title card before intro_scenes. Default true; false when a scene places it later (title_card). */
+  intro_title?: boolean;
   sounds?: SoundEffects;
   /** Death screens offer "Undo last move" (back to just before the fatal action). Default true. */
   allow_undo?: boolean;
@@ -328,6 +330,9 @@ export interface IntroScene {
   hold?: number;
   /** Seconds to stay after the last line is done, before the transition. Default 1. */
   tail?: number;
+  /** A title card shown large in this scene (the scenario's name after a dramatic beat): it fades up, holds and fades
+   *  down over 5 s. On a scene with no background it sits on black. Give the scene `hold` 5 or more. */
+  title_card?: string;
   /** Seconds the scene takes to fade in. Default 0.7 (1 after a flash; 3.5 for the first scene, out of black). */
   fade_in?: number;
   /** How this scene hands over to the next: fade through black (default), cut, or a white flash. */
