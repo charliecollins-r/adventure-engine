@@ -6,9 +6,10 @@ Inputs: intro/sprites/raw/v3/*.webp (poses side by side on #0000FF, 1376x768).
   eva_float.webp  4 weightless idle poses (also used while he drifts: no swimming in orbit)
   eva_rail.webp   4 poses holding a pure-red placeholder bar (grip, swing, reach up for the door, lean in)
   eva_turn.webp   4 poses at the same bar (uneasy glance, then he lets go, alarmed, facing us)
+  eva_cutscene.webp  4 single poses for the cutscenes: drilling, alarm, taken, limp
 Frames are found as figures (large components), not fixed columns. The red bar marks where his glove holds the
 satellite's rail: rail and turn frames share one cell anchored on the bar's right end, and the bar is removed.
-Outputs (intro/sprites/): eva_float_v3.png, eva_rail_v3.png, eva_turn_v3.png. Prints sizes and anchors.
+Outputs (intro/sprites/): eva_float_v3.png, eva_rail_v3.png, eva_turn_v3.png, eva_cutscene_v3.png. Prints sizes and anchors.
 """
 import json
 import numpy as np
@@ -97,5 +98,7 @@ im.crop((cw * len(rail), 0, cw * len(both), cell['frame_height'])).save(f'{OUT}/
 import os; os.remove(f'{OUT}/eva_rail_all.png')
 info['eva_rail_v3'] = {**cell, 'frames': len(rail)}
 info['eva_turn_v3'] = {**cell, 'frames': len(turn)}
+cut = figures(f'{RAW}/eva_cutscene.webp')   # drilling, alarm (looking up), taken (arms flung up), limp
+info['eva_cutscene_v3'] = sheet(cut, [f['centre'] for f in cut], 'eva_cutscene_v3')
 json.dump(info['eva_rail_v3'], open(f'{OUT}/eva_rail_v3.json', 'w'), default=int)   # build_intro_v2.py places the pilot from this
 print(json.dumps(info, indent=1, default=int))

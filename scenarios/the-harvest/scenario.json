@@ -791,15 +791,15 @@
           },
           "sprites": [
             {
-              "file": "intro/sprites/eva.png",
-              "frame_width": 386,
-              "frame_height": 419,
-              "columns": 5,
+              "file": "intro/sprites/eva_cutscene_v3.png",
+              "frame_width": 388,
+              "frame_height": 730,
+              "columns": 4,
               "frame_rate": 0,
               "frames": [
-                2
+                1
               ],
-              "scale": 0.22,
+              "scale": 0.126,
               "at": [150, 485],
               "bob": {
                 "amount": 4,
@@ -910,24 +910,24 @@
           },
           "sprites": [
             {
-              "file": "intro/sprites/eva.png",
-              "frame_width": 386,
-              "frame_height": 419,
-              "columns": 5,
+              "file": "intro/sprites/eva_cutscene_v3.png",
+              "frame_width": 388,
+              "frame_height": 730,
+              "columns": 4,
               "frame_rate": 0.45,
               "frames": [
-                3,
-                3,
-                3,
-                3,
-                4
+                2,
+                2,
+                2,
+                2,
+                3
               ],
               "loop": false,
-              "scale": 0.42,
+              "scale": 0.241,
               "at": [470, 650],
               "move": {
                 "to": [482, 110],
-                "scale": 0.05,
+                "scale": 0.029,
                 "seconds": 8,
                 "delay": 0.4
               },

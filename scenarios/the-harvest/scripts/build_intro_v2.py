@@ -36,7 +36,6 @@ C3 = "Outrider, long-range is showing something. It's big. It's right on top of 
 P6 = "“Control, something's pulling me in, I can't—”"
 C4 = "Outrider, respond. Outrider, come back."
 
-EVA = {'file': 'intro/sprites/eva.png', 'frame_width': 386, 'frame_height': 419, 'columns': 5, 'frame_rate': 0}
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
@@ -50,6 +49,9 @@ def _cell(path, columns):
 # the pilot floating (scripts/build_eva_v3.py, the owner's v3 sheets): two near-identical poses, a slow breathing loop.
 # There's no swimming in orbit, so the same loop plays while he drifts to where you click.
 DRIFT = {'file': 'intro/sprites/eva_float_v3.png', 'frame_width': _cell('intro/sprites/eva_float_v3.png', 2)[0], 'frame_height': _cell('intro/sprites/eva_float_v3.png', 2)[1], 'columns': 2, 'frame_rate': 0}
+# cutscene poses (scripts/build_eva_v3.py): 0 drilling, 1 alarm, 2 taken, 3 limp. 0.6 = the old eva.png's size on screen
+EVA = {'file': 'intro/sprites/eva_cutscene_v3.png', 'frame_width': _cell('intro/sprites/eva_cutscene_v3.png', 4)[0], 'frame_height': _cell('intro/sprites/eva_cutscene_v3.png', 4)[1], 'columns': 4, 'frame_rate': 0}
+EVA_K = 419 / EVA['frame_height']
 
 
 def msg(text, voice=None, style=None, static=None):
@@ -184,7 +186,7 @@ ABDUCTION = [
         'background': 'intro/backgrounds/intro_shadow.webp',
         'loop': A + 'breath_loop.mp3',
         'camera': {'from': {'zoom': 1.15, 'y': 40}, 'to': {'zoom': 1, 'y': 0}, 'seconds': 9},
-        'sprites': [{**EVA, 'frames': [2], 'scale': 0.22, 'at': [150, 485], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
+        'sprites': [{**EVA, 'frames': [1], 'scale': round(0.22 * EVA_K, 3), 'at': [150, 485], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
         'ambient_lighting': {'lights': [
             {'x': 0.47, 'y': 0.16, 'radius': 0.3, 'color': [70, 255, 190], 'alpha': 0.22, 'pulse_speed': 0.35, 'pulse_amount': 0.5, 'phase': 0},
             {'x': 0.22, 'y': 0.22, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.27, 'pulse_amount': 0.6, 'phase': 1.5},
@@ -201,8 +203,8 @@ ABDUCTION = [
         'background': 'intro/backgrounds/intro_taken.webp',
         'sound': A + 'harvest.mp3',
         'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.14, 'y': -60}, 'seconds': 9},
-        'sprites': [{**EVA, 'frame_rate': 0.45, 'frames': [3, 3, 3, 3, 4], 'loop': False, 'scale': 0.42, 'at': [470, 650],
-                     'move': {'to': [482, 110], 'scale': 0.05, 'seconds': 8, 'delay': 0.4}, 'spin': 150}],
+        'sprites': [{**EVA, 'frame_rate': 0.45, 'frames': [2, 2, 2, 2, 3], 'loop': False, 'scale': round(0.42 * EVA_K, 3), 'at': [470, 650],
+                     'move': {'to': [482, 110], 'scale': round(0.05 * EVA_K, 3), 'seconds': 8, 'delay': 0.4}, 'spin': 150}],
         'ambient_lighting': {'lights': [
             {'x': 0.5, 'y': 0.13, 'radius': 0.3, 'color': [230, 255, 170], 'alpha': 0.35, 'pulse_speed': 0.8, 'pulse_amount': 0.25, 'phase': 0},
             {'x': 0.53, 'y': 0.65, 'radius': 0.22, 'color': [230, 255, 170], 'alpha': 0.14, 'pulse_speed': 0.5, 'pulse_amount': 0.3, 'phase': 1}]},
