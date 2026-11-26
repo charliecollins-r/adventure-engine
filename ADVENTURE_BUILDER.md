@@ -1297,7 +1297,7 @@ Teach new players the controls with a few tips that advance as they do things:
 
 Tips can also wait for a room (`when`, e.g. `[{"type": "view_is", "view": "intro_spacewalk"}]`), and with a playable prologue (`setting.prologue`) mark its tips `"prologue": "only"` and the ones that repeat them for skippers `"prologue": "if_skipped"`.
 
-`done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL.
+`done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL. For a quieter start, `"tutorial": { "style": "nudge", ... }` drops the boxes for a small right-click badge with the verb icons turning, gone after the player has changed verbs three times.
 
 ### Dialogue Choices
 
@@ -1367,6 +1367,7 @@ Give a view a floor and the player can walk around it, King's Quest V style: **M
 - **Draw order**: he's drawn in front of or behind sprite objects by where his feet are. Set `"draw_order": "front"` on the `character` block to always draw him on top, or give a flat object (a floor grate) `"layer": "floor"` and a foreground object `"layer": "front"`.
 - **Footsteps**: `"footsteps": { "sounds": ["audio/steps/step_1.mp3", "audio/steps/step_2.mp3"], "volume": 0.45 }` on the `character` block plays a step in time with the walk cycle; give a carpeted room `"walk_area": { ..., "footsteps": { "sounds": [...] } }` or `"footsteps": false`.
 - **Stepping, not gliding**: by default (`"walk_motion": "paced"`) he moves continuously but slows as each foot plants and speeds up mid-stride, in time with the walk frames and footsteps (`"walk_pulse"`, 0–0.95, default 0.6, sets how strong). `"stepped"` jumps one stride per walk frame like an old Sierra game; `"smooth"` glides at constant speed.
+- **Walking in through doors**: `"walk_in": true` on `character` makes him enter each walking room by the door he came through and take a few steps toward the middle of the floor (shorter at the far end of a perspective floor), instead of appearing standing still. Needs arrival spots (`set_view.at`, filled by `tools/arrival-spots.mjs`). `"walk_in": false` on a `set_view` keeps him still for that entrance.
 - **Walk cycle**: the character's `walk` sprite set is used while walking; a sprite set can name its own (`"idle_helmet": { ..., "walk": "walk_helmet" }`). `character.walk_speed` sets the speed (default 150).
 
 Full reference: [SCENARIO_SCHEMA.md → Walkable Areas](docs/SCENARIO_SCHEMA.md#walkable-areas-click-to-walk). Design notes: [docs/WALKABLE_AREAS.md](docs/WALKABLE_AREAS.md).

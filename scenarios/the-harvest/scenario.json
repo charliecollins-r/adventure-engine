@@ -230,6 +230,7 @@
       "blink": true
     },
     "tutorial": {
+      "style": "nudge",
       "steps": [
         {
           "text": "Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.",
@@ -385,7 +386,7 @@
           {
             "file": "intro/sprites/eva_drift.png",
             "frame_width": 453,
-            "frame_height": 417,
+            "frame_height": 437,
             "columns": 4,
             "frame_rate": 0,
             "frames": [
@@ -668,7 +669,7 @@
             {
               "file": "intro/sprites/eva_drift.png",
               "frame_width": 453,
-              "frame_height": 417,
+              "frame_height": 437,
               "columns": 4,
               "frame_rate": 0,
               "frames": [
@@ -686,7 +687,7 @@
             {
               "file": "intro/sprites/eva_drift.png",
               "frame_width": 453,
-              "frame_height": 417,
+              "frame_height": 437,
               "columns": 4,
               "frame_rate": 0,
               "frames": [
@@ -1295,7 +1296,7 @@
           "right"
         ],
         "frame_width": 453,
-        "frame_height": 417,
+        "frame_height": 437,
         "scale": 0.33,
         "bob": {
           "amount": 5,
@@ -1312,7 +1313,7 @@
           "right"
         ],
         "frame_width": 453,
-        "frame_height": 417,
+        "frame_height": 437,
         "scale": 0.33,
         "bob": {
           "amount": 4,
@@ -1339,7 +1340,8 @@
         "audio/steps/metal_step_4.mp3"
       ],
       "volume": 0.45
-    }
+    },
+    "walk_in": true
   },
   "views": [
     {
@@ -19019,7 +19021,7 @@
       "id": "intro_panel_closeup",
       "name": "LUMEN-7 Service Panel",
       "background_key": "intro_panel_closeup",
-      "background_file": "intro/backgrounds/intro_panel_empty.webp",
+      "background_file": "intro/backgrounds/intro_panel_gutted.webp",
       "objects": [
         "pn_door_swing",
         "pn_pilot_open",
@@ -19051,17 +19053,17 @@
       "ambient_lighting": {
         "lights": [
           {
-            "x": 0.72,
+            "x": 0.76,
             "y": 0.45,
-            "radius": 0.2,
+            "radius": 0.16,
             "color": [
-              120,
-              255,
-              160
+              150,
+              190,
+              255
             ],
-            "alpha": 0.12,
-            "pulse_speed": 0.3,
-            "pulse_amount": 0.3,
+            "alpha": 0.06,
+            "pulse_speed": 0.2,
+            "pulse_amount": 0.2,
             "phase": 0
           }
         ]
@@ -84052,18 +84054,18 @@
                   "value": "true"
                 },
                 {
-                  "type": "message",
-                  "text": "“Panel's open. ...Huh.”",
-                  "voice": "intro/audio/v2/p3.mp3",
-                  "style": "comms"
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 3.09,
+                  "seconds": 1.5,
                   "effects": [
                     {
-                      "type": "set_view",
-                      "view": "intro_panel_closeup"
+                      "type": "message",
+                      "text": "“Panel's open. ...Huh.”",
+                      "voice": "intro/audio/v2/p3.mp3",
+                      "style": "comms"
                     }
                   ]
                 }
@@ -84096,18 +84098,18 @@
                   "value": "true"
                 },
                 {
-                  "type": "message",
-                  "text": "“Panel's open. ...Huh.”",
-                  "voice": "intro/audio/v2/p3.mp3",
-                  "style": "comms"
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 3.09,
+                  "seconds": 1.5,
                   "effects": [
                     {
-                      "type": "set_view",
-                      "view": "intro_panel_closeup"
+                      "type": "message",
+                      "text": "“Panel's open. ...Huh.”",
+                      "voice": "intro/audio/v2/p3.mp3",
+                      "style": "comms"
                     }
                   ]
                 }
@@ -84390,7 +84392,7 @@
       "name": "You",
       "description": "",
       "position": {
-        "x": 359,
+        "x": 446,
         "y": 600
       },
       "size": {
@@ -84407,7 +84409,7 @@
       "sprite": {
         "file": "intro/sprites/eva_panel_open.png",
         "frame_width": 329,
-        "frame_height": 417,
+        "frame_height": 436,
         "columns": 3,
         "rows": 1,
         "frame_rate": 2.4,
@@ -84433,7 +84435,7 @@
       "name": "You",
       "description": "",
       "position": {
-        "x": 359,
+        "x": 446,
         "y": 600
       },
       "size": {
@@ -84451,7 +84453,7 @@
       "sprite": {
         "file": "intro/sprites/eva_panel_turn.png",
         "frame_width": 329,
-        "frame_height": 417,
+        "frame_height": 436,
         "columns": 1,
         "rows": 1,
         "frame_rate": 0,

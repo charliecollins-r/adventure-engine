@@ -40,22 +40,22 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     if (eye !== -1 && eye > 0.05) fail(`audio length never known: the screen stays black (eye overlay ${eye})`); else ok('narration length unknown: the wake-up still opens the eyes');
     await p.close();
   }
-  // 3. Wake-up order: black, the eyes open, the narrator, he stands, then the tutorial; the message is the spoken text
+  // 3. Wake-up order: black, the eyes open, the narrator, he stands, then the verb nudge; the message is the spoken text
   {
     const p = await page(b);
     await p.goto(PLAY); await p.waitForSelector('[data-skip-intro]'); await p.click('[data-skip-intro]');
     await p.waitForTimeout(1200);
     if (await eyeState(p) < 0.95) fail('no black hold before the eyes open'); else ok('wake-up starts black');
     await p.waitForTimeout(6000);
-    const tipEarly = await p.evaluate(() => /TIP 1 OF/.test(document.body.innerText));
-    if (tipEarly) fail('tutorial tip shows while he is still lying down'); else ok('no tutorial tip while he lies there');
+    const tipEarly = await p.evaluate(() => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown');
+    if (tipEarly) fail('the verb nudge shows while he is still lying down'); else ok('no verb nudge while he lies there');
     const msg = await p.evaluate(() => document.body.innerText);
     if (!/Green light\. A chemical smell/.test(msg)) fail('wake-up message is not the narrated text'); else ok('wake-up message matches the narration clip');
     const voiced = await p.evaluate(() => window.__plays.some((x) => x.src === 'w01.mp3'));
     if (!voiced) fail('the wake-up narration did not play'); else ok('the wake-up narration plays');
     await p.waitForTimeout(22000);
-    const tip = await p.evaluate(() => /TIP 1 OF/.test(document.body.innerText));
-    if (!tip) fail('tutorial never starts after he stands'); else ok('the tutorial starts once he is standing');
+    const tip = await p.evaluate(() => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown');
+    if (!tip) fail('the verb nudge never shows after he stands'); else ok('the verb nudge shows once he is standing');
     await p.close();
   }
   // 4. The intro never plays a radio line twice at once, and no room ambience plays under it

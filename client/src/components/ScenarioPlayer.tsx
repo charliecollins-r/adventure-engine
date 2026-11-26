@@ -16,6 +16,7 @@ import { RhythmWidget } from './RhythmWidget';
 import { EyeOpenTransition } from './EyeOpenTransition';
 import { DevPanel } from './DevPanel';
 import { TutorialCoach } from './TutorialCoach';
+import { VerbNudge } from './VerbNudge';
 
 interface ScenarioPlayerProps {
   scenario: Scenario;
@@ -77,7 +78,8 @@ const styles: Record<string, CSSProperties> = {
     pointerEvents: 'none' as const,
   },
   viewportSkip: {
-    position: 'absolute', right: '10px', bottom: '10px', background: 'rgba(0,0,0,0.4)', border: '1px solid #3a3020',
+    // top right, under the menu: the bottom corner belongs to the room name and the hint button
+    position: 'absolute', right: '10px', top: '44px', background: 'rgba(0,0,0,0.4)', border: '1px solid #3a3020',
     color: '#8a7a5a', fontFamily: 'monospace', fontSize: '12px', letterSpacing: '1px', padding: '6px 12px',
     borderRadius: '4px', cursor: 'pointer', zIndex: 55,
   },
@@ -315,6 +317,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   // remembered choice (per scenario, in this browser).
   const tipsOffKey = `kq-tips-off:${scenario.metadata.id}`;
   const [tipsOff, setTipsOff] = useState(() => { try { return localStorage.getItem(tipsOffKey) === '1'; } catch { return false; } });
+  // "nudge": no tip boxes, just a small right-click badge until the player has changed verbs a few times
+  const nudgeMode = scenario.setting.tutorial?.style === 'nudge';
+  const [verbCycles, setVerbCycles] = useState(0);
+  const [nudgeReady, setNudgeReady] = useState(false);
   const [tutIndex, setTutIndex] = useState<number | null>(null);
   const tutRef = useRef<number | null>(null);
   tutRef.current = tutIndex;
@@ -643,6 +649,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   });
 
   useEffect(() => {
+    if (nudgeMode) {
+      if (showIntro || (standupSet && !standingUp) || nudgeReady) return;
+      const t = setTimeout(() => setNudgeReady(true), 2500);
+      return () => clearTimeout(t);
+    }
     if (showIntro || !tutorialSteps.length) return;
     // wait until the player is on their feet (the wake-up narration has had its moment)
     if (standupSet && !standingUp) return;
@@ -708,15 +719,20 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       // a traverse effect (a rope, a ladder): animate him along its route
       const route = engine.takeTraverse();
       if (route) traverseRef.current(route);
+      const walkIn = engine.takeWalkIn();
+      if (walkIn) walkInRef.current(walkIn);
       bump();
     },
     [engine, bump, playPendingSounds, playSound, scenario, tutorialEvent],
   );
   const traverseRef = useRef<(r: { path: Pt[]; seconds?: number; sprite_set?: string; end: Pt & { facing?: Facing } }) => void>(() => {});
+  const walkInRef = useRef<(r: { path: Pt[]; end: Pt & { facing?: Facing } }) => void>(() => {});
   const onEngineChangeRef = useRef<() => void>(() => {});
   onEngineChangeRef.current = () => {
     const route = engine.takeTraverse();
     if (route) traverseRef.current(route);
+    const walkIn = engine.takeWalkIn();
+    if (walkIn) walkInRef.current(walkIn);
     playPendingSounds();
     bump();
   };
@@ -922,6 +938,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
   };
 
+  /** Walk in through the door he came by (character.walk_in): an ordinary walk, so any click takes over. */
+  walkInRef.current = (route) => {
+    const area = engine.getWalkArea();
+    if (!area || route.path.length < 2) return;
+    cancelAnimationFrame(rafRef.current);
+    const placed = engine.getCharacterPlacement();
+    const sets = scenario.character?.sprite_sets ?? {};
+    const idle = placed?.sprite_set ?? 'idle';
+    const walkSet = sets[idle]?.walk ?? (sets.walk ? 'walk' : idle);
+    const now = performance.now();
+    walkRef.current = {
+      path: route.path, travelled: 0, last: now, viewId: engine.getCurrentView().id, area, walkSet,
+      pending: null, finalFacing: route.end.facing, stepAt: now + 60, walkTime: 0, lastFrame: -1, shown: 0,
+    };
+    setPose({ x: route.path[0].x, y: route.path[0].y, facing: route.end.facing, sprite_set: walkSet, frame: 0 });
+    rafRef.current = requestAnimationFrame((t) => tickRef.current(t));
+  };
+
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
 
   /** Turn to face an object without moving (Look/Talk in a walking view). */
@@ -1032,6 +1066,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       return VERB_ORDER[(idx + 1) % VERB_ORDER.length];
     });
     setSelectedItem(null);
+    setVerbCycles((n) => n + 1);
     tutorialEvent('verb_changed');
   }, [tutorialEvent]);
 
@@ -1432,7 +1467,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           {(scenario.setting.max_score || engine.getScore() > 0) && !fullscreen && (
             <span style={styles.score} data-score>Score: {engine.getScore()}{scenario.setting.max_score ? ` of ${scenario.setting.max_score}` : ''}</span>
           )}
-          {scenario.setting.clock?.show && (
+          {scenario.setting.clock?.show && !prologueActive && (
             <span style={styles.score} data-clock title="Time played">Time {formatClock(engine.getClock())}</span>
           )}
           {engine.getMeters().map((m) => (
@@ -1551,6 +1586,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           fadeRooms={!seamlessCut}
         />
 
+        {nudgeMode && (
+          <VerbNudge visible={nudgeReady && verbCycles < 3 && !tipsOff && !cinematicUp && !(wakeArmed && !standingUp)
+            && !engine.isGameOver() && (!(dev.isDev || dev.skipIntro) || dev.forceTutorial)} />
+        )}
         {tipVisible && tutIndex !== null && (
           <TutorialCoach steps={tutorialSteps} index={tutIndex} onNext={advanceTutorial} onSkip={finishTutorial} number={tipRoute.indexOf(tutIndex) + 1} total={tipRoute.length} />
         )}

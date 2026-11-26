@@ -59,26 +59,24 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
     check(await played(p, 'p1.mp3'), 'the pilot\'s voice plays');
-    check(await waitFor(p, () => /Right-click to change/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 9000), 'tip 1 (after the radio exchange): right-click to change verbs');
-    check(/Tip 1 of 7/i.test(await tip(p)), `tips are numbered along this route ("${(await tip(p)).split('\n')[0]}")`);
+    check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 9000), 'the right-click nudge shows (no tip boxes)');
+    check(!(await p.$('[data-tutorial-step]')), 'no tutorial box over the picture');
     await shot(p, 'v2_02_spacewalk');
     check((await p.evaluate(() => window.__engine.getClock())) < 0.5, 'the game clock does not run on the spacewalk');
 
     const g = { p, vp: await viewport(p), verb: 'look' };
     await setVerb(g, 'move');
-    check(/drift/.test(await tip(p)), 'tip 2: drift with Move');
     await click(g, 200, 500);
     await p.waitForTimeout(2500);
     const pos = await p.evaluate(() => window.__engine.getCharacterPlacement());
     check(pos && pos.x < 300, `he drifts where you click (x ${pos && Math.round(pos.x)})`);
-    check(/Hand works things/.test(await tip(p)), 'tip 3: Hand the panel');
     await setVerb(g, 'hand');
     await click(g, 607, 338);
-    check(await waitFor(p, () => /Panel's open/.test(document.body.innerText), 12000), 'Hand on the satellite: "Panel\'s open"');
-    check(await waitFor(p, () => window.__engine.currentViewId === 'intro_panel_closeup', 6000), 'into the panel close-up');
-    check(/Look inside the panel/.test(await tip(p)), 'tip 4: look inside the panel');
+    check(await waitFor(p, () => window.__engine.currentViewId === 'intro_panel_closeup', 12000), 'Hand on the satellite: into the panel close-up');
+    check(await waitFor(p, () => /Panel's open/.test(document.body.innerText), 5000), 'he says the panel is open once the door has swung');
     await shot(p, 'v2_03_panel');
     await setVerb(g, 'look');
+    check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'hidden', 3000), 'the nudge has gone after a few verb changes');
     await click(g, 691, 327);
     check(await waitFor(p, () => /the boards are missing/.test(document.body.innerText), 4000), 'the boards are missing');
     check(await waitFor(p, () => /long-range is acting up/.test(document.body.innerText), 10000), 'Control can\'t explain it');
@@ -104,9 +102,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
     check(!!(await p.$('[data-hud-menu-panel] [data-dev-skip]')), 'game-only controls come back with the Stasis Hold (in the menu)');
     await p.click('[data-hud-menu]'); await p.waitForTimeout(200);
-    check(!(await tip(p)), 'no tip while he lies there');
-    check(await waitFor(p, () => /specimen tag/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 40000), 'after he stands: the next tip (take the specimen tag)');
-    check(/Tip 5 of 7/i.test(await tip(p)), `numbering carries on ("${(await tip(p)).split('\n')[0]}")`);
+    check(!(await tip(p)), 'no tip boxes in the Stasis Hold either');
     check((await p.evaluate(() => window.__engine.getClock())) < 30, 'the clock starts with the wake-up');
     await shot(p, 'v2_05_stasis');
     await p.close();
@@ -118,8 +114,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     await p.goto(PLAY); await p.waitForSelector('[data-skip-intro]'); await p.waitForTimeout(1500); await p.click('[data-skip-intro]');
     check(await waitFor(p, () => window.__engine?.currentViewId === 'act1_stasis_hold' && !document.querySelector('[data-intro-cinematic]'), 4000), 'skip in the cold open: the Stasis Hold');
     check(!(await p.$('[data-skip-prologue]')), 'no prologue after skipping');
-    check(await waitFor(p, () => /Right-click to change/.test(document.querySelector('[data-tutorial-step]')?.innerText ?? ''), 40000), 'the verb tip shows for a player who skipped');
-    check(/Tip 1 of 6/i.test(await tip(p)), `skipper's route numbering ("${(await tip(p)).split('\n')[0]}")`);
+    check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 40000), 'the right-click nudge shows for a player who skipped, once he is up');
     await p.close();
   }
 

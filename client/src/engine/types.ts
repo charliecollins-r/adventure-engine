@@ -360,6 +360,10 @@ export interface TutorialStep {
 
 export interface Tutorial {
   steps: TutorialStep[];
+  /** "tips" (default): the steps, one box at a time. "nudge": no boxes; a small badge (a mouse with its right button
+   *  lit, next to the verb icon turning through the four verbs) shows until the player has changed verbs three
+   *  times. The steps are kept but not shown. */
+  style?: 'tips' | 'nudge';
 }
 
 export interface View {
@@ -477,6 +481,8 @@ export interface Effect {
   type: string;
   /** set_view: where the character appears in the new view (walking views). */
   at?: StandPoint;
+  /** set_view: false = he appears standing at `at` even when character.walk_in is on (a ladder, a fall, a cutscene). */
+  walk_in?: boolean;
   /** traverse: the route the character is carried along (960x720 feet positions), ignoring the floor. */
   path?: PointXY[];
 
@@ -796,6 +802,13 @@ export interface CharacterConfig {
    * "smooth": constant speed, frames and footsteps on their own timers.
    */
   walk_motion?: 'paced' | 'stepped' | 'smooth';
+  /**
+   * Walk in through doors: when a set_view with `at` puts him in a walking view, he starts at `at` (by the door he
+   * came through) and walks a few steps into the room, toward the middle of the floor, instead of
+   * popping in standing still. true = 140 px, or a number of 960x720 px; the distance shrinks with the floor's
+   * depth_scale, so far doors give short steps. A set_view can opt out with `walk_in: false`. Default off.
+   */
+  walk_in?: boolean | number;
   /** "paced" only: how strongly speed swells and dips within a stride, 0 (constant) to 0.95. Default 0.6. */
   walk_pulse?: number;
 }

@@ -102,8 +102,9 @@ const rng = (seed) => () => { seed = (seed * 1664525 + 1013904223) >>> 0; return
     const sv = SC.objects.find((o) => o.id === navId).interactions.flatMap((i) => i.then || []).find((e) => e.type === 'set_view');
     const a = await engineFeet();
     if (!label) fail('Door: room did not change');
-    else if (Math.hypot(a.x - sv.at.x, a.y - sv.at.y) > 3) fail(`Door: arrived at (${a.x.toFixed(0)}, ${a.y.toFixed(0)}), expected at (${sv.at.x}, ${sv.at.y})`);
-    else console.log(`ok   door: walked out, arrived by the Security door at (${sv.at.x}, ${sv.at.y}) facing ${sv.at.facing}`); }
+    // character.walk_in: he comes in at the `at` spot by the door and walks a few steps into the room (here: leftward from Security)
+    else if (Math.hypot(a.x - sv.at.x, a.y - sv.at.y) > 160 || a.x >= sv.at.x - 20) fail(`Door: ended at (${a.x.toFixed(0)}, ${a.y.toFixed(0)}), expected a few steps in from (${sv.at.x}, ${sv.at.y})`);
+    else console.log(`ok   door: walked out, came in by the Security door at (${sv.at.x}, ${sv.at.y}) and walked in to (${a.x.toFixed(0)}, ${a.y.toFixed(0)})`); }
 
   // 7. Draw order: the character is drawn in front of sprites whose base is above his feet, behind those below
   { const zs = await g.p.evaluate(() => [...document.querySelectorAll('[data-object-id]')].map((d) => ({ id: d.getAttribute('data-object-id'), z: +d.style.zIndex })).filter((x) => x.z >= 10));

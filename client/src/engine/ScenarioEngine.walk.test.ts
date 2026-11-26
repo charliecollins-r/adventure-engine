@@ -160,3 +160,40 @@ describe('hasInteraction / getObjectFocus', () => {
     expect(e.getObjectFocus('crate')).toEqual({ x: 300, y: 620 - 40 });
   });
 });
+
+describe('walk_in: coming through a door', () => {
+  const sc = () => ({
+    metadata: { id: 't', title: 'T' },
+    setting: { initial_view: 'a', ambient_text: '', room_style: { background_color: '', wall_color: '', floor_color: '' } },
+    character: { sprite_sets: { idle: { file: 'x.png', columns: 1, rows: 1, frame_rate: 0 } }, frame_width: 10, frame_height: 10, walk_in: true },
+    views: [
+      { id: 'a', background_key: 'a', objects: ['door'], character: { x: 100, y: 500, facing: 'right', sprite_set: 'idle' }, walk_area: { floor: [[0, 400], [960, 400], [960, 700], [0, 700]] } },
+      { id: 'b', background_key: 'b', objects: [], character: { x: 480, y: 600, facing: 'down', sprite_set: 'idle' }, walk_area: { floor: [[0, 400], [960, 400], [960, 700], [0, 700]], depth_scale: { far_y: 400, far: 0.5, near_y: 700, near: 1 } } },
+    ],
+    objects: [{ id: 'door', name: 'Door', description: '', position: { x: 0, y: 0 }, size: { width: 10, height: 10 }, initial_state: 'default', interactions: [] }],
+    items: [],
+  }) as unknown as Scenario;
+
+  it('he appears at the door and walks a few steps toward the middle of the floor, shorter where he is drawn smaller', () => {
+    const e = new ScenarioEngine(sc());
+    e.runEffects([{ type: 'set_view', view: 'b', at: { x: 900, y: 420, facing: 'left' } }]);
+    const w = e.takeWalkIn()!;
+    expect(w.path[0]).toEqual({ x: 900, y: 420 });
+    expect(e.getCharacterPosition()).toEqual(w.end);
+    const len = Math.hypot(w.end.x - 900, w.end.y - 420);
+    expect(len).toBeGreaterThan(60); expect(len).toBeLessThan(80);   // 140 px × 0.53 depth scale
+    expect(w.end.x).toBeLessThan(900); expect(w.end.y).toBeGreaterThan(420);   // into the room
+    expect(e.takeWalkIn()).toBeNull();
+  });
+
+  it('walk_in: false on the set_view, or off in the scenario, keeps him standing at `at`', () => {
+    const e = new ScenarioEngine(sc());
+    e.runEffects([{ type: 'set_view', view: 'b', at: { x: 900, y: 420 }, walk_in: false }]);
+    expect(e.takeWalkIn()).toBeNull();
+    expect(e.getCharacterPosition()).toEqual({ x: 900, y: 420 });
+    const off = sc(); delete (off.character as { walk_in?: boolean }).walk_in;
+    const f = new ScenarioEngine(off);
+    f.runEffects([{ type: 'set_view', view: 'b', at: { x: 900, y: 420 } }]);
+    expect(f.takeWalkIn()).toBeNull();
+  });
+});

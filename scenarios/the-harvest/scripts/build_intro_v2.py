@@ -41,7 +41,13 @@ START = [330, 450]          # where the pilot floats: the same in the cold open 
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.33
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
-DRIFT = {'file': 'intro/sprites/eva_drift.png', 'frame_width': 453, 'frame_height': 417, 'columns': 4, 'frame_rate': 0}
+def _cell(path, columns):
+    """(frame_width, frame_height) of a built sheet, so a rebuild of the art can't leave stale sizes here."""
+    from PIL import Image
+    w, h = Image.open(path).size
+    return w // columns, h
+DRIFT = {'file': 'intro/sprites/eva_drift.png', 'frame_width': _cell('intro/sprites/eva_drift.png', 4)[0], 'frame_height': _cell('intro/sprites/eva_drift.png', 4)[1], 'columns': 4, 'frame_rate': 0}
+PANEL_H = _cell('intro/sprites/eva_panel_turn.png', 1)[1]
 
 
 def msg(text, voice=None, style=None, static=None):
@@ -267,8 +273,9 @@ SPACE_VIEW = {
 
 OPEN_PANEL = [
     {'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_panel_open', 'value': 'true'}],
-     'then': [{'type': 'set_flag', 'flag': 'sw_panel_open', 'value': 'true'}, msg(P3, 'p3', 'comms'),
-              later(LEN['p3'] + 0.5, {'type': 'set_view', 'view': PANEL})],
+     # straight to the close-up: the door is seen swinging open there, and only then does he say it's open
+     'then': [{'type': 'set_flag', 'flag': 'sw_panel_open', 'value': 'true'}, {'type': 'set_view', 'view': PANEL},
+              later(1.5, msg(P3, 'p3', 'comms'))],
      'else': [{'type': 'set_view', 'view': PANEL}]},
 ]
 
@@ -304,7 +311,7 @@ BOARDS_GONE = [
 
 PANEL_VIEW = {
     'id': PANEL, 'name': 'LUMEN-7 Service Panel',
-    'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel_empty.webp',
+    'background_key': PANEL, 'background_file': 'intro/backgrounds/intro_panel_gutted.webp',   # door removed, boards painted out (scripts/gut_panel.py)
     # the door and the pilot are sprites over the painting with its door removed: the door swings open as he pulls
     'objects': ['pn_door_swing', 'pn_pilot_open', 'pn_pilot_turn', 'pn_boards', 'pn_door', 'pn_handrail', 'pn_earth'],
     'on_enter': [later(1.2, {'type': 'set_flag', 'flag': 'sw_door_swung', 'value': 'true'})],
@@ -314,22 +321,22 @@ PANEL_VIEW = {
     'ambient_audio': A + 'breath_loop.mp3',
     'music': 'intro/audio/bed_stargazer.mp3',
     'enter_sound': A + 'panel.mp3',
-    'ambient_lighting': {'lights': [{'x': 0.72, 'y': 0.45, 'radius': 0.2, 'color': [120, 255, 160], 'alpha': 0.12, 'pulse_speed': 0.3, 'pulse_amount': 0.3, 'phase': 0}]},
+    'ambient_lighting': {'lights': [{'x': 0.76, 'y': 0.45, 'radius': 0.16, 'color': [150, 190, 255], 'alpha': 0.06, 'pulse_speed': 0.2, 'pulse_amount': 0.2, 'phase': 0}]},
     'hints': [{'text': 'LOOK inside the panel.'}],
 }
 
-PILOT_AT_PANEL = {'x': 359, 'y': 600}   # his grab bar sits at the opening's left edge (sprite bottom-centre)
+PILOT_AT_PANEL = {'x': 446, 'y': 600}   # his grab bar sits on the hull just left of the hatch frame (sprite bottom-centre)
 PANEL_OBJECTS = [
     obj('pn_door_swing', 'Panel Door', "The service panel's door.", (716, 664), (1, 1), [], walk_to=False,
         sprite={'file': 'intro/sprites/panel_door.png', 'frame_width': 626, 'frame_height': 605, 'columns': 8, 'rows': 1, 'frame_rate': 9,
                 'scale': 0.7031, 'loop': False, 'pass_through': True,
                 'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 7}]}),
     obj('pn_pilot_open', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False,
-        sprite={'file': 'intro/sprites/eva_panel_open.png', 'frame_width': 329, 'frame_height': 417, 'columns': 3, 'rows': 1, 'frame_rate': 2.4,
+        sprite={'file': 'intro/sprites/eva_panel_open.png', 'frame_width': 329, 'frame_height': PANEL_H, 'columns': 3, 'rows': 1, 'frame_rate': 2.4,
                 'scale': 0.82, 'loop': False, 'pass_through': True,
                 'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 2}]}),
     obj('pn_pilot_turn', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False, initially_visible=False,
-        sprite={'file': 'intro/sprites/eva_panel_turn.png', 'frame_width': 329, 'frame_height': 417, 'columns': 1, 'rows': 1, 'frame_rate': 0,
+        sprite={'file': 'intro/sprites/eva_panel_turn.png', 'frame_width': 329, 'frame_height': PANEL_H, 'columns': 1, 'rows': 1, 'frame_rate': 0,
                 'scale': 0.82, 'pass_through': True}),
     obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
         {'verb': 'look', 'then': BOARDS_GONE},
@@ -373,7 +380,7 @@ def main():
                                     "He wakes in a cracked pod among a thousand stolen specimens. Earth is next on the list. Get out, and get home.")
     s['metadata']['difficulty'] = 'Hard'
     st['narration'] = 'first_person'   # the engine's own lines in his voice too ("I can't go that way.")
-    st['tutorial'] = {'steps': TUTORIAL}
+    st['tutorial'] = {'style': 'nudge', 'steps': TUTORIAL}   # a quiet right-click badge; the tip boxes broke the mood
     # The wake-up line is his own thought once its clip is recorded: the first phase's opening message and the wake voice.
     if voice_of('w01'):
         s['phases'][0]['on_enter'][0]['text'] = LINES['w01']

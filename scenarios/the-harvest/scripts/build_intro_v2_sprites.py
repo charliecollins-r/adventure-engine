@@ -39,6 +39,48 @@ def key_blue(path, soft=False):
     return rgba
 
 
+def helmets(frames, raw_path, n=4):
+    """The helmet is a clear bubble painted over the blue screen, so keying removes it, and the painted rims vary
+    frame to frame (some broken). Fit a circle to each frame's painted rim, give every frame of the sheet the same
+    radius, and draw one clean pixel-art helmet: glass (faint tint), a two-tone rim and a highlight arc."""
+    raw = np.asarray(Image.open(raw_path).convert('RGB')).astype(np.float32)
+    rr = frames_of(np.dstack([raw, np.full(raw.shape[:2], 255, np.float32)]), n)
+    fits = []
+    for f, rf in zip(frames, rr):
+        r, g, b = rf[..., 0], rf[..., 1], rf[..., 2]
+        H = f.shape[0]
+        rim = (np.maximum(r, g) > 85) & (f[..., 3] < 128)
+        rim[int(0.5 * H):] = False
+        ys, xs = np.where(rim)
+        # algebraic circle fit: x^2+y^2 + Dx + Ey + F = 0
+        A = np.c_[xs, ys, np.ones_like(xs)]
+        D, E, F = np.linalg.lstsq(A, -(xs ** 2 + ys ** 2), rcond=None)[0]
+        cx, cy = -D / 2, -E / 2
+        fits.append([cx, cy, np.sqrt(cx ** 2 + cy ** 2 - F)])
+    R = float(np.median([f[2] for f in fits]))
+    out = []
+    for f, (cx, cy, _) in zip(frames, fits):
+        f = f.copy()
+        H, W = f.shape[:2]
+        yy, xx = np.mgrid[0:H, 0:W]
+        d = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
+        # the painted rim's leftovers just outside the new helmet (pale highlight strokes)
+        stray = (d >= R) & (d < R + 16) & (yy < cy) & (f[..., :3].min(axis=2) > 140)
+        f[..., 3] = np.where(stray, 0, f[..., 3])
+        empty = f[..., 3] < 40
+        inside = (d < R - 3) & empty
+        f[inside] = [205, 225, 255, 38]                     # glass
+        outer = (d >= R - 3) & (d < R) & empty
+        f[outer] = [190, 210, 235, 255]                     # rim, pale
+        edge = (d >= R) & (d < R + 2) & empty
+        f[edge] = [40, 52, 80, 255]                         # dark outline (VGA style)
+        ang = np.degrees(np.arctan2(yy - cy, xx - cx))
+        hi = (d >= R - 9) & (d < R - 5) & (ang > -75) & (ang < -25) & empty
+        f[hi] = [255, 255, 255, 200]                        # highlight, upper right
+        out.append(f)
+    return out
+
+
 def frames_of(rgba, n=4):
     w = rgba.shape[1] // n
     return [rgba[:, i * w:(i + 1) * w].copy() for i in range(n)]
@@ -51,7 +93,7 @@ def clean(fr, keep_small=0.01):
     if n == 0: return fr, m
     sizes = ndimage.sum(m, lab, range(1, n + 1))
     keep = np.isin(lab, [i + 1 for i, s in enumerate(sizes) if s >= keep_small * sizes.max()])
-    fr[..., 3] = np.where(keep, fr[..., 3], 0)
+    fr[..., 3] = np.where(m & ~keep, 0, fr[..., 3])     # drop specks; faint glass (alpha < 128) stays
     return fr, keep
 
 
@@ -72,7 +114,7 @@ def sheet(frames, anchors, name):
 info = {}
 
 # ── the pilot at the panel: anchored on the grab bar (the rightmost thing in each frame) and his boots' line ──
-fr = [clean(f)[0] for f in frames_of(key_blue(f'{RAW}/eva_panel.webp'))]
+fr = [clean(f)[0] for f in helmets(frames_of(key_blue(f'{RAW}/eva_panel.webp')), f'{RAW}/eva_panel.webp')]
 anch = []
 for f in fr:
     ys, xs = np.where(f[..., 3] > 0)
@@ -89,7 +131,7 @@ os.remove(f'{OUT}/eva_panel_all.png'); os.remove(f'{OUT}/eva_panel_turn_tmp.png'
 info['eva_panel'] = {'frame_width': all_w, 'frame_height': all_h, 'bar_x_in_cell': l4, 'sole_y_in_cell': u4}
 
 # ── the drift cycle: anchored on the body's centre and its lowest point ──
-fr = [clean(f, 0.02)[0] for f in frames_of(key_blue(f'{RAW}/eva_drift.webp'))]
+fr = [clean(f, 0.02)[0] for f in helmets(frames_of(key_blue(f'{RAW}/eva_drift.webp')), f'{RAW}/eva_drift.webp')]
 anch = []
 for f in fr:
     m = f[..., 3] > 0

@@ -1,4 +1,4 @@
-import { facingFromDelta, nearestFloorPoint } from './walkable';
+import { depthScaleAt, facingFromDelta, findPath, nearestFloorPoint, pathLength, pointAlong } from './walkable';
 import type {
   Facing,
   StandPoint,
@@ -93,6 +93,8 @@ export class ScenarioEngine {
   private _transitionSound: string | null | undefined = undefined;
   /** A traverse effect waiting for the UI to animate it. */
   private _traverse: { path: StandPoint[]; seconds?: number; sprite_set?: string; end: StandPoint } | null = null;
+  /** A walk-in through a door waiting for the UI to animate it (character.walk_in). */
+  private _walkIn: { path: StandPoint[]; end: StandPoint } | null = null;
   /** play_animation counters per object: a change restarts that object's sprite from its first frame. */
   private animationRuns: Record<string, number> = {};
   /** Seconds of play (setting.clock); advanced by the UI with advanceClock(). */
@@ -1031,6 +1033,40 @@ export class ScenarioEngine {
 
   /** The transition sound the last set_view asked for, once (undefined = use the view's default). */
   /** The route of the last traverse effect (for the UI to animate), once. The engine has already moved him to its end. */
+  /** The walk-in route after going through a door (character.walk_in), once. The engine already has him at its end. */
+  takeWalkIn(): { path: StandPoint[]; end: StandPoint } | null {
+    const t = this._walkIn; this._walkIn = null; return t;
+  }
+
+  /** He came in at `at`: walk a few steps toward the middle of the floor (character.walk_in). Sets _walkIn. */
+  private planWalkIn(at: StandPoint): void {
+    const cfg = this.scenario.character?.walk_in;
+    const area = this.getWalkArea();
+    if (!cfg || !area) return;
+    // into the room = toward the middle of the floor (its area centroid; findPath snaps it onto the floor)
+    let cx = 0, cy = 0, a2 = 0;
+    const f = area.floor;
+    for (let i = 0; i < f.length; i++) {
+      const [x0, y0] = f[i], [x1, y1] = f[(i + 1) % f.length];
+      const c = x0 * y1 - x1 * y0;
+      a2 += c; cx += (x0 + x1) * c; cy += (y0 + y1) * c;
+    }
+    if (Math.abs(a2) < 1) return;
+    const centre = { x: cx / (3 * a2), y: cy / (3 * a2) };
+    const want = (typeof cfg === 'number' ? cfg : 140) * depthScaleAt(area, at.y);
+    const route = findPath(area, at, centre);
+    const len = pathLength(route);
+    if (len < 12) return;                              // he's already at the room's resting spot
+    const d = Math.max(Math.min(want, len), Math.min(len, 30));
+    const { pt, leg } = pointAlong(route, d);
+    const path = [...route.slice(0, leg), pt].map((p) => ({ x: Math.round(p.x), y: Math.round(p.y) }));
+    if (path.length < 2) return;
+    const a = path[path.length - 2], b = path[path.length - 1];
+    const end: StandPoint = { x: b.x, y: b.y, facing: facingFromDelta(b.x - a.x, b.y - a.y) };
+    this._characterPos = end;
+    this._walkIn = { path, end };
+  }
+
   takeTraverse(): { path: StandPoint[]; seconds?: number; sprite_set?: string; end: StandPoint } | null {
     const t = this._traverse; this._traverse = null; return t;
   }
@@ -1431,6 +1467,8 @@ export class ScenarioEngine {
     this.posHistory.push(this._characterPos);
             this._currentViewId = e.view;
             this._characterPos = e.at ? { x: e.at.x, y: e.at.y, ...(e.at.facing ? { facing: e.at.facing } : {}) } : null;
+            this._walkIn = null;
+            if (e.at && e.walk_in !== false) this.planWalkIn(e.at);
             this._transitionSound = 'sound' in e ? (e.sound ?? null) : undefined;
             const decay = this.scenario.setting.noise_decay ?? 0;
             if (decay > 0) this._noiseLevel = Math.max(0, this._noiseLevel - decay);
