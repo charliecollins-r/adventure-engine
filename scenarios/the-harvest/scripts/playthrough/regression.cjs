@@ -13,7 +13,7 @@ async function page(b, { audioHang = false } = {}) {
     HTMLMediaElement.prototype.play = function () { window.__plays.push({ src: this.src.split('/').pop(), t: performance.now(), el: this }); return op.call(this); };
   });
   // A browser that never reports the narration clip's length (Safari-like): hang that request forever.
-  if (audioHang) await p.route('**/audio/voice/ambient_stasis.mp3', () => {});
+  if (audioHang) await p.route('**/intro/audio/v2/voice/w01.mp3', () => {});
   return p;
 }
 const eyeState = (p) => p.evaluate(() => { const e = document.querySelector('[data-eye-open]'); return e ? +getComputedStyle(e).opacity : -1; });
@@ -50,8 +50,8 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     const tipEarly = await p.evaluate(() => /TIP 1 OF/.test(document.body.innerText));
     if (tipEarly) fail('tutorial tip shows while he is still lying down'); else ok('no tutorial tip while he lies there');
     const msg = await p.evaluate(() => document.body.innerText);
-    if (!/Your eyes open to green light/.test(msg)) fail('wake-up message is not the narrated text'); else ok('wake-up message matches the narration clip');
-    const voiced = await p.evaluate(() => window.__plays.some((x) => x.src === 'ambient_stasis.mp3'));
+    if (!/Green light\. A chemical smell/.test(msg)) fail('wake-up message is not the narrated text'); else ok('wake-up message matches the narration clip');
+    const voiced = await p.evaluate(() => window.__plays.some((x) => x.src === 'w01.mp3'));
     if (!voiced) fail('the wake-up narration did not play'); else ok('the wake-up narration plays');
     await p.waitForTimeout(22000);
     const tip = await p.evaluate(() => /TIP 1 OF/.test(document.body.innerText));

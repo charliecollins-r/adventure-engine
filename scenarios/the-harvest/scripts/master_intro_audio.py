@@ -89,3 +89,13 @@ for src in sorted(glob.glob('audio/deaths/source/*.mp3')):
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af',
                     f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false,afade=t=out:st={max(0, dur - 0.4):.2f}:d=0.4', '-b:a', '160k', f'audio/deaths/{name}'], check=True)
     print(f'deaths/{name}: {measured:6.1f} -> -18 LUFS ({gain:+.1f} dB)')
+
+# The opening's voiced lines (intro/audio/v2/voice/: s* the pilot, w01 waking up, t* the tips; ids in build_intro_v2.py
+# LINES): originals in intro/audio/v2/voice/source/, mastered to -16 LUFS like the room narration.
+os.makedirs('intro/audio/v2/voice/source', exist_ok=True)
+for src in sorted(glob.glob('intro/audio/v2/voice/source/*.mp3')):
+    name = os.path.basename(src)
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -16 - measured
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'intro/audio/v2/voice/{name}'], check=True)
+print(f'v2/voice: {len(glob.glob("intro/audio/v2/voice/source/*.mp3"))} line(s) mastered to -16 LUFS')

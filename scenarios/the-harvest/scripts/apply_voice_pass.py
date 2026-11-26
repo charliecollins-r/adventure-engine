@@ -22,6 +22,9 @@ def main():
     s = json.load(open(PATH))
     vp = json.load(open(MAP))
     lines = vp['lines']
+    def recording(clip):     # the take itself (source/), not the mastered copy, which every re-master rewrites
+        src = os.path.join(os.path.dirname(clip), 'source', os.path.basename(clip))
+        return src if os.path.exists(src) else clip
     relink = vp.get('voice_relink', {})      # new text -> clip, re-attached once the re-recorded clip exists
     keep = s['phases'][0]['on_enter'][0].get('text') if s.get('phases') else None
     changed, unhooked = 0, []
@@ -45,7 +48,7 @@ def main():
                     walk(v)
             # a re-recorded clip comes back on the line it belongs to
             if x.get('type') == 'message' and not x.get('voice') and x.get('text') in relink and os.path.exists(relink[x['text']]) \
-                    and os.path.getmtime(relink[x['text']]) > vp.get('_recorded_before', 0):
+                    and os.path.getmtime(recording(relink[x['text']])) > vp.get('_recorded_before', 0):
                 x['voice'] = relink[x['text']]
         elif isinstance(x, list):
             for v in x: walk(v)

@@ -200,7 +200,7 @@
       "score": "audio/score.mp3",
       "sting_earth": "audio/sting_earth.mp3",
       "death": "audio/death_sting.mp3",
-      "intro_voice": "audio/voice/ambient_stasis.mp3",
+      "intro_voice": "intro/audio/v2/voice/w01.mp3",
       "patrol": "audio/patrol_skitter.mp3",
       "patrol_far": "audio/patrol_skitter_far.mp3",
       "lung_in": "audio/vents/lung_in.mp3",
@@ -245,7 +245,8 @@
               "flag": "sw_briefed_done",
               "value": "true"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t01.mp3"
         },
         {
           "text": "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
@@ -261,7 +262,8 @@
               "flag": "sw_briefed_done",
               "value": "true"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t02.mp3"
         },
         {
           "text": "Hand works things. Use it on the gold body to open the service panel.",
@@ -277,7 +279,8 @@
               "flag": "sw_briefed_done",
               "value": "true"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t03.mp3"
         },
         {
           "text": "Look (the eye) is always safe. Look inside the panel.",
@@ -288,22 +291,26 @@
               "type": "view_is",
               "view": "intro_panel_closeup"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t04.mp3"
         },
         {
           "text": "Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.",
           "done_when": "verb_changed",
-          "prologue": "if_skipped"
+          "prologue": "if_skipped",
+          "voice": "intro/audio/v2/voice/t05.mp3"
         },
         {
           "text": "With the Move cursor (the feet), click the floor to walk there.",
           "done_when": "walked",
-          "prologue": "if_skipped"
+          "prologue": "if_skipped",
+          "voice": "intro/audio/v2/voice/t06.mp3"
         },
         {
           "text": "Switch to Look (the eye) and click something to examine it. Looking is always safe.",
           "done_when": "looked",
-          "prologue": "if_skipped"
+          "prologue": "if_skipped",
+          "voice": "intro/audio/v2/voice/t07.mp3"
         },
         {
           "text": "Hand picks things up and works them. Try the specimen tag hanging from your pod.",
@@ -317,7 +324,8 @@
               "type": "not_in_view",
               "view": "intro_panel_closeup"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t08.mp3"
         },
         {
           "text": "What you carry is in Items, under the picture. Click an item, then click something in the room to use it there. Click one item and then another to combine them.",
@@ -331,7 +339,8 @@
               "type": "not_in_view",
               "view": "intro_panel_closeup"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t09.mp3"
         },
         {
           "text": "Stuck? The ? button at the bottom right gives a hint for the room you're in. Good luck.",
@@ -345,7 +354,8 @@
               "type": "not_in_view",
               "view": "intro_panel_closeup"
             }
-          ]
+          ],
+          "voice": "intro/audio/v2/voice/t10.mp3"
         }
       ]
     },
@@ -21375,7 +21385,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The pod hangs open and drained, my outline pressed into the residue, arms crossed like a pharaoh. A specimen tag dangles from the frame."
+              "text": "The pod hangs open and drained, my outline pressed into the residue, arms crossed like a pharaoh. A specimen tag dangles from the frame.",
+              "voice": "audio/voice/your_pod_look.mp3"
             }
           ]
         },
@@ -21395,7 +21406,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I snap a curved shard off the broken edge: some alien composite, light and razor-sharp. A crude tool, but a tool."
+              "text": "I snap a curved shard off the broken edge: some alien composite, light and razor-sharp. A crude tool, but a tool.",
+              "voice": "audio/voice/pod_shard_hand.mp3"
             },
             {
               "type": "add_item",
@@ -21462,7 +21474,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A shallow floor channel draining slowly to the ship's recyclers. Amber stasis fluid pools here."
+              "text": "A shallow floor channel draining slowly to the ship's recyclers. Amber stasis fluid pools here.",
+              "voice": "audio/voice/drainage_look.mp3"
             }
           ]
         },
@@ -21576,7 +21589,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Pods climb into the dark, specimens from dozens of worlds in amber. A few still pulse with life. All too high to reach."
+              "text": "Pods climb into the dark, specimens from dozens of worlds in amber. A few still pulse with life. All too high to reach.",
+              "voice": "audio/voice/pods_look.mp3"
             }
           ],
           "noise": 0
@@ -21633,7 +21647,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A bio-organic tag like a leaf of cartilage, etched with alien notation. A serial number for a collected specimen. Me."
+              "text": "A bio-organic tag like a leaf of cartilage, etched with alien notation. A serial number for a collected specimen. Me.",
+              "voice": "audio/voice/specimen_tag_look.mp3"
             }
           ]
         },
@@ -21648,7 +21663,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I snap the tag free. On the back, seven alien marks in a ring, six already dark. I don't need a translator to read a countdown. I pocket it anyway."
+              "text": "I snap the tag free. On the back, seven alien marks in a ring, six already dark. I don't need a translator to read a countdown. I pocket it anyway.",
+              "voice": "audio/voice/specimen_tag_hand.mp3"
             },
             {
               "type": "add_item",
@@ -39766,7 +39782,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The walkway feels like warm tree bark: grown, not forged. Drainage channels on both sides catch the fluid from damaged pods."
+              "text": "The walkway feels like warm tree bark: grown, not forged. Drainage channels on both sides catch the fluid from damaged pods.",
+              "voice": "audio/voice/walkway_look.mp3"
             }
           ]
         },
@@ -84011,7 +84028,8 @@
           "then": [
             {
               "type": "message",
-              "text": "LUMEN-7. A relay the size of a delivery van, wrapped in gold foil. Nine days of silence, and not a scratch on her. The service panel's on this side."
+              "text": "LUMEN-7. A relay the size of a delivery van, wrapped in gold foil. Nine days of silence, and not a scratch on her. The service panel's on this side.",
+              "voice": "intro/audio/v2/voice/s01.mp3"
             }
           ]
         },
@@ -84108,7 +84126,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I knock on the hull, twice. Nobody home. It's a satellite. What did I expect?"
+              "text": "I knock on the hull, twice. Nobody home. It's a satellite. What did I expect?",
+              "voice": "intro/audio/v2/voice/s02.mp3"
             }
           ]
         }
@@ -84142,7 +84161,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The Outrider. My ship. Small, old, and paid for."
+              "text": "The Outrider. My ship. Small, old, and paid for.",
+              "voice": "intro/audio/v2/voice/s03.mp3"
             }
           ]
         },
@@ -84151,7 +84171,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The airlock's right there. But the job's not done."
+              "text": "The airlock's right there. But the job's not done.",
+              "voice": "intro/audio/v2/voice/s04.mp3"
             }
           ]
         },
@@ -84160,7 +84181,8 @@
           "then": [
             {
               "type": "message",
-              "text": "“Back soon,” I tell her. Ships like to hear it."
+              "text": "“Back soon,” I tell her. Ships like to hear it.",
+              "voice": "intro/audio/v2/voice/s05.mp3"
             }
           ]
         }
@@ -84190,7 +84212,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The main dish. Still pointed at Earth. Still saying nothing."
+              "text": "The main dish. Still pointed at Earth. Still saying nothing.",
+              "voice": "intro/audio/v2/voice/s06.mp3"
             }
           ]
         },
@@ -84199,7 +84222,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Hands off the dish. Control would never let me hear the end of it."
+              "text": "Hands off the dish. Control would never let me hear the end of it.",
+              "voice": "intro/audio/v2/voice/s07.mp3"
             }
           ]
         },
@@ -84208,7 +84232,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I lean in and say “testing.” Somewhere, probably, nobody hears it."
+              "text": "I lean in and say “testing.” Somewhere, probably, nobody hears it.",
+              "voice": "intro/audio/v2/voice/s08.mp3"
             }
           ]
         }
@@ -84238,7 +84263,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Solar wings, clean and soaking up the sun. The power's fine. That makes the silence worse."
+              "text": "Solar wings, clean and soaking up the sun. The power's fine. That makes the silence worse.",
+              "voice": "intro/audio/v2/voice/s09.mp3"
             }
           ]
         },
@@ -84247,7 +84273,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I run a glove along the edge of a cell. Not a mark. Nobody's been out here but me."
+              "text": "I run a glove along the edge of a cell. Not a mark. Nobody's been out here but me.",
+              "voice": "intro/audio/v2/voice/s10.mp3"
             }
           ]
         },
@@ -84256,7 +84283,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Nothing to say to a solar panel. I've tried."
+              "text": "Nothing to say to a solar panel. I've tried.",
+              "voice": "intro/audio/v2/voice/s11.mp3"
             }
           ]
         }
@@ -84286,7 +84314,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Home. All of it, every city light still on. Every time. You'd think I'd get used to it."
+              "text": "Home. All of it, every city light still on. Every time. You'd think I'd get used to it.",
+              "voice": "intro/audio/v2/voice/s12.mp3"
             }
           ]
         },
@@ -84295,7 +84324,8 @@
           "then": [
             {
               "type": "message",
-              "text": "It's a long way down. One hand on the satellite."
+              "text": "It's a long way down. One hand on the satellite.",
+              "voice": "intro/audio/v2/voice/s13.mp3"
             }
           ]
         },
@@ -84304,7 +84334,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I say hello to Earth. It doesn't answer. Best conversation I've had all week."
+              "text": "I say hello to Earth. It doesn't answer. Best conversation I've had all week.",
+              "voice": "intro/audio/v2/voice/s14.mp3"
             }
           ]
         }
@@ -84513,7 +84544,8 @@
               "else": [
                 {
                   "type": "message",
-                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time."
+                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.",
+                  "voice": "intro/audio/v2/voice/s16.mp3"
                 }
               ]
             }
@@ -84586,7 +84618,8 @@
               "else": [
                 {
                   "type": "message",
-                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time."
+                  "text": "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.",
+                  "voice": "intro/audio/v2/voice/s16.mp3"
                 }
               ]
             }
@@ -84598,6 +84631,7 @@
             {
               "type": "message",
               "text": "“Control, you're going to want to see this.”",
+              "voice": "intro/audio/v2/voice/s15.mp3",
               "style": "comms"
             }
           ]
@@ -84627,7 +84661,8 @@
           "then": [
             {
               "type": "message",
-              "text": "The panel door. The latches weren't forced. Somebody had the key. Or didn't need one."
+              "text": "The panel door. The latches weren't forced. Somebody had the key. Or didn't need one.",
+              "voice": "intro/audio/v2/voice/s17.mp3"
             }
           ]
         },
@@ -84636,7 +84671,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I swing the door a little. It moves like it was oiled yesterday."
+              "text": "I swing the door a little. It moves like it was oiled yesterday.",
+              "voice": "intro/audio/v2/voice/s18.mp3"
             }
           ]
         },
@@ -84645,7 +84681,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Nothing to say to a door. Not out loud, anyway."
+              "text": "Nothing to say to a door. Not out loud, anyway.",
+              "voice": "intro/audio/v2/voice/s19.mp3"
             }
           ]
         }
@@ -84674,7 +84711,8 @@
           "then": [
             {
               "type": "message",
-              "text": "A handrail. I keep one glove on it. Habit."
+              "text": "A handrail. I keep one glove on it. Habit.",
+              "voice": "intro/audio/v2/voice/s20.mp3"
             }
           ]
         },
@@ -84683,7 +84721,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I tighten my grip on the rail. Habit, mostly."
+              "text": "I tighten my grip on the rail. Habit, mostly.",
+              "voice": "intro/audio/v2/voice/s21.mp3"
             }
           ]
         },
@@ -84692,7 +84731,8 @@
           "then": [
             {
               "type": "message",
-              "text": "I thank the handrail. Most reliable thing up here."
+              "text": "I thank the handrail. Most reliable thing up here.",
+              "voice": "intro/audio/v2/voice/s22.mp3"
             }
           ]
         }
@@ -84721,7 +84761,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Earth, over my shoulder. Still there. Good."
+              "text": "Earth, over my shoulder. Still there. Good.",
+              "voice": "intro/audio/v2/voice/s23.mp3"
             }
           ]
         },
@@ -84730,7 +84771,8 @@
           "then": [
             {
               "type": "message",
-              "text": "Earth's a long way past my glove. Back to the panel."
+              "text": "Earth's a long way past my glove. Back to the panel.",
+              "voice": "intro/audio/v2/voice/s24.mp3"
             }
           ]
         },
@@ -84739,7 +84781,8 @@
           "then": [
             {
               "type": "message",
-              "text": "“Hold on down there. Won't be long.”"
+              "text": "“Hold on down there. Won't be long.”",
+              "voice": "intro/audio/v2/voice/s25.mp3"
             }
           ]
         }
@@ -85555,7 +85598,7 @@
       "on_enter": [
         {
           "type": "message",
-          "text": "Your eyes open to green light and the smell of chemicals. Fluid drains from your cracked stasis pod, pooling on the organic-metallic floor. You're cold. Weak. Alone among hundreds of pods holding dead things from a dozen worlds. Something hums in the walls — the ship is alive."
+          "text": "Green light. A chemical smell. My pod's cracked open, and whatever they kept me in is running out across the floor. I'm cold. Weak. And not alone: hundreds of pods, full of dead things from a dozen worlds. Something hums in the walls. This ship is alive."
         },
         {
           "type": "play_sound",

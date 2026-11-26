@@ -98,8 +98,8 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check((await view(p)) === 'act1_stasis_hold', 'after the cutscene: the Stasis Hold');
     check(await played(p, 'harvest.mp3') && await played(p, 'c4.mp3'), 'the cutscene plays the harvest and "Outrider, respond"');
     check(await waitFor(p, () => { const e = document.querySelector('[data-eye-open]'); return e && +getComputedStyle(e).opacity > 0.9; }, 3000), 'the wake-up starts in black');
-    check(await waitFor(p, () => window.__plays.some((x) => x.src === 'ambient_stasis.mp3'), 8000), 'the wake-up narration plays');
-    check(/Your eyes open to green light/.test(await text(p)), 'the wake-up message is the narrated text');
+    check(await waitFor(p, () => window.__plays.some((x) => x.src === 'w01.mp3'), 8000), 'the wake-up narration plays');
+    check(/Green light\. A chemical smell/.test(await text(p)), 'the wake-up message is the narrated text');
     check(!(await p.$('[data-skip-prologue]')), 'no skip intro button once the prologue is over');
     await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
     check(!!(await p.$('[data-hud-menu-panel] [data-dev-skip]')), 'game-only controls come back with the Stasis Hold (in the menu)');
@@ -133,7 +133,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check((await view(p)) === 'act1_stasis_hold', 'Skip intro on the spacewalk: the Stasis Hold');
     await p.waitForTimeout(9000);
     check(!/Big, expensive|LUMEN/.test(await text(p)), 'nothing from the spacewalk follows you in');
-    check(await waitFor(p, () => window.__plays.some((x) => x.src === 'ambient_stasis.mp3'), 4000), 'and the wake-up plays');
+    check(await waitFor(p, () => window.__plays.some((x) => x.src === 'w01.mp3'), 4000), 'and the wake-up plays');
     await p.close();
   }
 
