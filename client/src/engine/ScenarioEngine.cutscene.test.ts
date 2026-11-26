@@ -119,7 +119,7 @@ describe('The Harvest: the playable prologue', () => {
 
   it('the pilot is drawn in his spacesuit sheet, at its own size, and the tips cover both routes', () => {
     const eva = scenario.character!.sprite_sets.eva;
-    expect(eva.frame_width).toBe(453);   // the drift sheet (intro/sprites/eva_drift.png)
+    expect(eva.file).toBe('intro/sprites/eva_float_v3.png');   // the owner's v3 float sheet (scripts/build_eva_v3.py)
     expect(scenario.views.find((v) => v.id === 'intro_spacewalk')!.character!.sprite_set).toBe('eva');
     const steps = scenario.setting.tutorial!.steps;
     expect(steps.filter((s) => s.prologue === 'only').length).toBeGreaterThan(0);

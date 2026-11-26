@@ -384,15 +384,15 @@
         },
         "sprites": [
           {
-            "file": "intro/sprites/eva_drift.png",
-            "frame_width": 453,
-            "frame_height": 437,
-            "columns": 4,
+            "file": "intro/sprites/eva_float_v3.png",
+            "frame_width": 326,
+            "frame_height": 709,
+            "columns": 2,
             "frame_rate": 0,
             "frames": [
-              1
+              0
             ],
-            "scale": 0.33,
+            "scale": 0.2,
             "at": [330, 450],
             "bob": {
               "amount": 5,
@@ -667,15 +667,15 @@
               }
             },
             {
-              "file": "intro/sprites/eva_drift.png",
-              "frame_width": 453,
-              "frame_height": 437,
-              "columns": 4,
+              "file": "intro/sprites/eva_float_v3.png",
+              "frame_width": 326,
+              "frame_height": 709,
+              "columns": 2,
               "frame_rate": 0,
               "frames": [
-                1
+                0
               ],
-              "scale": 0.33,
+              "scale": 0.2,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -685,15 +685,15 @@
               "fade": 0.01
             },
             {
-              "file": "intro/sprites/eva_drift.png",
-              "frame_width": 453,
-              "frame_height": 437,
-              "columns": 4,
+              "file": "intro/sprites/eva_float_v3.png",
+              "frame_width": 326,
+              "frame_height": 709,
+              "columns": 2,
               "frame_rate": 0,
               "frames": [
-                3
+                1
               ],
-              "scale": 0.33,
+              "scale": 0.2,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -1288,16 +1288,16 @@
         "anchor": "top"
       },
       "eva": {
-        "file": "intro/sprites/eva_drift.png",
-        "columns": 4,
+        "file": "intro/sprites/eva_float_v3.png",
+        "columns": 2,
         "rows": 1,
-        "frame_rate": 0,
+        "frame_rate": 0.7,
         "directions": [
           "right"
         ],
-        "frame_width": 453,
-        "frame_height": 437,
-        "scale": 0.33,
+        "frame_width": 326,
+        "frame_height": 709,
+        "scale": 0.2,
         "bob": {
           "amount": 5,
           "period": 4.5
@@ -1305,16 +1305,16 @@
         "walk": "eva_drift"
       },
       "eva_drift": {
-        "file": "intro/sprites/eva_drift.png",
-        "columns": 4,
+        "file": "intro/sprites/eva_float_v3.png",
+        "columns": 2,
         "rows": 1,
-        "frame_rate": 3,
+        "frame_rate": 1.2,
         "directions": [
           "right"
         ],
-        "frame_width": 453,
-        "frame_height": 437,
-        "scale": 0.33,
+        "frame_width": 326,
+        "frame_height": 709,
+        "scale": 0.2,
         "bob": {
           "amount": 4,
           "period": 3
@@ -18914,7 +18914,6 @@
         "y": 450,
         "facing": "right",
         "sprite_set": "eva",
-        "frame": 1,
         "shadow": {
           "opacity": 0
         }
@@ -84392,8 +84391,8 @@
       "name": "You",
       "description": "",
       "position": {
-        "x": 446,
-        "y": 600
+        "x": 494,
+        "y": 691
       },
       "size": {
         "width": 1,
@@ -84407,13 +84406,13 @@
       "interactions": [],
       "walk_to": false,
       "sprite": {
-        "file": "intro/sprites/eva_panel_open.png",
-        "frame_width": 329,
-        "frame_height": 436,
-        "columns": 3,
+        "file": "intro/sprites/eva_rail_v3.png",
+        "frame_width": 349,
+        "frame_height": 699,
+        "columns": 4,
         "rows": 1,
         "frame_rate": 2.4,
-        "scale": 0.82,
+        "scale": 0.42,
         "loop": false,
         "pass_through": true,
         "frame_when": [
@@ -84425,7 +84424,7 @@
                 "value": "true"
               }
             ],
-            "frame": 2
+            "frame": 3
           }
         ]
       }
@@ -84435,8 +84434,8 @@
       "name": "You",
       "description": "",
       "position": {
-        "x": 446,
-        "y": 600
+        "x": 494,
+        "y": 691
       },
       "size": {
         "width": 1,
@@ -84451,13 +84450,14 @@
       "walk_to": false,
       "initially_visible": false,
       "sprite": {
-        "file": "intro/sprites/eva_panel_turn.png",
-        "frame_width": 329,
-        "frame_height": 436,
-        "columns": 1,
+        "file": "intro/sprites/eva_turn_v3.png",
+        "frame_width": 349,
+        "frame_height": 699,
+        "columns": 4,
         "rows": 1,
-        "frame_rate": 0,
-        "scale": 0.82,
+        "frame_rate": 1.4,
+        "scale": 0.42,
+        "loop": false,
         "pass_through": true
       }
     },

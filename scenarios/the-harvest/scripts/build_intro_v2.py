@@ -15,7 +15,8 @@ Voices: the pilot is the Silas voice (the same voice that narrates the rooms) wi
 to Control (message style "comms"); Relay Control is the Emily voice through the radio filter (style "radio").
 Audio lives in intro/audio/v2/ (mastered by master_intro_audio.py).
 """
-import json, os, re
+import json
+import os, re
 
 PATH = 'scenario.json'
 A = 'intro/audio/v2/'
@@ -39,15 +40,16 @@ EVA = {'file': 'intro/sprites/eva.png', 'frame_width': 386, 'frame_height': 419,
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
-EVA_SCALE = 0.33
+EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
 def _cell(path, columns):
     """(frame_width, frame_height) of a built sheet, so a rebuild of the art can't leave stale sizes here."""
     from PIL import Image
     w, h = Image.open(path).size
     return w // columns, h
-DRIFT = {'file': 'intro/sprites/eva_drift.png', 'frame_width': _cell('intro/sprites/eva_drift.png', 4)[0], 'frame_height': _cell('intro/sprites/eva_drift.png', 4)[1], 'columns': 4, 'frame_rate': 0}
-PANEL_H = _cell('intro/sprites/eva_panel_turn.png', 1)[1]
+# the pilot floating (scripts/build_eva_v3.py, the owner's v3 sheets): two near-identical poses, a slow breathing loop.
+# There's no swimming in orbit, so the same loop plays while he drifts to where you click.
+DRIFT = {'file': 'intro/sprites/eva_float_v3.png', 'frame_width': _cell('intro/sprites/eva_float_v3.png', 2)[0], 'frame_height': _cell('intro/sprites/eva_float_v3.png', 2)[1], 'columns': 2, 'frame_rate': 0}
 
 
 def msg(text, voice=None, style=None, static=None):
@@ -147,7 +149,7 @@ COLD_OPEN = [{
     'loop': A + 'breath_loop.mp3',
     # the push-in settles well before the scene ends, so its last frames are exactly the playable picture
     'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7},
-    'sprites': [{**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
+    'sprites': [{**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
     'ambient_lighting': {'lights': [SUN]},
     'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
     'lines': [{'text': 'Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.', 'voice': A + 'n1.mp3', 'pause': 3.4}],
@@ -167,8 +169,8 @@ ABDUCTION = [
             # the harvester's leading edge slides across the sky from the right, swallowing the stars as it comes
             {'file': 'intro/sprites/harvester_edge.png', 'frame_width': 2000, 'frame_height': 512, 'columns': 1, 'frame_rate': 0, 'frames': [0],
              'scale': 0.6, 'at': [1700, 250], 'move': {'to': [430, 250], 'seconds': 9, 'delay': 0.4}},
-            {**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
-            {**DRIFT, 'frames': [3], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
+            {**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
+            {**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
         'ambient_lighting': {'lights': [SUN]},
         'effects': [
             # something vast slides across the sky: the stars go out in a front from the right, the light dims behind it
@@ -253,7 +255,7 @@ SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
-    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'frame': 1, 'shadow': {'opacity': 0}},
+    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0}},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
@@ -325,19 +327,27 @@ PANEL_VIEW = {
     'hints': [{'text': 'LOOK inside the panel.'}],
 }
 
-PILOT_AT_PANEL = {'x': 446, 'y': 600}   # his grab bar sits on the hull just left of the hatch frame (sprite bottom-centre)
+# The v3 rail sheets (scripts/build_eva_v3.py) share one cell, anchored on the end of the red placeholder bar his glove
+# held: that point goes on the painting's yellow-black handrail, at the hatch's lower left corner.
+RAIL = json.load(open('intro/sprites/eva_rail_v3.json')) if os.path.exists('intro/sprites/eva_rail_v3.json') else None
+RAIL_GRIP = (561, 377)                 # the handrail's left end, in the 960x540 picture
+RAIL_SCALE = 0.42      # leaves space under his boots: nothing reads as a floor
+PILOT_AT_PANEL = {'x': round(RAIL_GRIP[0] - (RAIL['anchor_x'] - RAIL['frame_width'] / 2) * RAIL_SCALE),
+                  'y': round((RAIL_GRIP[1] + (RAIL['frame_height'] - RAIL['anchor_y']) * RAIL_SCALE) / 0.75)}   # sprite bottom-centre, 960x720
 PANEL_OBJECTS = [
     obj('pn_door_swing', 'Panel Door', "The service panel's door.", (716, 664), (1, 1), [], walk_to=False,
         sprite={'file': 'intro/sprites/panel_door.png', 'frame_width': 626, 'frame_height': 605, 'columns': 8, 'rows': 1, 'frame_rate': 9,
                 'scale': 0.7031, 'loop': False, 'pass_through': True,
                 'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 7}]}),
+    # grabs the rail, swings in, reaches up as the door opens, then leans in to look
     obj('pn_pilot_open', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False,
-        sprite={'file': 'intro/sprites/eva_panel_open.png', 'frame_width': 329, 'frame_height': PANEL_H, 'columns': 3, 'rows': 1, 'frame_rate': 2.4,
-                'scale': 0.82, 'loop': False, 'pass_through': True,
-                'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 2}]}),
+        sprite={'file': 'intro/sprites/eva_rail_v3.png', 'frame_width': RAIL['frame_width'], 'frame_height': RAIL['frame_height'], 'columns': 4, 'rows': 1, 'frame_rate': 2.4,
+                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True,
+                'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 3}]}),
+    # the boards are gone: an uneasy look back at us, then he lets go of the rail, alarmed
     obj('pn_pilot_turn', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False, initially_visible=False,
-        sprite={'file': 'intro/sprites/eva_panel_turn.png', 'frame_width': 329, 'frame_height': PANEL_H, 'columns': 1, 'rows': 1, 'frame_rate': 0,
-                'scale': 0.82, 'pass_through': True}),
+        sprite={'file': 'intro/sprites/eva_turn_v3.png', 'frame_width': RAIL['frame_width'], 'frame_height': RAIL['frame_height'], 'columns': 4, 'rows': 1, 'frame_rate': 1.4,
+                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True}),
     obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
         {'verb': 'look', 'then': BOARDS_GONE},
         {'verb': 'hand', 'then': BOARDS_GONE},
@@ -387,10 +397,10 @@ def main():
         st.setdefault('sounds', {})['intro_voice'] = voice_of('w01')
     # floating still (drift frame 1), and a slow swim as he moves
     s['character']['sprite_sets']['eva'] = {
-        'file': DRIFT['file'], 'columns': 4, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
+        'file': DRIFT['file'], 'columns': 2, 'rows': 1, 'frame_rate': 0.7, 'directions': ['right'],
         'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva_drift'}
     s['character']['sprite_sets']['eva_drift'] = {
-        'file': DRIFT['file'], 'columns': 4, 'rows': 1, 'frame_rate': 3, 'directions': ['right'],
+        'file': DRIFT['file'], 'columns': 2, 'rows': 1, 'frame_rate': 1.2, 'directions': ['right'],
         'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 4, 'period': 3}}
 
     new_views = [SPACE_VIEW, PANEL_VIEW]
