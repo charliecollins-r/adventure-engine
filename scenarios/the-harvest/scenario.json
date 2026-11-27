@@ -366,109 +366,6 @@
     "music": "audio/music_explore.mp3",
     "music_volume": 0.28,
     "max_score": 125,
-    "intro_scenes": [
-      {
-        "background": "intro/backgrounds/intro_orbit.webp",
-        "loop": "intro/audio/v2/breath_loop.mp3",
-        "camera": {
-          "from": {
-            "zoom": 2.3,
-            "x": -146,
-            "y": -28
-          },
-          "to": {
-            "zoom": 1,
-            "x": 0,
-            "y": 0
-          },
-          "seconds": 7.5
-        },
-        "sprites": [
-          {
-            "file": "intro/sprites/eva_float_v3.png",
-            "frame_width": 326,
-            "frame_height": 709,
-            "columns": 2,
-            "frame_rate": 0,
-            "frames": [
-              0
-            ],
-            "scale": 0.2,
-            "at": [330, 450],
-            "bob": {
-              "amount": 5,
-              "period": 4.5
-            }
-          }
-        ],
-        "ambient_lighting": {
-          "lights": [
-            {
-              "x": 0.97,
-              "y": 0.04,
-              "radius": 0.22,
-              "color": [
-                255,
-                214,
-                160
-              ],
-              "alpha": 0.3,
-              "pulse_speed": 0.15,
-              "pulse_amount": 0.3,
-              "phase": 0
-            }
-          ]
-        },
-        "effects": [
-          {
-            "type": "particles",
-            "motion": "twinkle",
-            "area": [
-              0,
-              0,
-              600,
-              380
-            ],
-            "count": 26,
-            "size": 2,
-            "color": [
-              255,
-              255,
-              255
-            ],
-            "alpha": 0.8
-          },
-          {
-            "type": "rope",
-            "from": [536, 384],
-            "to_sprite": 0,
-            "offset": [0, -320],
-            "sag": 50,
-            "color": [
-              225,
-              205,
-              150
-            ],
-            "width": 2
-          }
-        ],
-        "lines": [
-          {
-            "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
-            "voice": "intro/audio/v2/c1.mp3",
-            "style": "radio",
-            "static": 0.2,
-            "pause": 1.2
-          }
-        ],
-        "music": "intro/audio/bed_stargazer.mp3",
-        "music_volume": 0.5,
-        "hold": 8,
-        "tail": 0.3,
-        "fade_in": 2.5,
-        "transition": "cut"
-      }
-    ],
     "clock": {
       "show": true
     },
@@ -18998,6 +18895,12 @@
           "width": 2
         }
       },
+      "enter_camera": {
+        "focus": [334, 332],
+        "zoom": 2.3,
+        "seconds": 8,
+        "fade_in": 2.5
+      },
       "walk_area": {
         "floor": [
           [60, 330],
@@ -19053,7 +18956,20 @@
             },
             {
               "type": "delay_then",
-              "seconds": 0.4,
+              "seconds": 1.4,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
+                  "voice": "intro/audio/v2/c1.mp3",
+                  "style": "radio",
+                  "static": 0.2
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 8.09,
               "effects": [
                 {
                   "type": "message",
@@ -19065,7 +18981,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 7.92,
+              "seconds": 15.61,
               "effects": [
                 {
                   "type": "set_flag",

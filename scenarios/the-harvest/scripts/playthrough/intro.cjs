@@ -1,7 +1,7 @@
-// Browser test: the opening. The cold open (setting.intro_scenes) hands over to the playable spacewalk (setting.prologue):
-// Control's radio line and the pilot's answer, the tutorial teaching the verbs (right-click, MOVE to drift, HAND the panel,
+// Browser test: the opening. Play starts on the playable spacewalk (setting.prologue), with no cinematic before it: the
+// camera eases out from his helmet (view enter_camera) during Control's radio line and the pilot's answer, the tutorial teaching the verbs (right-click, MOVE to drift, HAND the panel,
 // LOOK inside), the abduction cutscene (setting.cutscenes, play_cutscene), then the wake-up in the Stasis Hold with the
-// rest of the tips. Also: skipping from the cold open and from the spacewalk both land in the Stasis Hold and wake up.
+// rest of the tips. Also: skipping at once and from the spacewalk both land in the Stasis Hold and wake up.
 // Usage: node intro.cjs [screenshot-dir]   (dev server on :5173)
 const { chromium } = require('playwright');
 const OUT = process.argv[2];
@@ -46,15 +46,16 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
   {
     const p = await page(b);
     await p.goto(PLAY);
-    check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 5000), 'the cold open plays');
-    check(await p.evaluate(() => !!document.querySelector('[data-viewport] [data-intro-cinematic]')), 'the cinematic plays inside the game\'s own picture');
-    check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the title card on');
-    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 6000), 'Relay Control calls on the radio as the picture fades in');
+    check(await waitFor(p, () => window.__engine?.currentViewId === 'intro_spacewalk', 3000), 'the game starts on the spacewalk');
+    check(!(await p.$('[data-intro-cinematic]')), 'no opening cinematic (the pilot is the game\'s own sprite from the first frame)');
+    check(await waitFor(p, () => /start|moving/.test(document.querySelector('[data-enter-camera]')?.dataset.enterCamera ?? ''), 2000), 'the camera starts close and eases out');
+    check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the first frame');
+    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 6000), 'Relay Control calls on the radio as the picture fades in');
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
-    await shot(p, 'v2_01_cold_open');
-    check(await waitFor(p, () => !document.querySelector('[data-intro-cinematic]'), 30000), 'the cold open hands over to the game');
-    check((await view(p)) === 'intro_spacewalk', 'the game starts on the spacewalk');
+    check(!(await played(p, 'ambient_lab.mp3')) && !(await played(p, 'music_stasis.mp3')), 'no Stasis Hold sound before the spacewalk');
+    await shot(p, 'v2_01_opening');
+    check(await waitFor(p, () => document.querySelector('[data-enter-camera]')?.dataset.enterCamera === 'off', 12000), 'the camera settles on the whole picture');
     check(!!(await p.$('[data-skip-prologue]')), 'a skip intro button is in the corner');
     check(!(await p.$('[data-dev-skip]')), 'no testing shortcuts during the opening');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
@@ -109,11 +110,11 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     await p.close();
   }
 
-  // ── Skip from the cold open: straight to the wake-up, with the verb tips ──
+  // ── Skip at once: straight to the wake-up, with the verb tips ──
   {
     const p = await page(b);
     await p.goto(PLAY); await p.waitForSelector('[data-skip-intro]'); await p.waitForTimeout(1500); await p.click('[data-skip-intro]');
-    check(await waitFor(p, () => window.__engine?.currentViewId === 'act1_stasis_hold' && !document.querySelector('[data-intro-cinematic]'), 4000), 'skip in the cold open: the Stasis Hold');
+    check(await waitFor(p, () => window.__engine?.currentViewId === 'act1_stasis_hold' && !document.querySelector('[data-intro-cinematic]'), 4000), 'skip at once: the Stasis Hold');
     check(!(await p.$('[data-skip-prologue]')), 'no prologue after skipping');
     check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 40000), 'the right-click nudge shows for a player who skipped, once he is up');
     check(await waitFor(p, () => Number(document.querySelector('[data-verb-nudge]')?.dataset.nudgeCalls) >= 1, 10000), 'ignored for 8 s, the nudge calls for attention');
@@ -124,7 +125,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
   {
     const p = await page(b);
     await p.goto(PLAY);
-    await waitFor(p, () => !document.querySelector('[data-intro-cinematic]') && window.__engine?.currentViewId === 'intro_spacewalk', 30000);
+    await waitFor(p, () => window.__engine?.currentViewId === 'intro_spacewalk', 5000); await p.waitForTimeout(1500);
     await p.click('[data-skip-prologue]');
     await p.waitForTimeout(800);
     check((await view(p)) === 'act1_stasis_hold', 'Skip intro on the spacewalk: the Stasis Hold');

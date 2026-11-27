@@ -3,10 +3,9 @@
     cd scenarios/the-harvest && python3 scripts/build_intro_v2.py
 
 The opening, about 80 seconds (design: the "First Impression" doc):
-  1. Cold open (setting.intro_scenes): the title, then Earth and LUMEN-7 fade up with the pilot's breathing; one line of
-     his own voice-over (N1). It ends on exactly the picture the game starts on, so the cut is seamless.
-  2. The spacewalk (view intro_spacewalk, the prologue): playable. Relay Control asks for eyes on the satellite (C1),
-     the pilot answers (P1). The tutorial teaches the verbs here: right-click, MOVE to drift, HAND the panel (P3).
+  1+2. The spacewalk (view intro_spacewalk, the prologue), playable from the first frame: it fades up close on his helmet
+     and the camera eases out to the whole picture (view enter_camera) while Relay Control asks for eyes on the
+     satellite (C1); the pilot answers (P1). No separate cinematic, so the pilot never changes renderer. The tutorial teaches the verbs here: right-click, MOVE to drift, HAND the panel (P3).
   3. The panel (view intro_panel_closeup): LOOK or HAND inside. The boards are gone (P4); Control can't explain it (C2).
   4. The cutscene "abduction" (setting.cutscenes): the stars go out (P5, C3), the harvest (P6), then "Outrider,
      respond" under the cataloguing, the pods and the dark (C4, fainter each time). Then the wake-up in the Stasis Hold.
@@ -152,24 +151,6 @@ def tip(lid, done_when, **extra):
     return t
 
 
-# ── 1. Cold open ──────────────────────────────────────────────────────────────
-COLD_OPEN = [{
-    'background': 'intro/backgrounds/intro_orbit.webp',
-    'loop': A + 'breath_loop.mp3',
-    # starts close on his helmet and pulls out to reveal LUMEN-7 and Earth; it settles before the scene ends,
-    # so the last frames are exactly the playable picture
-    'camera': {'from': {'zoom': 2.3, 'x': HELMET[0] - 480, 'y': HELMET[1] - 360}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7.5},
-    'sprites': [{**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
-    'ambient_lighting': {'lights': [SUN]},
-    'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8},
-                tether_fx(0, 320, sag=50)],
-    # dialogue from the first second: Control calls as the picture fades in (no narrator); he answers once you can play
-    'lines': [{'text': C1, 'voice': A + 'c1.mp3', 'style': 'radio', 'static': 0.2, 'pause': 1.2}],
-    'music': 'intro/audio/bed_stargazer.mp3', 'music_volume': 0.5,
-    'hold': 8, 'tail': 0.3, 'fade_in': 2.5,
-    'transition': 'cut',   # the last shot is exactly the spacewalk's picture: play starts with no fade
-}]
-
 # ── 4. The abduction ──────────────────────────────────────────────────────────
 ABDUCTION = [
     {   # the stars go out, seen from where he is: the same orbit picture as the spacewalk, the pilot at the panel
@@ -277,6 +258,8 @@ SPACE_VIEW = {
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
     'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
+    # the opening shot: up from black, close on his helmet, easing out to the whole picture as Control calls
+    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 8, 'fade_in': 2.5},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
@@ -286,10 +269,11 @@ SPACE_VIEW = {
     'enter_sound': None,
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
-        # Control's call (C1) is the cold open's line; his answer comes as play begins
-        later(0.4, msg(P1, 'p1', 'comms')),
+        # Control calls while the camera eases out; he answers as it settles
+        later(1.4, msg(C1, 'c1', 'radio', 0.2)),
+        later(1.4 + LEN['c1'] + 0.5, msg(P1, 'p1', 'comms')),
         # the tips wait for this exchange to finish, so a spoken tip never talks over it
-        later(0.4 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
+        later(1.4 + LEN['c1'] + 0.5 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
     ]}],
     'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
 }
@@ -403,7 +387,7 @@ def main():
     with open(PATH) as f:
         s = json.load(f)
     st = s['setting']
-    st['intro_scenes'] = COLD_OPEN
+    st.pop('intro_scenes', None)   # no opening cinematic: play starts on the spacewalk, with its enter_camera move
     st['intro_title'] = False   # the title card plays after the abduction instead (a title_card scene)
     st['cutscenes'] = {**st.get('cutscenes', {}), 'abduction': ABDUCTION}
     st['prologue'] = {'view': SPACE}
@@ -437,7 +421,7 @@ def main():
     out = re.sub(r'\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\s*\]', r'[\1, \2]', out)
     with open(PATH, 'w') as f:
         f.write(out + '\n')
-    print(f'intro v2: cold open, {len(ABDUCTION)}-scene abduction cutscene, views {SPACE} + {PANEL}, {len(new_objs)} objects, {len(TUTORIAL)} tutorial tips')
+    print(f'intro v2: {len(ABDUCTION)}-scene abduction cutscene, views {SPACE} + {PANEL}, {len(new_objs)} objects, {len(TUTORIAL)} tutorial tips')
 
 
 if __name__ == '__main__':

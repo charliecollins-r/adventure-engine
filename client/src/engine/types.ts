@@ -379,6 +379,10 @@ export interface View {
    *  lets an animation that starts on arrival (a door swinging open) be seen. */
   enter_fade?: number;
   /** The idle line under the picture in this view (shown when there is no message), instead of setting.ambient_text; "" for none. */
+  /** A camera move the first time the player enters this view: the picture starts zoomed in on `focus` (960x720) and
+   *  eases out to the whole room over `seconds`, playable all the while (any click finishes it). `fade_in`: seconds of
+   *  fade up from black at the start of a prologue view. Use it instead of a separate opening cinematic. */
+  enter_camera?: { focus: [number, number]; zoom: number; seconds: number; fade_in?: number; every_time?: boolean };
   ambient_text?: string;
   objects: string[];
   back_label?: string;

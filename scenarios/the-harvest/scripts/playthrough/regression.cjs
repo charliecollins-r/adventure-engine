@@ -58,21 +58,21 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     if (!tip) fail('the verb nudge never shows after he stands'); else ok('the verb nudge shows once he is standing');
     await p.close();
   }
-  // 4. The intro never plays a radio line twice at once, and no room ambience plays under it
+  // 4. The opening never plays a voice line twice at once, and no Stasis Hold ambience leaks into the spacewalk
   {
     const p = await page(b);
-    await p.goto(PLAY); await p.waitForSelector('[data-intro-cinematic]');
-    // click through the narration to hear every radio line
-    for (let i = 0; i < 14; i++) {
-      await p.waitForFunction(() => { const el = document.querySelector('[data-intro-line]'); return el && getComputedStyle(el).opacity === '1'; }, null, { timeout: 25000 }).catch(() => {});
-      const dup = await p.evaluate(() => { const live = window.__plays.filter((x) => !x.el.paused && /radio_|narr_|\/v2\/[cpn]\d/.test(x.src)).map((x) => x.src); return live.length !== new Set(live).size ? live : null; });
-      if (dup) { fail('a voice line plays twice at once: ' + dup); break; }
-      const room = await p.evaluate(() => (document.querySelector('[data-intro-cinematic]') ? window.__plays.filter((x) => !x.el.paused && /haunted|ambient_lab|ambient_industrial/.test(x.src)).map((x) => x.src) : []));
-      if (room.length) { fail('room ambience plays under the intro: ' + room); break; }
-      if (await inRoom(p)) break;
-      await p.waitForTimeout(2500); await p.mouse.click(640, 300); await p.waitForTimeout(400);
+    await p.goto(PLAY);
+    let bad = null;
+    for (let i = 0; i < 16 && !bad; i++) {
+      bad = await p.evaluate(() => {
+        const live = window.__plays.filter((x) => !x.el.paused && /\/v2\/[cp]\d/.test(x.src)).map((x) => x.src);
+        if (live.length !== new Set(live).size) return 'a voice line plays twice at once: ' + live;
+        const room = window.__plays.filter((x) => /haunted|ambient_lab|ambient_industrial|music_stasis/.test(x.src)).map((x) => x.src);
+        return room.length ? 'Stasis Hold sound under the spacewalk: ' + room : null;
+      });
+      await p.waitForTimeout(1000);
     }
-    if (!failures) ok('intro: no doubled voice lines, no room ambience underneath');
+    if (bad) fail(bad); else ok('opening: no doubled voice lines, no room ambience from elsewhere');
     await p.close();
   }
   // 5. Main menu: Play starts the intro; the Menu button comes back to the menu
@@ -81,7 +81,7 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     await p.goto(URL); await p.waitForTimeout(2000);
     const title = await p.evaluate(() => document.querySelector('[data-title-screen]')?.innerText || '');
     if (!/The Harvest/i.test(title) || !(await p.$('[data-play]'))) fail('the title screen has no Harvest and no Play'); else { await p.click('[data-play]'); await p.waitForTimeout(1500); }
-    if (!(await p.$('[data-intro-cinematic]'))) fail('Play did not start the intro'); else ok('main menu: Play starts the intro');
+    if ((await p.evaluate(() => window.__engine?.currentViewId)) !== 'intro_spacewalk') fail('Play did not start the opening'); else ok('main menu: Play starts the opening on the spacewalk');
     await p.click('[data-skip-intro]'); await p.waitForTimeout(1500);
     await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
     await p.click('[data-hud-menu-panel] button:has-text("Menu")'); await p.waitForTimeout(1500);

@@ -235,6 +235,9 @@ function formatClock(seconds: number): string {
   return h ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
 }
 
+/** A game's exit cut, waiting a tick in case the same player mounts again straight away (StrictMode). */
+let pendingExit = 0;
+
 export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const engineRef = useRef<ScenarioEngine>(new ScenarioEngine(scenario));
   const [, setVersion] = useState(0);
@@ -257,7 +260,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   const [showIntro, setShowIntro] = useState(() => {
     if (dev.skipIntro) return false;
-    return !!(scenario.setting.intro_scenes?.length || scenario.setting.intro_text?.length);
+    // a playable prologue is the opening: the paged intro_text only shows without one
+    return !!(scenario.setting.intro_scenes?.length || (!scenario.setting.prologue && scenario.setting.intro_text?.length));
   });
   // A playable prologue (setting.prologue): after the intro cinematic the game starts in the prologue's view, with no
   // wake-up; a play_cutscene with `wake: true` ends it. Skipped with the intro (?skipIntro, ?view, ?dev).
@@ -271,6 +275,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const [prologueFade, setPrologueFade] = useState(false);
   /** The cold open just cut into play: that one room change shows at once, with no fade from black. */
   const [seamlessCut, setSeamlessCut] = useState(false);
+  /** The prologue's first view has been entered (until then the engine still sits in the start view). */
+  const [prologueEntered, setPrologueEntered] = useState(false);
   // Players get full-screen play: the picture fills the window and the controls are small pop-overs at its edges.
   // ?dev (and ?framed) keep the framed layout with the title bar and panels, which the dev panel and the test suites use.
   const fullscreen = !dev.isDev && !new URLSearchParams(window.location.search).has('framed');
@@ -478,11 +484,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   /** A full-screen cinematic is up (the intro or a cutscene): the rooms' sound and the clock wait. */
   const cinematicUp = showIntro || !!cutscene;
   const prevAudioKey = useRef<string>('');
+  /** Nothing from the rooms plays under a cinematic, nor from the start view in the moment before a prologue takes over. */
+  const roomAudioHeld = cinematicUp || (prologueActive && !prologueEntered);
   useEffect(() => {
     const view = engine.getCurrentView();
     const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
     // nothing from the rooms plays while the intro is up (the intro has its own sound)
-    const files = cinematicUp ? [] : raw ? (Array.isArray(raw) ? raw : [raw]) : [];
+    const files = roomAudioHeld ? [] : raw ? (Array.isArray(raw) ? raw : [raw]) : [];
     const key = files.join('|');
 
     if (key === prevAudioKey.current) return;
@@ -515,14 +523,14 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const musicFile = (() => { const v = engine.getCurrentView(); return v.music !== undefined ? v.music : scenario.setting.music ?? null; })();
   useEffect(() => {
     const cur = musicRef.current;
-    if (cur && cur.dataset.file === (musicFile ?? '') && !cinematicUp) return;
+    if (cur && cur.dataset.file === (musicFile ?? '') && !roomAudioHeld) return;
     if (cur) { cur.pause(); cur.src = ''; musicRef.current = null; }
-    if (!musicFile || cinematicUp) return;
+    if (!musicFile || roomAudioHeld) return;
     const a = new Audio(resolveAsset(scenario.metadata.id, musicFile));
     a.dataset.file = musicFile; a.loop = true; a.volume = scenario.setting.music_volume ?? 0.3; a.muted = muted;
     a.play().catch(() => {});
     musicRef.current = a;
-  }, [musicFile, cinematicUp, muted, scenario, audioRun]);
+  }, [musicFile, roomAudioHeld, muted, scenario, audioRun]);
   useEffect(() => () => { musicRef.current?.pause(); }, []);
 
   useEffect(() => {
@@ -568,9 +576,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => () => { voiceCtx.current?.close().catch(() => {}); voiceCtx.current = null; }, []);
   // Leaving the game (Main menu, a new scenario) cuts every sound at once, and keeps a stray timer from the old
   // game from starting one on the menu.
+  // (Deferred a tick, so React's development double-mount, an unmount followed at once by a mount, cuts nothing.)
   useEffect(() => {
+    clearTimeout(pendingExit);
     openGate();
-    return () => { engineRef.current.dispose(); closeGate(); stopAllAudio(); };
+    return () => { pendingExit = window.setTimeout(() => { engineRef.current.dispose(); closeGate(); stopAllAudio(); }, 0); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const playSound = useCallback(
@@ -651,6 +661,26 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     frame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frame);
   }, [clockOn, engine, bump, playPendingSounds]);
+
+  // view.enter_camera: zoomed in on a point, easing out to the whole room (the first visit, unless every_time).
+  const [enterCam, setEnterCam] = useState<{ z: number; tx: number; ty: number; seconds: number; going: boolean } | null>(null);
+  const camSeen = useRef(new Set<string>());
+  const camView = engine.currentViewId;
+  useEffect(() => {
+    const cam = engine.getCurrentView().enter_camera;
+    if (!cam || cinematicUp || (!cam.every_time && camSeen.current.has(camView))) return;
+    camSeen.current.add(camView);
+    const z = Math.max(1, cam.zoom);
+    const fx = cam.focus[0], fy = cam.focus[1] * 0.75;   // 960x540 picture pixels
+    const tx = Math.min(0, Math.max(960 - 960 * z, 480 - fx * z)), ty = Math.min(0, Math.max(540 - 540 * z, 270 - fy * z));
+    setEnterCam({ z, tx, ty, seconds: cam.seconds, going: false });
+    const r = requestAnimationFrame(() => requestAnimationFrame(() => setEnterCam((c) => (c ? { ...c, going: true } : c))));
+    let finished = false;
+    const done = window.setTimeout(() => { finished = true; setEnterCam(null); }, cam.seconds * 1000 + 100);
+    // interrupted before it ran (React's development double-mount): let the next run start it again
+    return () => { cancelAnimationFrame(r); clearTimeout(done); if (!finished) { camSeen.current.delete(camView); setEnterCam(null); } };
+  }, [camView, cinematicUp, engine]);
+  const finishEnterCam = () => setEnterCam((c) => (c && c.going ? { ...c, seconds: 0.45, z: 1, tx: 0, ty: 0 } : c));
 
   const prevViewRef = useRef(engine.currentViewId);
   useEffect(() => {
@@ -1271,13 +1301,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     setShowIntro(false);
     if (!prologueActive || !prologue) return;
     engine.runEffects([{ type: 'set_view', view: prologue.view, sound: null }]);
+    setPrologueEntered(true);
     prevViewRef.current = engine.currentViewId;
     // a cold open whose last shot cuts straight into play needs no fade; otherwise fade up from its black
-    if (scenario.setting.intro_scenes?.slice(-1)[0]?.transition !== 'cut') setPrologueFade(true);
+    if (!scenario.setting.intro_scenes?.length || scenario.setting.intro_scenes.slice(-1)[0]?.transition !== 'cut') setPrologueFade(true);
     else { setSeamlessCut(true); window.setTimeout(() => setSeamlessCut(false), 400); }
     playPendingSounds();
     bump();
   }, [engine, prologue, prologueActive, playPendingSounds, bump]);
+  // No opening cinematic: the prologue starts at once (its first view can have its own enter_camera move).
+  useEffect(() => { if (prologueActive && !showIntro) handleIntroComplete(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /** Skip the prologue (from the intro's skip button or the title-bar button): straight to the real start and the wake-up. */
   const skipPrologue = useCallback(() => {
     setShowIntro(false);
@@ -1600,6 +1633,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       <div style={styles.gameArea}>
         <div data-screen-cue={screenCue && !engine.isGameOver() ? 'on' : 'off'} style={screenCue && !engine.isGameOver() ? {
           ['--kq-shake' as string]: `${screenCue.shake}px`, animation: 'kq-cue-jiggle 0.18s linear infinite' } : undefined}>
+        <div data-enter-camera={enterCam ? (enterCam.going ? 'moving' : 'start') : 'off'} onPointerDownCapture={finishEnterCam}
+          style={enterCam ? {
+            transformOrigin: '0 0',
+            transform: enterCam.going ? 'none' : `translate(${enterCam.tx}px, ${enterCam.ty}px) scale(${enterCam.z})`,
+            transition: enterCam.going ? `transform ${enterCam.seconds}s cubic-bezier(0.45, 0, 0.2, 1)` : 'none',
+          } : undefined}>
         <GameView
           engine={engine}
           activeVerb={activeVerb}
@@ -1614,6 +1653,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           characterPose={pose}
           fadeRooms={!seamlessCut}
         />
+        </div>
         </div>
         {screenCue && !engine.isGameOver() && (
           <div key={screenCue.seq} aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 30,
@@ -1660,7 +1700,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         )}
 
         {/* Eye-open animation scoped to viewport */}
-        {prologueFade && <EyeOpenTransition active durationMs={900} holdMs={0} onComplete={endPrologueFade} />}
+        {prologueFade && <EyeOpenTransition active durationMs={(engine.getCurrentView().enter_camera?.fade_in ?? 0.9) * 1000} holdMs={0} onComplete={endPrologueFade} />}
         {!skipEyeTransition && wakeArmed && <EyeOpenTransition key={prologuePlayed ? 'after-prologue' : 'start'} active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
       </div>
 
