@@ -100,6 +100,14 @@ LINES = {
     's12': "Home. All of it, every city light still on. Every time. You'd think I'd get used to it.",
     's13': "It's a long way down. One hand on the satellite.",
     's14': "I say hello to Earth. It doesn't answer. Best conversation I've had all week.",
+    # the bolt driver (the tutorial's item: take it with Hand, then use it on the panel)
+    's26': "My bolt driver, clipped to LUMEN's tool mount. Right where I left it on the last job.",
+    's27': "Got it. Clip on, clip off: the one rule out here is never let go of anything.",
+    's28': "\u201cYou and me, one more job.\u201d It doesn't answer either.",
+    's29': "Four bolts on the panel cover, torqued tight. Gloves won't do it. My driver's on the tool mount, right there.",
+    's30': "Zzzt. Zzzt. Zzzt. Zzzt. Four bolts, into the pouch. The cover swings free.",
+    's31': "The driver's for bolts. LUMEN's bolts. Not that.",
+    's32': "The tool mount's empty now. The driver's with me.",
     # the panel
     's15': "\u201cControl, you're going to want to see this.\u201d",
     's16': "Rows of empty sockets. Every module pulled, every contact scraped clean. Whoever did this took their time.",
@@ -117,7 +125,8 @@ LINES = {
     # tutorial tips (t01-t04 on the spacewalk; t05-t07 only for players who skipped it; t08-t10 in the Stasis Hold)
     't01': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
     't02': "With Move (the feet), click open space to drift there. LUMEN-7's service panel is on the gold body.",
-    't03': 'Hand works things. Use it on the gold body to open the service panel.',
+    't03': 'Hand picks things up and works them. Take the bolt driver off the tool mount on the gold body.',
+    't11': 'What you carry is in Items. Click the bolt driver, then click the gold body to use it on the panel bolts.',
     't04': 'Look (the eye) is always safe. Look inside the panel.',
     't05': 'Your cursor is your eyes and hands. Right-click to change what it does: Look (the eye), Move (the feet), Hand and Talk.',
     't06': 'With the Move cursor (the feet), click the floor to walk there.',
@@ -257,7 +266,7 @@ VOICE_AT = 5   # seconds into the opening shot before Control's first call
 SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
-    'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
+    'objects': ['sw_lumen_body', 'sw_drill', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
     'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
     # the opening shot: a fade up from black that lasts the whole move, close on his helmet, easing out to the whole
@@ -280,7 +289,8 @@ SPACE_VIEW = {
         # the tips wait for this exchange to finish, so a spoken tip never talks over it
         later(VOICE_AT + LEN['c1'] + 0.5 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
     ]}],
-    'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
+    'hints': [{'text': "LUMEN-7's service panel is on the gold body, bolted shut. Take the bolt driver off the tool mount with Hand, then click it in Items and click the gold body."},
+              {'text': "You have the bolt driver. Click it in Items, then click LUMEN-7's gold body to take the bolts out.", 'when': [{'type': 'flag_is', 'flag': 'sw_drill_taken', 'value': 'true'}]}],
 }
 
 OPEN_PANEL = [
@@ -291,13 +301,35 @@ OPEN_PANEL = [
      'else': [{'type': 'set_view', 'view': PANEL}]},
 ]
 
+UNBOLTED = [{'type': 'flag_is', 'flag': 'sw_unbolted', 'value': 'true'}]
+BOLTED = [{'type': 'flag_not', 'flag': 'sw_unbolted', 'value': 'true'}]
+DRILL = 'eva_drill'
+# the driver whirs the bolts out, then the panel opens exactly as before
+UNBOLT = [{'type': 'play_sound', 'sound': 'intro/audio/sfx_tool.mp3'}, line('s30'),
+          {'type': 'set_flag', 'flag': 'sw_unbolted', 'value': 'true'},
+          later(2.4, *OPEN_PANEL)]
 SPACE_OBJECTS = [
     obj('sw_lumen_body', 'LUMEN-7', "LUMEN-7, a relay satellite.", (525, 222), (165, 232), [
         say('look', 's01'),
-        {'verb': 'hand', 'then': OPEN_PANEL},
-        {'verb': 'move', 'then': OPEN_PANEL},
+        {'verb': 'hand', 'when': UNBOLTED, 'then': OPEN_PANEL},
+        {'verb': 'hand', 'when': BOLTED, 'then': [line('s29')]},
+        {'verb': 'move', 'when': UNBOLTED, 'then': OPEN_PANEL},
+        {'verb': 'move', 'when': BOLTED, 'then': [line('s29')]},
         say('talk', 's02'),
+        {'verb': 'use_item', 'item': DRILL, 'when': BOLTED, 'then': UNBOLT},
+        {'verb': 'use_item', 'item': DRILL, 'when': UNBOLTED, 'then': OPEN_PANEL},
     ], walk_to={'x': PANEL_SPOT[0], 'y': PANEL_SPOT[1], 'facing': 'right'}),
+    obj('sw_drill', 'Bolt Driver', "A bolt driver clipped to LUMEN-7's tool mount.", (566, 446), (40, 33), [
+        say('look', 's26'),
+        {'verb': 'hand', 'then': [{'type': 'add_item', 'item': DRILL}, {'type': 'hide_object', 'object': 'sw_drill'},
+                                  {'type': 'play_sound', 'sound': 'item_pickup'},
+                                  {'type': 'set_flag', 'flag': 'sw_drill_taken', 'value': 'true'}, line('s27')]},
+        {'verb': 'move', 'then': [line('s26')]},
+        say('talk', 's28'),
+    ], walk_to={'x': PANEL_SPOT[0], 'y': PANEL_SPOT[1], 'facing': 'right'},
+        sprite={'file': 'sprites/eva_drill_mounted.png', 'frame_width': 72, 'frame_height': 60, 'columns': 1, 'rows': 1,
+                'frame_rate': 0, 'scale': 0.55, 'flip': True},   # mirrored: the mount's rail against the hull
+        visual={'color': 'transparent', 'label': 'Bolt Driver', 'animation': 'glimmer'}, initially_visible=True),
     obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168),
         [say('look', 's03'), say('hand', 's04'), say('talk', 's05')], walk_to=False),
     obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135),
@@ -317,7 +349,8 @@ BOARDS_GONE = [
               # Control's reply (C2) is the cutscene's first line, over the stars going out
               later(LEN['p4'] + 0.5,
                     {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
-                     'then': [{'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
+                     # the driver is lost with everything else when he's taken
+                     'then': [{'type': 'remove_item', 'item': DRILL}, {'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
      'else': [line('s16')]},
 ]
 
@@ -377,7 +410,8 @@ IN_SHIP = [{'type': 'not_in_view', 'view': SPACE}, {'type': 'not_in_view', 'view
 TUTORIAL = [
     tip('t01', 'verb_changed', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
     tip('t02', 'walked', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
-    tip('t03', 'handled', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
+    tip('t03', 'item_taken', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
+    tip('t11', 'item_selected', prologue='only', when=[{'type': 'view_is', 'view': SPACE}, {'type': 'flag_is', 'flag': 'sw_briefed_done', 'value': 'true'}]),
     tip('t04', 'looked', prologue='only', when=[{'type': 'view_is', 'view': PANEL}]),
     tip('t05', 'verb_changed', prologue='if_skipped'),
     tip('t06', 'walked', prologue='if_skipped'),
@@ -414,6 +448,11 @@ def main():
         'file': DRIFT['file'], 'columns': 2, 'rows': 1, 'frame_rate': 1.2, 'directions': ['right'],
         'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 4, 'period': 3}}
 
+    # the tutorial's item: lost with everything else when he's taken (the abduction cutscene clears it)
+    s['items'] = [i for i in s['items'] if i['id'] != DRILL] + [{
+        'id': DRILL, 'name': 'Bolt Driver', 'description': 'A cordless bolt driver on a tether clip.',
+        'icon_file': 'items/eva_drill.png',
+        'examine': [{'verb': 'look', 'when': [], 'then': [line('s32')]}]}]
     new_views = [SPACE_VIEW, PANEL_VIEW]
     ids = {v['id'] for v in new_views}
     s['views'] = [v for v in s['views'] if v['id'] not in ids] + new_views

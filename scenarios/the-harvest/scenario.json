@@ -669,8 +669,8 @@
           "voice": "intro/audio/v2/voice/t02.mp3"
         },
         {
-          "text": "Hand works things. Use it on the gold body to open the service panel.",
-          "done_when": "handled",
+          "text": "Hand picks things up and works them. Take the bolt driver off the tool mount on the gold body.",
+          "done_when": "item_taken",
           "prologue": "only",
           "when": [
             {
@@ -684,6 +684,22 @@
             }
           ],
           "voice": "intro/audio/v2/voice/t03.mp3"
+        },
+        {
+          "text": "What you carry is in Items. Click the bolt driver, then click the gold body to use it on the panel bolts.",
+          "done_when": "item_selected",
+          "prologue": "only",
+          "when": [
+            {
+              "type": "view_is",
+              "view": "intro_spacewalk"
+            },
+            {
+              "type": "flag_is",
+              "flag": "sw_briefed_done",
+              "value": "true"
+            }
+          ]
         },
         {
           "text": "Look (the eye) is always safe. Look inside the panel.",
@@ -19319,6 +19335,7 @@
       "background_file": "intro/backgrounds/intro_orbit.webp",
       "objects": [
         "sw_lumen_body",
+        "sw_drill",
         "sw_outrider",
         "sw_dish",
         "sw_solar_wing",
@@ -19449,7 +19466,17 @@
       ],
       "hints": [
         {
-          "text": "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."
+          "text": "LUMEN-7's service panel is on the gold body, bolted shut. Take the bolt driver off the tool mount with Hand, then click it in Items and click the gold body."
+        },
+        {
+          "text": "You have the bolt driver. Click it in Items, then click LUMEN-7's gold body to take the bolts out.",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "sw_drill_taken",
+              "value": "true"
+            }
+          ]
         }
       ]
     },
@@ -21394,6 +21421,24 @@
             {
               "type": "message",
               "text": "From the Cache: a long bone-handled rod with a dozen folding prongs. Long and strong enough to jam a fan."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eva_drill",
+      "name": "Bolt Driver",
+      "description": "A cordless bolt driver on a tether clip.",
+      "icon_file": "items/eva_drill.png",
+      "examine": [
+        {
+          "verb": "look",
+          "when": [],
+          "then": [
+            {
+              "type": "message",
+              "text": "The tool mount's empty now. The driver's with me."
             }
           ]
         }
@@ -84310,6 +84355,80 @@
         },
         {
           "verb": "hand",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_not",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "set_flag",
+                  "flag": "sw_panel_open",
+                  "value": "true"
+                },
+                {
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
+                },
+                {
+                  "type": "delay_then",
+                  "seconds": 1.5,
+                  "effects": [
+                    {
+                      "type": "message",
+                      "text": "“Panel's open. ...Huh.”",
+                      "voice": "intro/audio/v2/p3.mp3",
+                      "style": "comms"
+                    }
+                  ]
+                }
+              ],
+              "else": [
+                {
+                  "type": "set_view",
+                  "view": "intro_panel_closeup"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four bolts on the panel cover, torqued tight. Gloves won't do it. My driver's on the tool mount, right there."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "conditional_effect",
@@ -84354,6 +84473,111 @@
         },
         {
           "verb": "move",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "message",
+              "text": "Four bolts on the panel cover, torqued tight. Gloves won't do it. My driver's on the tool mount, right there."
+            }
+          ]
+        },
+        {
+          "verb": "talk",
+          "then": [
+            {
+              "type": "message",
+              "text": "I knock on the hull, twice. Nobody home. It's a satellite. What did I expect?",
+              "voice": "intro/audio/v2/voice/s02.mp3"
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "eva_drill",
+          "when": [
+            {
+              "type": "flag_not",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
+          "then": [
+            {
+              "type": "play_sound",
+              "sound": "intro/audio/sfx_tool.mp3"
+            },
+            {
+              "type": "message",
+              "text": "Zzzt. Zzzt. Zzzt. Zzzt. Four bolts, into the pouch. The cover swings free."
+            },
+            {
+              "type": "set_flag",
+              "flag": "sw_unbolted",
+              "value": "true"
+            },
+            {
+              "type": "delay_then",
+              "seconds": 2.4,
+              "effects": [
+                {
+                  "type": "conditional_effect",
+                  "when": [
+                    {
+                      "type": "flag_not",
+                      "flag": "sw_panel_open",
+                      "value": "true"
+                    }
+                  ],
+                  "then": [
+                    {
+                      "type": "set_flag",
+                      "flag": "sw_panel_open",
+                      "value": "true"
+                    },
+                    {
+                      "type": "set_view",
+                      "view": "intro_panel_closeup"
+                    },
+                    {
+                      "type": "delay_then",
+                      "seconds": 1.5,
+                      "effects": [
+                        {
+                          "type": "message",
+                          "text": "“Panel's open. ...Huh.”",
+                          "voice": "intro/audio/v2/p3.mp3",
+                          "style": "comms"
+                        }
+                      ]
+                    }
+                  ],
+                  "else": [
+                    {
+                      "type": "set_view",
+                      "view": "intro_panel_closeup"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "use_item",
+          "item": "eva_drill",
+          "when": [
+            {
+              "type": "flag_is",
+              "flag": "sw_unbolted",
+              "value": "true"
+            }
+          ],
           "then": [
             {
               "type": "conditional_effect",
@@ -84395,14 +84619,83 @@
               ]
             }
           ]
+        }
+      ],
+      "walk_to": {
+        "x": 482,
+        "y": 505,
+        "facing": "right"
+      }
+    },
+    {
+      "id": "sw_drill",
+      "name": "Bolt Driver",
+      "description": "A bolt driver clipped to LUMEN-7's tool mount.",
+      "position": {
+        "x": 566,
+        "y": 446
+      },
+      "size": {
+        "width": 40,
+        "height": 33
+      },
+      "visual": {
+        "color": "transparent",
+        "label": "Bolt Driver",
+        "animation": "glimmer"
+      },
+      "initial_state": "default",
+      "interactions": [
+        {
+          "verb": "look",
+          "then": [
+            {
+              "type": "message",
+              "text": "My bolt driver, clipped to LUMEN's tool mount. Right where I left it on the last job."
+            }
+          ]
+        },
+        {
+          "verb": "hand",
+          "then": [
+            {
+              "type": "add_item",
+              "item": "eva_drill"
+            },
+            {
+              "type": "hide_object",
+              "object": "sw_drill"
+            },
+            {
+              "type": "play_sound",
+              "sound": "item_pickup"
+            },
+            {
+              "type": "set_flag",
+              "flag": "sw_drill_taken",
+              "value": "true"
+            },
+            {
+              "type": "message",
+              "text": "Got it. Clip on, clip off: the one rule out here is never let go of anything."
+            }
+          ]
+        },
+        {
+          "verb": "move",
+          "then": [
+            {
+              "type": "message",
+              "text": "My bolt driver, clipped to LUMEN's tool mount. Right where I left it on the last job."
+            }
+          ]
         },
         {
           "verb": "talk",
           "then": [
             {
               "type": "message",
-              "text": "I knock on the hull, twice. Nobody home. It's a satellite. What did I expect?",
-              "voice": "intro/audio/v2/voice/s02.mp3"
+              "text": "“You and me, one more job.” It doesn't answer either."
             }
           ]
         }
@@ -84411,7 +84704,18 @@
         "x": 482,
         "y": 505,
         "facing": "right"
-      }
+      },
+      "sprite": {
+        "file": "sprites/eva_drill_mounted.png",
+        "frame_width": 72,
+        "frame_height": 60,
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "scale": 0.55,
+        "flip": true
+      },
+      "initially_visible": true
     },
     {
       "id": "sw_outrider",
@@ -84817,6 +85121,10 @@
                       "wake": true,
                       "then": [
                         {
+                          "type": "remove_item",
+                          "item": "eva_drill"
+                        },
+                        {
                           "type": "set_view",
                           "view": "act1_stasis_hold",
                           "sound": null
@@ -84877,6 +85185,10 @@
                       "cutscene": "abduction",
                       "wake": true,
                       "then": [
+                        {
+                          "type": "remove_item",
+                          "item": "eva_drill"
+                        },
                         {
                           "type": "set_view",
                           "view": "act1_stasis_hold",
