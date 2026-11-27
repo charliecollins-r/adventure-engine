@@ -32,7 +32,7 @@ let failures = 0; const fail = (m) => { failures++; console.log('  FAIL', m); };
   // Walk back into the Feeding Station through the door so the arrival message fires
   await L.go(g, 'act1_containment_corridor'); const arrive = await L.A(g, 'move', 'nav_act1_containment_corridor_to_act1_feeding_station');
   await g.p.waitForTimeout(400); const page = await g.p.evaluate(() => document.body.innerText);
-  if (await L.clearCutaways(g)) ok('first door entry: the Curator glimpse plays, and you step back out');
+  if (await L.clearCutaways(g)) fail('the Curator glimpse played after the override (it would hide the arrival line)'); else ok('no Curator glimpse after the override');
   if (!/Keth-Vari is gone|middle cage stands open/.test(page + (arrive || ''))) fail('no message about the empty cage'); else ok('arriving: "the middle cage stands open. The Keth-Vari is gone."');
   await L.dismiss(g);
   if (await visible('caged_prisoner')) fail('prisoner still in the cage after the override'); else ok('prisoner gone after the override');

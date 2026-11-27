@@ -105,6 +105,11 @@ function pt(id) {
 // One-time cutaways (the Curator glimpse) take over the screen after a move: step back out like a player would.
 module.exports.clearCutaways = async (g) => {
   let cleared = false;
+  // the first visit to the feeding station plays the Curator glimpse cutscene: skip it
+  for (let i = 0; i < 3 && !(await g.p.$('[data-intro-cinematic]')); i++) await g.p.waitForTimeout(100);
+  if (await g.p.$('[data-intro-cinematic] [data-skip-intro]')) {
+    await g.p.click('[data-intro-cinematic] [data-skip-intro]'); await g.p.waitForTimeout(600); return true;
+  }
   for (let i = 0; i < 3; i++) {
     const back = await g.p.$('[data-object-id="curator_glimpse_return"]');
     if (!back) return cleared;

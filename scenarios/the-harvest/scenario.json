@@ -1182,6 +1182,91 @@
           "hold": 4.2,
           "tail": 0.3
         }
+      ],
+      "curator_glimpse": [
+        {
+          "background": "backgrounds/act1_stasis_hold.webp",
+          "fade_in": 1.6,
+          "hold": 12,
+          "tail": 1.8,
+          "transition": "fade",
+          "camera": {
+            "from": {
+              "zoom": 1.0
+            },
+            "to": {
+              "zoom": 1.3,
+              "x": -100,
+              "y": 70
+            },
+            "seconds": 14
+          },
+          "loop": "audio/vents/heartbeat.mp3",
+          "sound": "audio/curator_steps.mp3",
+          "sounds": [
+            {
+              "file": "intro/audio/sting_dread.mp3",
+              "cue": "line:2",
+              "volume": 0.7
+            },
+            {
+              "file": "audio/curator_steps.mp3",
+              "cue": "line:4",
+              "volume": 0.6
+            }
+          ],
+          "music": null,
+          "sprites": [
+            {
+              "file": "sprites/curator.png",
+              "frame_width": 214,
+              "frame_height": 568,
+              "columns": 13,
+              "frame_rate": 2,
+              "scale": 0.44,
+              "at": [345, 650],
+              "flip": true,
+              "cue": "line:2",
+              "fade": 1.2
+            }
+          ],
+          "ambient_lighting": {
+            "lights": [
+              {
+                "x": 0.3,
+                "y": 0.7,
+                "radius": 0.35,
+                "color": [
+                  255,
+                  160,
+                  40
+                ],
+                "pulse_speed": 0.6,
+                "pulse_amount": 0.3,
+                "alpha": 0.18
+              }
+            ],
+            "flicker": true
+          },
+          "lines": [
+            {
+              "text": "Click. Click. Click. Back the way I came.",
+              "pause": 1.0
+            },
+            {
+              "text": "Something is standing over my empty pod.",
+              "pause": 0.8
+            },
+            {
+              "text": "It dips a long finger in the fluid and tilts its head. It knows something is missing.",
+              "pause": 0.8
+            },
+            {
+              "text": "I back away before it turns around. Quietly.",
+              "pause": 1.0
+            }
+          ]
+        }
       ]
     },
     "prologue": {
@@ -18773,43 +18858,6 @@
               "value": "true"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "act1_curator_glimpse",
-      "name": "Stasis Hold",
-      "background_key": "act1_curator_glimpse",
-      "background_file": "backgrounds/act1_stasis_hold.webp",
-      "objects": [
-        "curator_glimpse_return",
-        "curator_glimpse_figure"
-      ],
-      "back_label": "Keep moving",
-      "enter_sound": null,
-      "music": "audio/music_ducts.mp3",
-      "ambient_lighting": {
-        "lights": [
-          {
-            "x": 0.3,
-            "y": 0.7,
-            "radius": 0.35,
-            "color": [
-              255,
-              160,
-              40
-            ],
-            "pulse_speed": 0.6,
-            "pulse_amount": 0.3,
-            "alpha": 0.18
-          }
-        ],
-        "flicker": true
-      },
-      "hints": [
-        {
-          "text": "The Curator hunts by sound. Keep quiet, and if it gets close, hide.",
-          "when": []
         }
       ]
     },
@@ -43828,169 +43876,6 @@
         "height": 8,
         "opacity": 0.5,
         "offset_y": 22
-      }
-    },
-    {
-      "id": "curator_glimpse_return",
-      "name": "Back away",
-      "description": "Back to the feeding station, quietly.",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "width": 960,
-        "height": 720
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "Back away"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I back away before it turns around. Click. Click. Click. The sound follows me a long way."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_feeding_station",
-              "sound": null
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I back away before it turns around. Click. Click. Click. The sound follows me a long way."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_feeding_station",
-              "sound": null
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I back away before it turns around. Click. Click. Click. The sound follows me a long way."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_feeding_station",
-              "sound": null
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I back away before it turns around. Click. Click. Click. The sound follows me a long way."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_feeding_station",
-              "sound": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "curator_glimpse_figure",
-      "name": "The Curator",
-      "description": "Tall, thin, too many joints.",
-      "position": {
-        "x": 345,
-        "y": 650
-      },
-      "size": {
-        "width": 90,
-        "height": 260
-      },
-      "visual": {
-        "color": "rgba(0,0,0,0)",
-        "label": "The Curator"
-      },
-      "initial_state": "default",
-      "initially_visible": true,
-      "interactions": [
-        {
-          "verb": "look",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Tall and thin, too many joints in its arms, two amber lenses for a face. It dips a long finger into my empty pod's fluid and tilts its head. It knows something is missing."
-            }
-          ]
-        },
-        {
-          "verb": "hand",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "Absolutely not."
-            }
-          ]
-        },
-        {
-          "verb": "talk",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I open my mouth. Every instinct I have closes it again."
-            }
-          ]
-        },
-        {
-          "verb": "move",
-          "when": [],
-          "then": [
-            {
-              "type": "message",
-              "text": "I back away before it turns around. Click. Click. Click. The sound follows me a long way."
-            },
-            {
-              "type": "set_view",
-              "view": "act1_feeding_station",
-              "sound": null
-            }
-          ]
-        }
-      ],
-      "sprite": {
-        "file": "sprites/curator.png",
-        "frame_width": 214,
-        "frame_height": 568,
-        "columns": 13,
-        "rows": 1,
-        "frame_rate": 2,
-        "scale": 0.44,
-        "flip": true
-      },
-      "shadow": {
-        "width": 60,
-        "height": 10,
-        "opacity": 0.7,
-        "offset_y": -4
       }
     },
     {
@@ -86422,6 +86307,11 @@
           {
             "type": "flag_not",
             "flag": "curator_glimpsed"
+          },
+          {
+            "type": "flag_not",
+            "flag": "security_locks_overridden",
+            "value": "true"
           }
         ]
       },
@@ -86432,17 +86322,8 @@
           "value": "true"
         },
         {
-          "type": "play_sound",
-          "sound": "curator"
-        },
-        {
-          "type": "message",
-          "text": "Click. Click. Click. From back the way I came. I flatten against the doorway and look toward the stasis hold. Something is standing over my empty pod."
-        },
-        {
-          "type": "set_view",
-          "view": "act1_curator_glimpse",
-          "sound": null
+          "type": "play_cutscene",
+          "cutscene": "curator_glimpse"
         }
       ]
     },
