@@ -147,6 +147,8 @@ Background images can be any resolution (1376x768 and 1920x1080 are common). The
 | `estimated_minutes` | number | yes | Approximate play time. |
 | `credits` | string | no | A short credits line shown on the title screen ("Voices by ElevenLabs (elevenlabs.io)"). |
 | `cover` | string | no | A painting (path in the scenario folder) shown full screen behind the title-screen menu. Default: the first view's background. |
+| `menu_audio` | string | no | A looping ambience (path in the scenario folder) under the title screen, faded in. Starts on the first click or key if the browser blocks autoplay; stops when the game starts. Make it a seamless loop. |
+| `menu_audio_volume` | number | no | Its volume, 0..1. Default 0.7. |
 | `tags` | string[] | no | Searchable tags for the marketplace. |
 | `version` | string | no | Scenario version for updates. |
 

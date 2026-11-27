@@ -100,3 +100,19 @@ for src in sorted(glob.glob('intro/audio/v2/voice/source/*.mp3')):
     measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -16 - measured
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'intro/audio/v2/voice/{name}'], check=True)
 print(f'v2/voice: {len(glob.glob("intro/audio/v2/voice/source/*.mp3"))} line(s) mastered to -16 LUFS')
+
+# Menu ambience (audio/menu/, the owner's ElevenLabs clips, ~10 s each): originals in audio/menu/source/, made into
+# seamless loops (the last 2 s crossfaded into the start) and mastered to -21 LUFS, a quiet bed under the title screen.
+os.makedirs('audio/menu/source', exist_ok=True)
+for src in sorted(glob.glob('audio/menu/source/*.mp3')):
+    name = os.path.basename(src)
+    r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', src, '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
+    x = np.frombuffer(r, np.int16).reshape(-1, 2).astype(np.float32); n = int(2.0 * 44100); ramp = np.linspace(0, 1, n)[:, None]
+    lp = x[:-n].copy(); lp[:n] = x[:n] * ramp + x[-n:] * (1 - ramp)
+    tmp = 'audio/menu/source/_loop.wav'
+    w = wave.open(tmp, 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(44100); w.writeframes(np.clip(lp, -32768, 32767).astype(np.int16).tobytes()); w.close()
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', tmp, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = -21 - measured
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', tmp, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'audio/menu/{name}'], check=True)
+    os.remove(tmp)
+    print(f'menu/{name}: {measured:6.1f} -> -21 LUFS ({gain:+.1f} dB), looped')

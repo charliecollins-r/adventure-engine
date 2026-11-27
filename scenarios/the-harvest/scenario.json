@@ -51,7 +51,8 @@
       "29-echo",
       "30-decay-clock"
     ],
-    "cover": "intro/backgrounds/intro_orbit.webp"
+    "cover": "intro/backgrounds/intro_orbit.webp",
+    "menu_audio": "audio/menu/menu_ambience_2.mp3"
   },
   "setting": {
     "dev_skip": [

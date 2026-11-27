@@ -12,6 +12,11 @@ export interface Metadata {
   credits?: string;
   /** A painting (path in the scenario folder) for the title screen behind the menu. Default: the first view's background. */
   cover?: string;
+  /** A looping ambience (path in the scenario folder) for the title screen. It starts with the first click or key if the
+   *  browser blocks autoplay, and stops when the game starts. */
+  menu_audio?: string;
+  /** Its volume, 0..1. Default 0.7. */
+  menu_audio_volume?: number;
 }
 
 export interface RoomStyle {

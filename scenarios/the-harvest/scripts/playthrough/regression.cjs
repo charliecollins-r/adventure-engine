@@ -82,15 +82,18 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     const title = await p.evaluate(() => document.querySelector('[data-title-screen]')?.innerText || '');
     if (!/The Harvest/i.test(title) || !(await p.$('[data-play]'))) fail('the title screen has no Harvest and no Play'); else { await p.click('[data-play]'); await p.waitForTimeout(1500); }
     if ((await p.evaluate(() => window.__engine?.currentViewId)) !== 'intro_spacewalk') fail('Play did not start the opening'); else ok('main menu: Play starts the opening on the spacewalk');
+    if ((await p.evaluate(() => window.__audioSources())).some((x) => /^menu_ambience/.test(x))) fail('the menu ambience plays on into the game'); else ok('Play stops the menu ambience');
     await p.click('[data-skip-intro]'); await p.waitForTimeout(1500);
     await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
     await p.click('[data-hud-menu-panel] button:has-text("Menu")'); await p.waitForTimeout(1500);
     if (!(await p.$('[data-title-screen]'))) fail('Menu did not return to the title screen'); else ok('the Menu button returns to the title screen');
-    const left = await p.evaluate(() => window.__audioSources());
+    const notMenu = (xs) => xs.filter((x) => !/^menu_ambience/.test(x));
+    const left = notMenu(await p.evaluate(() => window.__audioSources()));
     if (left.length) fail(`sound still playing on the menu: ${left.join(', ')}`); else ok('Main menu cuts every sound');
     await p.waitForTimeout(4000);
     const later = await p.evaluate(() => window.__audioSources());
-    if (later.length) fail(`a sound started on the menu after leaving: ${later.join(', ')}`); else ok('nothing from the old game starts on the menu');
+    if (notMenu(later).length) fail(`a sound started on the menu after leaving: ${notMenu(later).join(', ')}`); else ok('nothing from the old game starts on the menu');
+    if (!later.some((x) => /^menu_ambience_2/.test(x))) fail('the menu ambience is not playing on the title screen'); else ok('the title screen plays its own ambience');
     if (!/elevenlabs\.io/i.test(await p.evaluate(() => document.body.innerText))) fail('ElevenLabs credit missing on the menu'); else ok('the ElevenLabs credit shows on the menu');
     await p.close();
   }

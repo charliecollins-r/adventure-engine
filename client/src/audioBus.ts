@@ -16,7 +16,8 @@ export function installAudioBus(): void {
   installed = true;
   const play = HTMLMediaElement.prototype.play;
   HTMLMediaElement.prototype.play = function (this: HTMLMediaElement) {
-    if (!gateOpen) return Promise.resolve();
+    // the title screen's own ambience (data-menu-audio) plays while the gate is closed
+    if (!gateOpen && this.dataset.menuAudio !== '1') return Promise.resolve();
     playing.add(this);
     this.addEventListener('ended', () => playing.delete(this), { once: true });
     return play.call(this);

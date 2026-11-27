@@ -27,6 +27,8 @@ interface ScenarioMeta {
   estimated_minutes?: number;
   credits?: string;
   cover?: string;
+  menuAudio?: string;
+  menuVolume?: number;
   loading: boolean;
   error?: string;
 }
@@ -120,6 +122,8 @@ export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
                         estimated_minutes: data.metadata?.estimated_minutes,
                         credits: data.metadata?.credits,
                         cover: data.metadata?.cover ?? (data.views?.[0]?.background_file as string | undefined),
+                        menuAudio: data.metadata?.menu_audio,
+                        menuVolume: data.metadata?.menu_audio_volume,
                         loading: false,
                       }
                     : m,
@@ -169,6 +173,30 @@ export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
   };
 
   const featured = metas[0];
+  // metadata.menu_audio: a looping bed under the title screen, faded in; browsers that block autoplay start it on the
+  // first click or key. It is allowed past the audio gate (data-menu-audio) and stops when the menu goes away.
+  const menuAudioUrl = featured?.menuAudio ? `/scenarios/${featured.id}/${featured.menuAudio}` : null;
+  const menuVolume = featured?.menuVolume ?? 0.7;
+  useEffect(() => {
+    if (!menuAudioUrl) return;
+    const a = new Audio(menuAudioUrl);
+    a.loop = true; a.volume = 0; a.dataset.menuAudio = '1';
+    let fade = 0;
+    const fadeTo = (target: number, ms: number) => {
+      clearInterval(fade);
+      const from = a.volume, t0 = performance.now();
+      fade = window.setInterval(() => {
+        const k = Math.min(1, (performance.now() - t0) / ms);
+        a.volume = from + (target - from) * k;
+        if (k >= 1) clearInterval(fade);
+      }, 50);
+    };
+    const start = () => { a.play().then(() => { fadeTo(menuVolume, 2500); remove(); }).catch(() => {}); };
+    const remove = () => { window.removeEventListener('pointerdown', start); window.removeEventListener('keydown', start); };
+    window.addEventListener('pointerdown', start); window.addEventListener('keydown', start);
+    start();
+    return () => { remove(); clearInterval(fade); a.pause(); a.src = ''; };
+  }, [menuAudioUrl, menuVolume]);
   const others = metas.slice(1);
   const [openPanel, setOpenPanel] = useState<'workshop' | 'more' | null>(null);
   const start = (id: string) => { enterFullscreen(); handleCardClick(id); };
