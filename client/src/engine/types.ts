@@ -564,6 +564,21 @@ export interface Interaction {
   noise?: number;
 }
 
+/** A safety tether: a loose line from a fixed point (960x720) to the figure, following it as it moves and floats. */
+export interface Tether {
+  /** The fixed end, in 960x720 coordinates (a hardpoint on a hull, a post). */
+  from: [number, number];
+  /** Where it clips onto the figure, as fractions of the frame from its top-left. Default [0.5, 0.55] (the waist). */
+  attach?: [number, number];
+  /** How loosely it curves, in 960x720 pixels (the middle hangs this far below the lower end). Default 30. */
+  sag?: number;
+  /** [r, g, b]. Default a pale webbing [225, 205, 150]. */
+  color?: [number, number, number];
+  /** Line width in 960x720 pixels. Default 2. */
+  width?: number;
+  dashed?: boolean;
+}
+
 export interface ObjectSprite {
   file: string;
   frame_width: number;
@@ -582,6 +597,8 @@ export interface ObjectSprite {
   frame_when?: { when: Condition[]; frame: number }[];
   /** true: clicks go through the picture to whatever is behind it (a figure in the foreground of a close-up). */
   pass_through?: boolean;
+  /** A safety tether from a fixed point to this figure (drawn behind it). */
+  tether?: Tether;
 }
 
 export interface ScenarioObject {
@@ -836,6 +853,8 @@ export interface CharacterPlacement {
   shadow?: CharacterShadow;
   /** Draw him bigger or smaller in this view (a close-up where he is near the camera). Multiplies the set's scale. */
   scale?: number;
+  /** A safety tether from a fixed point in this view to him; it follows him as he walks or drifts (a spacewalk). */
+  tether?: Tether;
 }
 
 export interface Hint {
@@ -920,6 +939,9 @@ export interface Patrol {
   /** Played (setting.sounds key or file) when it is about to come into your room. */
   warn_sound?: string;
   warn_message?: string;
+  /** A visual cue with the warning: the picture jiggles by `shake` px and pulses faintly in `color` for `seconds`
+   *  (default: until it comes in, warn_seconds). Lets players who can't hear it see it coming. */
+  warn_cue?: { shake?: number; color?: [number, number, number]; seconds?: number };
   /** Played when it comes into your room. */
   enter_sound?: string;
   /** Played when it comes into a room next door to yours (any room with an exit into yours): you hear it pass.

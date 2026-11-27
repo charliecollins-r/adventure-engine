@@ -276,7 +276,8 @@ def warden_patrol(pid, loop, name, period, when):
               'nearby_message': 'Somewhere close, through the flesh of the wall: a dry clicking, moving along the ducts.'} for i, c in enumerate(loop)]
     return {'id': pid, 'name': name, 'when': when, 'period': period, 'first_at': 20 + period // 3, 'warn_seconds': 5,
             'warn_message': 'Clicking, getting closer, and the air moves the wrong way. A Warden is coming down this duct. Get into a cold fold, or out of its way.',
-            'warn_sound': 'warden_click', 'enter_sound': 'warden_click', 'nearby_sound': 'warden_click_far', 'notice_seconds': 1.5,
+            'warn_sound': 'warden_click', 'enter_sound': 'warden_click', 'nearby_sound': 'warden_click_far', 'notice_seconds': 0.6,
+            'warn_cue': {'shake': 1.5, 'color': [255, 30, 20]},
             'sprite': SPR['warden'], 'shadow': {'width': 120, 'height': 12, 'opacity': 0.45, 'offset_y': -2}, 'stops': stops,
             'on_caught': [msg('It stops. Its head swings toward you, slits flaring, tasting your breath.'),
                           over('Taken by a Warden', "The Wardens hunt anything the colony doesn't know, and they see by moving air. "
@@ -287,7 +288,8 @@ s['patrols'] += [warden_patrol('v6_warden_w1', WARDEN['w'], 'Warden W1', 60, GUT
 sg = G['surge']
 s['patrols'].append({
     'id': 'v6_surge', 'name': 'The purge surge', 'when': [is_('in_thin_air'), not_('purge_stopped')], 'period': sg['period'], 'first_at': sg['first_at'],
-    'warn_seconds': sg['warn_seconds'], 'warn_sound': 'surge_roar', 'nearby_sound': 'surge_far', 'notice_seconds': 1.2,
+    'warn_seconds': sg['warn_seconds'], 'warn_sound': 'surge_roar', 'nearby_sound': 'surge_far', 'notice_seconds': 0.6,
+    'warn_cue': {'shake': 2.5, 'color': [255, 90, 30]},
     'warn_message': 'A deep roar from the north, and every duct around you breathes out at once. The Vesk are scrambling for the folds. A purge surge is coming: get into a cold fold, or out of the north ducts, now.',
     'stops': [{'views': [vid(c) for c in leg], 'enter': i * sg['leg_seconds'], 'leave': (i + 1) * sg['leg_seconds'],
                'nearby_message': 'A hot wind roars along the ducts to the north. The surge is passing.'} for i, leg in enumerate(SURGE_LEGS)],

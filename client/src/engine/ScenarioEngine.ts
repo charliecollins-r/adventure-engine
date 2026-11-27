@@ -79,6 +79,9 @@ export class ScenarioEngine {
   private eventsFired = new Set<string>();
   private eventsActive = new Set<string>();
   private _pendingSounds: string[];
+  /** A patrol's warn_cue waiting for the player to show it (taken with takeScreenCue()). */
+  private _screenCue: { shake: number; color: [number, number, number]; seconds: number; seq: number } | null = null;
+  private _screenCueSeq = 0;
   private _dialoguePrompt: string | null;
   private _dialogueChoices: DialogueChoice[];
   private _activeWidgetId: string | null;
@@ -358,6 +361,12 @@ export class ScenarioEngine {
   }
 
   /** Register a callback for state changes that happen outside an action (delayed effects). */
+  /** This game is over for good (Main menu, Restart): nothing timed fires any more, and nobody is told of changes. */
+  dispose(): void {
+    this.epoch++;
+    this.changeListener = null;
+  }
+
   setChangeListener(fn: (() => void) | null): void {
     this.changeListener = fn;
   }
@@ -968,6 +977,8 @@ export class ScenarioEngine {
         const text = stop.warn_message ?? p.warn_message;
         if (text) this._messages = [text];
         if (p.warn_sound) this._pendingSounds.push(this.scenario.setting.sounds?.[p.warn_sound] ?? p.warn_sound);
+        if (p.warn_cue) this._screenCue = { shake: p.warn_cue.shake ?? 2, color: p.warn_cue.color ?? [255, 30, 20],
+          seconds: p.warn_cue.seconds ?? p.warn_seconds ?? 5, seq: ++this._screenCueSeq };
         changed = true;
       }
       if (st.here) {
@@ -1257,6 +1268,11 @@ export class ScenarioEngine {
     this._messages = messages;
     this.checkGameEndConditions();
     return { solved: false, feedback, messages };
+  }
+
+  /** The patrol warning's screen cue, once (null when there is none new). */
+  takeScreenCue(): { shake: number; color: [number, number, number]; seconds: number; seq: number } | null {
+    const c = this._screenCue; this._screenCue = null; return c;
   }
 
   getPendingSounds(): string[] {

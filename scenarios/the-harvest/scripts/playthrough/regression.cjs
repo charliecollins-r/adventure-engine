@@ -86,6 +86,11 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     await p.click('[data-hud-menu]'); await p.waitForTimeout(300);
     await p.click('[data-hud-menu-panel] button:has-text("Menu")'); await p.waitForTimeout(1500);
     if (!(await p.$('[data-title-screen]'))) fail('Menu did not return to the title screen'); else ok('the Menu button returns to the title screen');
+    const left = await p.evaluate(() => window.__audioSources());
+    if (left.length) fail(`sound still playing on the menu: ${left.join(', ')}`); else ok('Main menu cuts every sound');
+    await p.waitForTimeout(4000);
+    const later = await p.evaluate(() => window.__audioSources());
+    if (later.length) fail(`a sound started on the menu after leaving: ${later.join(', ')}`); else ok('nothing from the old game starts on the menu');
     if (!/elevenlabs\.io/i.test(await p.evaluate(() => document.body.innerText))) fail('ElevenLabs credit missing on the menu'); else ok('the ElevenLabs credit shows on the menu');
     await p.close();
   }
@@ -110,6 +115,21 @@ const inRoom = (p) => p.evaluate(() => !document.querySelector('[data-intro-cine
     const own = await p.evaluate(() => window.__plays.some((x) => x.src === 'fan.mp3'));
     const generic = await p.evaluate(() => window.__plays.some((x) => x.src === 'death_sting.mp3'));
     if (!own || generic) fail(`a death with its own sound played ${own ? '' : 'nothing of its own'}${generic ? ' and the generic sting' : ''}`); else ok('a death plays its own sound');
+    await p.close();
+  }
+
+  // 8. Restart cuts the old game's sound (the death sting) and starts the room's ambience afresh
+  {
+    const p = await page(b);
+    await p.goto(URL + '?dev'); await p.waitForTimeout(3000);
+    await p.evaluate(() => { window.__engine.applyEffects([{ type: 'game_over', result: 'lose', title: 'Sliced', reason: 'test', sound: 'audio/deaths/fan.mp3' }]); window.__bump(); });
+    await p.waitForTimeout(500);
+    await p.click('button:has-text("Restart")'); await p.waitForTimeout(400);
+    const after = await p.evaluate(() => window.__audioSources());
+    if (after.includes('fan.mp3')) fail('the death sound plays on after Restart'); else ok('Restart cuts the death sound');
+    await p.waitForTimeout(1500);
+    const amb = await p.evaluate(() => window.__audioSources());
+    if (!amb.length) fail('no room ambience after Restart'); else ok(`the room's sound starts again after Restart (${amb.join(', ')})`);
     await p.close();
   }
 

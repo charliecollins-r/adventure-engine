@@ -24,11 +24,13 @@ const page = (g) => g.p.evaluate(() => document.body.innerText);
   await g.p.waitForTimeout(1500);
   if (!/hunter drone on its rounds/.test(await page(g))) fail('no warning in the Stasis Hold'); else ok('warned 5 s before it comes in');
   if (!(await g.p.evaluate(() => window.__plays)).includes('patrol_skitter.mp3')) fail('no skitter sound'); else ok('the skitter sound plays');
+  if ((await g.p.evaluate(() => document.querySelector('[data-screen-cue]')?.dataset.screenCue)) !== 'on') fail('no screen jiggle and red pulse with the warning'); else ok('the picture jiggles and pulses red with the warning');
+  if (SHOTS) await L.shot(g, `${SHOTS}/patrol_warning`);
   if (await bot(g)) fail('bot drawn before it arrives');
   await g.p.waitForTimeout(5200); // now ~60.7
   if (!(await bot(g))) fail('bot not drawn in the Stasis Hold'); else ok('the hunter drone walks through the Stasis Hold');
   if (SHOTS) await L.shot(g, `${SHOTS}/patrol_stasis`);
-  await g.p.waitForTimeout(2000);
+  await g.p.waitForTimeout(700);   // it notices you in half a second
   if (!(await over(g)) || (await g.p.evaluate(() => window.__engine.getGameOverResult()?.title)) !== 'Caught') fail('standing in its way did not get you caught'); else ok('standing in its way: caught');
   if (SHOTS) await L.shotFull(g, `${SHOTS}/patrol_death`);
   await g.b.close();

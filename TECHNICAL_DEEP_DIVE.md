@@ -760,6 +760,10 @@ When reviewing or generating object positions:
 
 ## Audio System
 
+**One place to stop it all** (`client/src/audioBus.ts`): installed at startup, it wraps `HTMLMediaElement.prototype.play`, so every sound the game starts (room ambience, music, voices, one-shots, the cinematic's tracks) is tracked without components registering anything; Web Audio filter contexts register with `trackAudioContext()`. `stopAllAudio()` pauses them all and closes the contexts; `{oneShotsOnly: true}` leaves looping tracks playing. `ScenarioPlayer` cuts everything and closes a gate (any later `play()` is refused) when it unmounts (Main menu), disposes the old engine (`ScenarioEngine.dispose()`: delayed effects stop firing) and cuts everything on Restart, then starts the ambience and music afresh, and cuts one-shots (the death sting) on Undo and Restart from checkpoint. Tests: `scripts/playthrough/regression.cjs` (§5 and §8; `window.__audioSources()` lists what is still playing).
+
+A patrol's `warn_cue` is queued by the engine with its warning (`takeScreenCue()`, drained with the pending sounds): `ScenarioPlayer` jiggles the picture's wrapper (`data-screen-cue`) and lays a pulsing coloured vignette over it for `seconds`. Tethers are drawn by `TetherLine.tsx`, an SVG quadratic from the fixed point to a fraction of the figure's frame, used by `CharacterSprite` (placement `tether`) and `SpriteObject` (`sprite.tether`); a bobbing figure's end follows the bob with an SVG `<animate>` of the same period.
+
 Ambient audio is entirely schema-driven. The system supports two levels of audio configuration:
 
 **Scenario-level default** — applies to all views unless overridden:

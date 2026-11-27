@@ -224,7 +224,7 @@ Views define what the player sees. The main view is always the room. Closeup vie
 | `enter_fade` | number | no | Seconds this view takes to fade up from black on arrival (default 1.8; 0 cuts in). Keep it short where an animation starts on arrival, like a door swinging open. |
 | `ambient_text` | string | no | The idle line under the picture in this view, instead of `setting.ambient_text` (`""` for none). |
 | `hints` | ViewHint[] | no | Progressive hints for this view (see below). |
-| `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. |
+| `character` | object | no | Character sprite placement for this view: `{x, y, facing, sprite_set, frame, shadow}`. Position is bottom-center anchor in 960x720 space. Optional `shadow` overrides the global character shadow for this view only. Optional `tether`: a safety line from a fixed point to him that follows him as he walks or drifts (a spacewalk): `{from: [x, y] (960x720), attach: [fx, fy] (where it clips on, fractions of his frame; default [0.5, 0.55], the waist), sag (how loosely it curves, default 30), color [r,g,b], width (default 2), dashed}`. It rises and falls with a sprite set's `bob`. |
 | `ambient_audio` | string or string[] | no | Ambient audio track(s) for this view, overriding the scenario-level `setting.ambient_audio`. Loops continuously while the player is in this view. Falls back to `setting.ambient_audio` when not specified. |
 | `lighting_variants` | array | no | Lighting that replaces `ambient_lighting` while its conditions hold: `[{ "when": [conditions], "lighting": { "lights": [...] } }]`, the first match wins. Example: red alarm strobes after an override (`flag_is security_locks_overridden`). |
 | `enter_sound` | string or null | no | Sound played on entering this view (a `setting.sounds` key or a path). `null` or `""` = silent (close-ups). Default: `setting.sounds.room_transition`. A `set_view` with its own `sound` wins. |
@@ -528,6 +528,7 @@ Objects can optionally render as animated sprite sheets instead of (or in additi
 | `frame_rate` | number | yes | Animation frames per second. `0` = static (shows first frame). |
 | `loop` | boolean | no | `false` plays the frames once and holds the last one; the `play_animation` effect restarts it. Default `true`. |
 | `flip` | boolean | no | `true` draws the sheet mirrored left-to-right, so a figure painted facing right faces left. Default `false`. |
+| `tether` | object | no | A safety line from a fixed point to this figure, drawn behind it: the same fields as a character placement's `tether`. |
 | `scale` | number | yes | Render scale multiplier. Rendered size = `frame_width × scale` by `frame_height × scale`. |
 
 ### Sprite Shadows
@@ -1371,7 +1372,8 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
   "id": "hunter_patrol",
   "when": [ { "type": "flag_not", "flag": "alarm_hunters_out" } ],
   "period": 60, "first_at": 60, "warn_seconds": 5,
-  "warn_sound": "patrol", "enter_sound": "patrol", "nearby_sound": "patrol_far", "notice_seconds": 1.5,
+  "warn_sound": "patrol", "enter_sound": "patrol", "nearby_sound": "patrol_far", "notice_seconds": 0.5,
+  "warn_cue": { "shake": 1.5, "color": [255, 30, 20] },
   "warn_message": "Metal legs, clicking closer. Something is coming this way.",
   "sprite": { "file": "sprites/hunter_drone.png", "frame_width": 237, "frame_height": 600, "columns": 4, "rows": 1, "frame_rate": 4, "scale": 0.3 },
   "shadow": { "width": 56, "height": 10, "opacity": 0.5, "offset_y": 22 },
@@ -1393,9 +1395,10 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 | `when` | It patrols only while these conditions hold (switch it off for a chase, an alarm, an act change) |
 | `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `nearby_message` (shown, with `nearby_sound`, to a player next door while it walks through this room: "Out in the corridor, metal legs tick past the door..."), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
 | `warn_seconds` | Warning before it comes into the player's room (default 5): `warn_sound` plays and the room's `warn_message` shows |
+| `warn_cue` | A visual cue with the warning, for players who can't hear it: `{shake, color, seconds}`. The picture jiggles by `shake` screen px (default 2) and pulses faintly in `color` (default red) for `seconds` (default `warn_seconds`) |
 | `enter_sound` | Plays when it comes into the player's room |
 | `nearby_sound` | Plays when it comes into a room next door to the player's (any room with a Move exit into it, either way): the player hears it pass through the wall, and the leg's `nearby_message` names where it is. A close-up sub-view (one with `back_label`) counts as the room it was opened from. Use a clip a little softer than `enter_sound`, but clearly audible |
-| `notice_seconds` | How long it takes to notice a player who is in its room and not hiding (default 1.5), then `on_caught` runs |
+| `notice_seconds` | How long it takes to notice a player who is in its room and not hiding (default 1.5), then `on_caught` runs. Keep it short (The Harvest uses 0.5): the warning is the mercy, not the time in the room |
 | `sprite`, `shadow` | How it is drawn while it walks through the player's room (scaled by the floor's `depth_scale`; it never takes clicks) |
 
 Rules that keep it fair (and soft-lock free):

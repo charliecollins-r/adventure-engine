@@ -39,6 +39,11 @@ C4 = "Outrider, respond. Outrider, come back."
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
 HELMET = [START[0] + 4, START[1] - 118]   # his helmet in the cold open (the float sprite is ~142 tall at EVA_SCALE): the first shot's centre
+TETHER_AT = [536, 384]     # his safety tether's hardpoint: the lower-left corner of LUMEN-7's gold body (960x720)
+TETHER = {'color': [225, 205, 150], 'width': 2}
+def tether_fx(sprite_index, waist, sag=40, **extra):
+    """The tether in a cinematic shot: a rope effect from the hardpoint to a sprite's waist (offset in sprite pixels from its feet)."""
+    return {'type': 'rope', 'from': TETHER_AT, 'to_sprite': sprite_index, 'offset': [0, -waist], 'sag': sag, **TETHER, **extra}
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
@@ -153,13 +158,15 @@ COLD_OPEN = [{
     'loop': A + 'breath_loop.mp3',
     # starts close on his helmet and pulls out to reveal LUMEN-7 and Earth; it settles before the scene ends,
     # so the last frames are exactly the playable picture
-    'camera': {'from': {'zoom': 2.3, 'x': HELMET[0] - 480, 'y': HELMET[1] - 360}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 11},
+    'camera': {'from': {'zoom': 2.3, 'x': HELMET[0] - 480, 'y': HELMET[1] - 360}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7.5},
     'sprites': [{**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
     'ambient_lighting': {'lights': [SUN]},
-    'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
-    'lines': [{'text': 'Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.', 'voice': A + 'n1.mp3', 'pause': 3.4}],
+    'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8},
+                tether_fx(0, 320, sag=50)],
+    # dialogue from the first second: Control calls as the picture fades in (no narrator); he answers once you can play
+    'lines': [{'text': C1, 'voice': A + 'c1.mp3', 'style': 'radio', 'static': 0.2, 'pause': 1.2}],
     'music': 'intro/audio/bed_stargazer.mp3', 'music_volume': 0.5,
-    'hold': 13, 'tail': 0.8, 'fade_in': 3.5,
+    'hold': 8, 'tail': 0.3, 'fade_in': 2.5,
     'transition': 'cut',   # the last shot is exactly the spacewalk's picture: play starts with no fade
 }]
 
@@ -185,7 +192,8 @@ ABDUCTION = [
             {'type': 'stars_out', 'area': [0, 0, 960, 330], 'count': 110, 'seconds': 7.5, 'delay': 3.6, 'from': 'right'},
             {'type': 'backdrop', 'image': 'intro/backgrounds/intro_orbit_starless.webp', 'from': 0, 'to': 1, 'seconds': 7, 'delay': 3.8},
             {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.35, 'seconds': 8, 'delay': 4.2, 'direction': 'down', 'area': [0, 0, 960, 720]},
-            {'type': 'shake', 'amount': 1.5, 'cue': 'line:1', 'until': 20}],
+            {'type': 'shake', 'amount': 1.5, 'cue': 'line:1', 'until': 20},
+            tether_fx(1, 320, sag=30), tether_fx(2, 320, sag=30)],
         'lines': [{'text': C2, 'voice': A + 'c2.mp3', 'style': 'radio', 'static': 0.35, 'pause': 0.4},
                   {'text': P5, 'voice': A + 'p5.mp3', 'pause': 0.6}],
         'hold': 13, 'tail': 0.6, 'fade_in': 0.6, 'transition': 'cut',
@@ -202,7 +210,8 @@ ABDUCTION = [
             {'x': 0.78, 'y': 0.2, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.31, 'pulse_amount': 0.6, 'phase': 3.1}]},
         'effects': [
             {'type': 'shade', 'color': [0, 0, 0], 'from': 0.45, 'to': 0, 'seconds': 3, 'direction': 'none'},
-            {'type': 'shake', 'amount': 2, 'delay': 0.5, 'until': 8}],
+            {'type': 'shake', 'amount': 2, 'delay': 0.5, 'until': 8},
+            tether_fx(0, 345, sag=20)],   # pulled taut toward the ship
         'lines': [{'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.65, 'pause': 1.6}],
         'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'volume': 0.9}],
         'music': 'intro/audio/music_dread.mp3', 'music_volume': 0.45,
@@ -266,7 +275,8 @@ SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
-    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0}},
+    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
+                  'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
@@ -276,10 +286,10 @@ SPACE_VIEW = {
     'enter_sound': None,
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
-        later(1.0, msg(C1, 'c1', 'radio', 0.2)),
-        later(1.0 + LEN['c1'] + 0.6, msg(P1, 'p1', 'comms')),
+        # Control's call (C1) is the cold open's line; his answer comes as play begins
+        later(0.4, msg(P1, 'p1', 'comms')),
         # the tips wait for this exchange to finish, so a spoken tip never talks over it
-        later(1.0 + LEN['c1'] + 0.6 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
+        later(0.4 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
     ]}],
     'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
 }
@@ -341,6 +351,7 @@ PANEL_VIEW = {
 # The v3 rail sheets (scripts/build_eva_v3.py) share one cell, anchored on the end of the red placeholder bar his glove
 # held: that point goes on the painting's yellow-black handrail, at the hatch's lower left corner.
 RAIL = json.load(open('intro/sprites/eva_rail_v3.json')) if os.path.exists('intro/sprites/eva_rail_v3.json') else None
+PANEL_TETHER = {'from': [300, 760], 'attach': [0.5, 0.56], 'sag': 30, **TETHER, 'width': 4}   # up from a hardpoint below the frame
 RAIL_GRIP = (561, 377)                 # the handrail's left end, in the 960x540 picture
 RAIL_SCALE = 0.42      # leaves space under his boots: nothing reads as a floor
 PILOT_AT_PANEL = {'x': round(RAIL_GRIP[0] - (RAIL['anchor_x'] - RAIL['frame_width'] / 2) * RAIL_SCALE),
@@ -353,12 +364,12 @@ PANEL_OBJECTS = [
     # grabs the rail, swings in, reaches up as the door opens, then leans in to look
     obj('pn_pilot_open', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False,
         sprite={'file': 'intro/sprites/eva_rail_v3.png', 'frame_width': RAIL['frame_width'], 'frame_height': RAIL['frame_height'], 'columns': 4, 'rows': 1, 'frame_rate': 2.4,
-                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True,
+                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True, 'tether': PANEL_TETHER,
                 'frame_when': [{'when': [{'type': 'flag_is', 'flag': 'sw_door_swung', 'value': 'true'}], 'frame': 3}]}),
     # the boards are gone: an uneasy look back at us, then he lets go of the rail, alarmed
     obj('pn_pilot_turn', 'You', "", (PILOT_AT_PANEL['x'], PILOT_AT_PANEL['y']), (1, 1), [], walk_to=False, initially_visible=False,
         sprite={'file': 'intro/sprites/eva_turn_v3.png', 'frame_width': RAIL['frame_width'], 'frame_height': RAIL['frame_height'], 'columns': 4, 'rows': 1, 'frame_rate': 1.4,
-                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True}),
+                'scale': RAIL_SCALE, 'loop': False, 'pass_through': True, 'tether': PANEL_TETHER}),
     obj('pn_boards', 'Inside the Panel', "The inside of LUMEN-7's service panel.", (598, 195), (186, 265), [
         {'verb': 'look', 'then': BOARDS_GONE},
         {'verb': 'hand', 'then': BOARDS_GONE},

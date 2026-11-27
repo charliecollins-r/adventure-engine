@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { CharacterConfig, CharacterPlacement, WearableOverlay } from '../engine/types';
+import { TetherLine } from './TetherLine';
 import { resolveAsset } from '../engine/assetResolver';
 
 interface EquippedOverlay {
@@ -160,6 +161,12 @@ export function CharacterSprite({
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
+      {placement.tether && (
+        <TetherLine tether={placement.tether} scaleX={scaleX} scaleY={scaleY} frameLeft={screenX - renderW / 2} frameTop={hanging ? screenY : screenY - renderH}
+          frameW={renderW} frameH={renderH} mirrored={flipH || mirrorFacing}
+          bob={spriteSet.bob ? { amount: spriteSet.bob.amount * scaleY, period: spriteSet.bob.period } : undefined}
+          zIndex={Math.max(0, (layerZ ?? 5) - 1)} />
+      )}
       {spriteSet.bob && <style>{'@keyframes kq-char-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 var(--kq-bob); } }'}</style>}
       <div data-object-hotspot style={style} onClick={handleClick} />
       {overlayElements}

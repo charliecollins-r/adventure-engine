@@ -49,14 +49,14 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 5000), 'the cold open plays');
     check(await p.evaluate(() => !!document.querySelector('[data-viewport] [data-intro-cinematic]')), 'the cinematic plays inside the game\'s own picture');
     check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the title card on');
-    check(await waitFor(p, () => /went quiet nine days ago/.test(document.body.innerText), 15000), 'the pilot\'s voice-over line shows');
+    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 6000), 'Relay Control calls on the radio as the picture fades in');
+    check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
+    check(!(await played(p, 'n1.mp3')), 'no narrator line');
     await shot(p, 'v2_01_cold_open');
     check(await waitFor(p, () => !document.querySelector('[data-intro-cinematic]'), 30000), 'the cold open hands over to the game');
     check((await view(p)) === 'intro_spacewalk', 'the game starts on the spacewalk');
     check(!!(await p.$('[data-skip-prologue]')), 'a skip intro button is in the corner');
     check(!(await p.$('[data-dev-skip]')), 'no testing shortcuts during the opening');
-    check(await waitFor(p, () => !!document.querySelector('[data-radio-line]'), 4000), 'Relay Control calls on the radio (RADIO line)');
-    check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
     check(await played(p, 'p1.mp3'), 'the pilot\'s voice plays');
     check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 9000), 'the right-click nudge shows (no tip boxes)');

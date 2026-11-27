@@ -5,6 +5,7 @@
  * Click / Space / Enter: next line. Escape or "skip intro": straight to the game.
  */
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
+import { trackAudioContext } from '../audioBus';
 import type { IntroScene, IntroLine, IntroEffect, IntroSound, LightSource } from '../engine/types';
 import { resolveAsset } from '../engine/assetResolver';
 import { cameraAt, spriteAt, lineSeconds, hash01, cueSeconds, type CueTimes } from '../engine/introTimeline';
@@ -157,7 +158,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
     a.addEventListener('ended', () => { if (voice.current === a) onEnd(); });
     if (line.style === 'radio') {
       try {
-        const ctx = audioCtx.current ?? (audioCtx.current = new AudioContext());
+        const ctx = audioCtx.current ?? (audioCtx.current = trackAudioContext(new AudioContext()));
         const src = ctx.createMediaElementSource(a);
         const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 350;
         const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3200;

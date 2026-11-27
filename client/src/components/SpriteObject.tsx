@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import type { ObjectSprite, CharacterShadow } from '../engine/types';
 import { resolveAsset } from '../engine/assetResolver';
+import { TetherLine } from './TetherLine';
 
 interface SpriteObjectProps {
   sprite: ObjectSprite;
@@ -114,6 +115,10 @@ export function SpriteObject({
   return (
     <>
       {shadowStyle && <div style={shadowStyle} />}
+      {sprite.tether && (
+        <TetherLine tether={sprite.tether} scaleX={scaleX} scaleY={scaleY} frameLeft={screenX - renderW / 2} frameTop={screenY - renderH}
+          frameW={renderW} frameH={renderH} mirrored={sprite.flip} zIndex={Math.max(0, (layerZ ?? 4) - 1)} opacity={opacity ?? 1} />
+      )}
       {passThrough
         ? <div data-patrol={patrolId} style={style} />
         : <div data-object-hotspot data-object-id={objectId} data-frame={shownFrame} style={style} onClick={handleClick} />}

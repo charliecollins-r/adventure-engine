@@ -381,7 +381,7 @@
             "x": 0,
             "y": 0
           },
-          "seconds": 11
+          "seconds": 7.5
         },
         "sprites": [
           {
@@ -437,20 +437,35 @@
               255
             ],
             "alpha": 0.8
+          },
+          {
+            "type": "rope",
+            "from": [536, 384],
+            "to_sprite": 0,
+            "offset": [0, -320],
+            "sag": 50,
+            "color": [
+              225,
+              205,
+              150
+            ],
+            "width": 2
           }
         ],
         "lines": [
           {
-            "text": "Relay satellite LUMEN-7 went quiet nine days ago.\nSomebody had to go up and knock.",
-            "voice": "intro/audio/v2/n1.mp3",
-            "pause": 3.4
+            "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
+            "voice": "intro/audio/v2/c1.mp3",
+            "style": "radio",
+            "static": 0.2,
+            "pause": 1.2
           }
         ],
         "music": "intro/audio/bed_stargazer.mp3",
         "music_volume": 0.5,
-        "hold": 13,
-        "tail": 0.8,
-        "fade_in": 3.5,
+        "hold": 8,
+        "tail": 0.3,
+        "fade_in": 2.5,
         "transition": "cut"
       }
     ],
@@ -775,6 +790,32 @@
               "amount": 1.5,
               "cue": "line:1",
               "until": 20
+            },
+            {
+              "type": "rope",
+              "from": [536, 384],
+              "to_sprite": 1,
+              "offset": [0, -320],
+              "sag": 30,
+              "color": [
+                225,
+                205,
+                150
+              ],
+              "width": 2
+            },
+            {
+              "type": "rope",
+              "from": [536, 384],
+              "to_sprite": 2,
+              "offset": [0, -320],
+              "sag": 30,
+              "color": [
+                225,
+                205,
+                150
+              ],
+              "width": 2
             }
           ],
           "lines": [
@@ -895,6 +936,19 @@
               "amount": 2,
               "delay": 0.5,
               "until": 8
+            },
+            {
+              "type": "rope",
+              "from": [536, 384],
+              "to_sprite": 0,
+              "offset": [0, -345],
+              "sag": 20,
+              "color": [
+                225,
+                205,
+                150
+              ],
+              "width": 2
             }
           ],
           "lines": [
@@ -18931,6 +18985,17 @@
         "sprite_set": "eva",
         "shadow": {
           "opacity": 0
+        },
+        "tether": {
+          "from": [536, 384],
+          "attach": [0.5, 0.55],
+          "sag": 40,
+          "color": [
+            225,
+            205,
+            150
+          ],
+          "width": 2
         }
       },
       "walk_area": {
@@ -18988,20 +19053,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 1.0,
-              "effects": [
-                {
-                  "type": "message",
-                  "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
-                  "voice": "intro/audio/v2/c1.mp3",
-                  "style": "radio",
-                  "static": 0.2
-                }
-              ]
-            },
-            {
-              "type": "delay_then",
-              "seconds": 7.79,
+              "seconds": 0.4,
               "effects": [
                 {
                   "type": "message",
@@ -19013,7 +19065,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 15.31,
+              "seconds": 7.92,
               "effects": [
                 {
                   "type": "set_flag",
@@ -84430,6 +84482,17 @@
         "scale": 0.42,
         "loop": false,
         "pass_through": true,
+        "tether": {
+          "from": [300, 760],
+          "attach": [0.5, 0.56],
+          "sag": 30,
+          "color": [
+            225,
+            205,
+            150
+          ],
+          "width": 4
+        },
         "frame_when": [
           {
             "when": [
@@ -84473,7 +84536,18 @@
         "frame_rate": 1.4,
         "scale": 0.42,
         "loop": false,
-        "pass_through": true
+        "pass_through": true,
+        "tether": {
+          "from": [300, 760],
+          "attach": [0.5, 0.56],
+          "sag": 30,
+          "color": [
+            225,
+            205,
+            150
+          ],
+          "width": 4
+        }
       }
     },
     {
@@ -87719,7 +87793,7 @@
       "warn_seconds": 5,
       "warn_sound": "patrol",
       "enter_sound": "patrol",
-      "notice_seconds": 1.5,
+      "notice_seconds": 0.5,
       "warn_message": "A low hum and the tick of jointed legs. Something is coming this way.",
       "sprite": {
         "file": "sprites/hunter_drone.png",
@@ -87811,7 +87885,15 @@
           "sound": "audio/deaths/caught_drone.mp3"
         }
       ],
-      "nearby_sound": "patrol_far"
+      "nearby_sound": "patrol_far",
+      "warn_cue": {
+        "shake": 1.5,
+        "color": [
+          255,
+          30,
+          20
+        ]
+      }
     },
     {
       "id": "v6_warden_w1",
@@ -87835,7 +87917,7 @@
       "warn_sound": "warden_click",
       "enter_sound": "warden_click",
       "nearby_sound": "warden_click_far",
-      "notice_seconds": 1.5,
+      "notice_seconds": 0.6,
       "sprite": {
         "file": "sprites/warden_crawl.png",
         "frame_width": 862,
@@ -87976,7 +88058,15 @@
           "title": "Taken by a Warden",
           "reason": "Wardens see by moving air and hunt anything the colony doesn't know. They loop on a rhythm and you hear them coming: get into a cold fold (HAND it) or out of their way. Once the Queen accepts you, they'll let you pass."
         }
-      ]
+      ],
+      "warn_cue": {
+        "shake": 1.5,
+        "color": [
+          255,
+          30,
+          20
+        ]
+      }
     },
     {
       "id": "v6_warden_w2",
@@ -88000,7 +88090,7 @@
       "warn_sound": "warden_click",
       "enter_sound": "warden_click",
       "nearby_sound": "warden_click_far",
-      "notice_seconds": 1.5,
+      "notice_seconds": 0.6,
       "sprite": {
         "file": "sprites/warden_crawl.png",
         "frame_width": 862,
@@ -88253,7 +88343,15 @@
           "title": "Taken by a Warden",
           "reason": "Wardens see by moving air and hunt anything the colony doesn't know. They loop on a rhythm and you hear them coming: get into a cold fold (HAND it) or out of their way. Once the Queen accepts you, they'll let you pass."
         }
-      ]
+      ],
+      "warn_cue": {
+        "shake": 1.5,
+        "color": [
+          255,
+          30,
+          20
+        ]
+      }
     },
     {
       "id": "v6_surge",
@@ -88275,7 +88373,7 @@
       "warn_seconds": 6,
       "warn_sound": "surge_roar",
       "nearby_sound": "surge_far",
-      "notice_seconds": 1.2,
+      "notice_seconds": 0.6,
       "warn_message": "A deep roar from the north, every duct breathes out, and the Vesk scramble for the folds. A purge surge is coming: into a cold fold, or out of the north ducts, now.",
       "stops": [
         {
@@ -88336,7 +88434,15 @@
           "title": "Scalded",
           "reason": "Every few minutes the Purge Core's surge spills over the border along the Gut's north ducts. You get six seconds of warning: the roar, and the Vesk running for folds. Hide in a cold fold, or get south of the north rows."
         }
-      ]
+      ],
+      "warn_cue": {
+        "shake": 2.5,
+        "color": [
+          255,
+          90,
+          30
+        ]
+      }
     },
     {
       "id": "v6_warren_warden_1",

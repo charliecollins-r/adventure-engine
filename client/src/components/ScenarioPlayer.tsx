@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
+import { stopAllAudio, trackAudioContext, openGate, closeGate } from '../audioBus';
 import type { CharacterPlacement, Facing, Scenario, TutorialTrigger, WalkArea } from '../engine/types';
 import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
 import { ScenarioEngine, type EngineSnapshot } from '../engine/ScenarioEngine';
@@ -510,6 +511,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
 
   // Music: its own channel. It only changes when the track does, so it carries on across rooms.
   const musicRef = useRef<HTMLAudioElement | null>(null);
+  const [audioRun, setAudioRun] = useState(0);   // bumped by Restart: the music starts again even on the same track
   const musicFile = (() => { const v = engine.getCurrentView(); return v.music !== undefined ? v.music : scenario.setting.music ?? null; })();
   useEffect(() => {
     const cur = musicRef.current;
@@ -520,7 +522,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     a.dataset.file = musicFile; a.loop = true; a.volume = scenario.setting.music_volume ?? 0.3; a.muted = muted;
     a.play().catch(() => {});
     musicRef.current = a;
-  }, [musicFile, cinematicUp, muted, scenario]);
+  }, [musicFile, cinematicUp, muted, scenario, audioRun]);
   useEffect(() => () => { musicRef.current?.pause(); }, []);
 
   useEffect(() => {
@@ -545,7 +547,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const voiceCtx = useRef<AudioContext | null>(null);
   const routeVoice = useCallback((audio: HTMLAudioElement, style: 'radio' | 'comms', signal = 0.3) => {
     try {
-      const ctx = voiceCtx.current ?? (voiceCtx.current = new AudioContext());
+      const ctx = voiceCtx.current ?? (voiceCtx.current = trackAudioContext(new AudioContext()));
       if (ctx.state === 'suspended') ctx.resume().catch(() => {});
       const radio = style === 'radio';
       const src = ctx.createMediaElementSource(audio);
@@ -563,7 +565,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       } else pk.connect(ctx.destination);
     } catch { /* no Web Audio: play it plain */ }
   }, []);
-  useEffect(() => () => { voiceCtx.current?.close().catch(() => {}); }, []);
+  useEffect(() => () => { voiceCtx.current?.close().catch(() => {}); voiceCtx.current = null; }, []);
+  // Leaving the game (Main menu, a new scenario) cuts every sound at once, and keeps a stray timer from the old
+  // game from starting one on the menu.
+  useEffect(() => {
+    openGate();
+    return () => { engineRef.current.dispose(); closeGate(); stopAllAudio(); };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const playSound = useCallback(
     (file: string) => {
@@ -604,10 +612,19 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     return () => clearTimeout(timer);
   }, [standingUp, wakeArmed, engine, bump, scenario]);
 
+  // A patrol's warn_cue: the picture jiggles and pulses faintly red while it comes (drained with the sounds).
+  const [screenCue, setScreenCue] = useState<{ shake: number; color: [number, number, number]; seconds: number; seq: number } | null>(null);
+  useEffect(() => {
+    if (!screenCue) return;
+    const t = setTimeout(() => setScreenCue(null), screenCue.seconds * 1000);
+    return () => clearTimeout(t);
+  }, [screenCue]);
   const playPendingSounds = useCallback(() => {
     const sounds = engine.getPendingSounds();
     for (const s of sounds) playSound(s);
     engine.clearPendingSounds();
+    const cue = engine.takeScreenCue();
+    if (cue) setScreenCue(cue);
   }, [engine, playSound]);
 
   // ── Game clock (setting.clock) and patrols (scenario.patrols) ─────────────
@@ -1122,6 +1139,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     walkRef.current = null;
     setPose(null);
     engine.restore(undoRef.current);
+    stopAllAudio({ oneShotsOnly: true });   // the death sting stops; the room's ambience and music carry on
     setSelectedItem(null);
     bump();
   }, [engine, bump]);
@@ -1131,6 +1149,13 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     cancelAnimationFrame(rafRef.current);
     walkRef.current = null;
     setPose(null);
+    // a clean slate for the ears too: every sound stops, and the new game's ambience and music start afresh
+    engineRef.current.dispose();
+    stopAllAudio();
+    voiceCtx.current = null;
+    prevAudioKey.current = '';
+    if (musicRef.current) { musicRef.current.src = ''; musicRef.current = null; }
+    setAudioRun((n) => n + 1);
     engineRef.current = new ScenarioEngine(scenario);
     engineRef.current.beginGame();   // a restart starts in the ship, past any prologue
     setActiveVerb('look');
@@ -1225,6 +1250,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     walkRef.current = null;
     setPose(null);
     engine.restoreCheckpoint();
+    stopAllAudio({ oneShotsOnly: true });   // the death sting stops
     undoRef.current = null;
     setSelectedItem(null);
     prevViewRef.current = engine.currentViewId;
@@ -1572,6 +1598,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     <>
       {/* Game viewport with HUD overlays */}
       <div style={styles.gameArea}>
+        <div data-screen-cue={screenCue && !engine.isGameOver() ? 'on' : 'off'} style={screenCue && !engine.isGameOver() ? {
+          ['--kq-shake' as string]: `${screenCue.shake}px`, animation: 'kq-cue-jiggle 0.18s linear infinite' } : undefined}>
         <GameView
           engine={engine}
           activeVerb={activeVerb}
@@ -1586,6 +1614,16 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           characterPose={pose}
           fadeRooms={!seamlessCut}
         />
+        </div>
+        {screenCue && !engine.isGameOver() && (
+          <div key={screenCue.seq} aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 30,
+            boxShadow: `inset 0 0 120px 30px rgba(${screenCue.color.join(',')},0.55)`,
+            background: `rgba(${screenCue.color.join(',')},0.06)`, animation: 'kq-cue-pulse 1.1s ease-in-out infinite' }}>
+            <style>{`@keyframes kq-cue-pulse { 0%,100% { opacity: .15 } 50% { opacity: .75 } }
+              @keyframes kq-cue-jiggle { 0%,100% { transform: translate(0,0) } 25% { transform: translate(var(--kq-shake), calc(var(--kq-shake) * -.5)) }
+                50% { transform: translate(calc(var(--kq-shake) * -.6), calc(var(--kq-shake) * .5)) } 75% { transform: translate(calc(var(--kq-shake) * .4), var(--kq-shake)) } }`}</style>
+          </div>
+        )}
 
         {nudgeMode && (
           <VerbNudge cycles={verbCycles} visible={nudgeReady && verbCycles < 3 && !tipsOff && !cinematicUp && !(wakeArmed && !standingUp)

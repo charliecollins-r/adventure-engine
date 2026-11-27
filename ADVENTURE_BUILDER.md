@@ -1845,3 +1845,9 @@ For the complete specification — all condition types, effect types, puzzle wid
 ---
 
 *Adventure Engine — where every game is just a JSON file away.*
+
+### Tethers, warning cues and sound on exit
+
+- A view's `character.tether` (`{from: [x, y], attach, sag, color, width}`) draws a safety line from a fixed point to the player that follows him wherever he goes: The Harvest's spacewalk clips him to the satellite. A sprite object can carry the same `tether`; in a cinematic, use the `rope` effect with `to_sprite`.
+- A patrol's `warn_cue` (`{shake, color, seconds}`) jiggles the picture and pulses it faintly red with the warning sound. Keep `notice_seconds` short (0.5–0.6): the warning is the player's chance, not the time in the room.
+- Main menu and Restart cut every sound the game started (room ambience, music, voices, one-shots, cinematic tracks); you don't need to do anything for that.
