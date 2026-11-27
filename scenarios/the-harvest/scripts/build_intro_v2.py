@@ -263,6 +263,8 @@ SPACE_VIEW = {
     # the opening shot: a slow, silent fade up from black, close on his helmet, easing out to the whole picture;
     # only once the player has had a look around does the sound come in, then Control calls
     'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 12, 'fade_in': 6, 'quiet_seconds': QUIET},
+    # then the shot never quite sits still: a slow drift, like floating 400 km up
+    'camera_drift': {'zoom': 1.045, 'seconds': 16, 'pan': [-12, 6]},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},

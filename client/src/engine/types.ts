@@ -386,6 +386,9 @@ export interface View {
     /** Seconds from arrival during which the view's ambience and music stay silent (a quiet opening shot). A click that
      *  finishes the move ends the quiet too. Timed on_enter lines should start after it. */
     quiet_seconds?: number };
+  /** The whole picture breathes: a slow zoom to `zoom` (default 1.04) and back over `seconds` (default 18), panning by
+   *  `pan` ([x, y] picture px, clamped so no edge shows) at the peak. Runs after any enter_camera move. */
+  camera_drift?: { zoom?: number; seconds?: number; pan?: [number, number] };
   ambient_text?: string;
   objects: string[];
   back_label?: string;

@@ -1643,6 +1643,19 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
             transform: enterCam.going ? 'none' : `translate(${enterCam.tx}px, ${enterCam.ty}px) scale(${enterCam.z})`,
             transition: enterCam.going ? `transform ${enterCam.seconds}s cubic-bezier(0.45, 0, 0.2, 1)` : 'none',
           } : undefined}>
+        {(() => {
+          // view.camera_drift: the whole picture breathes (a slow zoom in and out with a little pan), once any
+          // enter_camera move has settled; it starts and ends at rest, so nothing jumps.
+          const drift = !enterCam && !cinematicUp ? engine.getCurrentView().camera_drift : undefined;
+          const z = drift ? Math.max(1, drift.zoom ?? 1.04) : 1;
+          const lim = (z - 1) * 480 / z;   // the most a pan can move before an edge shows
+          const [px, py] = (drift?.pan ?? [0, 0]).map((v, i) => Math.max(-lim * (i ? 0.56 : 1), Math.min(lim * (i ? 0.56 : 1), v)));
+          return drift ? <style>{`@keyframes kq-drift { 0%,100% { transform: scale(1) translate(0,0) } 50% { transform: scale(${z}) translate(${px}px, ${py}px) } }`}</style> : null;
+        })()}
+        <div data-camera-drift={!enterCam && !cinematicUp && engine.getCurrentView().camera_drift ? 'on' : 'off'}
+          style={!enterCam && !cinematicUp && engine.getCurrentView().camera_drift ? {
+            transformOrigin: '50% 50%', animation: `kq-drift ${engine.getCurrentView().camera_drift!.seconds ?? 18}s ease-in-out infinite`,
+          } : undefined}>
         <GameView
           engine={engine}
           activeVerb={activeVerb}
@@ -1657,6 +1670,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
           characterPose={pose}
           fadeRooms={!seamlessCut}
         />
+        </div>
         </div>
         </div>
         {screenCue && !engine.isGameOver() && (

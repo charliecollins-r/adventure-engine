@@ -18950,6 +18950,11 @@
         "fade_in": 6,
         "quiet_seconds": 8
       },
+      "camera_drift": {
+        "zoom": 1.045,
+        "seconds": 16,
+        "pan": [-12, 6]
+      },
       "walk_area": {
         "floor": [
           [60, 330],
