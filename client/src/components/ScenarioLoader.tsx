@@ -31,10 +31,23 @@ interface ScenarioMeta {
   error?: string;
 }
 
+/** Specks of dust drifting up through the light: fixed positions and timings (no randomness between renders). */
+const MOTES = Array.from({ length: 26 }, (_, i) => {
+  const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
+  return { x: 30 + r(1) * 68, size: 1.5 + r(2) * 2.5, dur: 16 + r(3) * 18, delay: -r(4) * 30, sway: Math.round((r(5) - 0.5) * 80) };
+});
+
 const SERIF = '"Georgia", "Times New Roman", serif';
 const styles: Record<string, CSSProperties> = {
   // A full-screen title screen: the featured adventure's painting, the menu as an overlay on its left.
   screen: { position: 'fixed', inset: 0, background: '#050504', overflow: 'hidden', color: '#e8dcc0', fontFamily: SERIF },
+  breathe: { position: 'absolute', inset: 0, animation: 'kq-title-breathe 9s ease-in-out infinite', willChange: 'transform, filter' },
+  glow: {
+    position: 'absolute', inset: '-10%', pointerEvents: 'none', mixBlendMode: 'screen',
+    background: 'radial-gradient(ellipse 45% 40% at 72% 38%, rgba(255,214,150,0.35), rgba(255,180,90,0.08) 55%, rgba(0,0,0,0) 75%)',
+    animation: 'kq-title-glow 9s ease-in-out infinite',
+  },
+  motes: { position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' },
   art: { position: 'absolute', inset: '-2%', backgroundSize: 'cover', backgroundPosition: 'center', animation: 'kq-title-drift 40s ease-in-out infinite alternate' },
   shade: {
     position: 'absolute', inset: 0,
@@ -45,12 +58,13 @@ const styles: Record<string, CSSProperties> = {
     display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '18px',
   },
   eyebrow: { fontFamily: 'monospace', fontSize: '12px', letterSpacing: '4px', color: '#8a7a5a', textTransform: 'uppercase' },
-  title: { fontSize: 'clamp(34px, 5vw, 64px)', letterSpacing: '6px', color: '#d9b54a', textTransform: 'uppercase', lineHeight: 1.05, textShadow: '0 2px 24px rgba(0,0,0,0.7)' },
+  title: { fontSize: 'clamp(34px, 5vw, 64px)', letterSpacing: '6px', color: '#d9b54a', textTransform: 'uppercase', lineHeight: 1.05, textShadow: '0 2px 24px rgba(0,0,0,0.7)', animation: 'kq-title-shine 9s ease-in-out infinite' },
   blurb: { fontSize: '16px', lineHeight: 1.6, color: '#cfc3a6', maxWidth: '42ch', textShadow: '0 1px 3px #000' },
   meta: { fontFamily: 'monospace', fontSize: '12px', color: '#8a7a5a', letterSpacing: '1px' },
   play: {
     alignSelf: 'flex-start', padding: '14px 44px', fontFamily: SERIF, fontSize: '20px', letterSpacing: '6px', textTransform: 'uppercase',
     color: '#120e06', background: '#d9b54a', border: '1px solid #f0d27a', borderRadius: '3px', cursor: 'pointer', boxShadow: '0 4px 24px rgba(217,181,74,0.25)',
+    animation: 'kq-play-pulse 4.5s ease-in-out infinite',
   },
   list: { display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '8px' },
   item: {
@@ -166,14 +180,27 @@ export function ScenarioLoader({ onLoad, autoLaunch }: ScenarioLoaderProps) {
 
   return (
     <div style={styles.screen} data-title-screen>
-      <style>{'@keyframes kq-title-drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.09) translate(-1.5%, -1%); } } @media (prefers-reduced-motion: reduce) { [data-title-art] { animation: none !important; } } [data-menu-item]:hover, [data-menu-item]:focus-visible { color: #f0d27a !important; border-left-color: #d9b54a !important; outline: none; } [data-play]:hover, [data-play]:focus-visible { background: #f0d27a !important; outline: none; }'}</style>
-      {featured?.cover && <div data-title-art style={{ ...styles.art, backgroundImage: `url(/scenarios/${featured.id}/${featured.cover})` }} />}
-      <div style={styles.shade} />
+      <style>{'@keyframes kq-title-drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.09) translate(-1.5%, -1%); } } @keyframes kq-title-breathe { 0%, 100% { transform: scale(1); filter: brightness(0.92) saturate(1); } 50% { transform: scale(1.035); filter: brightness(1.04) saturate(1.08); } } @keyframes kq-title-glow { 0%, 100% { opacity: 0.35; transform: translate(0, 0) scale(1); } 50% { opacity: 0.7; transform: translate(-3%, 2%) scale(1.08); } } @keyframes kq-title-mote { 0% { transform: translate(0, 0); opacity: 0; } 12% { opacity: 0.8; } 85% { opacity: 0.5; } 100% { transform: translate(var(--kq-sway, 20px), -105vh); opacity: 0; } } @keyframes kq-title-shine { 0%, 100% { text-shadow: 0 2px 24px rgba(0,0,0,0.7); } 50% { text-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 0 28px rgba(217,181,74,0.35); } } @keyframes kq-play-pulse { 0%, 100% { box-shadow: 0 4px 24px rgba(217,181,74,0.25); } 50% { box-shadow: 0 4px 34px rgba(217,181,74,0.5); } } @media (prefers-reduced-motion: reduce) { [data-title-art], [data-title-breathe], [data-title-glow], [data-title-mote], [data-play], [data-title-name] { animation: none !important; } [data-title-mote] { display: none; } } [data-menu-item]:hover, [data-menu-item]:focus-visible { color: #f0d27a !important; border-left-color: #d9b54a !important; outline: none; } [data-play]:hover, [data-play]:focus-visible { background: #f0d27a !important; outline: none; }'}</style>
+      {featured?.cover && (
+        // The painting breathes: a slow in-and-out (9 s) over a long drift (40 s), with light that swells with it.
+        <div data-title-breathe style={styles.breathe}>
+          <div data-title-art style={{ ...styles.art, backgroundImage: `url(/scenarios/${featured.id}/${featured.cover})` }} />
+        </div>
+      )}
+      <div data-title-glow style={styles.glow} />
+      <div aria-hidden style={styles.motes}>
+        {MOTES.map((m, i) => (
+          <span key={i} data-title-mote style={{ position: 'absolute', left: `${m.x}%`, bottom: '-4%', width: m.size, height: m.size, borderRadius: '50%',
+            ['--kq-sway' as string]: `${m.sway}px`, background: 'rgba(255,236,190,0.8)', boxShadow: '0 0 6px rgba(255,220,150,0.7)', opacity: 0,
+            animation: `kq-title-mote ${m.dur}s linear ${m.delay}s infinite` }} />
+        ))}
+      </div>
+      <div data-title-shade style={styles.shade} />
       <div style={styles.menu}>
         <div style={styles.eyebrow}>Adventure Engine</div>
         {featured && (
           <>
-            <div style={styles.title}>{featured.title}</div>
+            <div data-title-name style={styles.title}>{featured.title}</div>
             {!featured.loading && featured.description && (
               <div style={styles.blurb}>{featured.description.length > 220 ? featured.description.slice(0, 220).replace(/\s+\S*$/, '') + '…' : featured.description}</div>
             )}
