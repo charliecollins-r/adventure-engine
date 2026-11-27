@@ -1361,7 +1361,7 @@ The soft-lock search resets noise to 0 between states, so noise-based deaths nev
 "dev_skip": { "label": "Skip to the maze", "effects": [ { "type": "add_item", "item": "surgical_probe" }, { "type": "set_view", "view": "act1_ventilation_shaft" } ] }
 ```
 
-Puts a button in the player's title bar that runs `effects` (any effect types) at once, so a tester can jump past earlier content with the items and flags it would have earned. Undo goes back to before it. A testing aid only: remove it before publishing a scenario.
+Puts a button in the player's title bar that runs `effects` (any effect types) at once, so a tester can jump past earlier content with the items and flags it would have earned. Undo goes back to before it. It can also be a list of shortcuts, one button each (The Harvest has three: the maze, the Gut, the Purge Core, each ending with that zone's `set_checkpoint` so dying there restarts in place). `softlock-search.mjs --from-dev-skip --dev-skip N` searches from shortcut N (default 0). A testing aid only: remove it before publishing a scenario.
 
 ### Patrols and the game clock
 

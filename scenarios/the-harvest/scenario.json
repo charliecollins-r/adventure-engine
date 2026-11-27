@@ -54,124 +54,524 @@
     "cover": "intro/backgrounds/intro_orbit.webp"
   },
   "setting": {
-    "dev_skip": {
-      "label": "Skip to the maze",
-      "effects": [
-        {
-          "type": "add_item",
-          "item": "surgical_probe"
-        },
-        {
-          "type": "add_item",
-          "item": "emergency_suit_helmet"
-        },
-        {
-          "type": "add_item",
-          "item": "containment_key_card"
-        },
-        {
-          "type": "add_item",
-          "item": "stasis_fluid_vial"
-        },
-        {
-          "type": "add_item",
-          "item": "grappling_line"
-        },
-        {
-          "type": "add_item",
-          "item": "nutrient_paste_tube"
-        },
-        {
-          "type": "add_item",
-          "item": "pod_glass_shard"
-        },
-        {
-          "type": "add_item",
-          "item": "specimen_tag"
-        },
-        {
-          "type": "add_item",
-          "item": "severed_neural_tendril"
-        },
-        {
-          "type": "add_item",
-          "item": "data_crystal_personal_log"
-        },
-        {
-          "type": "add_item",
-          "item": "ventilation_map"
-        },
-        {
-          "type": "add_item",
-          "item": "wedding_ring"
-        },
-        {
-          "type": "set_flag",
-          "flag": "security_locks_overridden",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "terminal_unlocked",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "alarm_hunters_out",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "prisoner_freed",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "lab_code_known",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "gap_crossed",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "cat_petted",
-          "value": "true"
-        },
-        {
-          "type": "set_flag",
-          "flag": "emergency_helmet_taken",
-          "value": "true"
-        },
-        {
-          "type": "set_character",
-          "sprite_set": "idle_helmet"
-        },
-        {
-          "type": "hide_object",
-          "object": "vent_cover"
-        },
-        {
-          "type": "show_object",
-          "object": "vent_cover_open"
-        },
-        {
-          "type": "set_view",
-          "view": "act1_ventilation_shaft",
-          "at": {
-            "x": 494,
-            "y": 720,
-            "facing": "down"
+    "dev_skip": [
+      {
+        "label": "Skip: maze",
+        "effects": [
+          {
+            "type": "add_item",
+            "item": "surgical_probe"
+          },
+          {
+            "type": "add_item",
+            "item": "emergency_suit_helmet"
+          },
+          {
+            "type": "add_item",
+            "item": "containment_key_card"
+          },
+          {
+            "type": "add_item",
+            "item": "stasis_fluid_vial"
+          },
+          {
+            "type": "add_item",
+            "item": "grappling_line"
+          },
+          {
+            "type": "add_item",
+            "item": "nutrient_paste_tube"
+          },
+          {
+            "type": "add_item",
+            "item": "pod_glass_shard"
+          },
+          {
+            "type": "add_item",
+            "item": "specimen_tag"
+          },
+          {
+            "type": "add_item",
+            "item": "severed_neural_tendril"
+          },
+          {
+            "type": "add_item",
+            "item": "data_crystal_personal_log"
+          },
+          {
+            "type": "add_item",
+            "item": "ventilation_map"
+          },
+          {
+            "type": "add_item",
+            "item": "wedding_ring"
+          },
+          {
+            "type": "set_flag",
+            "flag": "security_locks_overridden",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "terminal_unlocked",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "prisoner_freed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "lab_code_known",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "gap_crossed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "cat_petted",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "emergency_helmet_taken",
+            "value": "true"
+          },
+          {
+            "type": "set_character",
+            "sprite_set": "idle_helmet"
+          },
+          {
+            "type": "hide_object",
+            "object": "vent_cover"
+          },
+          {
+            "type": "show_object",
+            "object": "vent_cover_open"
+          },
+          {
+            "type": "set_view",
+            "view": "act1_ventilation_shaft",
+            "at": {
+              "x": 494,
+              "y": 720,
+              "facing": "down"
+            }
+          },
+          {
+            "type": "message",
+            "text": "Skipped to the maze (testing only): you carry the Act 1 items and wear the helmet."
           }
-        },
-        {
-          "type": "message",
-          "text": "Skipped to the maze (testing only): you carry the Act 1 items and wear the helmet."
-        }
-      ]
-    },
+        ]
+      },
+      {
+        "label": "Skip: Gut",
+        "effects": [
+          {
+            "type": "add_item",
+            "item": "surgical_probe"
+          },
+          {
+            "type": "add_item",
+            "item": "emergency_suit_helmet"
+          },
+          {
+            "type": "add_item",
+            "item": "containment_key_card"
+          },
+          {
+            "type": "add_item",
+            "item": "stasis_fluid_vial"
+          },
+          {
+            "type": "add_item",
+            "item": "grappling_line"
+          },
+          {
+            "type": "add_item",
+            "item": "nutrient_paste_tube"
+          },
+          {
+            "type": "add_item",
+            "item": "pod_glass_shard"
+          },
+          {
+            "type": "add_item",
+            "item": "specimen_tag"
+          },
+          {
+            "type": "add_item",
+            "item": "severed_neural_tendril"
+          },
+          {
+            "type": "add_item",
+            "item": "data_crystal_personal_log"
+          },
+          {
+            "type": "add_item",
+            "item": "ventilation_map"
+          },
+          {
+            "type": "add_item",
+            "item": "wedding_ring"
+          },
+          {
+            "type": "set_flag",
+            "flag": "security_locks_overridden",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "terminal_unlocked",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "prisoner_freed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "lab_code_known",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "gap_crossed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "cat_petted",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "emergency_helmet_taken",
+            "value": "true"
+          },
+          {
+            "type": "set_character",
+            "sprite_set": "idle_helmet"
+          },
+          {
+            "type": "hide_object",
+            "object": "vent_cover"
+          },
+          {
+            "type": "show_object",
+            "object": "vent_cover_open"
+          },
+          {
+            "type": "set_flag",
+            "flag": "in_vents",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "lever_pulled",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "keth_marks",
+            "value": "true"
+          },
+          {
+            "type": "add_item",
+            "item": "crew_datapad"
+          },
+          {
+            "type": "set_view",
+            "view": "act1_v6_warren_ledge",
+            "at": {
+              "x": 160,
+              "y": 660,
+              "facing": "right"
+            }
+          },
+          {
+            "type": "set_character",
+            "sprite_set": "idle"
+          },
+          {
+            "type": "set_flag",
+            "flag": "helmet_torn",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "in_thin_air",
+            "value": "true"
+          },
+          {
+            "type": "meter_set",
+            "meter": "breath",
+            "value": "max"
+          },
+          {
+            "type": "set_checkpoint",
+            "id": "gut",
+            "text": "the Warren ledge",
+            "no_undo": true
+          },
+          {
+            "type": "message",
+            "text": "Skipped to the Gut (testing only): the Act 1 items, the lever pulled, helmet torn off at the Warren ledge, full breath."
+          }
+        ]
+      },
+      {
+        "label": "Skip: Core",
+        "effects": [
+          {
+            "type": "add_item",
+            "item": "surgical_probe"
+          },
+          {
+            "type": "add_item",
+            "item": "emergency_suit_helmet"
+          },
+          {
+            "type": "add_item",
+            "item": "containment_key_card"
+          },
+          {
+            "type": "add_item",
+            "item": "stasis_fluid_vial"
+          },
+          {
+            "type": "add_item",
+            "item": "grappling_line"
+          },
+          {
+            "type": "add_item",
+            "item": "nutrient_paste_tube"
+          },
+          {
+            "type": "add_item",
+            "item": "pod_glass_shard"
+          },
+          {
+            "type": "add_item",
+            "item": "specimen_tag"
+          },
+          {
+            "type": "add_item",
+            "item": "severed_neural_tendril"
+          },
+          {
+            "type": "add_item",
+            "item": "data_crystal_personal_log"
+          },
+          {
+            "type": "add_item",
+            "item": "ventilation_map"
+          },
+          {
+            "type": "add_item",
+            "item": "wedding_ring"
+          },
+          {
+            "type": "set_flag",
+            "flag": "security_locks_overridden",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "terminal_unlocked",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "alarm_hunters_out",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "prisoner_freed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "lab_code_known",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "gap_crossed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "cat_petted",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "emergency_helmet_taken",
+            "value": "true"
+          },
+          {
+            "type": "set_character",
+            "sprite_set": "idle_helmet"
+          },
+          {
+            "type": "hide_object",
+            "object": "vent_cover"
+          },
+          {
+            "type": "show_object",
+            "object": "vent_cover_open"
+          },
+          {
+            "type": "set_flag",
+            "flag": "in_vents",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "lever_pulled",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "keth_marks",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "helmet_torn",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "in_thin_air",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "vesk_greeting_known",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "guard_greeted",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "vera_fate",
+            "value": "name"
+          },
+          {
+            "type": "set_flag",
+            "flag": "tag_hollowed",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "vesk_allied",
+            "value": "true"
+          },
+          {
+            "type": "set_flag",
+            "flag": "vesk_vow",
+            "value": "swore"
+          },
+          {
+            "type": "add_item",
+            "item": "crew_datapad"
+          },
+          {
+            "type": "add_item",
+            "item": "mission_patch"
+          },
+          {
+            "type": "transform_item",
+            "item": "specimen_tag",
+            "into": "hollowed_tag"
+          },
+          {
+            "type": "add_item",
+            "item": "lung_sac"
+          },
+          {
+            "type": "add_item",
+            "item": "call_stone"
+          },
+          {
+            "type": "add_item",
+            "item": "queen_egg"
+          },
+          {
+            "type": "add_item",
+            "item": "claw_ring"
+          },
+          {
+            "type": "meter_set",
+            "meter": "lungsac",
+            "value": "max"
+          },
+          {
+            "type": "meter_set",
+            "meter": "callstone",
+            "value": "max"
+          },
+          {
+            "type": "set_character",
+            "sprite_set": "idle"
+          },
+          {
+            "type": "set_view",
+            "view": "act1_v6_9_11",
+            "at": {
+              "x": 480,
+              "y": 688,
+              "facing": "down"
+            }
+          },
+          {
+            "type": "set_flag",
+            "flag": "in_core",
+            "value": "true"
+          },
+          {
+            "type": "meter_set",
+            "meter": "breath",
+            "value": "max"
+          },
+          {
+            "type": "pursuer_reset",
+            "pursuer": "v6_curator"
+          },
+          {
+            "type": "set_checkpoint",
+            "id": "core",
+            "text": "where you entered the Purge Core",
+            "no_undo": true
+          },
+          {
+            "type": "message",
+            "text": "Skipped to the Purge Core (testing only): allied with the Vesk (sworn), the Queen's gifts (lung-sac, call-stone, egg), the claw ring, Vera's patch, full breath."
+          }
+        ]
+      }
+    ],
     "initial_view": "act1_stasis_hold",
     "ambient_text": "A subsonic hum vibrates through my bones. Amber fluid drains from my cracked pod, pooling on the organic-metallic floor. Bioluminescent veins pulse in the walls. Somewhere, something clicks. Precise, mechanical, patient.",
     "room_style": {

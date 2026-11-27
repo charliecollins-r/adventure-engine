@@ -97,7 +97,7 @@ export interface Setting {
   clock?: { show?: boolean };
   /** TEMPORARY testing aid: a title-bar button that runs these effects (e.g. hand over everything and jump to a later
    *  section). Remove from the scenario before release. */
-  dev_skip?: { label: string; effects: Effect[] };
+  dev_skip?: DevSkip | DevSkip[];
   /** Buttons beside the verbs for things the player does to himself (hold your breath and listen, squeeze the lung-sac).
    *  Each runs its effects like an interaction; shown while `when` holds. See SCENARIO_SCHEMA → Player actions. */
   actions?: PlayerAction[];
@@ -126,6 +126,9 @@ export interface PlayerAction {
 }
 
 /** A counter shown on the HUD (breath, a lung-sac, a countdown). See SCENARIO_SCHEMA → Meters. */
+/** A testing shortcut: a button that runs `effects` (e.g. hands over a section's items and moves you there). Remove before release. */
+export interface DevSkip { label: string; effects: Effect[] }
+
 export interface Meter {
   id: string;
   label?: string;

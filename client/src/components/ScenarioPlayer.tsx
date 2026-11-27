@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect, type CSSProperties } from 'react';
 import { stopAllAudio, trackAudioContext, openGate, closeGate } from '../audioBus';
-import type { CharacterPlacement, Facing, Scenario, TutorialTrigger, WalkArea } from '../engine/types';
+import type { CharacterPlacement, DevSkip, Facing, Scenario, TutorialTrigger, WalkArea } from '../engine/types';
 import { depthScaleAt, facingFromDelta, findPath, pathLength, pointAlong, resolveFacing, type Pt } from '../engine/walkable';
 import { ScenarioEngine, type EngineSnapshot } from '../engine/ScenarioEngine';
 import { resolveAsset } from '../engine/assetResolver';
@@ -1556,23 +1556,24 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
               {a.label}
             </button>
           ))}
-          {scenario.setting.dev_skip && !engine.isGameOver() && !cinematicUp && !prologueActive && (
+          {scenario.setting.dev_skip && !engine.isGameOver() && !cinematicUp && !prologueActive && ([] as DevSkip[]).concat(scenario.setting.dev_skip).map((skip, i) => (
             <button
-              data-dev-skip
+              key={i}
+              data-dev-skip={i}
               title="Testing aid: runs setting.dev_skip"
               style={{ ...styles.chromeButton, color: '#e09030', borderColor: '#5a3a18', whiteSpace: 'nowrap' }}
               onClick={() => {
                 stopWalk();
                 undoRef.current = engine.snapshot();
-                engine.runEffects(scenario.setting.dev_skip!.effects);
+                engine.runEffects(skip.effects);
                 setTutIndex(null);
                 playPendingSounds();
                 bump();
               }}
             >
-              {scenario.setting.dev_skip.label}
+              {skip.label}
             </button>
-          )}
+          ))}
           {dev.isDev && (
             <button
               style={{

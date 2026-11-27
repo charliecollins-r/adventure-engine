@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ScenarioEngine } from './ScenarioEngine';
-import type { Effect, Scenario } from './types';
+import type { DevSkip, Effect, Scenario } from './types';
 
 /**
  * Plays The Harvest's vent maze v6 through the real scenario.json: the shortest route from the vent to the Airlock
@@ -46,7 +46,7 @@ describe('vent maze v6: the whole route', () => {
     const e = new ScenarioEngine(scenario);
     e.patrolsEnabled = false;
     e.immediateDelays = true;
-    e.runEffects(scenario.setting.dev_skip!.effects);
+    e.runEffects(([] as DevSkip[]).concat(scenario.setting.dev_skip!)[0].effects);
     expect(e.currentViewId).toBe('act1_ventilation_shaft');
     e.interact('nav_act1_vent_entry_to_act1_vent_junction', 'move');
     expect(e.currentViewId).toBe('act1_vent_junction');
@@ -102,10 +102,30 @@ describe('vent maze v6: the whole route', () => {
     expect(lowest).toBeGreaterThan(0);
   });
 
+  it('the testing shortcuts to the Gut and the Purge Core land ready to play', () => {
+    const skips = ([] as DevSkip[]).concat(scenario.setting.dev_skip!);
+    expect(skips.map((s) => s.label)).toEqual(['Skip: maze', 'Skip: Gut', 'Skip: Core']);
+    const gut = new ScenarioEngine(scenario); gut.patrolsEnabled = false;
+    gut.runEffects(skips[1].effects);
+    expect(gut.currentViewId).toBe('act1_v6_warren_ledge');
+    expect(gut.getCheckpoint()?.label).toBe('the Warren ledge');
+    expect(gut.getMeterValue('breath')).toBe(9);
+    expect(gut.getInventoryIds()).toContain('surgical_probe');
+    expect(gut.isGameOver()).toBe(false);
+    const core = new ScenarioEngine(scenario); core.patrolsEnabled = false;
+    core.runEffects(skips[2].effects);
+    expect(core.currentViewId).toBe(viewOf(core, [9, 11]));
+    expect(core.getCheckpoint()?.label).toBe('where you entered the Purge Core');
+    for (const item of ['lung_sac', 'call_stone', 'queen_egg', 'claw_ring', 'hollowed_tag', 'surgical_probe']) expect(core.getInventoryIds()).toContain(item);
+    expect(core.getFlags().vesk_vow).toBe('swore');
+    expect(core.getMeterValue('callstone')).toBeGreaterThan(0);
+    expect(core.isGameOver()).toBe(false);
+  });
+
   it('dying in the Gut restarts at the Warren ledge with full breath, and the Audience can be retried', () => {
     const e = new ScenarioEngine(scenario);
     e.patrolsEnabled = false;
-    e.runEffects(scenario.setting.dev_skip!.effects);
+    e.runEffects(([] as DevSkip[]).concat(scenario.setting.dev_skip!)[0].effects);
     e.runEffects([{ type: 'set_flag', flag: 'lever_pulled', value: 'true' }, { type: 'set_view', view: viewOf(e, [0, 2]) }]);
     goTo(e, viewOf(e, [0, 3]));
     expect(e.getCheckpoint()?.label).toBe('the Warren ledge');
@@ -121,7 +141,7 @@ describe('vent maze v6: the whole route', () => {
   it('the Purge Core: the Curator hums at a grate and strikes unless you leave or hold your breath', () => {
     const e = new ScenarioEngine(scenario);
     e.patrolsEnabled = false;
-    e.runEffects(scenario.setting.dev_skip!.effects);
+    e.runEffects(([] as DevSkip[]).concat(scenario.setting.dev_skip!)[0].effects);
     e.runEffects([{ type: 'set_flag', flag: 'in_core', value: 'true' }, { type: 'set_flag', flag: 'in_thin_air', value: 'true' },
       { type: 'set_view', view: viewOf(e, [9, 11]) }]);
     // walk back and forth next to a grate until it is close enough to hum

@@ -18,6 +18,7 @@
  *                      checkpoint (search a maze zone by zone when one-way doors separate them)
  *   --from-dev-skip    Start from the state setting.dev_skip sets up (e.g. the top of the vent maze) instead of the
  *                      scenario's start: search one section on its own
+ *   --dev-skip N       With --from-dev-skip, when setting.dev_skip is a list: which shortcut (default 0, the first)
  *
  * Soundness: only variables in the goal's "cone of influence" are tracked — flags,
  * object states, item possession and object visibility that (transitively) gate an
@@ -191,8 +192,10 @@ base.immediateDelays = true;   // delayed effects (a line coming back, a guard c
 base.patrolsEnabled = false;
 base.autoCutscenes = true;     // a cutscene's `then` effects apply at once
 if (fromDevSkip) {
-  if (!scenario.setting.dev_skip) { console.error('--from-dev-skip: the scenario has no setting.dev_skip'); process.exit(1); }
-  base.runEffects(scenario.setting.dev_skip.effects);
+  const skips = [].concat(scenario.setting.dev_skip ?? []);
+  const which = Number(arg('--dev-skip', '0'));
+  if (!skips[which]) { console.error(`--from-dev-skip: the scenario has no setting.dev_skip ${which}`); process.exit(1); }
+  base.runEffects(skips[which].effects);
   const then = arg('--then', '');
   if (then) base.runEffects(JSON.parse(then));
   base._closeupImage = null; base._messages = [];
