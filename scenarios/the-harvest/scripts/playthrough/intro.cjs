@@ -50,7 +50,9 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(!(await p.$('[data-intro-cinematic]')), 'no opening cinematic (the pilot is the game\'s own sprite from the first frame)');
     check(await waitFor(p, () => /start|moving/.test(document.querySelector('[data-enter-camera]')?.dataset.enterCamera ?? ''), 2000), 'the camera starts close and eases out');
     check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the first frame');
-    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 6000), 'Relay Control calls on the radio as the picture fades in');
+    await p.waitForTimeout(5000);
+    check(!(await p.evaluate(() => window.__audioSources())).length, 'the fade up and zoom out play in silence');
+    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 9000), 'Relay Control calls on the radio once the picture has settled');
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
     check(!(await played(p, 'ambient_lab.mp3')) && !(await played(p, 'music_stasis.mp3')), 'no Stasis Hold sound before the spacewalk');

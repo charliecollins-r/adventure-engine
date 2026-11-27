@@ -18946,8 +18946,9 @@
       "enter_camera": {
         "focus": [334, 332],
         "zoom": 2.3,
-        "seconds": 10,
-        "fade_in": 5
+        "seconds": 12,
+        "fade_in": 6,
+        "quiet_seconds": 8
       },
       "walk_area": {
         "floor": [
@@ -19004,7 +19005,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 1.4,
+              "seconds": 9.2,
               "effects": [
                 {
                   "type": "message",
@@ -19017,7 +19018,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 8.09,
+              "seconds": 15.89,
               "effects": [
                 {
                   "type": "message",
@@ -19029,7 +19030,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 15.61,
+              "seconds": 23.41,
               "effects": [
                 {
                   "type": "set_flag",

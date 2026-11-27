@@ -252,14 +252,17 @@ ABDUCTION = [
 ]
 
 # ── 2. The spacewalk ──────────────────────────────────────────────────────────
+QUIET = 8   # seconds of silence at the start of the opening shot (enter_camera.quiet_seconds)
+
 SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
     'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
-    # the opening shot: up from black, close on his helmet, easing out to the whole picture as Control calls
-    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 10, 'fade_in': 5},
+    # the opening shot: a slow, silent fade up from black, close on his helmet, easing out to the whole picture;
+    # only once the player has had a look around does the sound come in, then Control calls
+    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 12, 'fade_in': 6, 'quiet_seconds': QUIET},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},
@@ -270,10 +273,10 @@ SPACE_VIEW = {
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
         # Control calls while the camera eases out; he answers as it settles
-        later(1.4, msg(C1, 'c1', 'radio', 0.2)),
-        later(1.4 + LEN['c1'] + 0.5, msg(P1, 'p1', 'comms')),
+        later(QUIET + 1.2, msg(C1, 'c1', 'radio', 0.2)),
+        later(QUIET + 1.2 + LEN['c1'] + 0.5, msg(P1, 'p1', 'comms')),
         # the tips wait for this exchange to finish, so a spoken tip never talks over it
-        later(1.4 + LEN['c1'] + 0.5 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
+        later(QUIET + 1.2 + LEN['c1'] + 0.5 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
     ]}],
     'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
 }

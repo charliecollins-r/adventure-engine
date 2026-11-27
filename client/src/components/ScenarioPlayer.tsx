@@ -485,7 +485,9 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const cinematicUp = showIntro || !!cutscene;
   const prevAudioKey = useRef<string>('');
   /** Nothing from the rooms plays under a cinematic, nor from the start view in the moment before a prologue takes over. */
-  const roomAudioHeld = cinematicUp || (prologueActive && !prologueEntered);
+  /** view.enter_camera.quiet_seconds: the opening shot plays in silence until this clears. */
+  const [cameraQuiet, setCameraQuiet] = useState(() => prologueActive && !!scenario.views.find((v) => v.id === prologue?.view)?.enter_camera?.quiet_seconds);
+  const roomAudioHeld = cinematicUp || (prologueActive && !prologueEntered) || cameraQuiet;
   useEffect(() => {
     const view = engine.getCurrentView();
     const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
@@ -677,10 +679,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const r = requestAnimationFrame(() => requestAnimationFrame(() => setEnterCam((c) => (c ? { ...c, going: true } : c))));
     let finished = false;
     const done = window.setTimeout(() => { finished = true; setEnterCam(null); }, cam.seconds * 1000 + 100);
+    setCameraQuiet(!!cam.quiet_seconds);
+    const quiet = cam.quiet_seconds ? window.setTimeout(() => setCameraQuiet(false), cam.quiet_seconds * 1000) : 0;
     // interrupted before it ran (React's development double-mount): let the next run start it again
-    return () => { cancelAnimationFrame(r); clearTimeout(done); if (!finished) { camSeen.current.delete(camView); setEnterCam(null); } };
+    return () => { cancelAnimationFrame(r); clearTimeout(done); clearTimeout(quiet); if (!finished) { camSeen.current.delete(camView); setEnterCam(null); } };
   }, [camView, cinematicUp, engine]);
-  const finishEnterCam = () => setEnterCam((c) => (c && c.going ? { ...c, seconds: 0.45, z: 1, tx: 0, ty: 0 } : c));
+  const finishEnterCam = () => { setCameraQuiet(false); setEnterCam((c) => (c && c.going ? { ...c, seconds: 0.45, z: 1, tx: 0, ty: 0 } : c)); };
 
   const prevViewRef = useRef(engine.currentViewId);
   useEffect(() => {
