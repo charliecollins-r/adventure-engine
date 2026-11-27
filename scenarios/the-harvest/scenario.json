@@ -224,9 +224,10 @@
       "queen": "audio/vents/queen.mp3"
     },
     "wake": {
-      "hold_seconds": 1.8,
-      "fade_seconds": 7,
-      "voice_delay": 2.2,
+      "hold_seconds": 1.0,
+      "fade_seconds": 5.5,
+      "voice_delay": 1.2,
+      "stand_by": 10,
       "blink": true
     },
     "tutorial": {
@@ -371,16 +372,16 @@
         "loop": "intro/audio/v2/breath_loop.mp3",
         "camera": {
           "from": {
-            "zoom": 1.12,
-            "x": -40,
-            "y": -20
+            "zoom": 2.3,
+            "x": -146,
+            "y": -28
           },
           "to": {
             "zoom": 1,
             "x": 0,
             "y": 0
           },
-          "seconds": 7
+          "seconds": 11
         },
         "sprites": [
           {
@@ -637,16 +638,23 @@
           "background": "intro/backgrounds/intro_orbit.webp",
           "loop": "intro/audio/v2/breath_loop.mp3",
           "sound": "intro/audio/v2/stars_out.mp3",
+          "sounds": [
+            {
+              "file": "intro/audio/rumble.mp3",
+              "volume": 0.85,
+              "delay": 4.5
+            }
+          ],
           "camera": {
             "from": {
               "zoom": 1
             },
             "to": {
-              "zoom": 1.12,
-              "x": 70,
-              "y": 30
+              "zoom": 1.14,
+              "x": 42,
+              "y": 40
             },
-            "seconds": 12
+            "seconds": 14
           },
           "sprites": [
             {
@@ -663,7 +671,7 @@
               "move": {
                 "to": [430, 250],
                 "seconds": 9,
-                "delay": 0.4
+                "delay": 3.4
               }
             },
             {
@@ -732,7 +740,7 @@
               ],
               "count": 110,
               "seconds": 7.5,
-              "delay": 0.6,
+              "delay": 3.6,
               "from": "right"
             },
             {
@@ -741,7 +749,7 @@
               "from": 0,
               "to": 1,
               "seconds": 7,
-              "delay": 0.8
+              "delay": 3.8
             },
             {
               "type": "shade",
@@ -751,9 +759,9 @@
                 0
               ],
               "from": 0,
-              "to": 0.3,
+              "to": 0.35,
               "seconds": 8,
-              "delay": 1.2,
+              "delay": 4.2,
               "direction": "down",
               "area": [
                 0,
@@ -761,18 +769,31 @@
                 960,
                 720
               ]
+            },
+            {
+              "type": "shake",
+              "amount": 1.5,
+              "cue": "line:1",
+              "until": 20
             }
           ],
           "lines": [
             {
+              "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
+              "voice": "intro/audio/v2/c2.mp3",
+              "style": "radio",
+              "static": 0.35,
+              "pause": 0.4
+            },
+            {
               "text": "“Control. The stars.”",
               "voice": "intro/audio/v2/p5.mp3",
-              "pause": 4.2
+              "pause": 0.6
             }
           ],
-          "hold": 9.5,
-          "tail": 0.3,
-          "fade_in": 0.9,
+          "hold": 13,
+          "tail": 0.6,
+          "fade_in": 0.6,
           "transition": "cut"
         },
         {
@@ -780,14 +801,16 @@
           "loop": "intro/audio/v2/breath_loop.mp3",
           "camera": {
             "from": {
-              "zoom": 1.15,
+              "zoom": 1.14,
+              "x": 42,
               "y": 40
             },
             "to": {
               "zoom": 1,
-              "y": 0
+              "x": 0,
+              "y": -30
             },
-            "seconds": 9
+            "seconds": 8
           },
           "sprites": [
             {
@@ -799,8 +822,8 @@
               "frames": [
                 1
               ],
-              "scale": 0.126,
-              "at": [150, 485],
+              "scale": 0.2,
+              "at": [482, 510],
               "bob": {
                 "amount": 4,
                 "period": 4
@@ -862,9 +885,9 @@
                 0,
                 0
               ],
-              "from": 0.92,
+              "from": 0.45,
               "to": 0,
-              "seconds": 3.5,
+              "seconds": 3,
               "direction": "none"
             },
             {
@@ -1006,9 +1029,10 @@
         },
         {
           "title_card": "The Harvest",
-          "hold": 5.4,
+          "sound": "intro/audio/title_hit.mp3",
+          "hold": 5,
           "tail": 0.4,
-          "fade_in": 0.5
+          "fade_in": 0.35
         },
         {
           "background": "intro/backgrounds/intro_catalogue.webp",
@@ -1105,12 +1129,12 @@
               "voice": "intro/audio/v2/c4.mp3",
               "style": "radio",
               "static": 0.55,
-              "pause": 2.2
+              "pause": 1.0
             }
           ],
           "music": null,
-          "hold": 7,
-          "tail": 1
+          "hold": 5.5,
+          "tail": 0.6
         },
         {
           "background": "intro/backgrounds/intro_pods.webp",
@@ -1123,7 +1147,7 @@
               "zoom": 1.12,
               "y": -10
             },
-            "seconds": 9
+            "seconds": 6
           },
           "sprites": [
             {
@@ -1184,24 +1208,15 @@
               "speed": 25
             }
           ],
-          "lines": [
-            {
-              "text": "Outrider, respond. Outrider, come back.",
-              "voice": "intro/audio/v2/c4.mp3",
-              "style": "radio",
-              "static": 0.8,
-              "pause": 2.6
-            }
-          ],
-          "hold": 8,
-          "tail": 1.2
+          "hold": 5,
+          "tail": 0.6
         },
         {
           "sound": "intro/audio/v2/heartbeat.mp3",
           "sounds": [
             {
               "file": "intro/audio/v2/glass.mp3",
-              "delay": 3.6
+              "delay": 2.4
             }
           ],
           "lines": [
@@ -1210,10 +1225,10 @@
               "voice": "intro/audio/v2/c4.mp3",
               "style": "radio",
               "static": 0.95,
-              "pause": 1.0
+              "pause": 0.5
             }
           ],
-          "hold": 7.5,
+          "hold": 4.2,
           "tail": 0.3
         }
       ]
@@ -84513,20 +84528,7 @@
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 6.95,
-                  "effects": [
-                    {
-                      "type": "message",
-                      "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
-                      "voice": "intro/audio/v2/c2.mp3",
-                      "style": "radio",
-                      "static": 0.35
-                    }
-                  ]
-                },
-                {
-                  "type": "delay_then",
-                  "seconds": 17.35,
+                  "seconds": 6.85,
                   "effects": [
                     {
                       "type": "play_cutscene",
@@ -84587,20 +84589,7 @@
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 6.95,
-                  "effects": [
-                    {
-                      "type": "message",
-                      "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
-                      "voice": "intro/audio/v2/c2.mp3",
-                      "style": "radio",
-                      "static": 0.35
-                    }
-                  ]
-                },
-                {
-                  "type": "delay_then",
-                  "seconds": 17.35,
+                  "seconds": 6.85,
                   "effects": [
                     {
                       "type": "play_cutscene",

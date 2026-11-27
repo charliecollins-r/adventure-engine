@@ -2,7 +2,7 @@
 
     cd scenarios/the-harvest && python3 scripts/make_intro_placeholders.py      # needs NumPy and ffmpeg
 
-Writes intro/audio/music_intro.mp3, music_dread.mp3, sting_dread.mp3 and the sfx_*.mp3 clips that do not exist yet (real audio is never overwritten;
+Writes intro/audio/music_intro.mp3, music_dread.mp3, sting_dread.mp3, title_hit.mp3, rumble.mp3 and the sfx_*.mp3 clips that do not exist yet (real audio is never overwritten;
 pass --force to regenerate every stand-in).
 Deterministic (seeded).
 """
@@ -106,10 +106,23 @@ def music_dread():  # under the ship and the abduction: a low beating cluster, a
     n = 3 * SR; r = np.linspace(0, 1, n); y = x[:-n].copy(); y[:n] = x[:n] * r + x[-n:] * (1 - r)   # seamless loop
     return y
 
+def title_hit():  # the title card: one deep hit with a long, dark tail (no melody: the silence after the beam stays)
+    dur = 5.5; tt = t(dur)
+    boom = np.sin(2 * np.pi * (48 - 14 * np.clip(tt, 0, 1)) * tt) * np.exp(-tt * 1.1)
+    body = band(noise(dur), 30, 180) * np.exp(-tt * 2.2) * 0.6
+    air = band(noise(dur), 1500, 6000) * np.exp(-tt * 9) * 0.25
+    return boom + body + air
+def rumble():  # the harvester arriving overhead: a sub-bass swell felt more than heard, 9 s, peaks at ~6 s, fades
+    dur = 9; tt = t(dur); e = np.clip(tt / 6, 0, 1) ** 1.6 * np.exp(-np.maximum(0, tt - 6.5) * 1.4)
+    x = band(noise(dur), 25, 120) + 0.7 * np.sin(2 * np.pi * (31 + 3 * np.sin(2 * np.pi * 0.17 * tt)) * tt)
+    x += 0.25 * band(noise(dur), 200, 900) * (np.sin(2 * np.pi * 0.9 * tt) > 0.3)   # hull groans
+    return x * e
+
 os.makedirs('intro/audio', exist_ok=True)
 write('intro/audio/music_intro.mp3', music_intro(), '96k')
 for name, fn in [('sfx_breath_loop', breath_loop), ('sfx_swell', swell), ('sfx_taken', taken), ('sfx_heartbeat_fast', heartbeat_fast),
                  ('sfx_scan', scan), ('sfx_underwater', underwater), ('sfx_glass_crack', glass_crack),
-                 ('sting_dread', dread_sting), ('music_dread', music_dread)]:
+                 ('sting_dread', dread_sting), ('music_dread', music_dread),
+                 ('title_hit', title_hit), ('rumble', rumble)]:
     write(f'intro/audio/{name}.mp3', fn())
 print('intro placeholder audio written')

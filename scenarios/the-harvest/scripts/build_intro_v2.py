@@ -38,6 +38,7 @@ C4 = "Outrider, respond. Outrider, come back."
 
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
+HELMET = [START[0] + 4, START[1] - 118]   # his helmet in the cold open (the float sprite is ~142 tall at EVA_SCALE): the first shot's centre
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
@@ -52,6 +53,7 @@ DRIFT = {'file': 'intro/sprites/eva_float_v3.png', 'frame_width': _cell('intro/s
 # cutscene poses (scripts/build_eva_v3.py): 0 drilling, 1 alarm, 2 taken, 3 limp. 0.6 = the old eva.png's size on screen
 EVA = {'file': 'intro/sprites/eva_cutscene_v3.png', 'frame_width': _cell('intro/sprites/eva_cutscene_v3.png', 4)[0], 'frame_height': _cell('intro/sprites/eva_cutscene_v3.png', 4)[1], 'columns': 4, 'frame_rate': 0}
 EVA_K = 419 / EVA['frame_height']
+STARS_END = {'zoom': 1.14, 'x': PANEL_SPOT[0] - 480 + 40, 'y': 40}   # where the stars shot's push-in ends and the shadow shot starts
 
 
 def msg(text, voice=None, style=None, static=None):
@@ -149,8 +151,9 @@ def tip(lid, done_when, **extra):
 COLD_OPEN = [{
     'background': 'intro/backgrounds/intro_orbit.webp',
     'loop': A + 'breath_loop.mp3',
-    # the push-in settles well before the scene ends, so its last frames are exactly the playable picture
-    'camera': {'from': {'zoom': 1.12, 'x': -40, 'y': -20}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 7},
+    # starts close on his helmet and pulls out to reveal LUMEN-7 and Earth; it settles before the scene ends,
+    # so the last frames are exactly the playable picture
+    'camera': {'from': {'zoom': 2.3, 'x': HELMET[0] - 480, 'y': HELMET[1] - 360}, 'to': {'zoom': 1, 'x': 0, 'y': 0}, 'seconds': 11},
     'sprites': [{**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': START, 'bob': {'amount': 5, 'period': 4.5}}],
     'ambient_lighting': {'lights': [SUN]},
     'effects': [{'type': 'particles', 'motion': 'twinkle', 'area': [0, 0, 600, 380], 'count': 26, 'size': 2, 'color': [255, 255, 255], 'alpha': 0.8}],
@@ -166,33 +169,39 @@ ABDUCTION = [
         'background': 'intro/backgrounds/intro_orbit.webp',
         'loop': A + 'breath_loop.mp3',
         'sound': A + 'stars_out.mp3',
-        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'x': 70, 'y': 30}, 'seconds': 12},
+        'sounds': [{'file': 'intro/audio/rumble.mp3', 'volume': 0.85, 'delay': 4.5}],   # felt as the edge comes across
+        # a slow push in on him as the stars die (ends where the next shot starts, so the cut doesn't jump)
+        'camera': {'from': {'zoom': 1}, 'to': STARS_END, 'seconds': 14},
         'sprites': [
             # the harvester's leading edge slides across the sky from the right, swallowing the stars as it comes
             {'file': 'intro/sprites/harvester_edge.png', 'frame_width': 2000, 'frame_height': 512, 'columns': 1, 'frame_rate': 0, 'frames': [0],
-             'scale': 0.6, 'at': [1700, 250], 'move': {'to': [430, 250], 'seconds': 9, 'delay': 0.4}},
+             'scale': 0.6, 'at': [1700, 250], 'move': {'to': [430, 250], 'seconds': 9, 'delay': 3.4}},
             {**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
             {**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
         'ambient_lighting': {'lights': [SUN]},
         'effects': [
             # something vast slides across the sky: the stars go out in a front from the right, the light dims behind it
-            {'type': 'stars_out', 'area': [0, 0, 960, 330], 'count': 110, 'seconds': 7.5, 'delay': 0.6, 'from': 'right'},
-            {'type': 'backdrop', 'image': 'intro/backgrounds/intro_orbit_starless.webp', 'from': 0, 'to': 1, 'seconds': 7, 'delay': 0.8},
-            {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.3, 'seconds': 8, 'delay': 1.2, 'direction': 'down', 'area': [0, 0, 960, 720]}],
-        'lines': [{'text': P5, 'voice': A + 'p5.mp3', 'pause': 4.2}],
-        'hold': 9.5, 'tail': 0.3, 'fade_in': 0.9, 'transition': 'cut',
+            # (they start dying under "long-range is acting up", so Control's joke lands on the sky going dark)
+            {'type': 'stars_out', 'area': [0, 0, 960, 330], 'count': 110, 'seconds': 7.5, 'delay': 3.6, 'from': 'right'},
+            {'type': 'backdrop', 'image': 'intro/backgrounds/intro_orbit_starless.webp', 'from': 0, 'to': 1, 'seconds': 7, 'delay': 3.8},
+            {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.35, 'seconds': 8, 'delay': 4.2, 'direction': 'down', 'area': [0, 0, 960, 720]},
+            {'type': 'shake', 'amount': 1.5, 'cue': 'line:1', 'until': 20}],
+        'lines': [{'text': C2, 'voice': A + 'c2.mp3', 'style': 'radio', 'static': 0.35, 'pause': 0.4},
+                  {'text': P5, 'voice': A + 'p5.mp3', 'pause': 0.6}],
+        'hold': 13, 'tail': 0.6, 'fade_in': 0.6, 'transition': 'cut',
     },
     {   # the harvester: revealed out of the dark, enormous and green; Control is cut off
         'background': 'intro/backgrounds/intro_shadow.webp',
         'loop': A + 'breath_loop.mp3',
-        'camera': {'from': {'zoom': 1.15, 'y': 40}, 'to': {'zoom': 1, 'y': 0}, 'seconds': 9},
-        'sprites': [{**EVA, 'frames': [1], 'scale': round(0.22 * EVA_K, 3), 'at': [150, 485], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
+        'camera': {'from': STARS_END, 'to': {'zoom': 1, 'x': 0, 'y': -30}, 'seconds': 8},
+        # the alarm pose where the stars shot left him: same spot, same height on screen (its feet sit 25 px higher in the cell)
+        'sprites': [{**EVA, 'frames': [1], 'scale': EVA_SCALE, 'at': [PANEL_SPOT[0], PANEL_SPOT[1] + 5], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
         'ambient_lighting': {'lights': [
             {'x': 0.47, 'y': 0.16, 'radius': 0.3, 'color': [70, 255, 190], 'alpha': 0.22, 'pulse_speed': 0.35, 'pulse_amount': 0.5, 'phase': 0},
             {'x': 0.22, 'y': 0.22, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.27, 'pulse_amount': 0.6, 'phase': 1.5},
             {'x': 0.78, 'y': 0.2, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.31, 'pulse_amount': 0.6, 'phase': 3.1}]},
         'effects': [
-            {'type': 'shade', 'color': [0, 0, 0], 'from': 0.92, 'to': 0, 'seconds': 3.5, 'direction': 'none'},
+            {'type': 'shade', 'color': [0, 0, 0], 'from': 0.45, 'to': 0, 'seconds': 3, 'direction': 'none'},
             {'type': 'shake', 'amount': 2, 'delay': 0.5, 'until': 8}],
         'lines': [{'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.65, 'pause': 1.6}],
         'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'volume': 0.9}],
@@ -216,7 +225,8 @@ ABDUCTION = [
     },
     {   # the title, on black, straight out of the beam's white flash
         'title_card': 'The Harvest',
-        'hold': 5.4, 'tail': 0.4, 'fade_in': 0.5,
+        'sound': 'intro/audio/title_hit.mp3',
+        'hold': 5, 'tail': 0.4, 'fade_in': 0.35,
     },
     {   # catalogued: Control calls into nothing
         'background': 'intro/backgrounds/intro_catalogue.webp',
@@ -229,26 +239,25 @@ ABDUCTION = [
             {'x': 0.59, 'y': 0.17, 'radius': 0.2, 'color': [90, 255, 170], 'alpha': 0.22, 'pulse_speed': 0.4, 'pulse_amount': 0.3},
             {'x': 0.52, 'y': 0.55, 'radius': 0.18, 'color': [90, 255, 170], 'alpha': 0.12, 'pulse_speed': 0.25, 'pulse_amount': 0.3, 'phase': 1}]},
         'effects': [{'type': 'sweep', 'area': [350, 330, 360, 130], 'color': [110, 255, 180], 'period': 3.2, 'alpha': 0.5}],
-        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.55, 'pause': 2.2}],
-        'music': None, 'hold': 7, 'tail': 1,
+        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.55, 'pause': 1.0}],
+        'music': None, 'hold': 5.5, 'tail': 0.6,
     },
     {   # filed away in a pod
         'background': 'intro/backgrounds/intro_pods.webp',
         'loop': A + 'pod.mp3',
-        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'y': -10}, 'seconds': 9},
+        'camera': {'from': {'zoom': 1}, 'to': {'zoom': 1.12, 'y': -10}, 'seconds': 6},
         'sprites': [{'file': 'intro/sprites/pod_float.png', 'frame_width': 306, 'frame_height': 602, 'columns': 3, 'frames': [1], 'frame_rate': 0,
                      'scale': 0.43, 'at': [482, 542], 'bob': {'amount': 5, 'period': 6}, 'opacity': 0.88,
                      'filter': 'sepia(0.55) saturate(1.5) hue-rotate(-10deg) brightness(0.85)'}],
         'ambient_lighting': {'lights': [{'x': 0.5, 'y': 0.45, 'radius': 0.22, 'color': [255, 176, 60], 'alpha': 0.18, 'pulse_speed': 0.2, 'pulse_amount': 0.35, 'phase': 0}]},
         'effects': [{'type': 'particles', 'motion': 'rise', 'area': [418, 110, 135, 440], 'count': 18, 'size': 3, 'color': [255, 236, 180], 'alpha': 0.7, 'speed': 25}],
-        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.8, 'pause': 2.6}],
-        'hold': 8, 'tail': 1.2,
+        'hold': 5, 'tail': 0.6,
     },
     {   # the dark: a heartbeat, the glass gives
         'sound': A + 'heartbeat.mp3',
-        'sounds': [{'file': A + 'glass.mp3', 'delay': 3.6}],
-        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.95, 'pause': 1.0}],
-        'hold': 7.5, 'tail': 0.3,
+        'sounds': [{'file': A + 'glass.mp3', 'delay': 2.4}],
+        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.95, 'pause': 0.5}],
+        'hold': 4.2, 'tail': 0.3,
     },
 ]
 
@@ -306,8 +315,8 @@ BOARDS_GONE = [
      'then': [{'type': 'set_flag', 'flag': 'sw_boards_seen', 'value': 'true'},
               {'type': 'hide_object', 'object': 'pn_pilot_open'}, {'type': 'show_object', 'object': 'pn_pilot_turn'},   # he turns to us
               msg(P4, 'p4', 'comms'),
-              later(LEN['p4'] + 0.6, msg(C2, 'c2', 'radio', 0.35)),
-              later(LEN['p4'] + 0.6 + LEN['c2'] + 1.0,
+              # Control's reply (C2) is the cutscene's first line, over the stars going out
+              later(LEN['p4'] + 0.5,
                     {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
                      'then': [{'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
      'else': [line('s16')]},

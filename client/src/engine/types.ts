@@ -84,6 +84,9 @@ export interface Setting {
     fade_seconds?: number;
     /** Seconds of black and stillness before the voice starts. Default 0. */
     voice_delay?: number;
+    /** Seconds after the eyes start opening by which he is up, even if the voice is still talking (it plays on).
+     *  Default: he gets up as the voice ends. */
+    stand_by?: number;
     /** The eyes open halfway, flutter shut, then open for real. Default false. */
     blink?: boolean;
   };

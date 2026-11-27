@@ -67,7 +67,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
   const [lineVisible, setLineVisible] = useState(false);
   const [phase, setPhase] = useState<Phase>('title');
   const sceneStart = useRef(performance.now());
-  const fade = useRef({ color: '0,0,0', alpha: 1, from: 1, to: 0, start: performance.now(), seconds: FADE_S });
+  const fade = useRef<{ color: string; alpha: number; from: number; to: number; start: number; seconds: number; curve?: number }>({ color: '0,0,0', alpha: 1, from: 1, to: 0, start: performance.now(), seconds: FADE_S });
   const music = useRef<Track | null>(null);
   /** The current scene's sounds and loops (faded out when the scene ends, unless the next scene loops the same file). */
   const sceneTracks = useRef<Track[]>([]);
@@ -261,7 +261,8 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
       if (scene.loop && !carried.length) playTrack({ file: scene.loop, loop: true, volume: LOOP_VOLUME });
       if (scene.sound) playTrack({ file: scene.sound, volume: SOUND_VOLUME });
       const color = transition === 'flash' ? '255,255,255' : '0,0,0';
-      fade.current = { color, alpha: transition === 'cut' ? 0 : 1, from: transition === 'cut' ? 0 : 1, to: 0,
+      // a flash decays fast at first (ease-out), so the white never sits as a flat grey over a dark scene
+      fade.current = { color, alpha: transition === 'cut' ? 0 : 1, from: transition === 'cut' ? 0 : 1, to: 0, curve: transition === 'flash' ? 3 : 1,
         start: performance.now(), seconds: scene.fade_in ?? (si === 0 ? 3.5 : transition === 'flash' ? 1.0 : FADE_S) };
       later(() => showLine(si, 0), ((scene.lines?.[0]?.pause ?? 0.8) * 1000));
     };
@@ -325,7 +326,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
         if (scene && phase !== 'title') drawScene(ctx, scene, t, images.current, cues.current);
         const f = fade.current;
         const k = Math.min(1, (now - f.start) / 1000 / f.seconds);
-        f.alpha = f.from + (f.to - f.from) * k;
+        f.alpha = f.from + (f.to - f.from) * (f.curve && f.curve !== 1 ? 1 - Math.pow(1 - k, f.curve) : k);
         if (f.alpha > 0.001) {
           ctx.setTransform(1, 0, 0, 1, 0, 0);
           ctx.fillStyle = `rgba(${f.color},${f.alpha})`;
@@ -363,7 +364,7 @@ export function IntroCinematic({ scenes, scenarioId, title, onComplete, onSkip, 
         )}
       </div>
       {phase !== 'done' && (
-        <button data-skip-intro style={embedded ? { ...styles.skip, position: 'absolute', right: '10px', bottom: '10px' } : styles.skip} onClick={skip}>{skipLabel ?? 'skip intro ›'}</button>
+        <button data-skip-intro style={embedded ? { ...styles.skip, position: 'absolute', right: '10px', top: '44px', bottom: 'auto' } : styles.skip} onClick={skip}>{skipLabel ?? 'skip intro ›'}</button>
       )}
     </div>
   );

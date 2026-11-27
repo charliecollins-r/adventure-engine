@@ -79,9 +79,10 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'hidden', 3000), 'the nudge has gone after a few verb changes');
     await click(g, 691, 327);
     check(await waitFor(p, () => /the boards are missing/.test(document.body.innerText), 4000), 'the boards are missing');
-    check(await waitFor(p, () => /long-range is acting up/.test(document.body.innerText), 10000), 'Control can\'t explain it');
-    check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 14000), 'the abduction cutscene starts');
-    check(await waitFor(p, () => /The stars/.test(document.body.innerText), 8000), 'the pilot sees the stars go out');
+    // right after his line: Control's reply is the cutscene's first line, over the stars going out
+    check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 10000), 'the abduction cutscene starts');
+    check(await waitFor(p, () => /long-range is acting up/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 4000), 'Control can\'t explain it, over the stars');
+    check(await waitFor(p, () => /The stars/.test(document.body.innerText), 14000), 'the pilot sees the stars go out');
     await shot(p, 'v2_04_stars');
     // click through the cutscene like an impatient player; the ship's room ambience must not play under it
     let under = []; let titleSeen = false;
@@ -115,6 +116,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => window.__engine?.currentViewId === 'act1_stasis_hold' && !document.querySelector('[data-intro-cinematic]'), 4000), 'skip in the cold open: the Stasis Hold');
     check(!(await p.$('[data-skip-prologue]')), 'no prologue after skipping');
     check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 40000), 'the right-click nudge shows for a player who skipped, once he is up');
+    check(await waitFor(p, () => Number(document.querySelector('[data-verb-nudge]')?.dataset.nudgeCalls) >= 1, 10000), 'ignored for 8 s, the nudge calls for attention');
     await p.close();
   }
 

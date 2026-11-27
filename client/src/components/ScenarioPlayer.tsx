@@ -400,9 +400,10 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const wake = scenario.setting.wake;
   const voiceDelayMs = (wake?.voice_delay ?? 0) * 1000;
   // He gets up as the room description ends (or after 3 s without one).
-  const standupDelayMs = voiceDurationValid
-    ? Math.max(voiceDelayMs + introVoiceDurationMs - standupAnimMs, 2000)
-    : (standupSet ? 3000 : 0);
+  // wake.stand_by caps it: a long wake line keeps playing while he gets up.
+  const standupDelayMs = Math.min(
+    voiceDurationValid ? Math.max(voiceDelayMs + introVoiceDurationMs - standupAnimMs, 2000) : (standupSet ? 3000 : 0),
+    wake?.stand_by != null ? Math.max(0, wake.stand_by * 1000 - standupAnimMs) : Infinity);
   const fadeDurationMs = wake?.fade_seconds != null
     ? wake.fade_seconds * 1000
     : standupSet
@@ -1587,7 +1588,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         />
 
         {nudgeMode && (
-          <VerbNudge visible={nudgeReady && verbCycles < 3 && !tipsOff && !cinematicUp && !(wakeArmed && !standingUp)
+          <VerbNudge cycles={verbCycles} visible={nudgeReady && verbCycles < 3 && !tipsOff && !cinematicUp && !(wakeArmed && !standingUp)
             && !engine.isGameOver() && (!(dev.isDev || dev.skipIntro) || dev.forceTutorial)} />
         )}
         {tipVisible && tutIndex !== null && (

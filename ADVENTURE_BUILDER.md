@@ -1297,7 +1297,7 @@ Teach new players the controls with a few tips that advance as they do things:
 
 Tips can also wait for a room (`when`, e.g. `[{"type": "view_is", "view": "intro_spacewalk"}]`), and with a playable prologue (`setting.prologue`) mark its tips `"prologue": "only"` and the ones that repeat them for skippers `"prologue": "if_skipped"`.
 
-`done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL. For a quieter start, `"tutorial": { "style": "nudge", ... }` drops the boxes for a small right-click badge with the verb icons turning, gone after the player has changed verbs three times.
+`done_when` is one of `verb_changed`, `walked`, `looked`, `handled`, `talked`, `item_taken`, `items_opened`, `item_selected`, `hint_used`, or `next` (a button). Veterans click **Skip tutorial**; the choice is remembered. Write each tip so it can be done in your starting room. Test it with `?skipIntro&tutorial` in the URL. For a quieter start, `"tutorial": { "style": "nudge", ... }` drops the boxes for a small right-click badge with the verb icons turning, gone after the player has changed verbs three times (it swells to catch the eye if they ignore it for 8 s).
 
 ### Dialogue Choices
 

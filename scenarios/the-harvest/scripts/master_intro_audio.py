@@ -17,6 +17,7 @@ TARGETS = {
     'sfx_heartbeat_fast': -24, 'sfx_scan': -25, 'sfx_tool': -26,
     'sfx_underwater': -27, 'sfx_breath_loop': -30,
     'music_intro': -22, 'music_dread': -24, 'sting_dread': -19,
+    'title_hit': -20, 'rumble': -24,
 }
 os.makedirs('intro/audio/source', exist_ok=True)
 
