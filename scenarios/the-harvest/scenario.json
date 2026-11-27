@@ -18947,8 +18947,7 @@
         "focus": [334, 332],
         "zoom": 2.3,
         "seconds": 12,
-        "fade_in": 6,
-        "quiet_seconds": 8
+        "fade_in": 12
       },
       "camera_drift": {
         "zoom": 1.045,
@@ -19010,7 +19009,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 9.2,
+              "seconds": 5,
               "effects": [
                 {
                   "type": "message",
@@ -19023,7 +19022,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 15.89,
+              "seconds": 11.69,
               "effects": [
                 {
                   "type": "message",
@@ -19035,7 +19034,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 23.41,
+              "seconds": 19.21,
               "effects": [
                 {
                   "type": "set_flag",
