@@ -259,7 +259,7 @@ SPACE_VIEW = {
     'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
     # the opening shot: up from black, close on his helmet, easing out to the whole picture as Control calls
-    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 8, 'fade_in': 2.5},
+    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 10, 'fade_in': 5},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
     'ambient_lighting': {'lights': [SUN]},

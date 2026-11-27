@@ -49,7 +49,7 @@ export function EyeOpenTransition({ active, durationMs, blink, holdMs = 200, onC
     opacity: phase === 'fading' ? 0 : 1,
     ...(blink
       ? (phase === 'fading' ? { animation: `eye-blink-open ${fadeDuration}ms ease-in-out forwards` } : {})
-      : { transition: `opacity ${fadeDuration}ms ease-out` }),
+      : { transition: `opacity ${fadeDuration}ms ease-in-out` }),
   };
 
   return (

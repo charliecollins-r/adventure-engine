@@ -18898,8 +18898,8 @@
       "enter_camera": {
         "focus": [334, 332],
         "zoom": 2.3,
-        "seconds": 8,
-        "fade_in": 2.5
+        "seconds": 10,
+        "fade_in": 5
       },
       "walk_area": {
         "floor": [

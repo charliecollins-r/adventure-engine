@@ -55,7 +55,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
     check(!(await played(p, 'ambient_lab.mp3')) && !(await played(p, 'music_stasis.mp3')), 'no Stasis Hold sound before the spacewalk');
     await shot(p, 'v2_01_opening');
-    check(await waitFor(p, () => document.querySelector('[data-enter-camera]')?.dataset.enterCamera === 'off', 12000), 'the camera settles on the whole picture');
+    check(await waitFor(p, () => document.querySelector('[data-enter-camera]')?.dataset.enterCamera === 'off', 15000), 'the camera settles on the whole picture');
     check(!!(await p.$('[data-skip-prologue]')), 'a skip intro button is in the corner');
     check(!(await p.$('[data-dev-skip]')), 'no testing shortcuts during the opening');
     check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
