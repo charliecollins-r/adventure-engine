@@ -116,3 +116,13 @@ for src in sorted(glob.glob('audio/menu/source/*.mp3')):
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', tmp, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', f'audio/menu/{name}'], check=True)
     os.remove(tmp)
     print(f'menu/{name}: {measured:6.1f} -> -21 LUFS ({gain:+.1f} dB), looped')
+
+# The swap (owner's call): the title screen plays the Stargazer bed and the spacewalk plays menu clip 2, each matched to
+# the loudness of the track it replaced (the menu bed at -21.4 LUFS, the spacewalk's at -27.5, played at music volume 0.28).
+def match(src, dst, target):
+    out = subprocess.run(['ffmpeg', '-nostats', '-i', src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    measured = float(re.findall(r'I:\s+(-?[\d.]+) LUFS', out)[-1]); gain = target - measured
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false', '-b:a', '160k', dst], check=True)
+    print(f'{dst}: {measured:6.1f} -> {target} LUFS ({gain:+.1f} dB)')
+match('intro/audio/bed_stargazer.mp3', 'audio/menu/menu_stargazer.mp3', -21.4)
+match('audio/menu/menu_ambience_2.mp3', 'intro/audio/bed_space_ambience.mp3', -27.5)

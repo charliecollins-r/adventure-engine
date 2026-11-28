@@ -270,7 +270,7 @@ SPACE_VIEW = {
     'ambient_lighting': {'lights': [SUN]},
     'ambient_audio': A + 'breath_loop.mp3',
     'ambient_text': 'Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.',
-    'music': 'intro/audio/bed_stargazer.mp3',
+    'music': 'intro/audio/bed_space_ambience.mp3',   # was bed_stargazer: swapped with the title screen's bed
     'enter_sound': None,
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
@@ -331,7 +331,7 @@ PANEL_VIEW = {
     'back_label': 'LUMEN-7',
     'ambient_text': "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
     'ambient_audio': A + 'breath_loop.mp3',
-    'music': 'intro/audio/bed_stargazer.mp3',
+    'music': 'intro/audio/bed_space_ambience.mp3',   # was bed_stargazer: swapped with the title screen's bed
     'enter_sound': A + 'panel.mp3',
     'ambient_lighting': {'lights': [{'x': 0.76, 'y': 0.45, 'radius': 0.16, 'color': [150, 190, 255], 'alpha': 0.06, 'pulse_speed': 0.2, 'pulse_amount': 0.2, 'phase': 0}]},
     'hints': [{'text': 'LOOK inside the panel.'}],

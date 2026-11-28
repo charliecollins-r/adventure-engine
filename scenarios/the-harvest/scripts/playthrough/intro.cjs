@@ -52,7 +52,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(!!(await p.$('[data-fullscreen]')) && !!(await p.$('[data-hud-menu]')), 'full-screen play with the same controls from the first frame');
     await p.waitForTimeout(3500);
     const early = await p.evaluate(() => window.__audioSources());
-    check(early.some((s) => /breath_loop|bed_stargazer/.test(s)) && !early.some((s) => /\/?[cp]\d\.mp3$/.test(s)), `the fade up opens on ambience alone, no voices yet (${early.join(', ')})`);
+    check(early.some((s) => /breath_loop/.test(s)) && early.some((s) => /bed_space_ambience/.test(s)) && !early.some((s) => /\/?[cp]\d\.mp3$/.test(s)), `the fade up opens on ambience alone, no voices yet (${early.join(', ')})`);
     check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 6000), 'Relay Control calls on the radio about 5 s in');
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
