@@ -19471,7 +19471,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 6.5,
+              "seconds": 7.5,
               "effects": [
                 {
                   "type": "play_sound",
@@ -19488,7 +19488,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 12.67,
+              "seconds": 13.67,
               "effects": [
                 {
                   "type": "message",
@@ -19500,7 +19500,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 16.77,
+              "seconds": 17.77,
               "effects": [
                 {
                   "type": "play_sound",
@@ -19517,7 +19517,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 27.09,
+              "seconds": 28.09,
               "effects": [
                 {
                   "type": "message",
@@ -19529,7 +19529,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 33.67,
+              "seconds": 34.67,
               "effects": [
                 {
                   "type": "set_flag",
@@ -19540,7 +19540,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 51.67,
+              "seconds": 52.67,
               "effects": [
                 {
                   "type": "conditional_effect",

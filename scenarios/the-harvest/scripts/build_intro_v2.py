@@ -304,7 +304,7 @@ ABDUCTION = [
 # ── 2. The spacewalk ──────────────────────────────────────────────────────────
 OPEN_HOLD = 1.5   # seconds of black with only the radio playing, before the fade up and the move begin
 TUNE_END = 5.6   # he tunes his radio (a hand on his helmet) until the song settles (make_radio_rock.py TUNE_SECONDS)
-VOICE_AT = OPEN_HOLD + 5   # Relay's first call: once the radio has settled on the song, 5 s into the fade
+VOICE_AT = OPEN_HOLD + 6   # Relay's first call (owner: a second later than at first): once the radio has settled on the song, 5 s into the fade
 T_R1 = VOICE_AT
 T_P0 = T_R1 + LEN['r1'] + 0.5
 T_R2 = T_P0 + LEN['p0'] + 0.6
