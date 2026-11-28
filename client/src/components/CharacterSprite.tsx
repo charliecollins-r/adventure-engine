@@ -165,7 +165,7 @@ export function CharacterSprite({
         <TetherLine tether={placement.tether} scaleX={scaleX} scaleY={scaleY} frameLeft={screenX - renderW / 2} frameTop={hanging ? screenY : screenY - renderH}
           frameW={renderW} frameH={renderH} mirrored={flipH || mirrorFacing}
           bob={spriteSet.bob ? { amount: spriteSet.bob.amount * scaleY, period: spriteSet.bob.period } : undefined}
-          zIndex={Math.max(0, (layerZ ?? 5) - 1)} />
+          zIndex={Math.max(0, (layerZ ?? 5) - 1)} depth={depthScale} />
       )}
       {spriteSet.bob && <style>{'@keyframes kq-char-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 var(--kq-bob); } }'}</style>}
       <div data-object-hotspot style={style} onClick={handleClick} />

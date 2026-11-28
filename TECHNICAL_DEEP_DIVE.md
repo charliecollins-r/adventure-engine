@@ -766,7 +766,7 @@ A view's `enter_camera` is a CSS transform on a wrapper around `GameView` (`data
 
 Room ambience and music fade (`fadeAudio()`, a smoothstep volume ramp on a 40 ms timer): the old tracks fade out and are released, the new ones start at volume 0 and fade in, over 1.2 s normally and 4 s when `roomAudioHeld` has just cleared (after a cinematic, the wake-up). Music fades in over at least 2 s and out over 1.5 s.
 
-A patrol's `warn_cue` is queued by the engine with its warning (`takeScreenCue()`, drained with the pending sounds): `ScenarioPlayer` jiggles the picture's wrapper (`data-screen-cue`) and lays a pulsing coloured vignette over it for `seconds`. Tethers are drawn by `TetherLine.tsx`, an SVG quadratic from the fixed point to a fraction of the figure's frame, used by `CharacterSprite` (placement `tether`) and `SpriteObject` (`sprite.tether`); a bobbing figure's end follows the bob with an SVG `<animate>` of the same period.
+A patrol's `warn_cue` is queued by the engine with its warning (`takeScreenCue()`, drained with the pending sounds): `ScenarioPlayer` jiggles the picture's wrapper (`data-screen-cue`) and lays a pulsing coloured vignette over it for `seconds`. Tethers are drawn by `TetherLine.tsx`, an SVG quadratic from the fixed point to a fraction of the figure's frame (its width, and its outline, scale by `0.4 + 0.6 × depth` with the figure's `depth_scale`, so it thins as he drifts away), used by `CharacterSprite` (placement `tether`) and `SpriteObject` (`sprite.tether`); a bobbing figure's end follows the bob with an SVG `<animate>` of the same period.
 
 Ambient audio is entirely schema-driven. The system supports two levels of audio configuration:
 
