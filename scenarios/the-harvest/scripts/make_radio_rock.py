@@ -1,7 +1,7 @@
 """The pilot's helmet radio on the spacewalk: easy-listening rock he plays while he works, and the same song
 crackling out into static as the stars go out (the first shot of the abduction cutscene).
 
-Source: intro/audio/source/radio_rock.mp3 if it exists (the owner's track, e.g. from ElevenLabs Music); otherwise a
+Source: intro/audio/source/radio_rock.mp3 if it exists (now "rock music loop" by Prime45, freesound.org/s/470766, CC0); otherwise a
 synthesised stand-in song is written there first (never overwriting a real one: a .placeholder marker sits beside it).
 
 Outputs (both through a small-helmet-speaker filter, loudness-matched under the voices):
@@ -138,9 +138,13 @@ def main():
         print('wrote stand-in song', SRC)
     song = read(SRC)
     radio = helmet(song)
-    # seamless loop: the last 1.5 s crossfaded into the start
-    m = int(1.5 * SR); ramp = np.linspace(0, 1, m)
-    loop = radio[:-m].copy(); loop[:m] = radio[:m] * ramp + radio[-m:] * (1 - ramp)
+    # a real track is expected to be a loop already (the current one is Prime45's "rock music loop"); only the stand-in
+    # needs its end crossfaded into its start
+    if os.path.exists(marker):
+        m = int(1.5 * SR); ramp = np.linspace(0, 1, m)
+        loop = radio[:-m].copy(); loop[:m] = radio[:m] * ramp + radio[-m:] * (1 - ramp)
+    else:
+        loop = radio
     master(loop, LOOP)
     # the crackle-out picks the song up a little way in (not from its very start)
     start = int(min(len(song) * 0.25, 20 * SR))
