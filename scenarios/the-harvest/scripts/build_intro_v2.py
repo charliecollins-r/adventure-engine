@@ -171,6 +171,8 @@ ABDUCTION = [
         'loop': A + 'breath_loop.mp3',
         'sound': A + 'stars_out.mp3',
         'sounds': [{'file': 'intro/audio/rumble.mp3', 'volume': 0.85, 'delay': 4.5}],   # felt as the edge comes across
+        # his radio song keeps going, then crackles out into static as the stars die
+        'music': 'intro/audio/radio_rock_out.mp3', 'music_loop': False, 'music_volume': 0.3,
         # a slow push in on him as the stars die (ends where the next shot starts, so the cut doesn't jump)
         'camera': {'from': {'zoom': 1}, 'to': STARS_END, 'seconds': 14},
         'sprites': [
@@ -281,9 +283,9 @@ SPACE_VIEW = {
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
                   'motion': 'smooth', 'speed': 0.55, 'footsteps': False, 'depth_scale': DEPTH},
     'ambient_lighting': {'lights': [SUN]},
-    'ambient_audio': A + 'breath_loop.mp3',
+    'ambient_audio': [A + 'breath_loop.mp3', 'intro/audio/bed_space_ambience.mp3'],   # his breathing and the space bed
     'ambient_text': 'Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.',
-    'music': 'intro/audio/bed_space_ambience.mp3',   # was bed_stargazer: swapped with the title screen's bed
+    'music': 'intro/audio/radio_rock.mp3',   # his helmet radio: easy rock while he works (scripts/make_radio_rock.py)
     'enter_sound': None,
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
@@ -343,8 +345,8 @@ PANEL_VIEW = {
     'enter_fade': 0.35,   # quick, so the door is seen swinging open
     'back_label': 'LUMEN-7',
     'ambient_text': "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
-    'ambient_audio': A + 'breath_loop.mp3',
-    'music': 'intro/audio/bed_space_ambience.mp3',   # was bed_stargazer: swapped with the title screen's bed
+    'ambient_audio': [A + 'breath_loop.mp3', 'intro/audio/bed_space_ambience.mp3'],   # his breathing and the space bed
+    'music': 'intro/audio/radio_rock.mp3',   # his helmet radio: easy rock while he works (scripts/make_radio_rock.py)
     'enter_sound': A + 'panel.mp3',
     'ambient_lighting': {'lights': [{'x': 0.76, 'y': 0.45, 'radius': 0.16, 'color': [150, 190, 255], 'alpha': 0.06, 'pulse_speed': 0.2, 'pulse_amount': 0.2, 'phase': 0}]},
     'hints': [{'text': 'LOOK inside the panel.'}],

@@ -959,6 +959,9 @@
               "delay": 4.5
             }
           ],
+          "music": "intro/audio/radio_rock_out.mp3",
+          "music_loop": false,
+          "music_volume": 0.3,
           "camera": {
             "from": {
               "zoom": 1
@@ -19395,9 +19398,12 @@
           }
         ]
       },
-      "ambient_audio": "intro/audio/v2/breath_loop.mp3",
+      "ambient_audio": [
+        "intro/audio/v2/breath_loop.mp3",
+        "intro/audio/bed_space_ambience.mp3"
+      ],
       "ambient_text": "Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.",
-      "music": "intro/audio/bed_space_ambience.mp3",
+      "music": "intro/audio/radio_rock.mp3",
       "enter_sound": null,
       "on_enter": [
         {
@@ -19490,8 +19496,11 @@
       "enter_fade": 0.35,
       "back_label": "LUMEN-7",
       "ambient_text": "LUMEN-7's service panel, open. Your breath fogs the bottom of your visor.",
-      "ambient_audio": "intro/audio/v2/breath_loop.mp3",
-      "music": "intro/audio/bed_space_ambience.mp3",
+      "ambient_audio": [
+        "intro/audio/v2/breath_loop.mp3",
+        "intro/audio/bed_space_ambience.mp3"
+      ],
+      "music": "intro/audio/radio_rock.mp3",
       "enter_sound": "intro/audio/v2/panel.mp3",
       "ambient_lighting": {
         "lights": [

@@ -53,6 +53,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     await p.waitForTimeout(3500);
     const early = await p.evaluate(() => window.__audioSources());
     check(early.some((s) => /breath_loop/.test(s)) && early.some((s) => /bed_space_ambience/.test(s)) && !early.some((s) => /\/?[cp]\d\.mp3$/.test(s)), `the fade up opens on ambience alone, no voices yet (${early.join(', ')})`);
+    check(early.some((s) => /radio_rock\.mp3/.test(s)), 'his helmet radio plays easy rock on the spacewalk');
     check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 6000), 'Relay Control calls on the radio about 5 s in');
     check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
@@ -85,6 +86,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(await waitFor(p, () => /the boards are missing/.test(document.body.innerText), 4000), 'the boards are missing');
     // right after his line: Control's reply is the cutscene's first line, over the stars going out
     check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 10000), 'the abduction cutscene starts');
+    check(await waitFor(p, () => window.__plays.some((x) => /radio_rock_out/.test(x.src || x)), 4000), 'the radio song crackles out into static as the stars go');
     check(await waitFor(p, () => /long-range is acting up/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 4000), 'Control can\'t explain it, over the stars');
     check(await waitFor(p, () => /The stars/.test(document.body.innerText), 14000), 'the pilot sees the stars go out');
     await shot(p, 'v2_04_stars');
