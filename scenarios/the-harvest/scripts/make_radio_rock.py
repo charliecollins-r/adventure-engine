@@ -22,6 +22,8 @@ SRC = 'intro/audio/source/radio_rock.mp3'
 LOOP = 'intro/audio/radio_rock.mp3'
 OUT = 'intro/audio/radio_rock_out.mp3'
 TARGET = -28.5   # LUFS: played at the music volume (0.28) it sits well under the voices, like a radio in the helmet (owner: a third quieter, twice)
+TUNE_SECONDS = 5.5   # how long he spends tuning in (the opening shows him with a hand on his helmet meanwhile)
+SQUELCH = 'intro/audio/radio_squelch.mp3'   # the "chhh" of an incoming transmission
 TUNE = 'intro/audio/source/fm_tuning.wav'   # "FM radio tuning" by MrAuralization (freesound.org/s/269702, CC BY 4.0)
 
 
@@ -105,33 +107,33 @@ def helmet(x):
 
 
 def crackle_out(x):
-    """The song for ~3.5 s, then dropouts and crackle growing until it is static, fading out by ~11 s."""
+    """The song gets a second, then FM tuning noise scrambles it away within ~2 s (before Relay's "Say again" comes in),
+    leaving a faint static that fades out by ~6.5 s."""
     rng = np.random.default_rng(3)
-    n = int(SR * 12)
+    n = int(SR * 7)
     song = np.tile(x, int(np.ceil(n / len(x))))[:n] if len(x) < n else x[:n]
     t = np.arange(n) / SR
-    decay = np.clip((t - 3.5) / 4.5, 0, 1)          # 0 until 3.5 s, 1 by 8 s
-    # dropouts: the signal cuts in and out in short bursts, more and more often
+    decay = np.clip((t - 0.6) / 1.4, 0, 1)          # the song holds for 0.6 s, gone by 2 s
     gate = np.ones(n)
-    i = int(3.5 * SR)
-    while i < n:
+    i = int(0.6 * SR)
+    while i < n:                                     # dropouts, faster and faster as it goes
         d = decay[i]
-        gap = int(SR * rng.uniform(0.03, 0.12 + 0.3 * d))
-        if rng.random() < 0.15 + 0.8 * d:
+        gap = int(SR * rng.uniform(0.02, 0.06 + 0.15 * d))
+        if rng.random() < 0.3 + 0.7 * d:
             gate[i:i + gap] = rng.uniform(0, 0.3 * (1 - d))
-        i += gap + int(SR * rng.uniform(0.03, 0.04 + 0.4 * (1 - d)))
+        i += gap + int(SR * rng.uniform(0.02, 0.03 + 0.15 * (1 - d)))
     smooth = np.convolve(gate, np.ones(220) / 220, mode='same')
-    # the scramble is real FM tuning noise (MrAuralization's clip, looped), level-matched under the song, else hiss
     if os.path.exists(TUNE):
         tune = read(TUNE)
         tune = np.tile(tune, int(np.ceil(n / len(tune))))[:n]
-        static = tune * (np.sqrt(np.mean(song ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 0.9
+        static = tune * (np.sqrt(np.mean(song ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 2.2   # louder than the song
     else:
-        static = rng.standard_normal(n) * 0.35
-        static = np.convolve(static, [0.25, 0.5, 0.25], mode='same')
-    pops = (rng.random(n) < 0.0008 + 0.004 * decay) * rng.standard_normal(n) * 2.0
-    mix = song * smooth * (1 - 0.85 * decay) + static * (0.05 + 0.7 * decay) + pops * (0.2 + decay)
-    fade = np.clip((11.0 - t) / 3.0, 0, 1)          # all static from ~8 s, gone by 11 s
+        static = np.convolve(rng.standard_normal(n) * 0.35, [0.25, 0.5, 0.25], mode='same')
+    # the scramble swells over the song's last second, then settles to a faint hiss under the voice
+    swell = np.interp(t, [0, 0.5, 1.4, 2.2, 3.0], [0.05, 0.4, 1.0, 0.5, 0.18])
+    pops = (rng.random(n) < 0.0008 + 0.004 * decay) * rng.standard_normal(n) * 1.5
+    mix = song * smooth * (1 - decay) + static * swell + pops * (0.2 + 0.8 * (1 - np.clip((t - 2.2) / 1.0, 0, 1)))
+    fade = np.clip((6.5 - t) / 3.5, 0, 1)
     return helmet(mix * fade)
 
 
@@ -153,21 +155,32 @@ def main():
         loop = radio[:-m].copy(); loop[:m] = radio[:m] * ramp + radio[-m:] * (1 - ramp)
     else:
         loop = radio
-    # he tunes in first: ~2.6 s of FM tuning that settles onto the song (crossfaded over 0.8 s), then the song twice.
+    # he tunes in first: TUNE_SECONDS of FM tuning that settles onto the song (crossfaded over 1.2 s), then the song twice.
     # The file loops, so after about two and a half minutes the radio drifts and he tunes it back in.
     if os.path.exists(TUNE):
         tune = helmet(read(TUNE))
-        tune = tune * (np.sqrt(np.mean(loop ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 0.8
-        a, x = int(2.6 * SR), int(0.8 * SR)
+        tune = tune * (np.sqrt(np.mean(loop ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 2.2   # louder than the song: it's a signal
+        a, x = int(TUNE_SECONDS * SR), int(1.2 * SR)
         head = tune[:a].copy(); head[:int(0.15 * SR)] *= np.linspace(0, 1, int(0.15 * SR))
         body = np.concatenate([loop, loop])
         out = np.concatenate([head[:-x], head[-x:] * np.linspace(1, 0, x) + body[:x] * np.linspace(0, 1, x), body[x:]])
         out[-int(0.3 * SR):] *= np.linspace(1, 0, int(0.3 * SR))   # no click where it loops back to the tuning
         loop = out
     master(loop, LOOP)
+    # the squelch: a quarter-second of the tuning noise, sharp attack, quick tail, through the helmet speaker
+    if os.path.exists(TUNE):
+        raw = read(TUNE)
+        seg = raw[int(1.0 * SR):int(1.0 * SR) + int(0.32 * SR)].copy()
+        k = np.arange(len(seg)) / SR
+        seg *= np.minimum(1, k / 0.008) * np.exp(-np.maximum(0, k - 0.12) / 0.06)
+        sq = helmet(np.concatenate([seg, np.zeros(int(0.05 * SR))]))
+        sq = sq / (np.max(np.abs(sq)) + 1e-9) * 0.55          # peaks about 5 dB below full scale: a clear click of static
+        tmp = SQUELCH + '.tmp.wav'; write_wav(tmp, sq)
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', tmp, '-b:a', '160k', SQUELCH], check=True); os.remove(tmp)
+        print('wrote', SQUELCH)
     # the crackle-out picks the song up a little way in (not from its very start)
     start = int(min(len(song) * 0.25, 20 * SR))
-    master(crackle_out(song[start:]), OUT, TARGET + 2)
+    master(crackle_out(song[start:]), OUT, TARGET + 6)   # the scramble cuts through: louder than the radio song
 
 
 if __name__ == '__main__':

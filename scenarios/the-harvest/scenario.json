@@ -957,6 +957,11 @@
               "file": "intro/audio/rumble.mp3",
               "volume": 0.85,
               "delay": 4.5
+            },
+            {
+              "file": "intro/audio/radio_squelch.mp3",
+              "cue": "line:1",
+              "volume": 0.8
             }
           ],
           "music": "intro/audio/radio_rock_out.mp3",
@@ -1000,7 +1005,7 @@
               "frames": [
                 0
               ],
-              "scale": 0.1195,
+              "scale": 0.0557,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -1018,7 +1023,7 @@
               "frames": [
                 1
               ],
-              "scale": 0.1195,
+              "scale": 0.0557,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -1122,16 +1127,15 @@
           ],
           "lines": [
             {
-              "text": "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great.",
-              "voice": "intro/audio/v2/c2.mp3",
+              "text": "Say again. Missing. ...Logging it. Do not touch anything. Checking long-range. Star-field reference: four thousand and... ninety. Recounting.",
+              "pause": 2.4,
               "style": "radio",
-              "static": 0.35,
-              "pause": 0.4
+              "static": 0.35
             },
             {
               "text": "“Control. The stars.”",
-              "voice": "intro/audio/v2/p5.mp3",
-              "pause": 0.6
+              "pause": 0.6,
+              "voice": "intro/audio/v2/p5.mp3"
             }
           ],
           "hold": 13,
@@ -1165,7 +1169,7 @@
               "frames": [
                 1
               ],
-              "scale": 0.1195,
+              "scale": 0.0557,
               "at": [482, 510],
               "bob": {
                 "amount": 4,
@@ -1255,17 +1259,21 @@
           ],
           "lines": [
             {
-              "text": "Outrider, long-range is showing something. It's big. It's right on top of y—",
-              "voice": "intro/audio/v2/c3.mp3",
+              "text": "Outrider, something is in front of the stars. Size: large. Distance: zero. Recommend y—",
+              "pause": 1.6,
               "style": "radio",
-              "static": 0.65,
-              "pause": 1.6
+              "static": 0.65
             }
           ],
           "sounds": [
             {
               "file": "intro/audio/sting_dread.mp3",
               "volume": 0.9
+            },
+            {
+              "file": "intro/audio/radio_squelch.mp3",
+              "cue": "line:1",
+              "volume": 0.8
             }
           ],
           "music": "intro/audio/music_dread.mp3",
@@ -1375,8 +1383,8 @@
           "lines": [
             {
               "text": "“Control, something's pulling me in, I can't—”",
-              "voice": "intro/audio/v2/p6.mp3",
-              "pause": 0.6
+              "pause": 0.6,
+              "voice": "intro/audio/v2/p6.mp3"
             }
           ],
           "hold": 7.5,
@@ -1481,16 +1489,22 @@
           ],
           "lines": [
             {
-              "text": "Outrider, respond. Outrider, come back.",
-              "voice": "intro/audio/v2/c4.mp3",
+              "text": "Outrider, respond. ...Outrider. Logging it.",
+              "pause": 1.0,
               "style": "radio",
-              "static": 0.55,
-              "pause": 1.0
+              "static": 0.55
             }
           ],
           "music": null,
           "hold": 5.5,
-          "tail": 0.6
+          "tail": 0.6,
+          "sounds": [
+            {
+              "file": "intro/audio/radio_squelch.mp3",
+              "cue": "line:1",
+              "volume": 0.8
+            }
+          ]
         },
         {
           "background": "intro/backgrounds/intro_pods.webp",
@@ -1573,15 +1587,19 @@
             {
               "file": "intro/audio/v2/glass.mp3",
               "delay": 2.4
+            },
+            {
+              "file": "intro/audio/radio_squelch.mp3",
+              "cue": "line:1",
+              "volume": 0.8
             }
           ],
           "lines": [
             {
-              "text": "Outrider, respond. Outrider, come back.",
-              "voice": "intro/audio/v2/c4.mp3",
+              "text": "Outrider, respond. ...Outrider. Logging it.",
+              "pause": 0.5,
               "style": "radio",
-              "static": 0.95,
-              "pause": 0.5
+              "static": 0.95
             }
           ],
           "hold": 4.2,
@@ -1775,6 +1793,23 @@
           "amount": 4,
           "period": 3
         }
+      },
+      "eva_tune": {
+        "file": "intro/sprites/eva_tune.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_rate": 0,
+        "directions": [
+          "right"
+        ],
+        "frame_width": 521,
+        "frame_height": 1100,
+        "scale": 0.1269,
+        "bob": {
+          "amount": 5,
+          "period": 4.5
+        },
+        "walk": "eva_drift"
       }
     },
     "frame_width": 300,
@@ -19332,7 +19367,7 @@
         "x": 330,
         "y": 450,
         "facing": "right",
-        "sprite_set": "eva",
+        "sprite_set": "eva_tune",
         "shadow": {
           "opacity": 0
         },
@@ -19349,11 +19384,11 @@
         }
       },
       "enter_camera": {
-        "focus": [334, 354],
+        "focus": [334, 355],
         "zoom": 2.3,
         "seconds": 12,
         "fade_in": 12,
-        "hold": 3.5
+        "hold": 1.5
       },
       "camera_drift": {
         "zoom": 1.045,
@@ -19362,23 +19397,21 @@
       },
       "walk_area": {
         "floor": [
-          [60, 330],
-          [300, 300],
-          [470, 330],
-          [520, 460],
-          [528, 525],
-          [430, 575],
-          [200, 600],
-          [60, 565]
+          [40, 270],
+          [260, 225],
+          [520, 110],
+          [930, 70],
+          [930, 700],
+          [40, 700]
         ],
         "motion": "smooth",
-        "speed": 0.55,
+        "speed": 0.85,
         "footsteps": false,
         "depth_scale": {
-          "far_at": [520, 380],
-          "near_at": [80, 560],
-          "far": 0.45,
-          "near": 1.3
+          "far_at": [500, 480],
+          "near_at": [230, 470],
+          "far": 0.22,
+          "near": 1.15
         }
       },
       "ambient_lighting": {
@@ -19424,12 +19457,25 @@
             },
             {
               "type": "delay_then",
-              "seconds": 8.5,
+              "seconds": 5.6,
               "effects": [
                 {
+                  "type": "set_character",
+                  "sprite_set": "eva"
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 6.5,
+              "effects": [
+                {
+                  "type": "play_sound",
+                  "sound": "intro/audio/radio_squelch.mp3"
+                },
+                {
                   "type": "message",
-                  "text": "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it.",
-                  "voice": "intro/audio/v2/c1.mp3",
+                  "text": "Outrider, this is Relay Control. Your music is on the open channel. Again.",
                   "style": "radio",
                   "static": 0.2
                 }
@@ -19437,7 +19483,34 @@
             },
             {
               "type": "delay_then",
-              "seconds": 15.19,
+              "seconds": 12.41,
+              "effects": [
+                {
+                  "type": "message",
+                  "text": "“That's not noise, Relay. That's morale.”",
+                  "style": "comms"
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 16.28,
+              "effects": [
+                {
+                  "type": "play_sound",
+                  "sound": "intro/audio/radio_squelch.mp3"
+                },
+                {
+                  "type": "message",
+                  "text": "Noted. Morale is a maintenance item. LUMEN-7 has been silent for nine days. Please make it stop being silent.",
+                  "style": "radio",
+                  "static": 0.2
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 24.46,
               "effects": [
                 {
                   "type": "message",
@@ -19449,12 +19522,44 @@
             },
             {
               "type": "delay_then",
-              "seconds": 22.71,
+              "seconds": 32.01,
               "effects": [
                 {
                   "type": "set_flag",
                   "flag": "sw_briefed_done",
                   "value": "true"
+                }
+              ]
+            },
+            {
+              "type": "delay_then",
+              "seconds": 50.01,
+              "effects": [
+                {
+                  "type": "conditional_effect",
+                  "when": [
+                    {
+                      "type": "view_is",
+                      "view": "intro_spacewalk"
+                    },
+                    {
+                      "type": "flag_not",
+                      "flag": "sw_panel_open",
+                      "value": "true"
+                    }
+                  ],
+                  "then": [
+                    {
+                      "type": "play_sound",
+                      "sound": "intro/audio/radio_squelch.mp3"
+                    },
+                    {
+                      "type": "message",
+                      "text": "For your log: star-field reference is nominal. Four thousand, one hundred and twelve stars. I counted them. You are welcome.",
+                      "style": "radio",
+                      "static": 0.2
+                    }
+                  ]
                 }
               ]
             }
@@ -19761,7 +19866,8 @@
     "hologram_spun": "false",
     "keth_vari_waved": "false",
     "orchid_stirring": "false",
-    "orchid_open": "false"
+    "orchid_open": "false",
+    "sw_panel_open": "false"
   },
   "items": [
     {
@@ -84497,7 +84603,11 @@
           ]
         }
       ],
-      "walk_to": false
+      "walk_to": {
+        "x": 690,
+        "y": 500,
+        "facing": "right"
+      }
     },
     {
       "id": "sw_dish",
@@ -84548,7 +84658,11 @@
           ]
         }
       ],
-      "walk_to": false
+      "walk_to": {
+        "x": 470,
+        "y": 250,
+        "facing": "right"
+      }
     },
     {
       "id": "sw_solar_wing",
@@ -84599,7 +84713,11 @@
           ]
         }
       ],
-      "walk_to": false
+      "walk_to": {
+        "x": 330,
+        "y": 450,
+        "facing": "right"
+      }
     },
     {
       "id": "sw_earth",
@@ -84844,7 +84962,7 @@
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 6.85,
+                  "seconds": 6.87,
                   "effects": [
                     {
                       "type": "play_cutscene",
@@ -84905,7 +85023,7 @@
                 },
                 {
                   "type": "delay_then",
-                  "seconds": 6.85,
+                  "seconds": 6.87,
                   "effects": [
                     {
                       "type": "play_cutscene",

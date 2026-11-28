@@ -5,35 +5,64 @@
 The opening, about 80 seconds (design: the "First Impression" doc):
   1+2. The spacewalk (view intro_spacewalk, the prologue), playable from the first frame: it fades up close on his helmet
      and the camera eases out to the whole picture (view enter_camera) while Relay Control asks for eyes on the
-     satellite (C1); the pilot answers (P1). No separate cinematic, so the pilot never changes renderer. The tutorial teaches the verbs here: right-click, MOVE to drift, HAND the panel (P3).
-  3. The panel (view intro_panel_closeup): LOOK or HAND inside. The boards are gone (P4); Control can't explain it (C2).
-  4. The cutscene "abduction" (setting.cutscenes): the stars go out (P5, C3), the harvest (P6), then "Outrider,
-     respond" under the cataloguing, the pods and the dark (C4, fainter each time). Then the wake-up in the Stasis Hold.
+     satellite (R1-R3, Relay Control, an android dispatcher); the pilot answers (P0, P1). No separate cinematic, so the pilot never changes renderer. The tutorial teaches the verbs here: right-click, MOVE to drift, HAND the panel (P3).
+  3. The panel (view intro_panel_closeup): LOOK or HAND inside. The boards are gone (P4); Relay logs it (R4).
+  4. The cutscene "abduction" (setting.cutscenes): the stars go out (P5, R5), the harvest (P6), then "Outrider,
+     respond" under the cataloguing, the pods and the dark (R6, fainter each time). Then the wake-up in the Stasis Hold.
 
 Voices: the pilot is the Silas voice (the same voice that narrates the rooms) with a helmet-mic filter on lines he says
 to Control (message style "comms"); Relay Control is the Emily voice through the radio filter (style "radio").
 Audio lives in intro/audio/v2/ (mastered by master_intro_audio.py).
 """
 import json
-import os, re
+import os, re, subprocess
+from PIL import Image
 
 PATH = 'scenario.json'
 A = 'intro/audio/v2/'
 SPACE = 'intro_spacewalk'
 PANEL = 'intro_panel_closeup'
 
-# Clip lengths in seconds (measured), so lines follow each other without overlapping.
-LEN = {'c1': 6.19, 'p1': 6.92, 'p3': 2.59, 'p4': 6.35, 'c2': 9.40}
+# Relay Control is an android dispatcher: polite, literal, deadpan, and a little proud of its own diligence. The opening is
+# an ordinary shift (his radio, a bit of banter, a silent relay to fix); the only seeds are ones that sound like routine:
+# LUMEN-7's nine days of silence, and the android's star count, which pays off when the stars go out.
+# Relay's lines are r1-r6 (intro/audio/v2/r*.mp3, a new android voice); the pilot's new reply is p0. Each is voiced as
+# soon as its clip exists (re-run this script); until then it plays as a subtitle, with the radio squelch.
+R1 = "Outrider, this is Relay Control. Your music is on the open channel. Again."
+P0 = "\u201cThat's not noise, Relay. That's morale.\u201d"
+R2 = "Noted. Morale is a maintenance item. LUMEN-7 has been silent for nine days. Please make it stop being silent."
+P1 = "\u201cEyes on it. Big, expensive, and not talking. Heading for the access panel.\u201d"
+R3 = "For your log: star-field reference is nominal. Four thousand, one hundred and twelve stars. I counted them. You are welcome."
+P3 = "\u201cPanel's open. ...Huh.\u201d"
+P4 = "\u201cControl, the boards are missing. All of them. Somebody unplugged this thing and took the parts home.\u201d"
+R4 = "Say again. Missing. ...Logging it. Do not touch anything. Checking long-range. Star-field reference: four thousand and... ninety. Recounting."
+P5 = "\u201cControl. The stars.\u201d"
+R5 = "Outrider, something is in front of the stars. Size: large. Distance: zero. Recommend y\u2014"
+P6 = "\u201cControl, something's pulling me in, I can't\u2014\u201d"
+R6 = "Outrider, respond. ...Outrider. Logging it."
+SQUELCH = 'intro/audio/radio_squelch.mp3'   # the "chhh" of an incoming transmission (scripts/make_radio_rock.py)
 
-C1 = "Outrider, Relay. Still nothing from LUMEN on our end. Tell me you've got eyes on it."
-P1 = "“Eyes on it. Big, expensive, and not talking. Heading for the access panel.”"
-P3 = "“Panel's open. ...Huh.”"
-P4 = "“Control, the boards are missing. All of them. Somebody unplugged this thing and took the parts home.”"
-C2 = "Say again? Missing? ...Okay. Don't touch anything. I'm pulling up long-range... and long-range is acting up. Great."
-P5 = "“Control. The stars.”"
-C3 = "Outrider, long-range is showing something. It's big. It's right on top of y—"
-P6 = "“Control, something's pulling me in, I can't—”"
-C4 = "Outrider, respond. Outrider, come back."
+
+def clip_len(lid, text):
+    """A clip's length in seconds (measured), or an estimate from the text while it isn't recorded yet."""
+    f = A + lid + '.mp3'
+    if os.path.exists(f):
+        out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f], capture_output=True, text=True).stdout
+        return round(float(out), 2)
+    return round(max(2.5, len(text) * 0.065 + 0.6), 2)
+
+
+LEN = {k: clip_len(k, v) for k, v in {'r1': R1, 'p0': P0, 'r2': R2, 'p1': P1, 'r3': R3, 'p3': P3, 'p4': P4, 'r4': R4}.items()}
+
+
+def cline(text, lid, style=None, static=None, pause=0.4):
+    """A cutscene line, voiced when its clip exists."""
+    ln = {'text': text, 'pause': pause}
+    if os.path.exists(A + lid + '.mp3'): ln['voice'] = A + lid + '.mp3'
+    if style: ln['style'] = style
+    if static is not None: ln['static'] = static
+    return ln
+
 
 SUN = {'x': 0.97, 'y': 0.04, 'radius': 0.22, 'color': [255, 214, 160], 'alpha': 0.3, 'pulse_speed': 0.15, 'pulse_amount': 0.3, 'phase': 0}
 START = [330, 450]          # where the pilot floats: the same in the cold open and the playable view
@@ -46,9 +75,9 @@ def tether_fx(sprite_index, waist, sag=40, **extra):
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
 # Perspective on the spacewalk (walk_area.depth_scale along a line): drifting toward LUMEN-7 (right and up) he gets
-# smaller (about a third of the satellite's height at the panel, ~0.6x), drifting down-left toward the camera he gets
-# bigger (up to 1.3x); at his start spot he is ~0.8x.
-DEPTH = {'far_at': [520, 380], 'near_at': [80, 560], 'far': 0.45, 'near': 1.3}   # by the panel he is about a third of the satellite's height
+# smaller, down to ~0.28x by the satellite and the docked Outrider (they are at the same depth); toward the left of the
+# picture, nearer the camera, he grows to 1.15x; at his start spot he is ~0.81x. He can float almost anywhere in the picture.
+DEPTH = {'far_at': [500, 480], 'near_at': [230, 470], 'far': 0.22, 'near': 1.15}   # by the panel ~0.28x (a sixth of the satellite's height); the satellite and the docked Outrider are at the same, far depth
 
 
 def depth_at(pt):
@@ -77,10 +106,15 @@ STARS_END = {'zoom': 1.14, 'x': PANEL_SPOT[0] - 480 + 40, 'y': 40}   # where the
 
 def msg(text, voice=None, style=None, static=None):
     m = {'type': 'message', 'text': text}
-    if voice: m['voice'] = A + voice + '.mp3'
+    if voice and os.path.exists(A + voice + '.mp3'): m['voice'] = A + voice + '.mp3'
     if style: m['style'] = style
     if static is not None: m['static'] = static
     return m
+
+
+def radio(text, lid, static=0.2):
+    """An incoming transmission from Relay: the squelch, then the line."""
+    return [{'type': 'play_sound', 'sound': SQUELCH}, msg(text, lid, 'radio', static)]
 
 
 def later(seconds, *effects):
@@ -192,8 +226,7 @@ ABDUCTION = [
             {'type': 'shade', 'color': [0, 0, 0], 'from': 0, 'to': 0.35, 'seconds': 8, 'delay': 4.2, 'direction': 'down', 'area': [0, 0, 960, 720]},
             {'type': 'shake', 'amount': 1.5, 'cue': 'line:1', 'until': 20},
             tether_fx(1, 320, sag=30), tether_fx(2, 320, sag=30)],
-        'lines': [{'text': C2, 'voice': A + 'c2.mp3', 'style': 'radio', 'static': 0.35, 'pause': 0.4},
-                  {'text': P5, 'voice': A + 'p5.mp3', 'pause': 0.6}],
+        'lines': [cline(R4, 'r4', 'radio', 0.35, 2.4), cline(P5, 'p5', pause=0.6)],   # R4 waits for his radio to scramble out (2.4 s)
         'hold': 13, 'tail': 0.6, 'fade_in': 0.6, 'transition': 'cut',
     },
     {   # the harvester: revealed out of the dark, enormous and green; Control is cut off
@@ -210,7 +243,7 @@ ABDUCTION = [
             {'type': 'shade', 'color': [0, 0, 0], 'from': 0.45, 'to': 0, 'seconds': 3, 'direction': 'none'},
             {'type': 'shake', 'amount': 2, 'delay': 0.5, 'until': 8},
             tether_fx(0, 345, sag=20)],   # pulled taut toward the ship
-        'lines': [{'text': C3, 'voice': A + 'c3.mp3', 'style': 'radio', 'static': 0.65, 'pause': 1.6}],
+        'lines': [cline(R5, 'r5', 'radio', 0.65, 1.6)],
         'sounds': [{'file': 'intro/audio/sting_dread.mp3', 'volume': 0.9}],
         'music': 'intro/audio/music_dread.mp3', 'music_volume': 0.45,
         'hold': 7, 'tail': 1.6, 'fade_in': 0.01,
@@ -227,7 +260,7 @@ ABDUCTION = [
         'effects': [
             {'type': 'particles', 'motion': 'rise', 'area': [360, 130, 260, 590], 'count': 60, 'size': 3, 'color': [240, 255, 200], 'alpha': 0.85, 'speed': 60},
             {'type': 'shake', 'amount': 3, 'delay': 0.5, 'until': 9}],
-        'lines': [{'text': P6, 'voice': A + 'p6.mp3', 'pause': 0.6}],
+        'lines': [cline(P6, 'p6', pause=0.6)],
         'hold': 7.5, 'tail': 0.4, 'transition': 'flash',
     },
     {   # the title, on black, straight out of the beam's white flash
@@ -246,7 +279,7 @@ ABDUCTION = [
             {'x': 0.59, 'y': 0.17, 'radius': 0.2, 'color': [90, 255, 170], 'alpha': 0.22, 'pulse_speed': 0.4, 'pulse_amount': 0.3},
             {'x': 0.52, 'y': 0.55, 'radius': 0.18, 'color': [90, 255, 170], 'alpha': 0.12, 'pulse_speed': 0.25, 'pulse_amount': 0.3, 'phase': 1}]},
         'effects': [{'type': 'sweep', 'area': [350, 330, 360, 130], 'color': [110, 255, 180], 'period': 3.2, 'alpha': 0.5}],
-        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.55, 'pause': 1.0}],
+        'lines': [cline(R6, 'r6', 'radio', 0.55, 1.0)],
         'music': None, 'hold': 5.5, 'tail': 0.6,
     },
     {   # filed away in a pod
@@ -263,28 +296,36 @@ ABDUCTION = [
     {   # the dark: a heartbeat, the glass gives
         'sound': A + 'heartbeat.mp3',
         'sounds': [{'file': A + 'glass.mp3', 'delay': 2.4}],
-        'lines': [{'text': C4, 'voice': A + 'c4.mp3', 'style': 'radio', 'static': 0.95, 'pause': 0.5}],
+        'lines': [cline(R6, 'r6', 'radio', 0.95, 0.5)],
         'hold': 4.2, 'tail': 0.3,
     },
 ]
 
 # ── 2. The spacewalk ──────────────────────────────────────────────────────────
-OPEN_HOLD = 3.5   # seconds of black with only the radio playing, before the fade up and the move begin
-VOICE_AT = OPEN_HOLD + 5   # Control's first call: 5 s into the fade
+OPEN_HOLD = 1.5   # seconds of black with only the radio playing, before the fade up and the move begin
+TUNE_END = 5.6   # he tunes his radio (a hand on his helmet) until the song settles (make_radio_rock.py TUNE_SECONDS)
+VOICE_AT = OPEN_HOLD + 5   # Relay's first call: once the radio has settled on the song, 5 s into the fade
+T_R1 = VOICE_AT
+T_P0 = T_R1 + LEN['r1'] + 0.5
+T_R2 = T_P0 + LEN['p0'] + 0.6
+T_P1 = T_R2 + LEN['r2'] + 0.5
+T_DONE = T_P1 + LEN['p1'] + 0.6
 
 SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
     'background_key': SPACE, 'background_file': 'intro/backgrounds/intro_orbit.webp',
     'objects': ['sw_lumen_body', 'sw_outrider', 'sw_dish', 'sw_solar_wing', 'sw_earth'],
-    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva', 'shadow': {'opacity': 0},
+    'character': {'x': START[0], 'y': START[1], 'facing': 'right', 'sprite_set': 'eva_tune', 'shadow': {'opacity': 0},   # tuning his radio
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
     # the opening shot: a fade up from black that lasts the whole move, close on his helmet, easing out to the whole
     # picture, with his breathing and the ambient bed from the first frame; no voices until VOICE_AT
     'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 12, 'fade_in': 12, 'hold': OPEN_HOLD},
     # then the shot never quite sits still: a slow drift, like floating 400 km up
     'camera_drift': {'zoom': 1.045, 'seconds': 16, 'pan': [-12, 6]},
-    'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
-                  'motion': 'smooth', 'speed': 0.55, 'footsteps': False, 'depth_scale': DEPTH},
+    # nearly the whole picture: he floats where he likes (the top edge stays low enough on the left, where he's big,
+    # to keep his helmet on screen)
+    'walk_area': {'floor': [[40, 270], [260, 225], [520, 110], [930, 70], [930, 700], [40, 700]],
+                  'motion': 'smooth', 'speed': 0.85, 'footsteps': False, 'depth_scale': DEPTH},
     'ambient_lighting': {'lights': [SUN]},
     'ambient_audio': [A + 'breath_loop.mp3', 'intro/audio/bed_space_ambience.mp3'],   # his breathing and the space bed
     'ambient_text': 'Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.',
@@ -292,11 +333,19 @@ SPACE_VIEW = {
     'enter_sound': None,
     'on_enter': [{'type': 'conditional_effect', 'when': [{'type': 'flag_not', 'flag': 'sw_briefed', 'value': 'true'}], 'then': [
         {'type': 'set_flag', 'flag': 'sw_briefed', 'value': 'true'},
-        # Control calls while the camera eases out; he answers as it settles
-        later(VOICE_AT, msg(C1, 'c1', 'radio', 0.2)),
-        later(VOICE_AT + LEN['c1'] + 0.5, msg(P1, 'p1', 'comms')),
+        # he lets go of his helmet as the radio settles on the song
+        later(TUNE_END, {'type': 'set_character', 'sprite_set': 'eva'}),
+        # Relay calls once his radio has settled on the song; a bit of banter, then the job
+        later(T_R1, *radio(R1, 'r1')),
+        later(T_P0, msg(P0, 'p0', 'comms')),
+        later(T_R2, *radio(R2, 'r2')),
+        later(T_P1, msg(P1, 'p1', 'comms')),
         # the tips wait for this exchange to finish, so a spoken tip never talks over it
-        later(VOICE_AT + LEN['c1'] + 0.5 + LEN['p1'] + 0.6, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
+        later(T_DONE, {'type': 'set_flag', 'flag': 'sw_briefed_done', 'value': 'true'}),
+        # a while later, if he's still out here: the android's star count (it pays off when the stars go out)
+        later(T_DONE + 18, {'type': 'conditional_effect', 'when': [{'type': 'view_is', 'view': SPACE},
+                                                                    {'type': 'flag_not', 'flag': 'sw_panel_open', 'value': 'true'}],
+                            'then': radio(R3, 'r3')}),
     ]}],
     'hints': [{'text': "LUMEN-7's service panel is on the gold body. Drift over with Move (the feet), then use Hand on the gold body."}],
 }
@@ -317,11 +366,11 @@ SPACE_OBJECTS = [
         say('talk', 's02'),
     ], walk_to={'x': PANEL_SPOT[0], 'y': PANEL_SPOT[1], 'facing': 'right'}),
     obj('sw_outrider', 'The Outrider', "Your ship, docked at LUMEN-7's service port.", (700, 382), (135, 168),
-        [say('look', 's03'), say('hand', 's04'), say('talk', 's05')], walk_to=False),
+        [say('look', 's03'), say('hand', 's04'), say('talk', 's05')], walk_to={'x': 690, 'y': 500, 'facing': 'right'}),
     obj('sw_dish', 'Main Dish', "LUMEN-7's main dish.", (482, 105), (135, 135),
-        [say('look', 's06'), say('hand', 's07'), say('talk', 's08')], walk_to=False),
+        [say('look', 's06'), say('hand', 's07'), say('talk', 's08')], walk_to={'x': 470, 'y': 250, 'facing': 'right'}),
     obj('sw_solar_wing', 'Solar Wing', "LUMEN-7's solar wings.", (318, 300), (205, 140),
-        [say('look', 's09'), say('hand', 's10'), say('talk', 's11')], walk_to=False),
+        [say('look', 's09'), say('hand', 's10'), say('talk', 's11')], walk_to={'x': 330, 'y': 450, 'facing': 'right'}),
     obj('sw_earth', 'Earth', "Home.", (0, 500), (700, 220),
         [say('look', 's12'), say('hand', 's13'), say('talk', 's14')], walk_to=False),
 ]
@@ -332,7 +381,7 @@ BOARDS_GONE = [
      'then': [{'type': 'set_flag', 'flag': 'sw_boards_seen', 'value': 'true'},
               {'type': 'hide_object', 'object': 'pn_pilot_open'}, {'type': 'show_object', 'object': 'pn_pilot_turn'},   # he turns to us
               msg(P4, 'p4', 'comms'),
-              # Control's reply (C2) is the cutscene's first line, over the stars going out
+              # Relay's reply (R4) is the cutscene's first line, over the stars going out
               later(LEN['p4'] + 0.5,
                     {'type': 'play_cutscene', 'cutscene': 'abduction', 'wake': True,
                      'then': [{'type': 'set_view', 'view': 'act1_stasis_hold', 'sound': None}]})],
@@ -406,6 +455,13 @@ TUTORIAL = [
 ]
 
 
+# every incoming Relay line in the cutscene opens with the radio squelch, as it does in play
+for _scene in ABDUCTION:
+    for _i, _ln in enumerate(_scene.get('lines', [])):
+        if _ln.get('style') == 'radio':
+            _scene.setdefault('sounds', []).append({'file': SQUELCH, 'cue': f'line:{_i + 1}', 'volume': 0.8})
+
+
 def main():
     with open(PATH) as f:
         s = json.load(f)
@@ -428,10 +484,16 @@ def main():
     s['character']['sprite_sets']['eva'] = {
         'file': DRIFT['file'], 'columns': 2, 'rows': 1, 'frame_rate': 0.7, 'directions': ['right'],
         'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva_drift'}
+    # the opening pose: a hand on his helmet, tuning his radio (scripts/build_eva_tune.py); the same height as the float pose
+    tw, th = Image.open('intro/sprites/eva_tune.png').size
+    s['character']['sprite_sets']['eva_tune'] = {
+        'file': 'intro/sprites/eva_tune.png', 'columns': 1, 'rows': 1, 'frame_rate': 0, 'directions': ['right'],
+        'frame_width': tw, 'frame_height': th, 'scale': round(EVA_SCALE * 698 / th, 4), 'bob': {'amount': 5, 'period': 4.5}, 'walk': 'eva_drift'}
     s['character']['sprite_sets']['eva_drift'] = {
         'file': DRIFT['file'], 'columns': 2, 'rows': 1, 'frame_rate': 1.2, 'directions': ['right'],
         'frame_width': DRIFT['frame_width'], 'frame_height': DRIFT['frame_height'], 'scale': EVA_SCALE, 'bob': {'amount': 4, 'period': 3}}
 
+    s.setdefault('flags', {})['sw_panel_open'] = 'false'   # read by the spacewalk's delayed star-count line
     new_views = [SPACE_VIEW, PANEL_VIEW]
     ids = {v['id'] for v in new_views}
     s['views'] = [v for v in s['views'] if v['id'] not in ids] + new_views

@@ -54,15 +54,16 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     const early = await p.evaluate(() => window.__audioSources());
     check(early.some((s) => /breath_loop/.test(s)) && early.some((s) => /bed_space_ambience/.test(s)) && !early.some((s) => /\/?[cp]\d\.mp3$/.test(s)), `the fade up opens on ambience alone, no voices yet (${early.join(', ')})`);
     check(early.some((s) => /radio_rock\.mp3/.test(s)), 'his helmet radio plays easy rock on the spacewalk');
-    check(await waitFor(p, () => /Tell me you've got eyes on it/.test(document.body.innerText), 6000), 'Relay Control calls on the radio about 5 s in');
-    check(await played(p, 'c1.mp3'), 'Control\'s voice plays');
+    check(await waitFor(p, () => /Your music is on the open channel/.test(document.body.innerText), 6000), 'Relay Control (the android) calls on the radio about 5 s in');
+    check(await played(p, 'radio_squelch.mp3'), 'the incoming call opens with a radio squelch');
+    check(await waitFor(p, () => /That's morale/.test(document.body.innerText), 12000), 'the pilot answers back');
     check(!(await played(p, 'n1.mp3')), 'no narrator line');
     check(!(await played(p, 'ambient_lab.mp3')) && !(await played(p, 'music_stasis.mp3')), 'no Stasis Hold sound before the spacewalk');
     await shot(p, 'v2_01_opening');
     check(await waitFor(p, () => document.querySelector('[data-enter-camera]')?.dataset.enterCamera === 'off', 15000), 'the camera settles on the whole picture');
     check(!!(await p.$('[data-skip-prologue]')), 'a skip intro button is in the corner');
     check(!(await p.$('[data-dev-skip]')), 'no testing shortcuts during the opening');
-    check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 10000), 'the pilot answers');
+    check(await waitFor(p, () => /Big, expensive, and not talking/.test(document.body.innerText), 30000), 'the pilot answers');
     check(await played(p, 'p1.mp3'), 'the pilot\'s voice plays');
     check(await waitFor(p, () => document.querySelector('[data-verb-nudge]')?.dataset.verbNudge === 'shown', 9000), 'the right-click nudge shows (no tip boxes)');
     check(!(await p.$('[data-tutorial-step]')), 'no tutorial box over the picture');
@@ -87,7 +88,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     // right after his line: Control's reply is the cutscene's first line, over the stars going out
     check(await waitFor(p, () => !!document.querySelector('[data-intro-cinematic]'), 10000), 'the abduction cutscene starts');
     check(await waitFor(p, () => window.__plays.some((x) => /radio_rock_out/.test(x.src || x)), 4000), 'the radio song crackles out into static as the stars go');
-    check(await waitFor(p, () => /long-range is acting up/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 4000), 'Control can\'t explain it, over the stars');
+    check(await waitFor(p, () => /Say again/.test(document.querySelector('[data-intro-cinematic]')?.innerText ?? ''), 6000), 'Relay logs it, once his radio has scrambled out');
     check(await waitFor(p, () => /The stars/.test(document.body.innerText), 14000), 'the pilot sees the stars go out');
     await shot(p, 'v2_04_stars');
     // click through the cutscene like an impatient player; the ship's room ambience must not play under it
@@ -101,7 +102,7 @@ const tip = (p) => p.evaluate(() => document.querySelector('[data-tutorial-step]
     check(!under.length, `no room ambience under the cutscene ${under.join(',')}`);
     check(titleSeen, 'the title card plays after the beam-up');
     check((await view(p)) === 'act1_stasis_hold', 'after the cutscene: the Stasis Hold');
-    check(await played(p, 'harvest.mp3') && await played(p, 'c4.mp3'), 'the cutscene plays the harvest and "Outrider, respond"');
+    check(await played(p, 'harvest.mp3'), 'the cutscene plays the harvest');
     check(await waitFor(p, () => { const e = document.querySelector('[data-eye-open]'); return e && +getComputedStyle(e).opacity > 0.9; }, 3000), 'the wake-up starts in black');
     check(await waitFor(p, () => window.__plays.some((x) => x.src === 'w01.mp3'), 8000), 'the wake-up narration plays');
     check(/Green light\. A chemical smell/.test(await text(p)), 'the wake-up message is the narrated text');
