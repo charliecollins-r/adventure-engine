@@ -141,6 +141,15 @@ describe('pointAlong', () => {
 });
 
 describe('depthScaleAt', () => {
+  it('runs along a line between far_at and near_at (depth in any direction), clamped at both ends', () => {
+    const area = { floor: [], depth_scale: { far_at: [500, 300], near_at: [100, 300], far: 0.5, near: 1.5 } } as unknown as WalkArea;
+    expect(depthScaleAt(area, 300, 500)).toBeCloseTo(0.5);
+    expect(depthScaleAt(area, 300, 100)).toBeCloseTo(1.5);
+    expect(depthScaleAt(area, 900, 300)).toBeCloseTo(1.0);   // only the position along the line counts
+    expect(depthScaleAt(area, 300, 800)).toBeCloseTo(0.5);   // past the far point: clamped
+    expect(depthScaleAt(area, 300, 0)).toBeCloseTo(1.5);
+  });
+
   const area: WalkArea = { floor: square.floor, depth_scale: { far_y: 400, far: 0.5, near_y: 700, near: 1 } };
   it('blends between far and near and holds beyond', () => {
     expect(depthScaleAt(area, 400)).toBe(0.5);

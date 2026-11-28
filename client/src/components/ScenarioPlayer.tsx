@@ -916,7 +916,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const dt = Math.min(0.05, Math.max(0, (now - job.last) / 1000));
     job.last = now;
     const here = pointAlong(job.path, job.travelled).pt;
-    const speed = job.speed ?? (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y) * (job.area.speed ?? 1);
+    const speed = job.speed ?? (scenario.character?.walk_speed ?? 150) * depthScaleAt(job.area, here.y, here.x) * (job.area.speed ?? 1);
     job.travelled += speed * dt;
     job.walkTime += dt;
     const steps = job.locked ? null : stepConfig(job.area, job.walkSet);
@@ -945,7 +945,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
       }
     } else if (steps && now >= job.stepAt) {
       playStep(steps);
-      job.stepAt = now + (steps.interval * 1000) / Math.max(0.3, depthScaleAt(job.area, here.y));
+      job.stepAt = now + (steps.interval * 1000) / Math.max(0.3, depthScaleAt(job.area, here.y, here.x));
     }
     if (pointAlong(job.path, job.travelled).done) { finishWalk(job); return; }
     const { pt, leg } = pointAlong(job.path, shownAt);

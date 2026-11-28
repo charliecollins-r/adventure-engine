@@ -244,12 +244,24 @@ export function pointAlong(path: Pt[], d: number): { pt: Pt; leg: number; done: 
   return { pt: { ...path[path.length - 1] }, leg: path.length - 1, done: true };
 }
 
-/** Character scale multiplier at feet height y (1 without depth_scale). */
-export function depthScaleAt(area: WalkArea | null | undefined, y: number): number {
+/** Character scale multiplier with his feet at (x, y) (1 without depth_scale). With far_y/near_y, depth runs up and
+ *  down the screen; with far_at/near_at it runs along the line between those two points (projected and clamped), so
+ *  "far" can be any direction, e.g. up and to the right toward something in the distance. */
+export function depthScaleAt(area: WalkArea | null | undefined, y: number, x = 0): number {
   const k = area?.scale ?? 1;
   const ds = area?.depth_scale;
-  if (!ds || ds.near_y === ds.far_y) return k;
-  const t = Math.max(0, Math.min(1, (y - ds.far_y) / (ds.near_y - ds.far_y)));
+  if (!ds) return k;
+  let t: number;
+  if (ds.far_at && ds.near_at) {
+    const [fx, fy] = ds.far_at, [nx, ny] = ds.near_at;
+    const dx = nx - fx, dy = ny - fy, len2 = dx * dx + dy * dy;
+    if (!len2) return k;
+    t = ((x - fx) * dx + (y - fy) * dy) / len2;
+  } else {
+    if (ds.far_y == null || ds.near_y == null || ds.near_y === ds.far_y) return k;
+    t = (y - ds.far_y) / (ds.near_y - ds.far_y);
+  }
+  t = Math.max(0, Math.min(1, t));
   return k * (ds.far + t * (ds.near - ds.far));
 }
 

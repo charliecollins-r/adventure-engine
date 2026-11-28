@@ -324,7 +324,10 @@ if (walkViews.length || s.views.some((v) => v.walk_area)) {
       (wa.blocked || []).forEach((o, oi) => { if (oi !== bi && b.some((p) => W.strictlyInsideOutline(pt(p), o))) errors.push(`${ctx}.blocked[${bi}] overlaps blocked[${oi}]`); });
     });
     const ds = wa.depth_scale;
-    if (ds && (!(ds.far > 0) || !(ds.near > 0) || !(ds.far_y < ds.near_y))) warnings.push(`${ctx}.depth_scale: expects far > 0, near > 0 and far_y < near_y`);
+    const pair = (q) => Array.isArray(q) && q.length === 2 && q.every(Number.isFinite);
+    if (ds && (!(ds.far > 0) || !(ds.near > 0))) warnings.push(`${ctx}.depth_scale: expects far > 0 and near > 0`);
+    else if (ds && (ds.far_at || ds.near_at) && !(pair(ds.far_at) && pair(ds.near_at) && (ds.far_at[0] !== ds.near_at[0] || ds.far_at[1] !== ds.near_at[1]))) warnings.push(`${ctx}.depth_scale: far_at and near_at must be two different [x, y] points`);
+    else if (ds && !ds.far_at && !(ds.far_y < ds.near_y)) warnings.push(`${ctx}.depth_scale: expects far_y < near_y (or far_at/near_at points)`);
     if (!v.character) { warnings.push(`${ctx}: view has no character placement, so nobody walks here`); continue; }
     if (!s.character) { warnings.push(`${ctx}: scenario has no character config`); continue; }
     const start = { x: v.character.x, y: v.character.y };

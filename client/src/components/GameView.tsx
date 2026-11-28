@@ -234,7 +234,7 @@ export function GameView({
       equippedOverlays={engine.getEquippedOverlays()}
       layerZ={layered ? (charConfig?.draw_order === 'front' ? CHAR_FRONT_Z : depthZ(placement.y)) : undefined}
       shadowZ={layered && charConfig?.draw_order === 'front' ? CHAR_FRONT_Z - 1 : undefined}
-      depthScale={layered ? depthScaleAt(walkArea, placement.y) : 1}
+      depthScale={layered ? depthScaleAt(walkArea, placement.y, placement.x) : 1}
     />
   ) : null;
   const spriteEl = (obj: (typeof objects)[number]) => (
@@ -263,7 +263,7 @@ export function GameView({
       patrolId={p.id}
       passThrough
       opacity={p.opacity}
-      sprite={{ ...p.sprite!, scale: p.sprite!.scale * (layered ? depthScaleAt(walkArea, p.y) : 1), flip: p.flip !== !!p.sprite!.flip }}
+      sprite={{ ...p.sprite!, scale: p.sprite!.scale * (layered ? depthScaleAt(walkArea, p.y, p.x) : 1), flip: p.flip !== !!p.sprite!.flip }}
       shadow={p.shadow}
       scenarioId={scenarioId}
       x={p.x}

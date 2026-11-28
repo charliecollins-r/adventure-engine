@@ -432,8 +432,9 @@ export interface WalkArea {
   floor: PointXY[];
   /** Areas inside the floor the character must walk around. */
   blocked?: PointXY[][];
-  /** Draw the character at `far` x scale when his feet are at far_y and `near` x at near_y; blend between. */
-  depth_scale?: { far_y: number; far: number; near_y: number; near: number };
+  /** Draw the character at `far` x scale when his feet are at far_y and `near` x at near_y; blend between. Or, with
+   *  far_at/near_at ([x, y] points) instead of far_y/near_y, along the line between those points: depth in any direction. */
+  depth_scale?: { far: number; near: number; far_y?: number; near_y?: number; far_at?: [number, number]; near_at?: [number, number] };
   /** Footsteps for this view (e.g. a carpet), or false for silent walking. Default: character.footsteps. */
   footsteps?: Footsteps | false;
   /** Draw the character at this size here (multiplies depth_scale): a tiny figure crossing a vast place. Default 1. */

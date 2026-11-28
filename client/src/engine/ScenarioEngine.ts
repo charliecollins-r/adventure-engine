@@ -1074,7 +1074,7 @@ export class ScenarioEngine {
     }
     if (Math.abs(a2) < 1) return;
     const centre = { x: cx / (3 * a2), y: cy / (3 * a2) };
-    const want = (typeof cfg === 'number' ? cfg : 140) * depthScaleAt(area, at.y);
+    const want = (typeof cfg === 'number' ? cfg : 140) * depthScaleAt(area, at.y, at.x);
     const route = findPath(area, at, centre);
     const len = pathLength(route);
     if (len < 12) return;                              // he's already at the room's resting spot

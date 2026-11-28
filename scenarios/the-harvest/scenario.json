@@ -997,7 +997,7 @@
               "frames": [
                 0
               ],
-              "scale": 0.2,
+              "scale": 0.1704,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -1015,7 +1015,7 @@
               "frames": [
                 1
               ],
-              "scale": 0.2,
+              "scale": 0.1704,
               "at": [482, 505],
               "bob": {
                 "amount": 4,
@@ -1162,7 +1162,7 @@
               "frames": [
                 1
               ],
-              "scale": 0.2,
+              "scale": 0.1704,
               "at": [482, 510],
               "bob": {
                 "amount": 4,
@@ -19369,7 +19369,13 @@
         ],
         "motion": "smooth",
         "speed": 0.55,
-        "footsteps": false
+        "footsteps": false,
+        "depth_scale": {
+          "far_at": [520, 380],
+          "near_at": [80, 560],
+          "far": 0.75,
+          "near": 1.337
+        }
       },
       "ambient_lighting": {
         "lights": [

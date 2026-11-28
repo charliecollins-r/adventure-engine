@@ -45,6 +45,19 @@ def tether_fx(sprite_index, waist, sag=40, **extra):
     return {'type': 'rope', 'from': TETHER_AT, 'to_sprite': sprite_index, 'offset': [0, -waist], 'sag': sag, **TETHER, **extra}
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
+# Perspective on the spacewalk (walk_area.depth_scale along a line): drifting toward LUMEN-7 (right and up) he gets
+# smaller, drifting down-left toward the camera he gets bigger; at his start spot he is exactly his normal size.
+DEPTH = {'far_at': [520, 380], 'near_at': [80, 560], 'far': 0.75, 'near': 1.337}
+
+
+def depth_at(pt):
+    (fx, fy), (nx, ny) = DEPTH['far_at'], DEPTH['near_at']
+    dx, dy = nx - fx, ny - fy
+    k = ((pt[0] - fx) * dx + (pt[1] - fy) * dy) / (dx * dx + dy * dy)
+    return DEPTH['far'] + max(0.0, min(1.0, k)) * (DEPTH['near'] - DEPTH['far'])
+
+
+PANEL_SCALE = round(EVA_SCALE * depth_at(PANEL_SPOT), 4)   # his size at the panel, where the cutscene picks him up
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
 def _cell(path, columns):
     """(frame_width, frame_height) of a built sheet, so a rebuild of the art can't leave stale sizes here."""
@@ -164,8 +177,8 @@ ABDUCTION = [
             # the harvester's leading edge slides across the sky from the right, swallowing the stars as it comes
             {'file': 'intro/sprites/harvester_edge.png', 'frame_width': 2000, 'frame_height': 512, 'columns': 1, 'frame_rate': 0, 'frames': [0],
              'scale': 0.6, 'at': [1700, 250], 'move': {'to': [430, 250], 'seconds': 9, 'delay': 3.4}},
-            {**DRIFT, 'frames': [0], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
-            {**DRIFT, 'frames': [1], 'scale': EVA_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
+            {**DRIFT, 'frames': [0], 'scale': PANEL_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'until_cue': 'line:1', 'fade': 0.01},
+            {**DRIFT, 'frames': [1], 'scale': PANEL_SCALE, 'at': PANEL_SPOT, 'bob': {'amount': 4, 'period': 4.5}, 'cue': 'line:1', 'fade': 0.01}],
         'ambient_lighting': {'lights': [SUN]},
         'effects': [
             # something vast slides across the sky: the stars go out in a front from the right, the light dims behind it
@@ -184,7 +197,7 @@ ABDUCTION = [
         'loop': A + 'breath_loop.mp3',
         'camera': {'from': STARS_END, 'to': {'zoom': 1, 'x': 0, 'y': -30}, 'seconds': 8},
         # the alarm pose where the stars shot left him: same spot, same height on screen (its feet sit 25 px higher in the cell)
-        'sprites': [{**EVA, 'frames': [1], 'scale': EVA_SCALE, 'at': [PANEL_SPOT[0], PANEL_SPOT[1] + 5], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
+        'sprites': [{**EVA, 'frames': [1], 'scale': PANEL_SCALE, 'at': [PANEL_SPOT[0], PANEL_SPOT[1] + 5], 'bob': {'amount': 4, 'period': 4}, 'rotate': 8}],
         'ambient_lighting': {'lights': [
             {'x': 0.47, 'y': 0.16, 'radius': 0.3, 'color': [70, 255, 190], 'alpha': 0.22, 'pulse_speed': 0.35, 'pulse_amount': 0.5, 'phase': 0},
             {'x': 0.22, 'y': 0.22, 'radius': 0.18, 'color': [70, 255, 190], 'alpha': 0.14, 'pulse_speed': 0.27, 'pulse_amount': 0.6, 'phase': 1.5},
@@ -266,7 +279,7 @@ SPACE_VIEW = {
     # then the shot never quite sits still: a slow drift, like floating 400 km up
     'camera_drift': {'zoom': 1.045, 'seconds': 16, 'pan': [-12, 6]},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],
-                  'motion': 'smooth', 'speed': 0.55, 'footsteps': False},
+                  'motion': 'smooth', 'speed': 0.55, 'footsteps': False, 'depth_scale': DEPTH},
     'ambient_lighting': {'lights': [SUN]},
     'ambient_audio': A + 'breath_loop.mp3',
     'ambient_text': 'Four hundred kilometres up. The only sound is your own breathing, and LUMEN-7 saying nothing at all.',

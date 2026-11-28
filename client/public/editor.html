@@ -1675,7 +1675,10 @@ function renderFloor() {
   floorData.blocked.forEach((b, i) => ringSvg(b, i, 'rgba(248,113,113,0.25)', '#f87171'));
   // depth guides
   const ds = floorData.depth_scale;
-  if (editing && ds) for (const [y, label] of [[ds.far_y, `far ×${ds.far}`], [ds.near_y, `near ×${ds.near}`]]) {
+  if (editing && ds && ds.far_at && ds.near_at) {   // depth along a line between two points
+    for (const [p, label] of [[ds.far_at, `far ×${ds.far}`], [ds.near_at, `near ×${ds.near}`]]) html += `<circle cx="${p[0]}" cy="${p[1] * SCALE_Y}" r="5" fill="none" stroke="#facc15"/><text x="${p[0] + 8}" y="${p[1] * SCALE_Y - 6}" fill="#facc15" font-size="12">${label}</text>`;
+    html += `<line x1="${ds.far_at[0]}" y1="${ds.far_at[1] * SCALE_Y}" x2="${ds.near_at[0]}" y2="${ds.near_at[1] * SCALE_Y}" stroke="#facc15" stroke-dasharray="6 4"/>`;
+  } else if (editing && ds) for (const [y, label] of [[ds.far_y, `far ×${ds.far}`], [ds.near_y, `near ×${ds.near}`]]) {
     html += `<line x1="0" x2="960" y1="${y * SCALE_Y}" y2="${y * SCALE_Y}" stroke="#facc15" stroke-dasharray="6 4"/><text x="8" y="${y * SCALE_Y - 4}" fill="#facc15" font-size="12">${label} (y ${y})</text>`;
   }
   svg.innerHTML = html;
@@ -1790,16 +1793,19 @@ function floorWalkable(p) {
   if (!floorData || floorData.floor.length < 3 || !fpInside(p, floorData.floor)) return false;
   return !floorData.blocked.some(b => b.length >= 3 && fpInside(p, b) && !b.some((q, i) => fpSegDist(p, q, b[(i + 1) % b.length]) < 1e-6));
 }
-function floorGhostScale(y) {
+function floorGhostScale(y, x = 0) {
   const ds = floorData && floorData.depth_scale;
   if (!ds) return 1;
-  const t = Math.max(0, Math.min(1, (y - ds.far_y) / ((ds.near_y - ds.far_y) || 1)));
+  let t;
+  if (ds.far_at && ds.near_at) { const dx = ds.near_at[0] - ds.far_at[0], dy = ds.near_at[1] - ds.far_at[1]; t = ((x - ds.far_at[0]) * dx + (y - ds.far_at[1]) * dy) / ((dx * dx + dy * dy) || 1); }
+  else t = (y - ds.far_y) / ((ds.near_y - ds.far_y) || 1);
+  t = Math.max(0, Math.min(1, t));
   return ds.far + (ds.near - ds.far) * t;
 }
 function floorGhostStyle(el, x, y) {
   const ss = charConfig && (charConfig.sprite_sets.idle || Object.values(charConfig.sprite_sets)[0]);
   if (!ss) return false;
-  const sc = (charConfig.scale || 1) * floorGhostScale(y), fw = charConfig.frame_width, fh = charConfig.frame_height;
+  const sc = (charConfig.scale || 1) * floorGhostScale(y, x), fw = charConfig.frame_width, fh = charConfig.frame_height;
   const dirs = ss.directions || ['down']; const row = Math.max(0, dirs.indexOf('down'));
   const w = fw * sc, h = fh * sc;
   Object.assign(el.style, { left: `${x - w / 2}px`, top: `${y * SCALE_Y - h}px`, width: `${w}px`, height: `${h}px`,
