@@ -48,6 +48,30 @@ function run(e: ScenarioEngine, seconds: number) {
 }
 
 describe('game clock and patrols', () => {
+  it('first_after: the sweeps start when the story starts the search, then every period', () => {
+    const s = scenario();
+    Object.assign(s.patrols![0], { when: [{ type: 'flag_is', flag: 'search_on' }], first_after: 20, period: 45 });
+    const e = new ScenarioEngine(s);
+    run(e, 200);
+    expect(e.getMessages()).not.toContain('Clicking, coming closer.');   // no search yet
+    e.runEffects([{ type: 'set_flag', flag: 'search_on', value: 'true' }]);
+    run(e, 14.9);
+    expect(e.getMessages()).not.toContain('Clicking, coming closer.');
+    run(e, 0.3);                                                          // 15 s after: warned 5 s before the 20 s sweep
+    expect(e.getMessages()).toContain('Clicking, coming closer.');
+    // the next sweep is one period (45 s) later; it carries over an Undo (snapshot/restore)
+    const snap = e.snapshot();
+    const e2 = new ScenarioEngine(s);
+    e2.restore(snap);
+    for (const x of [e, e2]) {
+      x.runEffects([{ type: 'set_view', view: 'side' }]);
+      run(x, 44.4);
+      x.runEffects([{ type: 'set_view', view: 'a' }]);
+      run(x, 1.0);
+      expect(x.getMessages()).toContain('Clicking, coming closer.');
+    }
+  });
+
   it('counts seconds of play', () => {
     const e = new ScenarioEngine(scenario());
     run(e, 3);

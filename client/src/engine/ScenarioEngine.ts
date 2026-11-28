@@ -37,7 +37,7 @@ export interface EngineSnapshot {
   gameOver: GameOverResult | null; phase: string | null; hiding: boolean; characterOverride: Partial<CharacterPlacement> | null;
   characterPos: StandPoint | null; posHistory: (StandPoint | null)[]; eventsFired: string[]; eventsActive: string[];
   widgetAttempts: Record<string, number>; solvedWidgets: Record<string, boolean>; equipped: [string, string][];
-  score: number; scoredIds: string[]; clock: number;
+  score: number; scoredIds: string[]; clock: number; patrolStarted?: Record<string, number>;
   meters?: Record<string, number>; meterEmptied?: string[];
   pursuers?: Record<string, { distance: number; humming: boolean; hum: number }>;
   checkpoint?: Checkpoint | null;
@@ -108,6 +108,8 @@ export class ScenarioEngine {
   private patrolEntered = new Set<string>();
   /** Seconds each patrol has had the player in plain sight. */
   private patrolSeen: Record<string, number> = {};
+  /** When each `first_after` patrol's `when` first held (game-clock seconds). */
+  private patrolStarted: Record<string, number> = {};
   /** Patrol legs already heard from next door ("patrol:sweep:stop"). */
   private patrolHeard = new Set<string>();
   /** Views next door to each view: rooms with an exit (a Move interaction that can set_view) into it. Built on first use. */
@@ -870,14 +872,21 @@ export class ScenarioEngine {
   /** Come out of hiding (the player starts walking). */
   stopHiding(): void { this._isHiding = false; }
 
+  /** Game-clock time of a patrol's first sweep, or null if it hasn't started (first_after, `when` never held yet). */
+  private patrolFirst(p: Patrol): number | null {
+    if (p.first_after == null) return p.first_at ?? p.period;
+    const start = this.patrolStarted[p.id];
+    return start == null ? null : start + p.first_after;
+  }
+
   /** Where a patrol is in its cycle at time t, relative to the room the player is in. */
   private patrolStatus(p: Patrol, t: number = this._clock): {
     sweep: number; u: number; here: boolean; approaching: boolean; stop: number;
   } | null {
     if (!this.patrolsEnabled || !p.period || !p.stops?.length) return null;
     if (!this.evaluateConditions(p.when)) return null;
-    const first = p.first_at ?? p.period;
-    if (t < first - (p.warn_seconds ?? 5)) return null;
+    const first = this.patrolFirst(p);
+    if (first == null || t < first - (p.warn_seconds ?? 5)) return null;
     const warn = p.warn_seconds ?? 5;
     const view = this._currentViewId;
     // The sweep under way, and the next one (whose warning may already have started).
@@ -934,8 +943,8 @@ export class ScenarioEngine {
   /** The leg of the sweep under way, if a patrol is walking through some room right now. */
   private patrolLeg(p: Patrol, t: number = this._clock): { sweep: number; stop: number } | null {
     if (!this.patrolsEnabled || !p.period || !p.stops?.length || !this.evaluateConditions(p.when)) return null;
-    const first = p.first_at ?? p.period;
-    if (t < first) return null;
+    const first = this.patrolFirst(p);
+    if (first == null || t < first) return null;
     const sweep = Math.floor((t - first) / p.period);
     const u = t - (first + sweep * p.period);
     const stop = p.stops.findIndex((s) => u >= s.enter && u < s.leave);
@@ -953,6 +962,7 @@ export class ScenarioEngine {
     let changed = this.advanceCycles();
     if (this.advancePursuers(seconds)) { if (this._gameOver) return true; changed = true; }
     for (const p of this.scenario.patrols ?? []) {
+      if (p.first_after != null && this.patrolStarted[p.id] == null && this.evaluateConditions(p.when)) this.patrolStarted[p.id] = this._clock;
       const st = this.patrolStatus(p);
       // Heard through the wall: it comes into a room next door to the player's.
       if (p.nearby_sound && !st) {
@@ -1750,7 +1760,7 @@ export class ScenarioEngine {
       gameOver: this._gameOver, phase: this._currentPhaseId, hiding: this._isHiding, characterOverride: this._characterOverride,
       characterPos: this._characterPos, posHistory: this.posHistory, eventsFired: [...this.eventsFired], eventsActive: [...this.eventsActive],
       widgetAttempts: this.widgetAttempts, solvedWidgets: this.solvedWidgets, equipped: [...this.equippedItems],
-      score: this._score, scoredIds: [...this.scoredIds], clock: this._clock,
+      score: this._score, scoredIds: [...this.scoredIds], clock: this._clock, patrolStarted: { ...this.patrolStarted },
       meters: this.meterValues, meterEmptied: [...this.meterEmptied], pursuers: this.pursuerState, checkpoint: this._checkpoint,
     });
   }
@@ -1764,7 +1774,7 @@ export class ScenarioEngine {
     this._characterPos = s.characterPos; this.posHistory = s.posHistory; this.eventsFired = new Set(s.eventsFired); this.eventsActive = new Set(s.eventsActive);
     this.widgetAttempts = s.widgetAttempts; this.solvedWidgets = s.solvedWidgets; this.equippedItems = new Map(s.equipped);
     this._score = s.score; this.scoredIds = new Set(s.scoredIds); this._transitionSound = undefined;
-    this._clock = s.clock ?? 0; this.patrolSeen = {};
+    this._clock = s.clock ?? 0; this.patrolSeen = {}; this.patrolStarted = { ...(s.patrolStarted ?? {}) };
     if (s.meters) this.meterValues = s.meters;
     this.meterEmptied = new Set(s.meterEmptied ?? []);
     if (s.pursuers) this.pursuerState = s.pursuers;

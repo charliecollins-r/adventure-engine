@@ -951,6 +951,9 @@ export interface Patrol {
   period: number;
   /** Game-clock time of the first sweep. Default: one period in. */
   first_at?: number;
+  /** Instead of first_at: the first sweep starts this many seconds after `when` first holds (a search that begins
+   *  when something happens in the story), then every `period`. Remembered once started, even if `when` lapses. */
+  first_after?: number;
   stops: PatrolStop[];
   /** Seconds of warning before it comes into the room you are in. Default 5. */
   warn_seconds?: number;

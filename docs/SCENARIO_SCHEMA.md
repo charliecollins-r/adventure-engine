@@ -1396,6 +1396,7 @@ A **patrol** is a unit that sweeps a fixed route of rooms on a fixed cycle, on t
 |-------|---------|
 | `period` | Seconds between the starts of two sweeps |
 | `first_at` | Clock time of the first sweep (default: one `period` in) |
+| `first_after` | Instead of `first_at`: the first sweep starts this many seconds after `when` first holds, then every `period`. For a search the story starts (The Harvest: 20 s after the Curator finds the empty pod, flag `curator_glimpsed`, then every 45 s). Remembered once started, and carried through Undo. |
 | `when` | It patrols only while these conditions hold (switch it off for a chase, an alarm, an act change) |
 | `stops[]` | One leg per room: `views` (the room plus any close-ups that belong to it), `enter`/`leave` (seconds into the sweep), `path` (its route across the room, 960x720 feet positions, walked at an even pace), `flip` (draw it mirrored), `fade_out` (it ends its sweep here), `warn_message` (overrides the patrol's), `nearby_message` (shown, with `nearby_sound`, to a player next door while it walks through this room: "Out in the corridor, metal legs tick past the door..."), `safe_when` (conditions that keep the player safe in this room besides hiding, e.g. up on a ledge it passes under) |
 | `warn_seconds` | Warning before it comes into the player's room (default 5): `warn_sound` plays and the room's `warn_message` shows |

@@ -41264,8 +41264,26 @@
           ],
           "then": [
             {
-              "type": "message",
-              "text": "The feeds cycle: the corridor, the feeding station's glowing cages, the dark lab. A hunter drone ticks along a far passage, the same sweep every minute. I could time my moves around it."
+              "type": "conditional_effect",
+              "when": [
+                {
+                  "type": "flag_is",
+                  "flag": "curator_glimpsed",
+                  "value": "true"
+                }
+              ],
+              "then": [
+                {
+                  "type": "message",
+                  "text": "The feeds cycle: the corridor, the feeding station's glowing cages, the dark lab. A hunter drone ticks along a far passage, the same sweep every forty-five seconds since my pod turned up empty. I could time my moves around it."
+                }
+              ],
+              "else": [
+                {
+                  "type": "message",
+                  "text": "The feeds cycle: the corridor, the feeding station's glowing cages, the dark lab. A hunter drone hangs folded in a cradle at the end of a far passage. Waiting for a reason to move."
+                }
+              ]
             },
             {
               "type": "play_sound",
@@ -86729,7 +86747,13 @@
         },
         {
           "type": "play_cutscene",
-          "cutscene": "curator_glimpse"
+          "cutscene": "curator_glimpse",
+          "then": [
+            {
+              "type": "message",
+              "text": "Behind me, something skitters to life and heads off down the corridor. It's not hunting yet. It's looking. For me."
+            }
+          ]
         }
       ]
     },
@@ -87984,15 +88008,19 @@
   "patrols": [
     {
       "id": "hunter_patrol",
-      "name": "Hunter drone on its rounds",
+      "name": "Hunter drone searching for the missing specimen",
       "when": [
+        {
+          "type": "flag_is",
+          "flag": "curator_glimpsed",
+          "value": "true"
+        },
         {
           "type": "flag_not",
           "flag": "alarm_hunters_out"
         }
       ],
-      "period": 60,
-      "first_at": 60,
+      "period": 45,
       "warn_seconds": 5,
       "warn_sound": "patrol",
       "enter_sound": "patrol",
@@ -88026,7 +88054,7 @@
             [560, 650],
             [285, 448]
           ],
-          "warn_message": "A hum and fast-ticking legs from the far side of the hold: a hunter drone on its rounds, coming this way. Get out of its way, or back into your pod.",
+          "warn_message": "A hum and fast-ticking legs from the far side of the hold: a hunter drone searching for me, coming this way. Get out of its way, or back into your pod.",
           "safe_when": [
             {
               "type": "flag_is",
@@ -88047,7 +88075,7 @@
             [585, 392]
           ],
           "warn_message": "The hunter drone's legs, ticking up from the Stasis Hold. Get out of the corridor.",
-          "nearby_message": "Out in the corridor, metal legs tick past the door: a hunter drone on its rounds. Stay put until it's gone."
+          "nearby_message": "Out in the corridor, metal legs tick past the door: a hunter drone searching for me. Stay put until it's gone."
         },
         {
           "views": [
@@ -88084,7 +88112,7 @@
           "type": "game_over",
           "result": "lose",
           "title": "Caught",
-          "reason": "The drone's eye turns from amber to red. It pins you and hums until the Curator collects you.\n\nThe drones sweep these rooms every minute, and you can hear them coming. Watch the clock, leave the room, or hide.",
+          "reason": "The drone's eye turns from amber to red. It pins you and hums until the Curator collects you.\n\nSince the Curator found your empty pod, a drone sweeps these rooms every 45 seconds, and you can hear it coming. Watch the clock, leave the room, or hide.",
           "sound": "audio/deaths/caught_drone.mp3"
         }
       ],
@@ -88096,7 +88124,8 @@
           30,
           20
         ]
-      }
+      },
+      "first_after": 20
     },
     {
       "id": "v6_warden_w1",
