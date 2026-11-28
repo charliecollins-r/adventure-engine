@@ -267,7 +267,8 @@ ABDUCTION = [
 ]
 
 # ── 2. The spacewalk ──────────────────────────────────────────────────────────
-VOICE_AT = 5   # seconds into the opening shot before Control's first call
+OPEN_HOLD = 3.5   # seconds of black with only the radio playing, before the fade up and the move begin
+VOICE_AT = OPEN_HOLD + 5   # Control's first call: 5 s into the fade
 
 SPACE_VIEW = {
     'id': SPACE, 'name': 'LUMEN-7, High Orbit',
@@ -277,7 +278,7 @@ SPACE_VIEW = {
                   'tether': {'from': TETHER_AT, 'attach': [0.5, 0.55], 'sag': 40, **TETHER}},   # clipped to LUMEN-7 wherever he drifts
     # the opening shot: a fade up from black that lasts the whole move, close on his helmet, easing out to the whole
     # picture, with his breathing and the ambient bed from the first frame; no voices until VOICE_AT
-    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 12, 'fade_in': 12},
+    'enter_camera': {'focus': HELMET, 'zoom': 2.3, 'seconds': 12, 'fade_in': 12, 'hold': OPEN_HOLD},
     # then the shot never quite sits still: a slow drift, like floating 400 km up
     'camera_drift': {'zoom': 1.045, 'seconds': 16, 'pan': [-12, 6]},
     'walk_area': {'floor': [[60, 330], [300, 300], [470, 330], [520, 460], [528, 525], [430, 575], [200, 600], [60, 565]],

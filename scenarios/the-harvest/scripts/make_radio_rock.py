@@ -20,7 +20,7 @@ SR = 44100
 SRC = 'intro/audio/source/radio_rock.mp3'
 LOOP = 'intro/audio/radio_rock.mp3'
 OUT = 'intro/audio/radio_rock_out.mp3'
-TARGET = -21.0   # LUFS: played at the music volume (0.28) it sits well under the voices, like a radio in the helmet
+TARGET = -25.0   # LUFS: played at the music volume (0.28) it sits well under the voices, like a radio in the helmet (owner: -4 dB, a third quieter)
 
 
 def write_wav(path, x):

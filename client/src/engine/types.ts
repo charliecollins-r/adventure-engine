@@ -391,6 +391,8 @@ export interface View {
    *  eases out to the whole room over `seconds`, playable all the while (any click finishes it). `fade_in`: seconds of
    *  fade up from black at the start of a prologue view. Use it instead of a separate opening cinematic. */
   enter_camera?: { focus: [number, number]; zoom: number; seconds: number; fade_in?: number; every_time?: boolean;
+    /** Seconds of black before the fade and the move begin (the room's sound already playing). Default 0. */
+    hold?: number;
     /** Seconds from arrival during which the view's ambience and music stay silent (a quiet opening shot). A click that
      *  finishes the move ends the quiet too. Timed on_enter lines should start after it. */
     quiet_seconds?: number };

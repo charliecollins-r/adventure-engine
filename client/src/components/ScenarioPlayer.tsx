@@ -695,13 +695,17 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const fx = cam.focus[0], fy = cam.focus[1] * 0.75;   // 960x540 picture pixels
     const tx = Math.min(0, Math.max(960 - 960 * z, 480 - fx * z)), ty = Math.min(0, Math.max(540 - 540 * z, 270 - fy * z));
     setEnterCam({ z, tx, ty, seconds: cam.seconds, going: false });
-    const r = requestAnimationFrame(() => requestAnimationFrame(() => setEnterCam((c) => (c ? { ...c, going: true } : c))));
+    // after `hold` seconds of black (or at once), the move starts
+    const holdMs = (cam.hold ?? 0) * 1000;
+    let r = 0;
+    const go = () => { r = requestAnimationFrame(() => requestAnimationFrame(() => setEnterCam((c) => (c ? { ...c, going: true } : c)))); };
+    const held = holdMs ? window.setTimeout(go, holdMs) : (go(), 0);
     let finished = false;
-    const done = window.setTimeout(() => { finished = true; setEnterCam(null); }, cam.seconds * 1000 + 100);
+    const done = window.setTimeout(() => { finished = true; setEnterCam(null); }, holdMs + cam.seconds * 1000 + 100);
     setCameraQuiet(!!cam.quiet_seconds);
     const quiet = cam.quiet_seconds ? window.setTimeout(() => setCameraQuiet(false), cam.quiet_seconds * 1000) : 0;
     // interrupted before it ran (React's development double-mount): let the next run start it again
-    return () => { cancelAnimationFrame(r); clearTimeout(done); clearTimeout(quiet); if (!finished) { camSeen.current.delete(camView); setEnterCam(null); } };
+    return () => { cancelAnimationFrame(r); clearTimeout(held); clearTimeout(done); clearTimeout(quiet); if (!finished) { camSeen.current.delete(camView); setEnterCam(null); } };
   }, [camView, cinematicUp, engine]);
   const finishEnterCam = () => { setCameraQuiet(false); setEnterCam((c) => (c && c.going ? { ...c, seconds: 0.45, z: 1, tx: 0, ty: 0 } : c)); };
 
@@ -1738,7 +1742,7 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
         )}
 
         {/* Eye-open animation scoped to viewport */}
-        {prologueFade && <EyeOpenTransition active durationMs={(engine.getCurrentView().enter_camera?.fade_in ?? 0.9) * 1000} holdMs={0} onComplete={endPrologueFade} />}
+        {prologueFade && <EyeOpenTransition active durationMs={(engine.getCurrentView().enter_camera?.fade_in ?? 0.9) * 1000} holdMs={(engine.getCurrentView().enter_camera?.hold ?? 0) * 1000} onComplete={endPrologueFade} />}
         {!skipEyeTransition && wakeArmed && <EyeOpenTransition key={prologuePlayed ? 'after-prologue' : 'start'} active={eyeOpen} durationMs={fadeDurationMs} blink={!!wake?.blink} holdMs={(wake?.hold_seconds ?? 0.2) * 1000} />}
       </div>
 
