@@ -238,6 +238,20 @@ function formatClock(seconds: number): string {
 /** A game's exit cut, waiting a tick in case the same player mounts again straight away (StrictMode). */
 let pendingExit = 0;
 
+/** Ramp an audio element's volume to `to` over `ms`; with `stop`, pause and release it at the end (a fade out). */
+function fadeAudio(a: HTMLAudioElement, to: number, ms: number, stop = false): void {
+  const from = a.volume, t0 = performance.now();
+  const prev = (a as unknown as { _fade?: number })._fade;
+  if (prev) clearInterval(prev);
+  const id = window.setInterval(() => {
+    const k = Math.min(1, (performance.now() - t0) / Math.max(1, ms));
+    const eased = k * k * (3 - 2 * k);   // smoothstep: no click at either end
+    a.volume = Math.max(0, Math.min(1, from + (to - from) * eased));
+    if (k >= 1) { clearInterval(id); if (stop) { a.pause(); a.src = ''; } }
+  }, 40);
+  (a as unknown as { _fade?: number })._fade = id;
+}
+
 export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   const engineRef = useRef<ScenarioEngine>(new ScenarioEngine(scenario));
   const [, setVersion] = useState(0);
@@ -488,6 +502,11 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   /** view.enter_camera.quiet_seconds: the opening shot plays in silence until this clears. */
   const [cameraQuiet, setCameraQuiet] = useState(() => prologueActive && !!scenario.views.find((v) => v.id === prologue?.view)?.enter_camera?.quiet_seconds);
   const roomAudioHeld = cinematicUp || (prologueActive && !prologueEntered) || cameraQuiet;
+  // Room sound comes and goes with fades, never a hard cut: a long fade in when it returns after a cinematic or the
+  // quiet before the game (the wake-up after the intro), a short one between rooms.
+  const wasHeld = useRef(roomAudioHeld);
+  const fadeInMs = useRef(1200);
+  if (wasHeld.current !== roomAudioHeld) { if (wasHeld.current && !roomAudioHeld) fadeInMs.current = 4000; wasHeld.current = roomAudioHeld; }
   useEffect(() => {
     const view = engine.getCurrentView();
     const raw = view.ambient_audio ?? scenario.setting.ambient_audio;
@@ -498,22 +517,21 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     if (key === prevAudioKey.current) return;
     prevAudioKey.current = key;
 
-    for (const a of audioRefs.current) {
-      a.pause();
-      a.src = '';
-    }
+    for (const a of audioRefs.current) fadeAudio(a, 0, 1200, true);
     audioRefs.current = [];
 
     if (files.length === 0) return;
 
     const scenarioId = scenario.metadata.id;
     const elements: HTMLAudioElement[] = [];
+    const inMs = fadeInMs.current; fadeInMs.current = 1200;
     for (const file of files) {
       const audio = new Audio(resolveAsset(scenarioId, file));
       audio.loop = true;
-      audio.volume = 0.35;
+      audio.volume = 0;
       audio.muted = muted;
       audio.play().catch(() => {});
+      fadeAudio(audio, 0.35, inMs);
       elements.push(audio);
     }
     audioRefs.current = elements;
@@ -526,11 +544,12 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
   useEffect(() => {
     const cur = musicRef.current;
     if (cur && cur.dataset.file === (musicFile ?? '') && !roomAudioHeld) return;
-    if (cur) { cur.pause(); cur.src = ''; musicRef.current = null; }
+    if (cur) { fadeAudio(cur, 0, 1500, true); musicRef.current = null; }
     if (!musicFile || roomAudioHeld) return;
     const a = new Audio(resolveAsset(scenario.metadata.id, musicFile));
-    a.dataset.file = musicFile; a.loop = true; a.volume = scenario.setting.music_volume ?? 0.3; a.muted = muted;
+    a.dataset.file = musicFile; a.loop = true; a.volume = 0; a.muted = muted;
     a.play().catch(() => {});
+    fadeAudio(a, scenario.setting.music_volume ?? 0.3, Math.max(fadeInMs.current, 2000));
     musicRef.current = a;
   }, [musicFile, roomAudioHeld, muted, scenario, audioRun]);
   useEffect(() => () => { musicRef.current?.pause(); }, []);
@@ -1390,8 +1409,8 @@ export function ScenarioPlayer({ scenario, onExit }: ScenarioPlayerProps) {
     const file = gameOverResult?.sound ?? scenario.setting.sounds?.[endKey];
     if (file) playSound(file);
     if (m && endKey === 'death') {
-      const start = m.volume; let k = 0;
-      const id = window.setInterval(() => { k++; m.volume = Math.max(0, start * (1 - k / 15)); if (k >= 15) { clearInterval(id); m.pause(); m.volume = start; } }, 60);
+      fadeAudio(m, 0, 900);
+      window.setTimeout(() => { m.pause(); m.volume = scenario.setting.music_volume ?? 0.3; }, 950);   // back at full volume for Undo
     }
   }, [endKey, gameOverResult?.sound, scenario, playSound, muted]);
   const closeupImage = engine.getCloseupImage();

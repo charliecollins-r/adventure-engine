@@ -764,6 +764,8 @@ When reviewing or generating object positions:
 
 A view's `enter_camera` is a CSS transform on a wrapper around `GameView` (`data-enter-camera`): `translate(tx, ty) scale(z)` with `transform-origin: 0 0`, clamped so the picture always covers the frame, then a transition to `none` over `seconds`; a pointer-down finishes it in 0.45 s. Clicks still map correctly, since `GameView` converts them through its bounding rectangle. With a prologue and no `intro_scenes`, `ScenarioPlayer` enters the prologue's view on mount (`handleIntroComplete`) and holds the room audio (`roomAudioHeld`) until it has, so the start view's ambience never blips. The exit cut is deferred a tick (`pendingExit`) so React's development double-mount does not cut the game's sound.
 
+Room ambience and music fade (`fadeAudio()`, a smoothstep volume ramp on a 40 ms timer): the old tracks fade out and are released, the new ones start at volume 0 and fade in, over 1.2 s normally and 4 s when `roomAudioHeld` has just cleared (after a cinematic, the wake-up). Music fades in over at least 2 s and out over 1.5 s.
+
 A patrol's `warn_cue` is queued by the engine with its warning (`takeScreenCue()`, drained with the pending sounds): `ScenarioPlayer` jiggles the picture's wrapper (`data-screen-cue`) and lays a pulsing coloured vignette over it for `seconds`. Tethers are drawn by `TetherLine.tsx`, an SVG quadratic from the fixed point to a fraction of the figure's frame, used by `CharacterSprite` (placement `tether`) and `SpriteObject` (`sprite.tether`); a bobbing figure's end follows the bob with an SVG `<animate>` of the same period.
 
 Ambient audio is entirely schema-driven. The system supports two levels of audio configuration:
