@@ -46,8 +46,9 @@ def tether_fx(sprite_index, waist, sag=40, **extra):
 PANEL_SPOT = [482, 505]     # where he works the panel: his stand point by LUMEN-7's gold body, and where the stars scene finds him
 EVA_SCALE = 0.2    # the v3 float sheet (709 px cells): about the same height on screen as the old drift art
 # Perspective on the spacewalk (walk_area.depth_scale along a line): drifting toward LUMEN-7 (right and up) he gets
-# smaller, drifting down-left toward the camera he gets bigger; at his start spot he is exactly his normal size.
-DEPTH = {'far_at': [520, 380], 'near_at': [80, 560], 'far': 0.75, 'near': 1.337}
+# smaller (about a third of the satellite's height at the panel, ~0.6x), drifting down-left toward the camera he gets
+# bigger (up to 1.3x); at his start spot he is ~0.8x.
+DEPTH = {'far_at': [520, 380], 'near_at': [80, 560], 'far': 0.45, 'near': 1.3}   # by the panel he is about a third of the satellite's height
 
 
 def depth_at(pt):
@@ -58,6 +59,7 @@ def depth_at(pt):
 
 
 PANEL_SCALE = round(EVA_SCALE * depth_at(PANEL_SPOT), 4)   # his size at the panel, where the cutscene picks him up
+HELMET = [START[0] + 4, round(START[1] - 118 * depth_at(START))]   # his helmet at his start size: the opening shot's centre
 # the drifting pilot (drill on his belt): the spacewalk, the cold open's last frame and the stars scene
 def _cell(path, columns):
     """(frame_width, frame_height) of a built sheet, so a rebuild of the art can't leave stale sizes here."""
@@ -357,7 +359,7 @@ PANEL_VIEW = {
 # held: that point goes on the painting's yellow-black handrail, at the hatch's lower left corner.
 RAIL = json.load(open('intro/sprites/eva_rail_v3.json')) if os.path.exists('intro/sprites/eva_rail_v3.json') else None
 PANEL_TETHER = {'from': [300, 760], 'attach': [0.5, 0.56], 'sag': 30, **TETHER, 'width': 4}   # up from a hardpoint below the frame
-RAIL_GRIP = (561, 377)                 # the handrail's left end, in the 960x540 picture
+RAIL_GRIP = (561, 365)                 # the handrail's left end, where it bends up into its bracket, in the 960x540 picture (raised 12 px: he sat low in the shot)
 RAIL_SCALE = 0.42      # leaves space under his boots: nothing reads as a floor
 PILOT_AT_PANEL = {'x': round(RAIL_GRIP[0] - (RAIL['anchor_x'] - RAIL['frame_width'] / 2) * RAIL_SCALE),
                   'y': round((RAIL_GRIP[1] + (RAIL['frame_height'] - RAIL['anchor_y']) * RAIL_SCALE) / 0.75)}   # sprite bottom-centre, 960x720
