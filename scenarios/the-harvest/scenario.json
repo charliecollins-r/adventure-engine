@@ -1129,6 +1129,7 @@
             {
               "text": "Say again. Missing. ...Logging it. Do not touch anything. Checking long-range. Star-field reference: four thousand and... ninety. Recounting.",
               "pause": 2.4,
+              "voice": "intro/audio/v2/r4.mp3",
               "style": "radio",
               "static": 0.35
             },
@@ -1261,6 +1262,7 @@
             {
               "text": "Outrider, something is in front of the stars. Size: large. Distance: zero. Recommend y—",
               "pause": 1.6,
+              "voice": "intro/audio/v2/r5.mp3",
               "style": "radio",
               "static": 0.65
             }
@@ -1491,6 +1493,7 @@
             {
               "text": "Outrider, respond. ...Outrider. Logging it.",
               "pause": 1.0,
+              "voice": "intro/audio/v2/r6.mp3",
               "style": "radio",
               "static": 0.55
             }
@@ -1598,6 +1601,7 @@
             {
               "text": "Outrider, respond. ...Outrider. Logging it.",
               "pause": 0.5,
+              "voice": "intro/audio/v2/r6.mp3",
               "style": "radio",
               "static": 0.95
             }
@@ -19476,6 +19480,7 @@
                 {
                   "type": "message",
                   "text": "Outrider, this is Relay Control. Your music is on the open channel. Again.",
+                  "voice": "intro/audio/v2/r1.mp3",
                   "style": "radio",
                   "static": 0.2
                 }
@@ -19483,18 +19488,19 @@
             },
             {
               "type": "delay_then",
-              "seconds": 12.41,
+              "seconds": 12.67,
               "effects": [
                 {
                   "type": "message",
                   "text": "“That's not noise, Relay. That's morale.”",
+                  "voice": "intro/audio/v2/p0.mp3",
                   "style": "comms"
                 }
               ]
             },
             {
               "type": "delay_then",
-              "seconds": 16.28,
+              "seconds": 16.77,
               "effects": [
                 {
                   "type": "play_sound",
@@ -19503,6 +19509,7 @@
                 {
                   "type": "message",
                   "text": "Noted. Morale is a maintenance item. LUMEN-7 has been silent for nine days. Please make it stop being silent.",
+                  "voice": "intro/audio/v2/r2.mp3",
                   "style": "radio",
                   "static": 0.2
                 }
@@ -19510,7 +19517,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 24.46,
+              "seconds": 27.09,
               "effects": [
                 {
                   "type": "message",
@@ -19522,7 +19529,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 32.01,
+              "seconds": 33.67,
               "effects": [
                 {
                   "type": "set_flag",
@@ -19533,7 +19540,7 @@
             },
             {
               "type": "delay_then",
-              "seconds": 50.01,
+              "seconds": 51.67,
               "effects": [
                 {
                   "type": "conditional_effect",
@@ -19556,6 +19563,7 @@
                     {
                       "type": "message",
                       "text": "For your log: star-field reference is nominal. Four thousand, one hundred and twelve stars. I counted them. You are welcome.",
+                      "voice": "intro/audio/v2/r3.mp3",
                       "style": "radio",
                       "static": 0.2
                     }

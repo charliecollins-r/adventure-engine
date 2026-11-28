@@ -65,7 +65,7 @@ for f in sorted(glob.glob('audio/voice/*.mp3')):
 V2_SFX = {'breath_loop': -42, 'panel': -26, 'stars_out': -22, 'harvest': -20, 'scan': -25, 'pod': -27, 'heartbeat': -24, 'glass': -21}
 for src in sorted(glob.glob('intro/audio/v2/source/*.mp3')):
     name = os.path.basename(src)
-    target = V2_SFX.get(name[:-4], -25.5 if name.startswith('c') else -16)
+    target = V2_SFX.get(name[:-4], -25.5 if name[0] in 'cr' else -16)
     if name == 'breath_loop.mp3':
         # seamless loop: the last 1.5 s crossfaded into the start
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', src, '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
