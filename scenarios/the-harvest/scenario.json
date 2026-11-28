@@ -52,7 +52,8 @@
       "30-decay-clock"
     ],
     "cover": "intro/backgrounds/intro_orbit.webp",
-    "menu_audio": "audio/menu/menu_stargazer.mp3"
+    "menu_audio": "audio/menu/menu_stargazer.mp3",
+    "menu_audio_volume": 0.35
   },
   "setting": {
     "dev_skip": [
