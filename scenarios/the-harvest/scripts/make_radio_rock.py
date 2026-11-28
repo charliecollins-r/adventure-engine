@@ -5,7 +5,8 @@ Source: intro/audio/source/radio_rock.mp3 if it exists (now "rock music loop" by
 synthesised stand-in song is written there first (never overwriting a real one: a .placeholder marker sits beside it).
 
 Outputs (both through a small-helmet-speaker filter, loudness-matched under the voices):
-  intro/audio/radio_rock.mp3      a seamless loop for the spacewalk and the panel close-up (view music)
+  intro/audio/radio_rock.mp3      the radio tuning in (intro/audio/source/fm_tuning.wav), then the song twice; loops (view music
+                                  on the spacewalk and the panel close-up)
   intro/audio/radio_rock_out.mp3  ~12 s: the song for ~3.5 s, then dropouts and crackle growing until it is all static,
                                   which fades out by ~11 s (timed to the stars dying in the cutscene's first shot)
 
@@ -20,7 +21,8 @@ SR = 44100
 SRC = 'intro/audio/source/radio_rock.mp3'
 LOOP = 'intro/audio/radio_rock.mp3'
 OUT = 'intro/audio/radio_rock_out.mp3'
-TARGET = -25.0   # LUFS: played at the music volume (0.28) it sits well under the voices, like a radio in the helmet (owner: -4 dB, a third quieter)
+TARGET = -28.5   # LUFS: played at the music volume (0.28) it sits well under the voices, like a radio in the helmet (owner: a third quieter, twice)
+TUNE = 'intro/audio/source/fm_tuning.wav'   # "FM radio tuning" by MrAuralization (freesound.org/s/269702, CC BY 4.0)
 
 
 def write_wav(path, x):
@@ -119,8 +121,14 @@ def crackle_out(x):
             gate[i:i + gap] = rng.uniform(0, 0.3 * (1 - d))
         i += gap + int(SR * rng.uniform(0.03, 0.04 + 0.4 * (1 - d)))
     smooth = np.convolve(gate, np.ones(220) / 220, mode='same')
-    static = rng.standard_normal(n) * 0.35
-    static = np.convolve(static, [0.25, 0.5, 0.25], mode='same')
+    # the scramble is real FM tuning noise (MrAuralization's clip, looped), level-matched under the song, else hiss
+    if os.path.exists(TUNE):
+        tune = read(TUNE)
+        tune = np.tile(tune, int(np.ceil(n / len(tune))))[:n]
+        static = tune * (np.sqrt(np.mean(song ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 0.9
+    else:
+        static = rng.standard_normal(n) * 0.35
+        static = np.convolve(static, [0.25, 0.5, 0.25], mode='same')
     pops = (rng.random(n) < 0.0008 + 0.004 * decay) * rng.standard_normal(n) * 2.0
     mix = song * smooth * (1 - 0.85 * decay) + static * (0.05 + 0.7 * decay) + pops * (0.2 + decay)
     fade = np.clip((11.0 - t) / 3.0, 0, 1)          # all static from ~8 s, gone by 11 s
@@ -145,6 +153,17 @@ def main():
         loop = radio[:-m].copy(); loop[:m] = radio[:m] * ramp + radio[-m:] * (1 - ramp)
     else:
         loop = radio
+    # he tunes in first: ~2.6 s of FM tuning that settles onto the song (crossfaded over 0.8 s), then the song twice.
+    # The file loops, so after about two and a half minutes the radio drifts and he tunes it back in.
+    if os.path.exists(TUNE):
+        tune = helmet(read(TUNE))
+        tune = tune * (np.sqrt(np.mean(loop ** 2)) / (np.sqrt(np.mean(tune ** 2)) + 1e-9)) * 0.8
+        a, x = int(2.6 * SR), int(0.8 * SR)
+        head = tune[:a].copy(); head[:int(0.15 * SR)] *= np.linspace(0, 1, int(0.15 * SR))
+        body = np.concatenate([loop, loop])
+        out = np.concatenate([head[:-x], head[-x:] * np.linspace(1, 0, x) + body[:x] * np.linspace(0, 1, x), body[x:]])
+        out[-int(0.3 * SR):] *= np.linspace(1, 0, int(0.3 * SR))   # no click where it loops back to the tuning
+        loop = out
     master(loop, LOOP)
     # the crackle-out picks the song up a little way in (not from its very start)
     start = int(min(len(song) * 0.25, 20 * SR))

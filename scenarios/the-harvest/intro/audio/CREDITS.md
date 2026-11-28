@@ -12,6 +12,7 @@ non-commercial use only; a paid ElevenLabs plan is needed before any commercial 
 | `v2/breath_loop.mp3` (looped), `v2/panel.mp3`, `v2/stars_out.mp3`, `v2/harvest.mp3`, `v2/scan.mp3`, `v2/pod.mp3`, `v2/heartbeat.mp3`, `v2/glass.mp3` | ElevenLabs sound effects ([elevenlabs.io](https://elevenlabs.io)), for the new intro (not wired in yet) |
 | `bed_stargazer.mp3` | "Stargazer" remix of Tim Kahn's freesound #702910 by Timbre (https://freesound.org/s/703557/), CC BY-NC 4.0; looped and level-matched |
 | `radio_rock.mp3`, `radio_rock_out.mp3` (and `source/radio_rock.mp3`) | "rock music loop" by Prime45 (https://freesound.org/s/470766/), Creative Commons 0; through a helmet-speaker filter, and crackled out into static, by `scripts/make_radio_rock.py` |
+| `source/fm_tuning.wav` (the tuning-in at the start of `radio_rock.mp3`, and the scramble in `radio_rock_out.mp3`) | "FM radio tuning" by MrAuralization (https://freesound.org/s/269702/), Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/); filtered and level-matched by `scripts/make_radio_rock.py` |
 | `music_dread.mp3`, `sting_dread.mp3`, `music_intro.mp3` (currently unused), `sfx_heartbeat_fast.mp3`, `sfx_scan.mp3`, `sfx_underwater.mp3`, `sfx_glass_crack.mp3` | Procedural stand-ins synthesised for this project (`scripts/make_intro_placeholders.py`), Creative Commons 0 |
 
 `source/` holds the untouched originals; the files here are loudness-mastered from them by `scripts/master_intro_audio.py`.

@@ -60,12 +60,12 @@ for f in sorted(glob.glob('audio/voice/*.mp3')):
     print(f'voice/{name}: {measured:6.1f} -> -16 LUFS ({gain:+.1f} dB)')
 
 # The new intro's voice lines (intro/audio/v2/, script in the "First Impression" doc): originals in intro/audio/v2/source/,
-# named by line id (sound effects by name). Relay Control (c*) sits 6 dB under the pilot (p*, n*: the Silas voice, -16 like the room narration).
+# named by line id (sound effects by name). Relay Control (c*) sits 9.5 dB under the pilot (owner: two thirds as loud, twice) (p*, n*: the Silas voice, -16 like the room narration).
 # the new intro's sound effects, under the voices (same scale as TARGETS above)
 V2_SFX = {'breath_loop': -42, 'panel': -26, 'stars_out': -22, 'harvest': -20, 'scan': -25, 'pod': -27, 'heartbeat': -24, 'glass': -21}
 for src in sorted(glob.glob('intro/audio/v2/source/*.mp3')):
     name = os.path.basename(src)
-    target = V2_SFX.get(name[:-4], -22 if name.startswith('c') else -16)
+    target = V2_SFX.get(name[:-4], -25.5 if name.startswith('c') else -16)
     if name == 'breath_loop.mp3':
         # seamless loop: the last 1.5 s crossfaded into the start
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', src, '-f', 's16le', '-ac', '2', '-ar', '44100', '-'], capture_output=True, check=True).stdout
